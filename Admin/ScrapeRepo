@@ -1,0 +1,317 @@
+#!/usr/bin/python
+#imports
+import re
+import os, sys, shutil
+import tarfile
+import hashlib
+import tempfile
+try:
+    import markdown
+except:
+    print "ScrapeRepo: " + "markdown package is required but not found."
+    print "ScrapeRepo: " + "install with `pip install markdown`"
+    exit(0)
+    
+def ConvertAndCopyFile(fromFile, toFile):
+    mdFile = open(fromFile, 'r');
+    htmlFile = open(toFile, 'w')
+    md = mdFile.read()
+    mdFile.close()
+    html = html = markdown.markdown(md, extensions=['markdown.extensions.tables','markdown.extensions.toc(title=Contents)'])
+    htmlFile.write(html)
+    htmlFile.close()
+    
+def GetVTKCMake(S):
+    reg = re.compile(r"\{\{(VTKCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
+    return [reg.findall(S)]
+
+def GetVTKQtCMake(S):
+    reg = re.compile(r"\{\{(VTKQtCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
+    return [reg.findall(S)]
+
+# Fill in the template parameters in a CMakeLists template file
+# The output is a CMakeLists.txt file with Name substituted for {{{1}}}
+def FillCMakeLists(S, Name):
+    reg = re.sub(r'XXX', Name, S)
+    return reg
+
+def FillQtCMakeLists(S, Name):
+    reg = re.sub(r'\{\{{2\}\}\}', Name, S)
+    return reg
+
+# Get Repo and Wiki
+RepoName = sys.argv[1]
+WikiName = sys.argv[2]
+RepoURL = sys.argv[3]
+
+BaselineName = RepoName + "/Testing/Baseline"
+
+# Read the Wiki Templates
+VTKTemplateFile = open(RepoName + "/Admin/VTKCMakeLists", 'r')
+VTKTemplate = VTKTemplateFile.read();
+VTKTemplateFile.close()
+
+VTKQtTemplateFile = open(RepoName + "/Admin/VTKQtCMakeLists", 'r')
+VTKQtTemplate = VTKQtTemplateFile.read();
+VTKQtTemplateFile.close()
+
+# Make the reference mtime to be the most recent of the two CMakeLists templates
+refStat1 = os.stat(RepoName + "/Admin/VTKQtCMakeLists")
+refStat2 = os.stat(RepoName + "/Admin/VTKCMakeLists")
+refMtime = refStat1.st_mtime
+if refStat2.st_mtime > refStat1.st_mtime:
+    refMtime = refStat2.st_mtime
+
+# Create a dict to hold code name and page name
+codeToPage = dict()
+
+# Create a dict to hold CMakeLists.txt file
+exampleToCMake = dict()
+
+# Create a dict to hold the file names for each example
+exampleToFileNames = dict()
+
+# Convert repo .md files
+ConvertAndCopyFile(RepoName + "/home.md", WikiName + "/home.md")
+ConvertAndCopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
+ConvertAndCopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
+ConvertAndCopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
+if not os.path.exists(WikiName + "/Instructions"):
+    os.makedirs(WikiName + "/Instructions")
+ConvertAndCopyFile(RepoName + "/Instructions/ForUsers.md", WikiName + "/Instructions/ForUsers.md")
+ConvertAndCopyFile(RepoName + "/Instructions/ForDevelopers.md", WikiName + "/Instructions/ForDevelopers.md")
+ConvertAndCopyFile(RepoName + "/Instructions/ForAdministrators.md", WikiName + "/Instructions/ForAdministrators.md")
+ConvertAndCopyFile(RepoName + "/Instructions/Guidelines.md", WikiName + "/Instructions/Guidelines.md")
+
+# Get list of all  examples
+Languages = dict()
+Languages["Cxx"] = ".cxx"
+Languages["Python"] = ".py"
+Languages["Java"] = ".java"
+Languages["CSharp"] = ".cs"
+Languages["Tcl"] = ".tcl"
+for lang, langExt in Languages.items():
+    for root, dirs, files in os.walk(RepoName):
+        to_find = RepoName + "/" + lang
+        start = root.find(to_find)
+        if start < 0:
+            continue
+        print "root: " + root
+        # Get the part of the file name that comes after RepoName
+        # e.g. if the file name is VTKExamples/Cxx/GeometricObjects/Line, 
+        # Path will be Cxx/GeometriObjects/Line
+        KitName = root[start+1+len(to_find):]
+
+        if KitName.find("Boneyard") >= 0:
+            continue
+        if KitName.find("Broken") >= 0:
+            continue
+        for f in files:
+            if f == "CMakeLists.txt":
+                continue
+            ExampleName = os.path.splitext(f)[0]
+            ExampleExt = os.path.splitext(f)[1]
+            print "ExampleExt: " + ExampleExt
+            if ExampleExt != langExt:
+                continue
+            print "ExampleName: " + ExampleName + ExampleExt
+            BaselinePath = RepoName + "/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png"
+            PathName = WikiName + "/" + lang + "/" + KitName
+            if not os.path.exists(PathName):
+                if PathName != "":
+                    os.makedirs(PathName)
+            OutputFile = WikiName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
+            MdFile = open(OutputFile, 'w')
+            MdFile.write("[VTKExamples](Home)/[" + lang + "](" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
+                    
+            if os.path.isfile(BaselinePath) :
+                print "BaselinePath: " + BaselinePath
+                ImgUrl =  RepoURL + "/raw/master/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png"
+                print "ImgUrl: " + ImgUrl
+                MdFile.write('<img align="right" src="' + ImgUrl + '" width="256" />' + '\n')
+                MdFile.write("\n")
+            DescriptionPath = RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
+            if os.path.isfile(DescriptionPath) :
+                DescriptionFile = open(RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md", 'r')
+                description = DescriptionFile.read()
+                DescriptionFile.close()
+                MdFile.write(description)
+                MdFile.write("\n")
+            MdFile.write("**" + ExampleName + langExt + "**" + "\n")
+            if langExt == ".cxx":
+                MdFile.write("```c++" + "\n")
+            elif langExt == ".cs":
+                MdFile.write("```csharp" + "\n")
+            elif langExt == ".py":
+                MdFile.write("```python" + "\n")
+            elif langExt == ".tcl":
+                MdFile.write("```tcl" + "\n")
+            elif langExt == ".java":
+                MdFile.write("```java" + "\n")
+            SrcFileName = RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
+            SrcFile = open(SrcFileName, 'r')
+            src = SrcFile.read()
+            SrcFile.close()
+            MdFile.write(src)
+            MdFile.write("```" + "\n")
+            CustomCMakePath = RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + ".cmake"
+            if os.path.isfile(CustomCMakePath) :
+                CustomCMakeFile = open(CustomCMakePath, 'r')
+                cmake = CustomCMakeFile.read()
+                CustomCMakeFile.close()
+            else:
+                CMakeFile = open(RepoName + "/Admin/VTKCMakeLists", 'r')
+                CMakeContents = CMakeFile.read()
+                CMakeFile.close()
+                cmake = FillCMakeLists(CMakeContents, ExampleName)
+            if lang == "Cxx": 
+                MdFile.write(cmake)
+            MdFile.close()
+            codeToPage[ExampleName + langExt] = "/" + lang + "/" + KitName + "/" + ExampleName
+
+# Generate an html page that links each example code file to its Wiki Example
+# page
+indexFile = open(WikiName + "/ExampleCodeToWikiPage.html", 'w')
+indexFile.write("Navigate to the page that contains the source code of an example<br>");
+indexFile.write("\n");
+sortedByCode = sorted(codeToPage.items())
+for item in sortedByCode:
+    indexFile.write("<A HREF=" + RepoURL + "/wikis" + re.sub(" ", "_", item[1]) + ">" + item[0] + "</A>")
+    indexFile.write("<A HREF=" + RepoURL + "/blob/master" + re.sub(" ", "_", item[1]) + ".md" + ">" + "(md)" + "</A>")
+    indexFile.write("<br>\n")
+indexFile.close()
+
+exit(0)
+
+xxx = 0
+for page in site.pages:
+    # Look for find pages that start with VTK/Examples/
+    to_find = "VTK/Examples/"
+    start = page.name.find(to_find)
+
+    # If the page doesn't start with VTK/Examples, skip it
+    if start < 0:
+        continue
+
+    # Get the part of the page name that comes after VTK/Examples/
+    # e.g. if the page name is VTK/Examples/GeometricObjects/Line, 
+    # ExamplePath will be GeometriObjects/Line
+    ExamplePath = page.name[start+len(to_find):]
+
+    # Continuing the above example, the below splits GeometricObjects/Line
+    # into PathName = GeometricObjects/
+    # ExampleName = Line
+    PathSplit = os.path.split(ExamplePath)
+    PathName = PathSplit[0]
+    ExampleName = re.sub(" ", "_", PathSplit[1])
+
+    # Get the content of the page
+    content = page.edit()
+
+    # Get all of the file names and file content on the page
+    CodeChunks = GetCode(content)
+
+    vtkQtCMakeChunks = GetVTKQtCMake(content)
+    if vtkQtCMakeChunks[0]:
+        exampleToCMake[ExampleName] = FillCMakeLists(ExtractCMakeLists(VTKQtTemplate)[0], ExampleName)
+        xxx = xxx + 1
+
+    vtkCMakeChunks = GetVTKCMake(content)
+    if vtkCMakeChunks[0]:
+        exampleToCMake[ExampleName] = FillCMakeLists(ExtractCMakeLists(VTKTemplate)[0], ExampleName)
+        xxx = xxx + 1
+    if CodeChunks:
+        for code in CodeChunks:
+            # Extract the Level 2 heading (e.g. ==Line.cxx==) into FileName and the content in the first <source ...> tag below the heading into FileContent
+            FileName = code[0]
+            FileContent = code[1]
+            if FileName == "CMakeLists.txt":
+                break
+            if FileName ==" CMakeLists.txt ":
+                continue
+            if FileName == " CmakeLists.txt":
+                continue
+            if FileName == "CmakeLists.txt":
+                continue
+
+            # Check if the path exists, if not, create it
+            if not os.path.exists(PathName):
+                if PathName != "":
+                    os.makedirs(PathName)
+            # Write the source code file
+            OutputFile = "./" + PathName + "/" + FileName
+            if os.path.exists(OutputFile):
+                sys.exit("ERROR: " + OutputFile + " already exists. Check for duplicate file in examples.")
+            print "Creating " + OutputFile
+            MyFile = open(OutputFile, 'w')
+            MyFile.write(FileContent)
+            MyFile.write("\n")
+            MyFile.close()
+            codeToPage[FileName] = ExamplePath
+            # Store the full file names for the example
+            if ExampleName not in exampleToFileNames:
+                exampleToFileNames[ExampleName] = set()
+            exampleToFileNames[ExampleName].add(OutputFile)
+        if xxx > 10000:
+            break
+
+# Create tarballs for each example
+tmpDir = tempfile.mkdtemp(prefix="VTKTarballs") + "/"
+
+# Create the Tarballs directory in the source tree if not present
+# If it does not exist, assume the tarball repo has not been cloned
+# and we need to ignore tar files
+if not os.path.exists("Tarballs"):
+    os.makedirs("Tarballs")
+    ignoreFile = open("Tarballs/.gitignore", 'w')
+    ignoreFile.write("*,tar\n")
+    ignoreFile.close()
+
+# Create tarballs
+# For each example page, create a directory and copy that example's files
+# into the directory
+# If the example has a CMakeLists.txt file, copy that.
+# Also, create a subdir called build. This directory is handy when you want to
+# configure with CMake and build the example.
+for example in exampleToFileNames:
+    if example not in exampleToCMake:
+        continue
+    # Make the directories for the example
+    srcDir = tmpDir + example
+    codeFileName = srcDir + "/" + example + ".cxx"
+    if not os.path.exists(srcDir):
+        os.makedirs(srcDir)
+        os.makedirs(srcDir + "/build")
+
+        # An example may have multiple source files
+        for exampleFileName in exampleToFileNames[example]:
+            # Get the file name
+            tarFileName = srcDir + "/" + os.path.split(exampleFileName)[1]
+            # Copy the code for the example
+            shutil.copy(exampleFileName,tarFileName)
+            os.utime(tarFileName,(refMtime,refMtime))
+
+    # Some examples do not have a CMakeLists.txt file
+    if example in exampleToCMake:
+        cmakeFileName = srcDir + "/" + "CMakeLists.txt"
+        cmakeFile = open(cmakeFileName, 'w')
+        cmakeFile.write(exampleToCMake[example])    
+        cmakeFile.close()
+        os.utime(cmakeFileName,(refMtime,refMtime))
+
+    # Set the mtimes for the directories containing the example
+    # Since the mtime is stored in the tar header for each file and directory,
+    # we need a consistent time so that a tar of an unchanged example will be equal
+    # to the one in the repo
+    os.utime(srcDir,(refMtime,refMtime))
+    os.utime(srcDir + "/build",(refMtime,refMtime))
+
+    # Now create the tar file for the example
+    # The tarballs are stored in the source tree
+    tar = tarfile.open("Tarballs/" + example + ".tar", "w")
+    tar.add(srcDir,arcname=example)
+    tar.close()
+
+os.utime(tmpDir,(0,refMtime))
+# Cleanup the temporary directories
+shutil.rmtree(tmpDir)
