@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Math/LUFactorization
+[VTKExamples](/home/)/[Cxx](/Cxx)/Math/LUFactorization
 
 **LUFactorization.cxx**
 ```c++

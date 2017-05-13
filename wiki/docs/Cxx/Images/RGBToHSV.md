@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/RGBToHSV
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/RGBToHSV
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestRGBToHSV.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestRGBToHSV.png?raw=true" width="256" />
 
 ### Description
 Convert RGB channels to HSV channels.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/SelectWindowRegion
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/SelectWindowRegion
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestSelectWindowRegion.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestSelectWindowRegion.png?raw=true" width="256" />
 
 **SelectWindowRegion.cxx**
 ```c++

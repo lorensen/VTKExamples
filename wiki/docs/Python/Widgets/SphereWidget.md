@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Widgets/SphereWidget
+[VTKExamples](/home/)/[Python](/Python)/Widgets/SphereWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSphereWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSphereWidget.png?raw=true" width="256" />
 
 ### Description
 [Examples Python Widgets SphereWidget.png]]([File:VTK)

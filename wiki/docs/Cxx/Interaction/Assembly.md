@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/Assembly
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/Assembly
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestAssembly.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestAssembly.png?raw=true" width="256" />
 
 **Assembly.cxx**
 ```c++

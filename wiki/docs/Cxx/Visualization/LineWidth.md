@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/LineWidth
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LineWidth
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestLineWidth.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLineWidth.png?raw=true" width="256" />
 
 **LineWidth.cxx**
 ```c++

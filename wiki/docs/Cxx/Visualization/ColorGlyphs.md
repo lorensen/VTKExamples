@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ColorGlyphs
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ColorGlyphs
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestColorGlyphs.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestColorGlyphs.png?raw=true" width="256" />
 
 ### Description
 This example creates a red, green, and blue cube.

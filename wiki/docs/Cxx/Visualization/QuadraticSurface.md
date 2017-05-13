@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/QuadraticSurface
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/QuadraticSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestQuadraticSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestQuadraticSurface.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to create and display a quadratic surface.

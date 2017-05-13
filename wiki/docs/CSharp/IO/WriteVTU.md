@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/WriteVTU
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/WriteVTU
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestWriteVTU.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteVTU.png?raw=true" width="256" />
 
 ### Description
 This example writes a VTU file.<br />

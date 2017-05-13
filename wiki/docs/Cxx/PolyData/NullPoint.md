@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/NullPoint
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/NullPoint
 
 **NullPoint.cxx**
 ```c++

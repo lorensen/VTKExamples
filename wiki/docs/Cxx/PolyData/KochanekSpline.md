@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/KochanekSpline
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/KochanekSpline
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestKochanekSpline.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestKochanekSpline.png?raw=true" width="256" />
 
 **KochanekSpline.cxx**
 ```c++

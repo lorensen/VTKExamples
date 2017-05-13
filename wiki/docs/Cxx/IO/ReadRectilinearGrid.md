@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadRectilinearGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadRectilinearGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadRectilinearGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadRectilinearGrid.png?raw=true" width="256" />
 
 ### Description
 This example reads a rectilinear grid (.vtr) file. An example file can be found at VTKData/Data/cth.vtr

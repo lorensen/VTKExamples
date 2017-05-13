@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/FilledContours
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/FilledContours
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestFilledContours.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestFilledContours.png?raw=true" width="256" />
 
 ### Description
 == Create Filled Contours ==

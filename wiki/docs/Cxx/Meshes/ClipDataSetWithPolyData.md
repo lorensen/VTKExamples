@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/ClipDataSetWithPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/ClipDataSetWithPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestClipDataSetWithPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestClipDataSetWithPolyData.png?raw=true" width="256" />
 
 ### Description
 **NOTE:** This example was translated to C++ from the Python example

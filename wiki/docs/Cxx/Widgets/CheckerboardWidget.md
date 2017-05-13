@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/CheckerboardWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/CheckerboardWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestCheckerboardWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestCheckerboardWidget.png?raw=true" width="256" />
 
 ### Description
 Compare two images with a checkerboard. The widget permits interactive

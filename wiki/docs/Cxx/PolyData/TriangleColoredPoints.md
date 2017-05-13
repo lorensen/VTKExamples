@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/TriangleColoredPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TriangleColoredPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestTriangleColoredPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTriangleColoredPoints.png?raw=true" width="256" />
 
 ### Description
 This example shows how by adding a color to each vertex of a triangle, the triangle's color will be smoothly varying between the colors of the vertices.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/Colored2DImageFusion
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Colored2DImageFusion
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestColored2DImageFusion.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestColored2DImageFusion.png?raw=true" width="256" />
 
 ### Description
 This example use the vtkImageBlend class for a simple fusion of two 2D images with different color maps for each of the images.

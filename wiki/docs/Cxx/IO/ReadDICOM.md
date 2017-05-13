@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadDICOM
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadDICOM
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadDICOM.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadDICOM.png?raw=true" width="256" />
 
 ### Description
 This example reads a DICOM file and displays it on the screen. [Here](http://www.vtk.org/Wiki/images/2/27/DICOM_Prostate.zip) is an example data set.

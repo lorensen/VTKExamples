@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadUnstructuredGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadUnstructuredGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadUnstructuredGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadUnstructuredGrid.png?raw=true" width="256" />
 
 ### Description
 This examples demonstrates how to read an unstructured grid (VTU) file. 

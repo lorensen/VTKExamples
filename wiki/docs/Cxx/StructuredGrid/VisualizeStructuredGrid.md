@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredGrid/VisualizeStructuredGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/VisualizeStructuredGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/StructuredGrid/TestVisualizeStructuredGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestVisualizeStructuredGrid.png?raw=true" width="256" />
 
 ### Description
 Visualize the points of a structured grid.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/OrientedGlyphs
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/OrientedGlyphs
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestOrientedGlyphs.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestOrientedGlyphs.png?raw=true" width="256" />
 
 **OrientedGlyphs.cxx**
 ```c++

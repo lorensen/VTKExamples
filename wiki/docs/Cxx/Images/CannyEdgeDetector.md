@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/CannyEdgeDetector
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/CannyEdgeDetector
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestCannyEdgeDetector.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCannyEdgeDetector.png?raw=true" width="256" />
 
 **CannyEdgeDetector.cxx**
 ```c++

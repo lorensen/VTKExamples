@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/ExtractArrayComponent
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ExtractArrayComponent
 
 **ExtractArrayComponent.cxx**
 ```c++

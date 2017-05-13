@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/PolygonIntersection
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/PolygonIntersection
 
 **PolygonIntersection.py**
 ```python

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/PolyData/PolyDataToImageDataStencil
+[VTKExamples](/home/)/[Python](/Python)/PolyData/PolyDataToImageDataStencil
 
 ### Description
 * Contributed by: Peter Gruber

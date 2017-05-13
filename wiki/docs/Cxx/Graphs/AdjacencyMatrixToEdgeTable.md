@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/AdjacencyMatrixToEdgeTable
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/AdjacencyMatrixToEdgeTable
 
 **AdjacencyMatrixToEdgeTable.cxx**
 ```c++

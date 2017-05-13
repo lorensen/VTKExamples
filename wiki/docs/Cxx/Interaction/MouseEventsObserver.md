@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/MouseEventsObserver
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/MouseEventsObserver
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestMouseEventsObserver.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMouseEventsObserver.png?raw=true" width="256" />
 
 **MouseEventsObserver.cxx**
 ```c++

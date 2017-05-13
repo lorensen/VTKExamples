@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//Variant
+[VTKExamples](/home/)/[Python](/Python)//Variant
 
 **Variant.py**
 ```python

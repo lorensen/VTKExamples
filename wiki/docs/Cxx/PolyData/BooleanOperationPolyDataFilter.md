@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/BooleanOperationPolyDataFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/BooleanOperationPolyDataFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png?raw=true" width="256" />
 
 ### Description
 This example can be run in three ways:

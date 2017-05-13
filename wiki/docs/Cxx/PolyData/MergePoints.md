@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/MergePoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MergePoints
 
 ### Description
 Add new points if they are unique. You must add the original points first. After that, the locator will only add unique points.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/SimpleElevationFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/SimpleElevationFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestSimpleElevationFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestSimpleElevationFilter.png?raw=true" width="256" />
 
 **SimpleElevationFilter.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/FlatShading
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/FlatShading
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestFlatShading.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestFlatShading.png?raw=true" width="256" />
 
 **FlatShading.cxx**
 ```c++

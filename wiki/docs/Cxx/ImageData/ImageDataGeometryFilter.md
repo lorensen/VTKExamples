@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ImageDataGeometryFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageDataGeometryFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImageData/TestImageDataGeometryFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageDataGeometryFilter.png?raw=true" width="256" />
 
 ### Description
 Convert a vtkImageData to a vtkPolyData.

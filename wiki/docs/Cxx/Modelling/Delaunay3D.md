@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Modelling/Delaunay3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/Delaunay3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Modelling/TestDelaunay3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestDelaunay3D.png?raw=true" width="256" />
 
 ### Description
 This example creates a tetrahedral mesh from unorganized points. The example uses the vtkDelaunay3D filter. The resulting mesh will be a solid convex hull of the original points. The example takes the points from a XML PolyData file (.vtp) produces the 3D Delaunay tetrahedralization (both with alpha = 0 and a non-zero alpha), and displays the result on the screen.

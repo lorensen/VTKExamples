@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Picking/HighlightSelectedPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/HighlightSelectedPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Picking/TestHighlightSelectedPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestHighlightSelectedPoints.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to select and highlight points using a rubber band. Press 'r' to enter selection mode. Selected points are shown in red. The ids of the selected points are output.

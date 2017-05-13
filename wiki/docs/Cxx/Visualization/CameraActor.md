@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CameraActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CameraActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCameraActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCameraActor.png?raw=true" width="256" />
 
 **CameraActor.cxx**
 ```c++

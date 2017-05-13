@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/DataAnimation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/DataAnimation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestDataAnimation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestDataAnimation.png?raw=true" width="256" />
 
 ### Description
 This causes one point of the sphere to be moved outwards at each iteration.

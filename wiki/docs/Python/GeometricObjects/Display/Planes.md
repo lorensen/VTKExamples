@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/Planes
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Planes
 
 **Planes.py**
 ```python

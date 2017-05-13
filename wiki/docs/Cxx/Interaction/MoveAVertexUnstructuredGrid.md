@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/MoveAVertexUnstructuredGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/MoveAVertexUnstructuredGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestMoveAVertexUnstructuredGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMoveAVertexUnstructuredGrid.png?raw=true" width="256" />
 
 **MoveAVertexUnstructuredGrid.cxx**
 ```c++

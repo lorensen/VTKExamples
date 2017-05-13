@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/Curvatures
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Curvatures
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestCurvatures.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCurvatures.png?raw=true" width="256" />
 
 **Curvatures.cxx**
 ```c++

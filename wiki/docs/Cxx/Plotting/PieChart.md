@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Plotting/PieChart
+[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/PieChart
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestPieChart.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestPieChart.png?raw=true" width="256" />
 
 **PieChart.cxx**
 ```c++

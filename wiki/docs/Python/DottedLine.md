@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//DottedLine
+[VTKExamples](/home/)/[Python](/Python)//DottedLine
 
 **DottedLine.py**
 ```python

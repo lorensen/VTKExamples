@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/VisualizeImageData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/VisualizeImageData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestVisualizeImageData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVisualizeImageData.png?raw=true" width="256" />
 
 **VisualizeImageData.cxx**
 ```c++

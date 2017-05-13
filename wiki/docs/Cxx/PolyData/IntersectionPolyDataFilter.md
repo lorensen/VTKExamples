@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/IntersectionPolyDataFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/IntersectionPolyDataFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestIntersectionPolyDataFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestIntersectionPolyDataFilter.png?raw=true" width="256" />
 
 ### Description
 NOTE: This example requires version 5.9.20111206 or higher. 

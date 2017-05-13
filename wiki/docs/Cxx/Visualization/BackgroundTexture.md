@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/BackgroundTexture
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BackgroundTexture
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestBackgroundTexture.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBackgroundTexture.png?raw=true" width="256" />
 
 **BackgroundTexture.cxx**
 ```c++

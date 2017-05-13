@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Medical/MedicalDemo1
+[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/MedicalDemo1
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Medical/TestMedicalDemo1.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Medical/TestMedicalDemo1.png?raw=true" width="256" />
 
 **MedicalDemo1.cxx**
 ```c++

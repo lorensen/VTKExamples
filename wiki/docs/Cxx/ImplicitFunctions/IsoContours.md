@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImplicitFunctions/IsoContours
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImplicitFunctions/IsoContours
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImplicitFunctions/TestIsoContours.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestIsoContours.png?raw=true" width="256" />
 
 **IsoContours.cxx**
 ```c++

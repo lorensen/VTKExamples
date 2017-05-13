@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/Glyph2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/Glyph2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestGlyph2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGlyph2D.png?raw=true" width="256" />
 
 ### Description
 Copy a polydata to every point in the input set. We use a hexagon for the demo.

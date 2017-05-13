@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PointsProjectedHull
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointsProjectedHull
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPointsProjectedHull.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointsProjectedHull.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to find the 2D convex hull of a point set projected onto any of the coordinate planes (in this case, we choose the YZ plane (projection along the x axis) ).

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Qt/BorderWidgetQtDriver
+[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/BorderWidgetQtDriver
 
 **BorderWidgetQtDriver.cxx**
 ```c++

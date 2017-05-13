@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/PolyData/WarpVector
+[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/WarpVector
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestWarpVector.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestWarpVector.png?raw=true" width="256" />
 
 ### Description
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)<br />

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Qt/QtBarChart
+[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/QtBarChart
 
 **QtBarChart.cxx**
 ```c++

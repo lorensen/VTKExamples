@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/TextActor
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/TextActor
 
 ### Description
 []([Image:Textactor.png])

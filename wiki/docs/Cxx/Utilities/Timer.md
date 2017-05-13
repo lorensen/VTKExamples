@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/Timer
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Timer
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestTimer.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestTimer.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to use a timer with an interactor. It outputs a count every specified interval.

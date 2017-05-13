@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/LabelPlacementMapper
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LabelPlacementMapper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestLabelPlacementMapper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLabelPlacementMapper.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to add labels from an array to points. Each point is given a priority that determines which labels are visible when space is limited.

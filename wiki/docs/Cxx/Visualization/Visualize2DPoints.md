@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Visualize2DPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Visualize2DPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestVisualize2DPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVisualize2DPoints.png?raw=true" width="256" />
 
 ### Description
 This example shows how to render a set of points. The example reads the points from a vtp file specified as the first command line argument. An example data set can be found [here](http://www.vtk.org/Wiki/Image:Ring.vtp).

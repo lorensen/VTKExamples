@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/CompositeData/MultiBlockDataSet
+[VTKExamples](/home/)/[Cxx](/Cxx)/CompositeData/MultiBlockDataSet
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/CompositeData/TestMultiBlockDataSet.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/CompositeData/TestMultiBlockDataSet.png?raw=true" width="256" />
 
 **MultiBlockDataSet.cxx**
 ```c++

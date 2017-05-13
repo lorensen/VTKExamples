@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Glyph3DMapper
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Glyph3DMapper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestGlyph3DMapper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestGlyph3DMapper.png?raw=true" width="256" />
 
 **Glyph3DMapper.cxx**
 ```c++

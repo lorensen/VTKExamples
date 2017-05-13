@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/WindowSize
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/WindowSize
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestWindowSize.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestWindowSize.png?raw=true" width="256" />
 
 **WindowSize.cxx**
 ```c++

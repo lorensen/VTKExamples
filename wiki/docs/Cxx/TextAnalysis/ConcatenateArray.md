@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/TextAnalysis/ConcatenateArray
+[VTKExamples](/home/)/[Cxx](/Cxx)/TextAnalysis/ConcatenateArray
 
 **ConcatenateArray.cxx**
 ```c++

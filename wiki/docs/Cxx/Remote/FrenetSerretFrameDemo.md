@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Remote/FrenetSerretFrameDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/Remote/FrenetSerretFrameDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Remote/TestFrenetSerretFrameDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Remote/TestFrenetSerretFrameDemo.png?raw=true" width="256" />
 
 ### Description
 This example requires the remote module ''SplineDrivenImageSampler.'' Check to see if the file ''SplineDrivenImageSlicer.remote.cmake'' exists in VTK/Remote. If it does not, copy [this file](https://gitlab.kitware.com/vtk/vtk/raw/master/Remote/SplineDrivenImageSlicer.remote.cmake) to ''VTK/Remote/SplineDrivenImageSlicer.remote.cmake''.

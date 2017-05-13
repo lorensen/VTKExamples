@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/GeometricObjectsDemo
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/GeometricObjectsDemo
 
 **GeometricObjectsDemo.py**
 ```python

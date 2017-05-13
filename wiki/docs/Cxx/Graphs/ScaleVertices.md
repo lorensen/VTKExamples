@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/ScaleVertices
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ScaleVertices
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestScaleVertices.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestScaleVertices.png?raw=true" width="256" />
 
 ### Description
 Scale the vertices based on a data array.

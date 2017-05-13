@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/VectorFieldNonZeroExtraction
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/VectorFieldNonZeroExtraction
 
 **VectorFieldNonZeroExtraction.cxx**
 ```c++

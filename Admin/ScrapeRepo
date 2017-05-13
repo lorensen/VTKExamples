@@ -76,6 +76,7 @@ ConvertAndCopyFile(RepoName + "/home.md", WikiName + "/home.md")
 ConvertAndCopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
 ConvertAndCopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
 ConvertAndCopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
+ConvertAndCopyFile(RepoName + "/CSharp.md", WikiName + "/CSharp.md")
 if not os.path.exists(WikiName + "/Instructions"):
     os.makedirs(WikiName + "/Instructions")
 ConvertAndCopyFile(RepoName + "/Instructions/ForUsers.md", WikiName + "/Instructions/ForUsers.md")
@@ -111,7 +112,6 @@ for lang, langExt in Languages.items():
                 continue
             ExampleName = os.path.splitext(f)[0]
             ExampleExt = os.path.splitext(f)[1]
-            print "ExampleExt: " + ExampleExt
             if ExampleExt != langExt:
                 continue
             print "ExampleName: " + ExampleName + ExampleExt
@@ -122,11 +122,11 @@ for lang, langExt in Languages.items():
                     os.makedirs(PathName)
             OutputFile = WikiName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             MdFile = open(OutputFile, 'w')
-            MdFile.write("[VTKExamples](Home)/[" + lang + "](" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
+            MdFile.write("[VTKExamples](/home/)/[" + lang + "](/" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
                     
             if os.path.isfile(BaselinePath) :
                 print "BaselinePath: " + BaselinePath
-                ImgUrl =  RepoURL + "/raw/master/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png"
+                ImgUrl =  RepoURL + "/blob/gh-pages/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png?raw=true"
                 print "ImgUrl: " + ImgUrl
                 MdFile.write('<img align="right" src="' + ImgUrl + '" width="256" />' + '\n')
                 MdFile.write("\n")

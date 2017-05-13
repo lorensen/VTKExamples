@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/KDTreeTimingDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/KDTreeTimingDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestKDTreeTimingDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestKDTreeTimingDemo.png?raw=true" width="256" />
 
 **KDTreeTimingDemo.cxx**
 ```c++

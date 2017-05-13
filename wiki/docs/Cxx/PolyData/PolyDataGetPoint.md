@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataGetPoint
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataGetPoint
 
 ### Description
 This example demonstrates how to obtain the coordinates of a point in a vtkPolyData object.

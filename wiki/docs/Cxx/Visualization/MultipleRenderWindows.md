@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/MultipleRenderWindows
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MultipleRenderWindows
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestMultipleRenderWindows.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMultipleRenderWindows.png?raw=true" width="256" />
 
 ### Description
 This example creates 4 render windows. When you close one, the next one opens? Or do they all open simultaneously?

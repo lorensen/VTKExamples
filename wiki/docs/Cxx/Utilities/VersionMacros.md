@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/VersionMacros
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/VersionMacros
 
 **VersionMacros.cxx**
 ```c++

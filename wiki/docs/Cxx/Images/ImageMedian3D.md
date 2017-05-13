@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageMedian3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageMedian3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageMedian3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageMedian3D.png?raw=true" width="256" />
 
 **ImageMedian3D.cxx**
 ```c++

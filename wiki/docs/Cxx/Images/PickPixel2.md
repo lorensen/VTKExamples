@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/PickPixel2
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/PickPixel2
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestPickPixel2.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestPickPixel2.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to continuously retrieve pixel values using the mouse.

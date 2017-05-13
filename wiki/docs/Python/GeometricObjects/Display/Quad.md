@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/Quad
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Quad
 
 **Quad.py**
 ```python

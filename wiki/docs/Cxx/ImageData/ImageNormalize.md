@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ImageNormalize
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageNormalize
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImageData/TestImageNormalize.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageNormalize.png?raw=true" width="256" />
 
 **ImageNormalize.cxx**
 ```c++

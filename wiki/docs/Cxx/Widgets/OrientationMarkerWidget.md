@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/OrientationMarkerWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/OrientationMarkerWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestOrientationMarkerWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestOrientationMarkerWidget.png?raw=true" width="256" />
 
 ### Description
 This example uses a polydata as an orientation icon. You can get the bunny data [here](https://gitlab.kitware.com/lorensen/VTKExamples/raw/master/Testing/Data/Bunny.vtp).

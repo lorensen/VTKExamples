@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageLaplacian
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageLaplacian
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageLaplacian.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageLaplacian.png?raw=true" width="256" />
 
 **ImageLaplacian.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Plotting/BarChart
+[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/BarChart
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestBarChart.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestBarChart.png?raw=true" width="256" />
 
 **BarChart.cxx**
 ```c++

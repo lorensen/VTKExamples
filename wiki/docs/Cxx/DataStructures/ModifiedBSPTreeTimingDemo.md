@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/ModifiedBSPTreeTimingDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/ModifiedBSPTreeTimingDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestModifiedBSPTreeTimingDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestModifiedBSPTreeTimingDemo.png?raw=true" width="256" />
 
 **ModifiedBSPTreeTimingDemo.cxx**
 ```c++

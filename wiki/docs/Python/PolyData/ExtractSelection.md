@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/PolyData/ExtractSelection
+[VTKExamples](/home/)/[Python](/Python)/PolyData/ExtractSelection
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExtractSelection.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractSelection.png?raw=true" width="256" />
 
 ### Description
 This example creates 50 random points and extracts 10 of them (the points with ids 10-19).

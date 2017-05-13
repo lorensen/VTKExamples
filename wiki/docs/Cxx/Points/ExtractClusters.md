@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/ExtractClusters
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/ExtractClusters
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestExtractClusters.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestExtractClusters.png?raw=true" width="256" />
 
 ### Description
 This example extracts clusters of points. The points lie on spheres that are randomly placed. Each cluster has a different color. The number of extracted clusters may be less that the number of random spheres, if the points on one sphere are within the specified distance of points on another sphere.

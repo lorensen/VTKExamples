@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/CombineImages
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/CombineImages
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestCombineImages.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCombineImages.png?raw=true" width="256" />
 
 ### Description
 This example takes two images and super imposes them. The opacity of each image can be set to control how they are combined.

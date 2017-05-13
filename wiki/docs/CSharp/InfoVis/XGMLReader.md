@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/InfoVis/XGMLReader
+[VTKExamples](/home/)/[CSharp](/CSharp)/InfoVis/XGMLReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestXGMLReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestXGMLReader.png?raw=true" width="256" />
 
 ### Description
 This example reads and displays the graph from a gml file. You can test this with VTKData/Data/Infovis/fsm.gml.<br />

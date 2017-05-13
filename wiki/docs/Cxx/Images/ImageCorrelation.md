@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageCorrelation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageCorrelation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageCorrelation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageCorrelation.png?raw=true" width="256" />
 
 **ImageCorrelation.cxx**
 ```c++

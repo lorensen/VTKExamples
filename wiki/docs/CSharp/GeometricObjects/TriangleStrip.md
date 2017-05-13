@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/TriangleStrip
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/TriangleStrip
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestTriangleStrip.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestTriangleStrip.png?raw=true" width="256" />
 
 ### Description
 A triangle strip is a compact representation of a series of triangles. See [this wikipedia article](http://en.wikipedia.org/wiki/Triangle_strip) for an explanation.<br />

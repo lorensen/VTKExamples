@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Developers/MultipleInputPorts
+[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/MultipleInputPorts
 
 ### Description
 See also the {{class|vtkAppendPolyData}} class ([usage]]([../../Cxx/Filtering/CombinePolyData|example)).

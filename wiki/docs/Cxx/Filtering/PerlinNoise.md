@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/PerlinNoise
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/PerlinNoise
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestPerlinNoise.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestPerlinNoise.png?raw=true" width="256" />
 
 **PerlinNoise.cxx**
 ```c++

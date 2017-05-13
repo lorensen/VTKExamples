@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/WriteSTL
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WriteSTL
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestWriteSTL.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteSTL.png?raw=true" width="256" />
 
 ### Description
 An [(file format)|STL file]]([wikipedia:STL) describes a triangulated three-dimensional surface by the unit normal and vertices (ordered by the right-hand rule) of the triangles. This example saves a 3D geometric data stored in a {{class|vtkPolyData}} to an STL file using {{class|vtkSTLWriter}}.

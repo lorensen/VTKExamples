@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/MoveCamera
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MoveCamera
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestMoveCamera.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMoveCamera.png?raw=true" width="256" />
 
 ### Description
 This example creates two spheres. They will move together when the mouse is used to interact with the scene because the camera is actually what is moving causing the view of the spheres to change.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ExtractCellsUsingPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractCellsUsingPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExtractCellsUsingPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractCellsUsingPoints.png?raw=true" width="256" />
 
 **ExtractCellsUsingPoints.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/Meshes/Subdivision
+[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/Subdivision
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestSubdivision.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestSubdivision.png?raw=true" width="256" />
 
 ### Description
 <p>In this example a mesh is read from a file and then subdivided using linear subdivision. The SetNumberOfSubdivisions(n) function controls how many times the mesh is subdivided. For each n, the number of triangles will increase by approximately a factor of 4. For example, if n=2, the number of triangles in the resulting mesh will be 16x the number of triangles in the original mesh.<br />

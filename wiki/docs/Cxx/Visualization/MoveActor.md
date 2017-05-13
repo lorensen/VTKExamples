@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/MoveActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MoveActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestMoveActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMoveActor.png?raw=true" width="256" />
 
 ### Description
 This example creates two spheres. They can be moved/scaled/rotated independent of each other using the mouse.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/MouseEvents
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/MouseEvents
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestMouseEvents.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMouseEvents.png?raw=true" width="256" />
 
 ### Description
 This example shows how to subclass an interactor style to implement custom behaviors.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageOpenClose3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageOpenClose3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageOpenClose3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageOpenClose3D.png?raw=true" width="256" />
 
 ### Description
 This example reads a binary image and performs opening on one value and closing on another (morphological operations).

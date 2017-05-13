@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageToPolyDataFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageToPolyDataFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageToPolyDataFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageToPolyDataFilter.png?raw=true" width="256" />
 
 **ImageToPolyDataFilter.cxx**
 ```c++

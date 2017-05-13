@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/PlatonicSolid
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/PlatonicSolid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestPlatonicSolid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPlatonicSolid.png?raw=true" width="256" />
 
 **PlatonicSolid.cxx**
 ```c++

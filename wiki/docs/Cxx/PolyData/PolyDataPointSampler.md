@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataPointSampler
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataPointSampler
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPolyDataPointSampler.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolyDataPointSampler.png?raw=true" width="256" />
 
 ### Description
 Original points are yellow and added points are red.

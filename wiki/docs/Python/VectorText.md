@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//VectorText
+[VTKExamples](/home/)/[Python](/Python)//VectorText
 
 **VectorText.py**
 ```python

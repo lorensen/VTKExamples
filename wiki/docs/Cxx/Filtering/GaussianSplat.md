@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/GaussianSplat
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/GaussianSplat
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestGaussianSplat.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGaussianSplat.png?raw=true" width="256" />
 
 **GaussianSplat.cxx**
 ```c++

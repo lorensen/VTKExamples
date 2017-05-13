@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/SideBySideGraphs
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/SideBySideGraphs
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestSideBySideGraphs.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestSideBySideGraphs.png?raw=true" width="256" />
 
 ### Description
 This currently crashes - still trying to decide how to best display these graphs.

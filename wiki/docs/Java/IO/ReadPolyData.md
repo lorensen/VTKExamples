@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Java](Java)/IO/ReadPolyData
+[VTKExamples](/home/)/[Java](/Java)/IO/ReadPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPolyData.png?raw=true" width="256" />
 
 ### Description
 This example reads a polygonal data (.vtp) file.

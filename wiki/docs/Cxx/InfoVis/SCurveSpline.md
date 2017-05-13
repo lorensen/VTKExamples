@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/SCurveSpline
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/SCurveSpline
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestSCurveSpline.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestSCurveSpline.png?raw=true" width="256" />
 
 **SCurveSpline.cxx**
 ```c++

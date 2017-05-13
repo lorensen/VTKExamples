@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/ClientData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ClientData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestClientData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestClientData.png?raw=true" width="256" />
 
 **ClientData.cxx**
 ```c++

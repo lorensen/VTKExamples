@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/CellEdgeNeighbors
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellEdgeNeighbors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestCellEdgeNeighbors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCellEdgeNeighbors.png?raw=true" width="256" />
 
 ### Description
 Determine which cells share an edge with a specified cell.

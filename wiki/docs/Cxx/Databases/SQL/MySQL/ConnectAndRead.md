@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Databases/SQL/MySQL/ConnectAndRead
+[VTKExamples](/home/)/[Cxx](/Cxx)/Databases/SQL/MySQL/ConnectAndRead
 
 **ConnectAndRead.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/ProgrammableSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ProgrammableSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestProgrammableSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestProgrammableSource.png?raw=true" width="256" />
 
 ### Description
 Use a programmable source to generate the points for the [Lorenz System](https://en.wikipedia.org/wiki/Lorenz_system)

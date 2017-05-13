@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/CameraModifiedEvent
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/CameraModifiedEvent
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestCameraModifiedEvent.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestCameraModifiedEvent.png?raw=true" width="256" />
 
 **CameraModifiedEvent.cxx**
 ```c++

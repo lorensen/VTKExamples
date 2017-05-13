@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/MutableGraphHelper
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/MutableGraphHelper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestMutableGraphHelper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestMutableGraphHelper.png?raw=true" width="256" />
 
 **MutableGraphHelper.cxx**
 ```c++

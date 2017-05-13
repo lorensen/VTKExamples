@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/PolyData/SmoothMeshgrid
+[VTKExamples](/home/)/[Python](/Python)/PolyData/SmoothMeshgrid
 
 ### Description
 []([File:VTK_Examples_Python_PolyData_SubdivisionFilters.png])

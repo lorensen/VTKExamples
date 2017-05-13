@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Math/VectorDot
+[VTKExamples](/home/)/[Cxx](/Cxx)/Math/VectorDot
 
 ### Description
 Note that the filter maps the values to a scalar range. In the example, the values of the dot products are 

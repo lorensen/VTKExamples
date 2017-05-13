@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ParticleReader
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ParticleReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestParticleReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestParticleReader.png?raw=true" width="256" />
 
 ### Description
 This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) <u>one</u> scalar

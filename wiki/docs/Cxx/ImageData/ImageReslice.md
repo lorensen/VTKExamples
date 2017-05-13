@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ImageReslice
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageReslice
 
 **ImageReslice.cxx**
 ```c++

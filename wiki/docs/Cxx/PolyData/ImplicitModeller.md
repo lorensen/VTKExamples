@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ImplicitModeller
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ImplicitModeller
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestImplicitModeller.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestImplicitModeller.png?raw=true" width="256" />
 
 **ImplicitModeller.cxx**
 ```c++

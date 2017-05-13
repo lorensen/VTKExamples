@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/CenterAnImage
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/CenterAnImage
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestCenterAnImage.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCenterAnImage.png?raw=true" width="256" />
 
 ### Description
 This moves (0,0) from the bottom left corner of the image to the center of the image.

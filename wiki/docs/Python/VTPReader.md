@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//VTPReader
+[VTKExamples](/home/)/[Python](/Python)//VTPReader
 
 **VTPReader.py**
 ```python

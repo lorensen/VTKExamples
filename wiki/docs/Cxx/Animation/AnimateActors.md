@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Animation/AnimateActors
+[VTKExamples](/home/)/[Cxx](/Cxx)/Animation/AnimateActors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Animation/TestAnimateActors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Animation/TestAnimateActors.png?raw=true" width="256" />
 
 **AnimateActors.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Modelling/MarchingSquares
+[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/MarchingSquares
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Modelling/TestMarchingSquares.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestMarchingSquares.png?raw=true" width="256" />
 
 **MarchingSquares.cxx**
 ```c++

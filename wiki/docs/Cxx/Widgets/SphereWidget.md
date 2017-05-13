@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/SphereWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SphereWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSphereWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSphereWidget.png?raw=true" width="256" />
 
 **SphereWidget.cxx**
 ```c++

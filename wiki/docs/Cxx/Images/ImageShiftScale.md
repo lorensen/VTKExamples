@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageShiftScale
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageShiftScale
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageShiftScale.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageShiftScale.png?raw=true" width="256" />
 
 **ImageShiftScale.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/DataStructureComparison
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/DataStructureComparison
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestDataStructureComparison.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestDataStructureComparison.png?raw=true" width="256" />
 
 ### Description
 Prior to August 20, 2010, the vtkModifiedBSPTree.cxx did not produce a proper data representation. To operate properly, update your vtk source tree.

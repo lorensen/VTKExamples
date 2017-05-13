@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/ShiftAndControl
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ShiftAndControl
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestShiftAndControl.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestShiftAndControl.png?raw=true" width="256" />
 
 ### Description
 Some parts of this example are currently broken.

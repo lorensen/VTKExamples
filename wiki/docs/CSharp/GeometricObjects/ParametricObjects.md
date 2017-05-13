@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/ParametricObjects
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/ParametricObjects
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestParametricObjects.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricObjects.png?raw=true" width="256" />
 
 ### Description
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)

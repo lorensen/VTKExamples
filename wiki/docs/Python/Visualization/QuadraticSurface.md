@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/QuadraticSurface
+[VTKExamples](/home/)/[Python](/Python)/Visualization/QuadraticSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestQuadraticSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestQuadraticSurface.png?raw=true" width="256" />
 
 ### Description
 * Converted from c++ by Jim McCusker

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ImageTranslateExtent
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageTranslateExtent
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImageData/TestImageTranslateExtent.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageTranslateExtent.png?raw=true" width="256" />
 
 ### Description
 If you are looking to change the extent to change the "origin" of the image from the corner to the center, see vtkImageChangeInformation (http://www.vtk.org/Wiki/VTK/Examples/Cxx/Images/CenterAnImage).

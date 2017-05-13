@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/CellIdFromGridCoordinates
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/CellIdFromGridCoordinates
 
 **CellIdFromGridCoordinates.cxx**
 ```c++

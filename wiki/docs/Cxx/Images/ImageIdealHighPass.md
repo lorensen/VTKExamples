@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageIdealHighPass
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageIdealHighPass
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageIdealHighPass.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageIdealHighPass.png?raw=true" width="256" />
 
 **ImageIdealHighPass.cxx**
 ```c++

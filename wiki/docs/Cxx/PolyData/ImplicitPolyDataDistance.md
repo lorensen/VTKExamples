@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ImplicitPolyDataDistance
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ImplicitPolyDataDistance
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestImplicitPolyDataDistance.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestImplicitPolyDataDistance.png?raw=true" width="256" />
 
 ### Description
 NOTE: This example requires version 5.9.20111206 or higher. 

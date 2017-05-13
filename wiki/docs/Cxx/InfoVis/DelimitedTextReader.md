@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/DelimitedTextReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/DelimitedTextReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestDelimitedTextReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestDelimitedTextReader.png?raw=true" width="256" />
 
 ### Description
 This example takes a plain text file of coordinates and normals (x y z nx ny nz) and reads them into a vtkPolyData and displays them on the screen. This can be easily changed to reading a file with any delimiter by changing the argument of <source lang="cpp">Reader->SetFieldDelimiterCharacters(" ");</source>

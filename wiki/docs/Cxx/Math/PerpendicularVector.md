@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Math/PerpendicularVector
+[VTKExamples](/home/)/[Cxx](/Cxx)/Math/PerpendicularVector
 
 **PerpendicularVector.cxx**
 ```c++

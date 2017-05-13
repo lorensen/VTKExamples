@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/WishList/Plotting/PlotLegacyMethod
+[VTKExamples](/home/)/[Cxx](/Cxx)/WishList/Plotting/PlotLegacyMethod
 
 **PlotLegacyMethod.cxx**
 ```c++

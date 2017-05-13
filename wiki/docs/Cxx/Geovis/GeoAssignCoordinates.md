@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Geovis/GeoAssignCoordinates
+[VTKExamples](/home/)/[Cxx](/Cxx)/Geovis/GeoAssignCoordinates
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" />
 
 **GeoAssignCoordinates.cxx**
 ```c++

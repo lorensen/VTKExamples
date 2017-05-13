@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/HighlightBadCells
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/HighlightBadCells
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestHighlightBadCells.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestHighlightBadCells.png?raw=true" width="256" />
 
 **HighlightBadCells.cxx**
 ```c++

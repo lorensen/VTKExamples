@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PointLocator
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointLocator
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPointLocator.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointLocator.png?raw=true" width="256" />
 
 ### Description
 Create a point locator for a set of points. The 'n' (next) and 'p' (previous) keys change the resolution of the cells.

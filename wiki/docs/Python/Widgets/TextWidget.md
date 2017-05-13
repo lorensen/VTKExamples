@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Widgets/TextWidget
+[VTKExamples](/home/)/[Python](/Python)/Widgets/TextWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestTextWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestTextWidget.png?raw=true" width="256" />
 
 ### Description
 [Examples Python Widgets TextWidget.png]]([File:VTK)

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Medical/TissueLens
+[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/TissueLens
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Medical/TestTissueLens.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Medical/TestTissueLens.png?raw=true" width="256" />
 
 ### Description
 This example uses two clip filters to achieve a "tissue lens" affect. First, a sphere implicit function is used to clip a spherical hole in the extracted isosurface. Then a geometric sphere samples the original volume data using a probe filter. The resulting scalar point data is used to clip the sphere surface with the isosurface value.

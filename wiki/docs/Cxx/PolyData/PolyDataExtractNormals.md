@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataExtractNormals
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataExtractNormals
 
 ### Description
 This demo looks for multiple types of normals in a polydata and generates them if they do not exist.

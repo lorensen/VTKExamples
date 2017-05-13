@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/CombiningRGBChannels
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/CombiningRGBChannels
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestCombiningRGBChannels.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCombiningRGBChannels.png?raw=true" width="256" />
 
 ### Description
 This example creates three images of a square. Each square slightly overlaps the previous square. These three layers are then interpreted as the R, G, and B channel of an RGB image, by the use of {{class|vtkImageAppendComponents}}.

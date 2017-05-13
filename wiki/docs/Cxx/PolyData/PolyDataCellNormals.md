@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataCellNormals
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataCellNormals
 
 ### Description
 This example shows how to add normals to vertices. This is identical to adding normals to any type of cells. The only difference from [Normals to/from a Polydata]]([Add/Get) is

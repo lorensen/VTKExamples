@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/StructuredGridReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/StructuredGridReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestStructuredGridReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestStructuredGridReader.png?raw=true" width="256" />
 
 **StructuredGridReader.cxx**
 ```c++

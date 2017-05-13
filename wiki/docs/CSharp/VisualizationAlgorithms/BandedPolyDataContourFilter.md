@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/VisualizationAlgorithms/BandedPolyDataContourFilter
+[VTKExamples](/home/)/[CSharp](/CSharp)/VisualizationAlgorithms/BandedPolyDataContourFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png?raw=true" width="256" />
 
 ### Description
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)<br />

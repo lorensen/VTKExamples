@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Arrays/RenameArray
+[VTKExamples](/home/)/[Python](/Python)/Arrays/RenameArray
 
 ### Description
 Works, but segfaults at the end?

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/MaskPointsFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/MaskPointsFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestMaskPointsFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestMaskPointsFilter.png?raw=true" width="256" />
 
 ### Description
 '''NOTE: The classes used in this example require vtk 7.1 or later.'''

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/InterpolateMeshOnGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/InterpolateMeshOnGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestInterpolateMeshOnGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestInterpolateMeshOnGrid.png?raw=true" width="256" />
 
 ### Description
 This example resamples a mesh on a grid of points.

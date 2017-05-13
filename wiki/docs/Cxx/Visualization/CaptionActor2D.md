@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CaptionActor2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CaptionActor2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCaptionActor2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCaptionActor2D.png?raw=true" width="256" />
 
 **CaptionActor2D.cxx**
 ```c++

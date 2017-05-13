@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/DataSetSurface
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/DataSetSurface
 
 **DataSetSurface.py**
 ```python

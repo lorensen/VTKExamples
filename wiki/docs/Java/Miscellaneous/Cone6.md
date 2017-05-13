@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Java](Java)/Miscellaneous/Cone6
+[VTKExamples](/home/)/[Java](/Java)/Miscellaneous/Cone6
 
 **Cone6.java**
 ```java

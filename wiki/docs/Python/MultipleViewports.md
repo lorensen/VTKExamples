@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//MultipleViewports
+[VTKExamples](/home/)/[Python](/Python)//MultipleViewports
 
 ### Description
 This example demonstrates how to use multiple viewports to display several scenes in one render window.

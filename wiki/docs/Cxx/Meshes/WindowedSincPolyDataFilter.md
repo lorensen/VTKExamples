@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/WindowedSincPolyDataFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/WindowedSincPolyDataFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestWindowedSincPolyDataFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestWindowedSincPolyDataFilter.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to smooth a mesh.

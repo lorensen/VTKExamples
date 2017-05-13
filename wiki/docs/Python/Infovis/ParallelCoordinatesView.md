@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Infovis/ParallelCoordinatesView
+[VTKExamples](/home/)/[Python](/Python)/Infovis/ParallelCoordinatesView
 
 ### Description
 [Coordinates View of the example data after selecting low Elevation values with lasso.]]([Image:ParallelCoordinatesView.png|Parallel)

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/BuildLocatorFromKClosestPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/BuildLocatorFromKClosestPoints
 
 **BuildLocatorFromKClosestPoints.cxx**
 ```c++

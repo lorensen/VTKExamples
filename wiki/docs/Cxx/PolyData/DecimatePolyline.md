@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/DecimatePolyline
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DecimatePolyline
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestDecimatePolyline.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDecimatePolyline.png?raw=true" width="256" />
 
 ### Description
 This example shows how to [(signal processing)|decimate]]([wikipedia:Decimation) a polyline.

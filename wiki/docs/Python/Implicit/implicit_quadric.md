@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Implicit/implicit_quadric
+[VTKExamples](/home/)/[Python](/Python)/Implicit/implicit_quadric
 
 ### Description
 []([File:python_example_quadric.png])

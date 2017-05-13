@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/VertexConnectivity
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/VertexConnectivity
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestVertexConnectivity.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestVertexConnectivity.png?raw=true" width="256" />
 
 ### Description
 The input must be only edges (i.e. vtkExtractEdges must be run).

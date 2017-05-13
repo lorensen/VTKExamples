@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/DisplayTriangle
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/DisplayTriangle
 
 **DisplayTriangle.py**
 ```python

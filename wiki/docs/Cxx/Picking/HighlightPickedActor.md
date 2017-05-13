@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Picking/HighlightPickedActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/HighlightPickedActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Picking/TestHighlightPickedActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestHighlightPickedActor.png?raw=true" width="256" />
 
 ### Description
 Click on a sphere to highlight it.

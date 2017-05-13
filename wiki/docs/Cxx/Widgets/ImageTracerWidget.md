@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/ImageTracerWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/ImageTracerWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestImageTracerWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestImageTracerWidget.png?raw=true" width="256" />
 
 **ImageTracerWidget.cxx**
 ```c++

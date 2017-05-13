@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/SignedDistance
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/SignedDistance
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestSignedDistance.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestSignedDistance.png?raw=true" width="256" />
 
 ### Description
 Contrast this with the [UnsignedDistance](Cxx/Points/UnsignedDistance) example.

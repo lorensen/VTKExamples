@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/ColorLookupTable
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ColorLookupTable
 
 ### Description
 This example shows how to create a table of colors that map from a continuous range of values.

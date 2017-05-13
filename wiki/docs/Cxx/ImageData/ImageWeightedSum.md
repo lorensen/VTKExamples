@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ImageWeightedSum
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageWeightedSum
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImageData/TestImageWeightedSum.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageWeightedSum.png?raw=true" width="256" />
 
 ### Description
 Sum multiple images. Images must be of the same size and type.

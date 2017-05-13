@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/TimerLog
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/TimerLog
 
 **TimerLog.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageExport
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageExport
 
 **ImageExport.cxx**
 ```c++

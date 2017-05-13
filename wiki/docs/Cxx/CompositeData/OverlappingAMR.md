@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/CompositeData/OverlappingAMR
+[VTKExamples](/home/)/[Cxx](/Cxx)/CompositeData/OverlappingAMR
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/CompositeData/TestOverlappingAMR.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/CompositeData/TestOverlappingAMR.png?raw=true" width="256" />
 
 **OverlappingAMR.cxx**
 ```c++

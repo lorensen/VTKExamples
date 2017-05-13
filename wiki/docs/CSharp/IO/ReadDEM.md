@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadDEM
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadDEM
 
 ### Description
 Read DEM (elevation map) files<br /><br />

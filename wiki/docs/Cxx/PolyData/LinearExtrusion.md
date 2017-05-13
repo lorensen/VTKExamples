@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/LinearExtrusion
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/LinearExtrusion
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestLinearExtrusion.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestLinearExtrusion.png?raw=true" width="256" />
 
 ### Description
 This example creates some text, extrudes it to make it 3D.

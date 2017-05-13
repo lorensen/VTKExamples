@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageMirrorPad
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageMirrorPad
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageMirrorPad.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageMirrorPad.png?raw=true" width="256" />
 
 ### Description
 This example shows how to enlarge an image and fill in the padded edges by mirroring the original pixels.

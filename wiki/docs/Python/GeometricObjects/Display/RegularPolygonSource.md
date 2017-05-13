@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/RegularPolygonSource
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/RegularPolygonSource
 
 ### Description
 This example creates a pentagon.

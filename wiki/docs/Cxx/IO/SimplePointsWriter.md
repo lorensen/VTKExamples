@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/SimplePointsWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/SimplePointsWriter
 
 ### Description
 **Note:** For the opposite operation (reading a points file) see the

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/VertexGlyphFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/VertexGlyphFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestVertexGlyphFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestVertexGlyphFilter.png?raw=true" width="256" />
 
 ### Description
 This example creates a set of points and adds a vertex at each point using vtkVertexGlyphFilter.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/Axes
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Axes
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestAxes.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestAxes.png?raw=true" width="256" />
 
 ### Description
 This example shows how to position an AxesActor in 3D. Notice that position and orientation of the AxesActor is done with a user transform. <br />

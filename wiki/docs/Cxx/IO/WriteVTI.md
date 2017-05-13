@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/WriteVTI
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WriteVTI
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestWriteVTI.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteVTI.png?raw=true" width="256" />
 
 **WriteVTI.cxx**
 ```c++

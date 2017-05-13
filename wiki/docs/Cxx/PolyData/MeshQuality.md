@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/MeshQuality
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MeshQuality
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestMeshQuality.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestMeshQuality.png?raw=true" width="256" />
 
 ### Description
 This example uses one of many selectable methods to determine the quality of a mesh. In this case, we have selected to use the area of the triangles. We show how to retrieve the quality metric computed on each triangle after the process is completed.

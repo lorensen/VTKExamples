@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Picking/CellPicking
+[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/CellPicking
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Picking/TestCellPicking.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestCellPicking.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to get the coordinates of the point on an actor that is clicked with the left mouse button. It also indicates which cell the selected point belongs to by highlighting the edges of that cell.

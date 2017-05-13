@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/Modelling/MarchingCubes
+[VTKExamples](/home/)/[CSharp](/CSharp)/Modelling/MarchingCubes
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Modelling/TestMarchingCubes.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestMarchingCubes.png?raw=true" width="256" />
 
 ### Description
 <p>Voxelizes a sphere and creates a model with Marching Cubes. '''NOTE:''' vtkVoxelModeller by default produces a VTK_BIT scalar image. Marching Cubes does not support this type. The scalar output is set to float for this example.</p>

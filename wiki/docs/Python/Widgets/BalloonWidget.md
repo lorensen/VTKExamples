@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Widgets/BalloonWidget
+[VTKExamples](/home/)/[Python](/Python)/Widgets/BalloonWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestBalloonWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBalloonWidget.png?raw=true" width="256" />
 
 ### Description
 [[[File:VTK_Examples_Python_Widgets_BalloonWidget-2.png?]]([File:VTK_Examples_Python_Widgets_BalloonWidget-1.png]])

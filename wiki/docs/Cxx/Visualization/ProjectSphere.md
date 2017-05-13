@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ProjectSphere
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ProjectSphere
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestProjectSphere.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestProjectSphere.png?raw=true" width="256" />
 
 **ProjectSphere.cxx**
 ```c++

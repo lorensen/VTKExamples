@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/MiscCellData
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MiscCellData
 
 ### Description
 This demo attaches a double to a cell (triangle) in a polydata.

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/Pyramid
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Pyramid
 
 **Pyramid.py**
 ```python

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/SelectPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/SelectPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestSelectPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestSelectPolyData.png?raw=true" width="256" />
 
 **SelectPolyData.cxx**
 ```c++

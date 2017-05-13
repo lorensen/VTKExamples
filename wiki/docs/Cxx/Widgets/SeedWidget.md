@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/SeedWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SeedWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSeedWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSeedWidget.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to use vtkSeedWidget, which generates (seeds) points to be placed in the scene in the locations where the user clicks.

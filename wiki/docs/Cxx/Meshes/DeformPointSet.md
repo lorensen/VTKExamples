@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/DeformPointSet
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/DeformPointSet
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestDeformPointSet.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestDeformPointSet.png?raw=true" width="256" />
 
 ### Description
 Deform a point set with a polyhedra. Supply a .vtp file and see it deformed.

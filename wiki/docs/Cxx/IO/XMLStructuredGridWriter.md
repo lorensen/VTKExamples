@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/XMLStructuredGridWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/XMLStructuredGridWriter
 
 **XMLStructuredGridWriter.cxx**
 ```c++

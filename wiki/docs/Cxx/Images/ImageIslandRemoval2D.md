@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageIslandRemoval2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageIslandRemoval2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageIslandRemoval2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageIslandRemoval2D.png?raw=true" width="256" />
 
 ### Description
 This example creates a small white square and a big white square. We want the ImageIslandRemoval2D to turn the small white square black and leave the big white square alone. 

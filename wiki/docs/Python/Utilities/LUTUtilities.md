@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Utilities/LUTUtilities
+[VTKExamples](/home/)/[Python](/Python)/Utilities/LUTUtilities
 
 ### Description
 ==Description==

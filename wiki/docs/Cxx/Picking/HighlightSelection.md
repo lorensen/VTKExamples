@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Picking/HighlightSelection
+[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/HighlightSelection
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Picking/TestHighlightSelection.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestHighlightSelection.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to select and highlight cells using a rubber band. Press 'r' to enter selection mode.

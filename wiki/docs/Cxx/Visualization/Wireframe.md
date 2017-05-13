@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Wireframe
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Wireframe
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestWireframe.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestWireframe.png?raw=true" width="256" />
 
 **Wireframe.cxx**
 ```c++

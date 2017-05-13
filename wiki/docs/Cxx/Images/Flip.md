@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/Flip
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Flip
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestFlip.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestFlip.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to flip an image over an axis.

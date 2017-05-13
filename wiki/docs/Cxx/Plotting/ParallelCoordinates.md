@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Plotting/ParallelCoordinates
+[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/ParallelCoordinates
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestParallelCoordinates.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestParallelCoordinates.png?raw=true" width="256" />
 
 **ParallelCoordinates.cxx**
 ```c++

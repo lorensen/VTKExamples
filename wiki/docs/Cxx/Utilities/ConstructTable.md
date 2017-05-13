@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/ConstructTable
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ConstructTable
 
 ### Description
 This example creates a 3x3 table. The columns MUST be added first - if you attempt to call AddRow type functions, they will not do anything (or produce errors) because the table still has 0 columns until you tell it otherwise. This example adds 3 empty columns to the table, then goes back and fills them in. 

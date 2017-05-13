@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//Screenshot
+[VTKExamples](/home/)/[Python](/Python)//Screenshot
 
 **Screenshot.py**
 ```python

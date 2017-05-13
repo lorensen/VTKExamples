@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Java](Java)/Miscellaneous/Cutter
+[VTKExamples](/home/)/[Java](/Java)/Miscellaneous/Cutter
 
 ### Description
 This example demonstrates how to use vtkCutter by cutting through a cube.

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/BreadthFirstDistance
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/BreadthFirstDistance
 
 ### Description
 This example shows how to get the distance from a vertex to the root vertex.

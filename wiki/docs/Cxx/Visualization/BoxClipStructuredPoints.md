@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/BoxClipStructuredPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BoxClipStructuredPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestBoxClipStructuredPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBoxClipStructuredPoints.png?raw=true" width="256" />
 
 ### Description
 This example uses the data files: [HeadMRVolume.mhd](https://gitlab.kitware.com/lorensen/VTKExamples/raw/master/Testing/Data/HeadMRVolume.mhd) and

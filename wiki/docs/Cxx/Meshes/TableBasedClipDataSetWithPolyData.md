@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/TableBasedClipDataSetWithPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/TableBasedClipDataSetWithPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestTableBasedClipDataSetWithPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestTableBasedClipDataSetWithPolyData.png?raw=true" width="256" />
 
 ### Description
 The example that shows how to use the vtkTableBasedClipDataSet to clip

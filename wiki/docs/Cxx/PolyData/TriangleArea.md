@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/TriangleArea
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TriangleArea
 
 **TriangleArea.cxx**
 ```c++

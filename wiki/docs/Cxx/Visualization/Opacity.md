@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Opacity
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Opacity
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestOpacity.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestOpacity.png?raw=true" width="256" />
 
 **Opacity.cxx**
 ```c++

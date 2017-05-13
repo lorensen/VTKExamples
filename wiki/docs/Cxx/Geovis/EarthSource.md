@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Geovis/EarthSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Geovis/EarthSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Geovis/TestEarthSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestEarthSource.png?raw=true" width="256" />
 
 **EarthSource.cxx**
 ```c++

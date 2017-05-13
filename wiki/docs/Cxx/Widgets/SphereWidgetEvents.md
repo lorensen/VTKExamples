@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/SphereWidgetEvents
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SphereWidgetEvents
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSphereWidgetEvents.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSphereWidgetEvents.png?raw=true" width="256" />
 
 ### Description
 This example shows how to subclass a widget so that events can be further customized.

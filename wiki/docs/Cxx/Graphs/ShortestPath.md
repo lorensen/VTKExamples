@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/ShortestPath
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ShortestPath
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestShortestPath.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestShortestPath.png?raw=true" width="256" />
 
 ### Description
 Currently, the only way to find the shortest path on a graph is to convert the graph to a mesh (using vtkGraphToPolyData) and then use the shortest path on a mesh functionality of vtkDijkstraGraphGeodesicPath.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/WriteBMP
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WriteBMP
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestWriteBMP.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteBMP.png?raw=true" width="256" />
 
 **WriteBMP.cxx**
 ```c++

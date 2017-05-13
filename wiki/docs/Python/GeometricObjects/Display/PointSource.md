@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/PointSource
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/PointSource
 
 **PointSource.py**
 ```python

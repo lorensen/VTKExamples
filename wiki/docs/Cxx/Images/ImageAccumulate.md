@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageAccumulate
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageAccumulate
 
 **ImageAccumulate.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadUnknownTypeXMLFile
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadUnknownTypeXMLFile
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadUnknownTypeXMLFile.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadUnknownTypeXMLFile.png?raw=true" width="256" />
 
 ### Description
 This examples reads either a vtu (unstructured grid) or vtp (polydata) file and displays it to the screen.<br />

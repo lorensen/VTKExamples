@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/Cone
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Cone
 
 ### Description
 This program displays a cone on screen.

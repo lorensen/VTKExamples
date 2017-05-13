@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/BiDimensionalWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BiDimensionalWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestBiDimensionalWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBiDimensionalWidget.png?raw=true" width="256" />
 
 **BiDimensionalWidget.cxx**
 ```c++

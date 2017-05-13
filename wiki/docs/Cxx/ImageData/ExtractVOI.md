@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ExtractVOI
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ExtractVOI
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImageData/TestExtractVOI.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestExtractVOI.png?raw=true" width="256" />
 
 **ExtractVOI.cxx**
 ```c++

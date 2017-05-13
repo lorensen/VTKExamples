@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/LabeledMesh
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LabeledMesh
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestLabeledMesh.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLabeledMesh.png?raw=true" width="256" />
 
 ### Description
 This example was translated into C++ from its TCL counterpart by Jake Nickel from the University of Iowa.  It demonstrates the use of vtkLabeledDataMapper. This class is used for displaying numerical data from an underlying data set. In the case of this example, the underlying data are the point and cell ids.

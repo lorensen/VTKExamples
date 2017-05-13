@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/SelectVisiblePoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/SelectVisiblePoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestSelectVisiblePoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestSelectVisiblePoints.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to determine which objects are visible.

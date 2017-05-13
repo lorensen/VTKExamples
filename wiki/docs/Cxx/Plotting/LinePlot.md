@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Plotting/LinePlot
+[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/LinePlot
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestLinePlot.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestLinePlot.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to plot XY data.

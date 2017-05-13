@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/CheckVTKVersion
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/CheckVTKVersion
 
 ### Description
 This example demonstrates how to check the VTK version with vtkVersion.

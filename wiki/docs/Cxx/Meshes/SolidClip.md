@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/SolidClip
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/SolidClip
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestSolidClip.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestSolidClip.png?raw=true" width="256" />
 
 ### Description
 This example clips a mesh and applies a backface property to that mesh that appears to have a solid interior.

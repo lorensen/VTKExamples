@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//STLReader
+[VTKExamples](/home/)/[Python](/Python)//STLReader
 
 ### Description
 This code snippet reads an STL file and creates a PolyData output

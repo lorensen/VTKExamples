@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadStructuredGrid
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadStructuredGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadStructuredGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadStructuredGrid.png?raw=true" width="256" />
 
 ### Description
 This example reads a structured grid (.vts) file. An example file can be found at VTKData/Data/multicomb_0.vts<br />

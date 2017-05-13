@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/ColoredLines
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/ColoredLines
 
 **ColoredLines.py**
 ```python

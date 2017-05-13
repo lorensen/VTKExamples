@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/StructuredDataTypes
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/StructuredDataTypes
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestStructuredDataTypes.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestStructuredDataTypes.png?raw=true" width="256" />
 
 **StructuredDataTypes.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//vtkWithNumpy
+[VTKExamples](/home/)/[Python](/Python)//vtkWithNumpy
 
 **vtkWithNumpy.py**
 ```python

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//Animation
+[VTKExamples](/home/)/[Python](/Python)//Animation
 
 ### Description
 This example uses a timer to move a sphere across a scene.

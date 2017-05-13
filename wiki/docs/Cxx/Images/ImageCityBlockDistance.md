@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageCityBlockDistance
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageCityBlockDistance
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageCityBlockDistance.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageCityBlockDistance.png?raw=true" width="256" />
 
 ### Description
 Compute the Manhattan distance from every point to every black point in a binary image.

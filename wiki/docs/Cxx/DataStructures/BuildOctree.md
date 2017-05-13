@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/BuildOctree
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/BuildOctree
 
 **BuildOctree.cxx**
 ```c++

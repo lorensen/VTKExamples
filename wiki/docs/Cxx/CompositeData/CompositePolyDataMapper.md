@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/CompositeData/CompositePolyDataMapper
+[VTKExamples](/home/)/[Cxx](/Cxx)/CompositeData/CompositePolyDataMapper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/CompositeData/TestCompositePolyDataMapper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/CompositeData/TestCompositePolyDataMapper.png?raw=true" width="256" />
 
 **CompositePolyDataMapper.cxx**
 ```c++

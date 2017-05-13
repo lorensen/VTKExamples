@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/ImplicitBoolean
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ImplicitBoolean
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestImplicitBoolean.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestImplicitBoolean.png?raw=true" width="256" />
 
 **ImplicitBoolean.cxx**
 ```c++

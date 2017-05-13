@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/AddCell
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/AddCell
 
 **AddCell.cxx**
 ```c++

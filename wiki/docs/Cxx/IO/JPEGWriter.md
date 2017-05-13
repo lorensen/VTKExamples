@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/JPEGWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/JPEGWriter
 
 **JPEGWriter.cxx**
 ```c++

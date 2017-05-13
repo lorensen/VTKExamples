@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageNonMaximumSuppression
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageNonMaximumSuppression
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageNonMaximumSuppression.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageNonMaximumSuppression.png?raw=true" width="256" />
 
 **ImageNonMaximumSuppression.cxx**
 ```c++

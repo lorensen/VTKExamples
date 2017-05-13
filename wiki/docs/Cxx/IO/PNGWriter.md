@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/PNGWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/PNGWriter
 
 **PNGWriter.cxx**
 ```c++

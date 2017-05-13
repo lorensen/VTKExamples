@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/Gradient
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Gradient
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestGradient.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestGradient.png?raw=true" width="256" />
 
 ### Description
 Find the gradient vector of an image at every pixel. Display the original image, the x component of the gradient, the y component of the gradient, and the gradient itself.

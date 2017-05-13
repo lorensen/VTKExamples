@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/FastSplatter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/FastSplatter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestFastSplatter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestFastSplatter.png?raw=true" width="256" />
 
 **FastSplatter.cxx**
 ```c++

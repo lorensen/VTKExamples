@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/Meshes/CapClip
+[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/CapClip
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestCapClip.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestCapClip.png?raw=true" width="256" />
 
 ### Description
 <p>This example shows how to generate a "cap" on a clipped polydata. It uses a clever trick to convert polylines into polygons. If a polydata file (.vtp) is provided, it will cap it. Otherwise it caps a clipped sphere.</p>

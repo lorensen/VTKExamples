@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/CutWithScalars
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/CutWithScalars
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestCutWithScalars.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestCutWithScalars.png?raw=true" width="256" />
 
 **CutWithScalars.cxx**
 ```c++

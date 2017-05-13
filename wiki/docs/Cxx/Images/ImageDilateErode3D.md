@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageDilateErode3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageDilateErode3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageDilateErode3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageDilateErode3D.png?raw=true" width="256" />
 
 ### Description
 This example reads in a binary image and dilates one value and erodes another (morphological operations).

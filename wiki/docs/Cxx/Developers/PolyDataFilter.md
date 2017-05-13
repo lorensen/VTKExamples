@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Developers/PolyDataFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/PolyDataFilter
 
 ### Description
 This example demonstrates a filter named vtkTestPolyDataFilter that takes a vtkPolyData as input and produces a vtkPolyData as output.

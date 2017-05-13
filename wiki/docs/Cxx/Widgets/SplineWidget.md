@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/SplineWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SplineWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSplineWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSplineWidget.png?raw=true" width="256" />
 
 **SplineWidget.cxx**
 ```c++

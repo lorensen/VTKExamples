@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/CubeAxesActor
+[VTKExamples](/home/)/[Python](/Python)/Visualization/CubeAxesActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCubeAxesActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCubeAxesActor.png?raw=true" width="256" />
 
 ### Description
 *Translated to python from the .cxx examples by Michka Popoff

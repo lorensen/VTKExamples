@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/AngleWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/AngleWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestAngleWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestAngleWidget.png?raw=true" width="256" />
 
 ### Description
 Click three points to create an angle. You can then drag the points around.

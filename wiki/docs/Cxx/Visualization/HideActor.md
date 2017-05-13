@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/HideActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/HideActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestHideActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestHideActor.png?raw=true" width="256" />
 
 ### Description
 Display two spheres, then hide one, then hide both.

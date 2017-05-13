@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/SelectAnActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/SelectAnActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestSelectAnActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestSelectAnActor.png?raw=true" width="256" />
 
 **SelectAnActor.cxx**
 ```c++

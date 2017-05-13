@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/DrawText
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DrawText
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestDrawText.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDrawText.png?raw=true" width="256" />
 
 ### Description
 This example writes "Hello world" in the bottom left corner of the render window. The text size and color are set. There are many properties that can be set that control how the text is changed when the render window is resized, but they are not covered in this example.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/SeedWidgetWithCustomCallback
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SeedWidgetWithCustomCallback
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSeedWidgetWithCustomCallback.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSeedWidgetWithCustomCallback.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to place seed points in the scene. The seed points can be used for operations like connectivity, segmentation, and region growing.

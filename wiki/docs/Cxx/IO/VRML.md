@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/VRML
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/VRML
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestVRML.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestVRML.png?raw=true" width="256" />
 
 ### Description
 This example loads a wrl file and displays it on the screen. An example file is [here](http://www.vtk.org/Wiki/Image:Bridge.wrl.zip).

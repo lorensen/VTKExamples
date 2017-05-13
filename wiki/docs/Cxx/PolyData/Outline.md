@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/Outline
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Outline
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestOutline.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestOutline.png?raw=true" width="256" />
 
 ### Description
 This example shows how to draw the outline of the dataset.

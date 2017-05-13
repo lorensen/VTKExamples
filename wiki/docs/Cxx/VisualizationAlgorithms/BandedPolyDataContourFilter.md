@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/BandedPolyDataContourFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/BandedPolyDataContourFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png?raw=true" width="256" />
 
 **BandedPolyDataContourFilter.cxx**
 ```c++

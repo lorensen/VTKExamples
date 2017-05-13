@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/ArrayCalculator
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ArrayCalculator
 
 **ArrayCalculator.cxx**
 ```c++

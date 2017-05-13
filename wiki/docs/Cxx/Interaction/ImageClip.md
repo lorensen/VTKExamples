@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/ImageClip
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ImageClip
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestImageClip.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestImageClip.png?raw=true" width="256" />
 
 ### Description
 This example loads an image into the left half of the window. When you move the border widget (the green square in the bottom left corner) over the image, the region that is selected is displayed in the right half of the window.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/AffineWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/AffineWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestAffineWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestAffineWidget.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates use of a vtkAffineWidget to apply transforms to a 3D prop in the x-y plane.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/TextSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TextSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestTextSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTextSource.png?raw=true" width="256" />
 
 ### Description
 This example displays a 3D polygonal text saying "Hello", using the 9x15 font from [Window System|X Windows]]. That is a raster (pixelized) font, so characters are formed by converting the pixels on each character into quadrilaterals. {{class|vtkVectorText}} generates higher quality polygonal representations of text, so it is recommended instead -- see [[../VectorText]]([wikipedia:X) for an example of this.

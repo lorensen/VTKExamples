@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/NOVCAGraph
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/NOVCAGraph
 
 ### Description
 []([File:graphCXX.png])

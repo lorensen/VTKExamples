@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/BackfaceCulling
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BackfaceCulling
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestBackfaceCulling.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBackfaceCulling.png?raw=true" width="256" />
 
 ### Description
 This example renders a sphere with backface culling enabled.

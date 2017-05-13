@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/ColoredLines
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ColoredLines
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestColoredLines.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestColoredLines.png?raw=true" width="256" />
 
 ### Description
 Displays two lines, each with a different color. See also [LongLine](Cxx/GeometricObjects/LongLine).

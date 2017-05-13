@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/GetCellCenter
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/GetCellCenter
 
 ### Description
 Unfortunately this function is not built in directly, but rather quite convoluted to call. This is an easy to use wrapper.

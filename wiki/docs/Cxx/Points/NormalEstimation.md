@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/NormalEstimation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/NormalEstimation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestNormalEstimation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestNormalEstimation.png?raw=true" width="256" />
 
 **NormalEstimation.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/Stripper
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Stripper
 
 **Stripper.cxx**
 ```c++

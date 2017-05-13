@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/SurfaceFromUnorganizedPointsWithPostProc
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/SurfaceFromUnorganizedPointsWithPostProc
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestSurfaceFromUnorganizedPointsWithPostProc.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestSurfaceFromUnorganizedPointsWithPostProc.png?raw=true" width="256" />
 
 ### Description
 This example is an extension to the example previously posted at:

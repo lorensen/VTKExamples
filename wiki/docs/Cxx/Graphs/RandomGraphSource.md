@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/RandomGraphSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/RandomGraphSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestRandomGraphSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestRandomGraphSource.png?raw=true" width="256" />
 
 **RandomGraphSource.cxx**
 ```c++

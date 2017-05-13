@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageGaussianSmooth
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageGaussianSmooth
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageGaussianSmooth.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageGaussianSmooth.png?raw=true" width="256" />
 
 **ImageGaussianSmooth.cxx**
 ```c++

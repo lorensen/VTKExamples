@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolygonalSurfacePointPlacer
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolygonalSurfacePointPlacer
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPolygonalSurfacePointPlacer.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolygonalSurfacePointPlacer.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to draw curves on a surface.

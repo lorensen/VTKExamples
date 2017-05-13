@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/CellPointNeighbors
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellPointNeighbors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestCellPointNeighbors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCellPointNeighbors.png?raw=true" width="256" />
 
 ### Description
 Determine which cells share at least a single point with a specified cell.

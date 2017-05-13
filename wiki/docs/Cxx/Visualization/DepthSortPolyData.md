@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/DepthSortPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DepthSortPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestDepthSortPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDepthSortPolyData.png?raw=true" width="256" />
 
 ### Description
 

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Interaction/HighlightPickedActor
+[VTKExamples](/home/)/[Python](/Python)/Interaction/HighlightPickedActor
 
 ### Description
 []([File:VTK_Examples_Python_Interaction_HighlightPickedActor.png])

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/RegularPolygon
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/RegularPolygon
 
 ### Description
 This example creates a pentagon.<br />

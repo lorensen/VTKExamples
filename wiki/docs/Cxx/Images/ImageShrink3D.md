@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageShrink3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageShrink3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageShrink3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageShrink3D.png?raw=true" width="256" />
 
 **ImageShrink3D.cxx**
 ```c++

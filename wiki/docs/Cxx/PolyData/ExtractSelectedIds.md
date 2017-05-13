@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ExtractSelectedIds
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractSelectedIds
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExtractSelectedIds.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractSelectedIds.png?raw=true" width="256" />
 
 ### Description
 This example creates 50 random points and extracts 10 of them (the points with ids 10-19).

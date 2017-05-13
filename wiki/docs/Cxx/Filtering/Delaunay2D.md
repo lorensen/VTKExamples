@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/Delaunay2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/Delaunay2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestDelaunay2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestDelaunay2D.png?raw=true" width="256" />
 
 ### Description
 This example generates a set of points aligned with an XY grid with random heights (z values). The Delaunay2D filter "magically" knows how to triangulate this type of point set because it projects the points by default onto the XY axis and then performs a 2D Delaunay triangulation. The result is a mesh on the input points.

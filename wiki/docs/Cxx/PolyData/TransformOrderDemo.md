@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/TransformOrderDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TransformOrderDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestTransformOrderDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTransformOrderDemo.png?raw=true" width="256" />
 
 ### Description
 This example creates an image. In the left viewport, it translates the image, then translates and rotates the image. In the right viewport, it rotates the image, then rotates and translates the image. One can see that the result is clearly not the same!

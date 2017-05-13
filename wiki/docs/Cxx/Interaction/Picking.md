@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/Picking
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/Picking
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestPicking.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestPicking.png?raw=true" width="256" />
 
 **Picking.cxx**
 ```c++

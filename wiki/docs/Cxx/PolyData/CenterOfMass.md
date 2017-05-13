@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/CenterOfMass
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CenterOfMass
 
 **CenterOfMass.cxx**
 ```c++

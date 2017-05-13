@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/VisualizationAlgorithms/FilledContours
+[VTKExamples](/home/)/[CSharp](/CSharp)/VisualizationAlgorithms/FilledContours
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestFilledContours.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestFilledContours.png?raw=true" width="256" />
 
 ### Description
 <p>This example produces filled contours using the vtkClipPolyData filter. There is a sample data file [here](http://public.kitware.com/cgi-bin/viewcvs.cgi/Data/filledContours.vtp?root=VTKData&view=log)</p>

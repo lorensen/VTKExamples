@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/QuantizePolyDataPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/QuantizePolyDataPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestQuantizePolyDataPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestQuantizePolyDataPoints.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to "snap" points onto a discrete grid. This example rounds the coordinates of each point the the nearest .1

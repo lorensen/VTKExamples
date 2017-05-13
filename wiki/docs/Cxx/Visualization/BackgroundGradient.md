@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/BackgroundGradient
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BackgroundGradient
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestBackgroundGradient.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBackgroundGradient.png?raw=true" width="256" />
 
 **BackgroundGradient.cxx**
 ```c++

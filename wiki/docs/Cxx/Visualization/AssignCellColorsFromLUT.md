@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/AssignCellColorsFromLUT
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/AssignCellColorsFromLUT
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestAssignCellColorsFromLUT.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestAssignCellColorsFromLUT.png?raw=true" width="256" />
 
 ### Description
 Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.

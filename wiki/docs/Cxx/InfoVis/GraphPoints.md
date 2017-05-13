@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/GraphPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/GraphPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestGraphPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestGraphPoints.png?raw=true" width="256" />
 
 **GraphPoints.cxx**
 ```c++

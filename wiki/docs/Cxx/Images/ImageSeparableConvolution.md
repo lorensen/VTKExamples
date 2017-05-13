@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageSeparableConvolution
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageSeparableConvolution
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageSeparableConvolution.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageSeparableConvolution.png?raw=true" width="256" />
 
 ### Description
 Read in a binary image and convolve it with a separable kernel. The input and output are displayed.

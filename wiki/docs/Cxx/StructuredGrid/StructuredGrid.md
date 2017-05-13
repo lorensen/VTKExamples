@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredGrid/StructuredGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/StructuredGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/StructuredGrid/TestStructuredGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestStructuredGrid.png?raw=true" width="256" />
 
 ### Description
 This example reads and writes points into a structured grid.

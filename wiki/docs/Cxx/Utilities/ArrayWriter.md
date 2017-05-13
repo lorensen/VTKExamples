@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/ArrayWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ArrayWriter
 
 **ArrayWriter.cxx**
 ```c++

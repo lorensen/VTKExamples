@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/JPEGReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/JPEGReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestJPEGReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestJPEGReader.png?raw=true" width="256" />
 
 ### Description
 This example shows how to read a JPG image file.

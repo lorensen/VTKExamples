@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/BoostBreadthFirstSearchTree
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/BoostBreadthFirstSearchTree
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestBoostBreadthFirstSearchTree.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestBoostBreadthFirstSearchTree.png?raw=true" width="256" />
 
 **BoostBreadthFirstSearchTree.cxx**
 ```c++

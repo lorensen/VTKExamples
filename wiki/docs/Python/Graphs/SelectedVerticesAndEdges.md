@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Graphs/SelectedVerticesAndEdges
+[VTKExamples](/home/)/[Python](/Python)/Graphs/SelectedVerticesAndEdges
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestSelectedVerticesAndEdges.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestSelectedVerticesAndEdges.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_Graphs_SelectedVerticesAndEdges.png])

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadJPEG
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadJPEG
 
 ### Description
 This example shows how to read a JPG image file.<br />

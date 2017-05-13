@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Circle
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Circle
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestCircle.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestCircle.png?raw=true" width="256" />
 
 ### Description
 A circle is simply the limiting case of a regular polygon. We use vtkRegularPolygonSource with a large number of Sides to approximate a circle.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/Reflection
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Reflection
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestReflection.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestReflection.png?raw=true" width="256" />
 
 ### Description
 '''Note:''' This example uses {{class|vtkReflectionFilter}}, which outputs a {{class|vtkDataObject}}. For an example that returns a {{class|vtkPolyData}}, see ''[]([../../Filtering/TransformPolyData|TransformPolyData])''.

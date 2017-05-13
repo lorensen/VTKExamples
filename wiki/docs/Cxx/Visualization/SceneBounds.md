@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/SceneBounds
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/SceneBounds
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestSceneBounds.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestSceneBounds.png?raw=true" width="256" />
 
 **SceneBounds.cxx**
 ```c++

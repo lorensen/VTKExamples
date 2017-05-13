@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Filtering/Delaunay2D
+[VTKExamples](/home/)/[Python](/Python)/Filtering/Delaunay2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestDelaunay2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestDelaunay2D.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_Filtering_Delaunay2D.png])

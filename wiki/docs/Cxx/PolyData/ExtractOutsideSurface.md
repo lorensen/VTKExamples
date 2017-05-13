@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ExtractOutsideSurface
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractOutsideSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExtractOutsideSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractOutsideSurface.png?raw=true" width="256" />
 
 ### Description
 This example extracts the outer surface of a multiple surface polydata model. The examples assumes the outside surface is closed and there is only one outside surface. It also assumes that the center of the model lies inside the outer surface.

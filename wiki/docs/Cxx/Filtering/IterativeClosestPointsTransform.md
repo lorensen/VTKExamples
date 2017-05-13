@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/IterativeClosestPointsTransform
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/IterativeClosestPointsTransform
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestIterativeClosestPointsTransform.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestIterativeClosestPointsTransform.png?raw=true" width="256" />
 
 ### Description
 This demo produces target points (green) which are at the origin and unit length along each axis. It then perturbs the points and shifts each of them .3 in +y direction -

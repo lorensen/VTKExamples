@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/RotateActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/RotateActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestRotateActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestRotateActor.png?raw=true" width="256" />
 
 ### Description
 This example shows how to rotate an actor. It also shows how to get the current transformation of the actor so it can then be applied to the actual object if so desired.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/MovableAxes
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MovableAxes
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestMovableAxes.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMovableAxes.png?raw=true" width="256" />
 
 ### Description
 With vtkAxesActor, a hybrid object with 3D axes and 2D label props, it is not possible to move the labels along with the axes with vtkInteractorStyleTrackballActor. Here we create new axes labels using a different 3D prop: vtkFollower, and update their positions with a custom callback command. 

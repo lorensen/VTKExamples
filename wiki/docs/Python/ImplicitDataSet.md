@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//ImplicitDataSet
+[VTKExamples](/home/)/[Python](/Python)//ImplicitDataSet
 
 **ImplicitDataSet.py**
 ```python

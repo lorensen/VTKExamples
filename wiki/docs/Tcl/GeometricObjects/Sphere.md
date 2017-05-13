@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Tcl](Tcl)/GeometricObjects/Sphere
+[VTKExamples](/home/)/[Tcl](/Tcl)/GeometricObjects/Sphere
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestSphere.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestSphere.png?raw=true" width="256" />
 
 **Sphere.tcl**
 ```tcl

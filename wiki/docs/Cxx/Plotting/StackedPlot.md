@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Plotting/StackedPlot
+[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/StackedPlot
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestStackedPlot.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestStackedPlot.png?raw=true" width="256" />
 
 **StackedPlot.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/DataAnimationSubclass
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/DataAnimationSubclass
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestDataAnimationSubclass.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestDataAnimationSubclass.png?raw=true" width="256" />
 
 **DataAnimationSubclass.cxx**
 ```c++

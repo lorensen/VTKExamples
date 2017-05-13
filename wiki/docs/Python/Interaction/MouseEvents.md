@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Interaction/MouseEvents
+[VTKExamples](/home/)/[Python](/Python)/Interaction/MouseEvents
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestMouseEvents.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMouseEvents.png?raw=true" width="256" />
 
 ### Description
 This example creates a new vtkInteractorStyle which can be used to implement custom reactions on user events. If you just want to disable single events you can also have a look at []([VTK/Examples/Python/Interaction/MouseEventsObserver]). This specific example just prints a simple message and then calls the original eventhandler of the vtkInteractorStyleTrackballCamera.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/HideAllActors
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/HideAllActors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestHideAllActors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestHideAllActors.png?raw=true" width="256" />
 
 ### Description
 Display two spheres, then hide everything and turn the screen red.

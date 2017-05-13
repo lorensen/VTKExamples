@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/BoxWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BoxWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestBoxWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBoxWidget.png?raw=true" width="256" />
 
 ### Description
 This example uses a vtkBoxWidget to manipulate an actor. The class includes geometry to draw a box around the object, which is bound to it via *SetProp3D*. The box is dimensioned using the *SetPlaceFactor* method, and positioned with the *PlaceWidget* method. After the initial setup, synchronizing the box with the object is done through a custom callback class, which is passed to the box widget through the *AddObserver* method.

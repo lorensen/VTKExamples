@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/GenericClip
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/GenericClip
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestGenericClip.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGenericClip.png?raw=true" width="256" />
 
 ### Description
 '''NOTE:''' This example requires vtk 6.0 or greater.

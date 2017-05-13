@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/LabelVerticesAndEdges
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/LabelVerticesAndEdges
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestLabelVerticesAndEdges.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestLabelVerticesAndEdges.png?raw=true" width="256" />
 
 ### Description
 This example sets and displays labels of vertices and edges of a graph.

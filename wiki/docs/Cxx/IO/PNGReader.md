@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/PNGReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/PNGReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestPNGReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestPNGReader.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to read a PNG image file.

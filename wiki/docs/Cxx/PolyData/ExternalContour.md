@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ExternalContour
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExternalContour
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExternalContour.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExternalContour.png?raw=true" width="256" />
 
 ### Description
 Compute the external contour of a polydata.<br />

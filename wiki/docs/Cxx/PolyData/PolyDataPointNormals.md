@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataPointNormals
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataPointNormals
 
 ### Description
 This demo adds a normal to each point in a polydata.

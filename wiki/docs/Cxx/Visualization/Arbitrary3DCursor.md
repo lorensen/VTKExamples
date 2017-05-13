@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Arbitrary3DCursor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Arbitrary3DCursor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestArbitrary3DCursor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestArbitrary3DCursor.png?raw=true" width="256" />
 
 **Arbitrary3DCursor.cxx**
 ```c++

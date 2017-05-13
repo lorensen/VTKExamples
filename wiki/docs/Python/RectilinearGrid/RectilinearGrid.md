@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/RectilinearGrid/RectilinearGrid
+[VTKExamples](/home/)/[Python](/Python)/RectilinearGrid/RectilinearGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/RectilinearGrid/TestRectilinearGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/RectilinearGrid/TestRectilinearGrid.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_RectilinearGrid_RectilinearGrid.png])

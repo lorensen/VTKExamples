@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/CutWithCutFunction
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/CutWithCutFunction
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestCutWithCutFunction.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestCutWithCutFunction.png?raw=true" width="256" />
 
 **CutWithCutFunction.cxx**
 ```c++

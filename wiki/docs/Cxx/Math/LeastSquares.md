@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Math/LeastSquares
+[VTKExamples](/home/)/[Cxx](/Cxx)/Math/LeastSquares
 
 ### Description
 This example solves XM = Y (an interesting way to write Ax = b). 

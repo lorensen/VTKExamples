@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/TransformFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TransformFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestTransformFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTransformFilter.png?raw=true" width="256" />
 
 ### Description
 This example stretches an arrow.

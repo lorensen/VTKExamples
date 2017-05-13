@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/FillHoles
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/FillHoles
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestFillHoles.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestFillHoles.png?raw=true" width="256" />
 
 ### Description
 This filter finds holes in a mesh and closes them. 

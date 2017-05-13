@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/LongLine
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/LongLine
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestLongLine.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestLongLine.png?raw=true" width="256" />
 
 ### Description
 Connect several points with a line. See also [ColoredLines](Cxx/GeometricObjects/ColoredLines).

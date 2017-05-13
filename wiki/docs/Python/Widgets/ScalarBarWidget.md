@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Widgets/ScalarBarWidget
+[VTKExamples](/home/)/[Python](/Python)/Widgets/ScalarBarWidget
 
 ### Description
 []([File:VTK_Examples_Python_Widgets_ScalarBarWidget.png])

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Follower
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Follower
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestFollower.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestFollower.png?raw=true" width="256" />
 
 ### Description
 The text is a 3D actor and is placed in 3D space, but stays right side up and facing the camera, while the cube does not.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadOBJ
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadOBJ
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadOBJ.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadOBJ.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to read a Wavefront OBJ file. The result is displayed.

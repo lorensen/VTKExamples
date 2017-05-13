@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/KeypressEvents
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/KeypressEvents
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestKeypressEvents.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestKeypressEvents.png?raw=true" width="256" />
 
 ### Description
 This example shows how to catch keypress events. For example, do something if the user presses the 's' key.

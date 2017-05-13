@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageSlice
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageSlice
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageSlice.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageSlice.png?raw=true" width="256" />
 
 **ImageSlice.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Modelling/ContourTriangulator
+[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/ContourTriangulator
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Modelling/TestContourTriangulator.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestContourTriangulator.png?raw=true" width="256" />
 
 **ContourTriangulator.cxx**
 ```c++

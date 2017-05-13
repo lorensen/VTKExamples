@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/Cutter
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/Cutter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestCutter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestCutter.png?raw=true" width="256" />
 
 **Cutter.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/ParametricSuperEllipsoidDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ParametricSuperEllipsoidDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestParametricSuperEllipsoidDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricSuperEllipsoidDemo.png?raw=true" width="256" />
 
 **ParametricSuperEllipsoidDemo.cxx**
 ```c++

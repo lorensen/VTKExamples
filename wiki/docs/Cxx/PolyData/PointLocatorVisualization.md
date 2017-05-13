@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PointLocatorVisualization
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointLocatorVisualization
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPointLocatorVisualization.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointLocatorVisualization.png?raw=true" width="256" />
 
 ### Description
 The idea of this example is to navigate levels of a uniform spatial tree (vtkPointLocator) using a slider. 

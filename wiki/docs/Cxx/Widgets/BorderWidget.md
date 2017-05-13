@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/BorderWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BorderWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestBorderWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBorderWidget.png?raw=true" width="256" />
 
 ### Description
 This example draws a border around a region selected with the mouse. Note that the default border color is white - so if you have a white background you will not see anything!

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/DeletePoint
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DeletePoint
 
 **DeletePoint.cxx**
 ```c++

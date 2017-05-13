@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ExtractPolyLinesFromPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractPolyLinesFromPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExtractPolyLinesFromPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractPolyLinesFromPolyData.png?raw=true" width="256" />
 
 ### Description
 This example uses vtkCutter to create contour lines. It processes these lines with vtkStripper to create continuous poly lines. After exiting the example with the "e" key, the lines are printed.

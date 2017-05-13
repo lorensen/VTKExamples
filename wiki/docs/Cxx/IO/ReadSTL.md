@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadSTL
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadSTL
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadSTL.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadSTL.png?raw=true" width="256" />
 
 **ReadSTL.cxx**
 ```c++

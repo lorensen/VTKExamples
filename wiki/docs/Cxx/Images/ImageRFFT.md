@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageRFFT
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageRFFT
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageRFFT.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageRFFT.png?raw=true" width="256" />
 
 **ImageRFFT.cxx**
 ```c++

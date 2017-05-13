@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/SphereTexture
+[VTKExamples](/home/)/[Python](/Python)/Visualization/SphereTexture
 
 ### Description
 []([File:VTK_Examples_Python_Visualization_SphereTexture.png])

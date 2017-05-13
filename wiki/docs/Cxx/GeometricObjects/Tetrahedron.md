@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Tetrahedron
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Tetrahedron
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestTetrahedron.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestTetrahedron.png?raw=true" width="256" />
 
 **Tetrahedron.cxx**
 ```c++

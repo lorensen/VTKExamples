@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageThreshold
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageThreshold
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageThreshold.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageThreshold.png?raw=true" width="256" />
 
 ### Description
 The image on the left is the input image and the image on the right is the thresholded version.

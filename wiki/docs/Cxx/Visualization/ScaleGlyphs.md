@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ScaleGlyphs
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ScaleGlyphs
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestScaleGlyphs.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestScaleGlyphs.png?raw=true" width="256" />
 
 **ScaleGlyphs.cxx**
 ```c++

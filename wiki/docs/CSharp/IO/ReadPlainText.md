@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadPlainText
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadPlainText
 
 ### Description
 This example takes a plain text file of coordinates and reads them into a vtkPoints, which is then put into a vtkPolyData and displayed on the screen using a vtkVertexGlyphFilter.

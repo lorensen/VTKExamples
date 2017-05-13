@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/SideBySideViewports
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/SideBySideViewports
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestSideBySideViewports.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestSideBySideViewports.png?raw=true" width="256" />
 
 ### Description
 This example splits the window into a left and right side. A sphere is drawn on the left and a cube is drawn on the right.

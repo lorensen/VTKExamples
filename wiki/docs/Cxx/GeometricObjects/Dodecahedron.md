@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Dodecahedron
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Dodecahedron
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestDodecahedron.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestDodecahedron.png?raw=true" width="256" />
 
 **Dodecahedron.cxx**
 ```c++

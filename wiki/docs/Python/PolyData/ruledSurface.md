@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/PolyData/ruledSurface
+[VTKExamples](/home/)/[Python](/Python)/PolyData/ruledSurface
 
 **ruledSurface.py**
 ```python

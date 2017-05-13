@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/PointSize
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/PointSize
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestPointSize.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestPointSize.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to change the size of an actor's points.

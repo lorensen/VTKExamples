@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadImageData
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadImageData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadImageData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadImageData.png?raw=true" width="256" />
 
 ### Description
 This example reads an image data (.vti) file.

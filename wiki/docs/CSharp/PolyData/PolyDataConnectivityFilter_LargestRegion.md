@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/PolyData/PolyDataConnectivityFilter_LargestRegion
+[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/PolyDataConnectivityFilter_LargestRegion
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_LargestRegion.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_LargestRegion.png?raw=true" width="256" />
 
 ### Description
 This example extracts the largest connected region of a mesh. Note that this is based on the number of points, not the actual area of the region.

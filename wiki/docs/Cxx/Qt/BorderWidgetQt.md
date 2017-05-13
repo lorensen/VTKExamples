@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Qt/BorderWidgetQt
+[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/BorderWidgetQt
 
 **BorderWidgetQt.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Planes
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Planes
 
 **Planes.cxx**
 ```c++

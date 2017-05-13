@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/TreeMapView
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/TreeMapView
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestTreeMapView.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestTreeMapView.png?raw=true" width="256" />
 
 ### Description
 Fix: use a much simpler tree and generate the tree in the code instead of reading files.

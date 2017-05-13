@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/NegativeIndices
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/NegativeIndices
 
 **NegativeIndices.cxx**
 ```c++

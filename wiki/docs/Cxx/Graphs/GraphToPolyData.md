@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/GraphToPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/GraphToPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestGraphToPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestGraphToPolyData.png?raw=true" width="256" />
 
 ### Description
 This example creates a simple graph and then converts it to a polydata for visualization using Paraview.

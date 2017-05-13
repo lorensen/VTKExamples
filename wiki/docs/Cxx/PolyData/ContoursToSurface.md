@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ContoursToSurface
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ContoursToSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestContoursToSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestContoursToSurface.png?raw=true" width="256" />
 
 ### Description
 This example creates a stack of 21 circles and creates a closed surface from them.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/RubberBandPick
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/RubberBandPick
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestRubberBandPick.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestRubberBandPick.png?raw=true" width="256" />
 
 ### Description
 Press 'r', then make a selection with the left mouse button.

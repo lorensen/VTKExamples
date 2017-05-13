@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/Shadows
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Shadows
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestShadows.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestShadows.png?raw=true" width="256" />
 
 **Shadows.cxx**
 ```c++

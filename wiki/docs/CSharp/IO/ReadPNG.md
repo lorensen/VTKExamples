@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadPNG
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadPNG
 
 ### Description
 This example demonstrates how to read a PNG image file.<br />

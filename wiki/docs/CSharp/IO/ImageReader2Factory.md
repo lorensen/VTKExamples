@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ImageReader2Factory
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ImageReader2Factory
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestImageReader2Factory.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestImageReader2Factory.png?raw=true" width="256" />
 
 ### Description
 This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect.<br />

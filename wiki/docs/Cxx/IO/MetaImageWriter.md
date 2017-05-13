@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/MetaImageWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/MetaImageWriter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestMetaImageWriter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestMetaImageWriter.png?raw=true" width="256" />
 
 **MetaImageWriter.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/TransformActorCollection
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TransformActorCollection
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestTransformActorCollection.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTransformActorCollection.png?raw=true" width="256" />
 
 **TransformActorCollection.cxx**
 ```c++

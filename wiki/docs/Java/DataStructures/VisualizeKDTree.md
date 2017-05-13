@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Java](Java)/DataStructures/VisualizeKDTree
+[VTKExamples](/home/)/[Java](/Java)/DataStructures/VisualizeKDTree
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestVisualizeKDTree.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestVisualizeKDTree.png?raw=true" width="256" />
 
 ### Description
 This demo shows every level of a kdTree.

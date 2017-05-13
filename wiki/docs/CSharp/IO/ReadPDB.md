@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadPDB
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadPDB
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadPDB.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPDB.png?raw=true" width="256" />
 
 ### Description
 This example reads [Protein Data Bank](http://www.pdb.org/pdb/home/home.do) files. The example expects a file in .pdb format.

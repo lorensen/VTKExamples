@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/ImplicitFunctions/ImplicitSphere
+[VTKExamples](/home/)/[CSharp](/CSharp)/ImplicitFunctions/ImplicitSphere
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImplicitFunctions/TestImplicitSphere.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestImplicitSphere.png?raw=true" width="256" />
 
 ### Description
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)<br />

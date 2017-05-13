@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/Screenshot
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Screenshot
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestScreenshot.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestScreenshot.png?raw=true" width="256" />
 
 ### Description
 This example shows how to save the window to a file (png in this case). You can combine this with the [KeypressEvents](Interaction/KeypressEvents) example to make a useful functionality.

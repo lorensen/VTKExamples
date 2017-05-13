@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/DistanceToCamera
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DistanceToCamera
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestDistanceToCamera.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDistanceToCamera.png?raw=true" width="256" />
 
 ### Description
 This example produces two arrows whose scale stays fixed with respect to the distance from the camera (i.e. as you zoom in and out). Standard spheres are drawn for comparison.

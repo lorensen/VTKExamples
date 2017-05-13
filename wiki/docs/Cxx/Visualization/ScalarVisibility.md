@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ScalarVisibility
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ScalarVisibility
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestScalarVisibility.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestScalarVisibility.png?raw=true" width="256" />
 
 **ScalarVisibility.cxx**
 ```c++

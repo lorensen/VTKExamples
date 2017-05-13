@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/OrientedArrow
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/OrientedArrow
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestOrientedArrow.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestOrientedArrow.png?raw=true" width="256" />
 
 ### Description
 This example illustrates how to create and display an arrow that passes through two points.

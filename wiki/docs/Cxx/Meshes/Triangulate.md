@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/Triangulate
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/Triangulate
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestTriangulate.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestTriangulate.png?raw=true" width="256" />
 
 **Triangulate.cxx**
 ```c++

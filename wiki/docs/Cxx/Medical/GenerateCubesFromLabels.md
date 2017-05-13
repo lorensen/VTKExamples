@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Medical/GenerateCubesFromLabels
+[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/GenerateCubesFromLabels
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Medical/TestGenerateCubesFromLabels.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Medical/TestGenerateCubesFromLabels.png?raw=true" width="256" />
 
 ### Description
 Sometimes it is helpful to view the results of a segmentation without any post processing. This example converts the point data from a labeled volume into cell data. The surfaces are displayed as polydata. If you want to created smoothed polydata models from your segmented volumes, see the example [models from labeled volume data (Discrete MarchingCubes)]]. The input volume must be in [[ MetaIO/Documentation| META format]]([VTK/Examples/Medical/Cxx/GenerateModelsFromLabels|Create).

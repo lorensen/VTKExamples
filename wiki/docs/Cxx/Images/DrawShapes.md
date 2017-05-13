@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/DrawShapes
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/DrawShapes
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestDrawShapes.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestDrawShapes.png?raw=true" width="256" />
 
 **DrawShapes.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/PolyLine
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/PolyLine
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestPolyLine.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPolyLine.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to make a line through several ordered points.<br />

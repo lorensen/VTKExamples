@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageMathematics
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageMathematics
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageMathematics.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageMathematics.png?raw=true" width="256" />
 
 **ImageMathematics.cxx**
 ```c++

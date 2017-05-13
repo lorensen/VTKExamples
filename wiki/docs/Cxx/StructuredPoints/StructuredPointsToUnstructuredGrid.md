@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredPoints/StructuredPointsToUnstructuredGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredPoints/StructuredPointsToUnstructuredGrid
 
 **StructuredPointsToUnstructuredGrid.cxx**
 ```c++

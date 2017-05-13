@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/Planes
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Planes
 
 ### Description
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)

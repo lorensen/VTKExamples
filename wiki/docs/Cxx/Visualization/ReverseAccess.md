@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ReverseAccess
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ReverseAccess
 
 **ReverseAccess.cxx**
 ```c++

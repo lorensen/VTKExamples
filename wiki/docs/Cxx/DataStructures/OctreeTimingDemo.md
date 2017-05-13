@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/OctreeTimingDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OctreeTimingDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestOctreeTimingDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestOctreeTimingDemo.png?raw=true" width="256" />
 
 ### Description
 This example runs several closest point queries on octrees with varying MaxPointsPerRegion and plots the result.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/InteractorStyleTerrain
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/InteractorStyleTerrain
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestInteractorStyleTerrain.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestInteractorStyleTerrain.png?raw=true" width="256" />
 
 **InteractorStyleTerrain.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/FindCellIntersections
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/FindCellIntersections
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestFindCellIntersections.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestFindCellIntersections.png?raw=true" width="256" />
 
 ### Description
 This example shows how to use cell locator's FindCellsAlongLine method to visualize the cells that are intersected in an unstructured grid. The example uses the data file:

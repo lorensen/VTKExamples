@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/MultipleActors
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MultipleActors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestMultipleActors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMultipleActors.png?raw=true" width="256" />
 
 ### Description
 This example creates two spheres and renders them. The idea is to show that each object needs its own mapper and actor and then multiple actors can be added to a renderer.

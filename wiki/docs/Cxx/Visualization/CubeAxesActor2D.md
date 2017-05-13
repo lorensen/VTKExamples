@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CubeAxesActor2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CubeAxesActor2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCubeAxesActor2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCubeAxesActor2D.png?raw=true" width="256" />
 
 ### Description
 For more information on how to configure this actor, see:<br>

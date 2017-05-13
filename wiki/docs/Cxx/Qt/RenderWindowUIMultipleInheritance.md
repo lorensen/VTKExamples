@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Qt/RenderWindowUIMultipleInheritance
+[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/RenderWindowUIMultipleInheritance
 
 ### Description
 <source lang="cpp">

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Hexahedron
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Hexahedron
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestHexahedron.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestHexahedron.png?raw=true" width="256" />
 
 ### Description
 This example creates eight points and creates a hexahedron from the points.

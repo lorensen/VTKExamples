@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VolumeRendering/SmartVolumeMapper
+[VTKExamples](/home/)/[Cxx](/Cxx)/VolumeRendering/SmartVolumeMapper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VolumeRendering/TestSmartVolumeMapper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VolumeRendering/TestSmartVolumeMapper.png?raw=true" width="256" />
 
 **SmartVolumeMapper.cxx**
 ```c++

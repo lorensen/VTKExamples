@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/IO/ReadMetaImage
+[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadMetaImage
 
 ### Description
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)

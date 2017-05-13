@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataConnectivityFilter_SpecifiedRegion
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataConnectivityFilter_SpecifiedRegion
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_SpecifiedRegion.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_SpecifiedRegion.png?raw=true" width="256" />
 
 ### Description
 This example creates two spheres and combines them together into one polydata. The vtkPolyDataConnectivityFilter is used to find the two spheres as they are separate regions (disconnected). If region 0 is selected, the small sphere is extracted. If region 1 is selected, the large sphere is extracted.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/InteractorStyleUser
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/InteractorStyleUser
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestInteractorStyleUser.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestInteractorStyleUser.png?raw=true" width="256" />
 
 ### Description
 This style is designed to NOT provide any default functionality. You must specify how to handle every event that you want handled.

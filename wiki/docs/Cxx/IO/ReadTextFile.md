@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadTextFile
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadTextFile
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadTextFile.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadTextFile.png?raw=true" width="256" />
 
 ### Description
 This example takes a plain text file of coordinates and reads them into a vtkPoints, which is then put into a vtkPolyData and displayed on the screen using a vtkVertexGlyphFilter.

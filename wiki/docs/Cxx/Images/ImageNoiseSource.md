@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageNoiseSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageNoiseSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageNoiseSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageNoiseSource.png?raw=true" width="256" />
 
 **ImageNoiseSource.cxx**
 ```c++

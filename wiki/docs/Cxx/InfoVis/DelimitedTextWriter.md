@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/DelimitedTextWriter
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/DelimitedTextWriter
 
 ### Description
 Is the output of

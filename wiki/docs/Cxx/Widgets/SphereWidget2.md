@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/SphereWidget2
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SphereWidget2
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestSphereWidget2.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSphereWidget2.png?raw=true" width="256" />
 
 ### Description
 The spherical coordinates of the widget's handle match the coordinates that it displays in the window.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/ParametricObjectsDemo
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/ParametricObjectsDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestParametricObjectsDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricObjectsDemo.png?raw=true" width="256" />
 
 ### Description
 ==Description==

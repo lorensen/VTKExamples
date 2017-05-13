@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/AdjacentVertexIterator
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/AdjacentVertexIterator
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestAdjacentVertexIterator.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestAdjacentVertexIterator.png?raw=true" width="256" />
 
 ### Description
 The visualization in is example is currently broken. vtkGraphLayoutView does not currently allow coloring with a vtkUnsignedCharArray.

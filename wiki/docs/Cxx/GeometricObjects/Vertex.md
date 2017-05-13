@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Vertex
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Vertex
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestVertex.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestVertex.png?raw=true" width="256" />
 
 **Vertex.cxx**
 ```c++

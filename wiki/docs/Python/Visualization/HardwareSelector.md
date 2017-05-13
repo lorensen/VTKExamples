@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/HardwareSelector
+[VTKExamples](/home/)/[Python](/Python)/Visualization/HardwareSelector
 
 **HardwareSelector.py**
 ```python

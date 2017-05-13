@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Java](Java)/IO/WritePolyData
+[VTKExamples](/home/)/[Java](/Java)/IO/WritePolyData
 
 ### Description
 In this example, we add 10 points to a polygonal data (polydata) object and write the result to a VTP file.

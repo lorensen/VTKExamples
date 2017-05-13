@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/WishList/TryDowncast
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/WishList/TryDowncast
 
 **TryDowncast.cxx**
 ```c++

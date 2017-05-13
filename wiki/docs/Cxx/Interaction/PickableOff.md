@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/PickableOff
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/PickableOff
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestPickableOff.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestPickableOff.png?raw=true" width="256" />
 
 **PickableOff.cxx**
 ```c++

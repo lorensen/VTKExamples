@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)//vtkglut
+[VTKExamples](/home/)/[Cxx](/Cxx)//vtkglut
 
 ### Description
 This page illustrates how to use the new method '''vtkRenderWindow::InitializeFromCurrentContext()''' to associate a vtkRenderWindow instance to an existing window and activated OpenGL context.

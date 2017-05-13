@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Math/HomogeneousLeastSquares
+[VTKExamples](/home/)/[Cxx](/Cxx)/Math/HomogeneousLeastSquares
 
 **HomogeneousLeastSquares.cxx**
 ```c++

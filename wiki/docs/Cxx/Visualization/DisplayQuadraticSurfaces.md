@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/DisplayQuadraticSurfaces
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DisplayQuadraticSurfaces
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestDisplayQuadraticSurfaces.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDisplayQuadraticSurfaces.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to display several types of quadratic surfaces.

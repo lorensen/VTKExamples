@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/TrackballActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/TrackballActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestTrackballActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestTrackballActor.png?raw=true" width="256" />
 
 ### Description
 This example shows how to visualize data in "trackball" mode. That is, click and drag actors is the way to interact.

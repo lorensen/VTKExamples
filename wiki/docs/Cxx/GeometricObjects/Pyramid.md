@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Pyramid
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Pyramid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestPyramid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPyramid.png?raw=true" width="256" />
 
 **Pyramid.cxx**
 ```c++

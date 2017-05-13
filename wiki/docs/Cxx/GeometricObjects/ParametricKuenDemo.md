@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/ParametricKuenDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ParametricKuenDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestParametricKuenDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricKuenDemo.png?raw=true" width="256" />
 
 **ParametricKuenDemo.cxx**
 ```c++

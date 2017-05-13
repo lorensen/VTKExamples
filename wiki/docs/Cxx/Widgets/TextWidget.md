@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/TextWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/TextWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestTextWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestTextWidget.png?raw=true" width="256" />
 
 ### Description
 :''See also: []([../../Visualization/DrawText])''

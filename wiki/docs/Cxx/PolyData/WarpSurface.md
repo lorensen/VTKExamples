@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/WarpSurface
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/WarpSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestWarpSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestWarpSurface.png?raw=true" width="256" />
 
 ### Description
 The image was produced using [this data](https://raw.githubusercontent.com/lorensen/VTKWikiExamples/master/Testing/Data/cowHead.vtp) and a scale of .1.

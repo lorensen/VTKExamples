@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Geovis/GeoAssignCoordinates
+[VTKExamples](/home/)/[Python](/Python)/Geovis/GeoAssignCoordinates
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_Geovis_GeoAssignCoordinates.png])

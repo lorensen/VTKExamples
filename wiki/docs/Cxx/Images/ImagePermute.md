@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImagePermute
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImagePermute
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImagePermute.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImagePermute.png?raw=true" width="256" />
 
 **ImagePermute.cxx**
 ```c++

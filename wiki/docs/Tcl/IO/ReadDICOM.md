@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Tcl](Tcl)/IO/ReadDICOM
+[VTKExamples](/home/)/[Tcl](/Tcl)/IO/ReadDICOM
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadDICOM.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadDICOM.png?raw=true" width="256" />
 
 **ReadDICOM.tcl**
 ```tcl

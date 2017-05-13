@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/KMeansClustering
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/KMeansClustering
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/InfoVis/TestKMeansClustering.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestKMeansClustering.png?raw=true" width="256" />
 
 ### Description
 This example clusters 3D points using the KMeans algorithm. The points are assigned to a cluster by creating an array with each point's cluster id.

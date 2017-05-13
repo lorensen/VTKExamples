@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/SimplePointsReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/SimplePointsReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestSimplePointsReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestSimplePointsReader.png?raw=true" width="256" />
 
 ### Description
 A file of XYZ coordinates is a very easy format that can be used for

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/ShareCamera
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ShareCamera
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestShareCamera.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestShareCamera.png?raw=true" width="256" />
 
 **ShareCamera.cxx**
 ```c++

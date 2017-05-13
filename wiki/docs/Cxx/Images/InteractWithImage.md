@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/InteractWithImage
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/InteractWithImage
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestInteractWithImage.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestInteractWithImage.png?raw=true" width="256" />
 
 ### Description
 This example shows how to display an image and zoom/pan/adjust brightness interactively. A picture of the [bunny](http://www.vtk.org/Wiki/Image:Bunny.jpg) is provided for the demo.

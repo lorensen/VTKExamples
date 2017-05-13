@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/NamedColors
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/NamedColors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestNamedColors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestNamedColors.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates the usage of the vtkNamedColors class. Some helper functions are also implemented.

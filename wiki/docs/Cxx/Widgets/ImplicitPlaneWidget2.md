@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/ImplicitPlaneWidget2
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/ImplicitPlaneWidget2
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestImplicitPlaneWidget2.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestImplicitPlaneWidget2.png?raw=true" width="256" />
 
 ### Description
 This example shows how to use the second generation ImplicitPlaneWidget2 to interactively define the clipping plane for a polydata. If no arguments are specified, a vtkSphereSource generates the polydata. By specifying a .vtp file, the example can operate on arbitrary polydata.

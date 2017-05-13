@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/ConstructGraph
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ConstructGraph
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestConstructGraph.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestConstructGraph.png?raw=true" width="256" />
 
 ### Description
 This example shows how to construct a simple graph.

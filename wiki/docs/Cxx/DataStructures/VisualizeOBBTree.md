@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/VisualizeOBBTree
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/VisualizeOBBTree
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestVisualizeOBBTree.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestVisualizeOBBTree.png?raw=true" width="256" />
 
 ### Description
 This example displays level of an OBBTree using a slider.

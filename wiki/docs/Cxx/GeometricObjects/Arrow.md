@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Arrow
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Arrow
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestArrow.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestArrow.png?raw=true" width="256" />
 
 **Arrow.cxx**
 ```c++

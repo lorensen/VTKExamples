@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/ExtractSurface
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/ExtractSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestExtractSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestExtractSurface.png?raw=true" width="256" />
 
 ### Description
 This example loosely follows the most excellent paper by Curless and Levoy: ["A Volumetric Method for Building Complex Models from Range Images."](https://graphics.stanford.edu/papers/volrange) First it estimates normals from the points, then creates a signed distance field, followed by surface extraction of the zero-level set of the distance field.

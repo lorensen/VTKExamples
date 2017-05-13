@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/Meshes/ExtractEdges
+[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/ExtractEdges
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestExtractEdges.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestExtractEdges.png?raw=true" width="256" />
 
 ### Description
 <p>This example shows how to extract the edges from a PolyData. In this case, we convert a sphere into a wireframe sphere. We demonstrate how to traverse the resulting edges.</p>

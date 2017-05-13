@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/Meshes/BoundaryEdges
+[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/BoundaryEdges
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestBoundaryEdges.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestBoundaryEdges.png?raw=true" width="256" />
 
 ### Description
 <p>This filter will extract the boundary edges of a mesh. The original mesh is shown with the feature edges shown in red. </p>

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/FrameRate
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/FrameRate
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestFrameRate.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestFrameRate.png?raw=true" width="256" />
 
 **FrameRate.cxx**
 ```c++

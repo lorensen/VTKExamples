@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Modelling/MarchingCubes
+[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/MarchingCubes
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Modelling/TestMarchingCubes.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestMarchingCubes.png?raw=true" width="256" />
 
 ### Description
 Creates a surface from a volume using Marching Cubes.

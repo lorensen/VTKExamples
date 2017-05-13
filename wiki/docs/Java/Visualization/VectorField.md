@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Java](Java)/Visualization/VectorField
+[VTKExamples](/home/)/[Java](/Java)/Visualization/VectorField
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestVectorField.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVectorField.png?raw=true" width="256" />
 
 **VectorField.java**
 ```java

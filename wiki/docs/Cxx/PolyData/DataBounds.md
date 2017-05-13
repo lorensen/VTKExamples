@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/DataBounds
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DataBounds
 
 ### Description
 This examples gets the bounds of a dataset. Note that Update() must be applied to create the output of the filter.

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Qt/RenderWindowUISingleInheritance
+[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/RenderWindowUISingleInheritance
 
 ### Description
 <source lang="cpp">

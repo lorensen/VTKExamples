@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Plotting/BoxChart
+[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/BoxChart
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestBoxChart.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestBoxChart.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to generate a [box plot](https://en.wikipedia.org/wiki/Box_plot).

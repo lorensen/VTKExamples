@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/PointOccupancy
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/PointOccupancy
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestPointOccupancy.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestPointOccupancy.png?raw=true" width="256" />
 
 ### Description
 '''NOTE: The classes used in this example require vtk 7.1 or later.'''

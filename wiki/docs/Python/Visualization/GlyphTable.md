@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/GlyphTable
+[VTKExamples](/home/)/[Python](/Python)/Visualization/GlyphTable
 
 **GlyphTable.py**
 ```python

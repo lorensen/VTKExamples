@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/Decimation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/Decimation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestDecimation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestDecimation.png?raw=true" width="256" />
 
 ### Description
 This example decimates a mesh. The SetTargetReduction function specifies how many triangles should reduced by specifying the percentage (0,1) of triangles to be removed. For example, if the mesh contains 100 triangles and SetTargetReduction(.90) is called, after the decimation there will be approximately 10 triangles - a 90% reduction.

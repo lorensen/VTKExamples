@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/ClampGlyphSizes
+[VTKExamples](/home/)/[Python](/Python)/Visualization/ClampGlyphSizes
 
 **ClampGlyphSizes.py**
 ```python

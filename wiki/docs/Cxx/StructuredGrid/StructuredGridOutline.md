@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredGrid/StructuredGridOutline
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/StructuredGridOutline
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/StructuredGrid/TestStructuredGridOutline.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestStructuredGridOutline.png?raw=true" width="256" />
 
 ### Description
 Visualize the outline of a structured grid.

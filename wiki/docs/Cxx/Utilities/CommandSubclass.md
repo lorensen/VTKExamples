@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/CommandSubclass
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/CommandSubclass
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestCommandSubclass.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestCommandSubclass.png?raw=true" width="256" />
 
 **CommandSubclass.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/PointPicker
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/PointPicker
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestPointPicker.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestPointPicker.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to get the closest point in the data set to the mouse click.

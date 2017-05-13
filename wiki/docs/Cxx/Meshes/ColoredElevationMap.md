@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/ColoredElevationMap
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/ColoredElevationMap
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestColoredElevationMap.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestColoredElevationMap.png?raw=true" width="256" />
 
 **ColoredElevationMap.cxx**
 ```c++

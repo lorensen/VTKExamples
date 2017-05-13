@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Java](Java)/Visualization/AnimDataCone
+[VTKExamples](/home/)/[Java](/Java)/Visualization/AnimDataCone
 
 **AnimDataCone.java**
 ```java

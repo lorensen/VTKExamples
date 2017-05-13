@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/BoxWidget2
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BoxWidget2
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestBoxWidget2.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBoxWidget2.png?raw=true" width="256" />
 
 ### Description
 This example uses a {{class|vtkBoxWidget2}} to manipulate an actor. The widget only contains the interaction logic; the actual box is drawn by the accompanying {{class|vtkBoxRepresentation}}.

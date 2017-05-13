@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/DownsamplePointCloud
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DownsamplePointCloud
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestDownsamplePointCloud.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDownsamplePointCloud.png?raw=true" width="256" />
 
 ### Description
 This example downsamples a point cloud by specifying the minimum distance two points can be from each other. The filter will delete points so that this criterion is met.

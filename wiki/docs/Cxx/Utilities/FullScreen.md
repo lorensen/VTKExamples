@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/FullScreen
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/FullScreen
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestFullScreen.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestFullScreen.png?raw=true" width="256" />
 
 **FullScreen.cxx**
 ```c++

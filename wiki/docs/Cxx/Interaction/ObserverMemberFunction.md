@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/ObserverMemberFunction
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ObserverMemberFunction
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestObserverMemberFunction.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestObserverMemberFunction.png?raw=true" width="256" />
 
 ### Description
 You must use the git version of VTK from at least 10/11/2010 to use this functionality.

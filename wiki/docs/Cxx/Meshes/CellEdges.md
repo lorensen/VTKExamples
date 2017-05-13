@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/CellEdges
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/CellEdges
 
 **CellEdges.cxx**
 ```c++

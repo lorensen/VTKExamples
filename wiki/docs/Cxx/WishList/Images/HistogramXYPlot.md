@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/WishList/Images/HistogramXYPlot
+[VTKExamples](/home/)/[Cxx](/Cxx)/WishList/Images/HistogramXYPlot
 
 ### Description
 This example works but there is an issue with vtkImageAccumulate. 

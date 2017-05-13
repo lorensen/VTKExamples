@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/TensorGlyph
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TensorGlyph
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestTensorGlyph.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTensorGlyph.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to apply a rotation+scaling matrix to each point in a data set. We use a cube as the glyph so that simple rotations are easy to interpret.

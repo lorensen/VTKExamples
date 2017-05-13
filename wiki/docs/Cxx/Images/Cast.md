@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/Cast
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Cast
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestCast.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCast.png?raw=true" width="256" />
 
 ### Description
 Cast an image to a different type.

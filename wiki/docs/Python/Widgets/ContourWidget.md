@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Widgets/ContourWidget
+[VTKExamples](/home/)/[Python](/Python)/Widgets/ContourWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestContourWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_Widgets_ContourWidget.png])

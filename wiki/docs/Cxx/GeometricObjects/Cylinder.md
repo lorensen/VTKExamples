@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Cylinder
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Cylinder
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestCylinder.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestCylinder.png?raw=true" width="256" />
 
 ### Description
 This example displays a cylinder on the screen.

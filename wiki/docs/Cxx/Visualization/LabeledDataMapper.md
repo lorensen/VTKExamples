@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/LabeledDataMapper
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LabeledDataMapper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestLabeledDataMapper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLabeledDataMapper.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to display the point ID at each point.

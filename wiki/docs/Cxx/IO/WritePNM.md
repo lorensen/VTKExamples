@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/WritePNM
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WritePNM
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestWritePNM.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWritePNM.png?raw=true" width="256" />
 
 **WritePNM.cxx**
 ```c++

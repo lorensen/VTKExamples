@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CloseWindow
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CloseWindow
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCloseWindow.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCloseWindow.png?raw=true" width="256" />
 
 **CloseWindow.cxx**
 ```c++

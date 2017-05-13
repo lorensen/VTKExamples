@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/StyleSwitch
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/StyleSwitch
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestStyleSwitch.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestStyleSwitch.png?raw=true" width="256" />
 
 ### Description
 The class vtkInteractorStyleSwitch allows handles interactively switching between four interactor styles -- joystick actor, joystick camera, trackball actor, and trackball camera. Type 'j' or 't' to select joystick or trackball, and type 'c' or 'a' to select camera or actor. The default interactor style is joystick camera.

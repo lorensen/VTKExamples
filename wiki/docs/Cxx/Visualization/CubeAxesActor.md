@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CubeAxesActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CubeAxesActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCubeAxesActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCubeAxesActor.png?raw=true" width="256" />
 
 **CubeAxesActor.cxx**
 ```c++

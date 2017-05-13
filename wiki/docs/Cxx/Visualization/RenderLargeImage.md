@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/RenderLargeImage
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/RenderLargeImage
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestRenderLargeImage.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestRenderLargeImage.png?raw=true" width="256" />
 
 ### Description
 This example renders a high resolution image. The image can be much larger than the window on the screen. It is useful if you need an image for a large poster, or you can down sample the image to produce a high quality anti-aliased image.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/Animation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Animation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestAnimation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestAnimation.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to create a simple animation. A timer is used to move a sphere across a scene.

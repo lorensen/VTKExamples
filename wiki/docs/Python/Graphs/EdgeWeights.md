@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Graphs/EdgeWeights
+[VTKExamples](/home/)/[Python](/Python)/Graphs/EdgeWeights
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestEdgeWeights.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestEdgeWeights.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_Graphs_EdgeWeights.png])

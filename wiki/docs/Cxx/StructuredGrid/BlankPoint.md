@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredGrid/BlankPoint
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/BlankPoint
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/StructuredGrid/TestBlankPoint.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestBlankPoint.png?raw=true" width="256" />
 
 **BlankPoint.cxx**
 ```c++

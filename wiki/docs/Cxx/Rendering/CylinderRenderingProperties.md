@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Rendering/CylinderRenderingProperties
+[VTKExamples](/home/)/[Cxx](/Cxx)/Rendering/CylinderRenderingProperties
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Rendering/TestCylinderRenderingProperties.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Rendering/TestCylinderRenderingProperties.png?raw=true" width="256" />
 
 This example creates a minimal visualization program, demonstrating VTK's basic rendering and pipeline creation.
 See also the [Java](Java), [Python](Python) and [Tcl](Tcl) versions of this example.

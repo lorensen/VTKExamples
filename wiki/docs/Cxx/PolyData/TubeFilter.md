@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/TubeFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TubeFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestTubeFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTubeFilter.png?raw=true" width="256" />
 
 ### Description
 This example creates a tube around a line. This is helpful because when you zoom the camera, the thickness of a line remains constant, while the thickness of a tube varies.

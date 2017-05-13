@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/TextureMapQuad
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TextureMapQuad
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestTextureMapQuad.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTextureMapQuad.png?raw=true" width="256" />
 
 ### Description
 This example defines 4 points (coplanar) and textures them using the input image.

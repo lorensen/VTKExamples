@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/TriangleSolidColor
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TriangleSolidColor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestTriangleSolidColor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTriangleSolidColor.png?raw=true" width="256" />
 
 **TriangleSolidColor.cxx**
 ```c++

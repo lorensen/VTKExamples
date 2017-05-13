@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/Sphere
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Sphere
 
 **Sphere.py**
 ```python

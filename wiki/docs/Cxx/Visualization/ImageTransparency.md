@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ImageTransparency
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ImageTransparency
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestImageTransparency.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestImageTransparency.png?raw=true" width="256" />
 
 ### Description
 :''See also: [and [[../../Images/ImageStencil]]([../../Images/Transparency]])''

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/WritePLY
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WritePLY
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestWritePLY.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWritePLY.png?raw=true" width="256" />
 
 ### Description
 Note: Unlike vtkPolyDataXMLWriter and most other VTK writers, to write colors to the .ply file you must specify to the vtkPLYWriter:

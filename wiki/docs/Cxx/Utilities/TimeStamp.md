@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/TimeStamp
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/TimeStamp
 
 **TimeStamp.cxx**
 ```c++

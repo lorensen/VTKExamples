@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/RTAnalyticSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/RTAnalyticSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestRTAnalyticSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestRTAnalyticSource.png?raw=true" width="256" />
 
 **RTAnalyticSource.cxx**
 ```c++

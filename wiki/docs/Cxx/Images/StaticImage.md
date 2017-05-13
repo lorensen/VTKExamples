@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/StaticImage
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/StaticImage
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestStaticImage.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestStaticImage.png?raw=true" width="256" />
 
 ### Description
 This example displays an image in a non-interactable window.

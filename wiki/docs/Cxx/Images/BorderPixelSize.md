@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/BorderPixelSize
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/BorderPixelSize
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestBorderPixelSize.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestBorderPixelSize.png?raw=true" width="256" />
 
 **BorderPixelSize.cxx**
 ```c++

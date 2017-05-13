@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ImageMapper
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ImageMapper
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestImageMapper.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestImageMapper.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to display an image in 2D. The size and position are in screen coordinates.

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/ProgrammableGlyphs
+[VTKExamples](/home/)/[Python](/Python)/Visualization/ProgrammableGlyphs
 
 ### Description
 []([File:VTK_Examples_Python_Visualization_ProgGlyph.png])

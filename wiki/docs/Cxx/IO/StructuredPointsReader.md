@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/StructuredPointsReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/StructuredPointsReader
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestStructuredPointsReader.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestStructuredPointsReader.png?raw=true" width="256" />
 
 ### Description
 An example input file can be found at <VTKData>/Data/ironProt.vtk.

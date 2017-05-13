@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/WindowTitle
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/WindowTitle
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestWindowTitle.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestWindowTitle.png?raw=true" width="256" />
 
 ### Description
 This example shows how to change the title of the window.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ColorAnActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ColorAnActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestColorAnActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestColorAnActor.png?raw=true" width="256" />
 
 ### Description
 This example creates a red sphere.

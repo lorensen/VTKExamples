@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/ProgrammableFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ProgrammableFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestProgrammableFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestProgrammableFilter.png?raw=true" width="256" />
 
 **ProgrammableFilter.cxx**
 ```c++

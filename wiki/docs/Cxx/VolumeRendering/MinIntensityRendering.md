@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VolumeRendering/MinIntensityRendering
+[VTKExamples](/home/)/[Cxx](/Cxx)/VolumeRendering/MinIntensityRendering
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VolumeRendering/TestMinIntensityRendering.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VolumeRendering/TestMinIntensityRendering.png?raw=true" width="256" />
 
 **MinIntensityRendering.cxx**
 ```c++

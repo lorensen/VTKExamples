@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/OrientedCylinder
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/OrientedCylinder
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestOrientedCylinder.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestOrientedCylinder.png?raw=true" width="256" />
 
 ### Description
 This example illustrates how to create and display a cylinder that passes through two points.

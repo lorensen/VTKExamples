@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageContinuousDilate3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageContinuousDilate3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageContinuousDilate3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageContinuousDilate3D.png?raw=true" width="256" />
 
 **ImageContinuousDilate3D.cxx**
 ```c++

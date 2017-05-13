@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageDifference
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageDifference
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageDifference.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageDifference.png?raw=true" width="256" />
 
 ### Description
 This example makes a large square and a smaller square and subtracts them, leaving the outline of a square.

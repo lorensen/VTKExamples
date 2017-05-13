@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/PolyData/BooleanOperationPolyDataFilter
+[VTKExamples](/home/)/[Python](/Python)/PolyData/BooleanOperationPolyDataFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png?raw=true" width="256" />
 
 ### Description
 Computes the intersection of two spheres

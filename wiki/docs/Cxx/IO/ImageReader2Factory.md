@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ImageReader2Factory
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ImageReader2Factory
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestImageReader2Factory.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestImageReader2Factory.png?raw=true" width="256" />
 
 **ImageReader2Factory.cxx**
 ```c++

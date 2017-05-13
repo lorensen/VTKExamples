@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/Interpolation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Interpolation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestInterpolation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestInterpolation.png?raw=true" width="256" />
 
 **Interpolation.cxx**
 ```c++

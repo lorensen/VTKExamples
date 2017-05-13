@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/MergeSelections
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MergeSelections
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestMergeSelections.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestMergeSelections.png?raw=true" width="256" />
 
 ### Description
 * Fixed by Mirko Heuegger

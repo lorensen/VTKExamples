@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/ColorVertexLabels
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ColorVertexLabels
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestColorVertexLabels.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestColorVertexLabels.png?raw=true" width="256" />
 
 **ColorVertexLabels.cxx**
 ```c++

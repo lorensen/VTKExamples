@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Math/MatrixInverse
+[VTKExamples](/home/)/[Cxx](/Cxx)/Math/MatrixInverse
 
 **MatrixInverse.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Demos/VisualDebugging
+[VTKExamples](/home/)/[Cxx](/Cxx)/Demos/VisualDebugging
 
 **VisualDebugging.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Cell3DDemonstration
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Cell3DDemonstration
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestCell3DDemonstration.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestCell3DDemonstration.png?raw=true" width="256" />
 
 ### Description
 This is a demonstration of how to construct and display geometric objects using the classes derived from vtkCell3D. For each object we specify the points and cell Ids. 

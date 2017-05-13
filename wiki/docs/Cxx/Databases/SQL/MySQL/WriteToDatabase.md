@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Databases/SQL/MySQL/WriteToDatabase
+[VTKExamples](/home/)/[Cxx](/Cxx)/Databases/SQL/MySQL/WriteToDatabase
 
 **WriteToDatabase.cxx**
 ```c++

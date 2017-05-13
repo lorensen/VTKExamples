@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//FrustumSource
+[VTKExamples](/home/)/[Python](/Python)//FrustumSource
 
 ### Description
 This is a Python version of the C++ example for viewing a Frustum

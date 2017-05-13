@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/TextureMapPlane
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TextureMapPlane
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestTextureMapPlane.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTextureMapPlane.png?raw=true" width="256" />
 
 ### Description
 This example reads a jpg image file and uses it to texture map a plane.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Lighting/LightActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Lighting/LightActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Lighting/TestLightActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Lighting/TestLightActor.png?raw=true" width="256" />
 
 **LightActor.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/OctreeClosestPoint
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OctreeClosestPoint
 
 **OctreeClosestPoint.cxx**
 ```c++

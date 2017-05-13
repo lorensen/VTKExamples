@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Picking/AreaPicking
+[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/AreaPicking
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Picking/TestAreaPicking.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestAreaPicking.png?raw=true" width="256" />
 
 ### Description
 This example creates 3 points+vertices. Currently, the address of the picked prop is 0 (this is not correct). A red bounding box is drawn around every picked prop.

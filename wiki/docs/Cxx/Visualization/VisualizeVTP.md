@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/VisualizeVTP
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/VisualizeVTP
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestVisualizeVTP.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVisualizeVTP.png?raw=true" width="256" />
 
 ### Description
 This example shows how to load a vtp file and render it in an interactive window. The example accepts a .vtp file on the command line.

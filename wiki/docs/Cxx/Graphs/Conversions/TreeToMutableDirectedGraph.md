@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/Conversions/TreeToMutableDirectedGraph
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/Conversions/TreeToMutableDirectedGraph
 
 **TreeToMutableDirectedGraph.cxx**
 ```c++

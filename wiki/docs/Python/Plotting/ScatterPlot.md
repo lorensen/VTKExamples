@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Plotting/ScatterPlot
+[VTKExamples](/home/)/[Python](/Python)/Plotting/ScatterPlot
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Plotting/TestScatterPlot.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestScatterPlot.png?raw=true" width="256" />
 
 ### Description
 []([File:VTK_Examples_Python_Plotting_ScatterPlot.png])

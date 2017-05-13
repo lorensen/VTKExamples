@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadDICOMSeries
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadDICOMSeries
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadDICOMSeries.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadDICOMSeries.png?raw=true" width="256" />
 
 ### Description
 This example demonstates how to read a series of DICOM images and how to scroll with the mousewheel or the up/down keys through all slices.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/TriangulateTerrainMap
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/TriangulateTerrainMap
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestTriangulateTerrainMap.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestTriangulateTerrainMap.png?raw=true" width="256" />
 
 ### Description
 This example generates heights (z value) on a 10x10 grid (a terrain map) and triangulates the points.

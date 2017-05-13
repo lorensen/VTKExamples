@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[CSharp](CSharp)/GeometricObjects/Frustum
+[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Frustum
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestFrustum.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestFrustum.png?raw=true" width="256" />
 
 ### Description
 This example gets the frustum from a camera and displays it on the screen. <br />

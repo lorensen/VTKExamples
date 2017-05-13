@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageSinusoidSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageSinusoidSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageSinusoidSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageSinusoidSource.png?raw=true" width="256" />
 
 **ImageSinusoidSource.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/HedgeHog
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/HedgeHog
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestHedgeHog.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestHedgeHog.png?raw=true" width="256" />
 
 **HedgeHog.cxx**
 ```c++

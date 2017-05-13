@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/ClipClosedSurface
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/ClipClosedSurface
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestClipClosedSurface.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestClipClosedSurface.png?raw=true" width="256" />
 
 **ClipClosedSurface.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//IterativeClosestPoints
+[VTKExamples](/home/)/[Python](/Python)//IterativeClosestPoints
 
 **IterativeClosestPoints.py**
 ```python

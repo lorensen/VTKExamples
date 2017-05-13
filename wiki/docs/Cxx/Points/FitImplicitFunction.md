@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/FitImplicitFunction
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/FitImplicitFunction
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestFitImplicitFunction.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestFitImplicitFunction.png?raw=true" width="256" />
 
 **FitImplicitFunction.cxx**
 ```c++

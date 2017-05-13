@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//TriangleColoredPoints
+[VTKExamples](/home/)/[Python](/Python)//TriangleColoredPoints
 
 **TriangleColoredPoints.py**
 ```python

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/VertexSize
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/VertexSize
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestVertexSize.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestVertexSize.png?raw=true" width="256" />
 
 ### Description
 Change the size of all vertices.

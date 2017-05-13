@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/BoxClipUnstructuredGrid
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BoxClipUnstructuredGrid
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestBoxClipUnstructuredGrid.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBoxClipUnstructuredGrid.png?raw=true" width="256" />
 
 ### Description
 This example uses the data [hexa.vtk](https://gitlab.kitware.com/lorensen/VTKExamples/raw/master/Testing/Data/hexa.vtk)

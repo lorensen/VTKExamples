@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ScalarBarActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ScalarBarActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestScalarBarActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestScalarBarActor.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to make a color bar to that reflects the range 

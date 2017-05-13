@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Python](Python)/Interaction/MouseEventsObserver
+[VTKExamples](/home/)/[Python](/Python)/Interaction/MouseEventsObserver
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestMouseEventsObserver.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMouseEventsObserver.png?raw=true" width="256" />
 
 ### Description
 This example directly changes the observers of the vtkInteractor, which is an easy way to disable events or to add some simple callback functions. For a more general framework using vtkInteractorStyle see []([VTK/Examples/Python/Interaction/MouseEvents]). This specific example just disables the left mouse button of the vtkInteractorStyleTrackballCamera and prints a simple message instead.

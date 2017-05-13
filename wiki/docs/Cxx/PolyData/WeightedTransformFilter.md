@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/WeightedTransformFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/WeightedTransformFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestWeightedTransformFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestWeightedTransformFilter.png?raw=true" width="256" />
 
 **WeightedTransformFilter.cxx**
 ```c++

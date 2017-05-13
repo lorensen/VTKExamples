@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/WorldPointPicker
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/WorldPointPicker
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestWorldPointPicker.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestWorldPointPicker.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to get the position of the point in 3D that is exactly behind the mouse click. This point is not likely a point that exists in the data set - i.e. it can be a point on the interior of a cell.

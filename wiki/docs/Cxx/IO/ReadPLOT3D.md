@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/ReadPLOT3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadPLOT3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestReadPLOT3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPLOT3D.png?raw=true" width="256" />
 
 **ReadPLOT3D.cxx**
 ```c++

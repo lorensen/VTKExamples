@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/GreedyTerrainDecimation
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/GreedyTerrainDecimation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestGreedyTerrainDecimation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestGreedyTerrainDecimation.png?raw=true" width="256" />
 
 **GreedyTerrainDecimation.cxx**
 ```c++

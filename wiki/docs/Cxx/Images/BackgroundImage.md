@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/BackgroundImage
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/BackgroundImage
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestBackgroundImage.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestBackgroundImage.png?raw=true" width="256" />
 
 ### Description
 This example displays an image as the "background" of a scene, and renders a superquadric in front of it.

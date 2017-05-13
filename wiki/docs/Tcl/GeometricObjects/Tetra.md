@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Tcl](Tcl)/GeometricObjects/Tetra
+[VTKExamples](/home/)/[Tcl](/Tcl)/GeometricObjects/Tetra
 
 **Tetra.tcl**
 ```tcl

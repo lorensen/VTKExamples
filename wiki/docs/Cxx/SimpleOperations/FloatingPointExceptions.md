@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/SimpleOperations/FloatingPointExceptions
+[VTKExamples](/home/)/[Cxx](/Cxx)/SimpleOperations/FloatingPointExceptions
 
 ### Description
 This example makes the illegal division by zero produce an error:

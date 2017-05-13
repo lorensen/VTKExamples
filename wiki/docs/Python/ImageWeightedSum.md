@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//ImageWeightedSum
+[VTKExamples](/home/)/[Python](/Python)//ImageWeightedSum
 
 ### Description
 []([File:VTK_Examples_Baseline_ImageData_TestImageWeightedSum.png])

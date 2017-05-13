@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/OBBTreeExtractCells
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OBBTreeExtractCells
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestOBBTreeExtractCells.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestOBBTreeExtractCells.png?raw=true" width="256" />
 
 **OBBTreeExtractCells.cxx**
 ```c++

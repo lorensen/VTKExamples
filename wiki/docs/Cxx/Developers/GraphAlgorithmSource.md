@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Developers/GraphAlgorithmSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/GraphAlgorithmSource
 
 ### Description
 This example produces a vtkGraph as output.

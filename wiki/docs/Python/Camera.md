@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//Camera
+[VTKExamples](/home/)/[Python](/Python)//Camera
 
 **Camera.py**
 ```python

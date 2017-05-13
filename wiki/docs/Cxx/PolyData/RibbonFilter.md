@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/RibbonFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/RibbonFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestRibbonFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestRibbonFilter.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to draw a flat surface (a ribbon) along a line.

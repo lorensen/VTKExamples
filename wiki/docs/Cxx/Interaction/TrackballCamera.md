@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/TrackballCamera
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/TrackballCamera
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestTrackballCamera.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestTrackballCamera.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates the trackball camera mode. When the mouse is clicked and dragged from anywhere in the window, the camera is modified.

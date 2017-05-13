@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageEllipsoidSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageEllipsoidSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageEllipsoidSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageEllipsoidSource.png?raw=true" width="256" />
 
 **ImageEllipsoidSource.cxx**
 ```c++

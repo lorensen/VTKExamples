@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/CombinePolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/CombinePolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestCombinePolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestCombinePolyData.png?raw=true" width="256" />
 
 ### Description
 This example reads two .vtp files (or produces them if not specified as command line arguments), combines them, and displays the result to the screen.

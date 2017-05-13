@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/SurfaceFromUnorganizedPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/SurfaceFromUnorganizedPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestSurfaceFromUnorganizedPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestSurfaceFromUnorganizedPoints.png?raw=true" width="256" />
 
 ### Description
 This example creates points on a sphere and then finds the surface through the points. If an optional polydata file is provided, the example operates on the points in that polydata.

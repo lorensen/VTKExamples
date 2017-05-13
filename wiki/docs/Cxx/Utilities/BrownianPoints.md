@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/BrownianPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/BrownianPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestBrownianPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestBrownianPoints.png?raw=true" width="256" />
 
 **BrownianPoints.cxx**
 ```c++

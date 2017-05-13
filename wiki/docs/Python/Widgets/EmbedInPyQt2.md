@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Widgets/EmbedInPyQt2
+[VTKExamples](/home/)/[Python](/Python)/Widgets/EmbedInPyQt2
 
 ### Description
 Another example on how to embed VTK in PyQT, with a QVTKRenderWindowInteractor

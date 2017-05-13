@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/VisualizeGraph
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/VisualizeGraph
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestVisualizeGraph.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestVisualizeGraph.png?raw=true" width="256" />
 
 ### Description
 This example shows how to construct a graph and visualize it. You can select edges and vertices with the mouse.

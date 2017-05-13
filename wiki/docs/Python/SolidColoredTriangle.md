@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//SolidColoredTriangle
+[VTKExamples](/home/)/[Python](/Python)//SolidColoredTriangle
 
 **SolidColoredTriangle.py**
 ```python

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/GenericDataObjectReader
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/GenericDataObjectReader
 
 **GenericDataObjectReader.cxx**
 ```c++

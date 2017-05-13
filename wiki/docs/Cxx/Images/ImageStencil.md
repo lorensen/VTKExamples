@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageStencil
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageStencil
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageStencil.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageStencil.png?raw=true" width="256" />
 
 ### Description
 This example creates a red image and a green image. It creates a mask that is half on and half off. It then combines the images according to the mask using an ImageStencil.

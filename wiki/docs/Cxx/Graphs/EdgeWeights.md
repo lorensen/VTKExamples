@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/EdgeWeights
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/EdgeWeights
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestEdgeWeights.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestEdgeWeights.png?raw=true" width="256" />
 
 **EdgeWeights.cxx**
 ```c++

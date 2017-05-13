@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ExtractSelectionOriginalId
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractSelectionOriginalId
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestExtractSelectionOriginalId.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractSelectionOriginalId.png?raw=true" width="256" />
 
 **ExtractSelectionOriginalId.cxx**
 ```c++

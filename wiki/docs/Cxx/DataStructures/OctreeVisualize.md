@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/DataStructures/OctreeVisualize
+[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OctreeVisualize
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/DataStructures/TestOctreeVisualize.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestOctreeVisualize.png?raw=true" width="256" />
 
 **OctreeVisualize.cxx**
 ```c++

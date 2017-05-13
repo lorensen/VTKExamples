@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//DistanceBetweenPoints
+[VTKExamples](/home/)/[Python](/Python)//DistanceBetweenPoints
 
 **DistanceBetweenPoints.py**
 ```python

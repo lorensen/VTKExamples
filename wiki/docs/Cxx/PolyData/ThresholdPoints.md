@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ThresholdPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ThresholdPoints
 
 **ThresholdPoints.cxx**
 ```c++

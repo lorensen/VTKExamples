@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/TransformPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/TransformPolyData
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestTransformPolyData.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestTransformPolyData.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to apply a transform to a data set. It uses {{class|vtkTransformPolyDataFilter}}, but it can be replaced with {{class|vtkTransformFilter}} for different types of data sets, including {{class|vtkUnstructuredGrid}} and {{class|vtkStructuredGrid}}. ({{class|vtkTransformFilter}} will work with {{class|vtkPolyData}}, too).

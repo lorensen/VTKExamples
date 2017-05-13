@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageToStructuredPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageToStructuredPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageToStructuredPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageToStructuredPoints.png?raw=true" width="256" />
 
 **ImageToStructuredPoints.cxx**
 ```c++

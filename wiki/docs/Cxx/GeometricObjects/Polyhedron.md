@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/Polyhedron
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Polyhedron
 
 **Polyhedron.cxx**
 ```c++

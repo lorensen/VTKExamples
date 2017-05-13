@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/ConnectivityFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ConnectivityFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestConnectivityFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestConnectivityFilter.png?raw=true" width="256" />
 
 **ConnectivityFilter.cxx**
 ```c++

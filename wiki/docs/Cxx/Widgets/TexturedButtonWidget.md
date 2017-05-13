@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/TexturedButtonWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/TexturedButtonWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestTexturedButtonWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestTexturedButtonWidget.png?raw=true" width="256" />
 
 ### Description
 This example creates a textured 2D button. The button is placed in the upper right of the display.

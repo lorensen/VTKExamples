@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/IndividualVRML
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/IndividualVRML
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/IO/TestIndividualVRML.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestIndividualVRML.png?raw=true" width="256" />
 
 ### Description
 This example shows how to obtain each object of a scene and get it's initial transformation.

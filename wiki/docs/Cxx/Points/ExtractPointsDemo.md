@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/ExtractPointsDemo
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/ExtractPointsDemo
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestExtractPointsDemo.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestExtractPointsDemo.png?raw=true" width="256" />
 
 ### Description
 Demonstrates point extraction from four implicit functions: sphere, cone, cylinder and superquadric.

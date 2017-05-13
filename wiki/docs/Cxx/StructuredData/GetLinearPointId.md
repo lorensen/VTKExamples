@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredData/GetLinearPointId
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredData/GetLinearPointId
 
 **GetLinearPointId.cxx**
 ```c++

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageContinuousErode3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageContinuousErode3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageContinuousErode3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageContinuousErode3D.png?raw=true" width="256" />
 
 **ImageContinuousErode3D.cxx**
 ```c++

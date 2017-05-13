@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CursorShape
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CursorShape
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCursorShape.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCursorShape.png?raw=true" width="256" />
 
 **CursorShape.cxx**
 ```c++

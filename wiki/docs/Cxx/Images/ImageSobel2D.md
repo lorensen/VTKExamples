@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageSobel2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageSobel2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageSobel2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageSobel2D.png?raw=true" width="256" />
 
 **ImageSobel2D.cxx**
 ```c++

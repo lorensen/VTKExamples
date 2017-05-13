@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/TubesFromSplines
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/TubesFromSplines
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestTubesFromSplines.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestTubesFromSplines.png?raw=true" width="256" />
 
 ### Description
 This example shows how to interpolate a set of points and generate tubes around the resulting polyline. Scalars associated with the points are also interpolated and used to vary the radius of the tube.

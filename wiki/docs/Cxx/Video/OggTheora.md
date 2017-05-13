@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Video/OggTheora
+[VTKExamples](/home/)/[Cxx](/Cxx)/Video/OggTheora
 
 ### Description
 can't find lvtkoggtheora

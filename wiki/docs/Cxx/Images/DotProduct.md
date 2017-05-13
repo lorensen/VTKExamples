@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/DotProduct
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/DotProduct
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestDotProduct.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestDotProduct.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to take the pixel-wise dot product of two vector images. The output is a scalar image.

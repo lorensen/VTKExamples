@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Java](Java)/ImplicitFunctions/ImplicitSphere
+[VTKExamples](/home/)/[Java](/Java)/ImplicitFunctions/ImplicitSphere
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImplicitFunctions/TestImplicitSphere.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestImplicitSphere.png?raw=true" width="256" />
 
 ### Description
 This example creates a polygonal model of two spheres and 3 tubes, and then renders it to

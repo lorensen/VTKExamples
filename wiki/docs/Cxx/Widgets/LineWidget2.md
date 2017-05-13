@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/LineWidget2
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/LineWidget2
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestLineWidget2.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestLineWidget2.png?raw=true" width="256" />
 
 **LineWidget2.cxx**
 ```c++

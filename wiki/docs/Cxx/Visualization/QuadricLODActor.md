@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/QuadricLODActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/QuadricLODActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestQuadricLODActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestQuadricLODActor.png?raw=true" width="256" />
 
 ### Description
 If you have a fast graphics card you may not see a difference with the sphere model.

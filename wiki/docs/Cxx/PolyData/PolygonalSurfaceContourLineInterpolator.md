@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolygonalSurfaceContourLineInterpolator
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolygonalSurfaceContourLineInterpolator
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPolygonalSurfaceContourLineInterpolator.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolygonalSurfaceContourLineInterpolator.png?raw=true" width="256" />
 
 **PolygonalSurfaceContourLineInterpolator.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/AlignFrames
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/AlignFrames
 
 **AlignFrames.cxx**
 ```c++

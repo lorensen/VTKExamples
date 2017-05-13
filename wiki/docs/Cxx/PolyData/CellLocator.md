@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/CellLocator
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellLocator
 
 ### Description
 This example creates a sphere and then finds the closest point on the sphere to a test point.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/FitSplineToCutterOutput
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/FitSplineToCutterOutput
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestFitSplineToCutterOutput.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestFitSplineToCutterOutput.png?raw=true" width="256" />
 
 ### Description
 This examples cuts a polydata and fits a spline to the resulting polylines. The cut lines are passed through vtkStripper to make them into connected polylines. The lines are passed through vtkTubeFilter to improve the visualization.

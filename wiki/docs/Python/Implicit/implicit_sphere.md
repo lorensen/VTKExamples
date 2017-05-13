@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Implicit/implicit_sphere
+[VTKExamples](/home/)/[Python](/Python)/Implicit/implicit_sphere
 
 ### Description
 []([File:python_examples_implicit_sphere.png])

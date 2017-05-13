@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Meshes/QuadricDecimation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/QuadricDecimation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Meshes/TestQuadricDecimation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestQuadricDecimation.png?raw=true" width="256" />
 
 **QuadricDecimation.cxx**
 ```c++

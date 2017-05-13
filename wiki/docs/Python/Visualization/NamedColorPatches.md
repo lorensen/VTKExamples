@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Visualization/NamedColorPatches
+[VTKExamples](/home/)/[Python](/Python)/Visualization/NamedColorPatches
 
 ### Description
 ==Description==

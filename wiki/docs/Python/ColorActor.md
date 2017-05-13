@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)//ColorActor
+[VTKExamples](/home/)/[Python](/Python)//ColorActor
 
 **ColorActor.py**
 ```python

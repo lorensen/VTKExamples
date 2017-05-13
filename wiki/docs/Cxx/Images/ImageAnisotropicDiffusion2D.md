@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageAnisotropicDiffusion2D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageAnisotropicDiffusion2D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageAnisotropicDiffusion2D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageAnisotropicDiffusion2D.png?raw=true" width="256" />
 
 **ImageAnisotropicDiffusion2D.cxx**
 ```c++

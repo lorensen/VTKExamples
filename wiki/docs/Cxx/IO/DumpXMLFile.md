@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/IO/DumpXMLFile
+[VTKExamples](/home/)/[Cxx](/Cxx)/IO/DumpXMLFile
 
 ### Description
 This example reports the cell, cell data and point data contained within a VTK XML or legacy file.

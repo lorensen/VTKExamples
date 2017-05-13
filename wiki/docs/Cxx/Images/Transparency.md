@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/Transparency
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Transparency
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestTransparency.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestTransparency.png?raw=true" width="256" />
 
 ### Description
 This example creates a half transparent, half green mask and overlays it on top of an input image.

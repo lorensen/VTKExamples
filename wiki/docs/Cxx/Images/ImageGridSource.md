@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageGridSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageGridSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageGridSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageGridSource.png?raw=true" width="256" />
 
 **ImageGridSource.cxx**
 ```c++

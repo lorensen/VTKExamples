@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/WishList/Visualization/LayeredRenderers
+[VTKExamples](/home/)/[Cxx](/Cxx)/WishList/Visualization/LayeredRenderers
 
 **LayeredRenderers.cxx**
 ```c++

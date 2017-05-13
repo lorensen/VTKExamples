@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/StructuredGrid/VisualizeStructuredGridCells
+[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/VisualizeStructuredGridCells
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/StructuredGrid/TestVisualizeStructuredGridCells.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestVisualizeStructuredGridCells.png?raw=true" width="256" />
 
 **VisualizeStructuredGridCells.cxx**
 ```c++

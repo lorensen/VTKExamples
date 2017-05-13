@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/RubberBand2DObserver
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/RubberBand2DObserver
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestRubberBand2DObserver.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestRubberBand2DObserver.png?raw=true" width="256" />
 
 **RubberBand2DObserver.cxx**
 ```c++

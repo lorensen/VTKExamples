@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/BackgroundColor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BackgroundColor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestBackgroundColor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBackgroundColor.png?raw=true" width="256" />
 
 ### Description
 This example demonstrates how to change the background color of the render window.

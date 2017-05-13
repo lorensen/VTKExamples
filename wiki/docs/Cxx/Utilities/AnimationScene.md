@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/AnimationScene
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/AnimationScene
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestAnimationScene.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestAnimationScene.png?raw=true" width="256" />
 
 **AnimationScene.cxx**
 ```c++

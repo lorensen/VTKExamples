@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/GeometricObjects/Display/Vertex
+[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Vertex
 
 **Vertex.py**
 ```python

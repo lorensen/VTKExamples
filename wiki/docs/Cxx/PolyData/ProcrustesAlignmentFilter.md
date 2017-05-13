@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/ProcrustesAlignmentFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ProcrustesAlignmentFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestProcrustesAlignmentFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestProcrustesAlignmentFilter.png?raw=true" width="256" />
 
 ### Description
 This example aligns three objects (deformed spheres) using the Procrustes algorithm. The original shapes are shown on the left. The alignment using a rigid transform is shown in the middle, and the alignment using a similarity transform is shown on the right.

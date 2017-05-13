@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/WindowModifiedEvent
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/WindowModifiedEvent
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Utilities/TestWindowModifiedEvent.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestWindowModifiedEvent.png?raw=true" width="256" />
 
 ### Description
 This example limits the horizontal window size to 400.

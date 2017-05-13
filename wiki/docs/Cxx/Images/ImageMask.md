@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageMask
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageMask
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageMask.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageMask.png?raw=true" width="256" />
 
 ### Description
 This example creates an all red image. Then it creates a mask of a small rectangle. The red pixels in this rectangle are copied to the output image, while the rest of the output image is black. The black region could be set to a different color using SetMaskedOutputValue.

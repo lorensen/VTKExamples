@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/PKMeansClustering
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/PKMeansClustering
 
 **PKMeansClustering.cxx**
 ```c++

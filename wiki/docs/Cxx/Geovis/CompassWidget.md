@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Geovis/CompassWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Geovis/CompassWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Geovis/TestCompassWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestCompassWidget.png?raw=true" width="256" />
 
 ### Description
 This example creates a compass in the top right corner of the window.

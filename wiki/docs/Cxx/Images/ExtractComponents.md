@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ExtractComponents
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ExtractComponents
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestExtractComponents.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestExtractComponents.png?raw=true" width="256" />
 
 ### Description
 This example separates an image into the red channel, the green channel, and the blue channel using {{class|vtkImageExtractComponents}}.

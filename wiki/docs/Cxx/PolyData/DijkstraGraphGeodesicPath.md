@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/DijkstraGraphGeodesicPath
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DijkstraGraphGeodesicPath
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestDijkstraGraphGeodesicPath.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDijkstraGraphGeodesicPath.png?raw=true" width="256" />
 
 **DijkstraGraphGeodesicPath.cxx**
 ```c++

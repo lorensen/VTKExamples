@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/RenderMan/PolyDataRIB
+[VTKExamples](/home/)/[Cxx](/Cxx)/RenderMan/PolyDataRIB
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/RenderMan/TestPolyDataRIB.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/RenderMan/TestPolyDataRIB.png?raw=true" width="256" />
 
 ### Description
 To see the RenderMan results for this example, download and install the [non-commercial version of RenderMan](http://renderman.pixar.com/view/non-commercial-renderman).

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/AppendFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/AppendFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestAppendFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestAppendFilter.png?raw=true" width="256" />
 
 ### Description
 This example loads points into a polydata and an unstructured grid then combines them.

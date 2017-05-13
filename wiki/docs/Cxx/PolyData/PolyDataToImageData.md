@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PolyDataToImageData
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataToImageData
 
 ### Description
 

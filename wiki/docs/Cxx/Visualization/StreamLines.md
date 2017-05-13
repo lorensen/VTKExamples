@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/StreamLines
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/StreamLines
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestStreamLines.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestStreamLines.png?raw=true" width="256" />
 
 **StreamLines.cxx**
 ```c++

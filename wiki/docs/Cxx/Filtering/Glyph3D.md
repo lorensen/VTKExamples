@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Filtering/Glyph3D
+[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/Glyph3D
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Filtering/TestGlyph3D.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGlyph3D.png?raw=true" width="256" />
 
 ### Description
 This example applies an object at every point. We use a cube for the demo.

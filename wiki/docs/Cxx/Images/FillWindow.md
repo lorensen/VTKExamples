@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/FillWindow
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/FillWindow
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestFillWindow.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestFillWindow.png?raw=true" width="256" />
 
 **FillWindow.cxx**
 ```c++

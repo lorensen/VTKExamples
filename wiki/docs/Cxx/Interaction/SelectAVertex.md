@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/SelectAVertex
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/SelectAVertex
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestSelectAVertex.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestSelectAVertex.png?raw=true" width="256" />
 
 ### Description
 Click and drag a vertex by "ghosting" a glyph over the selected vertex and using it for the interaction.

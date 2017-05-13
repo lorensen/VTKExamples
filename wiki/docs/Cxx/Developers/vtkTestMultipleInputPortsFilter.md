@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Developers/vtkTestMultipleInputPortsFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/vtkTestMultipleInputPortsFilter
 
 ### Description
 <source lang="cpp">

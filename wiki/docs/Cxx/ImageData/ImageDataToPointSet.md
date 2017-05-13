@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImageData/ImageDataToPointSet
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageDataToPointSet
 
 **ImageDataToPointSet.cxx**
 ```c++

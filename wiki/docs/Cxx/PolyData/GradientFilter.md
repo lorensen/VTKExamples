@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/GradientFilter
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/GradientFilter
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestGradientFilter.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestGradientFilter.png?raw=true" width="256" />
 
 ### Description
 Computes the gradient of a scalar field defined on the points of a data set.

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/InfoVis/ArrayToTable
+[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/ArrayToTable
 
 **ArrayToTable.cxx**
 ```c++

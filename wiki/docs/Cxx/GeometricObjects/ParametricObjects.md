@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/GeometricObjects/ParametricObjects
+[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ParametricObjects
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/GeometricObjects/TestParametricObjects.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricObjects.png?raw=true" width="256" />
 
 ### Description
 See [Parametric Equations for Surfaces](http://www.vtk.org/VTK/img/ParametricSurfaces.pdf) by Andrew Maclean for an excellent description of these beautiful parametric surfaces.

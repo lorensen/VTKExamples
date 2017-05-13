@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors
+[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/VisualizationAlgorithms/TestTubesWithVaryingRadiusAndColors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestTubesWithVaryingRadiusAndColors.png?raw=true" width="256" />
 
 ### Description
 This example shows how to vary the radius of a tube with one scalar and color the tube with another.

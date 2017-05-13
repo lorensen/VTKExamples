@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/DensifyPoints
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/DensifyPoints
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestDensifyPoints.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestDensifyPoints.png?raw=true" width="256" />
 
 ### Description
 In this example, the original points are yellow and the added points are red.

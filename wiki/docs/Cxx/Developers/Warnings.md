@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Developers/Warnings
+[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/Warnings
 
 **Warnings.cxx**
 ```c++

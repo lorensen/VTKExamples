@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Points/RadiusOutlierRemoval
+[VTKExamples](/home/)/[Cxx](/Cxx)/Points/RadiusOutlierRemoval
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Points/TestRadiusOutlierRemoval.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestRadiusOutlierRemoval.png?raw=true" width="256" />
 
 ### Description
 in this example, outliers are red. Yellow points satisfy the radius and neighbor restrictions.

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PointInsideObject
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointInsideObject
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPointInsideObject.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointInsideObject.png?raw=true" width="256" />
 
 ### Description
 This example creates a cube at the origin with side 1. Then it checks if the points are inside the cube. There is one point inside, one in the border and one outside. The answer for the first one should be yes, and for the other two, no. 

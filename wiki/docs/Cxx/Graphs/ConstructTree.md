@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Graphs/ConstructTree
+[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ConstructTree
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Graphs/TestConstructTree.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestConstructTree.png?raw=true" width="256" />
 
 **ConstructTree.cxx**
 ```c++

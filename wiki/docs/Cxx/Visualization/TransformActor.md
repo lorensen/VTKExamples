@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/TransformActor
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TransformActor
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestTransformActor.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTransformActor.png?raw=true" width="256" />
 
 ### Description
 This examples demonstrates how to transform an actor. This is different than using vtkTransformPolyDataFilter in that it doesn't actually transform the data (you can't access the transformed coordinates) - it is all done on the video card.

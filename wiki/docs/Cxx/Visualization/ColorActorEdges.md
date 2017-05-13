@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/ColorActorEdges
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ColorActorEdges
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestColorActorEdges.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestColorActorEdges.png?raw=true" width="256" />
 
 ### Description
 This example colors the edges of a actor.

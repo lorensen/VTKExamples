@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/VectorText
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/VectorText
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestVectorText.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVectorText.png?raw=true" width="256" />
 
 ### Description
 This example displays a red "Hello" in 3D space. For an example where the text always faces the camera, see []([../Follower]).

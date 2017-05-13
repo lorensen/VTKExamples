@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[CSharp](CSharp)/PolyData/AlignFrames
+[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/AlignFrames
 
 ### Description
 <p>This function takes two frames and finds the matrix M between them.</p>

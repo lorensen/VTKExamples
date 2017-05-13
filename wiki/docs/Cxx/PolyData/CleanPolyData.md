@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/CleanPolyData
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CleanPolyData
 
 ### Description
 When a cube is created, it has 24 vertices (4 for each face). This is done because 

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Python](Python)/Infovis/SelectedGraphIDs
+[VTKExamples](/home/)/[Python](/Python)/Infovis/SelectedGraphIDs
 
 ### Description
 []([File:VTK_Examples_Python_Infovis_SelectedGraphIDs.png])

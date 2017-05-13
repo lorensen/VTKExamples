@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/DoubleClick
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/DoubleClick
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestDoubleClick.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestDoubleClick.png?raw=true" width="256" />
 
 **DoubleClick.cxx**
 ```c++

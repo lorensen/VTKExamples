@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/NamedColorPatches
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/NamedColorPatches
 
 ### Description
 This example shows how to produce a HTML page called [VTKNamedColorPatches.html](../../Python/Visualization/VTKNamedColorPatches.html) showing the available

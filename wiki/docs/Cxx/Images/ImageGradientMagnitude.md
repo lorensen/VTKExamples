@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Images/ImageGradientMagnitude
+[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageGradientMagnitude
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Images/TestImageGradientMagnitude.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageGradientMagnitude.png?raw=true" width="256" />
 
 **ImageGradientMagnitude.cxx**
 ```c++

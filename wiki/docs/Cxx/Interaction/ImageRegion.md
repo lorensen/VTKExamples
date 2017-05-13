@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Interaction/ImageRegion
+[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ImageRegion
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Interaction/TestImageRegion.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestImageRegion.png?raw=true" width="256" />
 
 ### Description
 This example shows how to get the image coordinates of the corners of a BorderWidget.

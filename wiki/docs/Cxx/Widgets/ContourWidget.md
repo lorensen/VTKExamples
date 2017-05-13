@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/ContourWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/ContourWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestContourWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" />
 
 ### Description
 This example generates a set of points which lie on a circle, and the contour through these points. This contour can be interactively warped/modified by dragging the control points.

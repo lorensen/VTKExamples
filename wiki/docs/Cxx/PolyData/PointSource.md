@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/PolyData/PointSource
+[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointSource
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/PolyData/TestPointSource.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointSource.png?raw=true" width="256" />
 
 **PointSource.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Utilities/Vector
+[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Vector
 
 **Vector.cxx**
 ```c++

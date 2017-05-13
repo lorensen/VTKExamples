@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/ImplicitFunctions/SampleFunction
+[VTKExamples](/home/)/[Cxx](/Cxx)/ImplicitFunctions/SampleFunction
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/ImplicitFunctions/TestSampleFunction.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestSampleFunction.png?raw=true" width="256" />
 
 **SampleFunction.cxx**
 ```c++

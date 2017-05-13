@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Widgets/HoverWidget
+[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/HoverWidget
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Widgets/TestHoverWidget.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestHoverWidget.png?raw=true" width="256" />
 
 **HoverWidget.cxx**
 ```c++

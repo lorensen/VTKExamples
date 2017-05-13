@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/CurvedReformation
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CurvedReformation
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestCurvedReformation.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCurvedReformation.png?raw=true" width="256" />
 
 ### Description
 This example makes a curved reformation of a volume. The example requires three parameters:

@@ -1,6 +1,6 @@
-[VTKExamples](Home)/[Cxx](Cxx)/Visualization/VectorOfActors
+[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/VectorOfActors
 
-<img align="right" src="https://github.com/lorensen/VTKExamples/raw/master/Testing/Baseline/Visualization/TestVectorOfActors.png" width="256" />
+<img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVectorOfActors.png?raw=true" width="256" />
 
 ### Description
 This example creates multiple actors and stores them in a vector. The resulting image is 10 spheres in a line.
