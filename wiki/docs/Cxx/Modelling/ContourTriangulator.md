@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/ContourTriangulator
+[VTKExamples](/index/)/[Cxx](/Cxx)/Modelling/ContourTriangulator
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestContourTriangulator.png?raw=true" width="256" />
 

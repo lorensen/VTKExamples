@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/Imaging/ImageTest
+[VTKExamples](/index/)/[Java](/Java)/Imaging/ImageTest
 
 **ImageTest.java**
 ```java

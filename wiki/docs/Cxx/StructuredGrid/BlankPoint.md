@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/BlankPoint
+[VTKExamples](/index/)/[Cxx](/Cxx)/StructuredGrid/BlankPoint
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestBlankPoint.png?raw=true" width="256" />
 

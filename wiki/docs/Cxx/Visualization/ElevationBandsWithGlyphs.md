@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ElevationBandsWithGlyphs
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ElevationBandsWithGlyphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestElevationBandsWithGlyphs.png?raw=true" width="256" />
 

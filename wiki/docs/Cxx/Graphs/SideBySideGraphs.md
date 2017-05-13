@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/SideBySideGraphs
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/SideBySideGraphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestSideBySideGraphs.png?raw=true" width="256" />
 

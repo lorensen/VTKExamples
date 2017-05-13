@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TensorGlyph
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/TensorGlyph
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTensorGlyph.png?raw=true" width="256" />
 

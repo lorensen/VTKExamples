@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/TexturedButtonWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/TexturedButtonWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestTexturedButtonWidget.png?raw=true" width="256" />
 

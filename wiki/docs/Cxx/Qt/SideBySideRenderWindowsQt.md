@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/SideBySideRenderWindowsQt
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/SideBySideRenderWindowsQt
 
 **SideBySideRenderWindowsQt.cxx**
 ```c++

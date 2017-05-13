@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/EventQtSlotConnect
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/EventQtSlotConnect
 
 ### Description
 <source lang="cpp">

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageGridSource
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageGridSource
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageGridSource.png?raw=true" width="256" />
 

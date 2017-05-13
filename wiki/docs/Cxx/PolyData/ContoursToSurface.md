@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ContoursToSurface
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ContoursToSurface
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestContoursToSurface.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//TextSource
+[VTKExamples](/index/)/[Python](/Python)//TextSource
 
 **TextSource.py**
 ```python

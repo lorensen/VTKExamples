@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SeedWidgetWithCustomCallback
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/SeedWidgetWithCustomCallback
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSeedWidgetWithCustomCallback.png?raw=true" width="256" />
 

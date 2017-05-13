@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ColoredLines
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/ColoredLines
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestColoredLines.png?raw=true" width="256" />
 

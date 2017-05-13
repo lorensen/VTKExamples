@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CopyAllArrays
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/CopyAllArrays
 
 **CopyAllArrays.cxx**
 ```c++

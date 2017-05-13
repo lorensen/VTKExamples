@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Hexahedron
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Hexahedron
 
 ### Description
 This example creates eight points and creates a hexahedron from the points.

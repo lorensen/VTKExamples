@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageIterator
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/ImageIterator
 
 ### Description
 Extracts an extent from an image using an image iterator.

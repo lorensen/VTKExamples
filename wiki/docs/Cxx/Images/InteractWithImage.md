@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/InteractWithImage
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/InteractWithImage
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestInteractWithImage.png?raw=true" width="256" />
 

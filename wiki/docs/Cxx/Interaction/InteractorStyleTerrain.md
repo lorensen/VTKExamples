@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/InteractorStyleTerrain
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/InteractorStyleTerrain
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestInteractorStyleTerrain.png?raw=true" width="256" />
 

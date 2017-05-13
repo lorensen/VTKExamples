@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ShortestPath
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/ShortestPath
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestShortestPath.png?raw=true" width="256" />
 

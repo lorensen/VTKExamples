@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageToStructuredPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageToStructuredPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageToStructuredPoints.png?raw=true" width="256" />
 

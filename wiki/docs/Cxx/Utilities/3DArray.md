@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/3DArray
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/3DArray
 
 **3DArray.cxx**
 ```c++

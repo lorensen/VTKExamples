@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageDivergence
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageDivergence
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageDivergence.png?raw=true" width="256" />
 

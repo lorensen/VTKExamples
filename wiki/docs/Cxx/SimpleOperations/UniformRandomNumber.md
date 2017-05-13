@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/SimpleOperations/UniformRandomNumber
+[VTKExamples](/index/)/[Cxx](/Cxx)/SimpleOperations/UniformRandomNumber
 
 ### Description
 This example generates 3 random numbers between 0 and 2 from a uniform distribution.

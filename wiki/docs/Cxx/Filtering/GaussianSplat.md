@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/GaussianSplat
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/GaussianSplat
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGaussianSplat.png?raw=true" width="256" />
 

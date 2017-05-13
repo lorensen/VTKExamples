@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/KDTreeFindPointsWithinRadius
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/KDTreeFindPointsWithinRadius
 
 **KDTreeFindPointsWithinRadius.cxx**
 ```c++

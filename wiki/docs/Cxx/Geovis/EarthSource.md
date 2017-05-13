@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Geovis/EarthSource
+[VTKExamples](/index/)/[Cxx](/Cxx)/Geovis/EarthSource
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestEarthSource.png?raw=true" width="256" />
 

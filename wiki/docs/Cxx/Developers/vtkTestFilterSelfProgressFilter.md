@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/vtkTestFilterSelfProgressFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Developers/vtkTestFilterSelfProgressFilter
 
 ### Description
 <source lang="cpp">

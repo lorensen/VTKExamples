@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//UnstructuredGridReader
+[VTKExamples](/index/)/[Python](/Python)//UnstructuredGridReader
 
 ### Description
 The following example demonstrates how to read an unstructured grid defined at a (legacy) *.vtk file and how to render it with VTK. 

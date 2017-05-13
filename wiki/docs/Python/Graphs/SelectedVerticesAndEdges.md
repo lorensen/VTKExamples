@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Graphs/SelectedVerticesAndEdges
+[VTKExamples](/index/)/[Python](/Python)/Graphs/SelectedVerticesAndEdges
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestSelectedVerticesAndEdges.png?raw=true" width="256" />
 

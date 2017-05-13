@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BalloonWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/BalloonWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBalloonWidget.png?raw=true" width="256" />
 

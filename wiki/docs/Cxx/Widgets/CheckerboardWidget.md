@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/CheckerboardWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/CheckerboardWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestCheckerboardWidget.png?raw=true" width="256" />
 

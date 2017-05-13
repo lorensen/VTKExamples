@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageThreshold
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageThreshold
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageThreshold.png?raw=true" width="256" />
 

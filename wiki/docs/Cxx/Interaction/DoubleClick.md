@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/DoubleClick
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/DoubleClick
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestDoubleClick.png?raw=true" width="256" />
 

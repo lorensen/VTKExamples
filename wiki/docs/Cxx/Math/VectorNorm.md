@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Math/VectorNorm
+[VTKExamples](/index/)/[Cxx](/Cxx)/Math/VectorNorm
 
 **VectorNorm.cxx**
 ```c++

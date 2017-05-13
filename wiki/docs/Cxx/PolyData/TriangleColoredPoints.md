@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TriangleColoredPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/TriangleColoredPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTriangleColoredPoints.png?raw=true" width="256" />
 

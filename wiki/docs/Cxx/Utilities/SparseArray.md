@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/SparseArray
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/SparseArray
 
 **SparseArray.cxx**
 ```c++

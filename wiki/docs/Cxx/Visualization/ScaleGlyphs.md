@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ScaleGlyphs
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ScaleGlyphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestScaleGlyphs.png?raw=true" width="256" />
 

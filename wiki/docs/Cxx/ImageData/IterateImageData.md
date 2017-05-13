@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/IterateImageData
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/IterateImageData
 
 ### Description
 This example demonstrates how to set and access locations in a 3D image.

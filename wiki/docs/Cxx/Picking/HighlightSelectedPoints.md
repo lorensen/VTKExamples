@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/HighlightSelectedPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/Picking/HighlightSelectedPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestHighlightSelectedPoints.png?raw=true" width="256" />
 

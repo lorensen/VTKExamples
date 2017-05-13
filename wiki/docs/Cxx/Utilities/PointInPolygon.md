@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/PointInPolygon
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/PointInPolygon
 
 **PointInPolygon.cxx**
 ```c++

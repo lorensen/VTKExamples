@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageWeightedSum
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/ImageWeightedSum
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageWeightedSum.png?raw=true" width="256" />
 

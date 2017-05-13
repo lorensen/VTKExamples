@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//vtkCutter
+[VTKExamples](/index/)/[Python](/Python)//vtkCutter
 
 ### Description
 This example demonstrates how to use vtkCutter by cutting through a cube.

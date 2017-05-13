@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/PolyDataGetPoint
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/PolyDataGetPoint
 
 ### Description
 <p>This example demonstrates how to obtain the coordinates of a point in a vtkPolyData object.

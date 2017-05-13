@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/DeepCopy
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/DeepCopy
 
 **DeepCopy.cxx**
 ```c++

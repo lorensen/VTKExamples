@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/ModifiedBSPTreeTimingDemo
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/ModifiedBSPTreeTimingDemo
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestModifiedBSPTreeTimingDemo.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/VertexConnectivity
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/VertexConnectivity
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestVertexConnectivity.png?raw=true" width="256" />
 

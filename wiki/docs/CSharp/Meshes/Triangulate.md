@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/Triangulate
+[VTKExamples](/index/)/[CSharp](/CSharp)/Meshes/Triangulate
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestTriangulate.png?raw=true" width="256" />
 

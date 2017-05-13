@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/RectilinearGrid/RectilinearGrid
+[VTKExamples](/index/)/[Python](/Python)/RectilinearGrid/RectilinearGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/RectilinearGrid/TestRectilinearGrid.png?raw=true" width="256" />
 

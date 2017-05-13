@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/SCurveSpline
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/SCurveSpline
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestSCurveSpline.png?raw=true" width="256" />
 

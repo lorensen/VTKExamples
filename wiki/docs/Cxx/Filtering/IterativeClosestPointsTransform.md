@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/IterativeClosestPointsTransform
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/IterativeClosestPointsTransform
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestIterativeClosestPointsTransform.png?raw=true" width="256" />
 

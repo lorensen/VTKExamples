@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ScalarBarActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ScalarBarActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestScalarBarActor.png?raw=true" width="256" />
 

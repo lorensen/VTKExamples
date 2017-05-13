@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageGaussianSmooth
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageGaussianSmooth
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageGaussianSmooth.png?raw=true" width="256" />
 

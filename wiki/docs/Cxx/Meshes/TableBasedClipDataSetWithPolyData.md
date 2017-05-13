@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/TableBasedClipDataSetWithPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/TableBasedClipDataSetWithPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestTableBasedClipDataSetWithPolyData.png?raw=true" width="256" />
 

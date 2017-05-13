@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractPolyLinesFromPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ExtractPolyLinesFromPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractPolyLinesFromPolyData.png?raw=true" width="256" />
 

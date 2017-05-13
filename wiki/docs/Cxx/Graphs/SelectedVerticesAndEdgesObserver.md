@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/SelectedVerticesAndEdgesObserver
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/SelectedVerticesAndEdgesObserver
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestSelectedVerticesAndEdgesObserver.png?raw=true" width="256" />
 

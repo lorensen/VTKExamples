@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/AdjacentVertexIterator
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/AdjacentVertexIterator
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestAdjacentVertexIterator.png?raw=true" width="256" />
 

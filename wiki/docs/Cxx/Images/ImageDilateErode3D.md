@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageDilateErode3D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageDilateErode3D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageDilateErode3D.png?raw=true" width="256" />
 

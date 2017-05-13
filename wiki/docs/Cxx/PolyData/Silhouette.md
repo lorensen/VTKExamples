@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Silhouette
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/Silhouette
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestSilhouette.png?raw=true" width="256" />
 

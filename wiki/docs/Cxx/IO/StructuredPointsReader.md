@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/StructuredPointsReader
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/StructuredPointsReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestStructuredPointsReader.png?raw=true" width="256" />
 

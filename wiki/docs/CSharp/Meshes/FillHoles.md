@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/FillHoles
+[VTKExamples](/index/)/[CSharp](/CSharp)/Meshes/FillHoles
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestFillHoles.png?raw=true" width="256" />
 

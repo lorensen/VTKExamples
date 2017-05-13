@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//PLYWriter
+[VTKExamples](/index/)/[Python](/Python)//PLYWriter
 
 **PLYWriter.py**
 ```python

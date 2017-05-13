@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/OrientedGlyphs
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/OrientedGlyphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestOrientedGlyphs.png?raw=true" width="256" />
 

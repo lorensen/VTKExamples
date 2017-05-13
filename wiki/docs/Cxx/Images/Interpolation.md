@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Interpolation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/Interpolation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestInterpolation.png?raw=true" width="256" />
 

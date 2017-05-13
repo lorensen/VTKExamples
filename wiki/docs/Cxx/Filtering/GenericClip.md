@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/GenericClip
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/GenericClip
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGenericClip.png?raw=true" width="256" />
 

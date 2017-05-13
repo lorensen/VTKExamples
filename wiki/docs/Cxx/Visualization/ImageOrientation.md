@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ImageOrientation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ImageOrientation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestImageOrientation.png?raw=true" width="256" />
 

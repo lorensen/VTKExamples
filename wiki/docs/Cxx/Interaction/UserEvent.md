@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/UserEvent
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/UserEvent
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestUserEvent.png?raw=true" width="256" />
 

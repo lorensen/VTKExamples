@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/AssignCellColorsFromLUT
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/AssignCellColorsFromLUT
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestAssignCellColorsFromLUT.png?raw=true" width="256" />
 

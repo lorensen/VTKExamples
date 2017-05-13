@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/RGBToHSV
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/RGBToHSV
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestRGBToHSV.png?raw=true" width="256" />
 

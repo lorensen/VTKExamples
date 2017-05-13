@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/KdTreePointLocator/ClosestNPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/KdTreePointLocator/ClosestNPoints
 
 **ClosestNPoints.cxx**
 ```c++

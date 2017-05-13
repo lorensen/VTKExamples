@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/MoveAVertexUnstructuredGrid
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/MoveAVertexUnstructuredGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMoveAVertexUnstructuredGrid.png?raw=true" width="256" />
 

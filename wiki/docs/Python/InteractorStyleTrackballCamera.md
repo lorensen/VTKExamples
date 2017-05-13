@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//InteractorStyleTrackballCamera
+[VTKExamples](/index/)/[Python](/Python)//InteractorStyleTrackballCamera
 
 **InteractorStyleTrackballCamera.py**
 ```python

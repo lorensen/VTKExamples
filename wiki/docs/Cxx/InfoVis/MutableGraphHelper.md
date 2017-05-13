@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/MutableGraphHelper
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/MutableGraphHelper
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestMutableGraphHelper.png?raw=true" width="256" />
 

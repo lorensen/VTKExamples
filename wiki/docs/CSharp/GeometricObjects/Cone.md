@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Cone
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/Cone
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestCone.png?raw=true" width="256" />
 

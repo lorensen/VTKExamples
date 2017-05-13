@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ImageClip
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/ImageClip
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestImageClip.png?raw=true" width="256" />
 

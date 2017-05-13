@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//STLWriter
+[VTKExamples](/index/)/[Python](/Python)//STLWriter
 
 **STLWriter.py**
 ```python

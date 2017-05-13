@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Screenshot
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/Screenshot
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestScreenshot.png?raw=true" width="256" />
 

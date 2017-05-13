@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/WindowModifiedEvent
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/WindowModifiedEvent
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestWindowModifiedEvent.png?raw=true" width="256" />
 

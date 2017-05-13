@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageSeparableConvolution
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageSeparableConvolution
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageSeparableConvolution.png?raw=true" width="256" />
 

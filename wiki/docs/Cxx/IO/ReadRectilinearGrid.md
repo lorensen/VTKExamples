@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadRectilinearGrid
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadRectilinearGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadRectilinearGrid.png?raw=true" width="256" />
 

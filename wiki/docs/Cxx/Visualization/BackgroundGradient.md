@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BackgroundGradient
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/BackgroundGradient
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBackgroundGradient.png?raw=true" width="256" />
 

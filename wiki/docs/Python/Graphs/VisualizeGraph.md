@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Graphs/VisualizeGraph
+[VTKExamples](/index/)/[Python](/Python)/Graphs/VisualizeGraph
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestVisualizeGraph.png?raw=true" width="256" />
 

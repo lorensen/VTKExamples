@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Glyph3DMapper
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/Glyph3DMapper
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestGlyph3DMapper.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ColorVerticesLookupTable
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/ColorVerticesLookupTable
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestColorVerticesLookupTable.png?raw=true" width="256" />
 

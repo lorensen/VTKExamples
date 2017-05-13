@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/Delaunay3D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Modelling/Delaunay3D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestDelaunay3D.png?raw=true" width="256" />
 

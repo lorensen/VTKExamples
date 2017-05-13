@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CursorShape
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/CursorShape
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCursorShape.png?raw=true" width="256" />
 

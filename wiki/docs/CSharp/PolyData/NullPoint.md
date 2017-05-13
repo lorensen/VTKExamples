@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/NullPoint
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/NullPoint
 
 ### Description
 <p>Set value of all associated arrays to zero all at once</p>

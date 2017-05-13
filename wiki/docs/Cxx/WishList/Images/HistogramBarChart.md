@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/WishList/Images/HistogramBarChart
+[VTKExamples](/index/)/[Cxx](/Cxx)/WishList/Images/HistogramBarChart
 
 ### Description
 This example works, but the testing images produced usually vary slightly from the baseline.

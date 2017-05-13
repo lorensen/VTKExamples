@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//BackgroundImage
+[VTKExamples](/index/)/[Python](/Python)//BackgroundImage
 
 ### Description
 This example displays an image as the "background" of a scene, and renders a superquadric in front of it.

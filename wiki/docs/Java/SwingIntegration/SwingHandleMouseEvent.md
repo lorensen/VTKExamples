@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/SwingIntegration/SwingHandleMouseEvent
+[VTKExamples](/index/)/[Java](/Java)/SwingIntegration/SwingHandleMouseEvent
 
 ### Description
 This example shows how to display in a JLabel the point the mouse is hovering over using a mouse listener.

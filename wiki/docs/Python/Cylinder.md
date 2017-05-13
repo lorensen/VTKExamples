@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//Cylinder
+[VTKExamples](/index/)/[Python](/Python)//Cylinder
 
 ### Description
 This example demonstrate a minimal visualization created with VTK.

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImagePermute
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImagePermute
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImagePermute.png?raw=true" width="256" />
 

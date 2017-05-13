@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/CameraModifiedEvent
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/CameraModifiedEvent
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestCameraModifiedEvent.png?raw=true" width="256" />
 

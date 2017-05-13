@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/ImageTracerWidgetNonPlanar
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/ImageTracerWidgetNonPlanar
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestImageTracerWidgetNonPlanar.png?raw=true" width="256" />
 

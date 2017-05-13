@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Flip
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/Flip
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestFlip.png?raw=true" width="256" />
 

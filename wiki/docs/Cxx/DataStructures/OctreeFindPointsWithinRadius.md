@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OctreeFindPointsWithinRadius
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/OctreeFindPointsWithinRadius
 
 **OctreeFindPointsWithinRadius.cxx**
 ```c++

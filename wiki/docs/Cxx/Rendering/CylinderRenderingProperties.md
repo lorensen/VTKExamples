@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Rendering/CylinderRenderingProperties
+[VTKExamples](/index/)/[Cxx](/Cxx)/Rendering/CylinderRenderingProperties
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Rendering/TestCylinderRenderingProperties.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MoveActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/MoveActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMoveActor.png?raw=true" width="256" />
 

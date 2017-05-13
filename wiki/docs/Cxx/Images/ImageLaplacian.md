@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageLaplacian
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageLaplacian
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageLaplacian.png?raw=true" width="256" />
 

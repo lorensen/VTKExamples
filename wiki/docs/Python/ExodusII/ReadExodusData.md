@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/ExodusII/ReadExodusData
+[VTKExamples](/index/)/[Python](/Python)/ExodusII/ReadExodusData
 
 ### Description
 ==Brief Description==

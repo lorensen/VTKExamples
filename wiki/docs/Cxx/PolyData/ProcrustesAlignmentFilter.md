@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ProcrustesAlignmentFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ProcrustesAlignmentFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestProcrustesAlignmentFilter.png?raw=true" width="256" />
 

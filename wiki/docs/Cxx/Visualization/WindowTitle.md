@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/WindowTitle
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/WindowTitle
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestWindowTitle.png?raw=true" width="256" />
 

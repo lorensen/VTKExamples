@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/IncrementalOctreePointLocator
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/IncrementalOctreePointLocator
 
 **IncrementalOctreePointLocator.cxx**
 ```c++

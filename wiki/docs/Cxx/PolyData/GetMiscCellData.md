@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/GetMiscCellData
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/GetMiscCellData
 
 **GetMiscCellData.cxx**
 ```c++

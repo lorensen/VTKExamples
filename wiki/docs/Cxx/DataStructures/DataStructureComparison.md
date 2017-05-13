@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/DataStructureComparison
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/DataStructureComparison
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestDataStructureComparison.png?raw=true" width="256" />
 

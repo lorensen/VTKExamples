@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//WindowTitle
+[VTKExamples](/index/)/[Python](/Python)//WindowTitle
 
 ### Description
 This example demonstrates how to change the title of a render window.

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/NamedColors
+[VTKExamples](/index/)/[Python](/Python)/Visualization/NamedColors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestNamedColors.png?raw=true" width="256" />
 

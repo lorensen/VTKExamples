@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/CompositeData/MultiBlockDataSet
+[VTKExamples](/index/)/[Cxx](/Cxx)/CompositeData/MultiBlockDataSet
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/CompositeData/TestMultiBlockDataSet.png?raw=true" width="256" />
 

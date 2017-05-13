@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Cell3DDemonstration
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Cell3DDemonstration
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestCell3DDemonstration.png?raw=true" width="256" />
 

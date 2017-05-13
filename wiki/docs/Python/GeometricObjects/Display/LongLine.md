@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/LongLine
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/LongLine
 
 **LongLine.py**
 ```python

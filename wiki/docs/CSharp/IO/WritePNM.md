@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/WritePNM
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/WritePNM
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWritePNM.png?raw=true" width="256" />
 

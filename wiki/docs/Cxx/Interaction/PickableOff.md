@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/PickableOff
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/PickableOff
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestPickableOff.png?raw=true" width="256" />
 

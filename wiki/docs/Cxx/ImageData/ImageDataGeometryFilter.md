@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageDataGeometryFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/ImageDataGeometryFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageDataGeometryFilter.png?raw=true" width="256" />
 

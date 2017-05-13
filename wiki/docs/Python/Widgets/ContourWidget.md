@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Widgets/ContourWidget
+[VTKExamples](/index/)/[Python](/Python)/Widgets/ContourWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" />
 

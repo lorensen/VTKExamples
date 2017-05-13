@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/ExtractPointsDemo
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/ExtractPointsDemo
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestExtractPointsDemo.png?raw=true" width="256" />
 

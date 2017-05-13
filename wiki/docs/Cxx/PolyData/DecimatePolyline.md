@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DecimatePolyline
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/DecimatePolyline
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDecimatePolyline.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/VectorArrayUnknownLength
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/VectorArrayUnknownLength
 
 ### Description
 This example creates a VTK style float array of vectors. This can be easily interchanged with vtkIntArray, vtkDoubleArray, etc.

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Outline
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/Outline
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestOutline.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TubeFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/TubeFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTubeFilter.png?raw=true" width="256" />
 

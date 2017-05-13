@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/FastSplatter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/FastSplatter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestFastSplatter.png?raw=true" width="256" />
 

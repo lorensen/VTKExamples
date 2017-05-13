@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/FrameRate
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/FrameRate
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestFrameRate.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Widgets/vtkAnnotedCubeWithvtkOrientationWidget
+[VTKExamples](/index/)/[Python](/Python)/Widgets/vtkAnnotedCubeWithvtkOrientationWidget
 
 ### Description
 []([File:VTK_Examples_Python_Widgets_OrientationMarkerWidget.png])

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ClosedSurface
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ClosedSurface
 
 **ClosedSurface.cxx**
 ```c++

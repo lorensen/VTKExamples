@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/SelectPolyData
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/SelectPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestSelectPolyData.png?raw=true" width="256" />
 

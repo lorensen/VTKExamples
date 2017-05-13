@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/PCAStatistics
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/PCAStatistics
 
 **PCAStatistics.cxx**
 ```c++

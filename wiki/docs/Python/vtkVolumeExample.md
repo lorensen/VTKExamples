@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//vtkVolumeExample
+[VTKExamples](/index/)/[Python](/Python)//vtkVolumeExample
 
 ### Description
 Volume render unstructured transient data.

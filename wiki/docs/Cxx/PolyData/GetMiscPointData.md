@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/GetMiscPointData
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/GetMiscPointData
 
 ### Description
 This example demonstrates how to get data stored at each point in a polydata.

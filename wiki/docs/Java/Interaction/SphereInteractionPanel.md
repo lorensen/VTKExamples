@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/Interaction/SphereInteractionPanel
+[VTKExamples](/index/)/[Java](/Java)/Interaction/SphereInteractionPanel
 
 **SphereInteractionPanel.java**
 ```java

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/StackedBar
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/StackedBar
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestStackedBar.png?raw=true" width="256" />
 

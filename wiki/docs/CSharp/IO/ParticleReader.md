@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ParticleReader
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ParticleReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestParticleReader.png?raw=true" width="256" />
 

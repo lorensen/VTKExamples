@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Frustum
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/Frustum
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestFrustum.png?raw=true" width="256" />
 

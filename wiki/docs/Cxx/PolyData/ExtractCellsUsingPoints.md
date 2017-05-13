@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractCellsUsingPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ExtractCellsUsingPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractCellsUsingPoints.png?raw=true" width="256" />
 

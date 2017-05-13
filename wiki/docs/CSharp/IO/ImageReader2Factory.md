@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ImageReader2Factory
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ImageReader2Factory
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestImageReader2Factory.png?raw=true" width="256" />
 

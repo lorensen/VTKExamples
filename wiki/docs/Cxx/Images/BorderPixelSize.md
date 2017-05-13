@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/BorderPixelSize
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/BorderPixelSize
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestBorderPixelSize.png?raw=true" width="256" />
 

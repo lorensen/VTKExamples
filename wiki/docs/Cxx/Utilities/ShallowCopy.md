@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ShallowCopy
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/ShallowCopy
 
 **ShallowCopy.cxx**
 ```c++

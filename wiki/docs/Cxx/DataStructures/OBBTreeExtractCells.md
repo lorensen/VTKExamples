@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OBBTreeExtractCells
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/OBBTreeExtractCells
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestOBBTreeExtractCells.png?raw=true" width="256" />
 

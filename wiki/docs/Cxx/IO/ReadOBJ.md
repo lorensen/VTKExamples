@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadOBJ
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadOBJ
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadOBJ.png?raw=true" width="256" />
 

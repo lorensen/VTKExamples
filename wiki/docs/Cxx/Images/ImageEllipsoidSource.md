@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageEllipsoidSource
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageEllipsoidSource
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageEllipsoidSource.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/TissueLens
+[VTKExamples](/index/)/[Cxx](/Cxx)/Medical/TissueLens
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Medical/TestTissueLens.png?raw=true" width="256" />
 

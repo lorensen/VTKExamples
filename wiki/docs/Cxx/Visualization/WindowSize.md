@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/WindowSize
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/WindowSize
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestWindowSize.png?raw=true" width="256" />
 

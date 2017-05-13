@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Tetrahedron
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Tetrahedron
 
 **Tetrahedron.py**
 ```python

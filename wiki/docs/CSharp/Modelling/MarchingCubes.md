@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Modelling/MarchingCubes
+[VTKExamples](/index/)/[CSharp](/CSharp)/Modelling/MarchingCubes
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestMarchingCubes.png?raw=true" width="256" />
 

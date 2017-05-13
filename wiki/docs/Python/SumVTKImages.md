@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//SumVTKImages
+[VTKExamples](/index/)/[Python](/Python)//SumVTKImages
 
 **SumVTKImages.py**
 ```python

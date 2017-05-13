@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/RemoveIsolatedVertices
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/RemoveIsolatedVertices
 
 **RemoveIsolatedVertices.cxx**
 ```c++

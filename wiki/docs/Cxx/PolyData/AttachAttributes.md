@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/AttachAttributes
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/AttachAttributes
 
 **AttachAttributes.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/WriteVTU
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/WriteVTU
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteVTU.png?raw=true" width="256" />
 

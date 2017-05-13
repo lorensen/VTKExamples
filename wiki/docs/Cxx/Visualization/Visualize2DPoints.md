@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Visualize2DPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/Visualize2DPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVisualize2DPoints.png?raw=true" width="256" />
 

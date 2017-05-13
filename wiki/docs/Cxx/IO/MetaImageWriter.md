@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/MetaImageWriter
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/MetaImageWriter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestMetaImageWriter.png?raw=true" width="256" />
 

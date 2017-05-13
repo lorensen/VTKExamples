@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/CapClip
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/CapClip
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestCapClip.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ConstrainedDelaunay2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/ConstrainedDelaunay2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestConstrainedDelaunay2D.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/WindowedSincPolyDataFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/WindowedSincPolyDataFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestWindowedSincPolyDataFilter.png?raw=true" width="256" />
 

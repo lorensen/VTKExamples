@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/DataManipulation/KochSnowflake
+[VTKExamples](/index/)/[Python](/Python)/DataManipulation/KochSnowflake
 
 ### Description
 ==Description==

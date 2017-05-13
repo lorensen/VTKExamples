@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageProcessing/RescaleAnImage
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageProcessing/RescaleAnImage
 
 **RescaleAnImage.cxx**
 ```c++

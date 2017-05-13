@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/TriangleStrip
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/TriangleStrip
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestTriangleStrip.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/TrackballCamera
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/TrackballCamera
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestTrackballCamera.png?raw=true" width="256" />
 

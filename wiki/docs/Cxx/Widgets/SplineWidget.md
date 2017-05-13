@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SplineWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/SplineWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSplineWidget.png?raw=true" width="256" />
 

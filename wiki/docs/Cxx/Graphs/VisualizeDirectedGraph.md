@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/VisualizeDirectedGraph
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/VisualizeDirectedGraph
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestVisualizeDirectedGraph.png?raw=true" width="256" />
 

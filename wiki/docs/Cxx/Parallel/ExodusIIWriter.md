@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Parallel/ExodusIIWriter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Parallel/ExodusIIWriter
 
 ### Description
 Requires VTK to be built with VTK_USE_PARALLEL.

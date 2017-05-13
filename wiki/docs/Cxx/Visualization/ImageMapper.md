@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ImageMapper
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ImageMapper
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestImageMapper.png?raw=true" width="256" />
 

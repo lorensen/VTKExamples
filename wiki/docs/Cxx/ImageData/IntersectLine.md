@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/IntersectLine
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/IntersectLine
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestIntersectLine.png?raw=true" width="256" />
 

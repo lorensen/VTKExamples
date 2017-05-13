@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Polygon
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Polygon
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPolygon.png?raw=true" width="256" />
 

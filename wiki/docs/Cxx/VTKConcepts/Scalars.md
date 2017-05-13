@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VTKConcepts/Scalars
+[VTKExamples](/index/)/[Cxx](/Cxx)/VTKConcepts/Scalars
 
 **Scalars.cxx**
 ```c++

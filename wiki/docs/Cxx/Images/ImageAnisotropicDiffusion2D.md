@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageAnisotropicDiffusion2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageAnisotropicDiffusion2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageAnisotropicDiffusion2D.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/HoverWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/HoverWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestHoverWidget.png?raw=true" width="256" />
 

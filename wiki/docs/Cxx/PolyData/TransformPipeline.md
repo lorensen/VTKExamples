@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TransformPipeline
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/TransformPipeline
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTransformPipeline.png?raw=true" width="256" />
 

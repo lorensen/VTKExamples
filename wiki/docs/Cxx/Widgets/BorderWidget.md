@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BorderWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/BorderWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBorderWidget.png?raw=true" width="256" />
 

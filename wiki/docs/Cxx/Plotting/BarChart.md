@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/BarChart
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/BarChart
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestBarChart.png?raw=true" width="256" />
 

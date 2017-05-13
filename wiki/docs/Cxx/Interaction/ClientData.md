@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ClientData
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/ClientData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestClientData.png?raw=true" width="256" />
 

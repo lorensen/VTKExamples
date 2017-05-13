@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/AssignCellColorsFromLUT
+[VTKExamples](/index/)/[Python](/Python)/Visualization/AssignCellColorsFromLUT
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestAssignCellColorsFromLUT.png?raw=true" width="256" />
 

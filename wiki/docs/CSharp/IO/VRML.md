@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/VRML
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/VRML
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestVRML.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Curvatures
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/Curvatures
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCurvatures.png?raw=true" width="256" />
 

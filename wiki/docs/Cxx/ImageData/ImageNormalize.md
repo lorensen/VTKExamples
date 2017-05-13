@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageNormalize
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/ImageNormalize
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageNormalize.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/SortDataArray
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/SortDataArray
 
 **SortDataArray.cxx**
 ```c++

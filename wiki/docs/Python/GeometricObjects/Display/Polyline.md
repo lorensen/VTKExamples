@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Polyline
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Polyline
 
 **Polyline.py**
 ```python

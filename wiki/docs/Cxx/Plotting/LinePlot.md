@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/LinePlot
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/LinePlot
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestLinePlot.png?raw=true" width="256" />
 

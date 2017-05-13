@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/PolygonalSurfaceContourLineInterpolator
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/PolygonalSurfaceContourLineInterpolator
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolygonalSurfaceContourLineInterpolator.png?raw=true" width="256" />
 

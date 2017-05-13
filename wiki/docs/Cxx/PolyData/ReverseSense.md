@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ReverseSense
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ReverseSense
 
 **ReverseSense.cxx**
 ```c++

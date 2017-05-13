@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/WeightedTransformFilter
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/WeightedTransformFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestWeightedTransformFilter.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/TubesFromSplines
+[VTKExamples](/index/)/[Cxx](/Cxx)/VisualizationAlgorithms/TubesFromSplines
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestTubesFromSplines.png?raw=true" width="256" />
 

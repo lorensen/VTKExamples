@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/PointPicker
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/PointPicker
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestPointPicker.png?raw=true" width="256" />
 

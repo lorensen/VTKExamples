@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Polygon
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Polygon
 
 **Polygon.py**
 ```python

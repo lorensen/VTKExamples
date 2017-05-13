@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/Visualization/Follower
+[VTKExamples](/index/)/[Java](/Java)/Visualization/Follower
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestFollower.png?raw=true" width="256" />
 

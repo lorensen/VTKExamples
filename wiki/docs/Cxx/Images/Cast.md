@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Cast
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/Cast
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCast.png?raw=true" width="256" />
 

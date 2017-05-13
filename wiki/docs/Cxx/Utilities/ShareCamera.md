@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ShareCamera
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/ShareCamera
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestShareCamera.png?raw=true" width="256" />
 

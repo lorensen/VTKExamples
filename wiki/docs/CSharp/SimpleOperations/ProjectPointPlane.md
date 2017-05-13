@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/SimpleOperations/ProjectPointPlane
+[VTKExamples](/index/)/[CSharp](/CSharp)/SimpleOperations/ProjectPointPlane
 
 ### Description
 This example projects a point onto a plane

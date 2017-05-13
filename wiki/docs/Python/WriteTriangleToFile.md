@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//WriteTriangleToFile
+[VTKExamples](/index/)/[Python](/Python)//WriteTriangleToFile
 
 **WriteTriangleToFile.py**
 ```python

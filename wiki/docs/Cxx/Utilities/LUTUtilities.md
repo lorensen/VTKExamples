@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/LUTUtilities
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/LUTUtilities
 
 ### Description
 

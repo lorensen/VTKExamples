@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellLocatorVisualization
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/CellLocatorVisualization
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCellLocatorVisualization.png?raw=true" width="256" />
 

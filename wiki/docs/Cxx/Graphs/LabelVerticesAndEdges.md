@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/LabelVerticesAndEdges
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/LabelVerticesAndEdges
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestLabelVerticesAndEdges.png?raw=true" width="256" />
 

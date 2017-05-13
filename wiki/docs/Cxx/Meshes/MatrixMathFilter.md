@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/MatrixMathFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/MatrixMathFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestMatrixMathFilter.png?raw=true" width="256" />
 

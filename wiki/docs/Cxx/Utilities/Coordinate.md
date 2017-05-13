@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Coordinate
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/Coordinate
 
 ### Description
 There are many possible coordinate conversions. This example demonstrates NormalizedDisplay->Display.

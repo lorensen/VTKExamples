@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors
+[VTKExamples](/index/)/[Cxx](/Cxx)/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestTubesWithVaryingRadiusAndColors.png?raw=true" width="256" />
 

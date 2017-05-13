@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/VisualizationAlgorithms/BandedPolyDataContourFilter
+[VTKExamples](/index/)/[CSharp](/CSharp)/VisualizationAlgorithms/BandedPolyDataContourFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png?raw=true" width="256" />
 

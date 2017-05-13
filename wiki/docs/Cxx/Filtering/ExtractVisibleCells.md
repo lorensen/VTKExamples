@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ExtractVisibleCells
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/ExtractVisibleCells
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestExtractVisibleCells.png?raw=true" width="256" />
 

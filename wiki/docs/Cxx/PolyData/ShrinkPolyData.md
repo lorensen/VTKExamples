@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ShrinkPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ShrinkPolyData
 
 **ShrinkPolyData.cxx**
 ```c++

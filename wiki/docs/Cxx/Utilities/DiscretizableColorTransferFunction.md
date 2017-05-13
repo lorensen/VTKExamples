@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/DiscretizableColorTransferFunction
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/DiscretizableColorTransferFunction
 
 **DiscretizableColorTransferFunction.cxx**
 ```c++

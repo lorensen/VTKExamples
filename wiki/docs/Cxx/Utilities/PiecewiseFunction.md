@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/PiecewiseFunction
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/PiecewiseFunction
 
 **PiecewiseFunction.cxx**
 ```c++

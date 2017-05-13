@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/ExtractClusters
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/ExtractClusters
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestExtractClusters.png?raw=true" width="256" />
 

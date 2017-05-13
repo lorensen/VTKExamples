@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/NoShading
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/NoShading
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestNoShading.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/DataAnimationSubclass
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/DataAnimationSubclass
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestDataAnimationSubclass.png?raw=true" width="256" />
 

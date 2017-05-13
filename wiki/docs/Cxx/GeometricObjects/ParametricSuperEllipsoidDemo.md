@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ParametricSuperEllipsoidDemo
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/ParametricSuperEllipsoidDemo
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricSuperEllipsoidDemo.png?raw=true" width="256" />
 

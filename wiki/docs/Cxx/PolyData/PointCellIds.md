@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointCellIds
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PointCellIds
 
 **PointCellIds.cxx**
 ```c++

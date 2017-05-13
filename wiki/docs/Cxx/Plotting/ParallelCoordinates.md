@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/ParallelCoordinates
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/ParallelCoordinates
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestParallelCoordinates.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Modelling/MarchingSquares
+[VTKExamples](/index/)/[Cxx](/Cxx)/Modelling/MarchingSquares
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Modelling/TestMarchingSquares.png?raw=true" width="256" />
 

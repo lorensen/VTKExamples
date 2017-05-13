@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/GraphPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/GraphPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestGraphPoints.png?raw=true" width="256" />
 

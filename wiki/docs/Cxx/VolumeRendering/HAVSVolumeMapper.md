@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VolumeRendering/HAVSVolumeMapper
+[VTKExamples](/index/)/[Cxx](/Cxx)/VolumeRendering/HAVSVolumeMapper
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VolumeRendering/TestHAVSVolumeMapper.png?raw=true" width="256" />
 

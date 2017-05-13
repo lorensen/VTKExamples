@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ColorAnActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ColorAnActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestColorAnActor.png?raw=true" width="256" />
 

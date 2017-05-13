@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ProjectSphere
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ProjectSphere
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestProjectSphere.png?raw=true" width="256" />
 

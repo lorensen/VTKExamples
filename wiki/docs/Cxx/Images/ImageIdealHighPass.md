@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageIdealHighPass
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageIdealHighPass
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageIdealHighPass.png?raw=true" width="256" />
 

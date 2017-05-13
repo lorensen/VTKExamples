@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadPLOT3D
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ReadPLOT3D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPLOT3D.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/RectilinearWipeWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/RectilinearWipeWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestRectilinearWipeWidget.png?raw=true" width="256" />
 

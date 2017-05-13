@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/vtkTestPolyDataFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Developers/vtkTestPolyDataFilter
 
 ### Description
 <source lang="cpp">

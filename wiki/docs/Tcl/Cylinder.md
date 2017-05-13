@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Tcl](/Tcl)//Cylinder
+[VTKExamples](/index/)/[Tcl](/Tcl)//Cylinder
 
 ### Description
 This example demonstrate a minimal visualization created with VTK.

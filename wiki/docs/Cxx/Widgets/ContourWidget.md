@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/ContourWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/ContourWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" />
 

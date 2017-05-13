@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Texture/TexturedSphere
+[VTKExamples](/index/)/[Cxx](/Cxx)/Texture/TexturedSphere
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Texture/TestTexturedSphere.png?raw=true" width="256" />
 

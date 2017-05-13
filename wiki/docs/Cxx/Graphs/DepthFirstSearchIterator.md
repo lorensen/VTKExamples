@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/DepthFirstSearchIterator
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/DepthFirstSearchIterator
 
 ### Description
 This example traverses a tree in a depth first fashion.

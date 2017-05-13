@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/ParametricObjectsDemo
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/ParametricObjectsDemo
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricObjectsDemo.png?raw=true" width="256" />
 

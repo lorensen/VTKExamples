@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Tcl](/Tcl)/GeometricObjects/Sphere
+[VTKExamples](/index/)/[Tcl](/Tcl)/GeometricObjects/Sphere
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestSphere.png?raw=true" width="256" />
 

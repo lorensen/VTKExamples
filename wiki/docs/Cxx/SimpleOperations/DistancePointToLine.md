@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/SimpleOperations/DistancePointToLine
+[VTKExamples](/index/)/[Cxx](/Cxx)/SimpleOperations/DistancePointToLine
 
 ### Description
 This example computes the distance from a point to a line.

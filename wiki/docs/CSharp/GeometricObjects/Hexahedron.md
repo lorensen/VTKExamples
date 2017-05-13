@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Hexahedron
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/Hexahedron
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestHexahedron.png?raw=true" width="256" />
 

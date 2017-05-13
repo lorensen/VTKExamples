@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ImplicitModeller
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ImplicitModeller
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestImplicitModeller.png?raw=true" width="256" />
 

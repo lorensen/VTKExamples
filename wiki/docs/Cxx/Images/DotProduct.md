@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/DotProduct
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/DotProduct
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestDotProduct.png?raw=true" width="256" />
 

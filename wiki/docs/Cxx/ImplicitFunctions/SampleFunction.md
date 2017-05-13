@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImplicitFunctions/SampleFunction
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImplicitFunctions/SampleFunction
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestSampleFunction.png?raw=true" width="256" />
 

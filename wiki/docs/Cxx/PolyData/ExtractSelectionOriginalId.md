@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExtractSelectionOriginalId
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ExtractSelectionOriginalId
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractSelectionOriginalId.png?raw=true" width="256" />
 

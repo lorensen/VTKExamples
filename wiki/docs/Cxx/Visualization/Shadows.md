@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Shadows
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/Shadows
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestShadows.png?raw=true" width="256" />
 

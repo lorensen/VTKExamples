@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/XGMLReader
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/XGMLReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestXGMLReader.png?raw=true" width="256" />
 

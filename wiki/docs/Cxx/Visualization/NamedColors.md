@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/NamedColors
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/NamedColors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestNamedColors.png?raw=true" width="256" />
 

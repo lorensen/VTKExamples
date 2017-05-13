@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadDICOM
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadDICOM
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadDICOM.png?raw=true" width="256" />
 

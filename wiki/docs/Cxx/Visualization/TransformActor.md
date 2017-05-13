@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TransformActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/TransformActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTransformActor.png?raw=true" width="256" />
 

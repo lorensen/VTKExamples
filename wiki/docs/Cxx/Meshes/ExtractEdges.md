@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/ExtractEdges
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/ExtractEdges
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestExtractEdges.png?raw=true" width="256" />
 

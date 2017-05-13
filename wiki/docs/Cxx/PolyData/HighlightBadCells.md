@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/HighlightBadCells
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/HighlightBadCells
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestHighlightBadCells.png?raw=true" width="256" />
 

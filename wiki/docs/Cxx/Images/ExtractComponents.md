@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ExtractComponents
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ExtractComponents
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestExtractComponents.png?raw=true" width="256" />
 

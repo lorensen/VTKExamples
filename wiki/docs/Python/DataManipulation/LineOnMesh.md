@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/DataManipulation/LineOnMesh
+[VTKExamples](/index/)/[Python](/Python)/DataManipulation/LineOnMesh
 
 ### Description
 []([File:VTK_Examples_Python_DataManipulation_LineOnMesh1.png?|x300px|]][[File:VTK_Examples_Python_DataManipulation_LineOnMesh2.png?|x300px|?])

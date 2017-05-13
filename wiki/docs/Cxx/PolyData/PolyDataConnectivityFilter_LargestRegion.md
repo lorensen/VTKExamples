@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataConnectivityFilter_LargestRegion
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PolyDataConnectivityFilter_LargestRegion
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_LargestRegion.png?raw=true" width="256" />
 

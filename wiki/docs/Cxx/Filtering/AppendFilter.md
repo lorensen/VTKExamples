@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/AppendFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/AppendFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestAppendFilter.png?raw=true" width="256" />
 

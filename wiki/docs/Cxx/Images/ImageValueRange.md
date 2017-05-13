@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageValueRange
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageValueRange
 
 **ImageValueRange.cxx**
 ```c++

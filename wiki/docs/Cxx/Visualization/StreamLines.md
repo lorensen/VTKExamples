@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/StreamLines
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/StreamLines
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestStreamLines.png?raw=true" width="256" />
 

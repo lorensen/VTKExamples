@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/SelectionSource
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/SelectionSource
 
 **SelectionSource.cxx**
 ```c++

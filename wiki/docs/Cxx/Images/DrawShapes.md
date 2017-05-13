@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/DrawShapes
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/DrawShapes
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestDrawShapes.png?raw=true" width="256" />
 

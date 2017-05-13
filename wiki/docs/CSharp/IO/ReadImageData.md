@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadImageData
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ReadImageData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadImageData.png?raw=true" width="256" />
 

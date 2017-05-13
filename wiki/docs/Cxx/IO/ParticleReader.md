@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ParticleReader
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ParticleReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestParticleReader.png?raw=true" width="256" />
 

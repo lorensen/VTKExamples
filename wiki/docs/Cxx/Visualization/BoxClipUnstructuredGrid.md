@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BoxClipUnstructuredGrid
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/BoxClipUnstructuredGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBoxClipUnstructuredGrid.png?raw=true" width="256" />
 

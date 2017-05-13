@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//TriangleCorners
+[VTKExamples](/index/)/[Python](/Python)//TriangleCorners
 
 **TriangleCorners.py**
 ```python

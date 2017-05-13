@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ConnectivityFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/ConnectivityFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestConnectivityFilter.png?raw=true" width="256" />
 

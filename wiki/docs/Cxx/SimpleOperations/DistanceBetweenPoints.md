@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/SimpleOperations/DistanceBetweenPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/SimpleOperations/DistanceBetweenPoints
 
 ### Description
 This example finds the squared distance and the Euclidean distance between two 3D points.

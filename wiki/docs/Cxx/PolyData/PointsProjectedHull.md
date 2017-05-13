@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointsProjectedHull
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PointsProjectedHull
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointsProjectedHull.png?raw=true" width="256" />
 

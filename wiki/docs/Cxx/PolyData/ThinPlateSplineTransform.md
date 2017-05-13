@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ThinPlateSplineTransform
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ThinPlateSplineTransform
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestThinPlateSplineTransform.png?raw=true" width="256" />
 

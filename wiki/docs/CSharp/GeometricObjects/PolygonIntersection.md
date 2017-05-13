@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/PolygonIntersection
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/PolygonIntersection
 
 ### Description
 Calculates the intersection of a polygon and a line.<br />

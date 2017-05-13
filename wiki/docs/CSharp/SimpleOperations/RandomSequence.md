@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/SimpleOperations/RandomSequence
+[VTKExamples](/index/)/[CSharp](/CSharp)/SimpleOperations/RandomSequence
 
 ### Description
 This is the "new" (December, 2009) VTK way to produce random numbers. It is actually a random sequence generator.

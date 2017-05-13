@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Geovis/CompassWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Geovis/CompassWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestCompassWidget.png?raw=true" width="256" />
 

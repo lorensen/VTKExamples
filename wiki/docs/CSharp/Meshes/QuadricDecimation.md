@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/QuadricDecimation
+[VTKExamples](/index/)/[CSharp](/CSharp)/Meshes/QuadricDecimation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestQuadricDecimation.png?raw=true" width="256" />
 

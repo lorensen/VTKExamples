@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/DepthFirstSearchAnimation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/DepthFirstSearchAnimation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestDepthFirstSearchAnimation.png?raw=true" width="256" />
 

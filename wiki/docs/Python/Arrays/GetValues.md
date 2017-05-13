@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Arrays/GetValues
+[VTKExamples](/index/)/[Python](/Python)/Arrays/GetValues
 
 ### Description
 Seems to work, but segfaults at the end? 

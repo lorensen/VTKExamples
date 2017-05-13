@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Vertex
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Vertex
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestVertex.png?raw=true" width="256" />
 

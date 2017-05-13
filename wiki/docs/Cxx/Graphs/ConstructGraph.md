@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ConstructGraph
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/ConstructGraph
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestConstructGraph.png?raw=true" width="256" />
 

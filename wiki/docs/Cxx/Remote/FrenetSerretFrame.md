@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Remote/FrenetSerretFrame
+[VTKExamples](/index/)/[Cxx](/Cxx)/Remote/FrenetSerretFrame
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Remote/TestFrenetSerretFrame.png?raw=true" width="256" />
 

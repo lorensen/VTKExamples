@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/Assembly
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/Assembly
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestAssembly.png?raw=true" width="256" />
 

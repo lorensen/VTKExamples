@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/WritePolyData
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/WritePolyData
 
 ### Description
 In this example, we add 4 points to a polygonal data (polydata) object and write the result to a VTP file.<br />

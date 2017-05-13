@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataIsoLines
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PolyDataIsoLines
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolyDataIsoLines.png?raw=true" width="256" />
 

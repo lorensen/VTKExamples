@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageIslandRemoval2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageIslandRemoval2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageIslandRemoval2D.png?raw=true" width="256" />
 

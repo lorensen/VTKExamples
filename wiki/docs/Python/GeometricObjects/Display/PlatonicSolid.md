@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/PlatonicSolid
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/PlatonicSolid
 
 ### Description
 Display all five Platonic solids in a grid.

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/SignedDistance
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/SignedDistance
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestSignedDistance.png?raw=true" width="256" />
 

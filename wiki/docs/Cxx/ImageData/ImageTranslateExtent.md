@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ImageTranslateExtent
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/ImageTranslateExtent
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestImageTranslateExtent.png?raw=true" width="256" />
 

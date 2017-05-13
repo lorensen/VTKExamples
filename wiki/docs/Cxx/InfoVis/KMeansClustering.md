@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/KMeansClustering
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/KMeansClustering
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestKMeansClustering.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Filtering/Delaunay2D
+[VTKExamples](/index/)/[Python](/Python)/Filtering/Delaunay2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestDelaunay2D.png?raw=true" width="256" />
 

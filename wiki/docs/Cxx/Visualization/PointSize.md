@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/PointSize
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/PointSize
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestPointSize.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/ColoredElevationMap
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/ColoredElevationMap
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestColoredElevationMap.png?raw=true" width="256" />
 

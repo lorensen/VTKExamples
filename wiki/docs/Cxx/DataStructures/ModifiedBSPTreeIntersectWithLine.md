@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/ModifiedBSPTreeIntersectWithLine
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/ModifiedBSPTreeIntersectWithLine
 
 **ModifiedBSPTreeIntersectWithLine.cxx**
 ```c++

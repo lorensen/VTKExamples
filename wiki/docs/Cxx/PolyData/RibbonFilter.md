@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/RibbonFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/RibbonFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestRibbonFilter.png?raw=true" width="256" />
 

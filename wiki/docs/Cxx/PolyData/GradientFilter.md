@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/GradientFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/GradientFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestGradientFilter.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/RuledSurfaceFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/RuledSurfaceFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestRuledSurfaceFilter.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/MedicalDemo3
+[VTKExamples](/index/)/[Cxx](/Cxx)/Medical/MedicalDemo3
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Medical/TestMedicalDemo3.png?raw=true" width="256" />
 

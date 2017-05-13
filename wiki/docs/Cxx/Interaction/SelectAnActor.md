@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/SelectAnActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/SelectAnActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestSelectAnActor.png?raw=true" width="256" />
 

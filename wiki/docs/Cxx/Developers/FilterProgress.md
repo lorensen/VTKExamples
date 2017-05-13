@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/FilterProgress
+[VTKExamples](/index/)/[Cxx](/Cxx)/Developers/FilterProgress
 
 **FilterProgress.cxx**
 ```c++

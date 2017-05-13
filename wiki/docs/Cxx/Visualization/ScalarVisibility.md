@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ScalarVisibility
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ScalarVisibility
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestScalarVisibility.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageSinusoidSource
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageSinusoidSource
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageSinusoidSource.png?raw=true" width="256" />
 

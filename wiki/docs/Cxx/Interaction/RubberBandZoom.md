@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/RubberBandZoom
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/RubberBandZoom
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestRubberBandZoom.png?raw=true" width="256" />
 

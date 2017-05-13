@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/TriangulateTerrainMap
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/TriangulateTerrainMap
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestTriangulateTerrainMap.png?raw=true" width="256" />
 

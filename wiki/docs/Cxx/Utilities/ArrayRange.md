@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ArrayRange
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/ArrayRange
 
 **ArrayRange.cxx**
 ```c++

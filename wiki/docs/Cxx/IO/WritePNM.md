@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WritePNM
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/WritePNM
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWritePNM.png?raw=true" width="256" />
 

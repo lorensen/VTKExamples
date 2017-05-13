@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/Reflection
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/Reflection
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestReflection.png?raw=true" width="256" />
 

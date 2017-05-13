@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageHybridMedian2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageHybridMedian2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageHybridMedian2D.png?raw=true" width="256" />
 

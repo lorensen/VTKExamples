@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/InterpolateTerrain
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/InterpolateTerrain
 
 ### Description
 This example samples a "terrain map" using two approaches.

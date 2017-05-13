@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/ElevationBandsWithGlyphs
+[VTKExamples](/index/)/[Python](/Python)/Visualization/ElevationBandsWithGlyphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestElevationBandsWithGlyphs.png?raw=true" width="256" />
 

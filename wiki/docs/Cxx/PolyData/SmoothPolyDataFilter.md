@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/SmoothPolyDataFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/SmoothPolyDataFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestSmoothPolyDataFilter.png?raw=true" width="256" />
 

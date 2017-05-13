@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Animation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/Animation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestAnimation.png?raw=true" width="256" />
 

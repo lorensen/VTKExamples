@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadTIFF
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadTIFF
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadTIFF.png?raw=true" width="256" />
 

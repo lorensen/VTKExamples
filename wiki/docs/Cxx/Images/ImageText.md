@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageText
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageText
 
 ### Description
 This example demonstrates how to draw text onto an image ({{class|vtkImageData}}). It uses {{class|vtkImageBlend}} to blend the text and the image. For another example using vtkImageBlend, see []([../CombineImages]).

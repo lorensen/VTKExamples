@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/vtkImageAlgorithmFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Developers/vtkImageAlgorithmFilter
 
 ### Description
 <source lang="cpp">

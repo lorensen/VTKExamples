@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Cube
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Cube
 
 ### Description
 Display a cube

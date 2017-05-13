@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/Miscellaneous/Screenshot
+[VTKExamples](/index/)/[Java](/Java)/Miscellaneous/Screenshot
 
 ### Description
 This example shows how to save the window to a file (png in this case).

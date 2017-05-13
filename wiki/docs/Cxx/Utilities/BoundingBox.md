@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/BoundingBox
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/BoundingBox
 
 ### Description
 **See also:** [Outline](Cxx/PolyData/Outline) and [CubeAxesActor2D](Cxx/Visualization/CubeAxesActor2D)

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointLocatorRadius
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PointLocatorRadius
 
 **PointLocatorRadius.cxx**
 ```c++

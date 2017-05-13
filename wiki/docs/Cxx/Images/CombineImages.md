@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/CombineImages
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/CombineImages
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCombineImages.png?raw=true" width="256" />
 

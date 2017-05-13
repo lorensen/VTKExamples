@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/BiDimensionalWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/BiDimensionalWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBiDimensionalWidget.png?raw=true" width="256" />
 

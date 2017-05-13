@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Rendering/AmbientSpheres
+[VTKExamples](/index/)/[Cxx](/Cxx)/Rendering/AmbientSpheres
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Rendering/TestAmbientSpheres.png?raw=true" width="256" />
 

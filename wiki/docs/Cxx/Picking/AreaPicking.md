@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Picking/AreaPicking
+[VTKExamples](/index/)/[Cxx](/Cxx)/Picking/AreaPicking
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Picking/TestAreaPicking.png?raw=true" width="256" />
 

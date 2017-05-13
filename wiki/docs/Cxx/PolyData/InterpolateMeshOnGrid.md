@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/InterpolateMeshOnGrid
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/InterpolateMeshOnGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestInterpolateMeshOnGrid.png?raw=true" width="256" />
 

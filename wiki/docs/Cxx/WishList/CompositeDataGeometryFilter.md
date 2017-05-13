@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/WishList/CompositeDataGeometryFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/WishList/CompositeDataGeometryFilter
 
 **CompositeDataGeometryFilter.cxx**
 ```c++

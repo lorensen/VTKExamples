@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/SimpleElevationFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/SimpleElevationFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestSimpleElevationFilter.png?raw=true" width="256" />
 

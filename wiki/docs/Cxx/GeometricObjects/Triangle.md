@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Triangle
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Triangle
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestTriangle.png?raw=true" width="256" />
 

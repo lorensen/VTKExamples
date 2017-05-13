@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/MinimumSpanningTree
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/MinimumSpanningTree
 
 ### Description
 This example shows how to find the minimum spanning tree. The input graph is:

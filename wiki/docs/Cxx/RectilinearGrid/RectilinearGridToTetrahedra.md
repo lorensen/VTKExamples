@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/RectilinearGrid/RectilinearGridToTetrahedra
+[VTKExamples](/index/)/[Cxx](/Cxx)/RectilinearGrid/RectilinearGridToTetrahedra
 
 
 **RectilinearGridToTetrahedra.cxx**

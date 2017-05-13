@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/GenerateModelsFromLabels
+[VTKExamples](/index/)/[Cxx](/Cxx)/Medical/GenerateModelsFromLabels
 
 ### Description
 This example creates polydata models from a 3D volume that contains

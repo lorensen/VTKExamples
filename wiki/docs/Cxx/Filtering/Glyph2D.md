@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/Glyph2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/Glyph2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestGlyph2D.png?raw=true" width="256" />
 

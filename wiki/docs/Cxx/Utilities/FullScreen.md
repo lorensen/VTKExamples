@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/FullScreen
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/FullScreen
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestFullScreen.png?raw=true" width="256" />
 

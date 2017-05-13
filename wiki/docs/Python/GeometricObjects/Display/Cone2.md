@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Cone2
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Cone2
 
 ### Description
 <source lang="python">

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ParametricSpline
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ParametricSpline
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestParametricSpline.png?raw=true" width="256" />
 

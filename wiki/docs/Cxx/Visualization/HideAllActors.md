@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/HideAllActors
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/HideAllActors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestHideAllActors.png?raw=true" width="256" />
 

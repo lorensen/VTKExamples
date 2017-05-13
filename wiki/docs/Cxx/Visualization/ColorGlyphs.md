@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ColorGlyphs
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ColorGlyphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestColorGlyphs.png?raw=true" width="256" />
 

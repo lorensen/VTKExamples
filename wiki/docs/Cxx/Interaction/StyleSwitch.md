@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/StyleSwitch
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/StyleSwitch
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestStyleSwitch.png?raw=true" width="256" />
 

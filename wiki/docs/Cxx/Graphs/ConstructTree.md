@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ConstructTree
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/ConstructTree
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestConstructTree.png?raw=true" width="256" />
 

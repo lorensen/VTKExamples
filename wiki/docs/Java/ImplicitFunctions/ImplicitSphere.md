@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/ImplicitFunctions/ImplicitSphere
+[VTKExamples](/index/)/[Java](/Java)/ImplicitFunctions/ImplicitSphere
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestImplicitSphere.png?raw=true" width="256" />
 

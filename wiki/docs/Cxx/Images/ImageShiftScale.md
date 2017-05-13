@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageShiftScale
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageShiftScale
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageShiftScale.png?raw=true" width="256" />
 

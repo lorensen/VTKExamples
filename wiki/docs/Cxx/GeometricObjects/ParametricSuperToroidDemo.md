@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/ParametricSuperToroidDemo
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/ParametricSuperToroidDemo
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestParametricSuperToroidDemo.png?raw=true" width="256" />
 

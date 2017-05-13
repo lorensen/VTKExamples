@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Math/MatrixTranspose
+[VTKExamples](/index/)/[Cxx](/Cxx)/Math/MatrixTranspose
 
 **MatrixTranspose.cxx**
 ```c++

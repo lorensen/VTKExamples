@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Disk
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/Disk
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestDisk.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/GraphToPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/GraphToPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestGraphToPolyData.png?raw=true" width="256" />
 

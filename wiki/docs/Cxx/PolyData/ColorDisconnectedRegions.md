@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ColorDisconnectedRegions
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ColorDisconnectedRegions
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestColorDisconnectedRegions.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/BackfaceCulling
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/BackfaceCulling
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestBackfaceCulling.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/SideBySideViewports
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/SideBySideViewports
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestSideBySideViewports.png?raw=true" width="256" />
 

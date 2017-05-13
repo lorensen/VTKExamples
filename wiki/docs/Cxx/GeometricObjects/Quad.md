@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Quad
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Quad
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestQuad.png?raw=true" width="256" />
 

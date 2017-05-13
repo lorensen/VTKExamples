@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Arrow
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Arrow
 
 **Arrow.py**
 ```python

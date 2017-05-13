@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/CompositeData/CompositePolyDataMapper
+[VTKExamples](/index/)/[Cxx](/Cxx)/CompositeData/CompositePolyDataMapper
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/CompositeData/TestCompositePolyDataMapper.png?raw=true" width="256" />
 

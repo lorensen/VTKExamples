@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/CompositeData/OverlappingAMR
+[VTKExamples](/index/)/[Cxx](/Cxx)/CompositeData/OverlappingAMR
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/CompositeData/TestOverlappingAMR.png?raw=true" width="256" />
 

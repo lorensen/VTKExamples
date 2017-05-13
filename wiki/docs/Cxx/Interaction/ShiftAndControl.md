@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ShiftAndControl
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/ShiftAndControl
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestShiftAndControl.png?raw=true" width="256" />
 

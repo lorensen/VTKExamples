@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MultiBlockMergeFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/MultiBlockMergeFilter
 
 **MultiBlockMergeFilter.cxx**
 ```c++

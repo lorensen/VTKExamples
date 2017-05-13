@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LineWidth
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/LineWidth
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLineWidth.png?raw=true" width="256" />
 

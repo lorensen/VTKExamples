@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/Subdivision
+[VTKExamples](/index/)/[CSharp](/CSharp)/Meshes/Subdivision
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestSubdivision.png?raw=true" width="256" />
 

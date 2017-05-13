@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/OutEdgeIterator
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/OutEdgeIterator
 
 **OutEdgeIterator.cxx**
 ```c++

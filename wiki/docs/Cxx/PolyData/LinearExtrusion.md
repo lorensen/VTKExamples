@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/LinearExtrusion
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/LinearExtrusion
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestLinearExtrusion.png?raw=true" width="256" />
 

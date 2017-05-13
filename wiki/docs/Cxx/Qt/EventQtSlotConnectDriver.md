@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/EventQtSlotConnectDriver
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/EventQtSlotConnectDriver
 
 **EventQtSlotConnectDriver.cxx**
 ```c++

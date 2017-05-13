@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PointInsideObject
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PointInsideObject
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPointInsideObject.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/SolidClip
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/SolidClip
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestSolidClip.png?raw=true" width="256" />
 

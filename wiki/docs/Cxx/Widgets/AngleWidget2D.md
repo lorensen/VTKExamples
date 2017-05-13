@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/AngleWidget2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/AngleWidget2D
 
 ### Description
 The arc is still visible?

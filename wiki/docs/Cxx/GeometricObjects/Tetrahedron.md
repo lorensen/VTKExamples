@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Tetrahedron
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Tetrahedron
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestTetrahedron.png?raw=true" width="256" />
 

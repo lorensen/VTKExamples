@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ImageReader2Factory
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ImageReader2Factory
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestImageReader2Factory.png?raw=true" width="256" />
 

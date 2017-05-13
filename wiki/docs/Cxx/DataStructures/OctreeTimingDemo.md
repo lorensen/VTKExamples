@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/OctreeTimingDemo
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/OctreeTimingDemo
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestOctreeTimingDemo.png?raw=true" width="256" />
 

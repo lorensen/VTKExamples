@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/OBBDicer
+[VTKExamples](/index/)/[CSharp](/CSharp)/Meshes/OBBDicer
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestOBBDicer.png?raw=true" width="256" />
 

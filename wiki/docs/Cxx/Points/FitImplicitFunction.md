@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/FitImplicitFunction
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/FitImplicitFunction
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestFitImplicitFunction.png?raw=true" width="256" />
 

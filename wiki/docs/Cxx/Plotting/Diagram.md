@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/Diagram
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/Diagram
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestDiagram.png?raw=true" width="256" />
 

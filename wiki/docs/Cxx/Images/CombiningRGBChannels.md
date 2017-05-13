@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/CombiningRGBChannels
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/CombiningRGBChannels
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestCombiningRGBChannels.png?raw=true" width="256" />
 

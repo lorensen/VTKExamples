@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Widgets/CompassWidget
+[VTKExamples](/index/)/[Python](/Python)/Widgets/CompassWidget
 
 ### Description
 []([File:VTK_Examples_Python_Widgets_CompassWidget.png])

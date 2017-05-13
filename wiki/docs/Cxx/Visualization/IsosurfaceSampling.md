@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/IsosurfaceSampling
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/IsosurfaceSampling
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestIsosurfaceSampling.png?raw=true" width="256" />
 

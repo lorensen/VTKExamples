@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WritePLY
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/WritePLY
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWritePLY.png?raw=true" width="256" />
 

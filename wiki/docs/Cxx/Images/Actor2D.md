@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Actor2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/Actor2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestActor2D.png?raw=true" width="256" />
 

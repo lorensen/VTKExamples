@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/PlatonicSolid
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/PlatonicSolid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPlatonicSolid.png?raw=true" width="256" />
 

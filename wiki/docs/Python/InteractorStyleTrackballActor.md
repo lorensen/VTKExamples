@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//InteractorStyleTrackballActor
+[VTKExamples](/index/)/[Python](/Python)//InteractorStyleTrackballActor
 
 ### Description
 Move, rotate, and scale an object in 3D.

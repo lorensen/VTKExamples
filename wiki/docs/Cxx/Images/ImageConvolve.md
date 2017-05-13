@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageConvolve
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageConvolve
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageConvolve.png?raw=true" width="256" />
 

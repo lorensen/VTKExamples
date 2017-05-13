@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/FillWindow
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/FillWindow
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestFillWindow.png?raw=true" width="256" />
 

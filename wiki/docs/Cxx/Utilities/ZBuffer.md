@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ZBuffer
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/ZBuffer
 
 **ZBuffer.cxx**
 ```c++

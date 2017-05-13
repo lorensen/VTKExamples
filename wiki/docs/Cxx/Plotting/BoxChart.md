@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/BoxChart
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/BoxChart
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestBoxChart.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellCenters
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/CellCenters
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCellCenters.png?raw=true" width="256" />
 

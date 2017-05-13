@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/WorldPointPicker
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/WorldPointPicker
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestWorldPointPicker.png?raw=true" width="256" />
 

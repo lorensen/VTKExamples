@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/PolyData/BooleanOperationPolyDataFilter
+[VTKExamples](/index/)/[Python](/Python)/PolyData/BooleanOperationPolyDataFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png?raw=true" width="256" />
 

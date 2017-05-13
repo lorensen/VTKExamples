@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//ReadWriteVtkImageData
+[VTKExamples](/index/)/[Python](/Python)//ReadWriteVtkImageData
 
 ### Description
 ==Brief Description==

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/OrientedArrow
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/OrientedArrow
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestOrientedArrow.png?raw=true" width="256" />
 

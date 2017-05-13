@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadStructuredGrid
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadStructuredGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadStructuredGrid.png?raw=true" width="256" />
 

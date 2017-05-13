@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/VertexGlyphFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/VertexGlyphFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestVertexGlyphFilter.png?raw=true" width="256" />
 

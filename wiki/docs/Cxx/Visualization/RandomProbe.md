@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/RandomProbe
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/RandomProbe
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestRandomProbe.png?raw=true" width="256" />
 

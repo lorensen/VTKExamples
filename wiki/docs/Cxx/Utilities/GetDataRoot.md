@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/GetDataRoot
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/GetDataRoot
 
 **GetDataRoot.cxx**
 ```c++

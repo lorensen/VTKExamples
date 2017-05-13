@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//FilledPolygon
+[VTKExamples](/index/)/[Python](/Python)//FilledPolygon
 
 **FilledPolygon.py**
 ```python

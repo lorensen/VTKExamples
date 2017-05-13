@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/ShareCameraQtDriver
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/ShareCameraQtDriver
 
 **ShareCameraQtDriver.cxx**
 ```c++

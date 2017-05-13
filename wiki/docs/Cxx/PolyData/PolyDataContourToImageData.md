@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataContourToImageData
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PolyDataContourToImageData
 
 ### Description
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Math/NormalizeVector
+[VTKExamples](/index/)/[Cxx](/Cxx)/Math/NormalizeVector
 
 **NormalizeVector.cxx**
 ```c++

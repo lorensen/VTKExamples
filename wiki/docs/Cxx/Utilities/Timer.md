@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Timer
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/Timer
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestTimer.png?raw=true" width="256" />
 

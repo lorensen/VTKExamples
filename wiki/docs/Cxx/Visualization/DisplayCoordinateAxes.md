@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DisplayCoordinateAxes
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/DisplayCoordinateAxes
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDisplayCoordinateAxes.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ProgrammableGlyphFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ProgrammableGlyphFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestProgrammableGlyphFilter.png?raw=true" width="256" />
 

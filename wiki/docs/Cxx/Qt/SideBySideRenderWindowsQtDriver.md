@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/SideBySideRenderWindowsQtDriver
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/SideBySideRenderWindowsQtDriver
 
 ### Description
 

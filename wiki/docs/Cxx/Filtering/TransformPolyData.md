@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/TransformPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/TransformPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestTransformPolyData.png?raw=true" width="256" />
 

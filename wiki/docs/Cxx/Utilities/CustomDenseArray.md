@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/CustomDenseArray
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/CustomDenseArray
 
 ### Description
 The only thing you have to do to enable your class to work with vtkDenseArray is add a single line:   

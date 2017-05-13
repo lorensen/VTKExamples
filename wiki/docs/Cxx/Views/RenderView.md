@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Views/RenderView
+[VTKExamples](/index/)/[Cxx](/Cxx)/Views/RenderView
 
 ### Description
 Here is a little bit easier way to get your objects to appear on the screen.

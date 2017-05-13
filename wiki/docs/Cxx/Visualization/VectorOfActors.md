@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/VectorOfActors
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/VectorOfActors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVectorOfActors.png?raw=true" width="256" />
 

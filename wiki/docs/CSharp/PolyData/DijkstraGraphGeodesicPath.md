@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/DijkstraGraphGeodesicPath
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/DijkstraGraphGeodesicPath
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDijkstraGraphGeodesicPath.png?raw=true" width="256" />
 

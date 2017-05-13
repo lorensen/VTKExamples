@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/CutWithCutFunction
+[VTKExamples](/index/)/[Cxx](/Cxx)/VisualizationAlgorithms/CutWithCutFunction
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestCutWithCutFunction.png?raw=true" width="256" />
 

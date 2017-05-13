@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LabelContours
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/LabelContours
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLabelContours.png?raw=true" width="256" />
 

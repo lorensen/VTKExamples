@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/NormalEstimation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/NormalEstimation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestNormalEstimation.png?raw=true" width="256" />
 

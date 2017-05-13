@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/EdgeWeights
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/EdgeWeights
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestEdgeWeights.png?raw=true" width="256" />
 

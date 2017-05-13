@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/XMLPUnstructuredGridWriter
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/XMLPUnstructuredGridWriter
 
 **XMLPUnstructuredGridWriter.cxx**
 ```c++

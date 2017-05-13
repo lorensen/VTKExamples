@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/EdgeListIterator
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/EdgeListIterator
 
 **EdgeListIterator.cxx**
 ```c++

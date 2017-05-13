@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/ImageTransparency
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/ImageTransparency
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestImageTransparency.png?raw=true" width="256" />
 

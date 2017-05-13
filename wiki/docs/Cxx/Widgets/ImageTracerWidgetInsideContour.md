@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/ImageTracerWidgetInsideContour
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/ImageTracerWidgetInsideContour
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestImageTracerWidgetInsideContour.png?raw=true" width="256" />
 

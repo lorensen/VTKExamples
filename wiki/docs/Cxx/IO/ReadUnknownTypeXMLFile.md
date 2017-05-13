@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadUnknownTypeXMLFile
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadUnknownTypeXMLFile
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadUnknownTypeXMLFile.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/Graphs/SelectGraphVertices
+[VTKExamples](/index/)/[Java](/Java)/Graphs/SelectGraphVertices
 
 **SelectGraphVertices.java**
 ```java

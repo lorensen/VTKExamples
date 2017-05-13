@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/DenseArrayRange
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/DenseArrayRange
 
 **DenseArrayRange.cxx**
 ```c++

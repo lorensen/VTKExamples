@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/PointSize
+[VTKExamples](/index/)/[Python](/Python)/Visualization/PointSize
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestPointSize.png?raw=true" width="256" />
 

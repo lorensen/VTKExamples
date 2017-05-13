@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ObserverMemberFunction
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/ObserverMemberFunction
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestObserverMemberFunction.png?raw=true" width="256" />
 

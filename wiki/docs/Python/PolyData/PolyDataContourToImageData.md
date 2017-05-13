@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/PolyData/PolyDataContourToImageData
+[VTKExamples](/index/)/[Python](/Python)/PolyData/PolyDataContourToImageData
 
 ### Description
 * Contributed by: Lars Friedrich, Peter Gruber

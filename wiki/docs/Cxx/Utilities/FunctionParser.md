@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/FunctionParser
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/FunctionParser
 
 ### Description
 This example shows how to substitute values and evaluate a string such as "a+b".

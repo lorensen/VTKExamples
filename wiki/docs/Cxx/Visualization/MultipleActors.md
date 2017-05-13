@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MultipleActors
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/MultipleActors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMultipleActors.png?raw=true" width="256" />
 

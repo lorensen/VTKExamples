@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MaskPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/MaskPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestMaskPoints.png?raw=true" width="256" />
 

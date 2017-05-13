@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LegendScaleActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/LegendScaleActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLegendScaleActor.png?raw=true" width="256" />
 

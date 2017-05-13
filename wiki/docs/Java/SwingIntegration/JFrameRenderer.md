@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/SwingIntegration/JFrameRenderer
+[VTKExamples](/index/)/[Java](/Java)/SwingIntegration/JFrameRenderer
 
 ### Description
 This example shows how to render a VTK scene in a JFrame using a vtkRenderWindowPanel.

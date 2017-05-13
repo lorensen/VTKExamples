@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ExternalContour
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ExternalContour
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExternalContour.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/ImageDataToQImage
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/ImageDataToQImage
 
 ### Description
 This example shows how a vtkImageData can be converted into a [QImage](http://doc.qt.io/qt-5/qimage.html).

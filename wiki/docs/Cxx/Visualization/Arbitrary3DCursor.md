@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Arbitrary3DCursor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/Arbitrary3DCursor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestArbitrary3DCursor.png?raw=true" width="256" />
 

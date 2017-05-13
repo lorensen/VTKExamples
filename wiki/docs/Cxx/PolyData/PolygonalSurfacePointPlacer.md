@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolygonalSurfacePointPlacer
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PolygonalSurfacePointPlacer
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolygonalSurfacePointPlacer.png?raw=true" width="256" />
 

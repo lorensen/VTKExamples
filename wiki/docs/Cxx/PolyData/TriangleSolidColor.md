@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/TriangleSolidColor
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/TriangleSolidColor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestTriangleSolidColor.png?raw=true" width="256" />
 

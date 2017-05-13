@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/WriteSTL
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/WriteSTL
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteSTL.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CorrectlyRenderTranslucentGeometry
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/CorrectlyRenderTranslucentGeometry
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCorrectlyRenderTranslucentGeometry.png?raw=true" width="256" />
 

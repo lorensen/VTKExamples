@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/RectilinearGrid/VisualizeRectilinearGrid
+[VTKExamples](/index/)/[Cxx](/Cxx)/RectilinearGrid/VisualizeRectilinearGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/RectilinearGrid/TestVisualizeRectilinearGrid.png?raw=true" width="256" />
 

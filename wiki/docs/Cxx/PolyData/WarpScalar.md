@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/WarpScalar
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/WarpScalar
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestWarpScalar.png?raw=true" width="256" />
 

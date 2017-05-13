@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/TrackballActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/TrackballActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestTrackballActor.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Math/1DTupleInterpolation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Math/1DTupleInterpolation
 
 ### Description
 * Contributed by: Lars Friedrich

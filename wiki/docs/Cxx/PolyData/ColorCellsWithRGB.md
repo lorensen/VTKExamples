@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/ColorCellsWithRGB
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/ColorCellsWithRGB
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestColorCellsWithRGB.png?raw=true" width="256" />
 

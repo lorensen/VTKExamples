@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadOBJ
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ReadOBJ
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadOBJ.png?raw=true" width="256" />
 

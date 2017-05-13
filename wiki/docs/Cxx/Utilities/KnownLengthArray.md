@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/KnownLengthArray
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/KnownLengthArray
 
 ### Description
 This example creates a VTK style float array. This can be easily

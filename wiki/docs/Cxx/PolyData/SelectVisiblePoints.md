@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/SelectVisiblePoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/SelectVisiblePoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestSelectVisiblePoints.png?raw=true" width="256" />
 

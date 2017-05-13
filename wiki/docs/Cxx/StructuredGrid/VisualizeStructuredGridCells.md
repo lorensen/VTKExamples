@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/StructuredGrid/VisualizeStructuredGridCells
+[VTKExamples](/index/)/[Cxx](/Cxx)/StructuredGrid/VisualizeStructuredGridCells
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/StructuredGrid/TestVisualizeStructuredGridCells.png?raw=true" width="256" />
 

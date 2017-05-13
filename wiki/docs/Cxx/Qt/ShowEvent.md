@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/ShowEvent
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/ShowEvent
 
 **ShowEvent.cxx**
 ```c++

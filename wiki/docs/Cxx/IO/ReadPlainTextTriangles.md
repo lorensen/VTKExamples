@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadPlainTextTriangles
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadPlainTextTriangles
 
 ### Description
 

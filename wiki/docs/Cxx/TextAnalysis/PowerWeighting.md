@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/TextAnalysis/PowerWeighting
+[VTKExamples](/index/)/[Cxx](/Cxx)/TextAnalysis/PowerWeighting
 
 **PowerWeighting.cxx**
 ```c++

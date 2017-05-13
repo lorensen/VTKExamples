@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/DelimitedTextReader
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/DelimitedTextReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/InfoVis/TestDelimitedTextReader.png?raw=true" width="256" />
 

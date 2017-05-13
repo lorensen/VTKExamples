@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/PNGReader
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/PNGReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestPNGReader.png?raw=true" width="256" />
 

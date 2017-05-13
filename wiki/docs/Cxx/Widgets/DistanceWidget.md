@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/DistanceWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/DistanceWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestDistanceWidget.png?raw=true" width="256" />
 

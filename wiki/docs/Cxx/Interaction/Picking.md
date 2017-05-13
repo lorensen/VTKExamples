@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/Picking
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/Picking
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestPicking.png?raw=true" width="256" />
 

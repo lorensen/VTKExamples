@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/BoostBreadthFirstSearchTree
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/BoostBreadthFirstSearchTree
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestBoostBreadthFirstSearchTree.png?raw=true" width="256" />
 

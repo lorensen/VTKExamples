@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadPNM
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadPNM
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPNM.png?raw=true" width="256" />
 

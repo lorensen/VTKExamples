@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Developers/PolyDataAlgorithmReader
+[VTKExamples](/index/)/[Cxx](/Cxx)/Developers/PolyDataAlgorithmReader
 
 ### Description
 This example demonstrates a reader that takes nothing as input and produces a vtkPolyData as output.

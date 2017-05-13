@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/RadiusOutlierRemoval
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/RadiusOutlierRemoval
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestRadiusOutlierRemoval.png?raw=true" width="256" />
 

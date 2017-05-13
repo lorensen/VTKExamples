@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/MouseEvents
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/MouseEvents
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMouseEvents.png?raw=true" width="256" />
 

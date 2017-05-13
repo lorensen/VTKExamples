@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/SimplePointsReader
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/SimplePointsReader
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestSimplePointsReader.png?raw=true" width="256" />
 

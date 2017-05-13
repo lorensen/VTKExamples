@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/VectorFieldNonZeroExtraction
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/VectorFieldNonZeroExtraction
 
 ### Description
 <p>This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar values</p>

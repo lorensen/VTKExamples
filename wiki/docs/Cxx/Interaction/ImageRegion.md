@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/ImageRegion
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/ImageRegion
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestImageRegion.png?raw=true" width="256" />
 

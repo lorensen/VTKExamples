@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CornerAnnotation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/CornerAnnotation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCornerAnnotation.png?raw=true" width="256" />
 

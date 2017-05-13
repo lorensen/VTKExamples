@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MovableAxes
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/MovableAxes
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMovableAxes.png?raw=true" width="256" />
 

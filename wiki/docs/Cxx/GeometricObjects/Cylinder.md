@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Cylinder
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Cylinder
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestCylinder.png?raw=true" width="256" />
 

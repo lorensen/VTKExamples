@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/Cursor3D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/Cursor3D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCursor3D.png?raw=true" width="256" />
 

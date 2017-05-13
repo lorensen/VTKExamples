@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/OrientationMarkerWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/OrientationMarkerWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestOrientationMarkerWidget.png?raw=true" width="256" />
 

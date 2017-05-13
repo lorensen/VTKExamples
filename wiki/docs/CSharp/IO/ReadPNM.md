@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadPNM
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ReadPNM
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPNM.png?raw=true" width="256" />
 

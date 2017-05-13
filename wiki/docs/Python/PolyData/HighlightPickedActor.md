@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/PolyData/HighlightPickedActor
+[VTKExamples](/index/)/[Python](/Python)/PolyData/HighlightPickedActor
 
 ### Description
 []([File:VTK_Examples_Python_Interaction_vtkImplicitPolyDataDistance.png])

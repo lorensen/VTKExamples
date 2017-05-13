@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/GeometricObjects/Hexahedron
+[VTKExamples](/index/)/[Cxx](/Cxx)/GeometricObjects/Hexahedron
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestHexahedron.png?raw=true" width="256" />
 

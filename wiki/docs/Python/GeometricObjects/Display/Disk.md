@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Disk
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Disk
 
 ### Description
 []([Image:Disk.png])

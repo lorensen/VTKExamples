@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Cell3DDemonstration
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Cell3DDemonstration
 
 ### Description
 ==Description==

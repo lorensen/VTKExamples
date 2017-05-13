@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DijkstraGraphGeodesicPath
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/DijkstraGraphGeodesicPath
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDijkstraGraphGeodesicPath.png?raw=true" width="256" />
 

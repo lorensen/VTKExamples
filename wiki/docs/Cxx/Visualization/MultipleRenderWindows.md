@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MultipleRenderWindows
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/MultipleRenderWindows
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMultipleRenderWindows.png?raw=true" width="256" />
 

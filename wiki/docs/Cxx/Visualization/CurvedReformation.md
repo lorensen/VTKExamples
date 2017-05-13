@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CurvedReformation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/CurvedReformation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCurvedReformation.png?raw=true" width="256" />
 

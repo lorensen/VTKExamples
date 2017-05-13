@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LabeledMesh
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/LabeledMesh
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLabeledMesh.png?raw=true" width="256" />
 

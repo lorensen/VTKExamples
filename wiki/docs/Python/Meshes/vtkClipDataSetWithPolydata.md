@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Meshes/vtkClipDataSetWithPolydata
+[VTKExamples](/index/)/[Python](/Python)/Meshes/vtkClipDataSetWithPolydata
 
 ### Description
 []([File:VTK_Examples_Python_Meshes_vtkClipDataSetWithPolydata.png])

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/DensifyPoints
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/DensifyPoints
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestDensifyPoints.png?raw=true" width="256" />
 

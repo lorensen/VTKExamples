@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/Streamlines
+[VTKExamples](/index/)/[Python](/Python)/Visualization/Streamlines
 
 ### Description
 *Translated to python from the .cxx examples 

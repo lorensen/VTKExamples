@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/Decimation
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/Decimation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestDecimation.png?raw=true" width="256" />
 

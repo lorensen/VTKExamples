@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/InteractorStyleUser
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/InteractorStyleUser
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestInteractorStyleUser.png?raw=true" width="256" />
 

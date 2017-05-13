@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/SphereWidgetEvents
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/SphereWidgetEvents
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSphereWidgetEvents.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/DataStructures/VisualizeOBBTree
+[VTKExamples](/index/)/[Cxx](/Cxx)/DataStructures/VisualizeOBBTree
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestVisualizeOBBTree.png?raw=true" width="256" />
 

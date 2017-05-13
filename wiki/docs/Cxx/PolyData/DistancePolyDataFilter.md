@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/DistancePolyDataFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/DistancePolyDataFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestDistancePolyDataFilter.png?raw=true" width="256" />
 

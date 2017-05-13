@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/RenderWindowUIMultipleInheritanceDriver
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/RenderWindowUIMultipleInheritanceDriver
 
 ### Description
 

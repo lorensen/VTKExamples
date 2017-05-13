@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/FindCellIntersections
+[VTKExamples](/index/)/[Cxx](/Cxx)/VisualizationAlgorithms/FindCellIntersections
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestFindCellIntersections.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/PlanesIntersection
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/PlanesIntersection
 
 **PlanesIntersection.py**
 ```python

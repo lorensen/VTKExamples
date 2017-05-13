@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/StructuredDataTypes
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/StructuredDataTypes
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestStructuredDataTypes.png?raw=true" width="256" />
 

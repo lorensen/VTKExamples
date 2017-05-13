@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPolyData.png?raw=true" width="256" />
 

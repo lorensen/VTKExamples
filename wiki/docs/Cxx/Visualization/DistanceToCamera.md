@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DistanceToCamera
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/DistanceToCamera
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDistanceToCamera.png?raw=true" width="256" />
 

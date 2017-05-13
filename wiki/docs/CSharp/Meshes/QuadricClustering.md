@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Meshes/QuadricClustering
+[VTKExamples](/index/)/[CSharp](/CSharp)/Meshes/QuadricClustering
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestQuadricClustering.png?raw=true" width="256" />
 

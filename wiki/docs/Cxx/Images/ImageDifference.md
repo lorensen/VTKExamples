@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageDifference
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageDifference
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageDifference.png?raw=true" width="256" />
 

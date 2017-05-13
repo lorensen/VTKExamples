@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/AngleWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/AngleWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestAngleWidget.png?raw=true" width="256" />
 

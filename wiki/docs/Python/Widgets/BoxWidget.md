@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Widgets/BoxWidget
+[VTKExamples](/index/)/[Python](/Python)/Widgets/BoxWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestBoxWidget.png?raw=true" width="256" />
 

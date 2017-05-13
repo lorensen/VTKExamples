@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Rendering/SpecularSpheres
+[VTKExamples](/index/)/[Cxx](/Cxx)/Rendering/SpecularSpheres
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Rendering/TestSpecularSpheres.png?raw=true" width="256" />
 

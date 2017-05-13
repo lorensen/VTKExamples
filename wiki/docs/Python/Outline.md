@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//Outline
+[VTKExamples](/index/)/[Python](/Python)//Outline
 
 **Outline.py**
 ```python

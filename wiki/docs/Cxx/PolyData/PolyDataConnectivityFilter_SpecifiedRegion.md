@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/PolyDataConnectivityFilter_SpecifiedRegion
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/PolyDataConnectivityFilter_SpecifiedRegion
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_SpecifiedRegion.png?raw=true" width="256" />
 

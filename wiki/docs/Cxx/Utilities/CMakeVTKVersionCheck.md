@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/CMakeVTKVersionCheck
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/CMakeVTKVersionCheck
 
 **CMakeVTKVersionCheck.cxx**
 ```c++

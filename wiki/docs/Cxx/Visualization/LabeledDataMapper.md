@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/LabeledDataMapper
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/LabeledDataMapper
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestLabeledDataMapper.png?raw=true" width="256" />
 

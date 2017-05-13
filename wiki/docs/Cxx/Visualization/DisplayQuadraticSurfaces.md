@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/DisplayQuadraticSurfaces
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/DisplayQuadraticSurfaces
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestDisplayQuadraticSurfaces.png?raw=true" width="256" />
 

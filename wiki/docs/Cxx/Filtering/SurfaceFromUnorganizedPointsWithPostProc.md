@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/SurfaceFromUnorganizedPointsWithPostProc
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/SurfaceFromUnorganizedPointsWithPostProc
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestSurfaceFromUnorganizedPointsWithPostProc.png?raw=true" width="256" />
 

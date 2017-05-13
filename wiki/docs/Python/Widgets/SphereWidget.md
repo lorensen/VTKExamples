@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Widgets/SphereWidget
+[VTKExamples](/index/)/[Python](/Python)/Widgets/SphereWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestSphereWidget.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CubeAxesActor2D
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/CubeAxesActor2D
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCubeAxesActor2D.png?raw=true" width="256" />
 

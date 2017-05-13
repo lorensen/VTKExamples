@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ArrayLookup
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/ArrayLookup
 
 **ArrayLookup.cxx**
 ```c++

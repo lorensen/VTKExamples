@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageCityBlockDistance
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageCityBlockDistance
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageCityBlockDistance.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadStructuredGrid
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ReadStructuredGrid
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadStructuredGrid.png?raw=true" width="256" />
 

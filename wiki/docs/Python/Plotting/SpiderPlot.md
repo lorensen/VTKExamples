@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Plotting/SpiderPlot
+[VTKExamples](/index/)/[Python](/Python)/Plotting/SpiderPlot
 
 ### Description
 Translated from the c plus plus test

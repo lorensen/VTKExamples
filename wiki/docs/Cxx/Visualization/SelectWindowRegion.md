@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/SelectWindowRegion
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/SelectWindowRegion
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestSelectWindowRegion.png?raw=true" width="256" />
 

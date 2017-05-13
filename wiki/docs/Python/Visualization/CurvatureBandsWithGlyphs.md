@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/CurvatureBandsWithGlyphs
+[VTKExamples](/index/)/[Python](/Python)/Visualization/CurvatureBandsWithGlyphs
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCurvatureBandsWithGlyphs.png?raw=true" width="256" />
 

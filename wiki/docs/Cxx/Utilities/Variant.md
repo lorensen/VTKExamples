@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Variant
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/Variant
 
 **Variant.cxx**
 ```c++

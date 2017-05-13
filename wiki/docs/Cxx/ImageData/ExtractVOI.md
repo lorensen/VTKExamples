@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImageData/ExtractVOI
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImageData/ExtractVOI
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImageData/TestExtractVOI.png?raw=true" width="256" />
 

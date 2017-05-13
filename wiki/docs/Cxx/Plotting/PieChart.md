@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Plotting/PieChart
+[VTKExamples](/index/)/[Cxx](/Cxx)/Plotting/PieChart
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Plotting/TestPieChart.png?raw=true" width="256" />
 

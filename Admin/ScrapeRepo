@@ -72,7 +72,7 @@ exampleToCMake = dict()
 exampleToFileNames = dict()
 
 # Convert repo .md files
-ConvertAndCopyFile(RepoName + "/home.md", WikiName + "/home.md")
+ConvertAndCopyFile(RepoName + "/index.md", WikiName + "/index.md")
 ConvertAndCopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
 ConvertAndCopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
 ConvertAndCopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
@@ -122,7 +122,7 @@ for lang, langExt in Languages.items():
                     os.makedirs(PathName)
             OutputFile = WikiName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             MdFile = open(OutputFile, 'w')
-            MdFile.write("[VTKExamples](/home/)/[" + lang + "](/" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
+            MdFile.write("[VTKExamples](/index/)/[" + lang + "](/" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
                     
             if os.path.isfile(BaselinePath) :
                 print "BaselinePath: " + BaselinePath

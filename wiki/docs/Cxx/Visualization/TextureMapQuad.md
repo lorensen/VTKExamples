@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TextureMapQuad
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/TextureMapQuad
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTextureMapQuad.png?raw=true" width="256" />
 

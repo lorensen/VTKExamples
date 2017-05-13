@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ColorEdges
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/ColorEdges
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestColorEdges.png?raw=true" width="256" />
 

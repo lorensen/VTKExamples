@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/Filtering/ContoursFromPolyData
+[VTKExamples](/index/)/[CSharp](/CSharp)/Filtering/ContoursFromPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestContoursFromPolyData.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/LandmarkTransform
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/LandmarkTransform
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestLandmarkTransform.png?raw=true" width="256" />
 

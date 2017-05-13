@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/KochanekSpline
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/KochanekSpline
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestKochanekSpline.png?raw=true" width="256" />
 

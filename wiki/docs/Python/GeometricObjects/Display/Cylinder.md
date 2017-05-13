@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Cylinder
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Cylinder
 
 ### Description
 []([Image:Cylinder.png])

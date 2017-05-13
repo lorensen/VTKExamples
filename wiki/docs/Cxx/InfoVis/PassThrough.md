@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/InfoVis/PassThrough
+[VTKExamples](/index/)/[Cxx](/Cxx)/InfoVis/PassThrough
 
 **PassThrough.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/ShepardMethod
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/ShepardMethod
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Utilities/TestShepardMethod.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ContoursFromPolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/ContoursFromPolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestContoursFromPolyData.png?raw=true" width="256" />
 

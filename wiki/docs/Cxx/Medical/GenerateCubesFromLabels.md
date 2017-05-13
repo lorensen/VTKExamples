@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Medical/GenerateCubesFromLabels
+[VTKExamples](/index/)/[Cxx](/Cxx)/Medical/GenerateCubesFromLabels
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Medical/TestGenerateCubesFromLabels.png?raw=true" width="256" />
 

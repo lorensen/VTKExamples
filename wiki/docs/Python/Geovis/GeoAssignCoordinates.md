@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Geovis/GeoAssignCoordinates
+[VTKExamples](/index/)/[Python](/Python)/Geovis/GeoAssignCoordinates
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" />
 

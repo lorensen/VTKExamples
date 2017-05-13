@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageToPolyDataFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageToPolyDataFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageToPolyDataFilter.png?raw=true" width="256" />
 

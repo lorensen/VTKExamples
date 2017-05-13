@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/PointOccupancy
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/PointOccupancy
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestPointOccupancy.png?raw=true" width="256" />
 

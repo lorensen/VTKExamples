@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/RubberBand2DObserver
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/RubberBand2DObserver
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestRubberBand2DObserver.png?raw=true" width="256" />
 

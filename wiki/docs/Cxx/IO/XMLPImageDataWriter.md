@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/XMLPImageDataWriter
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/XMLPImageDataWriter
 
 **XMLPImageDataWriter.cxx**
 ```c++

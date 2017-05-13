@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/Colored2DImageFusion
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/Colored2DImageFusion
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestColored2DImageFusion.png?raw=true" width="256" />
 

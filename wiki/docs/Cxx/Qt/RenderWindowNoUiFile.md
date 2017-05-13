@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/RenderWindowNoUiFile
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/RenderWindowNoUiFile
 
 ### Description
 

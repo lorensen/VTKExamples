@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//CurvaturesDemo
+[VTKExamples](/index/)/[Python](/Python)//CurvaturesDemo
 
 ### Description
 '''How to get the Gaussian and Mean curvatures of a surface.'''

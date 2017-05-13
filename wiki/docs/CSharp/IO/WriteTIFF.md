@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/WriteTIFF
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/WriteTIFF
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestWriteTIFF.png?raw=true" width="256" />
 

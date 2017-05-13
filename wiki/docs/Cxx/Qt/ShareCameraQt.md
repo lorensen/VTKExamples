@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Qt/ShareCameraQt
+[VTKExamples](/index/)/[Cxx](/Cxx)/Qt/ShareCameraQt
 
 **ShareCameraQt.cxx**
 ```c++

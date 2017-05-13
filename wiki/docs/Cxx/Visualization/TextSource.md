@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/TextSource
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/TextSource
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestTextSource.png?raw=true" width="256" />
 

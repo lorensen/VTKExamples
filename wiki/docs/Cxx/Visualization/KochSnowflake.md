@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/KochSnowflake
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/KochSnowflake
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestKochSnowflake.png?raw=true" width="256" />
 

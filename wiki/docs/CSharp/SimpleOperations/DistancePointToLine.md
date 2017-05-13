@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/SimpleOperations/DistancePointToLine
+[VTKExamples](/index/)/[CSharp](/CSharp)/SimpleOperations/DistancePointToLine
 
 ### Description
 This example computes the distance from a point to a line. 

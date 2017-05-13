@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Widgets/AffineWidget
+[VTKExamples](/index/)/[Cxx](/Cxx)/Widgets/AffineWidget
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Widgets/TestAffineWidget.png?raw=true" width="256" />
 

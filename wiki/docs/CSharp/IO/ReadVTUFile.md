@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/IO/ReadVTUFile
+[VTKExamples](/index/)/[CSharp](/CSharp)/IO/ReadVTUFile
 
 ### Description
 This examples demonstrates how to read an unstructured grid (VTU) file. 

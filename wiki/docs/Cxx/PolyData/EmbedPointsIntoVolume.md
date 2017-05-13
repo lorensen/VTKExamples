@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/EmbedPointsIntoVolume
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/EmbedPointsIntoVolume
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestEmbedPointsIntoVolume.png?raw=true" width="256" />
 

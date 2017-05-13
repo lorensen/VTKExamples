@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellEdgeNeighbors
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/CellEdgeNeighbors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestCellEdgeNeighbors.png?raw=true" width="256" />
 

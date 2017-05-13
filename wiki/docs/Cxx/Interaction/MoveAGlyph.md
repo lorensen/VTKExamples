@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/MoveAGlyph
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/MoveAGlyph
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestMoveAGlyph.png?raw=true" width="256" />
 

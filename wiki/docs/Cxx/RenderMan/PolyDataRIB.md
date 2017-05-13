@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/RenderMan/PolyDataRIB
+[VTKExamples](/index/)/[Cxx](/Cxx)/RenderMan/PolyDataRIB
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/RenderMan/TestPolyDataRIB.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/CellTreeLocator
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/CellTreeLocator
 
 **CellTreeLocator.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/HedgeHog
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/HedgeHog
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestHedgeHog.png?raw=true" width="256" />
 

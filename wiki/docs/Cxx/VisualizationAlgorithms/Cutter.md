@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/VisualizationAlgorithms/Cutter
+[VTKExamples](/index/)/[Cxx](/Cxx)/VisualizationAlgorithms/Cutter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/VisualizationAlgorithms/TestCutter.png?raw=true" width="256" />
 

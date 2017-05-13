@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/Polygon
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/Polygon
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPolygon.png?raw=true" width="256" />
 

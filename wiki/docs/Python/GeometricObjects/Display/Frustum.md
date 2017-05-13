@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/Frustum
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/Frustum
 
 **Frustum.py**
 ```python

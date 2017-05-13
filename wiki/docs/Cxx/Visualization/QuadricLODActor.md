@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/QuadricLODActor
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/QuadricLODActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestQuadricLODActor.png?raw=true" width="256" />
 

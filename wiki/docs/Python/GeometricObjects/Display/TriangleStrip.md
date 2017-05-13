@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/GeometricObjects/Display/TriangleStrip
+[VTKExamples](/index/)/[Python](/Python)/GeometricObjects/Display/TriangleStrip
 
 **TriangleStrip.py**
 ```python

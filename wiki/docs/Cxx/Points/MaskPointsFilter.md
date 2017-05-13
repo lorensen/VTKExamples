@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Points/MaskPointsFilter
+[VTKExamples](/index/)/[Cxx](/Cxx)/Points/MaskPointsFilter
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Points/TestMaskPointsFilter.png?raw=true" width="256" />
 

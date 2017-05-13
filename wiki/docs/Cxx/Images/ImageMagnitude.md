@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageMagnitude
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageMagnitude
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageMagnitude.png?raw=true" width="256" />
 

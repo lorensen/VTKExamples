@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/CMakeTechniques/CheckForModule
+[VTKExamples](/index/)/[Cxx](/Cxx)/CMakeTechniques/CheckForModule
 
 **CheckForModule.cxx**
 ```c++

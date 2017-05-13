@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/ImplicitFunctions/IsoContours
+[VTKExamples](/index/)/[Cxx](/Cxx)/ImplicitFunctions/IsoContours
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/ImplicitFunctions/TestIsoContours.png?raw=true" width="256" />
 

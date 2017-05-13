@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/CloseWindow
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/CloseWindow
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCloseWindow.png?raw=true" width="256" />
 

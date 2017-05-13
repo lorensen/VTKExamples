@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/ScaleVertices
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/ScaleVertices
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Graphs/TestScaleVertices.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/PolyData/ExtractSelectionCells
+[VTKExamples](/index/)/[Python](/Python)/PolyData/ExtractSelectionCells
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestExtractSelectionCells.png?raw=true" width="256" />
 

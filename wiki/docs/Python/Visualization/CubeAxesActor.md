@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Visualization/CubeAxesActor
+[VTKExamples](/index/)/[Python](/Python)/Visualization/CubeAxesActor
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestCubeAxesActor.png?raw=true" width="256" />
 

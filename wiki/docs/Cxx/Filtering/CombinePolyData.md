@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/CombinePolyData
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/CombinePolyData
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestCombinePolyData.png?raw=true" width="256" />
 

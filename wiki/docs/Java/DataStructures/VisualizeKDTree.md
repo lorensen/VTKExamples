@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Java](/Java)/DataStructures/VisualizeKDTree
+[VTKExamples](/index/)/[Java](/Java)/DataStructures/VisualizeKDTree
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/DataStructures/TestVisualizeKDTree.png?raw=true" width="256" />
 

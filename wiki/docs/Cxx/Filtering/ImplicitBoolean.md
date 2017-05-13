@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/ImplicitBoolean
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/ImplicitBoolean
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestImplicitBoolean.png?raw=true" width="256" />
 

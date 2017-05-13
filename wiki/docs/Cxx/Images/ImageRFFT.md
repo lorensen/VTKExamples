@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageRFFT
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageRFFT
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageRFFT.png?raw=true" width="256" />
 

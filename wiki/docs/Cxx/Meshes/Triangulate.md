@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/Triangulate
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/Triangulate
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestTriangulate.png?raw=true" width="256" />
 

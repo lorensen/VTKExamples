@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)/Widgets/EmbedInPyQt
+[VTKExamples](/index/)/[Python](/Python)/Widgets/EmbedInPyQt
 
 ### Description
 '''Minimal working example of vtk embedding in PyQt.'''

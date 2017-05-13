@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/PolyData/GreedyTerrainDecimation
+[VTKExamples](/index/)/[CSharp](/CSharp)/PolyData/GreedyTerrainDecimation
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestGreedyTerrainDecimation.png?raw=true" width="256" />
 

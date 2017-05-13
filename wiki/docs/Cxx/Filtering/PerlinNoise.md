@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Filtering/PerlinNoise
+[VTKExamples](/index/)/[Cxx](/Cxx)/Filtering/PerlinNoise
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Filtering/TestPerlinNoise.png?raw=true" width="256" />
 

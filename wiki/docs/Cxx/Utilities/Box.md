@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/Box
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/Box
 
 **Box.cxx**
 ```c++

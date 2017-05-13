@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageLuminance
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageLuminance
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageLuminance.png?raw=true" width="256" />
 

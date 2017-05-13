@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Interaction/KeypressEvents
+[VTKExamples](/index/)/[Cxx](/Cxx)/Interaction/KeypressEvents
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Interaction/TestKeypressEvents.png?raw=true" width="256" />
 

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/RemoveVertices
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/RemoveVertices
 
 **RemoveVertices.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/PolyData/MeshQuality
+[VTKExamples](/index/)/[Cxx](/Cxx)/PolyData/MeshQuality
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/PolyData/TestMeshQuality.png?raw=true" width="256" />
 

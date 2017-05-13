@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[CSharp](/CSharp)/GeometricObjects/PolyLine
+[VTKExamples](/index/)/[CSharp](/CSharp)/GeometricObjects/PolyLine
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/GeometricObjects/TestPolyLine.png?raw=true" width="256" />
 

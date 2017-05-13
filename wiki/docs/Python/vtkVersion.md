@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Python](/Python)//vtkVersion
+[VTKExamples](/index/)/[Python](/Python)//vtkVersion
 
 **vtkVersion.py**
 ```python

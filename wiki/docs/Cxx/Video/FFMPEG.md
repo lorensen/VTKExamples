@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Video/FFMPEG
+[VTKExamples](/index/)/[Cxx](/Cxx)/Video/FFMPEG
 
 ### Description
 You must set

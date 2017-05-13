@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Graphs/TreeBFSIterator
+[VTKExamples](/index/)/[Cxx](/Cxx)/Graphs/TreeBFSIterator
 
 **TreeBFSIterator.cxx**
 ```c++

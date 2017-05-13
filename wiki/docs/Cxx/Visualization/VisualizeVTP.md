@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/VisualizeVTP
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/VisualizeVTP
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestVisualizeVTP.png?raw=true" width="256" />
 

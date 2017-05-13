@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Utilities/BoundingBoxIntersection
+[VTKExamples](/index/)/[Cxx](/Cxx)/Utilities/BoundingBoxIntersection
 
 **BoundingBoxIntersection.cxx**
 ```c++

@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Visualization/MoveCamera
+[VTKExamples](/index/)/[Cxx](/Cxx)/Visualization/MoveCamera
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Visualization/TestMoveCamera.png?raw=true" width="256" />
 

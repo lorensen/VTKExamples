@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Meshes/DeformPointSet
+[VTKExamples](/index/)/[Cxx](/Cxx)/Meshes/DeformPointSet
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Meshes/TestDeformPointSet.png?raw=true" width="256" />
 

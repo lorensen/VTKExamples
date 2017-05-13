@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/IO/ReadPLY
+[VTKExamples](/index/)/[Cxx](/Cxx)/IO/ReadPLY
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/IO/TestReadPLY.png?raw=true" width="256" />
 

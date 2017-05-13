@@ -1,4 +1,4 @@
-[VTKExamples](/home/)/[Cxx](/Cxx)/Images/ImageMapToColors
+[VTKExamples](/index/)/[Cxx](/Cxx)/Images/ImageMapToColors
 
 <img align="right" src="https://github.com/lorensen/VTKExamples/blob/gh-pages/Testing/Baseline/Images/TestImageMapToColors.png?raw=true" width="256" />
 
