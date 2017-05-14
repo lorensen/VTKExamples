@@ -7,5 +7,5 @@ It demonstrates two different ways to apply the transform:
 
 Switch between the two methods by #defining USER_MATRIX or leaving out the #define.
 
-NOTE:  Compare this example with [Oriented Cylinder](Cxx/GeometricObjects/OrientedCylinder) . The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.
+NOTE:  Compare this example with [Oriented Cylinder](OrientedCylinder) . The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.
  

@@ -5144,7 +5144,7 @@
 1. Use <a href="http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html">vtkTransformPolyDataFilter</a> to create a new transformed polydata. This method is useful if the transformed polydata is needed later in the pipeline, e.g. vtkGlyph3DFilter.
 2. Apply the transform directly to the actor using <a href="http://www.vtk.org/doc/nightly/html/classvtkProp3D.html#a950378fc70405a58bd998c00f84a39a3">vtkProp3D's SetUserMatrix</a>. No new data is produced.</p>
 <p>Switch between the two methods by #defining USER_MATRIX or leaving out the #define.</p>
-<p>NOTE:  Compare this example with <a href="../Cxx/GeometricObjects/OrientedCylinder">Oriented Cylinder</a> . The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.</p>
+<p>NOTE:  Compare this example with <a href="../OrientedCylinder">Oriented Cylinder</a> . The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.</p>
 <p><strong>OrientedArrow.cxx</strong></p>
 <pre><code class="c++">#define USER_MATRIX
 #include &lt;vtkArrowSource.h&gt;

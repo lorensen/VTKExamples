@@ -16,7 +16,7 @@ the program exits using the "e: key, the example will report the cell
 type for both the inside and outside clips. NOTE: vtkClipDataSet
 tetrahedralizes the volume before clipping. Contrast this with the
 vtkTableBasedClipDataSet example:
-[TableBasedClipDataSetWithPolyData](Cxx/Meshes/TableBasedClipDataSetWithPolyData).
+[TableBasedClipDataSetWithPolyData](TableBasedClipDataSetWithPolyData).
 
 Here is the summary reported when the example exits:
 `

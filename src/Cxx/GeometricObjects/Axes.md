@@ -1,4 +1,4 @@
 ### Description
 This example shows how to position an AxesActor in 3D. Notice that position and orientation of the AxesActor is done with a user transform.
 
-See also: [DisplayCoordinateAxes](Cxx/Visualization/DisplayCoordinateAxes).
+See also: [DisplayCoordinateAxes](../Visualization/DisplayCoordinateAxes).

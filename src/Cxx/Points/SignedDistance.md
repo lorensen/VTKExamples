@@ -1,5 +1,5 @@
 ### Description
-Contrast this with the [UnsignedDistance](Cxx/Points/UnsignedDistance) example.
+Contrast this with the [UnsignedDistance](UnsignedDistance) example.
 
 The image was created using the [Armadillo dataset](https://github.com/lorensen/VTKWikiExamples/blob/master/Testing/Data/Armadillo.ply?raw=true)
 

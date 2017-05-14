@@ -6,4 +6,4 @@ An example file may look like:
  4 5 6 
  7 8 9
 
-**Note:** for a simpler way to read such a file, see [SimplePointsReader](Cxx/IO/SimplePointsReader).
+**Note:** for a simpler way to read such a file, see [SimplePointsReader](SimplePointsReader).

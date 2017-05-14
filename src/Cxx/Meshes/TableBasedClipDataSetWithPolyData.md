@@ -12,7 +12,7 @@ field on a center slice. The right side shows the outside clip. When
 the program exits using the "e: key, the example will report the cell
 type for both the inside and outside clips. NOTE: Contrast this with
 the vtkClipDataSet example:
-[ClipDataSetWithPolyData](Cxx/Meshes/ClipDataSetWithPolyData).
+[ClipDataSetWithPolyData](ClipDataSetWithPolyData).
 
 Here is the summary reported when the example exits:
 `

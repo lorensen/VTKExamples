@@ -10,4 +10,4 @@ separator.
 
 Pressing keys 0-6 select the various wipe modes.
 
-For an alternative image comparison widget try the [Checkerboard widget]](Cxx/Widgets/CheckerboardWidget). 
+For an alternative image comparison widget try the [Checkerboard widget](CheckerboardWidget). 

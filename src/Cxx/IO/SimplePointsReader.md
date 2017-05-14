@@ -19,4 +19,4 @@ call the executable resulting from the code below with
 
 from the build directory.
 
-**Note:** For the reverse operation, writing a points file, see the [SimplePointsWriter](Cxx/IO/SimplePointsWriter) example.
+**Note:** For the reverse operation, writing a points file, see the [SimplePointsWriter](SimplePointsWriter) example.
