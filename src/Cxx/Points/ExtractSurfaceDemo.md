@@ -9,7 +9,7 @@ distance field.
 The image was created using the [Armadillo
 dataset](https://github.com/lorensen/VTKWikiExamples/blob/master/Testing/Data/Armadillo.ply?raw=true)
 
-This is a demo version of [ExtractSurface](Cxx/Points/ExtractSurface). It displays some a sampling of the normals with arrows. It also uses a different color for the front and back surfaces.
+This is a demo version of [ExtractSurface](ExtractSurface). It displays some a sampling of the normals with arrows. It also uses a different color for the front and back surfaces.
 
 **NOTE:** The classes used in this example require vtk 7.1 or later.
 
