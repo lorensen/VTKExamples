@@ -126,7 +126,7 @@ for lang, langExt in Languages.items():
                     
             if os.path.isfile(BaselinePath) :
                 print "BaselinePath: " + BaselinePath
-                ImgUrl =  RepoURL + "/blob/gh-pages/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png?raw=true"
+                ImgUrl =  RepoURL + "/blob/gh-pages/src/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png?raw=true"
                 print "ImgUrl: " + ImgUrl
                 MdFile.write('<img align="right" src="' + ImgUrl + '" width="256" />' + '\n')
                 MdFile.write("\n")
