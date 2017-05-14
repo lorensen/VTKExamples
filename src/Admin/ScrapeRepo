@@ -21,6 +21,14 @@ def ConvertAndCopyFile(fromFile, toFile):
     htmlFile.write(html)
     htmlFile.close()
     
+def CopyFile(fromFile, toFile):
+    mdFile = open(fromFile, 'r');
+    outFile = open(toFile, 'w')
+    md = mdFile.read()
+    mdFile.close()
+    outFile.write(md)
+    outFile.close()
+    
 def GetVTKCMake(S):
     reg = re.compile(r"\{\{(VTKCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
     return [reg.findall(S)]
@@ -73,9 +81,9 @@ exampleToFileNames = dict()
 
 # Convert repo .md files
 ConvertAndCopyFile(RepoName + "/index.md", WikiName + "/index.md")
-ConvertAndCopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
+CopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
 ConvertAndCopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
-ConvertAndCopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
+CopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
 ConvertAndCopyFile(RepoName + "/CSharp.md", WikiName + "/CSharp.md")
 if not os.path.exists(WikiName + "/Instructions"):
     os.makedirs(WikiName + "/Instructions")
