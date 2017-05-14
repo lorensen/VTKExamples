@@ -1,2 +1,6 @@
 site_name: VTKExamples
 theme: readthedocs
+pages:
+  - 'Introduction': 'index.md'
+  - 'Cxx': 'Cxx.md'
+  - 'ExtractSurface': 'Cxx/Points/ExtractSurface.md'
