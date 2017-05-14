@@ -759,7 +759,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ DistanceToCamera](../Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
 [ FindCellIntersections](../Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
 [ FlatShading](../Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetInterpolationToFlat |
-[ KochSnowflake](../Cxx/Visualization/KochSnowflake) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html), [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html),| Use recursion to represent a Koch snowflake fractal.
 [ Legend](../Cxx/Visualization/Legend) | [vtkLegendBoxActor](http://www.vtk.org/doc/nightly/html/classvtkLegendBoxActor.html) |
 [ NoShading](../Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetAmbient, [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetDiffuse, [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetSpecular |
 [ PointSize](../Cxx/Visualization/PointSize) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetPointSize |
@@ -853,6 +852,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [WindowSize](../Cxx/Visualization/WindowSize)| [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html):SetSize | Change the size of a window.
 [WindowTitle](../Cxx/Visualization/WindowTitle)| [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html)::SetWindowName | Change the title of a window.
 [Wireframe](../Cxx/Visualization/Wireframe)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetRepresentationToWireframe |
+[a KochSnowflake](../Cxx/Visualization/KochSnowflake) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html), [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html),| Use recursion to represent a Koch snowflake fractal.
 
 #Volume Rendering
 
