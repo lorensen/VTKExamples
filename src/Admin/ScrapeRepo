@@ -130,7 +130,7 @@ for lang, langExt in Languages.items():
                     os.makedirs(PathName)
             OutputFile = WikiName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             MdFile = open(OutputFile, 'w')
-            MdFile.write("[VTKExamples](/index/)/[" + lang + "](/" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
+            MdFile.write("[VTKExamples](/)/[" + lang + "](/" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
                     
             if os.path.isfile(BaselinePath) :
                 print "BaselinePath: " + BaselinePath
