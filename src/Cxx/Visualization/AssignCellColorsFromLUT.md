@@ -1,7 +1,9 @@
 ### Description
 Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
 Two techniques are demonstrated:
+
 1. Using a lookup table of predefined colors.
+
 2. Using a lookup table generated from a color transfer function.
  
 The resultant display shows in the left-hand column, the cells in a plane

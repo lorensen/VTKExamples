@@ -13176,9 +13176,61 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ForUsers
+      </label>
+    
     <a href="./" title="ForUsers" class="md-nav__link md-nav__link--active">
       ForUsers
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build-an-example" title="Build an example" class="md-nav__link">
+    Build an example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-all-of-the-examples" title="Build all of the examples" class="md-nav__link">
+    Build all of the examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-the-examples-repository" title="Update the examples repository" class="md-nav__link">
+    Update the examples repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-all-of-the-examples" title="Run all of the examples" class="md-nav__link">
+    Run all of the examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15903,6 +15955,47 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build-an-example" title="Build an example" class="md-nav__link">
+    Build an example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-all-of-the-examples" title="Build all of the examples" class="md-nav__link">
+    Build all of the examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-the-examples-repository" title="Update the examples repository" class="md-nav__link">
+    Update the examples repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-all-of-the-examples" title="Run all of the examples" class="md-nav__link">
+    Run all of the examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15916,17 +16009,12 @@
                 
                   <h1>ForUsers</h1>
                 
-                <p>If you want to use <a href="https://gitlab.kitware.com/lorensen/VTKExamples/wikis/home">VTK Examples</a> you have several options. If you are a Wiki Example Developer, <a href="Instructions/ForDevelopers">go here</a> or a Wiki Example Administrator <a href="Instructions/ForAdministrators">go here</a>.</p>
-
+                <p>If you want to use <a href="https://gitlab.kitware.com/lorensen/VTKExamples/wikis/home">VTK Examples</a> you have several options. If you are a Wiki Example Developer, <a href="../Instructions/ForDevelopers">go here</a> or a Wiki Example Administrator <a href="../Instructions/ForAdministrators">go here</a>.</p>
 <h2 id="build-an-example">Build an example</h2>
-
 <p>At the bottom of each example page, there are instructions on how to build the example.</p>
-
 <h2 id="build-all-of-the-examples">Build all of the examples</h2>
-
 <p>If you are really getting excited about learning VTK and are tried of
 downloading individual examples you can build them all.</p>
-
 <ol>
 <li>
 <p>As a VTK Remote module
@@ -15940,21 +16028,15 @@ or <a href="https://gitlab.kitware.com/lorensen/VTKExamples/repository/archive.t
 <p>Clone the VTK examples repository</p>
 </li>
 </ol>
-
 <p><code>git clone https://lorensen@gitlab.kitware.com/lorensen/VTKExamples.git</code></p>
-
 <h3 id="update-the-examples-repository">Update the examples repository</h3>
-
 <p>If you cloned the examples repository, you can get the latest updates:</p>
-
 <p><code>cd VTKWikiExamples
 git pull https://github.com/lorensen/VTKWikiExamples.git
 cd ../VTKWikiExamples-build
 cmake ../VTKWikiExamples
 make</code></p>
-
 <h3 id="run-all-of-the-examples">Run all of the examples</h3>
-
 <p><code>ctest</code></p>
                 
                   

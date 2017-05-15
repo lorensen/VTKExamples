@@ -49,8 +49,17 @@ When you write an example, please follow the [coding guidelines](Instructions/Gu
 
     ```
     git fetch upstream
+    ```
+
+    ```
     git checkout master
+    ```
+
+    ```
     git merge upstream/master
+    ```
+
+    ```
     git push
     ```
 
@@ -58,9 +67,21 @@ When you write an example, please follow the [coding guidelines](Instructions/Gu
 
     ```
     cd VTKExamples
+    ```
+
+    ```
     mkdir build
+    ```
+
+    ```
     cd build
+    ```
+
+    ```
     cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..
+    ```
+
+    ```
     make
     ```
 
@@ -93,8 +114,17 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
     ```
     cd VTKExamples/build
+    ```
+
+    ```
     cmake ..
+    ```
+
+    ```
     make
+    ```
+
+    ```
     ctest -V -R MyNewExample
     ```
 
@@ -125,7 +155,6 @@ and if you have a baseline image,
 ```
 git add Testing/Baseline/TOPIC/TestMyNewExample.png
 ```
-
 ```
 git commit
 ```
@@ -149,6 +178,7 @@ If your example could benefit from an extended description, you can create a fil
 If your example requires arguments, you will need to edit the CMakeLists.txt in the topic directory.
 
 1. Add the name of your example to the *NEEDS_ARGS* variable
+
 2. Add an *ADD_TEST* line. See other CMakeLists.txt files for examples.
 
 ## Review changes on your wiki
@@ -156,8 +186,11 @@ If your example requires arguments, you will need to edit the CMakeLists.txt in 
 If you want to preview your changes on a wiki (**NOTE:** You must have python nstalled on your system)
 
   1. Install the markdown package for python. Go [here](https://pythonhosted.org/Markdown/install.html)
+
   1. On gitlab, click the wiki button.
+
   2. Create a home page. The contents will eventually be replaced
+
   3. Clone the wiki repo on your local system
 
     ```
@@ -174,6 +207,7 @@ If you want to preview your changes on a wiki (**NOTE:** You must have python ns
     git clone git@gitlab.kitware.com:YOURNAME/VTKExamples.wiki.git wiki
     ```
     where **YOURNAME** is your gitlab username.
+
   4. Sync your wiki with your repository
     ```
     ./SyncWikiWithRepo.sh

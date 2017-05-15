@@ -13151,6 +13151,8 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
+      
+    
     
     <a href="./" title="ForAdministrators" class="md-nav__link md-nav__link--active">
       ForAdministrators
@@ -15902,6 +15904,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
 </nav>
                   </div>
@@ -15915,10 +15919,9 @@
                 
                 
                 <p>Wiki Example Administrators have write access to the [https://github.com/lorensen/VTKWikiExamples.git git repository]. Wiki Example Developers do not need write access to the repository since the definitive copy of the source code resides on the Wiki. If you are a Wiki Example User [[VTK/Examples/Instructions/ForUsers| go here]] or a Wiki Example Developer[[VTK/Examples/Instructions/ForDevelopers| go here]].</p>
-
 <p>Wiki Example Administrators maintain the CMakeLists.txt files, example input files, example regression baseline files and synchronization scripts.</p>
-
-<div class="toc"><span class="toctitle">Contents</span><ul>
+<div class="toc">
+<ul>
 <li><a href="#organization-of-the-example-repository">Organization of the Example Repository</a></li>
 <li><a href="#administrator-tasks">Administrator Tasks</a><ul>
 <li><a href="#clone-repository-with-write-access">Clone repository with write access</a></li>
@@ -15939,11 +15942,8 @@
 </li>
 </ul>
 </div>
-
 <h1 id="organization-of-the-example-repository">Organization of the Example Repository</h1>
-
 <p>The wiki examples are stored in a [https://github.com/lorensen/VTKWikiExamples.git git repository] hosted at [http://www.github.com/ github.com]. The repository contains several types of files:</p>
-
 <ul>
 <li>
 <p>Top Level [https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CMakeLists.txt ''CMakeLists.txt''] file
@@ -15982,40 +15982,27 @@
 :Examples for each topic reside in a directory with the topic name. If the examples in a topic directory should be compiled and run, the topic directory has a CMakeLists.txt file. All administrators can create topic directories and CMakeLists.txt files.</p>
 </li>
 </ul>
-
 <h1 id="administrator-tasks">Administrator Tasks</h1>
-
 <h2 id="clone-repository-with-write-access">Clone repository with write access</h2>
-
 <p>Exactly the same as cloning anonymously:</p>
-
 <p>git clone https://github.com/lorensen/VTKWikiExamples.git</p>
-
 <h2 id="add-a-new-topic">Add a new topic</h2>
-
 <ul>
 <li>Create a topic subdirectoy
  mkdir '''''MyTopic'''''
  cd '''''MyTopic'''''</li>
 </ul>
-
 <h2 id="create-a-cmakeliststxt-file">* Create a CMakeLists.txt file</h2>
-
 <p><source lang='cmake'>
 PROJECT (MyTopic)</p>
-
 <p>SET(KIT MyTopic)
 SET(KIT_LIBS vtkHybrid)</p>
-
 <p>IF(NOT WikiExamples_BINARY_DIR)
   FIND_PACKAGE(VTK REQUIRED)
   INCLUDE(${VTK_USE_FILE})
 ENDIF(NOT WikiExamples_BINARY_DIR)</p>
-
 <h1 id="_1"></h1>
-
 <h1 id="build-all-cxx-files-in-the-directory">Build all .cxx files in the directory</h1>
-
 <p>FILE(GLOB ALL_FILES *.cxx)
 foreach(SOURCE_FILE ${ALL_FILES})
   STRING(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -16023,13 +16010,10 @@ foreach(SOURCE_FILE ${ALL_FILES})
   ADD_EXECUTABLE(${EXAMPLE} ${EXAMPLE}.cxx)
   TARGET_LINK_LIBRARIES(${EXAMPLE} ${KIT_LIBS})
 endforeach(SOURCE_FILE)</p>
-
 <h1 id="testing">Testing</h1>
-
 <p>INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 </source></p>
-
-<p><hr />
+<hr />
 <ul>
 <li>Add the directory to the main CMakeLists.txt file
  ADD_SUBDIRECTORY(MyTopic)</li>
@@ -16073,7 +16057,7 @@ endforeach(SOURCE_FILE)</p>
 <p>Copy the image from Testing/Temporary into VTKWikiExamples/Testing/Baseline/'''''Topic'''''/Test'''ExampleName'''.png</p>
 </li>
 <li>
-<p>If there is more than one possible output image, name the image VTKWikiExamples/Testing/Baseline/'''''Topic'''''/Test'''ExampleName'''<em>1.png instead</p>
+<p>If there is more than one possible output image, name the image VTKWikiExamples/Testing/Baseline/'''''Topic'''''/Test'''ExampleName'''_1.png instead</p>
 </li>
 <li>
 <p>Rerun ctest -V -R Test'''''ExampleName'''''
@@ -16087,12 +16071,12 @@ endforeach(SOURCE_FILE)</p>
 </li>
 <li>
 <p>Overnight, a script automatically produces and uploads a file with the name 
- VTK_Examples_Baseline</em>'Folder'<em>Test'TestName'.png
+ VTK_Examples_Baseline_'Folder'_Test'TestName'.png
 You must add this tag to the top of the example page:</p>
 </li>
 </ul>
 <p><nowiki>
- <div class="floatright">[[File:VTK_Examples_Baseline</em>'Folder'_Test'TestName'.png]]</div>
+ <div class="floatright">[[File:VTK_Examples_Baseline_'Folder'_Test'TestName'.png]]</div>
 </nowiki></p>
 <p>An example is:
 <nowiki>
@@ -16125,7 +16109,7 @@ set(DASHBOARD Experimental)
 <h2 id="check-the-dashboard-frequently">Check the dashboard frequently!</h2>
 <p>http://www.cdash.org/CDash/index.php?project=VTKWikiExamples</p>
 <h2 id="fixing-build-problems">Fixing build problems</h2>
-<p>If you notice that 'make' fails with a compiler error, you should attempt to fix the error in the source tree to ensure it works before copying the fix to the wiki. Once you change the source file, you will need to 'make rebuild_cache' so to re-create the Cxx/[directory]/CMakeFiles/IOCxxTests.dir/Test[ExampleName].cxx file that is actually built.</p></p>
+<p>If you notice that 'make' fails with a compiler error, you should attempt to fix the error in the source tree to ensure it works before copying the fix to the wiki. Once you change the source file, you will need to 'make rebuild_cache' so to re-create the Cxx/[directory]/CMakeFiles/IOCxxTests.dir/Test[ExampleName].cxx file that is actually built.</p>
                 
                   
                 
