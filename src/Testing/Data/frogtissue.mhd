@@ -1,0 +1,14 @@
+ObjectType = Image
+NDims = 3
+BinaryData = True
+BinaryDataByteOrderMSB = False
+CompressedData = True
+CompressedDataSize = 260020
+TransformMatrix = 1 0 0 0 1 0 0 0 1
+Offset = 0 0 0
+CenterOfRotation = 0 0 0
+ElementSpacing = 1 1 1.5
+DimSize = 500 470 136
+AnatomicalOrientation = ???
+ElementType = MET_UCHAR
+ElementDataFile = frogtissue.zraw
