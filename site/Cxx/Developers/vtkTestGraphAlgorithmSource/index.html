@@ -2942,8 +2942,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTestGraphAlgorithmSource" class="md-nav__link md-nav__link--active">
       vtkTestGraphAlgorithmSource
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,29 +15922,9 @@
               
                 
                 
+                  <h1>vtkTestGraphAlgorithmSource</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestGraphAlgorithmSource</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="ifndef-__vtktestgraphalgorithmsource_h">ifndef __vtkTestGraphAlgorithmSource_h</h1>
-<h1 id="define-__vtktestgraphalgorithmsource_h">define __vtkTestGraphAlgorithmSource_h</h1>
-<h1 id="include-vtkgraphalgorithmh">include "vtkGraphAlgorithm.h"</h1>
-<p>class vtkTestGraphAlgorithmSource : public vtkGraphAlgorithm 
-{
-public:
-  static vtkTestGraphAlgorithmSource *New();
-  vtkTypeMacro(vtkTestGraphAlgorithmSource,vtkGraphAlgorithm);
-  void PrintSelf(ostream&amp; os, vtkIndent indent);</p>
-<p>protected:
-  vtkTestGraphAlgorithmSource();
-  ~vtkTestGraphAlgorithmSource();</p>
-<p>int RequestData(vtkInformation <em>, vtkInformationVector </em><em>, vtkInformationVector </em>);</p>
-<p>int RequestDataObject(vtkInformation <em>, vtkInformationVector </em><em>, vtkInformationVector </em>);</p>
-<p>private:
-  vtkTestGraphAlgorithmSource(const vtkTestGraphAlgorithmSource&amp;);  // Not implemented.
-  void operator=(const vtkTestGraphAlgorithmSource&amp;);  // Not implemented.</p>
-<p>};</p>
-<h1 id="endif">endif</h1>
-<p></source></p>
 <p><strong>vtkTestGraphAlgorithmSource.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkTestGraphAlgorithmSource.h&quot;
 

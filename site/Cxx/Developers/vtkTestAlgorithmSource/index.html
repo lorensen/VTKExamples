@@ -2894,8 +2894,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTestAlgorithmSource" class="md-nav__link md-nav__link--active">
       vtkTestAlgorithmSource
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,66 +15922,9 @@
               
                 
                 
+                  <h1>vtkTestAlgorithmSource</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestAlgorithmSource</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="ifndef-__vtktestalgorithmsource_h">ifndef __vtkTestAlgorithmSource_h</h1>
-<h1 id="define-__vtktestalgorithmsource_h">define __vtkTestAlgorithmSource_h</h1>
-<h1 id="include-vtkalgorithmh">include "vtkAlgorithm.h"</h1>
-<p>class vtkDataSet;
-class vtkTest1;</p>
-<p>class vtkTestAlgorithmSource : public vtkAlgorithm
-{
-public:
-  static vtkTestAlgorithmSource *New();
-  vtkTypeMacro(vtkTestAlgorithmSource,vtkAlgorithm);
-  void PrintSelf(ostream&amp; os, vtkIndent indent);</p>
-<p>// Description:
-  // Get the output data object for a port on this algorithm.
-  vtkTest1<em> GetOutput();
-  vtkTest1</em> GetOutput(int);
-  virtual void SetOutput(vtkDataObject* d);</p>
-<p>// Description:
-  // see vtkAlgorithm for details
-  virtual int ProcessRequest(vtkInformation<em>,
-                             vtkInformationVector</em><em>,
-                             vtkInformationVector</em>);</p>
-<p>protected:
-  vtkTestAlgorithmSource();
-  ~vtkTestAlgorithmSource();</p>
-<p>// Description:
-  // This is called by the superclass.
-  // This is the method you should override.
-  virtual int RequestDataObject(
-    vtkInformation<em> request,
-    vtkInformationVector</em><em> inputVector,
-    vtkInformationVector</em> outputVector );</p>
-<p>// convenience method
-  virtual int RequestInformation(
-    vtkInformation<em> request,
-    vtkInformationVector</em><em> inputVector,
-    vtkInformationVector</em> outputVector );</p>
-<p>// Description:
-  // This is called by the superclass.
-  // This is the method you should override.
-  virtual int RequestData(
-    vtkInformation<em> request,
-    vtkInformationVector</em><em> inputVector,
-    vtkInformationVector</em> outputVector );</p>
-<p>// Description:
-  // This is called by the superclass.
-  // This is the method you should override.
-  virtual int RequestUpdateExtent(
-    vtkInformation<em>,
-    vtkInformationVector</em><em>,
-    vtkInformationVector</em> );</p>
-<p>virtual int FillOutputPortInformation( int port, vtkInformation* info );</p>
-<p>private:
-  vtkTestAlgorithmSource( const vtkTestAlgorithmSource&amp; ); // Not implemented.
-  void operator = ( const vtkTestAlgorithmSource&amp; );  // Not implemented.
-};</p>
-<h1 id="endif">endif</h1>
-<p></source></p>
 <p><strong>vtkTestAlgorithmSource.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkTestAlgorithmSource.h&quot;
 #include &quot;vtkTest1.h&quot;

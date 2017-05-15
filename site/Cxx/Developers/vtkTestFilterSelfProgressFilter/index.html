@@ -2918,8 +2918,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTestFilterSelfProgressFilter" class="md-nav__link md-nav__link--active">
       vtkTestFilterSelfProgressFilter
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,28 +15922,9 @@
               
                 
                 
+                  <h1>vtkTestFilterSelfProgressFilter</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestFilterSelfProgressFilter</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="ifndef-__vtktestfilterselfprogressfilter_h">ifndef __vtkTestFilterSelfProgressFilter_h</h1>
-<h1 id="define-__vtktestfilterselfprogressfilter_h">define __vtkTestFilterSelfProgressFilter_h</h1>
-<h1 id="include-vtkpolydataalgorithmh">include "vtkPolyDataAlgorithm.h"</h1>
-<p>class vtkTestFilterSelfProgressFilter : public vtkPolyDataAlgorithm 
-{
-public:
-  vtkTypeMacro(vtkTestFilterSelfProgressFilter,vtkAlgorithm);</p>
-<p>static vtkTestFilterSelfProgressFilter *New();</p>
-<p>protected:
-  vtkTestFilterSelfProgressFilter();
-  ~vtkTestFilterSelfProgressFilter(){}</p>
-<p>int RequestData(vtkInformation <em>, vtkInformationVector </em><em>, vtkInformationVector </em>) VTK_OVERRIDE; </p>
-<p>static void ProgressFunction(vtkObject<em> caller, long unsigned int eventId, void</em> clientData, void* callData);</p>
-<p>private:
-  vtkTestFilterSelfProgressFilter(const vtkTestFilterSelfProgressFilter&amp;);  // Not implemented.
-  void operator=(const vtkTestFilterSelfProgressFilter&amp;);  // Not implemented.</p>
-<p>};</p>
-<h1 id="endif">endif</h1>
-<p></source></p>
 <p><strong>vtkTestFilterSelfProgressFilter.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
 

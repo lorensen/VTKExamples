@@ -2990,8 +2990,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTestReader" class="md-nav__link md-nav__link--active">
       vtkTestReader
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,30 +15922,9 @@
               
                 
                 
+                  <h1>vtkTestReader</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestReader</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="ifndef-__vtktestreader_h">ifndef __vtkTestReader_h</h1>
-<h1 id="define-__vtktestreader_h">define __vtkTestReader_h</h1>
-<h1 id="include-vtkpolydataalgorithmh">include "vtkPolyDataAlgorithm.h"</h1>
-<p>class vtkTestReader : public vtkPolyDataAlgorithm 
-{
-public:
-  vtkTypeMacro(vtkTestReader,vtkPolyDataAlgorithm);
-  void PrintSelf(ostream&amp; os, vtkIndent indent);</p>
-<p>static vtkTestReader *New();</p>
-<p>protected:
-  vtkTestReader();
-  ~vtkTestReader();</p>
-<p>int FillOutputPortInformation( int port, vtkInformation<em> info );
-  int RequestData(vtkInformation </em>, vtkInformationVector *<em>, vtkInformationVector </em>);</p>
-<p>private:
-  vtkTestReader(const vtkTestReader&amp;);  // Not implemented.
-  void operator=(const vtkTestReader&amp;);  // Not implemented.</p>
-<p>char* FileName;
-};</p>
-<h1 id="endif">endif</h1>
-<p></source></p>
 <p><strong>vtkTestReader.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkTestReader.h&quot;
 

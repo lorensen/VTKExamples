@@ -2858,8 +2858,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTest" class="md-nav__link md-nav__link--active">
       vtkTest
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,33 +15922,9 @@
               
                 
                 
+                  <h1>vtkTest</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTest</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="ifndef-__vtktest_h">ifndef __vtkTest_h</h1>
-<h1 id="define-__vtktest_h">define __vtkTest_h</h1>
-<h1 id="include-vtkdataobjecth">include "vtkDataObject.h"</h1>
-<p>class vtkTest : public vtkDataObject
-{
-  public:
-    static vtkTest<em> New();
-    vtkTypeMacro(vtkTest,vtkDataObject);
-    void PrintSelf( ostream&amp; os, vtkIndent indent );
-    void ShallowCopy(vtkTest</em> t);</p>
-<pre><code>vtkGetMacro(Value, double);
-vtkSetMacro(Value, double);
-</code></pre>
-<p>protected:
-    vtkTest();
-    ~vtkTest();</p>
-<p>private:
-    vtkTest( const vtkTest&amp; ); // Not implemented.
-    void operator = ( const vtkTest&amp; ); // Not implemented.</p>
-<pre><code>double Value;
-</code></pre>
-<p>};</p>
-<h1 id="endif">endif</h1>
-<p></source></p>
 <p><strong>vtkTest.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkTest.h&quot;
 

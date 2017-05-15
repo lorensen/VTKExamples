@@ -2666,8 +2666,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTestFilter" class="md-nav__link md-nav__link--active">
       vtkTestFilter
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,58 +15922,9 @@
               
                 
                 
+                  <h1>vtkTestFilter</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Demos/vtkTestFilter</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="include-vtktestfilterh">include "vtkTestFilter.h"</h1>
-<h1 id="include-vtkobjectfactoryh">include "vtkObjectFactory.h"</h1>
-<h1 id="include-vtkcommandh">include "vtkCommand.h"</h1>
-<h1 id="include-vtkstreamingdemanddrivenpipelineh">include "vtkStreamingDemandDrivenPipeline.h"</h1>
-<h1 id="include-vtkinformationvectorh">include "vtkInformationVector.h"</h1>
-<h1 id="include-vtkinformationh">include "vtkInformation.h"</h1>
-<h1 id="include-vtkdataobjecth">include "vtkDataObject.h"</h1>
-<h1 id="include-vtksmartpointerh">include "vtkSmartPointer.h"</h1>
-<h1 id="include-vtkappendpolydatah">include "vtkAppendPolyData.h"</h1>
-<h1 id="include-vtkspheresourceh">include "vtkSphereSource.h"</h1>
-<p>vtkStandardNewMacro(vtkTestFilter);</p>
-<p>vtkTestFilter::vtkTestFilter()
-{
-  this-&gt;SetNumberOfInputPorts(0);
-  this-&gt;Output = vtkSmartPointer<vtkPolyData>::New();</p>
-<p>this-&gt;RefreshEvent = vtkCommand::UserEvent + 1;</p>
-<p>}</p>
-<p>int vtkTestFilter::RequestData(vtkInformation <em>vtkNotUsed(request),
-                                             vtkInformationVector </em><em>inputVector,
-                                             vtkInformationVector </em>outputVector)
-{
-  // Get the info object
-  vtkInformation *outInfo = outputVector-&gt;GetInformationObject(0);</p>
-<p>vtkPolyData *output = vtkPolyData::SafeDownCast(
-      outInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));</p>
-<p>this-&gt;Output-&gt;DeepCopy(output);</p>
-<p>for(unsigned int i = 0; i &lt; 10; i++)
-    {
-    Iterate(i);
-    this-&gt;InvokeEvent(this-&gt;RefreshEvent, NULL);
-    }</p>
-<p>output-&gt;ShallowCopy(this-&gt;Output);</p>
-<p>return 1;
-}</p>
-<p>void vtkTestFilter::Iterate(unsigned int iteration)
-{
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource-&gt;SetCenter(iteration, 0, 0);
-  sphereSource-&gt;SetRadius(0.2);
-  sphereSource-&gt;Update();</p>
-<p>vtkSmartPointer<vtkAppendPolyData> appendFilter =
-    vtkSmartPointer<vtkAppendPolyData>::New();
-  appendFilter-&gt;AddInputConnection(this-&gt;Output-&gt;GetProducerPort());
-  appendFilter-&gt;AddInputConnection(sphereSource-&gt;GetOutputPort());
-  appendFilter-&gt;Update();</p>
-<p>this-&gt;Output-&gt;DeepCopy(appendFilter-&gt;GetOutput());
-}</p>
-<p></source></p>
 <p><strong>vtkTestFilter.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkTestFilter.h&quot;
 

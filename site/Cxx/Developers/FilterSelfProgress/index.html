@@ -2738,8 +2738,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="FilterSelfProgress" class="md-nav__link md-nav__link--active">
       FilterSelfProgress
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,50 +15922,9 @@
               
                 
                 
+                  <h1>FilterSelfProgress</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/FilterSelfProgress</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp"></p>
-<h1 id="include-vtksmartpointerh">include "vtkSmartPointer.h"</h1>
-<h1 id="include-vtkobjectfactoryh">include "vtkObjectFactory.h"</h1>
-<h1 id="include-vtkstreamingdemanddrivenpipelineh">include "vtkStreamingDemandDrivenPipeline.h"</h1>
-<h1 id="include-vtkinformationvectorh">include "vtkInformationVector.h"</h1>
-<h1 id="include-vtkinformationh">include "vtkInformation.h"</h1>
-<h1 id="include-vtkdataobjecth">include "vtkDataObject.h"</h1>
-<h1 id="include-vtkcallbackcommandh">include "vtkCallbackCommand.h"</h1>
-<h1 id="include-vtktestfilterselfprogressfilterh">include "vtkTestFilterSelfProgressFilter.h"</h1>
-<p>vtkStandardNewMacro(vtkTestFilterSelfProgressFilter);</p>
-<p>vtkTestFilterSelfProgressFilter::vtkTestFilterSelfProgressFilter()
-{
-  vtkSmartPointer<vtkCallbackCommand> progressCallback = 
-      vtkSmartPointer<vtkCallbackCommand>::New();
-  progressCallback-&gt;SetCallback(this-&gt;ProgressFunction);</p>
-<p>this-&gt;AddObserver(vtkCommand::ProgressEvent, progressCallback);
-}</p>
-<p>void vtkTestFilterSelfProgressFilter::ProgressFunction(vtkObject<em> caller, long unsigned int eventId, void</em> clientData, void<em> callData)
-{
-  vtkTestFilterSelfProgressFilter</em> testFilter = static_cast<vtkTestFilterSelfProgressFilter*>(caller);
-  cout &lt;&lt; "Progress: " &lt;&lt; testFilter-&gt;GetProgress() &lt;&lt; endl;
-}</p>
-<p>int vtkTestFilterSelfProgressFilter::RequestData(vtkInformation <em>vtkNotUsed(request),
-                                             vtkInformationVector </em><em>inputVector,
-                                             vtkInformationVector </em>outputVector)
-{</p>
-<p>// get the info objects
-  vtkInformation <em>inInfo = inputVector<a href="../0"></a>-&gt;GetInformationObject(0);
-  vtkInformation </em>outInfo = outputVector-&gt;GetInformationObject(0);</p>
-<p>// get the input and ouptut
-  vtkPolyData *input = vtkPolyData::SafeDownCast(
-      inInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));</p>
-<p>vtkPolyData *output = vtkPolyData::SafeDownCast(
-      outInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));</p>
-<p>for(vtkIdType i = 0; i &lt; input-&gt;GetNumberOfPoints(); i++)
-    {
-    this-&gt;UpdateProgress(static_cast<double>(i)/input-&gt;GetNumberOfPoints());
-    }</p>
-<p>output-&gt;ShallowCopy(input);</p>
-<p>return 1;
-}
-</source></p>
 <p><strong>FilterSelfProgress.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPoints.h&gt;

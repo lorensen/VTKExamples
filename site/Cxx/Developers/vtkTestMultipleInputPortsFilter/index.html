@@ -2954,8 +2954,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
-    
     
     <a href="./" title="vtkTestMultipleInputPortsFilter" class="md-nav__link md-nav__link--active">
       vtkTestMultipleInputPortsFilter
@@ -15912,8 +15910,6 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
 </nav>
                   </div>
@@ -15926,31 +15922,9 @@
               
                 
                 
+                  <h1>vtkTestMultipleInputPortsFilter</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestMultipleInputPortsFilter</p>
-<h3 id="description">Description</h3>
-<p><source lang="cpp">
-// .NAME vtkTestMultipleInputPortsFilter
-// .SECTION Description
-// vtkTestMultipleInputPortsFilter</p>
-<h1 id="ifndef-__vtktestmultipleinputportsfilter_h">ifndef __vtkTestMultipleInputPortsFilter_h</h1>
-<h1 id="define-__vtktestmultipleinputportsfilter_h">define __vtkTestMultipleInputPortsFilter_h</h1>
-<h1 id="include-vtkpolydataalgorithmh">include "vtkPolyDataAlgorithm.h"</h1>
-<p>class vtkTestMultipleInputPortsFilter : public vtkPolyDataAlgorithm
-{
-public:
-  static vtkTestMultipleInputPortsFilter *New();
-  vtkTypeMacro(vtkTestMultipleInputPortsFilter,vtkPolyDataAlgorithm);</p>
-<p>protected:
-  vtkTestMultipleInputPortsFilter();
-  ~vtkTestMultipleInputPortsFilter() VTK_OVERRIDE {}</p>
-<p>int FillInputPortInformation( int port, vtkInformation<em> info ) VTK_OVERRIDE;
-  int RequestData(vtkInformation </em>, vtkInformationVector *<em>, vtkInformationVector </em>) VTK_OVERRIDE;</p>
-<p>private:
-  vtkTestMultipleInputPortsFilter(const vtkTestMultipleInputPortsFilter&amp;) VTK_DELETE_FUNCTION;
-  void operator=(const vtkTestMultipleInputPortsFilter&amp;) VTK_DELETE_FUNCTION;</p>
-<p>};</p>
-<h1 id="endif">endif</h1>
-<p></source></p>
 <p><strong>vtkTestMultipleInputPortsFilter.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkTestMultipleInputPortsFilter.h&quot;
 
