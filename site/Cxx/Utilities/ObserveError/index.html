@@ -10754,6 +10754,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-observeerror" title="Download and Build ObserveError" class="md-nav__link">
+    Download and Build ObserveError
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-observeerror" title="Download and Build ObserveError" class="md-nav__link">
+    Download and Build ObserveError
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/ObserveError</p>
 <h3 id="description">Description</h3>
 <p>When vtk encounters an error or warning, by default the message is written to standard output. This example shows how to catch the error or warning. The example prints to standard output, but an application may wish to present the error or warning in a different manner, e.g. write to a log file or present the message in a window.</p>
+<h3 id="code">Code</h3>
 <p><strong>ObserveError.cxx</strong></p>
 <pre><code class="c++">#include &lt;string&gt;
 
@@ -16056,7 +16099,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ObserveError)
@@ -16069,7 +16112,7 @@ add_executable(ObserveError MACOSX_BUNDLE ObserveError.cxx)
 target_link_libraries(ObserveError ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ObserveError</strong></p>
+<h3 id="download-and-build-observeerror">Download and Build ObserveError</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ObserveError.tar">here to download ObserveError</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ObserveError.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ObserveError/build 

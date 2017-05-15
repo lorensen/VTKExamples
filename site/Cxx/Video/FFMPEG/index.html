@@ -11126,6 +11126,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-ffmpeg" title="Download and Build FFMPEG" class="md-nav__link">
+    Download and Build FFMPEG
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-ffmpeg" title="Download and Build FFMPEG" class="md-nav__link">
+    Download and Build FFMPEG
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 VTK_USE_FFMPEG_ENCODER ON
 in your VTK build.</p>
 <p>CMake won't find FFMPEG headers?</p>
+<h3 id="code">Code</h3>
 <p><strong>FFMPEG.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkImageCanvasSource2D.h&gt;
@@ -16005,7 +16048,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(FFMPEG)
@@ -16018,7 +16061,7 @@ add_executable(FFMPEG MACOSX_BUNDLE FFMPEG.cxx)
 target_link_libraries(FFMPEG ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build FFMPEG</strong></p>
+<h3 id="download-and-build-ffmpeg">Download and Build FFMPEG</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FFMPEG.tar">here to download FFMPEG</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FFMPEG.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd FFMPEG/build 

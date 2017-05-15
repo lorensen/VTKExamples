@@ -12470,6 +12470,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-filledcontours" title="Download and Build FilledContours" class="md-nav__link">
+    Download and Build FilledContours
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-filledcontours" title="Download and Build FilledContours" class="md-nav__link">
+    Download and Build FilledContours
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>== Create Filled Contours ==
 This example produces filled contours using the vtkClipPolyData filter. There is a sample data file <a href="http://public.kitware.com/cgi-bin/viewcvs.cgi/Data/filledContours.vtp?root=VTKData&amp;view=log">here</a></p>
+<h3 id="code">Code</h3>
 <p><strong>FilledContours.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkXMLPolyDataReader.h&gt;
@@ -16120,7 +16163,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(FilledContours)
@@ -16133,7 +16176,7 @@ add_executable(FilledContours MACOSX_BUNDLE FilledContours.cxx)
 target_link_libraries(FilledContours ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build FilledContours</strong></p>
+<h3 id="download-and-build-filledcontours">Download and Build FilledContours</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FilledContours.tar">here to download FilledContours</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FilledContours.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd FilledContours/build 

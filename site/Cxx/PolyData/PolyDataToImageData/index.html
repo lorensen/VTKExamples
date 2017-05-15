@@ -8990,6 +8990,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-polydatatoimagedata" title="Download and Build PolyDataToImageData" class="md-nav__link">
+    Download and Build PolyDataToImageData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-polydatatoimagedata" title="Download and Build PolyDataToImageData" class="md-nav__link">
+    Download and Build PolyDataToImageData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <li>Contributed by: Lars Friedrich</li>
 </ul>
 <p>This example generates a sphere (prerequisite: closed surface of type vtkPolyData) and converts it into volume representation (vtkImageData) where the foreground voxels are 255 (inside) and the background voxels are 0 (outside). Internally vtkPolyDataToImageStencil is utilized. The resultant image is saved to disk in metaimage file format (SphereVolume.mhd).</p>
+<h3 id="code">Code</h3>
 <p><strong>PolyDataToImageData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16077,7 +16120,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(PolyDataToImageData)
@@ -16090,7 +16133,7 @@ add_executable(PolyDataToImageData MACOSX_BUNDLE PolyDataToImageData.cxx)
 target_link_libraries(PolyDataToImageData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build PolyDataToImageData</strong></p>
+<h3 id="download-and-build-polydatatoimagedata">Download and Build PolyDataToImageData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataToImageData.tar">here to download PolyDataToImageData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataToImageData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd PolyDataToImageData/build 

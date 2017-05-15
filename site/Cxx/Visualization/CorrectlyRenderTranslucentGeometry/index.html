@@ -11445,6 +11445,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-correctlyrendertranslucentgeometry" title="Download and Build CorrectlyRenderTranslucentGeometry" class="md-nav__link">
+    Download and Build CorrectlyRenderTranslucentGeometry
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15960,6 +15981,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-correctlyrendertranslucentgeometry" title="Download and Build CorrectlyRenderTranslucentGeometry" class="md-nav__link">
+    Download and Build CorrectlyRenderTranslucentGeometry
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -16026,6 +16068,7 @@ treatment, CPU depth sorting and GPU depth peeling.</p>
 <p>./CorrectlyRenderTranslucentGeometry 100 100 50 0.1 1 0 ... will render the spheres using depth sorting even if depth peeling is available</p>
 <p>./CorrectlyRenderTranslucentGeometry 100 100 50 0.1 0 1 ... will render the spheres using neither depth peeling nor depth sorting</p>
 <p><strong><em>Resultant frame rates show that depth peeling is usually much faster than the CPU-implementation, however, it will slow down the rendering process due to internal multi-pass rendering.</em></strong></p>
+<h3 id="code">Code</h3>
 <p><strong>CorrectlyRenderTranslucentGeometry.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16321,7 +16364,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CorrectlyRenderTranslucentGeometry)
@@ -16334,7 +16377,7 @@ add_executable(CorrectlyRenderTranslucentGeometry MACOSX_BUNDLE CorrectlyRenderT
 target_link_libraries(CorrectlyRenderTranslucentGeometry ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CorrectlyRenderTranslucentGeometry</strong></p>
+<h3 id="download-and-build-correctlyrendertranslucentgeometry">Download and Build CorrectlyRenderTranslucentGeometry</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CorrectlyRenderTranslucentGeometry.tar">here to download CorrectlyRenderTranslucentGeometry</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CorrectlyRenderTranslucentGeometry.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CorrectlyRenderTranslucentGeometry/build 

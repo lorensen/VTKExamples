@@ -7082,6 +7082,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-generatemodelsfromlabels" title="Download and Build GenerateModelsFromLabels" class="md-nav__link">
+    Download and Build GenerateModelsFromLabels
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-generatemodelsfromlabels" title="Download and Build GenerateModelsFromLabels" class="md-nav__link">
+    Download and Build GenerateModelsFromLabels
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15973,6 +16015,7 @@ cube models, see the example [cubes from labeled volume data]]. The
 input volume must be in <a href="../[VTK/Examples/Medical/Cxx/GenerateCubesFromLabels|Create">[ MetaIO/Documentation| META
 format]</a>.</p>
 <p>Once you generate the models, you can view them with <a href="http://paraview.org">Paraview</a></p>
+<h3 id="code">Code</h3>
 <p><strong>GenerateModelsFromLabels.cxx</strong></p>
 <pre><code class="c++">//
 // GenerateModelsFromLabels
@@ -16106,7 +16149,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(GenerateModelsFromLabels)
@@ -16119,7 +16162,7 @@ add_executable(GenerateModelsFromLabels MACOSX_BUNDLE GenerateModelsFromLabels.c
 target_link_libraries(GenerateModelsFromLabels ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build GenerateModelsFromLabels</strong></p>
+<h3 id="download-and-build-generatemodelsfromlabels">Download and Build GenerateModelsFromLabels</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GenerateModelsFromLabels.tar">here to download GenerateModelsFromLabels</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GenerateModelsFromLabels.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd GenerateModelsFromLabels/build 

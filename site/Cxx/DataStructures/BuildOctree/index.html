@@ -2199,9 +2199,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        BuildOctree
+      </label>
+    
     <a href="./" title="BuildOctree" class="md-nav__link md-nav__link--active">
       BuildOctree
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-buildoctree" title="Download and Build BuildOctree" class="md-nav__link">
+    Download and Build BuildOctree
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-buildoctree" title="Download and Build BuildOctree" class="md-nav__link">
+    Download and Build BuildOctree
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>BuildOctree</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/DataStructures/BuildOctree</p>
+<h3 id="code">Code</h3>
 <p><strong>BuildOctree.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPoints.h&gt;
@@ -15974,7 +16042,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(BuildOctree)
@@ -15987,7 +16055,7 @@ add_executable(BuildOctree MACOSX_BUNDLE BuildOctree.cxx)
 target_link_libraries(BuildOctree ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build BuildOctree</strong></p>
+<h3 id="download-and-build-buildoctree">Download and Build BuildOctree</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BuildOctree.tar">here to download BuildOctree</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BuildOctree.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd BuildOctree/build 

@@ -7274,6 +7274,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-deformpointset" title="Download and Build DeformPointSet" class="md-nav__link">
+    Download and Build DeformPointSet
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-deformpointset" title="Download and Build DeformPointSet" class="md-nav__link">
+    Download and Build DeformPointSet
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestDeformPointSet.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>Deform a point set with a polyhedra. Supply a .vtp file and see it deformed.</p>
+<h3 id="code">Code</h3>
 <p><strong>DeformPointSet.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
 
@@ -16143,7 +16186,7 @@ int main( int argc, char *argv[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(DeformPointSet)
@@ -16156,7 +16199,7 @@ add_executable(DeformPointSet MACOSX_BUNDLE DeformPointSet.cxx)
 target_link_libraries(DeformPointSet ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build DeformPointSet</strong></p>
+<h3 id="download-and-build-deformpointset">Download and Build DeformPointSet</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DeformPointSet.tar">here to download DeformPointSet</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DeformPointSet.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd DeformPointSet/build 

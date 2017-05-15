@@ -8378,6 +8378,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-extractoutsidesurface" title="Download and Build ExtractOutsideSurface" class="md-nav__link">
+    Download and Build ExtractOutsideSurface
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-extractoutsidesurface" title="Download and Build ExtractOutsideSurface" class="md-nav__link">
+    Download and Build ExtractOutsideSurface
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15970,6 +16012,7 @@
 <p>The example casts a ray from outside the bounds of the model into the center of the model. It uses a vtkCellLocator to intersect the ray with the model. The intersected cell is used as a seed to the vtkPolyDataConnectivityFilter which is run with the extraction mode set to CellSeededRegions.</p>
 <p>If run without arguments, the example generates a small (in area) sphere inside a large (in area) sphere. The inner sphere has more cells than the outer sphere, but should not be extracted.</p>
 <p>You can try your own surface by specifying a XML PolyData file (.vtp) on the command line.</p>
+<h3 id="code">Code</h3>
 <p><strong>ExtractOutsideSurface.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16122,7 +16165,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ExtractOutsideSurface)
@@ -16135,7 +16178,7 @@ add_executable(ExtractOutsideSurface MACOSX_BUNDLE ExtractOutsideSurface.cxx)
 target_link_libraries(ExtractOutsideSurface ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ExtractOutsideSurface</strong></p>
+<h3 id="download-and-build-extractoutsidesurface">Download and Build ExtractOutsideSurface</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ExtractOutsideSurface.tar">here to download ExtractOutsideSurface</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ExtractOutsideSurface.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ExtractOutsideSurface/build 

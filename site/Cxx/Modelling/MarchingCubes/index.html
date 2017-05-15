@@ -15933,6 +15933,7 @@
 <h1 id="without-arguments-the-examples-generates-a-voxelized-sphere-with-vtkvoxelmodeller-note-vtkvoxelmodeller-by-default-produces-a-vtk_bit-scalar-image-marching-cubes-does-not-support-this-type-the-scalar-output-is-set-to-float-for-this-example">Without arguments, the examples generates a voxelized  sphere with vtkVoxelModeller. '''NOTE:''' vtkVoxelModeller by default produces a VTK_BIT scalar image. Marching Cubes does not support this type. The scalar output is set to float for this example.</h1>
 <h1 id="to-generate-a-surface-from-a-dicom-series-provide-a-folder-containing-the-series-and-specify-an-isovalue-for-the-surface">To generate a surface from a DICOM series, provide a folder containing the series and specify an isovalue for the surface.</h1>
 <p>This <a href="http://placid.nlm.nih.gov/community/21">Midas Repository</a> contains a number of DICOM datasets.</p>
+<h3 id="code">Code</h3>
 <p><strong>MarchingCubes.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16030,7 +16031,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MarchingCubes)
@@ -16043,7 +16044,7 @@ add_executable(MarchingCubes MACOSX_BUNDLE MarchingCubes.cxx)
 target_link_libraries(MarchingCubes ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MarchingCubes</strong></p>
+<h3 id="download-and-build-marchingcubes">Download and Build MarchingCubes</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MarchingCubes.tar">here to download MarchingCubes</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MarchingCubes.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MarchingCubes/build 

@@ -12914,6 +12914,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-slider2d" title="Download and Build Slider2D" class="md-nav__link">
+    Download and Build Slider2D
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-slider2d" title="Download and Build Slider2D" class="md-nav__link">
+    Download and Build Slider2D
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15970,6 +16012,7 @@
 <p>If the callback is connected to <em>InteractionEvent</em>, the scene will update immediately.
 This is not ideal if the re-rendering takes significant time as it will make the interaction very choppy.
 If you want to move the slider and have the scene update when the mouse button is released, connect the callback to <em>EndInteractionEvent</em> instead.</p>
+<h3 id="code">Code</h3>
 <p><strong>Slider2D.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
 #include &lt;vtkTextProperty.h&gt;
@@ -16103,7 +16146,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(Slider2D)
@@ -16116,7 +16159,7 @@ add_executable(Slider2D MACOSX_BUNDLE Slider2D.cxx)
 target_link_libraries(Slider2D ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build Slider2D</strong></p>
+<h3 id="download-and-build-slider2d">Download and Build Slider2D</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Slider2D.tar">here to download Slider2D</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Slider2D.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd Slider2D/build 

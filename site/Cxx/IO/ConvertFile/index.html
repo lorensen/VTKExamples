@@ -4394,6 +4394,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-convertfile" title="Download and Build ConvertFile" class="md-nav__link">
+    Download and Build ConvertFile
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-convertfile" title="Download and Build ConvertFile" class="md-nav__link">
+    Download and Build ConvertFile
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/IO/ConvertFile</p>
 <h3 id="description">Description</h3>
 <p>This example demonstrates how to read a file and then write it to a different type of file. In this example, we read a vtp file and write a ply file, but simply by changing the reader/writer classes instantiated, different behavior can be achieved.</p>
+<h3 id="code">Code</h3>
 <p><strong>ConvertFile.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPolyData.h&gt;
@@ -15996,7 +16039,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ConvertFile)
@@ -16009,7 +16052,7 @@ add_executable(ConvertFile MACOSX_BUNDLE ConvertFile.cxx)
 target_link_libraries(ConvertFile ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ConvertFile</strong></p>
+<h3 id="download-and-build-convertfile">Download and Build ConvertFile</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConvertFile.tar">here to download ConvertFile</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConvertFile.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ConvertFile/build 

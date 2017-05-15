@@ -10826,6 +10826,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-screenshot" title="Download and Build Screenshot" class="md-nav__link">
+    Download and Build Screenshot
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-screenshot" title="Download and Build Screenshot" class="md-nav__link">
+    Download and Build Screenshot
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Utilities/TestScreenshot.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example shows how to save the window to a file (png in this case). You can combine this with the <a href="../Interaction/KeypressEvents">KeypressEvents</a> example to make a useful functionality.</p>
+<h3 id="code">Code</h3>
 <p><strong>Screenshot.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkPolyDataMapper.h&gt;
 #include &lt;vtkActor.h&gt;
@@ -16036,7 +16079,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(Screenshot)
@@ -16049,7 +16092,7 @@ add_executable(Screenshot MACOSX_BUNDLE Screenshot.cxx)
 target_link_libraries(Screenshot ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build Screenshot</strong></p>
+<h3 id="download-and-build-screenshot">Download and Build Screenshot</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Screenshot.tar">here to download Screenshot</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Screenshot.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd Screenshot/build 

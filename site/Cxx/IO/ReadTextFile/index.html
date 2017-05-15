@@ -4742,6 +4742,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-readtextfile" title="Download and Build ReadTextFile" class="md-nav__link">
+    Download and Build ReadTextFile
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-readtextfile" title="Download and Build ReadTextFile" class="md-nav__link">
+    Download and Build ReadTextFile
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15972,6 +16014,7 @@
  4 5 6 
  7 8 9</p>
 <p><strong>Note:</strong> for a simpler way to read such a file, see <a href="../SimplePointsReader">SimplePointsReader</a>.</p>
+<h3 id="code">Code</h3>
 <p><strong>ReadTextFile.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16057,7 +16100,7 @@ int main(int argc, char* argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ReadTextFile)
@@ -16070,7 +16113,7 @@ add_executable(ReadTextFile MACOSX_BUNDLE ReadTextFile.cxx)
 target_link_libraries(ReadTextFile ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ReadTextFile</strong></p>
+<h3 id="download-and-build-readtextfile">Download and Build ReadTextFile</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ReadTextFile.tar">here to download ReadTextFile</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ReadTextFile.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ReadTextFile/build 

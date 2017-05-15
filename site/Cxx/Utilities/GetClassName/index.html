@@ -10706,6 +10706,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-getclassname" title="Download and Build GetClassName" class="md-nav__link">
+    Download and Build GetClassName
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-getclassname" title="Download and Build GetClassName" class="md-nav__link">
+    Download and Build GetClassName
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <h3 id="description">Description</h3>
 <p>This example demonstrates the GetClassName function. This should be available for every VTK class. This is extremely helpful for debugging - you are able to determine the type of a variable that is passed as an abstract type. With this information, the list of functions that can be called on this variable can be determined.</p>
 <p>The example illustrates alternative ways to get the "name" of a class. Notice that the GetClassName provides a simple and useful solution.</p>
+<h3 id="code">Code</h3>
 <p><strong>GetClassName.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPoints.h&gt;
@@ -16017,7 +16060,7 @@ const char *unmangleName (const char * name)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(GetClassName)
@@ -16030,7 +16073,7 @@ add_executable(GetClassName MACOSX_BUNDLE GetClassName.cxx)
 target_link_libraries(GetClassName ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build GetClassName</strong></p>
+<h3 id="download-and-build-getclassname">Download and Build GetClassName</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GetClassName.tar">here to download GetClassName</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GetClassName.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd GetClassName/build 

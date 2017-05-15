@@ -12902,6 +12902,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-slider" title="Download and Build Slider" class="md-nav__link">
+    Download and Build Slider
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-slider" title="Download and Build Slider" class="md-nav__link">
+    Download and Build Slider
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example demonstrates how to use a 3D slider widget. Here, the slider controls the resolution of the sphere. The slider is positioned in world coordinates - so if you rotate/translate/scale the scene, the slider will change orientation/position/size. Contrast this with <a href="../Widgets/Cxx/Slider2D">Slider2D</a> that remains at a fixed location in the window.</p>
 <p>If the callback is connected to InteractionEvent, the scene will update whenever the mouse is moved on the slider. This is not ideal if the re-rendering takes significant time as it will make the interaction very choppy. If you want to move the slider and have the scene update when the mouse button is released, connect the callback to EndInteractionEvent instead.</p>
+<h3 id="code">Code</h3>
 <p><strong>Slider.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16086,7 +16129,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(Slider)
@@ -16099,7 +16142,7 @@ add_executable(Slider MACOSX_BUNDLE Slider.cxx)
 target_link_libraries(Slider ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build Slider</strong></p>
+<h3 id="download-and-build-slider">Download and Build Slider</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Slider.tar">here to download Slider</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Slider.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd Slider/build 

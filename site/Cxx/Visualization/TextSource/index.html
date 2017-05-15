@@ -12218,6 +12218,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-textsource" title="Download and Build TextSource" class="md-nav__link">
+    Download and Build TextSource
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-textsource" title="Download and Build TextSource" class="md-nav__link">
+    Download and Build TextSource
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestTextSource.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example displays a 3D polygonal text saying "Hello", using the 9x15 font from [Window System|X Windows]]. That is a raster (pixelized) font, so characters are formed by converting the pixels on each character into quadrilaterals. {{class|vtkVectorText}} generates higher quality polygonal representations of text, so it is recommended instead -- see <a href="../[wikipedia:X">[../VectorText]</a> for an example of this.</p>
+<h3 id="code">Code</h3>
 <p><strong>TextSource.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkTextSource.h&gt;
 #include &lt;vtkPolyData.h&gt;
@@ -16018,7 +16061,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(TextSource)
@@ -16031,7 +16074,7 @@ add_executable(TextSource MACOSX_BUNDLE TextSource.cxx)
 target_link_libraries(TextSource ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build TextSource</strong></p>
+<h3 id="download-and-build-textsource">Download and Build TextSource</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TextSource.tar">here to download TextSource</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TextSource.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd TextSource/build 

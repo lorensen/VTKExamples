@@ -12686,6 +12686,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boxwidget2" title="Download and Build BoxWidget2" class="md-nav__link">
+    Download and Build BoxWidget2
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boxwidget2" title="Download and Build BoxWidget2" class="md-nav__link">
+    Download and Build BoxWidget2
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>This example uses a {{class|vtkBoxWidget2}} to manipulate an actor. The widget only contains the interaction logic; the actual box is drawn by the accompanying {{class|vtkBoxRepresentation}}.
 Contrary to the older {{class|vtkBoxWidget|older implementation}}, this widget doesn't provide functionality to assign it to one or more actors, so that has to be implemented manually. The box is dimensioned and positioned by passing a bounding box to <code>PlaceWidget</code> method, with the <code>SetPlaceFactor</code> method providing a scaling factor in relation to that bounding box. The transformations applied to the box can be used to manipulate any number of object(s), via a custom callback class, which is passed to the box widget through the <code>AddObserver</code> method.</p>
 <p>The older implementation {{class|vtkBoxWidget}} provides functionality to receive a {{class|vtkProp3D}} for the initial positioning and sizing, but the transformation synchronization still needs to be done manually. See <a href="../[../BoxWidget|BoxWidget]"></a> for a simple example of how to use it.</p>
+<h3 id="code">Code</h3>
 <p><strong>BoxWidget2.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 // For the rendering pipeline setup:
@@ -16066,7 +16109,7 @@ int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(BoxWidget2)
@@ -16079,7 +16122,7 @@ add_executable(BoxWidget2 MACOSX_BUNDLE BoxWidget2.cxx)
 target_link_libraries(BoxWidget2 ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build BoxWidget2</strong></p>
+<h3 id="download-and-build-boxwidget2">Download and Build BoxWidget2</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoxWidget2.tar">here to download BoxWidget2</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoxWidget2.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd BoxWidget2/build 

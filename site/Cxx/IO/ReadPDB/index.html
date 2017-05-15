@@ -4622,6 +4622,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-readpdb" title="Download and Build ReadPDB" class="md-nav__link">
+    Download and Build ReadPDB
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-readpdb" title="Download and Build ReadPDB" class="md-nav__link">
+    Download and Build ReadPDB
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example reads <a href="http://www.pdb.org/pdb/home/home.do">Protein Data Bank</a> files. The example expects a file in .pdb format.</p>
 <p><a href="http://gitorious.org/vtkwikiexamples/wikiexamples/blobs/raw/master/Testing/Data/lys.pdb">Here</a> is a sample file.</p>
+<h3 id="code">Code</h3>
 <p><strong>ReadPDB.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;cmath&gt;
@@ -16097,7 +16140,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ReadPDB)
@@ -16110,7 +16153,7 @@ add_executable(ReadPDB MACOSX_BUNDLE ReadPDB.cxx)
 target_link_libraries(ReadPDB ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ReadPDB</strong></p>
+<h3 id="download-and-build-readpdb">Download and Build ReadPDB</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ReadPDB.tar">here to download ReadPDB</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ReadPDB.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ReadPDB/build 

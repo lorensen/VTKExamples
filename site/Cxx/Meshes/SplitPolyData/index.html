@@ -7394,6 +7394,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-splitpolydata" title="Download and Build SplitPolyData" class="md-nav__link">
+    Download and Build SplitPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-splitpolydata" title="Download and Build SplitPolyData" class="md-nav__link">
+    Download and Build SplitPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/SplitPolyData</p>
 <h3 id="description">Description</h3>
 <p>The vtkOBBDicer filter breaks up an input mesh into a number of pieces. The resulting mesh contains scalar point data that can be used to extract the individual pieces with a filter like vtkThresholdFilter. This example stores each piece into a .vtp file.</p>
+<h3 id="code">Code</h3>
 <p><strong>SplitPolyData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16044,7 +16087,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(SplitPolyData)
@@ -16057,7 +16100,7 @@ add_executable(SplitPolyData MACOSX_BUNDLE SplitPolyData.cxx)
 target_link_libraries(SplitPolyData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build SplitPolyData</strong></p>
+<h3 id="download-and-build-splitpolydata">Download and Build SplitPolyData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/SplitPolyData.tar">here to download SplitPolyData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball SplitPolyData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd SplitPolyData/build 

@@ -5282,6 +5282,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-combineimages" title="Download and Build CombineImages" class="md-nav__link">
+    Download and Build CombineImages
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-combineimages" title="Download and Build CombineImages" class="md-nav__link">
+    Download and Build CombineImages
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestCombineImages.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example takes two images and super imposes them. The opacity of each image can be set to control how they are combined.</p>
+<h3 id="code">Code</h3>
 <p><strong>CombineImages.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkRenderWindow.h&gt;
 #include &lt;vtkRenderWindowInteractor.h&gt;
@@ -16026,7 +16069,7 @@ int main ( int argc, char* argv[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CombineImages)
@@ -16039,7 +16082,7 @@ add_executable(CombineImages MACOSX_BUNDLE CombineImages.cxx)
 target_link_libraries(CombineImages ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CombineImages</strong></p>
+<h3 id="download-and-build-combineimages">Download and Build CombineImages</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CombineImages.tar">here to download CombineImages</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CombineImages.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CombineImages/build 

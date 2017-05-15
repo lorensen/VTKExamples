@@ -5787,9 +5787,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ImagePermute
+      </label>
+    
     <a href="./" title="ImagePermute" class="md-nav__link md-nav__link--active">
       ImagePermute
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagepermute" title="Download and Build ImagePermute" class="md-nav__link">
+    Download and Build ImagePermute
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagepermute" title="Download and Build ImagePermute" class="md-nav__link">
+    Download and Build ImagePermute
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImagePermute</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImagePermute.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>ImagePermute.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkImageData.h&gt;
@@ -16009,7 +16077,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImagePermute)
@@ -16022,7 +16090,7 @@ add_executable(ImagePermute MACOSX_BUNDLE ImagePermute.cxx)
 target_link_libraries(ImagePermute ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImagePermute</strong></p>
+<h3 id="download-and-build-imagepermute">Download and Build ImagePermute</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImagePermute.tar">here to download ImagePermute</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImagePermute.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImagePermute/build 

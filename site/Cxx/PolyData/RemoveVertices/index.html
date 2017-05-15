@@ -9051,9 +9051,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        RemoveVertices
+      </label>
+    
     <a href="./" title="RemoveVertices" class="md-nav__link md-nav__link--active">
       RemoveVertices
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-removevertices" title="Download and Build RemoveVertices" class="md-nav__link">
+    Download and Build RemoveVertices
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-removevertices" title="Download and Build RemoveVertices" class="md-nav__link">
+    Download and Build RemoveVertices
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>RemoveVertices</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/RemoveVertices</p>
+<h3 id="code">Code</h3>
 <p><strong>RemoveVertices.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkXMLPolyDataReader.h&gt;
@@ -15969,7 +16037,7 @@ int main ( int argc, char *argv[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(RemoveVertices)
@@ -15982,7 +16050,7 @@ add_executable(RemoveVertices MACOSX_BUNDLE RemoveVertices.cxx)
 target_link_libraries(RemoveVertices ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build RemoveVertices</strong></p>
+<h3 id="download-and-build-removevertices">Download and Build RemoveVertices</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/RemoveVertices.tar">here to download RemoveVertices</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball RemoveVertices.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd RemoveVertices/build 

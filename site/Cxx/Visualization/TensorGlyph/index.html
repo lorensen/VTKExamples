@@ -12206,6 +12206,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-tensorglyph" title="Download and Build TensorGlyph" class="md-nav__link">
+    Download and Build TensorGlyph
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-tensorglyph" title="Download and Build TensorGlyph" class="md-nav__link">
+    Download and Build TensorGlyph
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example demonstrates how to apply a rotation+scaling matrix to each point in a data set. We use a cube as the glyph so that simple rotations are easy to interpret.
 Specifically, we glyph one point with no rotation/scaling, and a second point with a rotation of 45 degrees around the x axis.</p>
+<h3 id="code">Code</h3>
 <p><strong>TensorGlyph.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 
@@ -16049,7 +16092,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(TensorGlyph)
@@ -16062,7 +16105,7 @@ add_executable(TensorGlyph MACOSX_BUNDLE TensorGlyph.cxx)
 target_link_libraries(TensorGlyph ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build TensorGlyph</strong></p>
+<h3 id="download-and-build-tensorglyph">Download and Build TensorGlyph</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TensorGlyph.tar">here to download TensorGlyph</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TensorGlyph.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd TensorGlyph/build 

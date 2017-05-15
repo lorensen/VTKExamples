@@ -6986,6 +6986,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-vectordot" title="Download and Build VectorDot" class="md-nav__link">
+    Download and Build VectorDot
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-vectordot" title="Download and Build VectorDot" class="md-nav__link">
+    Download and Build VectorDot
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15970,6 +16012,7 @@
 <p>The filter outputs
  1, .414, -1</p>
 <p>because the default scalar range that the filter maps the values to is <a href="../-1,1"></a>.</p>
+<h3 id="code">Code</h3>
 <p><strong>VectorDot.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16050,7 +16093,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(VectorDot)
@@ -16063,7 +16106,7 @@ add_executable(VectorDot MACOSX_BUNDLE VectorDot.cxx)
 target_link_libraries(VectorDot ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build VectorDot</strong></p>
+<h3 id="download-and-build-vectordot">Download and Build VectorDot</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/VectorDot.tar">here to download VectorDot</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball VectorDot.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd VectorDot/build 

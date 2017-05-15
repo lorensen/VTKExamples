@@ -15947,6 +15947,7 @@ public:</p>
 };</p>
 <h1 id="endif">endif</h1>
 <p></source></p>
+<h3 id="code">Code</h3>
 <p><strong>EventQtSlotConnect.cxx</strong></p>
 <pre><code class="c++">#include &quot;EventQtSlotConnect.h&quot;
 
@@ -15997,7 +15998,7 @@ void EventQtSlotConnect::slot_clicked(vtkObject*, unsigned long, void*, void*)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(EventQtSlotConnect)
@@ -16010,7 +16011,7 @@ add_executable(EventQtSlotConnect MACOSX_BUNDLE EventQtSlotConnect.cxx)
 target_link_libraries(EventQtSlotConnect ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build EventQtSlotConnect</strong></p>
+<h3 id="download-and-build-eventqtslotconnect">Download and Build EventQtSlotConnect</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/EventQtSlotConnect.tar">here to download EventQtSlotConnect</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball EventQtSlotConnect.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd EventQtSlotConnect/build 

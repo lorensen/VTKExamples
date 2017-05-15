@@ -7238,6 +7238,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-clipdatasetwithpolydata" title="Download and Build ClipDataSetWithPolyData" class="md-nav__link">
+    Download and Build ClipDataSetWithPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-clipdatasetwithpolydata" title="Download and Build ClipDataSetWithPolyData" class="md-nav__link">
+    Download and Build ClipDataSetWithPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,7 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestClipDataSetWithPolyData.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p><strong>NOTE:</strong> This example was translated to C++ from the Python example
-<a href="../Python/Meshes/vtkClipDataSetWithPolydata">here</a>.</p>
+<a href="../../Python/Meshes/vtkClipDataSetWithPolydata">here</a>.</p>
 <p>The example that shows how to use the vtkClipDataSet to clip a
 vtkRectilinearGrid with an arbitrary
 polydata. vtkImplicitPolyDataDistance is used to turn the polydata
@@ -15981,9 +16023,9 @@ the program exits using the "e: key, the example will report the cell
 type for both the inside and outside clips. NOTE: vtkClipDataSet
 tetrahedralizes the volume before clipping. Contrast this with the
 vtkTableBasedClipDataSet example:
-<a href="../TableBasedClipDataSetWithPolyData">TableBasedClipDataSetWithPolyData</a>.</p>
+<a href="../../../Cxx/Meshes/TableBasedClipDataSetWithPolyData">TableBasedClipDataSetWithPolyData</a>.</p>
 <p>Here is the summary reported when the example exits:
-`</p>
+<samp></p>
 <hr />
 <p>The clipped dataset(inside) contains a 
 vtkUnstructuredGrid that has 49514 cells
@@ -15994,7 +16036,9 @@ vtkUnstructuredGrid that has 49514 cells
 vtkUnstructuredGrid that has 714434 cells
     Cell type vtkTetra occurs 705090 times.
     Cell type vtkWedge occurs 9344 times.
-`</p>
+</samp>
+=======</p>
+<h3 id="code">Code</h3>
 <p><strong>ClipDataSetWithPolyData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16239,7 +16283,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ClipDataSetWithPolyData)
@@ -16252,7 +16296,7 @@ add_executable(ClipDataSetWithPolyData MACOSX_BUNDLE ClipDataSetWithPolyData.cxx
 target_link_libraries(ClipDataSetWithPolyData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ClipDataSetWithPolyData</strong></p>
+<h3 id="download-and-build-clipdatasetwithpolydata">Download and Build ClipDataSetWithPolyData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ClipDataSetWithPolyData.tar">here to download ClipDataSetWithPolyData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ClipDataSetWithPolyData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ClipDataSetWithPolyData/build 

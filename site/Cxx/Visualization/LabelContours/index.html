@@ -11774,6 +11774,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-labelcontours" title="Download and Build LabelContours" class="md-nav__link">
+    Download and Build LabelContours
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-labelcontours" title="Download and Build LabelContours" class="md-nav__link">
+    Download and Build LabelContours
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>This example labels isolines created by vtkContourFilter. After the isolines are generated, the resulting disconnected lines segments are gathered into polylines by vtkStripper. Then an appropriate position along each line is chosen to place the label for the contour. Two strategies for label placement are illustrated: a point at the midpoint of the line or a random point. vtkLabeledDataMapper places the labels for the contour lines.</p>
 <p>The program can be run with an input XML polydata file (.vtp) or without arguments. If a file is specified then one, two or a range of contours can be specified. If run without a file name, the example generates a random scalar field on a plane.</p>
 <p>'''NOTE:''' The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.</p>
+<h3 id="code">Code</h3>
 <p><strong>LabelContours.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16197,7 +16240,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(LabelContours)
@@ -16210,7 +16253,7 @@ add_executable(LabelContours MACOSX_BUNDLE LabelContours.cxx)
 target_link_libraries(LabelContours ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build LabelContours</strong></p>
+<h3 id="download-and-build-labelcontours">Download and Build LabelContours</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LabelContours.tar">here to download LabelContours</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LabelContours.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd LabelContours/build 

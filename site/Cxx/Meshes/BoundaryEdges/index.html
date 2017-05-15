@@ -7190,6 +7190,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boundaryedges" title="Download and Build BoundaryEdges" class="md-nav__link">
+    Download and Build BoundaryEdges
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boundaryedges" title="Download and Build BoundaryEdges" class="md-nav__link">
+    Download and Build BoundaryEdges
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestBoundaryEdges.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This filter will extract the boundary edges of a mesh. The original mesh is shown with the feature edges shown in red.</p>
+<h3 id="code">Code</h3>
 <p><strong>BoundaryEdges.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkFeatureEdges.h&gt;
@@ -16029,7 +16072,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(BoundaryEdges)
@@ -16042,7 +16085,7 @@ add_executable(BoundaryEdges MACOSX_BUNDLE BoundaryEdges.cxx)
 target_link_libraries(BoundaryEdges ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build BoundaryEdges</strong></p>
+<h3 id="download-and-build-boundaryedges">Download and Build BoundaryEdges</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoundaryEdges.tar">here to download BoundaryEdges</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoundaryEdges.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd BoundaryEdges/build 

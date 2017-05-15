@@ -15932,6 +15932,7 @@
 <h1 id="creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights">Creates an image from the x,y points of the terrian and then uses vtkProbeFilter to interpolate the heights.</h1>
 <h1 id="uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata">Uses vtkCellLocator to directly interpolate the terrain polydata.</h1>
 <p>Note that the results differ when the point is not one of the original terrain points. This is because the image has quadrilateral elements and the polydata has triangles. As the resolution of the grid increases, the two results converge.</p>
+<h3 id="code">Code</h3>
 <p><strong>InterpolateTerrain.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16062,7 +16063,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(InterpolateTerrain)
@@ -16075,7 +16076,7 @@ add_executable(InterpolateTerrain MACOSX_BUNDLE InterpolateTerrain.cxx)
 target_link_libraries(InterpolateTerrain ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build InterpolateTerrain</strong></p>
+<h3 id="download-and-build-interpolateterrain">Download and Build InterpolateTerrain</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/InterpolateTerrain.tar">here to download InterpolateTerrain</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball InterpolateTerrain.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd InterpolateTerrain/build 

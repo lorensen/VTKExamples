@@ -5378,6 +5378,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-gradient" title="Download and Build Gradient" class="md-nav__link">
+    Download and Build Gradient
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-gradient" title="Download and Build Gradient" class="md-nav__link">
+    Download and Build Gradient
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15971,6 +16013,7 @@
 <ul>
 <li>Thanks to Eric Monson.</li>
 </ul>
+<h3 id="code">Code</h3>
 <p><strong>Gradient.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkVersion.h&gt;
@@ -16248,7 +16291,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(Gradient)
@@ -16261,7 +16304,7 @@ add_executable(Gradient MACOSX_BUNDLE Gradient.cxx)
 target_link_libraries(Gradient ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build Gradient</strong></p>
+<h3 id="download-and-build-gradient">Download and Build Gradient</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Gradient.tar">here to download Gradient</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Gradient.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd Gradient/build 

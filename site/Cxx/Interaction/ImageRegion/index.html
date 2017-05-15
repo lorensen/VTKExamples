@@ -6494,6 +6494,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imageregion" title="Download and Build ImageRegion" class="md-nav__link">
+    Download and Build ImageRegion
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imageregion" title="Download and Build ImageRegion" class="md-nav__link">
+    Download and Build ImageRegion
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example shows how to get the image coordinates of the corners of a BorderWidget.</p>
 <p>It currently says the pick for the lower left corner of the border widget is valid even when it is off the image.</p>
+<h3 id="code">Code</h3>
 <p><strong>ImageRegion.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkActor.h&gt;
@@ -16167,7 +16210,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageRegion)
@@ -16180,7 +16223,7 @@ add_executable(ImageRegion MACOSX_BUNDLE ImageRegion.cxx)
 target_link_libraries(ImageRegion ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageRegion</strong></p>
+<h3 id="download-and-build-imageregion">Download and Build ImageRegion</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageRegion.tar">here to download ImageRegion</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageRegion.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageRegion/build 

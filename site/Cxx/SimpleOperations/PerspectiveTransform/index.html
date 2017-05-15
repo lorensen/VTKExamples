@@ -9926,6 +9926,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-perspectivetransform" title="Download and Build PerspectiveTransform" class="md-nav__link">
+    Download and Build PerspectiveTransform
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-perspectivetransform" title="Download and Build PerspectiveTransform" class="md-nav__link">
+    Download and Build PerspectiveTransform
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/SimpleOperations/PerspectiveTransform</p>
 <h3 id="description">Description</h3>
 <p>The perspective transform automatically appends the "homogeneous 1" to the point before it is multiplied by the matrix. It then divides the first 3 coordinates of the result by the 4th coordinate of the result. For comparison, the standard projection (vtkTransform) is also performed with the same matrix and the same point. Note that the results are much different.</p>
+<h3 id="code">Code</h3>
 <p><strong>PerspectiveTransform.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPerspectiveTransform.h&gt;
@@ -16025,7 +16068,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(PerspectiveTransform)
@@ -16038,7 +16081,7 @@ add_executable(PerspectiveTransform MACOSX_BUNDLE PerspectiveTransform.cxx)
 target_link_libraries(PerspectiveTransform ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build PerspectiveTransform</strong></p>
+<h3 id="download-and-build-perspectivetransform">Download and Build PerspectiveTransform</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PerspectiveTransform.tar">here to download PerspectiveTransform</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PerspectiveTransform.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd PerspectiveTransform/build 

@@ -10766,6 +10766,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-offscreenrendering" title="Download and Build OffScreenRendering" class="md-nav__link">
+    Download and Build OffScreenRendering
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-offscreenrendering" title="Download and Build OffScreenRendering" class="md-nav__link">
+    Download and Build OffScreenRendering
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/OffScreenRendering</p>
 <h3 id="description">Description</h3>
 <p>This example renders a scene directly to a file without displaying a window. You must turn on VTK_OPENGL_HAS_OSMESA in the VTK advanced build configuration.</p>
+<h3 id="code">Code</h3>
 <p><strong>OffScreenRendering.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #if VTK_MAJOR_VERSION &gt;= 6
@@ -16042,7 +16085,7 @@ int main(int, char *[])
 #endif
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(OffScreenRendering)
@@ -16055,7 +16098,7 @@ add_executable(OffScreenRendering MACOSX_BUNDLE OffScreenRendering.cxx)
 target_link_libraries(OffScreenRendering ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build OffScreenRendering</strong></p>
+<h3 id="download-and-build-offscreenrendering">Download and Build OffScreenRendering</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OffScreenRendering.tar">here to download OffScreenRendering</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball OffScreenRendering.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd OffScreenRendering/build 

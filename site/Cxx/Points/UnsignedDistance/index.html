@@ -7946,6 +7946,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-unsigneddistance" title="Download and Build UnsignedDistance" class="md-nav__link">
+    Download and Build UnsignedDistance
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-unsigneddistance" title="Download and Build UnsignedDistance" class="md-nav__link">
+    Download and Build UnsignedDistance
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>Contrast this with the <a href="../SignedDistance">SignedDistance</a> example.</p>
 <p>The image was created using the <a href="https://github.com/lorensen/VTKWikiExamples/blob/master/Testing/Data/Armadillo.ply?raw=true">Armadillo dataset</a></p>
 <p><strong>NOTE</strong>: The classes used in this example require vtk 7.1 or later.</p>
+<h3 id="code">Code</h3>
 <p><strong>UnsignedDistance.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPLYReader.h&gt;
@@ -16181,7 +16224,7 @@ static vtkSmartPointer&lt;vtkPolyData&gt; ReadPolyData(const char *fileName)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(UnsignedDistance)
@@ -16194,7 +16237,7 @@ add_executable(UnsignedDistance MACOSX_BUNDLE UnsignedDistance.cxx)
 target_link_libraries(UnsignedDistance ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build UnsignedDistance</strong></p>
+<h3 id="download-and-build-unsigneddistance">Download and Build UnsignedDistance</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/UnsignedDistance.tar">here to download UnsignedDistance</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball UnsignedDistance.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd UnsignedDistance/build 

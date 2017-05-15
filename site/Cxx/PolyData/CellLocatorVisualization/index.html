@@ -8066,6 +8066,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-celllocatorvisualization" title="Download and Build CellLocatorVisualization" class="md-nav__link">
+    Download and Build CellLocatorVisualization
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-celllocatorvisualization" title="Download and Build CellLocatorVisualization" class="md-nav__link">
+    Download and Build CellLocatorVisualization
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>The idea of this example is to navigate levels of a uniform spatial tree (vtkCellLocator) using a slider.</p>
 <p><strong>Note:</strong> it is not desirable to have CellsPerBucket set "too small". This is because at some point, refining a bucket will result in each cell in that bucket to also be in the bucket's children.  This only wastes memory and computation.  The value that is "too small" is dependent on the grid but in general a value between 10 and 100 should work well (the default value is 25).</p>
+<h3 id="code">Code</h3>
 <p><strong>CellLocatorVisualization.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkPointSource.h&gt;
@@ -16117,7 +16160,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CellLocatorVisualization)
@@ -16130,7 +16173,7 @@ add_executable(CellLocatorVisualization MACOSX_BUNDLE CellLocatorVisualization.c
 target_link_libraries(CellLocatorVisualization ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CellLocatorVisualization</strong></p>
+<h3 id="download-and-build-celllocatorvisualization">Download and Build CellLocatorVisualization</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CellLocatorVisualization.tar">here to download CellLocatorVisualization</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CellLocatorVisualization.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CellLocatorVisualization/build 

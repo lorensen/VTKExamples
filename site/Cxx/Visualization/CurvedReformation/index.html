@@ -15934,6 +15934,7 @@
 <h1 id="input-polydata-that-defines-a-polyline-for-the-reformation-the-polyline-will-be-resampled-with-a-cubic-spline">Input polydata that defines a polyline for the reformation. The polyline will be resampled with a cubic spline</h1>
 <h1 id="resolution-is-the-result-in-resolution-of-the-reformation">Resolution is the result in resolution of the reformation.</h1>
 <p>'''NOTE:''' The image was generated with this volume data: [HeadMRVolume.mhd], [http://vtk.org/gitweb?p=VTKData.git;a=blob_plain;f=Data/HeadMRVolume.raw;hb=HEAD HeadMRVolume.raw] and this polyLine data: <a href="http://vtk.org/gitweb?p=VTKData.git;a=blob_plain;f=Data/HeadMRVolume.mhd;hb=HEAD">https://raw.githubusercontent.com/lorensen/VTKWikiExamples/master/Testing/Data/polyline.vtk polyline.vtk</a></p>
+<h3 id="code">Code</h3>
 <p><strong>CurvedReformation.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16134,7 +16135,7 @@ vtkSmartPointer&lt;vtkPolyData&gt; SweepLine (vtkPolyData *line,
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CurvedReformation)
@@ -16147,7 +16148,7 @@ add_executable(CurvedReformation MACOSX_BUNDLE CurvedReformation.cxx)
 target_link_libraries(CurvedReformation ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CurvedReformation</strong></p>
+<h3 id="download-and-build-curvedreformation">Download and Build CurvedReformation</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CurvedReformation.tar">here to download CurvedReformation</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CurvedReformation.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CurvedReformation/build 

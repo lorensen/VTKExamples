@@ -9002,6 +9002,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-polydatatounstructuredgrid" title="Download and Build PolyDataToUnstructuredGrid" class="md-nav__link">
+    Download and Build PolyDataToUnstructuredGrid
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-polydatatounstructuredgrid" title="Download and Build PolyDataToUnstructuredGrid" class="md-nav__link">
+    Download and Build PolyDataToUnstructuredGrid
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PolyDataToUnstructuredGrid</p>
 <h3 id="description">Description</h3>
 <p>There is not a filter whose sole purpose is converting a vtkPolyData to a vtkUnstructuredGrid. However, the append filter can accept any type of input, and produces a vtkUnstructuredGrid, so we can use it for this purpose.</p>
+<h3 id="code">Code</h3>
 <p><strong>PolyDataToUnstructuredGrid.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkAppendFilter.h&gt;
 #include &lt;vtkPolyData.h&gt;
@@ -16013,7 +16056,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(PolyDataToUnstructuredGrid)
@@ -16026,7 +16069,7 @@ add_executable(PolyDataToUnstructuredGrid MACOSX_BUNDLE PolyDataToUnstructuredGr
 target_link_libraries(PolyDataToUnstructuredGrid ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build PolyDataToUnstructuredGrid</strong></p>
+<h3 id="download-and-build-polydatatounstructuredgrid">Download and Build PolyDataToUnstructuredGrid</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataToUnstructuredGrid.tar">here to download PolyDataToUnstructuredGrid</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataToUnstructuredGrid.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd PolyDataToUnstructuredGrid/build 

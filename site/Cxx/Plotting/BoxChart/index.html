@@ -7694,6 +7694,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boxchart" title="Download and Build BoxChart" class="md-nav__link">
+    Download and Build BoxChart
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boxchart" title="Download and Build BoxChart" class="md-nav__link">
+    Download and Build BoxChart
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>This example demonstrates how to generate a <a href="https://en.wikipedia.org/wiki/Box_plot">box plot</a>.</p>
 <p>The example uses data from <a href="https://en.wikipedia.org/wiki/Michelson%E2%80%93Morley_experiment">the Michelson Morley experiment</a>. Compare the wiki example output with the <a href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Michelsonmorley-boxplot.svg">Wikipedia results</a></p>
 <p><strong>NOTE:</strong> The ChartBox expects an input table with exactly 5 rows per column. The 5 rows are minimum, 1st quartile, median, 3rd quartile and maximum. <a href="http://www.vtk.org/doc/nightly/html/classvtkComputeQuartiles.html">vtkComputeQuartiles</a> is used to create a valid input table from the original data.</p>
+<h3 id="code">Code</h3>
 <p><strong>BoxChart.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
 
@@ -16088,7 +16131,7 @@ int main(int , char* [])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(BoxChart)
@@ -16101,7 +16144,7 @@ add_executable(BoxChart MACOSX_BUNDLE BoxChart.cxx)
 target_link_libraries(BoxChart ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build BoxChart</strong></p>
+<h3 id="download-and-build-boxchart">Download and Build BoxChart</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoxChart.tar">here to download BoxChart</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoxChart.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd BoxChart/build 

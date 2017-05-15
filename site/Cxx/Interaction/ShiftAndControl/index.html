@@ -6734,6 +6734,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-shiftandcontrol" title="Download and Build ShiftAndControl" class="md-nav__link">
+    Download and Build ShiftAndControl
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-shiftandcontrol" title="Download and Build ShiftAndControl" class="md-nav__link">
+    Download and Build ShiftAndControl
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>Some parts of this example are currently broken.</p>
 <p>GetAltKey() does not work? The window moves instead.</p>
 <p>This example demonstrates how to "control+click" and "shift+click" an actor.</p>
+<h3 id="code">Code</h3>
 <p><strong>ShiftAndControl.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPolyDataMapper.h&gt;
@@ -16059,7 +16102,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ShiftAndControl)
@@ -16072,7 +16115,7 @@ add_executable(ShiftAndControl MACOSX_BUNDLE ShiftAndControl.cxx)
 target_link_libraries(ShiftAndControl ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ShiftAndControl</strong></p>
+<h3 id="download-and-build-shiftandcontrol">Download and Build ShiftAndControl</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ShiftAndControl.tar">here to download ShiftAndControl</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ShiftAndControl.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ShiftAndControl/build 

@@ -9950,6 +9950,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-randomsequence" title="Download and Build RandomSequence" class="md-nav__link">
+    Download and Build RandomSequence
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-randomsequence" title="Download and Build RandomSequence" class="md-nav__link">
+    Download and Build RandomSequence
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/SimpleOperations/RandomSequence</p>
 <h3 id="description">Description</h3>
 <p>This is the "new" (December, 2009) VTK way to produce random numbers. It is actually a random sequence generator.</p>
+<h3 id="code">Code</h3>
 <p><strong>RandomSequence.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkMinimalStandardRandomSequence.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -15996,7 +16039,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(RandomSequence)
@@ -16009,7 +16052,7 @@ add_executable(RandomSequence MACOSX_BUNDLE RandomSequence.cxx)
 target_link_libraries(RandomSequence ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build RandomSequence</strong></p>
+<h3 id="download-and-build-randomsequence">Download and Build RandomSequence</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/RandomSequence.tar">here to download RandomSequence</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball RandomSequence.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd RandomSequence/build 

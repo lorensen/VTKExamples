@@ -7910,6 +7910,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-pointoccupancy" title="Download and Build PointOccupancy" class="md-nav__link">
+    Download and Build PointOccupancy
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-pointoccupancy" title="Download and Build PointOccupancy" class="md-nav__link">
+    Download and Build PointOccupancy
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Points/TestPointOccupancy.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>'''NOTE: The classes used in this example require vtk 7.1 or later.'''</p>
+<h3 id="code">Code</h3>
 <p><strong>PointOccupancy.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPointSource.h&gt;
@@ -16110,7 +16153,7 @@ static vtkSmartPointer&lt;vtkPolyData&gt; ReadPolyData(const char *fileName)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(PointOccupancy)
@@ -16123,7 +16166,7 @@ add_executable(PointOccupancy MACOSX_BUNDLE PointOccupancy.cxx)
 target_link_libraries(PointOccupancy ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build PointOccupancy</strong></p>
+<h3 id="download-and-build-pointoccupancy">Download and Build PointOccupancy</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PointOccupancy.tar">here to download PointOccupancy</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PointOccupancy.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd PointOccupancy/build 

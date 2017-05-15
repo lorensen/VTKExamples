@@ -7418,6 +7418,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-tablebasedclipdatasetwithpolydata" title="Download and Build TableBasedClipDataSetWithPolyData" class="md-nav__link">
+    Download and Build TableBasedClipDataSetWithPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-tablebasedclipdatasetwithpolydata" title="Download and Build TableBasedClipDataSetWithPolyData" class="md-nav__link">
+    Download and Build TableBasedClipDataSetWithPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15980,9 +16022,8 @@ type for both the inside and outside clips. NOTE: Contrast this with
 the vtkClipDataSet example:
 <a href="../ClipDataSetWithPolyData">ClipDataSetWithPolyData</a>.</p>
 <p>Here is the summary reported when the example exits:
-`</p>
-<hr />
-<p>The clipped dataset(inside) contains a 
+<pre><code>
+The clipped dataset(inside) contains a 
 vtkUnstructuredGrid that has 14176 cells
     Cell type vtkTetra occurs 3084 times.
     Cell type vtkHexahedron occurs 6820 times.
@@ -15995,7 +16036,8 @@ vtkUnstructuredGrid that has 125600 cells
     Cell type vtkHexahedron occurs 117732 times.
     Cell type vtkWedge occurs 1260 times.
     Cell type vtkPyramid occurs 3332 times.
-`</p>
+</code></pre></p>
+<h3 id="code">Code</h3>
 <p><strong>TableBasedClipDataSetWithPolyData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16240,7 +16282,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(TableBasedClipDataSetWithPolyData)
@@ -16253,7 +16295,7 @@ add_executable(TableBasedClipDataSetWithPolyData MACOSX_BUNDLE TableBasedClipDat
 target_link_libraries(TableBasedClipDataSetWithPolyData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build TableBasedClipDataSetWithPolyData</strong></p>
+<h3 id="download-and-build-tablebasedclipdatasetwithpolydata">Download and Build TableBasedClipDataSetWithPolyData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TableBasedClipDataSetWithPolyData.tar">here to download TableBasedClipDataSetWithPolyData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TableBasedClipDataSetWithPolyData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd TableBasedClipDataSetWithPolyData/build 

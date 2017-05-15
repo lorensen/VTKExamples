@@ -15936,6 +15936,7 @@
 <h1 id="make">make</h1>
 <p>The classes used in this example are described in <a href="http://www.vtkjournal.org/browse/publication/838">A Spline-Driven Image Slicer</a>. In the example, the normal vectors are yellow, the tangent vectors are red and the binormal vectors are green.</p>
 <p>This example illustrates how to control a pipeline inside a callback.</p>
+<h3 id="code">Code</h3>
 <p><strong>FrenetSerretFrameDemo.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSplineWidget.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16133,7 +16134,7 @@ void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(FrenetSerretFrameDemo)
@@ -16146,7 +16147,7 @@ add_executable(FrenetSerretFrameDemo MACOSX_BUNDLE FrenetSerretFrameDemo.cxx)
 target_link_libraries(FrenetSerretFrameDemo ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build FrenetSerretFrameDemo</strong></p>
+<h3 id="download-and-build-frenetserretframedemo">Download and Build FrenetSerretFrameDemo</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FrenetSerretFrameDemo.tar">here to download FrenetSerretFrameDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FrenetSerretFrameDemo.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd FrenetSerretFrameDemo/build 

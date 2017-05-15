@@ -4154,6 +4154,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-novcagraph" title="Download and Build NOVCAGraph" class="md-nav__link">
+    Download and Build NOVCAGraph
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-novcagraph" title="Download and Build NOVCAGraph" class="md-nav__link">
+    Download and Build NOVCAGraph
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <p><a href="../[File:graphCXX.png]"></a>
 <em>This example shows how to construct a graph to visualize it in ParaView/VisIt using the VTK output file testVertex.vtu.
 </em> Contributed by Sanjaya Gajurel, Case Western Reserve University</p>
+<h3 id="code">Code</h3>
 <p><strong>NOVCAGraph.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkCellArray.h&gt;
@@ -16023,7 +16066,7 @@ int main ( int, char *[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(NOVCAGraph)
@@ -16036,7 +16079,7 @@ add_executable(NOVCAGraph MACOSX_BUNDLE NOVCAGraph.cxx)
 target_link_libraries(NOVCAGraph ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build NOVCAGraph</strong></p>
+<h3 id="download-and-build-novcagraph">Download and Build NOVCAGraph</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/NOVCAGraph.tar">here to download NOVCAGraph</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball NOVCAGraph.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd NOVCAGraph/build 

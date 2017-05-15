@@ -4874,6 +4874,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-writestl" title="Download and Build WriteSTL" class="md-nav__link">
+    Download and Build WriteSTL
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-writestl" title="Download and Build WriteSTL" class="md-nav__link">
+    Download and Build WriteSTL
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestWriteSTL.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>An [(file format)|STL file]]([wikipedia:STL) describes a triangulated three-dimensional surface by the unit normal and vertices (ordered by the right-hand rule) of the triangles. This example saves a 3D geometric data stored in a {{class|vtkPolyData}} to an STL file using {{class|vtkSTLWriter}}.</p>
+<h3 id="code">Code</h3>
 <p><strong>WriteSTL.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkPolyData.h&gt;
 #include &lt;vtkSTLWriter.h&gt;
@@ -16032,7 +16075,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(WriteSTL)
@@ -16045,7 +16088,7 @@ add_executable(WriteSTL MACOSX_BUNDLE WriteSTL.cxx)
 target_link_libraries(WriteSTL ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build WriteSTL</strong></p>
+<h3 id="download-and-build-writestl">Download and Build WriteSTL</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/WriteSTL.tar">here to download WriteSTL</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball WriteSTL.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd WriteSTL/build 

@@ -9338,6 +9338,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-vertexconnectivity" title="Download and Build VertexConnectivity" class="md-nav__link">
+    Download and Build VertexConnectivity
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-vertexconnectivity" title="Download and Build VertexConnectivity" class="md-nav__link">
+    Download and Build VertexConnectivity
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestVertexConnectivity.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>The input must be only edges (i.e. vtkExtractEdges must be run).</p>
+<h3 id="code">Code</h3>
 <p><strong>VertexConnectivity.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16182,7 +16225,7 @@ vtkSmartPointer&lt;vtkIdList&gt; GetConnectedVertices(vtkSmartPointer&lt;vtkPoly
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(VertexConnectivity)
@@ -16195,7 +16238,7 @@ add_executable(VertexConnectivity MACOSX_BUNDLE VertexConnectivity.cxx)
 target_link_libraries(VertexConnectivity ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build VertexConnectivity</strong></p>
+<h3 id="download-and-build-vertexconnectivity">Download and Build VertexConnectivity</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/VertexConnectivity.tar">here to download VertexConnectivity</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball VertexConnectivity.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd VertexConnectivity/build 

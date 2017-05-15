@@ -4850,6 +4850,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-writeply" title="Download and Build WritePLY" class="md-nav__link">
+    Download and Build WritePLY
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-writeply" title="Download and Build WritePLY" class="md-nav__link">
+    Download and Build WritePLY
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15974,6 +16016,7 @@
   colors-&gt;SetNumberOfComponents(3);
   colors-&gt;SetName("Colors");</p>
 <p>(This was found in response to a user question on StackOverflow: http://stackoverflow.com/questions/17783612/save-mesh-with-rgb-in-vtk/19525938)</p>
+<h3 id="code">Code</h3>
 <p><strong>WritePLY.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkPolyData.h&gt;
 #include &lt;vtkPLYWriter.h&gt;
@@ -16039,7 +16082,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(WritePLY)
@@ -16052,7 +16095,7 @@ add_executable(WritePLY MACOSX_BUNDLE WritePLY.cxx)
 target_link_libraries(WritePLY ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build WritePLY</strong></p>
+<h3 id="download-and-build-writeply">Download and Build WritePLY</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/WritePLY.tar">here to download WritePLY</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball WritePLY.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd WritePLY/build 

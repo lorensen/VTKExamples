@@ -8906,6 +8906,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-polydataconnectivityfilter_specifiedregion" title="Download and Build PolyDataConnectivityFilter_SpecifiedRegion" class="md-nav__link">
+    Download and Build PolyDataConnectivityFilter_SpecifiedRegion
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-polydataconnectivityfilter_specifiedregion" title="Download and Build PolyDataConnectivityFilter_SpecifiedRegion" class="md-nav__link">
+    Download and Build PolyDataConnectivityFilter_SpecifiedRegion
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestPolyDataConnectivityFilter_SpecifiedRegion.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example creates two spheres and combines them together into one polydata. The vtkPolyDataConnectivityFilter is used to find the two spheres as they are separate regions (disconnected). If region 0 is selected, the small sphere is extracted. If region 1 is selected, the large sphere is extracted.</p>
+<h3 id="code">Code</h3>
 <p><strong>PolyDataConnectivityFilter_SpecifiedRegion.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkSphereSource.h&gt;
@@ -16047,7 +16090,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(PolyDataConnectivityFilter_SpecifiedRegion)
@@ -16060,7 +16103,7 @@ add_executable(PolyDataConnectivityFilter_SpecifiedRegion MACOSX_BUNDLE PolyData
 target_link_libraries(PolyDataConnectivityFilter_SpecifiedRegion ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build PolyDataConnectivityFilter_SpecifiedRegion</strong></p>
+<h3 id="download-and-build-polydataconnectivityfilter_specifiedregion">Download and Build PolyDataConnectivityFilter_SpecifiedRegion</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataConnectivityFilter_SpecifiedRegion.tar">here to download PolyDataConnectivityFilter_SpecifiedRegion</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataConnectivityFilter_SpecifiedRegion.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd PolyDataConnectivityFilter_SpecifiedRegion/build 

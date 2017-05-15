@@ -12266,6 +12266,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-transformactor" title="Download and Build TransformActor" class="md-nav__link">
+    Download and Build TransformActor
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-transformactor" title="Download and Build TransformActor" class="md-nav__link">
+    Download and Build TransformActor
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestTransformActor.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This examples demonstrates how to transform an actor. This is different than using vtkTransformPolyDataFilter in that it doesn't actually transform the data (you can't access the transformed coordinates) - it is all done on the video card.</p>
+<h3 id="code">Code</h3>
 <p><strong>TransformActor.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkConeSource.h&gt;
@@ -16034,7 +16077,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(TransformActor)
@@ -16047,7 +16090,7 @@ add_executable(TransformActor MACOSX_BUNDLE TransformActor.cxx)
 target_link_libraries(TransformActor ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build TransformActor</strong></p>
+<h3 id="download-and-build-transformactor">Download and Build TransformActor</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TransformActor.tar">here to download TransformActor</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TransformActor.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd TransformActor/build 

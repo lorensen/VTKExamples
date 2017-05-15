@@ -12710,6 +12710,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-checkerboardwidget" title="Download and Build CheckerboardWidget" class="md-nav__link">
+    Download and Build CheckerboardWidget
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-checkerboardwidget" title="Download and Build CheckerboardWidget" class="md-nav__link">
+    Download and Build CheckerboardWidget
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15971,6 +16013,7 @@ control of the number of checkers in the x/y directions. Checkerboards
 are often used to compare the results of image registration. For an
 alternative image comparison widget try the
 <a href="../[Cxx/Widgets/RectilinearWipeWidget">RectilinearWipeWidget</a>.</p>
+<h3 id="code">Code</h3>
 <p><strong>CheckerboardWidget.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkCheckerboardWidget.h&gt;
@@ -16061,7 +16104,7 @@ int main( int argc, char *argv[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CheckerboardWidget)
@@ -16074,7 +16117,7 @@ add_executable(CheckerboardWidget MACOSX_BUNDLE CheckerboardWidget.cxx)
 target_link_libraries(CheckerboardWidget ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CheckerboardWidget</strong></p>
+<h3 id="download-and-build-checkerboardwidget">Download and Build CheckerboardWidget</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CheckerboardWidget.tar">here to download CheckerboardWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CheckerboardWidget.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CheckerboardWidget/build 

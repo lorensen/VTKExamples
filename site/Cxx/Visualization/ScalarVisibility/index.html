@@ -12087,9 +12087,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ScalarVisibility
+      </label>
+    
     <a href="./" title="ScalarVisibility" class="md-nav__link md-nav__link--active">
       ScalarVisibility
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-scalarvisibility" title="Download and Build ScalarVisibility" class="md-nav__link">
+    Download and Build ScalarVisibility
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-scalarvisibility" title="Download and Build ScalarVisibility" class="md-nav__link">
+    Download and Build ScalarVisibility
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/ScalarVisibility</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestScalarVisibility.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>ScalarVisibility.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkActor.h&quot;
 #include &quot;vtkPolyDataMapper.h&quot;
@@ -15964,7 +16032,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ScalarVisibility)
@@ -15977,7 +16045,7 @@ add_executable(ScalarVisibility MACOSX_BUNDLE ScalarVisibility.cxx)
 target_link_libraries(ScalarVisibility ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ScalarVisibility</strong></p>
+<h3 id="download-and-build-scalarvisibility">Download and Build ScalarVisibility</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ScalarVisibility.tar">here to download ScalarVisibility</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ScalarVisibility.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ScalarVisibility/build 

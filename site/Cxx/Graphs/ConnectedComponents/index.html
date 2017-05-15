@@ -4022,6 +4022,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-connectedcomponents" title="Download and Build ConnectedComponents" class="md-nav__link">
+    Download and Build ConnectedComponents
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-connectedcomponents" title="Download and Build ConnectedComponents" class="md-nav__link">
+    Download and Build ConnectedComponents
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/ConnectedComponents</p>
 <h3 id="description">Description</h3>
 <p>This example constructs a graph with 4 vertices and 2 edges. V1 and V2 are not connected to V3 or V4. We wish to obtain all of the connected components of the graph. The output of the example is a list of component IDs. All vertices with the same ID can be reached from any vertex with the same ID.</p>
+<h3 id="code">Code</h3>
 <p><strong>ConnectedComponents.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 
@@ -16009,7 +16052,7 @@ int main ( int, char *[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ConnectedComponents)
@@ -16022,7 +16065,7 @@ add_executable(ConnectedComponents MACOSX_BUNDLE ConnectedComponents.cxx)
 target_link_libraries(ConnectedComponents ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ConnectedComponents</strong></p>
+<h3 id="download-and-build-connectedcomponents">Download and Build ConnectedComponents</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConnectedComponents.tar">here to download ConnectedComponents</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConnectedComponents.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ConnectedComponents/build 

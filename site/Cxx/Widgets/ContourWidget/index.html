@@ -12722,6 +12722,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-contourwidget" title="Download and Build ContourWidget" class="md-nav__link">
+    Download and Build ContourWidget
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-contourwidget" title="Download and Build ContourWidget" class="md-nav__link">
+    Download and Build ContourWidget
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example generates a set of points which lie on a circle, and the contour through these points. This contour can be interactively warped/modified by dragging the control points.</p>
+<h3 id="code">Code</h3>
 <p><strong>ContourWidget.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 // To setup the ContourWidget and its representation:
@@ -16053,7 +16096,7 @@ int main( int argc, char *argv[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ContourWidget)
@@ -16066,7 +16109,7 @@ add_executable(ContourWidget MACOSX_BUNDLE ContourWidget.cxx)
 target_link_libraries(ContourWidget ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ContourWidget</strong></p>
+<h3 id="download-and-build-contourwidget">Download and Build ContourWidget</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ContourWidget.tar">here to download ContourWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ContourWidget.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ContourWidget/build 

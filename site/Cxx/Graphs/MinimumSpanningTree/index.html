@@ -4142,6 +4142,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-minimumspanningtree" title="Download and Build MinimumSpanningTree" class="md-nav__link">
+    Download and Build MinimumSpanningTree
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-minimumspanningtree" title="Download and Build MinimumSpanningTree" class="md-nav__link">
+    Download and Build MinimumSpanningTree
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15970,6 +16012,7 @@
 and the minimum spanning tree computed is 
 <a href="../[Image:Minimum_spanning_tree.svg]"></a>.</p>
 <p>You must have compiled VTK with VTK_USE_BOOST=ON to use this functionality. You must also link to vtkInfovis.</p>
+<h3 id="code">Code</h3>
 <p><strong>MinimumSpanningTree.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 
@@ -16040,7 +16083,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MinimumSpanningTree)
@@ -16053,7 +16096,7 @@ add_executable(MinimumSpanningTree MACOSX_BUNDLE MinimumSpanningTree.cxx)
 target_link_libraries(MinimumSpanningTree ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MinimumSpanningTree</strong></p>
+<h3 id="download-and-build-minimumspanningtree">Download and Build MinimumSpanningTree</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MinimumSpanningTree.tar">here to download MinimumSpanningTree</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MinimumSpanningTree.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MinimumSpanningTree/build 

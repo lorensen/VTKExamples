@@ -8390,6 +8390,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-extractpolylinesfrompolydata" title="Download and Build ExtractPolyLinesFromPolyData" class="md-nav__link">
+    Download and Build ExtractPolyLinesFromPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-extractpolylinesfrompolydata" title="Download and Build ExtractPolyLinesFromPolyData" class="md-nav__link">
+    Download and Build ExtractPolyLinesFromPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestExtractPolyLinesFromPolyData.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example uses vtkCutter to create contour lines. It processes these lines with vtkStripper to create continuous poly lines. After exiting the example with the "e" key, the lines are printed.</p>
+<h3 id="code">Code</h3>
 <p><strong>ExtractPolyLinesFromPolyData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkRenderWindowInteractor.h&gt;
@@ -16079,7 +16122,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ExtractPolyLinesFromPolyData)
@@ -16092,7 +16135,7 @@ add_executable(ExtractPolyLinesFromPolyData MACOSX_BUNDLE ExtractPolyLinesFromPo
 target_link_libraries(ExtractPolyLinesFromPolyData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ExtractPolyLinesFromPolyData</strong></p>
+<h3 id="download-and-build-extractpolylinesfrompolydata">Download and Build ExtractPolyLinesFromPolyData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ExtractPolyLinesFromPolyData.tar">here to download ExtractPolyLinesFromPolyData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ExtractPolyLinesFromPolyData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ExtractPolyLinesFromPolyData/build 

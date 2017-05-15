@@ -15948,6 +15948,7 @@ public:
 <p>};</p>
 <h1 id="endif">endif</h1>
 <p></source></p>
+<h3 id="code">Code</h3>
 <p><strong>vtkTestFilterProgressFilter.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
 
@@ -16005,7 +16006,7 @@ int vtkTestFilterProgressFilter::RequestData(vtkInformation *vtkNotUsed(request)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(vtkTestFilterProgressFilter)
@@ -16018,7 +16019,7 @@ add_executable(vtkTestFilterProgressFilter MACOSX_BUNDLE vtkTestFilterProgressFi
 target_link_libraries(vtkTestFilterProgressFilter ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build vtkTestFilterProgressFilter</strong></p>
+<h3 id="download-and-build-vtktestfilterprogressfilter">Download and Build vtkTestFilterProgressFilter</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/vtkTestFilterProgressFilter.tar">here to download vtkTestFilterProgressFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball vtkTestFilterProgressFilter.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd vtkTestFilterProgressFilter/build 

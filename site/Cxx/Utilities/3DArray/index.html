@@ -10287,9 +10287,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        3DArray
+      </label>
+    
     <a href="./" title="3DArray" class="md-nav__link md-nav__link--active">
       3DArray
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-3darray" title="Download and Build 3DArray" class="md-nav__link">
+    Download and Build 3DArray
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-3darray" title="Download and Build 3DArray" class="md-nav__link">
+    Download and Build 3DArray
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>3DArray</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/3DArray</p>
+<h3 id="code">Code</h3>
 <p><strong>3DArray.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkDenseArray.h&gt;
@@ -15962,7 +16030,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(3DArray)
@@ -15975,7 +16043,7 @@ add_executable(3DArray MACOSX_BUNDLE 3DArray.cxx)
 target_link_libraries(3DArray ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build 3DArray</strong></p>
+<h3 id="download-and-build-3darray">Download and Build 3DArray</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/3DArray.tar">here to download 3DArray</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball 3DArray.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd 3DArray/build 

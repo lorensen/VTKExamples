@@ -3398,6 +3398,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-cell3ddemonstration" title="Download and Build Cell3DDemonstration" class="md-nav__link">
+    Download and Build Cell3DDemonstration
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-cell3ddemonstration" title="Download and Build Cell3DDemonstration" class="md-nav__link">
+    Download and Build Cell3DDemonstration
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15970,6 +16012,7 @@
 <p>From this we create an unstructured grid. In some cases a vtkCellArray is used and the result is added to the unstructured grid, see: <em>MakePolyhedron()</em> and <em>MakeTetrahedron()</em>.</p>
 <p>Also demonstrated is the use of vectors to hold the unstructured grids, mappers, actors and renderers.</p>
 <p>The resultant objects are then displayed in a grid.</p>
+<h3 id="code">Code</h3>
 <p><strong>Cell3DDemonstration.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkVersion.h&gt;
@@ -16455,7 +16498,7 @@ vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeWedge()
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(Cell3DDemonstration)
@@ -16468,7 +16511,7 @@ add_executable(Cell3DDemonstration MACOSX_BUNDLE Cell3DDemonstration.cxx)
 target_link_libraries(Cell3DDemonstration ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build Cell3DDemonstration</strong></p>
+<h3 id="download-and-build-cell3ddemonstration">Download and Build Cell3DDemonstration</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Cell3DDemonstration.tar">here to download Cell3DDemonstration</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Cell3DDemonstration.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd Cell3DDemonstration/build 

@@ -11870,6 +11870,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-moveactor" title="Download and Build MoveActor" class="md-nav__link">
+    Download and Build MoveActor
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-moveactor" title="Download and Build MoveActor" class="md-nav__link">
+    Download and Build MoveActor
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestMoveActor.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example creates two spheres. They can be moved/scaled/rotated independent of each other using the mouse.</p>
+<h3 id="code">Code</h3>
 <p><strong>MoveActor.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkPolyDataMapper.h&gt;
 #include &lt;vtkActor.h&gt;
@@ -16044,7 +16087,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MoveActor)
@@ -16057,7 +16100,7 @@ add_executable(MoveActor MACOSX_BUNDLE MoveActor.cxx)
 target_link_libraries(MoveActor ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MoveActor</strong></p>
+<h3 id="download-and-build-moveactor">Download and Build MoveActor</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MoveActor.tar">here to download MoveActor</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MoveActor.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MoveActor/build 

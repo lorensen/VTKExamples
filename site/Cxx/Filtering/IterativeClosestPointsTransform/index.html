@@ -3194,6 +3194,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-iterativeclosestpointstransform" title="Download and Build IterativeClosestPointsTransform" class="md-nav__link">
+    Download and Build IterativeClosestPointsTransform
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-iterativeclosestpointstransform" title="Download and Build IterativeClosestPointsTransform" class="md-nav__link">
+    Download and Build IterativeClosestPointsTransform
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This demo produces target points (green) which are at the origin and unit length along each axis. It then perturbs the points and shifts each of them .3 in +y direction -
 the resulting points are the "source" points (red). It then attempts to move the source points as close as possible to the target points. The resulting points are shown in blue. The noise is added to make the example more realistic. Also, the noise ensures nothing was done wrong (i.e. accidentally using the target points as the result and claiming it worked perfectly when in fact nothing happened!)</p>
+<h3 id="code">Code</h3>
 <p><strong>IterativeClosestPointsTransform.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16218,7 +16261,7 @@ void TranslatePolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata)
 } // end anonymous namespace
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(IterativeClosestPointsTransform)
@@ -16231,7 +16274,7 @@ add_executable(IterativeClosestPointsTransform MACOSX_BUNDLE IterativeClosestPoi
 target_link_libraries(IterativeClosestPointsTransform ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build IterativeClosestPointsTransform</strong></p>
+<h3 id="download-and-build-iterativeclosestpointstransform">Download and Build IterativeClosestPointsTransform</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/IterativeClosestPointsTransform.tar">here to download IterativeClosestPointsTransform</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball IterativeClosestPointsTransform.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd IterativeClosestPointsTransform/build 

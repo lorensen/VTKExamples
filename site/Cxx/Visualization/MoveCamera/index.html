@@ -11882,6 +11882,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-movecamera" title="Download and Build MoveCamera" class="md-nav__link">
+    Download and Build MoveCamera
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-movecamera" title="Download and Build MoveCamera" class="md-nav__link">
+    Download and Build MoveCamera
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestMoveCamera.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example creates two spheres. They will move together when the mouse is used to interact with the scene because the camera is actually what is moving causing the view of the spheres to change.</p>
+<h3 id="code">Code</h3>
 <p><strong>MoveCamera.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkPolyDataMapper.h&gt;
 #include &lt;vtkActor.h&gt;
@@ -16044,7 +16087,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MoveCamera)
@@ -16057,7 +16100,7 @@ add_executable(MoveCamera MACOSX_BUNDLE MoveCamera.cxx)
 target_link_libraries(MoveCamera ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MoveCamera</strong></p>
+<h3 id="download-and-build-movecamera">Download and Build MoveCamera</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MoveCamera.tar">here to download MoveCamera</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MoveCamera.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MoveCamera/build 

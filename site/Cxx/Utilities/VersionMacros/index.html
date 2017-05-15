@@ -10971,9 +10971,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        VersionMacros
+      </label>
+    
     <a href="./" title="VersionMacros" class="md-nav__link md-nav__link--active">
       VersionMacros
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-versionmacros" title="Download and Build VersionMacros" class="md-nav__link">
+    Download and Build VersionMacros
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-versionmacros" title="Download and Build VersionMacros" class="md-nav__link">
+    Download and Build VersionMacros
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>VersionMacros</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/VersionMacros</p>
+<h3 id="code">Code</h3>
 <p><strong>VersionMacros.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkPolyData.h&gt;
 #include &lt;vtkVersion.h&gt; // NOTE: without this include, the VTK_[]_VERSION are not defined!
@@ -15943,7 +16011,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(VersionMacros)
@@ -15956,7 +16024,7 @@ add_executable(VersionMacros MACOSX_BUNDLE VersionMacros.cxx)
 target_link_libraries(VersionMacros ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build VersionMacros</strong></p>
+<h3 id="download-and-build-versionmacros">Download and Build VersionMacros</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/VersionMacros.tar">here to download VersionMacros</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball VersionMacros.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd VersionMacros/build 

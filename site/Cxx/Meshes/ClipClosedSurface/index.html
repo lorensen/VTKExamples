@@ -7203,9 +7203,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ClipClosedSurface
+      </label>
+    
     <a href="./" title="ClipClosedSurface" class="md-nav__link md-nav__link--active">
       ClipClosedSurface
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-clipclosedsurface" title="Download and Build ClipClosedSurface" class="md-nav__link">
+    Download and Build ClipClosedSurface
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-clipclosedsurface" title="Download and Build ClipClosedSurface" class="md-nav__link">
+    Download and Build ClipClosedSurface
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/ClipClosedSurface</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestClipClosedSurface.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>ClipClosedSurface.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16053,7 +16121,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ClipClosedSurface)
@@ -16066,7 +16134,7 @@ add_executable(ClipClosedSurface MACOSX_BUNDLE ClipClosedSurface.cxx)
 target_link_libraries(ClipClosedSurface ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ClipClosedSurface</strong></p>
+<h3 id="download-and-build-clipclosedsurface">Download and Build ClipClosedSurface</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ClipClosedSurface.tar">here to download ClipClosedSurface</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ClipClosedSurface.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ClipClosedSurface/build 

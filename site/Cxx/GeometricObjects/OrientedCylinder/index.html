@@ -3566,6 +3566,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-orientedcylinder" title="Download and Build OrientedCylinder" class="md-nav__link">
+    Download and Build OrientedCylinder
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-orientedcylinder" title="Download and Build OrientedCylinder" class="md-nav__link">
+    Download and Build OrientedCylinder
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15978,6 +16020,7 @@
 </ol>
 <p>Switch between the two methods by #defining USER_MATRIX or leaving out the #define.</p>
 <p><strong>NOTE:</strong>  Compare this example with <a href="../OrientedArrow">Oriented Arrow</a> . The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.</p>
+<h3 id="code">Code</h3>
 <p><strong>OrientedCylinder.cxx</strong></p>
 <pre><code class="c++">#define USER_MATRIX
 #include &lt;vtkCylinderSource.h&gt;
@@ -16126,7 +16169,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(OrientedCylinder)
@@ -16139,7 +16182,7 @@ add_executable(OrientedCylinder MACOSX_BUNDLE OrientedCylinder.cxx)
 target_link_libraries(OrientedCylinder ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build OrientedCylinder</strong></p>
+<h3 id="download-and-build-orientedcylinder">Download and Build OrientedCylinder</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OrientedCylinder.tar">here to download OrientedCylinder</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball OrientedCylinder.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd OrientedCylinder/build 

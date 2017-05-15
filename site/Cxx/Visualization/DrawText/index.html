@@ -11582,6 +11582,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-drawtext" title="Download and Build DrawText" class="md-nav__link">
+    Download and Build DrawText
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-drawtext" title="Download and Build DrawText" class="md-nav__link">
+    Download and Build DrawText
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>This example writes "Hello world" in the bottom left corner of the render window. The text size and color are set. There are many properties that can be set that control how the text is changed when the render window is resized, but they are not covered in this example.</p>
 <p>This example draws text in 2D. For an example using 3D text that can be placed on the scene like a regular vtkActor, see [For an example of drawing text, also in 2D, but into a vtkImageData object rather than into the render window, see <a href="../[../VectorText]].">[../../Images/ImageText]</a>.</p>
 <p>:''See also: <a href="../[../../Widgets/TextWidget]"></a>''</p>
+<h3 id="code">Code</h3>
 <p><strong>DrawText.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16038,7 +16081,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(DrawText)
@@ -16051,7 +16094,7 @@ add_executable(DrawText MACOSX_BUNDLE DrawText.cxx)
 target_link_libraries(DrawText ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build DrawText</strong></p>
+<h3 id="download-and-build-drawtext">Download and Build DrawText</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DrawText.tar">here to download DrawText</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DrawText.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd DrawText/build 

@@ -1,4 +1,4 @@
-**CMakeLists.txt**
+###CMakeLists.txt
 ```cmake
 cmake_minimum_required(VERSION 2.8)
  
@@ -12,7 +12,7 @@ add_executable(XXX MACOSX_BUNDLE XXX.cxx)
 target_link_libraries(XXX ${VTK_LIBRARIES})
 ```
 
-**Download and Build XXX**
+###Download and Build XXX
 
 Click [here to download XXX](https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/XXX.tar) and its *CMakeLists.txt* file.
 Once the *tarball XXX.tar* has been downloaded and extracted,

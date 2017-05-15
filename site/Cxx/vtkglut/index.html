@@ -2041,6 +2041,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-vtkglut" title="Download and Build vtkglut" class="md-nav__link">
+    Download and Build vtkglut
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15940,6 +15961,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-vtkglut" title="Download and Build vtkglut" class="md-nav__link">
+    Download and Build vtkglut
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15965,6 +16007,7 @@ This allows a vtkRenderWindow and thus VTK to be easily embedded in an existing 
 <p>The following code shows how to embed a VTK RenderWindow in a very simple GLUT based application which shows a vtkCone in rotation.</p>
 <p>It has been successfully tested under Linux, Windows &amp; MacOS X.</p>
 <p>The interaction part is not shown here but it works as usual, you just need to pass the GLUT events to your VTK interactor.</p>
+<h3 id="code">Code</h3>
 <p><strong>vtkglut.cxx</strong></p>
 <pre><code class="c++">#ifndef __APPLE_CC__
 #include &lt;GL/glut.h&gt;
@@ -16025,7 +16068,7 @@ int main( int argc, char **argv )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(vtkglut)
@@ -16038,7 +16081,7 @@ add_executable(vtkglut MACOSX_BUNDLE vtkglut.cxx)
 target_link_libraries(vtkglut ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build vtkglut</strong></p>
+<h3 id="download-and-build-vtkglut">Download and Build vtkglut</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/vtkglut.tar">here to download vtkglut</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball vtkglut.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd vtkglut/build 

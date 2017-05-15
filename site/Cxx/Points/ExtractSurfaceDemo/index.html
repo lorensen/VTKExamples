@@ -7862,6 +7862,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-extractsurfacedemo" title="Download and Build ExtractSurfaceDemo" class="md-nav__link">
+    Download and Build ExtractSurfaceDemo
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-extractsurfacedemo" title="Download and Build ExtractSurfaceDemo" class="md-nav__link">
+    Download and Build ExtractSurfaceDemo
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15976,6 +16018,7 @@ distance field.</p>
 dataset</a></p>
 <p>This is a demo version of <a href="../ExtractSurface">ExtractSurface</a>. It displays some a sampling of the normals with arrows. It also uses a different color for the front and back surfaces.</p>
 <p><strong>NOTE:</strong> The classes used in this example require vtk 7.1 or later.</p>
+<h3 id="code">Code</h3>
 <p><strong>ExtractSurfaceDemo.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkPLYReader.h&gt;
@@ -16211,7 +16254,7 @@ static vtkSmartPointer&lt;vtkPolyData&gt; ReadPolyData(const char *fileName)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ExtractSurfaceDemo)
@@ -16224,7 +16267,7 @@ add_executable(ExtractSurfaceDemo MACOSX_BUNDLE ExtractSurfaceDemo.cxx)
 target_link_libraries(ExtractSurfaceDemo ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ExtractSurfaceDemo</strong></p>
+<h3 id="download-and-build-extractsurfacedemo">Download and Build ExtractSurfaceDemo</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ExtractSurfaceDemo.tar">here to download ExtractSurfaceDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ExtractSurfaceDemo.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ExtractSurfaceDemo/build 

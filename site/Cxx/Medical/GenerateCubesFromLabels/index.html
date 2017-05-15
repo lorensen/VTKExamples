@@ -7070,6 +7070,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-generatecubesfromlabels" title="Download and Build GenerateCubesFromLabels" class="md-nav__link">
+    Download and Build GenerateCubesFromLabels
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-generatecubesfromlabels" title="Download and Build GenerateCubesFromLabels" class="md-nav__link">
+    Download and Build GenerateCubesFromLabels
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Medical/TestGenerateCubesFromLabels.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>Sometimes it is helpful to view the results of a segmentation without any post processing. This example converts the point data from a labeled volume into cell data. The surfaces are displayed as polydata. If you want to created smoothed polydata models from your segmented volumes, see the example [models from labeled volume data (Discrete MarchingCubes)]]. The input volume must be in <a href="../[VTK/Examples/Medical/Cxx/GenerateModelsFromLabels|Create">[ MetaIO/Documentation| META format]</a>.</p>
+<h3 id="code">Code</h3>
 <p><strong>GenerateCubesFromLabels.cxx</strong></p>
 <pre><code class="c++">//
 // GenerateCubesFromLabels
@@ -16087,7 +16130,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(GenerateCubesFromLabels)
@@ -16100,7 +16143,7 @@ add_executable(GenerateCubesFromLabels MACOSX_BUNDLE GenerateCubesFromLabels.cxx
 target_link_libraries(GenerateCubesFromLabels ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build GenerateCubesFromLabels</strong></p>
+<h3 id="download-and-build-generatecubesfromlabels">Download and Build GenerateCubesFromLabels</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GenerateCubesFromLabels.tar">here to download GenerateCubesFromLabels</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GenerateCubesFromLabels.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd GenerateCubesFromLabels/build 

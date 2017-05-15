@@ -9062,6 +9062,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-reflection" title="Download and Build Reflection" class="md-nav__link">
+    Download and Build Reflection
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-reflection" title="Download and Build Reflection" class="md-nav__link">
+    Download and Build Reflection
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestReflection.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>'''Note:''' This example uses {{class|vtkReflectionFilter}}, which outputs a {{class|vtkDataObject}}. For an example that returns a {{class|vtkPolyData}}, see ''<a href="../[../../Filtering/TransformPolyData|TransformPolyData]"></a>''.</p>
+<h3 id="code">Code</h3>
 <p><strong>Reflection.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkDataSetMapper.h&gt;
@@ -16031,7 +16074,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(Reflection)
@@ -16044,7 +16087,7 @@ add_executable(Reflection MACOSX_BUNDLE Reflection.cxx)
 target_link_libraries(Reflection ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build Reflection</strong></p>
+<h3 id="download-and-build-reflection">Download and Build Reflection</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Reflection.tar">here to download Reflection</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Reflection.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd Reflection/build 

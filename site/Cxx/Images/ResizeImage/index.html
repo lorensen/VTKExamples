@@ -6134,6 +6134,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-resizeimage" title="Download and Build ResizeImage" class="md-nav__link">
+    Download and Build ResizeImage
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-resizeimage" title="Download and Build ResizeImage" class="md-nav__link">
+    Download and Build ResizeImage
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15969,6 +16011,7 @@
 <p>Resize an image using a sinc interpolator. Without command line arguments, the example resize a synthetic image. A jpeg file can be passed on the command lines. The new dimensions can also be passed as well as an integer specifying the sinc interpolator. See {{VTKDoxygenURL|vtkImageSincInterpolator}} for details. A -1 turns off interpolation.</p>
 <p>ImageResize maintains the physical size of the image.</p>
 <p>'''NOTE:''' This example was inspired by a question asked by ''Qiang Wang''.</p>
+<h3 id="code">Code</h3>
 <p><strong>ResizeImage.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkImageResize.h&gt;
 #include &quot;vtkImageSincInterpolator.h&quot;
@@ -16090,7 +16133,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ResizeImage)
@@ -16103,7 +16146,7 @@ add_executable(ResizeImage MACOSX_BUNDLE ResizeImage.cxx)
 target_link_libraries(ResizeImage ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ResizeImage</strong></p>
+<h3 id="download-and-build-resizeimage">Download and Build ResizeImage</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ResizeImage.tar">here to download ResizeImage</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ResizeImage.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ResizeImage/build 

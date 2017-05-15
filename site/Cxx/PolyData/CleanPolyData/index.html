@@ -8114,6 +8114,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-cleanpolydata" title="Download and Build CleanPolyData" class="md-nav__link">
+    Download and Build CleanPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-cleanpolydata" title="Download and Build CleanPolyData" class="md-nav__link">
+    Download and Build CleanPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <h3 id="description">Description</h3>
 <p>When a cube is created, it has 24 vertices (4 for each face). This is done because 
 the normal at each face is very different. Often we would want a cube to only have 8 vertices. The vtkCleanPolyData filter removes coincident points, resulting in the cube we would expect.</p>
+<h3 id="code">Code</h3>
 <p><strong>CleanPolyData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkCubeSource.h&gt;
@@ -15994,7 +16037,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CleanPolyData)
@@ -16007,7 +16050,7 @@ add_executable(CleanPolyData MACOSX_BUNDLE CleanPolyData.cxx)
 target_link_libraries(CleanPolyData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CleanPolyData</strong></p>
+<h3 id="download-and-build-cleanpolydata">Download and Build CleanPolyData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CleanPolyData.tar">here to download CleanPolyData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CleanPolyData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CleanPolyData/build 

@@ -10562,6 +10562,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-dataanimation" title="Download and Build DataAnimation" class="md-nav__link">
+    Download and Build DataAnimation
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-dataanimation" title="Download and Build DataAnimation" class="md-nav__link">
+    Download and Build DataAnimation
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Utilities/TestDataAnimation.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This causes one point of the sphere to be moved outwards at each iteration.</p>
+<h3 id="code">Code</h3>
 <p><strong>DataAnimation.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkSphereSource.h&gt;
@@ -16083,7 +16126,7 @@ void TimerCallbackFunction ( vtkObject* caller, long unsigned int vtkNotUsed(eve
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(DataAnimation)
@@ -16096,7 +16139,7 @@ add_executable(DataAnimation MACOSX_BUNDLE DataAnimation.cxx)
 target_link_libraries(DataAnimation ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build DataAnimation</strong></p>
+<h3 id="download-and-build-dataanimation">Download and Build DataAnimation</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DataAnimation.tar">here to download DataAnimation</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DataAnimation.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd DataAnimation/build 

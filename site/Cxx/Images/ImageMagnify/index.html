@@ -5678,6 +5678,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagemagnify" title="Download and Build ImageMagnify" class="md-nav__link">
+    Download and Build ImageMagnify
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagemagnify" title="Download and Build ImageMagnify" class="md-nav__link">
+    Download and Build ImageMagnify
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageMagnify.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>vtkImageMagnify increases the dimensions of an image by integral magnification factors. It also adjusts the spacing of the pixels so that the magnified image covers the same region as the original image. To stretch the image, the pixel spacing needs to be adjusted. This example uses vtkImageChangeInformation to modify the magnified image's spacing. The result is an image that has increased numbers of pixels and is stretched in the magnified directions.</p>
+<h3 id="code">Code</h3>
 <p><strong>ImageMagnify.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkImageActor.h&gt;
 #include &lt;vtkInteractorStyleImage.h&gt;
@@ -16063,7 +16106,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageMagnify)
@@ -16076,7 +16119,7 @@ add_executable(ImageMagnify MACOSX_BUNDLE ImageMagnify.cxx)
 target_link_libraries(ImageMagnify ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageMagnify</strong></p>
+<h3 id="download-and-build-imagemagnify">Download and Build ImageMagnify</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageMagnify.tar">here to download ImageMagnify</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageMagnify.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageMagnify/build 

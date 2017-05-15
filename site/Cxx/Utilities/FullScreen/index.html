@@ -10659,9 +10659,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        FullScreen
+      </label>
+    
     <a href="./" title="FullScreen" class="md-nav__link md-nav__link--active">
       FullScreen
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-fullscreen" title="Download and Build FullScreen" class="md-nav__link">
+    Download and Build FullScreen
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-fullscreen" title="Download and Build FullScreen" class="md-nav__link">
+    Download and Build FullScreen
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/FullScreen</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Utilities/TestFullScreen.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>FullScreen.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
 #include &lt;vtkPolyData.h&gt;
@@ -15969,7 +16037,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(FullScreen)
@@ -15982,7 +16050,7 @@ add_executable(FullScreen MACOSX_BUNDLE FullScreen.cxx)
 target_link_libraries(FullScreen ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build FullScreen</strong></p>
+<h3 id="download-and-build-fullscreen">Download and Build FullScreen</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FullScreen.tar">here to download FullScreen</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FullScreen.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd FullScreen/build 

@@ -7971,9 +7971,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        AttachAttributes
+      </label>
+    
     <a href="./" title="AttachAttributes" class="md-nav__link md-nav__link--active">
       AttachAttributes
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-attachattributes" title="Download and Build AttachAttributes" class="md-nav__link">
+    Download and Build AttachAttributes
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-attachattributes" title="Download and Build AttachAttributes" class="md-nav__link">
+    Download and Build AttachAttributes
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>AttachAttributes</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/AttachAttributes</p>
+<h3 id="code">Code</h3>
 <p><strong>AttachAttributes.cxx</strong></p>
 <pre><code class="c++">// vtk includes
 #include &lt;vtkDoubleArray.h&gt;
@@ -15967,7 +16035,7 @@ int main(int, char *[]) {
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(AttachAttributes)
@@ -15980,7 +16048,7 @@ add_executable(AttachAttributes MACOSX_BUNDLE AttachAttributes.cxx)
 target_link_libraries(AttachAttributes ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build AttachAttributes</strong></p>
+<h3 id="download-and-build-attachattributes">Download and Build AttachAttributes</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AttachAttributes.tar">here to download AttachAttributes</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AttachAttributes.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd AttachAttributes/build 

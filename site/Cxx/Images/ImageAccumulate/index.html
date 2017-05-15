@@ -5367,9 +5367,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ImageAccumulate
+      </label>
+    
     <a href="./" title="ImageAccumulate" class="md-nav__link md-nav__link--active">
       ImageAccumulate
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imageaccumulate" title="Download and Build ImageAccumulate" class="md-nav__link">
+    Download and Build ImageAccumulate
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imageaccumulate" title="Download and Build ImageAccumulate" class="md-nav__link">
+    Download and Build ImageAccumulate
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>ImageAccumulate</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageAccumulate</p>
+<h3 id="code">Code</h3>
 <p><strong>ImageAccumulate.cxx</strong></p>
 <pre><code class="c++">/*
  * In this example, the resulting histogram has 6 pixels (all of them) in the 3rd bin (value = 2) and zero in the rest of the bins
@@ -16001,7 +16069,7 @@ void CreateImage(vtkSmartPointer&lt;vtkImageData&gt; image)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageAccumulate)
@@ -16014,7 +16082,7 @@ add_executable(ImageAccumulate MACOSX_BUNDLE ImageAccumulate.cxx)
 target_link_libraries(ImageAccumulate ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageAccumulate</strong></p>
+<h3 id="download-and-build-imageaccumulate">Download and Build ImageAccumulate</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageAccumulate.tar">here to download ImageAccumulate</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageAccumulate.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageAccumulate/build 

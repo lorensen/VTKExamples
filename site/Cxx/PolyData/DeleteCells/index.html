@@ -8270,6 +8270,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-deletecells" title="Download and Build DeleteCells" class="md-nav__link">
+    Download and Build DeleteCells
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-deletecells" title="Download and Build DeleteCells" class="md-nav__link">
+    Download and Build DeleteCells
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/DeleteCells</p>
 <h3 id="description">Description</h3>
 <p>This example demonstrates how to delete a cell from a vtkPolyData. This is a three-step process: first, build upward-links from points to cells; second, mark cells for deletion; third, delete the marked cells. The first step is necessary to create a data structure suitable for efficient delete operations. Creating this data structure is computationally expensive, so it is only carried out before operations that need it, e.g. those that require changes to the topology.</p>
+<h3 id="code">Code</h3>
 <p><strong>DeleteCells.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkActor.h&gt;
 #include &lt;vtkCellArray.h&gt;
@@ -16046,7 +16089,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(DeleteCells)
@@ -16059,7 +16102,7 @@ add_executable(DeleteCells MACOSX_BUNDLE DeleteCells.cxx)
 target_link_libraries(DeleteCells ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build DeleteCells</strong></p>
+<h3 id="download-and-build-deletecells">Download and Build DeleteCells</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DeleteCells.tar">here to download DeleteCells</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DeleteCells.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd DeleteCells/build 

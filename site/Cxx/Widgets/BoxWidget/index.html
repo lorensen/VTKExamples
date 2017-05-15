@@ -12674,6 +12674,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boxwidget" title="Download and Build BoxWidget" class="md-nav__link">
+    Download and Build BoxWidget
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-boxwidget" title="Download and Build BoxWidget" class="md-nav__link">
+    Download and Build BoxWidget
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example uses a vtkBoxWidget to manipulate an actor. The class includes geometry to draw a box around the object, which is bound to it via <em>SetProp3D</em>. The box is dimensioned using the <em>SetPlaceFactor</em> method, and positioned with the <em>PlaceWidget</em> method. After the initial setup, synchronizing the box with the object is done through a custom callback class, which is passed to the box widget through the <em>AddObserver</em> method.</p>
 <p>For a widget that isn't tied to a specific vtkProp3D and has its geometric representation separate from the interaction logic, see the <a href="../[Cxx/Widgets/BoxWidget2">example BoxWidget2</a>.</p>
+<h3 id="code">Code</h3>
 <p><strong>BoxWidget.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 // For the rendering pipeline setup:
@@ -16053,7 +16096,7 @@ int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(BoxWidget)
@@ -16066,7 +16109,7 @@ add_executable(BoxWidget MACOSX_BUNDLE BoxWidget.cxx)
 target_link_libraries(BoxWidget ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build BoxWidget</strong></p>
+<h3 id="download-and-build-boxwidget">Download and Build BoxWidget</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoxWidget.tar">here to download BoxWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoxWidget.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd BoxWidget/build 

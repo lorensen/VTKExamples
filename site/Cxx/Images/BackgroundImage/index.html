@@ -5210,6 +5210,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-backgroundimage" title="Download and Build BackgroundImage" class="md-nav__link">
+    Download and Build BackgroundImage
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-backgroundimage" title="Download and Build BackgroundImage" class="md-nav__link">
+    Download and Build BackgroundImage
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example displays an image as the "background" of a scene, and renders a superquadric in front of it.</p>
 <p>The example accepts a jpeg file on the command line to use as a background image. If there is no file, it generates a simple background.</p>
+<h3 id="code">Code</h3>
 <p><strong>BackgroundImage.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkActor.h&gt;
@@ -16103,7 +16146,7 @@ int main(int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(BackgroundImage)
@@ -16116,7 +16159,7 @@ add_executable(BackgroundImage MACOSX_BUNDLE BackgroundImage.cxx)
 target_link_libraries(BackgroundImage ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build BackgroundImage</strong></p>
+<h3 id="download-and-build-backgroundimage">Download and Build BackgroundImage</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BackgroundImage.tar">here to download BackgroundImage</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BackgroundImage.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd BackgroundImage/build 

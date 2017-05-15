@@ -2798,6 +2798,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagealgorithmfilter" title="Download and Build ImageAlgorithmFilter" class="md-nav__link">
+    Download and Build ImageAlgorithmFilter
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagealgorithmfilter" title="Download and Build ImageAlgorithmFilter" class="md-nav__link">
+    Download and Build ImageAlgorithmFilter
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/ImageAlgorithmFilter</p>
 <h3 id="description">Description</h3>
 <p>This example demonstrates how to setup the pipeline for a {{class|vtkImageAlgorithm}} filter that takes a {{class|vtkImageData}} as input and produces another vtkImageData as output. This particular example creates a 2x2 image and fills it with "2"s. The filter changes the (0,0) element to a 5.</p>
+<h3 id="code">Code</h3>
 <p><strong>ImageAlgorithmFilter.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 
@@ -16025,7 +16068,7 @@ void PrintImage(vtkImageData* image)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageAlgorithmFilter)
@@ -16038,7 +16081,7 @@ add_executable(ImageAlgorithmFilter MACOSX_BUNDLE ImageAlgorithmFilter.cxx)
 target_link_libraries(ImageAlgorithmFilter ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageAlgorithmFilter</strong></p>
+<h3 id="download-and-build-imagealgorithmfilter">Download and Build ImageAlgorithmFilter</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageAlgorithmFilter.tar">here to download ImageAlgorithmFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageAlgorithmFilter.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageAlgorithmFilter/build 

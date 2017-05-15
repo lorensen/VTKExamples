@@ -3086,6 +3086,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-constraineddelaunay2d" title="Download and Build ConstrainedDelaunay2D" class="md-nav__link">
+    Download and Build ConstrainedDelaunay2D
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-constraineddelaunay2d" title="Download and Build ConstrainedDelaunay2D" class="md-nav__link">
+    Download and Build ConstrainedDelaunay2D
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestConstrainedDelaunay2D.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>Perform a 2D Delaunay triangulation respecting a specified boundary. This examples constructs a 10x10 grid of points. It then defines a polygon that uses the points in the grid. We want to triangulate all of the points except the region inside the boundary of the polygon. We expect a rectangular hole of size 4x3 in the resulting triangulated plane.</p>
+<h3 id="code">Code</h3>
 <p><strong>ConstrainedDelaunay2D.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkCellArray.h&gt;
@@ -16090,7 +16133,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ConstrainedDelaunay2D)
@@ -16103,7 +16146,7 @@ add_executable(ConstrainedDelaunay2D MACOSX_BUNDLE ConstrainedDelaunay2D.cxx)
 target_link_libraries(ConstrainedDelaunay2D ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ConstrainedDelaunay2D</strong></p>
+<h3 id="download-and-build-constraineddelaunay2d">Download and Build ConstrainedDelaunay2D</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConstrainedDelaunay2D.tar">here to download ConstrainedDelaunay2D</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConstrainedDelaunay2D.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ConstrainedDelaunay2D/build 

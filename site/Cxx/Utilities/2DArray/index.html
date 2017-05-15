@@ -10298,6 +10298,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-2darray" title="Download and Build 2DArray" class="md-nav__link">
+    Download and Build 2DArray
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-2darray" title="Download and Build 2DArray" class="md-nav__link">
+    Download and Build 2DArray
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15966,6 +16008,7 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/2DArray</p>
 <h3 id="description">Description</h3>
 <p>This example creates a 5x5 2D array and sets the (4,4) (zero based indexing, of course) entry to 5.0. Then it outputs this value to demonstrate accessing.</p>
+<h3 id="code">Code</h3>
 <p><strong>2DArray.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkDenseArray.h&gt;
@@ -15985,7 +16028,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(2DArray)
@@ -15998,7 +16041,7 @@ add_executable(2DArray MACOSX_BUNDLE 2DArray.cxx)
 target_link_libraries(2DArray ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build 2DArray</strong></p>
+<h3 id="download-and-build-2darray">Download and Build 2DArray</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/2DArray.tar">here to download 2DArray</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball 2DArray.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd 2DArray/build 

@@ -11810,6 +11810,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-labeledmesh" title="Download and Build LabeledMesh" class="md-nav__link">
+    Download and Build LabeledMesh
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-labeledmesh" title="Download and Build LabeledMesh" class="md-nav__link">
+    Download and Build LabeledMesh
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestLabeledMesh.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example was translated into C++ from its TCL counterpart by Jake Nickel from the University of Iowa.  It demonstrates the use of vtkLabeledDataMapper. This class is used for displaying numerical data from an underlying data set. In the case of this example, the underlying data are the point and cell ids.</p>
+<h3 id="code">Code</h3>
 <p><strong>LabeledMesh.cxx</strong></p>
 <pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
 #include &quot;vtkVersion.h&quot;
@@ -16171,7 +16214,7 @@ int main(int argc, char *argv[] )
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(LabeledMesh)
@@ -16184,7 +16227,7 @@ add_executable(LabeledMesh MACOSX_BUNDLE LabeledMesh.cxx)
 target_link_libraries(LabeledMesh ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build LabeledMesh</strong></p>
+<h3 id="download-and-build-labeledmesh">Download and Build LabeledMesh</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LabeledMesh.tar">here to download LabeledMesh</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LabeledMesh.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd LabeledMesh/build 

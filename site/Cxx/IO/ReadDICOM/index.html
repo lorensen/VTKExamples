@@ -4574,6 +4574,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-readdicom" title="Download and Build ReadDICOM" class="md-nav__link">
+    Download and Build ReadDICOM
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-readdicom" title="Download and Build ReadDICOM" class="md-nav__link">
+    Download and Build ReadDICOM
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example reads a DICOM file and displays it on the screen. <a href="http://www.vtk.org/Wiki/images/2/27/DICOM_Prostate.zip">Here</a> is an example data set.</p>
 <p>See also: <a href="../ExportDICOMtoVTI">ExportDICOMtoVTI</a> and <a href="../ReadDICOM">ReadDICOM</a>.</p>
+<h3 id="code">Code</h3>
 <p><strong>ReadDICOM.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkImageViewer2.h&gt;
@@ -16011,7 +16054,7 @@ int main(int argc, char* argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ReadDICOM)
@@ -16024,7 +16067,7 @@ add_executable(ReadDICOM MACOSX_BUNDLE ReadDICOM.cxx)
 target_link_libraries(ReadDICOM ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ReadDICOM</strong></p>
+<h3 id="download-and-build-readdicom">Download and Build ReadDICOM</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ReadDICOM.tar">here to download ReadDICOM</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ReadDICOM.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ReadDICOM/build 

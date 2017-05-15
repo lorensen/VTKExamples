@@ -11541,6 +11541,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-depthsortpolydata" title="Download and Build DepthSortPolyData" class="md-nav__link">
+    Download and Build DepthSortPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15960,6 +15981,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-depthsortpolydata" title="Download and Build DepthSortPolyData" class="md-nav__link">
+    Download and Build DepthSortPolyData
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -16006,6 +16048,7 @@ data.</p>
 <p>./DepthSortPolyData 1 100 100 1
 ... will render the spheres using depth sorting; the depth values are mapped to the spheres and renderd on the surfaces</p>
 <p>Using higher PHI/THETA resolutions shows how depth sorting reduces the frame rate.</p>
+<h3 id="code">Code</h3>
 <p><strong>DepthSortPolyData.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16137,7 +16180,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(DepthSortPolyData)
@@ -16150,7 +16193,7 @@ add_executable(DepthSortPolyData MACOSX_BUNDLE DepthSortPolyData.cxx)
 target_link_libraries(DepthSortPolyData ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build DepthSortPolyData</strong></p>
+<h3 id="download-and-build-depthsortpolydata">Download and Build DepthSortPolyData</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DepthSortPolyData.tar">here to download DepthSortPolyData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DepthSortPolyData.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd DepthSortPolyData/build 

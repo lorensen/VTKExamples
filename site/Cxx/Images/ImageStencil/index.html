@@ -5954,6 +5954,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagestencil" title="Download and Build ImageStencil" class="md-nav__link">
+    Download and Build ImageStencil
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagestencil" title="Download and Build ImageStencil" class="md-nav__link">
+    Download and Build ImageStencil
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example creates a red image and a green image. It creates a mask that is half on and half off. It then combines the images according to the mask using an ImageStencil.</p>
 <p>:''See also: [and <a href="../[../../Visualization/ImageTransparency]]">[../Transparency]</a>''</p>
+<h3 id="code">Code</h3>
 <p><strong>ImageStencil.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkImageData.h&gt;
@@ -16109,7 +16152,7 @@ static void CreateMask(vtkImageData* image)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageStencil)
@@ -16122,7 +16165,7 @@ add_executable(ImageStencil MACOSX_BUNDLE ImageStencil.cxx)
 target_link_libraries(ImageStencil ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageStencil</strong></p>
+<h3 id="download-and-build-imagestencil">Download and Build ImageStencil</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageStencil.tar">here to download ImageStencil</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageStencil.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageStencil/build 

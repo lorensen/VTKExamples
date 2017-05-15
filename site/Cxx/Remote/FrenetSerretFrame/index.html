@@ -9722,6 +9722,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-frenetserretframe" title="Download and Build FrenetSerretFrame" class="md-nav__link">
+    Download and Build FrenetSerretFrame
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-frenetserretframe" title="Download and Build FrenetSerretFrame" class="md-nav__link">
+    Download and Build FrenetSerretFrame
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15980,6 +16022,7 @@
 </li>
 </ol>
 <p>The classes used in this example are described in <a href="http://www.vtkjournal.org/browse/publication/838">A Spline-Driven Image Slicer</a>. In the example, the normal vectors are yellow, the tangent vectors are red and the binormal vectors are green.</p>
+<h3 id="code">Code</h3>
 <p><strong>FrenetSerretFrame.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkFrenetSerretFrame.h&gt;
 
@@ -16149,7 +16192,7 @@ void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(FrenetSerretFrame)
@@ -16162,7 +16205,7 @@ add_executable(FrenetSerretFrame MACOSX_BUNDLE FrenetSerretFrame.cxx)
 target_link_libraries(FrenetSerretFrame ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build FrenetSerretFrame</strong></p>
+<h3 id="download-and-build-frenetserretframe">Download and Build FrenetSerretFrame</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FrenetSerretFrame.tar">here to download FrenetSerretFrame</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FrenetSerretFrame.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd FrenetSerretFrame/build 

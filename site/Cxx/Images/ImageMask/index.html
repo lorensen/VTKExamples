@@ -5726,6 +5726,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagemask" title="Download and Build ImageMask" class="md-nav__link">
+    Download and Build ImageMask
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagemask" title="Download and Build ImageMask" class="md-nav__link">
+    Download and Build ImageMask
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15967,6 +16009,7 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageMask.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example creates an all red image. Then it creates a mask of a small rectangle. The red pixels in this rectangle are copied to the output image, while the rest of the output image is black. The black region could be set to a different color using SetMaskedOutputValue.</p>
+<h3 id="code">Code</h3>
 <p><strong>ImageMask.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkImageData.h&gt;
@@ -16106,7 +16149,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageMask)
@@ -16119,7 +16162,7 @@ add_executable(ImageMask MACOSX_BUNDLE ImageMask.cxx)
 target_link_libraries(ImageMask ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageMask</strong></p>
+<h3 id="download-and-build-imagemask">Download and Build ImageMask</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageMask.tar">here to download ImageMask</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageMask.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageMask/build 

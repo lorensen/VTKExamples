@@ -5811,9 +5811,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ImageRange3D
+      </label>
+    
     <a href="./" title="ImageRange3D" class="md-nav__link md-nav__link--active">
       ImageRange3D
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagerange3d" title="Download and Build ImageRange3D" class="md-nav__link">
+    Download and Build ImageRange3D
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-imagerange3d" title="Download and Build ImageRange3D" class="md-nav__link">
+    Download and Build ImageRange3D
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageRange3D</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageRange3D.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>ImageRange3D.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkRenderWindow.h&gt;
@@ -16020,7 +16088,7 @@ int main(int argc, char* argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ImageRange3D)
@@ -16033,7 +16101,7 @@ add_executable(ImageRange3D MACOSX_BUNDLE ImageRange3D.cxx)
 target_link_libraries(ImageRange3D ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build ImageRange3D</strong></p>
+<h3 id="download-and-build-imagerange3d">Download and Build ImageRange3D</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageRange3D.tar">here to download ImageRange3D</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageRange3D.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd ImageRange3D/build 

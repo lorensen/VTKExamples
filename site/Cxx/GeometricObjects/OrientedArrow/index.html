@@ -3554,6 +3554,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-orientedarrow" title="Download and Build OrientedArrow" class="md-nav__link">
+    Download and Build OrientedArrow
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-orientedarrow" title="Download and Build OrientedArrow" class="md-nav__link">
+    Download and Build OrientedArrow
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15978,6 +16020,7 @@
 </ol>
 <p>Switch between the two methods by #defining USER_MATRIX or leaving out the #define.</p>
 <p>NOTE:  Compare this example with <a href="../OrientedCylinder">Oriented Cylinder</a> . The transform is different because the cylinder height direction is along the y-axis and the arrow height is along the x axis.</p>
+<h3 id="code">Code</h3>
 <p><strong>OrientedArrow.cxx</strong></p>
 <pre><code class="c++">#define USER_MATRIX
 #include &lt;vtkArrowSource.h&gt;
@@ -16121,7 +16164,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(OrientedArrow)
@@ -16134,7 +16177,7 @@ add_executable(OrientedArrow MACOSX_BUNDLE OrientedArrow.cxx)
 target_link_libraries(OrientedArrow ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build OrientedArrow</strong></p>
+<h3 id="download-and-build-orientedarrow">Download and Build OrientedArrow</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OrientedArrow.tar">here to download OrientedArrow</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball OrientedArrow.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd OrientedArrow/build 

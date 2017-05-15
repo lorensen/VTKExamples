@@ -2139,9 +2139,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        MultiBlockDataSet
+      </label>
+    
     <a href="./" title="MultiBlockDataSet" class="md-nav__link md-nav__link--active">
       MultiBlockDataSet
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-multiblockdataset" title="Download and Build MultiBlockDataSet" class="md-nav__link">
+    Download and Build MultiBlockDataSet
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-multiblockdataset" title="Download and Build MultiBlockDataSet" class="md-nav__link">
+    Download and Build MultiBlockDataSet
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/CompositeData/MultiBlockDataSet</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CompositeData/TestMultiBlockDataSet.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>MultiBlockDataSet.cxx</strong></p>
 <pre><code class="c++">// Demonstrates how to make and use VTK's MultiBlock type data
 
@@ -16024,7 +16092,7 @@ int main (int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MultiBlockDataSet)
@@ -16037,7 +16105,7 @@ add_executable(MultiBlockDataSet MACOSX_BUNDLE MultiBlockDataSet.cxx)
 target_link_libraries(MultiBlockDataSet ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MultiBlockDataSet</strong></p>
+<h3 id="download-and-build-multiblockdataset">Download and Build MultiBlockDataSet</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MultiBlockDataSet.tar">here to download MultiBlockDataSet</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MultiBlockDataSet.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MultiBlockDataSet/build 

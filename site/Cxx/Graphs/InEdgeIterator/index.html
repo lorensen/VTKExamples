@@ -4095,9 +4095,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        InEdgeIterator
+      </label>
+    
     <a href="./" title="InEdgeIterator" class="md-nav__link md-nav__link--active">
       InEdgeIterator
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-inedgeiterator" title="Download and Build InEdgeIterator" class="md-nav__link">
+    Download and Build InEdgeIterator
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-inedgeiterator" title="Download and Build InEdgeIterator" class="md-nav__link">
+    Download and Build InEdgeIterator
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>InEdgeIterator</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/InEdgeIterator</p>
+<h3 id="code">Code</h3>
 <p><strong>InEdgeIterator.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkMutableUndirectedGraph.h&gt;
 #include &lt;vtkMutableDirectedGraph.h&gt;
@@ -16012,7 +16080,7 @@ void Directed()
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(InEdgeIterator)
@@ -16025,7 +16093,7 @@ add_executable(InEdgeIterator MACOSX_BUNDLE InEdgeIterator.cxx)
 target_link_libraries(InEdgeIterator ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build InEdgeIterator</strong></p>
+<h3 id="download-and-build-inedgeiterator">Download and Build InEdgeIterator</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/InEdgeIterator.tar">here to download InEdgeIterator</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball InEdgeIterator.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd InEdgeIterator/build 

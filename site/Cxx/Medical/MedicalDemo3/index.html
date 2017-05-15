@@ -7095,9 +7095,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        MedicalDemo3
+      </label>
+    
     <a href="./" title="MedicalDemo3" class="md-nav__link md-nav__link--active">
       MedicalDemo3
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-medicaldemo3" title="Download and Build MedicalDemo3" class="md-nav__link">
+    Download and Build MedicalDemo3
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-medicaldemo3" title="Download and Build MedicalDemo3" class="md-nav__link">
+    Download and Build MedicalDemo3
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15926,6 +15993,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Medical/MedicalDemo3</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Medical/TestMedicalDemo3.png?raw=true" width="256" /></p>
+<h3 id="code">Code</h3>
 <p><strong>MedicalDemo3.cxx</strong></p>
 <pre><code class="c++">// Derived from VTK/Examples/Cxx/Medical3.cxx
 // This example reads a volume dataset, extracts two isosurfaces that
@@ -16188,7 +16256,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MedicalDemo3)
@@ -16201,7 +16269,7 @@ add_executable(MedicalDemo3 MACOSX_BUNDLE MedicalDemo3.cxx)
 target_link_libraries(MedicalDemo3 ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MedicalDemo3</strong></p>
+<h3 id="download-and-build-medicaldemo3">Download and Build MedicalDemo3</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MedicalDemo3.tar">here to download MedicalDemo3</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MedicalDemo3.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MedicalDemo3/build 

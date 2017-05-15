@@ -11510,6 +11510,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-curvaturebandswithglyphs" title="Download and Build CurvatureBandsWithGlyphs" class="md-nav__link">
+    Download and Build CurvatureBandsWithGlyphs
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-curvaturebandswithglyphs" title="Download and Build CurvatureBandsWithGlyphs" class="md-nav__link">
+    Download and Build CurvatureBandsWithGlyphs
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -16019,6 +16061,7 @@ Do this in the function MakeGlyphs().</p>
 <p>PrintBands() and PrintFrequencies() allow you to inspect the bands and
 the number of scalars in each band. These are useful if you want to
 get an idea of the distribution of the scalars in each band.</p>
+<h3 id="code">Code</h3>
 <p><strong>CurvatureBandsWithGlyphs.cxx</strong></p>
 <pre><code class="c++">// The source
 #include &lt;vtkSuperquadricSource.h&gt;
@@ -16898,7 +16941,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CurvatureBandsWithGlyphs)
@@ -16911,7 +16954,7 @@ add_executable(CurvatureBandsWithGlyphs MACOSX_BUNDLE CurvatureBandsWithGlyphs.c
 target_link_libraries(CurvatureBandsWithGlyphs ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build CurvatureBandsWithGlyphs</strong></p>
+<h3 id="download-and-build-curvaturebandswithglyphs">Download and Build CurvatureBandsWithGlyphs</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CurvatureBandsWithGlyphs.tar">here to download CurvatureBandsWithGlyphs</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CurvatureBandsWithGlyphs.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd CurvatureBandsWithGlyphs/build 

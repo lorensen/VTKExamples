@@ -2787,9 +2787,48 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        MultipleInputPorts
+      </label>
+    
     <a href="./" title="MultipleInputPorts" class="md-nav__link md-nav__link--active">
       MultipleInputPorts
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-multipleinputports" title="Download and Build MultipleInputPorts" class="md-nav__link">
+    Download and Build MultipleInputPorts
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15911,6 +15950,34 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-multipleinputports" title="Download and Build MultipleInputPorts" class="md-nav__link">
+    Download and Build MultipleInputPorts
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15925,6 +15992,7 @@
                   <h1>MultipleInputPorts</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/MultipleInputPorts</p>
+<h3 id="code">Code</h3>
 <p><strong>MultipleInputPorts.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
 #include &lt;vtkSphereSource.h&gt;
@@ -15953,7 +16021,7 @@ int main (int argc, char *argv[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(MultipleInputPorts)
@@ -15966,7 +16034,7 @@ add_executable(MultipleInputPorts MACOSX_BUNDLE MultipleInputPorts.cxx)
 target_link_libraries(MultipleInputPorts ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build MultipleInputPorts</strong></p>
+<h3 id="download-and-build-multipleinputports">Download and Build MultipleInputPorts</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MultipleInputPorts.tar">here to download MultipleInputPorts</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MultipleInputPorts.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd MultipleInputPorts/build 

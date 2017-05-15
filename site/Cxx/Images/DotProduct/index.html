@@ -5306,6 +5306,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-dotproduct" title="Download and Build DotProduct" class="md-nav__link">
+    Download and Build DotProduct
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-dotproduct" title="Download and Build DotProduct" class="md-nav__link">
+    Download and Build DotProduct
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15968,6 +16010,7 @@
 <h3 id="description">Description</h3>
 <p>This example demonstrates how to take the pixel-wise dot product of two vector images. The output is a scalar image.</p>
 <p>Two images, each 2x2x1, are created and filled with 3-vectors. The dot product of each pair of corresponding pixels is produced by the vtkImageDotProduct filter and output to the screen.</p>
+<h3 id="code">Code</h3>
 <p><strong>DotProduct.cxx</strong></p>
 <pre><code class="c++">#include &lt;vtkVersion.h&gt;
 #include &lt;vtkSmartPointer.h&gt;
@@ -16174,7 +16217,7 @@ int main(int, char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(DotProduct)
@@ -16187,7 +16230,7 @@ add_executable(DotProduct MACOSX_BUNDLE DotProduct.cxx)
 target_link_libraries(DotProduct ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build DotProduct</strong></p>
+<h3 id="download-and-build-dotproduct">Download and Build DotProduct</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DotProduct.tar">here to download DotProduct</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DotProduct.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd DotProduct/build 

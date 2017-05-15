@@ -11234,6 +11234,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-assigncellcolorsfromlut" title="Download and Build AssignCellColorsFromLUT" class="md-nav__link">
+    Download and Build AssignCellColorsFromLUT
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15946,6 +15967,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-assigncellcolorsfromlut" title="Download and Build AssignCellColorsFromLUT" class="md-nav__link">
+    Download and Build AssignCellColorsFromLUT
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -15984,6 +16026,7 @@ are identical.</p>
 green to tan transition in a diverging color space.
 Note that the central square is white indicating the midpoint.</p>
 <p>The bottom row of the display uses a lookup table of predefined colors.</p>
+<h3 id="code">Code</h3>
 <p><strong>AssignCellColorsFromLUT.cxx</strong></p>
 <pre><code class="c++">/*
 Demonstrates how to assign colors to cells in a vtkPolyData structure using
@@ -16278,7 +16321,7 @@ int main(int , char *[])
 }
 </code></pre>
 
-<p><strong>CMakeLists.txt</strong></p>
+<h3 id="cmakeliststxt">CMakeLists.txt</h3>
 <pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
 PROJECT(AssignCellColorsFromLUT)
@@ -16291,7 +16334,7 @@ add_executable(AssignCellColorsFromLUT MACOSX_BUNDLE AssignCellColorsFromLUT.cxx
 target_link_libraries(AssignCellColorsFromLUT ${VTK_LIBRARIES})
 </code></pre>
 
-<p><strong>Download and Build AssignCellColorsFromLUT</strong></p>
+<h3 id="download-and-build-assigncellcolorsfromlut">Download and Build AssignCellColorsFromLUT</h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AssignCellColorsFromLUT.tar">here to download AssignCellColorsFromLUT</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AssignCellColorsFromLUT.tar</em> has been downloaded and extracted,</p>
 <pre><code>cd AssignCellColorsFromLUT/build 
