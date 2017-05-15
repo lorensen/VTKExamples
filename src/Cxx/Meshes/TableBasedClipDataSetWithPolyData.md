@@ -16,7 +16,6 @@ the vtkClipDataSet example:
 
 Here is the summary reported when the example exits:
 <pre><code>
-------------------------
 The clipped dataset(inside) contains a 
 vtkUnstructuredGrid that has 14176 cells
 	Cell type vtkTetra occurs 3084 times.
@@ -31,4 +30,3 @@ vtkUnstructuredGrid that has 125600 cells
 	Cell type vtkWedge occurs 1260 times.
 	Cell type vtkPyramid occurs 3332 times.
 </code></pre>
-
