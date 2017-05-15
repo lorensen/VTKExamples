@@ -1,0 +1,43 @@
+#
+# Sample cmake script to build and test the WikiExamples
+#
+set(CTEST_SITE "@SITE@")
+set(CTEST_BUILD_NAME "@CTEST_BUILD_NAME@")
+
+set(CTEST_BUILD_CONFIGURATION "Release")
+set(CTEST_BUILD_CONFIGURATION "Debug")
+set(CTEST_BUILD_CONFIGURATION "RelWithDebinfo")
+
+
+cmake_minimum_required(VERSION 2.8.1)
+
+set(CTEST_SOURCE_DIRECTORY "@WikiExamples_SOURCE_DIR@")
+set(CTEST_BINARY_DIRECTORY "@WikiExamples_BINARY_DIR@")
+set(CTEST_BUILD_CONFIGURATION @CTEST_BUILD_CONFIGURATION@)
+set(CTEST_CMAKE_GENERATOR "@CMAKE_GENERATOR@")
+set(CTEST_BUILD_FLAGS "@CTEST_BUILD_FLAGS@")
+set(CTEST_NOTES_FILES "${CTEST_SCRIPT_DIRECTORY}/${CTEST_SCRIPT_NAME}")
+
+set(CTEST_UPDATE_COMMAND "${CTEST_GIT_COMMAND}")
+
+# select one of the following by placing it last
+set(DASHBOARD Nightly)
+set(DASHBOARD Experimental)
+
+if(${DASHBOARD} STREQUAL Nightly)
+  ctest_empty_binary_directory(${CTEST_BINARY_DIRECTORY})
+endif(${DASHBOARD} STREQUAL Nightly)
+
+file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" "VTK_DIR:PATH=@VTK_DIR@")
+
+set(ENV{DISPLAY} ":0")
+
+ctest_start(${DASHBOARD})
+if(${DASHBOARD} STREQUAL Nightly)
+  ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}")
+endif(${DASHBOARD} STREQUAL Nightly)
+ctest_configure(BUILD "${CTEST_BINARY_DIRECTORY}")
+ctest_read_custom_files("${CTEST_BINARY_DIRECTORY}")
+ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}")
+ctest_test(BUILD "${CTEST_BINARY_DIRECTORY}")
+ctest_submit()
