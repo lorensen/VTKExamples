@@ -84,17 +84,17 @@ exampleToCMake = dict()
 exampleToFileNames = dict()
 
 # Convert repo .md files
-ConvertAndCopyFile(RepoName + "/index.md", WikiName + "/index.md")
+CopyFile(RepoName + "/index.md", WikiName + "/index.md")
 CopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
-ConvertAndCopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
+CopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
 CopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
-ConvertAndCopyFile(RepoName + "/CSharp.md", WikiName + "/CSharp.md")
+CopyFile(RepoName + "/CSharp.md", WikiName + "/CSharp.md")
 if not os.path.exists(WikiName + "/Instructions"):
     os.makedirs(WikiName + "/Instructions")
 CopyFile(RepoName + "/Instructions/ForUsers.md", WikiName + "/Instructions/ForUsers.md")
 CopyFile(RepoName + "/Instructions/ForDevelopers.md", WikiName + "/Instructions/ForDevelopers.md")
 CopyFile(RepoName + "/Instructions/ForAdministrators.md", WikiName + "/Instructions/ForAdministrators.md")
-ConvertAndCopyFile(RepoName + "/Instructions/Guidelines.md", WikiName + "/Instructions/Guidelines.md")
+CopyFile(RepoName + "/Instructions/Guidelines.md", WikiName + "/Instructions/Guidelines.md")
 
 # Get list of all  examples
 Languages = dict()
