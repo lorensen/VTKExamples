@@ -1,8 +1,8 @@
 The success of the VTK Wiki Examples depends on the contributions from
 the VTK user community. If you wish to contribute to this valuable
 resource, please follow these guidelines. If you are a Wiki Example
-User, [go here](Instructions/ForUsers) or a Wiki Example
-Administrator [go here](Instructions/ForAdministrators).
+User, [go here](../Instructions/ForUsers) or a Wiki Example
+Administrator [go here](../Instructions/ForAdministrators).
 
 C++, C#, Tcl, Python and Java examples are welcome! Examples should
 illustrate a single concept.
@@ -11,7 +11,7 @@ illustrate a single concept.
 
 # Follow the Coding Guidelines
 
-When you write an example, please follow the [coding guidelines](Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a merge request.
+When you write an example, please follow the [coding guidelines](../Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a merge request.
 
 # Setup for developement
 

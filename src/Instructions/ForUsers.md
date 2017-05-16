@@ -1,4 +1,4 @@
-If you want to use [VTK Examples](https://gitlab.kitware.com/lorensen/VTKExamples/wikis/home) you have several options. If you are a Wiki Example Developer, [go here](Instructions/ForDevelopers) or a Wiki Example Administrator [go here](Instructions/ForAdministrators).
+If you want to use [VTK Examples](https://gitlab.kitware.com/lorensen/VTKExamples/wikis/home) you have several options. If you are a Wiki Example Developer, [go here](../Instructions/ForDevelopers) or a Wiki Example Administrator [go here](../Instructions/ForAdministrators).
 
 ## Build an example
 
