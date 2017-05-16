@@ -59,5 +59,4 @@ if ( test -d Tarballs ); then
 fi
 
 echo "8) Push the changes"
-#git push
-
+git push
