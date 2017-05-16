@@ -26,7 +26,7 @@ echo "3) Scrape the repo"
 src/Admin/ScrapeRepo  src docs ${REPO}
 
 echo "3.1) Check for a successful scrape"
-pushd ../docs
+pushd docs
 count=$((`find . -name \*.md | wc -l`))
 popd
 expected=800
