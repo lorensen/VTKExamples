@@ -41,7 +41,7 @@ echo "4) Process modified files"
 git commit -m "SYNC: Files modified on wiki." `git status | grep modified: | cut -d":" -f2,2`
 
 echo "5) Process new files"
-find . "(" -name \*.md ")" -exec git add {} \;
+find . "(" -name \*.md ")" -exec git add {} \| grep -v docs \;
 git commit -m "SYNC: Files added to wiki."
 
 echo "6) Process deleted files"
