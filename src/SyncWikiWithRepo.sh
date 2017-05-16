@@ -23,7 +23,7 @@ if ( test -d Tarballs ); then
 fi
 
 echo "3) Scrape the repo"
-./Admin/ScrapeRepo  ../src ../docs ${REPO}
+src/Admin/ScrapeRepo  ../src ../docs ${REPO}
 
 echo "3.1) Check for a successful scrape"
 pushd ../docs
