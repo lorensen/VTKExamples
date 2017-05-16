@@ -16006,7 +16006,7 @@
                   <h1>ExtractOutsideSurface</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ExtractOutsideSurface</p>
-<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestExtractOutsideSurface.png?raw=true" width="256" /></p>
+<p><img style="float:middle" src="https://github.kitware.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestExtractOutsideSurface.png?raw=true" width="256" /></p>
 <h3 id="description">Description</h3>
 <p>This example extracts the outer surface of a multiple surface polydata model. The examples assumes the outside surface is closed and there is only one outside surface. It also assumes that the center of the model lies inside the outer surface.</p>
 <p>The example casts a ray from outside the bounds of the model into the center of the model. It uses a vtkCellLocator to intersect the ray with the model. The intersected cell is used as a seed to the vtkPolyDataConnectivityFilter which is run with the extraction mode set to CellSeededRegions.</p>

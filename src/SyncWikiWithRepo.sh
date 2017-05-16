@@ -37,6 +37,9 @@ if test $count -lt $expected; then
    exit 1
 fi
 
+echo "3.2) Update the html pages"
+mkdocs build
+
 echo "4) Process modified files"
 git commit -m "SYNC: Files modified on wiki." `git status | grep modified: | cut -d":" -f2,2`
 
