@@ -52,6 +52,10 @@ RepoName = sys.argv[1]
 WikiName = sys.argv[2]
 RepoURL = sys.argv[3]
 
+# Make sure the wiki docs folder exists
+if not os.path.exists("docs"):
+    os.makedirs("docs")
+
 BaselineName = RepoName + "/Testing/Baseline"
 
 # Read the Wiki Templates
