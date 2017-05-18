@@ -15939,41 +15939,45 @@ illustrate a single concept.</p>
 <li><a href="#write-the-source">Write the source</a></li>
 <li><a href="#add-the-example-to-the-language-page">Add the example to the language page.</a></li>
 <li><a href="#commit-your-changes-to-your-topic-branch">Commit your changes to your topic branch</a></li>
-<li><a href="#push-the-changes-to-gitlab">Push the changes to gitlab</a></li>
-<li><a href="#go-to-your-gitlab-project-and-generate-a-merge-request">Go to your gitlab project and generate a merge request.</a></li>
+<li><a href="#push-the-changes-to-github">Push the changes to github</a></li>
+<li><a href="#go-to-your-github-project-and-generate-a-pull-request">Go to your github project and generate a pull request.</a></li>
 </ul>
 </li>
 <li><a href="#advanced-usage">Advanced usage</a><ul>
 <li><a href="#add-a-description">Add a description</a></li>
 <li><a href="#add-arguments-to-the-test">Add arguments to the test</a></li>
-<li><a href="#review-changes-on-your-wiki">Review changes on your wiki</a></li>
+<li><a href="#review-changes-in-a-browser">Review changes in a browser</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <h1 id="follow-the-coding-guidelines">Follow the Coding Guidelines</h1>
-<p>When you write an example, please follow the <a href="../../Instructions/Guidelines">coding guidelines</a>. Create the example on your local repository, compile and run it before you generate a merge request.</p>
+<p>When you write an example, please follow the <a href="../../Instructions/Guidelines">coding guidelines</a>. Create the example on your local repository, compile and run it before you generate a pull request.</p>
 <h1 id="setup-for-developement">Setup for developement</h1>
 <h2 id="fork-the-repository">Fork the repository</h2>
 <ol>
 <li>
-<p>Sign into gitlab <a href="https://gitlab.kitware.com/users/sign_in">at Kitware</a>.</p>
+<p>Sign into <a href="https://github.com/login">github</a>.</p>
 <p>If you do not have an account, you can register on the signin page.</p>
 </li>
 <li>
-<p>Fork the <a href="https://gitlab.kitware.com/lorensen/VTKExamples">VTKExamples repository</a></p>
+<p>Fork the <a href="https://github.com/lorensen/VTKExamples">VTKExamples repository</a></p>
 <p>A fork is a copy of a project. Forking a repository allows you to make changes without affecting the original project.</p>
 </li>
 <li>
+<p>Enable a static web site for the examples.</p>
+<p>Under <strong>Settings</strong>, <strong>GitHub Pages</strong>, set the <em>Source</em> to <strong>master branch</strong> and click <em>Save</em>.</p>
+</li>
+<li>
 <p>Clone the repository on your local machine</p>
-<p><code>git clone https://YOURNAME@gitlab.kitware.com/YOURNAME/VTKExamples.git</code></p>
+<p><code>git clone https://YOURNAME@github.com/YOURNAME/VTKExamples.git</code></p>
 <p>Or, if you are using SSH:</p>
-<p><code>git clone git@gitlab.kitware.com:YOURNAME/VTKExamples.git</code></p>
-<p>where <strong>YOURNAME</strong> is your gitlab username.</p>
+<p><code>git clone git@github.com:YOURNAME/VTKExamples.git</code></p>
+<p>where <strong>YOURNAME</strong> is your github username.</p>
 </li>
 <li>
 <p>Add the VTKExamples repository as a <em>remote</em> called <em>upstream</em></p>
-<p><code>git remote add upstream https://gitlab.kitware.com/lorensen/VTKExamples</code></p>
+<p><code>git remote add upstream https://github.com/lorensen/VTKExamples</code></p>
 </li>
 <li>
 <p>Before adding your examples, sync your repository with the VTKExamples repository. Remember that in order to run the following commands you need to be in the <strong>VTKExamples</strong> directory.</p>
@@ -15985,9 +15989,8 @@ illustrate a single concept.</p>
 <li>
 <p>Build the VTKExamples</p>
 <p><code>cd VTKExamples</code></p>
-<p><code>mkdir build</code></p>
 <p><code>cd build</code></p>
-<p><code>cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..</code></p>
+<p><code>cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ../src</code></p>
 <p><code>make</code></p>
 <p>where <strong>YOUR_VTK_BIN_DIR</strong> is the location of your VTK build.</p>
 </li>
@@ -16004,14 +16007,14 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <p>where <strong>MyNewExample</strong> is the name of your new example.</p>
 </li>
 <li>
-<p>Save your source code in VTKExamples/LANGUAGE/TOPIC/</p>
+<p>Save your source code in VTKExamples/src/<strong>LANGUAGE</strong>/<strong>TOPIC</strong>/</p>
 <p>where <strong>LANGUAGE</strong> is Cxx, Python, CSharp, or Tcl.</p>
 <p>and <strong>TOPIC</strong> is the topic that you have chosen.</p>
 </li>
 <li>
 <p>Build and test your example (<strong>NOTE:</strong> only for cxx examples)</p>
 <p><code>cd VTKExamples/build</code></p>
-<p><code>cmake ..</code></p>
+<p><code>cmake ../src</code></p>
 <p><code>make</code></p>
 <p><code>ctest -V -R MyNewExample</code></p>
 </li>
@@ -16019,7 +16022,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <p>If your example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test<strong>MyNewExample</strong>.png.</p>
 </li>
 <li>
-<p>Copy the image into: VTKExamples/Testing/Baseline/<strong>TOPIC</strong>/</p>
+<p>Copy the image into: VTKExamples/src/Testing/Baseline/<strong>TOPIC</strong>/</p>
 </li>
 <li>
 <p>Rerun ctest and the test should pass.</p>
@@ -16041,47 +16044,39 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <pre><code>git commit
 </code></pre>
 
-<h2 id="push-the-changes-to-gitlab">Push the changes to gitlab</h2>
+<h2 id="push-the-changes-to-github">Push the changes to github</h2>
 <pre><code>git push origin MyNewExample
 </code></pre>
 
-<h2 id="go-to-your-gitlab-project-and-generate-a-merge-request">Go to your gitlab project and <a href="https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html">generate a merge request</a>.</h2>
+<h2 id="go-to-your-github-project-and-generate-a-pull-request">Go to your github project and <a href="https://help.github.com/articles/creating-a-pull-request/">generate a pull request</a>.</h2>
 <h1 id="advanced-usage">Advanced usage</h1>
 <h2 id="add-a-description">Add a description</h2>
-<p>If your example could benefit from an extended description, you can create a file <strong>MyNewExample</strong>.md. Store the file along side your source code. Use <a href="https://gitlab.kitware.com/help/user/markdown">markdown</a> to format the description.</p>
+<p>If your example could benefit from an extended description, you can create a file <strong>MyNewExample</strong>.md. Store the file along side your source code. Use <a href="https://guides.github.com/features/mastering-markdown/">markdown</a> to format the description.</p>
 <h2 id="add-arguments-to-the-test">Add arguments to the test</h2>
-<p>If your example requires arguments, you will need to edit the CMakeLists.txt in the topic directory.</p>
+<p>If your example requires arguments, you will need to edit the <em>CMakeLists.txt</em> in the topic directory.</p>
 <ol>
 <li>
 <p>Add the name of your example to the <em>NEEDS_ARGS</em> variable</p>
 </li>
 <li>
-<p>Add an <em>ADD_TEST</em> line. See other CMakeLists.txt files for examples.</p>
+<p>Add an <em>ADD_TEST</em> line. See other <em>CMakeLists.txt</em> files for examples.</p>
 </li>
 </ol>
-<h2 id="review-changes-on-your-wiki">Review changes on your wiki</h2>
-<p>If you want to preview your changes on a wiki (<strong>NOTE:</strong> You must have python nstalled on your system)</p>
+<h2 id="review-changes-in-a-browser">Review changes in a browser</h2>
+<p>If you want to preview your changes in a browser (<strong>NOTE:</strong> You must have python nstalled on your system)</p>
 <ol>
 <li>
 <p>Install the markdown package for python. Go <a href="https://pythonhosted.org/Markdown/install.html">here</a></p>
 </li>
 <li>
-<p>On gitlab, click the wiki button.</p>
+<p>Install the material theme for markdown. Go <a href="http://squidfunk.github.io/mkdocs-material/#quick-start">here</a>.</p>
 </li>
 <li>
-<p>Create a home page. The contents will eventually be replaced</p>
+<p>Sync your site with your repository
+    <code>./src/SyncSiteWithRepo.sh https::/github.com/**YOUR_NAME**/VTKExamples</code></p>
 </li>
 <li>
-<p>Clone the wiki repo on your local system</p>
-<p><code>cd VTKExamples</code></p>
-<p><code>git clone https://YOURNAME@gitlab.kitware.com/YOURNAME/VTKExamples.wiki.git wiki</code></p>
-<p>Or, if you are using SSH:</p>
-<p><code>git clone git@gitlab.kitware.com:YOURNAME/VTKExamples.wiki.git wiki</code>
-where <strong>YOURNAME</strong> is your gitlab username.</p>
-</li>
-<li>
-<p>Sync your wiki with your repository
-    <code>./SyncWikiWithRepo.sh</code></p>
+<p>After a few minutes go to https://<strong>YOUR_NAME</strong>.github.io/VTKExamples/ to see your changes before issuing your pull request.</p>
 </li>
 </ol>
                 
