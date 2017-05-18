@@ -17,41 +17,41 @@ Note that the central square is white indicating the midpoint.
 The bottom row of the display uses a lookup table of predefined colors.
 */
 
-#include <vtkSmartPointer.h>
+#include <vtkCellData.h>
+#include <vtkColorTransferFunction.h>
+#include <vtkLookupTable.h>
 #include <vtkNamedColors.h>
 #include <vtkPlaneSource.h>
-#include <vtkLookupTable.h>
-#include <vtkColorTransferFunction.h>
+#include <vtkSmartPointer.h>
 #include <vtkUnsignedCharArray.h>
-#include <vtkCellData.h>
 
-#include <vtkXMLPolyDataWriter.h>
 #include <vtkXMLPolyDataReader.h>
+#include <vtkXMLPolyDataWriter.h>
 
-#include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkRenderer.h>
+#include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
 
-#include <iostream>
-#include <iomanip>
 #include <algorithm>
+#include <iomanip>
+#include <iostream>
 
 template <typename T>
-void PrintColour(T &rgb)
+void PrintColour(T& rgb)
 {
   // Don't do this in real code! Range checking etc. is needed.
   for (size_t i = 0; i < 3; ++i)
   {
-      if (i < 2)
-      {
-        std::cout << static_cast<double>(rgb[i]) << " ";
-      }
-      else
-      {
-        std::cout << static_cast<double>(rgb[i]);
-      }
+    if (i < 2)
+    {
+      std::cout << static_cast<double>(rgb[i]) << " ";
+    }
+    else
+    {
+      std::cout << static_cast<double>(rgb[i]);
+    }
   }
 }
 
@@ -59,10 +59,9 @@ void PrintColour(T &rgb)
 /*
  * See: http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html
  */
-void MakeLUT(size_t const & tableSize, vtkLookupTable *lut)
+void MakeLUT(size_t const& tableSize, vtkLookupTable* lut)
 {
-  vtkSmartPointer<vtkNamedColors> nc =
-    vtkSmartPointer<vtkNamedColors>::New();
+  vtkSmartPointer<vtkNamedColors> nc = vtkSmartPointer<vtkNamedColors>::New();
 
   lut->SetNumberOfTableValues(tableSize);
   lut->Build();
@@ -81,7 +80,7 @@ void MakeLUT(size_t const & tableSize, vtkLookupTable *lut)
 }
 
 //! Use a color transfer Function to generate the colors in the lookup table.
-void MakeLUTFromCTF(size_t const & tableSize, vtkLookupTable *lut)
+void MakeLUTFromCTF(size_t const& tableSize, vtkLookupTable* lut)
 {
   vtkSmartPointer<vtkColorTransferFunction> ctf =
     vtkSmartPointer<vtkColorTransferFunction>::New();
@@ -94,17 +93,17 @@ void MakeLUTFromCTF(size_t const & tableSize, vtkLookupTable *lut)
   lut->SetNumberOfTableValues(tableSize);
   lut->Build();
 
-  for(size_t i = 0; i < tableSize; ++i)
+  for (size_t i = 0; i < tableSize; ++i)
   {
-    double *rgb;
-    rgb = ctf->GetColor(static_cast<double>(i)/tableSize);
-    lut->SetTableValue(i,rgb);
+    double* rgb;
+    rgb = ctf->GetColor(static_cast<double>(i) / tableSize);
+    lut->SetTableValue(i, rgb);
   }
 }
 
 //! Create the cell data using the colors from the lookup table.
-void MakeCellData(size_t const & tableSize, vtkLookupTable *lut,
-                   vtkUnsignedCharArray *colors)
+void MakeCellData(
+  size_t const& tableSize, vtkLookupTable* lut, vtkUnsignedCharArray* colors)
 {
   for (size_t i = 1; i < tableSize; i++)
   {
@@ -130,10 +129,9 @@ void MakeCellData(size_t const & tableSize, vtkLookupTable *lut,
   }
 }
 
-int main(int , char *[])
+int main(int, char* [])
 {
-  vtkSmartPointer<vtkNamedColors> nc =
-    vtkSmartPointer<vtkNamedColors>::New();
+  vtkSmartPointer<vtkNamedColors> nc = vtkSmartPointer<vtkNamedColors>::New();
 
   // Provide some geometry
   int resolution = 3;
@@ -148,11 +146,9 @@ int main(int , char *[])
   plane12->SetYResolution(resolution);
 
   // Create a lookup table to map cell data to colors
-  vtkSmartPointer<vtkLookupTable> lut1 =
-    vtkSmartPointer<vtkLookupTable>::New();
-  vtkSmartPointer<vtkLookupTable> lut2 =
-    vtkSmartPointer<vtkLookupTable>::New();
-  int tableSize = std::max(resolution*resolution + 1, 10);
+  vtkSmartPointer<vtkLookupTable> lut1 = vtkSmartPointer<vtkLookupTable>::New();
+  vtkSmartPointer<vtkLookupTable> lut2 = vtkSmartPointer<vtkLookupTable>::New();
+  int tableSize = std::max(resolution * resolution + 1, 10);
 
   // Force an update so we can set cell data
   plane11->Update();
@@ -199,7 +195,7 @@ int main(int , char *[])
   mapper12->Update();
 
   vtkSmartPointer<vtkXMLPolyDataWriter> writer =
-   vtkSmartPointer<vtkXMLPolyDataWriter>::New();
+    vtkSmartPointer<vtkXMLPolyDataWriter>::New();
   writer->SetFileName("pdlut.vtp");
   writer->SetInputData(mapper11->GetInput());
   // This is set so we can see the data in a text editor.
@@ -209,11 +205,9 @@ int main(int , char *[])
   writer->SetInputData(mapper12->GetInput());
   writer->Write();
 
-  vtkSmartPointer<vtkActor> actor11 =
-    vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> actor11 = vtkSmartPointer<vtkActor>::New();
   actor11->SetMapper(mapper11);
-  vtkSmartPointer<vtkActor> actor12 =
-    vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> actor12 = vtkSmartPointer<vtkActor>::New();
   actor12->SetMapper(mapper12);
 
   // Let's read in the data we wrote out.
@@ -230,8 +224,7 @@ int main(int , char *[])
   mapper21->SetInputConnection(reader1->GetOutputPort());
   mapper21->SetScalarModeToUseCellData();
   mapper21->Update();
-  vtkSmartPointer<vtkActor> actor21 =
-    vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> actor21 = vtkSmartPointer<vtkActor>::New();
   actor21->SetMapper(mapper11);
 
   vtkSmartPointer<vtkPolyDataMapper> mapper22 =
@@ -239,31 +232,26 @@ int main(int , char *[])
   mapper22->SetInputConnection(reader2->GetOutputPort());
   mapper22->SetScalarModeToUseCellData();
   mapper22->Update();
-  vtkSmartPointer<vtkActor> actor22 =
-    vtkSmartPointer<vtkActor>::New();
+  vtkSmartPointer<vtkActor> actor22 = vtkSmartPointer<vtkActor>::New();
   actor22->SetMapper(mapper22);
 
   // Define viewport ranges.
   // (xmin, ymin, xmax, ymax)
-  double viewport11[4] = { 0.0, 0.0, 0.5, 0.5 };
-  double viewport12[4] = { 0.0, 0.5, 0.5, 1.0 };
-  double viewport21[4] = { 0.5, 0.0, 1.0, 0.5 };
-  double viewport22[4] = { 0.5, 0.5, 1.0, 1.0 };
+  double viewport11[4] = {0.0, 0.0, 0.5, 0.5};
+  double viewport12[4] = {0.0, 0.5, 0.5, 1.0};
+  double viewport21[4] = {0.5, 0.0, 1.0, 0.5};
+  double viewport22[4] = {0.5, 0.5, 1.0, 1.0};
 
   // Set up the renderers.
-  vtkSmartPointer<vtkRenderer> ren11 =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderer> ren12 =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderer> ren21 =
-    vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderer> ren22 =
-    vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> ren11 = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> ren12 = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> ren21 = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> ren22 = vtkSmartPointer<vtkRenderer>::New();
 
   // Setup the render windows
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->SetSize(600,600);
+  renWin->SetSize(600, 600);
   renWin->AddRenderer(ren11);
   renWin->AddRenderer(ren12);
   renWin->AddRenderer(ren21);
@@ -282,7 +270,7 @@ int main(int , char *[])
   ren22->AddActor(actor22);
 
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
-      vtkSmartPointer<vtkRenderWindowInteractor>::New();
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
   renWin->Render();
   iren->Start();

@@ -15,7 +15,7 @@ Three helper classes are also used, these are defined and instantiated in an ano
 
 In the class HTMLTableMaker there are four public methods:
 
-* MakeWebColorPage() -- Makes a page of just the colors and names known to Web Browsers.
-* MakeVTKColorPage() -- Makes a page of colors and names corresponding to those in vtkColors.txt.
-* MakeSynonymColorPage() -- Makes a page of color names and their synonyms.
-* MakeCombinedColorPage() -- Makes an indexed page with all the colors and names in the class [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html).
+ * MakeWebColorPage() -- Makes a page of just the colors and names known to Web Browsers.
+ * MakeVTKColorPage() -- Makes a page of colors and names corresponding to those in vtkColors.txt.
+ * MakeSynonymColorPage() -- Makes a page of color names and their synonyms.
+ * MakeCombinedColorPage() -- Makes an indexed page with all the colors and names in the class [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html).
