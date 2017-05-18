@@ -11,7 +11,7 @@ fi
 REPO=$1
 # Make sure the repo site is up
 echo "Synchronizing the VTKExamples site with the repository."
-HOST=www.githib.com
+HOST=www.github.com
 echo "0) Can we access the repo?"
 ping -c 1 $HOST &> /dev/null
 if test "${?}" != 0
