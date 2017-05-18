@@ -11,41 +11,45 @@ illustrate a single concept.
 
 # Follow the Coding Guidelines
 
-When you write an example, please follow the [coding guidelines](../Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a merge request.
+When you write an example, please follow the [coding guidelines](../Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a pull request.
 
 # Setup for developement
 
 ## Fork the repository
 
-1. Sign into gitlab [at Kitware](https://gitlab.kitware.com/users/sign_in).
+1. Sign into [github](https://github.com/login).
 
     If you do not have an account, you can register on the signin page.
 
-2. Fork the [VTKExamples repository](https://gitlab.kitware.com/lorensen/VTKExamples)
+2. Fork the [VTKExamples repository](https://github.com/lorensen/VTKExamples)
 
     A fork is a copy of a project. Forking a repository allows you to make changes without affecting the original project.
 
-3. Clone the repository on your local machine
+3. Enable a static web site for the examples.
+
+    Under **Settings**, **GitHub Pages**, set the *Source* to **master branch** and click *Save*.
+
+4. Clone the repository on your local machine
 
     ```
-    git clone https://YOURNAME@gitlab.kitware.com/YOURNAME/VTKExamples.git
+    git clone https://YOURNAME@github.com/YOURNAME/VTKExamples.git
     ```
 
     Or, if you are using SSH:
 
     ```
-    git clone git@gitlab.kitware.com:YOURNAME/VTKExamples.git
+    git clone git@github.com:YOURNAME/VTKExamples.git
     ```
 
-    where **YOURNAME** is your gitlab username.
+    where **YOURNAME** is your github username.
 
-4. Add the VTKExamples repository as a *remote* called *upstream*
+5. Add the VTKExamples repository as a *remote* called *upstream*
 
     ```
-    git remote add upstream https://gitlab.kitware.com/lorensen/VTKExamples
+    git remote add upstream https://github.com/lorensen/VTKExamples
     ```
 
-5. Before adding your examples, sync your repository with the VTKExamples repository. Remember that in order to run the following commands you need to be in the **VTKExamples** directory.
+6. Before adding your examples, sync your repository with the VTKExamples repository. Remember that in order to run the following commands you need to be in the **VTKExamples** directory.
 
     ```
     git fetch upstream
@@ -70,15 +74,11 @@ When you write an example, please follow the [coding guidelines](../Instructions
     ```
 
     ```
-    mkdir build
-    ```
-
-    ```
     cd build
     ```
 
     ```
-    cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..
+    cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ../src
     ```
 
     ```
@@ -104,7 +104,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
     where **MyNewExample** is the name of your new example.
 
-2. Save your source code in VTKExamples/LANGUAGE/TOPIC/
+2. Save your source code in VTKExamples/src/**LANGUAGE**/**TOPIC**/
 
     where **LANGUAGE** is Cxx, Python, CSharp, or Tcl.
 
@@ -117,7 +117,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
     ```
 
     ```
-    cmake ..
+    cmake ../src
     ```
 
     ```
@@ -130,7 +130,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 4. If your example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
 
-5. Copy the image into: VTKExamples/Testing/Baseline/**TOPIC**/
+5. Copy the image into: VTKExamples/src/Testing/Baseline/**TOPIC**/
 
 6. Rerun ctest and the test should pass.
 
@@ -159,56 +159,41 @@ git add Testing/Baseline/TOPIC/TestMyNewExample.png
 git commit
 ```
 
-## Push the changes to gitlab
+## Push the changes to github
 
 ```
 git push origin MyNewExample
 ```
 
-## Go to your gitlab project and [generate a merge request](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html).
+## Go to your github project and [generate a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
 # Advanced usage
 
 ## Add a description
 
-If your example could benefit from an extended description, you can create a file **MyNewExample**.md. Store the file along side your source code. Use [markdown](https://gitlab.kitware.com/help/user/markdown) to format the description.
+If your example could benefit from an extended description, you can create a file **MyNewExample**.md. Store the file along side your source code. Use [markdown](https://guides.github.com/features/mastering-markdown/) to format the description.
 
 ## Add arguments to the test
 
-If your example requires arguments, you will need to edit the CMakeLists.txt in the topic directory.
+If your example requires arguments, you will need to edit the *CMakeLists.txt* in the topic directory.
 
 1. Add the name of your example to the *NEEDS_ARGS* variable
 
-2. Add an *ADD_TEST* line. See other CMakeLists.txt files for examples.
+2. Add an *ADD_TEST* line. See other *CMakeLists.txt* files for examples.
 
-## Review changes on your wiki
+## Review changes in a browser
 
-If you want to preview your changes on a wiki (**NOTE:** You must have python nstalled on your system)
+If you want to preview your changes in a browser (**NOTE:** You must have python nstalled on your system)
 
   1. Install the markdown package for python. Go [here](https://pythonhosted.org/Markdown/install.html)
 
-  1. On gitlab, click the wiki button.
+  2. Install the material theme for markdown. Go [here](http://squidfunk.github.io/mkdocs-material/#quick-start).
 
-  2. Create a home page. The contents will eventually be replaced
-
-  3. Clone the wiki repo on your local system
-
+  3. Sync your site with your repository
     ```
-    cd VTKExamples
+    ./src/SyncSiteWithRepo.sh https::/github.com/**YOUR_NAME**/VTKExamples
     ```
 
-    ```
-    git clone https://YOURNAME@gitlab.kitware.com/YOURNAME/VTKExamples.wiki.git wiki
-    ```
+  4. After a few minutes go to https://**YOUR_NAME**.github.io/VTKExamples/ to see your changes before issuing your pull request.
 
-    Or, if you are using SSH:
 
-    ```
-    git clone git@gitlab.kitware.com:YOURNAME/VTKExamples.wiki.git wiki
-    ```
-    where **YOURNAME** is your gitlab username.
-
-  4. Sync your wiki with your repository
-    ```
-    ./SyncWikiWithRepo.sh
-    ```

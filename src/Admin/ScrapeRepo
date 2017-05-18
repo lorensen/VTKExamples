@@ -12,6 +12,16 @@ except:
     print "ScrapeRepo: " + "install with `pip install markdown`"
     exit(0)
     
+def displayHelp():
+    print """
+Usage: ScrapeRepo RepoDir DocDir RepoURL
+  Create site files from the src repo
+    where RepoDir is the directory containing example source core
+          DocDir is the directory to receive the markdown pages
+          RepoURL is the githib repo URL
+"""
+    exit(0)
+
 def ConvertAndCopyFile(fromFile, toFile):
     mdFile = open(fromFile, 'r');
     htmlFile = open(toFile, 'w')
@@ -47,29 +57,33 @@ def FillQtCMakeLists(S, Name):
     reg = re.sub(r'\{\{{2\}\}\}', Name, S)
     return reg
 
+if len(sys.argv) < 4:
+    displayHelp()
+    exit(0)
+
 # Get Repo and Wiki
-RepoName = sys.argv[1]
-WikiName = sys.argv[2]
+RepoDir = sys.argv[1]
+DocDir = sys.argv[2]
 RepoURL = sys.argv[3]
 
 # Make sure the wiki docs folder exists
 if not os.path.exists("docs"):
     os.makedirs("docs")
 
-BaselineName = RepoName + "/Testing/Baseline"
+BaselineName = RepoDir + "/Testing/Baseline"
 
 # Read the Wiki Templates
-VTKTemplateFile = open(RepoName + "/Admin/VTKCMakeLists", 'r')
+VTKTemplateFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
 VTKTemplate = VTKTemplateFile.read();
 VTKTemplateFile.close()
 
-VTKQtTemplateFile = open(RepoName + "/Admin/VTKQtCMakeLists", 'r')
+VTKQtTemplateFile = open(RepoDir + "/Admin/VTKQtCMakeLists", 'r')
 VTKQtTemplate = VTKQtTemplateFile.read();
 VTKQtTemplateFile.close()
 
 # Make the reference mtime to be the most recent of the two CMakeLists templates
-refStat1 = os.stat(RepoName + "/Admin/VTKQtCMakeLists")
-refStat2 = os.stat(RepoName + "/Admin/VTKCMakeLists")
+refStat1 = os.stat(RepoDir + "/Admin/VTKQtCMakeLists")
+refStat2 = os.stat(RepoDir + "/Admin/VTKCMakeLists")
 refMtime = refStat1.st_mtime
 if refStat2.st_mtime > refStat1.st_mtime:
     refMtime = refStat2.st_mtime
@@ -84,17 +98,17 @@ exampleToCMake = dict()
 exampleToFileNames = dict()
 
 # Convert repo .md files
-CopyFile(RepoName + "/index.md", WikiName + "/index.md")
-CopyFile(RepoName + "/Cxx.md", WikiName + "/Cxx.md")
-CopyFile(RepoName + "/Python.md", WikiName + "/Python.md")
-CopyFile(RepoName + "/Java.md", WikiName + "/Java.md")
-CopyFile(RepoName + "/CSharp.md", WikiName + "/CSharp.md")
-if not os.path.exists(WikiName + "/Instructions"):
-    os.makedirs(WikiName + "/Instructions")
-CopyFile(RepoName + "/Instructions/ForUsers.md", WikiName + "/Instructions/ForUsers.md")
-CopyFile(RepoName + "/Instructions/ForDevelopers.md", WikiName + "/Instructions/ForDevelopers.md")
-CopyFile(RepoName + "/Instructions/ForAdministrators.md", WikiName + "/Instructions/ForAdministrators.md")
-CopyFile(RepoName + "/Instructions/Guidelines.md", WikiName + "/Instructions/Guidelines.md")
+CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
+CopyFile(RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
+CopyFile(RepoDir + "/Python.md", DocDir + "/Python.md")
+CopyFile(RepoDir + "/Java.md", DocDir + "/Java.md")
+CopyFile(RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
+if not os.path.exists(DocDir + "/Instructions"):
+    os.makedirs(DocDir + "/Instructions")
+CopyFile(RepoDir + "/Instructions/ForUsers.md", DocDir + "/Instructions/ForUsers.md")
+CopyFile(RepoDir + "/Instructions/ForDevelopers.md", DocDir + "/Instructions/ForDevelopers.md")
+CopyFile(RepoDir + "/Instructions/ForAdministrators.md", DocDir + "/Instructions/ForAdministrators.md")
+CopyFile(RepoDir + "/Instructions/Guidelines.md", DocDir + "/Instructions/Guidelines.md")
 
 # Get list of all  examples
 Languages = dict()
@@ -104,13 +118,13 @@ Languages["Java"] = ".java"
 Languages["CSharp"] = ".cs"
 Languages["Tcl"] = ".tcl"
 for lang, langExt in Languages.items():
-    for root, dirs, files in os.walk(RepoName):
-        to_find = RepoName + "/" + lang
+    for root, dirs, files in os.walk(RepoDir):
+        to_find = RepoDir + "/" + lang
         start = root.find(to_find)
         if start < 0:
             continue
         print "root: " + root
-        # Get the part of the file name that comes after RepoName
+        # Get the part of the file name that comes after RepoDir
         # e.g. if the file name is VTKExamples/Cxx/GeometricObjects/Line, 
         # Path will be Cxx/GeometriObjects/Line
         KitName = root[start+1+len(to_find):]
@@ -127,12 +141,12 @@ for lang, langExt in Languages.items():
             if ExampleExt != langExt:
                 continue
             print "ExampleName: " + ExampleName + ExampleExt
-            BaselinePath = RepoName + "/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png"
-            PathName = WikiName + "/" + lang + "/" + KitName
+            BaselinePath = RepoDir + "/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png"
+            PathName = DocDir + "/" + lang + "/" + KitName
             if not os.path.exists(PathName):
                 if PathName != "":
                     os.makedirs(PathName)
-            OutputFile = WikiName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
+            OutputFile = DocDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             MdFile = open(OutputFile, 'w')
             MdFile.write("[VTKExamples](/)/[" + lang + "](/" + lang + ")/" + KitName + "/" + ExampleName + "\n\n")
                     
@@ -142,9 +156,9 @@ for lang, langExt in Languages.items():
                 print "ImgUrl: " + ImgUrl
                 MdFile.write('<img style="float:middle" src="' + ImgUrl + '" width="256" />' + '\n')
                 MdFile.write("\n")
-            DescriptionPath = RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
+            DescriptionPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             if os.path.isfile(DescriptionPath) :
-                DescriptionFile = open(RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + ".md", 'r')
+                DescriptionFile = open(RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md", 'r')
                 description = DescriptionFile.read()
                 DescriptionFile.close()
                 MdFile.write(description)
@@ -161,19 +175,19 @@ for lang, langExt in Languages.items():
                 MdFile.write("```tcl" + "\n")
             elif langExt == ".java":
                 MdFile.write("```java" + "\n")
-            SrcFileName = RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
+            SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
             SrcFile = open(SrcFileName, 'r')
             src = SrcFile.read()
             SrcFile.close()
             MdFile.write(src)
             MdFile.write("```" + "\n")
-            CustomCMakePath = RepoName + "/" + lang + "/" + KitName + "/" + ExampleName + ".cmake"
+            CustomCMakePath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".cmake"
             if os.path.isfile(CustomCMakePath) :
                 CustomCMakeFile = open(CustomCMakePath, 'r')
                 cmake = CustomCMakeFile.read()
                 CustomCMakeFile.close()
             else:
-                CMakeFile = open(RepoName + "/Admin/VTKCMakeLists", 'r')
+                CMakeFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
                 CMakeContents = CMakeFile.read()
                 CMakeFile.close()
                 cmake = FillCMakeLists(CMakeContents, ExampleName)
@@ -184,7 +198,7 @@ for lang, langExt in Languages.items():
 
 # Generate an html page that links each example code file to its Wiki Example
 # page
-indexFile = open(WikiName + "/ExampleCodeToWikiPage.html", 'w')
+indexFile = open(DocDir + "/ExampleCodeToWikiPage.html", 'w')
 indexFile.write("Navigate to the page that contains the source code of an example<br>");
 indexFile.write("\n");
 sortedByCode = sorted(codeToPage.items())
