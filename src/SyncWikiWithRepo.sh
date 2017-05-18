@@ -6,7 +6,7 @@
 # Make sure the wiki is up
 echo "Synchronizing the wikiexamples repository with the repository."
 HOST=www.kitware.com
-REPO=https://github.kitware.com/lorensen/VTKExamples
+REPO=https://kitware.com/lorensen/VTKExamples
 echo "0) Can we access the wiki?"
 ping -c 1 $HOST &> /dev/null
 if test "${?}" != 0
