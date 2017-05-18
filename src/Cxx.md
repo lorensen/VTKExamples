@@ -87,8 +87,7 @@ Please add examples in your areas of expertise!
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[ExportDICOMtoVTI](/Cxx/IO/ExportDICOMtoVTI) | [vtkXMLImageDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataWriter.html) | Write a .vti file from a DICOM image.
-[Write an ExodusII file](/Cxx/IO/ExodusIIWriter)   | [vtkExodusIIWriter](http://www.vtk.org/doc/nightly/html/classvtkExodusIIWriter.html) | Write a time varying ExodusII file.
+[Write an ExodusII file](/Cxx/Parallel/ExodusIIWriter)   | [vtkExodusIIWriter](http://www.vtk.org/doc/nightly/html/classvtkExodusIIWriter.html) | Write a time varying ExodusII file.
 [Write an image file to parallel files](/Cxx/IO/XMLPImageDataWriter) | [vtkXMLPImageDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPImageDataWriter.html) | Write a .pvti file with 4 .vti pieces.
 [Write an unstructured grid to parallel files](/Cxx/IO/XMLPUnstructuredGridWriter) | [vtkXMLPUnstructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPUnstructuredGridWriter.html) | Write a .pvtu with 4 .vtu pieces.
 [WriteVTI](/Cxx/IO/WriteVTI) | [vtkXMLImageDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataWriter.html) | Write a .vti file. VTI is an "ImageData".
