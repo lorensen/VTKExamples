@@ -1,19 +1,18 @@
-#include <vtkSmartPointer.h>
-#include <vtkCamera.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkTextMapper.h>
 #include <vtkActor.h>
 #include <vtkActor2D.h>
-#include <vtkProperty.h>
-#include <vtkTextProperty.h>
-#include <vtkRenderWindow.h>
-#include <vtkRenderer.h>
-#include <vtkRenderWindowInteractor.h>
-#include <vtkParametricFunctionSource.h>
+#include <vtkCamera.h>
 #include <vtkMath.h>
+#include <vtkParametricFunctionSource.h>
 #include <vtkPoints.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+#include <vtkTextMapper.h>
+#include <vtkTextProperty.h>
 
-#include <vtkParametricTorus.h>
 #include <vtkParametricBoy.h>
 #include <vtkParametricConicSpiral.h>
 #include <vtkParametricCrossCap.h>
@@ -29,75 +28,66 @@
 #include <vtkParametricSuperEllipsoid.h>
 #include <vtkParametricSuperToroid.h>
 #include <vtkParametricTorus.h>
+#include <vtkParametricTorus.h>
 
 #include <vector>
 
-int main(int, char *[])
+int main(int, char* [])
 {
   // Select one of the following (matching the selection above)
-  std::vector<vtkSmartPointer<vtkParametricFunction> > parametricObjects;
+  std::vector<vtkSmartPointer<vtkParametricFunction>> parametricObjects;
 
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricBoy>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricConicSpiral>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricCrossCap>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricDini>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricBoy>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricConicSpiral>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricCrossCap>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricDini>::New());
 
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricEllipsoid>::New());
-  static_cast<vtkParametricEllipsoid *>(
-    parametricObjects.back().GetPointer())->SetXRadius(.5);
-  static_cast<vtkParametricEllipsoid *>(
-    parametricObjects.back().GetPointer())->SetYRadius(2.0);
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricEllipsoid>::New());
+  static_cast<vtkParametricEllipsoid*>(parametricObjects.back().GetPointer())
+    ->SetXRadius(.5);
+  static_cast<vtkParametricEllipsoid*>(parametricObjects.back().GetPointer())
+    ->SetYRadius(2.0);
 
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricEnneper>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricEnneper>::New());
   parametricObjects.push_back(
     vtkSmartPointer<vtkParametricFigure8Klein>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricKlein>::New());
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricMobius>::New());
-  static_cast<vtkParametricMobius *>(
-    parametricObjects.back().GetPointer())->SetRadius(2.0);
-  static_cast<vtkParametricMobius *>(
-    parametricObjects.back().GetPointer())->SetMinimumV(-0.5);
-  static_cast<vtkParametricMobius *>(
-    parametricObjects.back().GetPointer())->SetMaximumV(0.5);
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricKlein>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricMobius>::New());
+  static_cast<vtkParametricMobius*>(parametricObjects.back().GetPointer())
+    ->SetRadius(2.0);
+  static_cast<vtkParametricMobius*>(parametricObjects.back().GetPointer())
+    ->SetMinimumV(-0.5);
+  static_cast<vtkParametricMobius*>(parametricObjects.back().GetPointer())
+    ->SetMaximumV(0.5);
 
   vtkSmartPointer<vtkParametricRandomHills> randomHills =
     vtkSmartPointer<vtkParametricRandomHills>::New();
   randomHills->AllowRandomGenerationOff();
   parametricObjects.push_back(randomHills);
 
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricRoman>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricRoman>::New());
 
   parametricObjects.push_back(
     vtkSmartPointer<vtkParametricSuperEllipsoid>::New());
-  static_cast<vtkParametricSuperEllipsoid *>(
-    parametricObjects.back().GetPointer())->SetN1(.50);
-  static_cast<vtkParametricSuperEllipsoid *>(
-    parametricObjects.back().GetPointer())->SetN2(.1);
+  static_cast<vtkParametricSuperEllipsoid*>(
+    parametricObjects.back().GetPointer())
+    ->SetN1(.50);
+  static_cast<vtkParametricSuperEllipsoid*>(
+    parametricObjects.back().GetPointer())
+    ->SetN2(.1);
 
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricSuperToroid>::New());
-  static_cast<vtkParametricSuperToroid *>(
-    parametricObjects.back().GetPointer())->SetN1(.2);
-  static_cast<vtkParametricSuperToroid *>(
-    parametricObjects.back().GetPointer())->SetN2(3.0);
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricSuperToroid>::New());
+  static_cast<vtkParametricSuperToroid*>(parametricObjects.back().GetPointer())
+    ->SetN1(.2);
+  static_cast<vtkParametricSuperToroid*>(parametricObjects.back().GetPointer())
+    ->SetN2(3.0);
 
-  parametricObjects.push_back(
-    vtkSmartPointer<vtkParametricTorus>::New());
+  parametricObjects.push_back(vtkSmartPointer<vtkParametricTorus>::New());
 
   // The spline needs points
   vtkSmartPointer<vtkParametricSpline> spline =
     vtkSmartPointer<vtkParametricSpline>::New();
-  vtkSmartPointer<vtkPoints> inputPoints =
-    vtkSmartPointer<vtkPoints>::New();
+  vtkSmartPointer<vtkPoints> inputPoints = vtkSmartPointer<vtkPoints>::New();
   vtkMath::RandomSeed(8775070);
   for (int p = 0; p < 10; p++)
   {
@@ -109,18 +99,13 @@ int main(int, char *[])
   spline->SetPoints(inputPoints);
   parametricObjects.push_back(spline);
 
-  std::vector<vtkSmartPointer<vtkParametricFunctionSource> >
+  std::vector<vtkSmartPointer<vtkParametricFunctionSource>>
     parametricFunctionSources;
-  std::vector<vtkSmartPointer<vtkRenderer> >
-    renderers;
-  std::vector<vtkSmartPointer<vtkPolyDataMapper> >
-    mappers;
-  std::vector<vtkSmartPointer<vtkActor> >
-    actors;
-  std::vector<vtkSmartPointer<vtkTextMapper> >
-    textmappers;
-  std::vector<vtkSmartPointer<vtkActor2D> >
-    textactors;
+  std::vector<vtkSmartPointer<vtkRenderer>> renderers;
+  std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
+  std::vector<vtkSmartPointer<vtkActor>> actors;
+  std::vector<vtkSmartPointer<vtkTextMapper>> textmappers;
+  std::vector<vtkSmartPointer<vtkActor2D>> textactors;
 
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
@@ -134,7 +119,7 @@ int main(int, char *[])
 
   // Create a parametric function source, renderer, mapper, and actor
   // for each object
-  for(unsigned int i = 0; i < parametricObjects.size(); i++)
+  for (unsigned int i = 0; i < parametricObjects.size(); i++)
   {
     parametricFunctionSources.push_back(
       vtkSmartPointer<vtkParametricFunctionSource>::New());
@@ -164,9 +149,8 @@ int main(int, char *[])
   unsigned int gridDimensions = 4;
 
   // Need a renderer even if there is no actor
-  for(size_t i = parametricObjects.size();
-      i < gridDimensions * gridDimensions;
-      i++)
+  for (size_t i = parametricObjects.size(); i < gridDimensions * gridDimensions;
+       i++)
   {
     renderers.push_back(vtkSmartPointer<vtkRenderer>::New());
   }
@@ -175,24 +159,27 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderWindow>::New();
   int rendererSize = 200;
   renderWindow->SetSize(
-    rendererSize*gridDimensions, rendererSize*gridDimensions);
+    rendererSize * gridDimensions, rendererSize * gridDimensions);
 
-  for(int row = 0; row < static_cast<int>(gridDimensions); row++)
+  for (int row = 0; row < static_cast<int>(gridDimensions); row++)
   {
-    for(int col = 0; col < static_cast<int>(gridDimensions); col++)
+    for (int col = 0; col < static_cast<int>(gridDimensions); col++)
     {
-      int index = row*gridDimensions + col;
+      int index = row * gridDimensions + col;
 
       // (xmin, ymin, xmax, ymax)
-      double viewport[4] =
-        {static_cast<double>(col) * rendererSize / (gridDimensions * rendererSize),
-         static_cast<double>(gridDimensions - (row+1)) * rendererSize / (gridDimensions * rendererSize),
-         static_cast<double>(col+1)*rendererSize / (gridDimensions * rendererSize),
-         static_cast<double>(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize)};
+      double viewport[4] = {static_cast<double>(col) * rendererSize /
+                              (gridDimensions * rendererSize),
+        static_cast<double>(gridDimensions - (row + 1)) * rendererSize /
+          (gridDimensions * rendererSize),
+        static_cast<double>(col + 1) * rendererSize /
+          (gridDimensions * rendererSize),
+        static_cast<double>(gridDimensions - row) * rendererSize /
+          (gridDimensions * rendererSize)};
 
       renderWindow->AddRenderer(renderers[index]);
       renderers[index]->SetViewport(viewport);
-      if(index > static_cast<int>(parametricObjects.size() - 1))
+      if (index > static_cast<int>(parametricObjects.size() - 1))
       {
         continue;
       }
