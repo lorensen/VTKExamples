@@ -1,46 +1,46 @@
-Please see [this](http://www.vtk.org/Wiki/VTK/Tutorials/PythonEnvironmentSetup this) page to learn how to setup your environment to use VTK in Python.
+# Python Examples
+
+Please see [this page](http://www.vtk.org/Wiki/VTK/Tutorials/PythonEnvironmentSetup) to learn how to setup your environment to use VTK in Python.
 
 It would be appreciated if there are any Python VTK experts who could convert any of the [c++ examples](Cxx) to Python!
 
-[TOC]
-
-#Hello World
+## Hello World
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [Cylinder](/Python/Cylinder)| [vtkPolyDataMapper](http://www.vtk.org/doc/nightly/html/classvtkPolyDataMapper.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Cylinder example from the VTK Textbook and source code. A hello world example
 
-#Simple Operations
+## Simple Operations
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [DistanceBetweenPoints](/Python/DistanceBetweenPoints) | vtkMath::Distance2BetweenPoints |
 
-#Input and Output
-##Output
+## Input and Output
+### Output
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [PLYWriter](/Python/PLYWriter)| [vtkPLYWriter](http://www.vtk.org/doc/nightly/html/classvtkPLYWriter.html) |
 [STLWriter](/Python/STLWriter) | [vtkSTLWriter](http://www.vtk.org/doc/nightly/html/classvtkSTLWriter.html) |
 
-##Input
+### Input
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [STLReader](/Python/STLReader)| [vtkSTLReader](http://www.vtk.org/doc/nightly/html/classvtkSTLReader.html) |
 [UnstructuredGridReader](/Python/UnstructuredGridReader)| [vtkUnstructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGridReader.html) | Using vtkUnstructuredGridReader to read a (legacy) *.vtk file
-[VTPReader](/Python/VTPReader)| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html)|
+[VTPsReader](/Python/VTPReader)| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html)|
 
-#Working with Arrays
+## Working with Arrays
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [GetValues](/Python/Arrays/GetValues) | GetTuple3 |
 [RenameArray](/Python/Arrays/RenameArray) | SetName |
 
-#Geometric Objects
-##Display
+## Geometric Objects
+### Display
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -78,7 +78,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Triangle](/Python/GeometricObjects/Display/Triangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
 [Vertex](/Python/GeometricObjects/Display/Vertex) | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html) |
 
-##Parametric Objects
+### Parametric Objects
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -86,7 +86,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [ParametricObjects](/Python/GeometricObjects/ParametricObjects) | | Uncomment the object that you wish to be displayed. |
 
 
-#Implicit Functions
+## Implicit Functions
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -94,7 +94,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [Quadric](/Python/Implicit/Quadric) | [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) | Create an ellipsoid using an implicit quadric
 [Sphere](/Python/Implicit/Sphere) | [vtkSphere](http://www.vtk.org/doc/nightly/html/classvtkSphere.html) | Demonstrate sampling of a sphere implicit function
 
-#Working with PolyData
+## Working with PolyData
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -124,28 +124,28 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [WriteTriangleToFile](/Python/WriteTriangleToFile) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
 [py](/Python/DataManipulation/Cube.py) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
 
-#Working with 3D Data
+## Working with 3D Data
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [ExtractSelection](/Python/PolyData/ExtractSelection) | [vtkExtractSelection](http://www.vtk.org/doc/nightly/html/classvtkExtractSelection.html) |
 [ExtractSelectionCells](/Python/PolyData/ExtractSelectionCells) | [vtkExtractSelection](http://www.vtk.org/doc/nightly/html/classvtkExtractSelection.html) | extract cell, select cell |
 
-##Working with Structured 3D Data
+### Working with Structured 3D Data
 This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [RectilinearGrid](/Python/RectilinearGrid/RectilinearGrid) | [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) |create a rectilinear grid
 
-##Working with Meshes
+### Working with Meshes
 This section includes examples of manipulating meshes.
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [ClipDataSetWithPolydata](/Python/Meshes/ClipDataSetWithPolydata) | [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html), [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html), [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) |clip a vtkRectilinearGrid with arbitrary polydata. In this example, use a vtkConeSource to generate polydata to slice the grid, resulting in an unstructured grid.
 
-#Miscellaneous
+## Miscellaneous
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -156,7 +156,7 @@ This section includes examples of manipulating meshes.
 [Variant](/Python/Variant) | [vtkVariant](http://www.vtk.org/doc/nightly/html/classvtkVariant.html) |
 [vtkVersion](/Python/vtkVersion) | [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html) |
 
-#Visualization
+## Visualization
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -185,7 +185,7 @@ This section includes examples of manipulating meshes.
 [UnstructuredTransientVolumeRendering](/Python/UnstructuredTransientVolumeRendering) | [vtkUnstructuredGridVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGridVolumeRayCastMapper.html) |
 [WindowTitle](/Python/WindowTitle) | vtkRenderWindow::SetWindowName |
 
-#Working with vtkImageData
+## Working with vtkImageData
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -194,13 +194,13 @@ This section includes examples of manipulating meshes.
 [WriteReadVtkImageData](/Python/WriteReadVtkImageData) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html), [vtkXMLImageDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataReader.html), [vtkXMLImageDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLImageDataWriter.html) |
 weights.
 
-#Working with ExodusII Data
+## Working with ExodusII Data
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [Read](/Python/ExodusII/Read) | [vtkExodusIIReader](http://www.vtk.org/doc/nightly/html/classvtkExodusIIReader.html) | A simple script for reading and viewing ExodusII data interactively.
 
-#Graphs
+## Graphs
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -209,7 +209,7 @@ weights.
 [SelectedVerticesAndEdges](/Python/Graphs/SelectedVerticesAndEdges)  | [vtkAnnotationLink](http://www.vtk.org/doc/nightly/html/classvtkAnnotationLink.html), [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) | 
 [VisualizeGraph](/Python/Graphs/VisualizeGraph)  | [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html), [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) | 
 
-#User Interaction
+## User Interaction
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -217,7 +217,7 @@ weights.
 [MouseEventsObserver](/Python/Interaction/MouseEventsObserver) | [vtkCallbackCommand](http://www.vtk.org/doc/nightly/html/classvtkCallbackCommand.html) | Use an observer.
 [MouseEvents](/Python/Interaction/MouseEvents) | [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) | Subclass the interactor style.
 
-#Infovis
+## Infovis
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -227,13 +227,13 @@ weights.
 [SelectedGraphIDs](/Python/Infovis/SelectedGraphIDs)  | [vtkAnnotationLink](http://www.vtk.org/doc/nightly/html/classvtkAnnotationLink.html), [vtkRandomGraphSource](http://www.vtk.org/doc/nightly/html/classvtkRandomGraphSource.html), [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) | Callback on vtkAnnotationLink in a Graph Layout View when selection is changed
 [SpiderPlot](/Python/Plotting/SpiderPlot)  | [vtkSpiderPlotActor](http://www.vtk.org/doc/nightly/html/classvtkSpiderPlotActor.html) | 
 
-#Geovis
+## Geovis
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [GeoAssignCoordinates](/Python/Geovis/GeoAssignCoordinates) | [vtkGeoAssignCoordinates](http://www.vtk.org/doc/nightly/html/classvtkGeoAssignCoordinates.html), [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html), [vtkGraphMapper](http://www.vtk.org/doc/nightly/html/classvtkGraphMapper.html) | Draws a sphere, based on longituds and latitudes.
 
-#Widgets
+## Widgets
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -246,20 +246,20 @@ weights.
 [SphereWidget](/Python/Widgets/SphereWidget) | [vtkSphereWidget](http://www.vtk.org/doc/nightly/html/classvtkSphereWidget.html) | This 3D widget defines a sphere that can be interactively placed in a scene.
 [TextWidget](/Python/Widgets/TextWidget) | [vtkTextWidget](http://www.vtk.org/doc/nightly/html/classvtkTextWidget.html) | Annotate a VTK image with movable text
 
-#Utilities
+## Utilities
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [Delaunay2D](/Python/Filtering/Delaunay2D) | [vtkDelaunay2D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay2D.html) |
 [LUTUtilities](/Python/Utilities/LUTUtilities) | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html) | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.|
 
-#Web
+## Web
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [RemoteRenderer](/Python/Web/RemoteRenderer) | Web/Python | Use vtk to show an interactive visualization on a web page. Remote rendering. |
 
-#PyQt
+## PyQt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
