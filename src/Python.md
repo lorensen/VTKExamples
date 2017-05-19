@@ -175,6 +175,7 @@ This section includes examples of manipulating meshes.
 [MultipleViewports](/Python/MultipleViewports) | vtkRenderer::SetViewport |
 [NamedColorPatches](/Python/Visualization/NamedColorPatches) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Creates a HTML file called [VTKNamedColorPatches.html](/Python/Visualization/VTKNamedColorPatches.html) showing the available colors in the vtkNamedColors class.
 [NamedColors](/Python/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the vtkNamedColor class
+[PointDataSubdivision](/Python/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
 [PointSize](/Python/Visualization/PointSize) | vtkActor::GetProperty()::SetPointSize |
 [ProgGlyph](/Python/Visualization/ProgGlyph) | [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) | Vary the shapes of glyphed points using a programmable glyph filter
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) |
