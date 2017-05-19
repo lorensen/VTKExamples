@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+
 import math
+
 import vtk
 
 # Available surfaces are:
-SURFACE_TYPE = set(["PLANE",  "SPHERE", "PARAMETRIC_SURFACE"])
+SURFACE_TYPE = {"PLANE", "SPHERE", "PARAMETRIC_SURFACE"}
 
-def WritePMG(ren, fn, magnification = 1):
-    '''
+
+def WritePMG(ren, fn, magnification=1):
+    """
     Save the image as a PNG
     :param: ren - the renderer.
     :param: fn - the file name.
     :param: magnification - the magnification, usually 1.
-    '''
+    """
     renLgeIm = vtk.vtkRenderLargeImage()
     imgWriter = vtk.vtkPNGWriter()
     renLgeIm.SetInput(ren)
@@ -22,14 +25,15 @@ def WritePMG(ren, fn, magnification = 1):
     imgWriter.SetFileName(fn)
     imgWriter.Write()
 
+
 def MakeBands(dR, numberOfBands, nearestInteger):
-    '''
+    """
     Divide a range into bands
     :param: dR - [min, max] the range that is to be covered by the bands.
     :param: numberOfBands - the number of bands, a positive integer.
     :param: nearestInteger - if True then [floor(min), ceil(max)] is used.
     :return: A List consisting of [min, midpoint, max] for each band.
-    '''
+    """
     bands = list()
     if (dR[1] < dR[0]) or (numberOfBands <= 0):
         return bands
@@ -37,7 +41,7 @@ def MakeBands(dR, numberOfBands, nearestInteger):
     if nearestInteger:
         x[0] = math.floor(x[0])
         x[1] = math.ceil(x[1])
-    dx = (x[1] - x[0])/float(numberOfBands)
+    dx = (x[1] - x[0]) / float(numberOfBands)
     b = [x[0], x[0] + dx / 2.0, x[0] + dx]
     i = 0
     while i < numberOfBands:
@@ -46,28 +50,30 @@ def MakeBands(dR, numberOfBands, nearestInteger):
         i += 1
     return bands
 
+
 def MakeIntegralBands(dR):
-    '''
+    """
     Divide a range into integral bands
     :param: dR - [min, max] the range that is to be covered by the bands.
     :return: A List consisting of [min, midpoint, max] for each band.
-    '''
+    """
     bands = list()
-    if (dR[1] < dR[0]):
+    if dR[1] < dR[0]:
         return bands
     x = list(dR)
     x[0] = math.floor(x[0])
     x[1] = math.ceil(x[1])
     numberOfBands = int(abs(x[1]) + abs(x[0]))
-    return MakeBands(x,numberOfBands, False)
+    return MakeBands(x, numberOfBands, False)
+
 
 def MakeElevations(src):
-    '''
+    """
     Generate elevations over the surface.
     :param: src - the vtkPolyData source.
     :return: - vtkPolyData source with elevations.
-    '''
-    bounds = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+    """
+    bounds = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     src.GetBounds(bounds)
     elevFilter = vtk.vtkElevationFilter()
     elevFilter.SetInputData(src)
@@ -79,10 +85,10 @@ def MakeElevations(src):
 
 
 def MakePlane():
-    '''
+    """
     Make a plane as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     source = vtk.vtkPlaneSource()
     source.SetOrigin(-10.0, -10.0, 0.0)
     source.SetPoint2(-10.0, 10.0, 0.0)
@@ -92,11 +98,12 @@ def MakePlane():
     source.Update()
     return MakeElevations(source.GetOutput())
 
+
 def MakeSphere():
-    '''
+    """
     Make a sphere as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     source = vtk.vtkSphereSource()
     source.SetCenter(0.0, 0.0, 0.0)
     source.SetRadius(10.0)
@@ -105,19 +112,20 @@ def MakeSphere():
     source.Update()
     return MakeElevations(source.GetOutput())
 
+
 def MakeParametricSource():
-    '''
+    """
     Make a parametric surface as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     fn = vtk.vtkParametricRandomHills()
     fn.AllowRandomGenerationOn()
     fn.SetRandomSeed(1)
     fn.SetNumberOfHills(30)
-    if fn.GetClassName() == 'vtkParametricRandomHills':
-        # Make the normals face out of the surface.
-        fn.ClockwiseOrderingOff()
-
+    # Make the normals face out of the surface.
+    # Not needed with VTK 8.0 or later.
+    # if fn.GetClassName() == 'vtkParametricRandomHills':
+    #    fn.ClockwiseOrderingOff()
     source = vtk.vtkParametricFunctionSource()
     source.SetParametricFunction(fn)
     source.SetUResolution(50)
@@ -129,59 +137,62 @@ def MakeParametricSource():
     source.GetOutput().GetPointData().GetScalars().SetName('Scalars')
     return source.GetOutput()
 
+
 def MakeLUT():
-    '''
+    """
     Make a lookup table using vtkColorSeries.
     :return: An indexed lookup table.
-    '''
+    """
     # Make the lookup table.
     colorSeries = vtk.vtkColorSeries()
     # Select a color scheme.
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_PURPLE_ORANGE_9
-    #colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_PURPLE_9
-    #colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_GREEN_9
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_PURPLE_ORANGE_9
+    # colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_PURPLE_9
+    # colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_GREEN_9
     colorSeriesEnum = colorSeries.BREWER_QUALITATIVE_SET3
-    #colorSeriesEnum = colorSeries.CITRUS
+    # colorSeriesEnum = colorSeries.CITRUS
     colorSeries.SetColorScheme(colorSeriesEnum)
     lut = vtk.vtkLookupTable()
     colorSeries.BuildLookupTable(lut)
-    lut.SetNanColor(1,0,0,1)
+    lut.SetNanColor(1, 0, 0, 1)
     return lut
 
+
 def ReverseLUT(lut):
-    '''
+    """
     Create a lookup table with the colors reversed.
     :param: lut - An indexed lookup table.
     :return: The reversed indexed lookup table.
-    '''
+    """
     lutr = vtk.vtkLookupTable()
     lutr.DeepCopy(lut)
     t = lut.GetNumberOfTableValues() - 1
     revList = reversed(list(range(t + 1)))
     for i in revList:
-        rgba = [0,0,0]
+        rgba = [0, 0, 0]
         v = float(i)
-        lut.GetColor(v,rgba)
+        lut.GetColor(v, rgba)
         rgba.append(lut.GetOpacity(v))
-        lutr.SetTableValue(t - i,rgba)
+        lutr.SetTableValue(t - i, rgba)
     t = lut.GetNumberOfAnnotatedValues() - 1
     for i in revList:
         lutr.SetAnnotation(t - i, lut.GetAnnotation(i))
     return lutr
 
+
 def Frequencies(bands, src):
-    '''
+    """
     Count the number of scalars in each band.
     :param: bands - the bands.
     :param: src - the vtkPolyData source.
     :return: The frequencies of the scalars in each band.
-    '''
+    """
     freq = dict()
     for i in range(len(bands)):
-        freq[i] = 0;
+        freq[i] = 0
     tuples = src.GetPointData().GetScalars().GetNumberOfTuples()
     for i in range(tuples):
         x = src.GetPointData().GetScalars().GetTuple1(i)
@@ -191,8 +202,9 @@ def Frequencies(bands, src):
                 break
     return freq
 
+
 def MakeGlyphs(src, reverseNormals):
-    '''
+    """
     Glyph the normals on the surface.
 
     You may need to adjust the parameters for maskPts, arrow and glyph for a
@@ -202,7 +214,7 @@ def MakeGlyphs(src, reverseNormals):
     :param: reverseNormals - if True the normals on the surface are reversed.
     :return: The glyph object.
 
-    '''
+    """
     # Sometimes the contouring algorithm can create a volume whose gradient
     # vector and ordering of polygon (using the right hand rule) are
     # inconsistent. vtkReverseSense cures this problem.
@@ -237,14 +249,15 @@ def MakeGlyphs(src, reverseNormals):
     glyph.Update()
     return glyph
 
+
 def DisplaySurface(st):
-    '''
+    """
     Make and display the surface.
     :param: st - the surface to display.
     :return The vtkRenderWindowInteractor.
-    '''
+    """
     surface = st.upper()
-    if  (not(surface in SURFACE_TYPE) ):
+    if not (surface in SURFACE_TYPE):
         print(st, "is not a surface.")
         iren = vtk.vtkRenderWindowInteractor()
         return iren
@@ -252,15 +265,15 @@ def DisplaySurface(st):
     # Create the surface, lookup tables, contour filter etc.
     # ------------------------------------------------------------
     src = vtk.vtkPolyData()
-    if (surface == "PLANE"):
+    if surface == "PLANE":
         src = MakePlane()
-    elif (surface == "SPHERE"):
+    elif surface == "SPHERE":
         src = MakeSphere()
-    elif (surface == "PARAMETRIC_SURFACE"):
+    elif surface == "PARAMETRIC_SURFACE":
         src = MakeParametricSource()
         # The scalars are named "Scalars"by default
         # in the parametric surfaces, so change the name.
-        src.GetPointData().GetScalars().SetName("Elevation");
+        src.GetPointData().GetScalars().SetName("Elevation")
     scalarRange = src.GetScalarRange()
 
     lut = MakeLUT()
@@ -271,7 +284,7 @@ def DisplaySurface(st):
 
     # Let's do a frequency table.
     # The number of scalars in each band.
-    #print Frequencies(bands, src)
+    # print Frequencies(bands, src)
 
     # We will use the midpoint of the band as the label.
     labels = []
@@ -283,7 +296,7 @@ def DisplaySurface(st):
     for i in range(len(labels)):
         values.InsertNextValue(vtk.vtkVariant(labels[i]))
     for i in range(values.GetNumberOfTuples()):
-        lut.SetAnnotation(i, values.GetValue(i).ToString());
+        lut.SetAnnotation(i, values.GetValue(i).ToString())
 
     # Create a lookup table with the colors reversed.
     lutr = ReverseLUT(lut)
@@ -299,7 +312,7 @@ def DisplaySurface(st):
     bcf.GenerateContourEdgesOn()
 
     # Generate the glyphs on the original surface.
-    glyph = MakeGlyphs(src,False)
+    glyph = MakeGlyphs(src, False)
 
     # ------------------------------------------------------------
     # Create the mappers and actors
@@ -371,11 +384,12 @@ def DisplaySurface(st):
 
     return iren
 
+
 if __name__ == '__main__':
-    #iren = DisplaySurface("PLANE")
-    #iren = DisplaySurface("SPHERE")
+    # iren = DisplaySurface("PLANE")
+    # iren = DisplaySurface("SPHERE")
     iren = DisplaySurface("PARAMETRIC_SURFACE")
     iren.Render()
     iren.Start()
-#     WritePMG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
-#               "ElevationBandsWithGlyphs.png")
+    # WritePMG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
+    #               "ElevationBandsWithGlyphs.png")

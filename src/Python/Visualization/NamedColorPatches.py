@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 =========================================================================
 
   Program:   Visualization Toolkit
@@ -24,27 +24,30 @@ It also shows how to select the text color based on luminance.
 In this case Digital CCIR601 is used which gives less weight to the
  red and blue components of a color.
 
-'''
+"""
 
 from __future__ import print_function
+
 import vtk
 
+
 def RGBToHTMLColor(rgb):
-    '''
+    """
     Convert an [R, G, B] list to #RRGGBB.
     :param: rgb - The elements of the array rgb are unsigned chars (0..255).
     :return: The html color.
-    '''
-    hexcolor = "#"+ ''.join(['{:02x}'.format(x) for x in rgb])
+    """
+    hexcolor = "#" + ''.join(['{:02x}'.format(x) for x in rgb])
     return hexcolor
 
+
 def HTMLColorToRGB(colorString):
-    '''
+    """
     Convert #RRGGBB to a [R, G, B] list.
     :param: colorString a string in the form: #RRGGBB where RR, GG, BB are hexadecimal.
     The elements of the array rgb are unsigned chars (0..255).
     :return: The red, green and blue components as a list.
-    '''
+    """
     colorString = colorString.strip()
     if colorString[0] == '#': colorString = colorString[1:]
     if len(colorString) != 6:
@@ -53,146 +56,150 @@ def HTMLColorToRGB(colorString):
     r, g, b = [int(n, 16) for n in (r, g, b)]
     return [r, g, b]
 
+
 def RGBToLumaCCIR601(rgb):
-    '''
+    """
     RGB -> Luma conversion
     Digital CCIR601 (gives less weight to the R and B components)
     :param: rgb - The elements of the array rgb are unsigned chars (0..255).
     :return: The luminance.
-    '''
+    """
     Y = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
     return Y
 
+
 def FormatRGBForHTML(rgb):
-    '''
+    """
     Format the rgb colors for display on a html table.
     :param: rgb - The elements of the array rgb are unsigned chars (0..255).
     :return: A formatted string for the html table.
-    '''
+    """
     s = ','.join(['{:3d}'.format(x) for x in rgb])
-    s = s.replace(' ','&#160;')
-    s = s.replace(',','&#160;&#160;')
+    s = s.replace(' ', '&#160;')
+    s = s.replace(',', '&#160;&#160;')
     return s
 
+
 class HTMLTableMaker(object):
-    '''
+    """
       This class creates HTML Tables displaying all the colors in
       the class vtkNamedColors grouped by various categories.
-    '''
+    """
+
     def __init__(self):
         self.cn = {
-            'Red':['IndianRed', 'LightCoral', 'Salmon', 'DarkSalmon',\
-                   'LightSalmon', 'Red', 'Crimson', 'FireBrick', 'DarkRed'],
-            'Pink':['Pink', 'LightPink', 'HotPink', 'DeepPink',\
-                    'MediumVioletRed', 'PaleVioletRed'],
-            'Orange':['LightSalmon', 'Coral', 'Tomato', 'OrangeRed',\
-                      'DarkOrange', 'Orange'],
-            'Yellow':['Gold', 'Yellow', 'LightYellow', 'LemonChiffon',\
-                      'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin',\
-                      'PeachPuff', 'PaleGoldenrod', 'Khaki', 'DarkKhaki'],
-            'Purple':['Lavender', 'Thistle', 'Plum', 'Violet', 'Orchid',\
-                      'Fuchsia', 'Magenta', 'MediumOrchid', 'MediumPurple',\
-                      'BlueViolet', 'DarkViolet', 'DarkOrchid', 'DarkMagenta',\
-                      'Purple', 'Indigo', 'DarkSlateBlue', 'SlateBlue',\
-                      'MediumSlateBlue'],
-            'Green':['GreenYellow', 'Chartreuse', 'LawnGreen', 'Lime',\
-                     'LimeGreen', 'PaleGreen', 'LightGreen',\
-                     'MediumSpringGreen', 'SpringGreen', 'MediumSeaGreen',\
-                     'SeaGreen', 'ForestGreen', 'Green', 'DarkGreen',\
-                     'YellowGreen', 'OliveDrab', 'Olive', 'DarkOliveGreen',\
-                     'MediumAquamarine', 'DarkSeaGreen', 'LightSeaGreen',\
-                     'DarkCyan', 'Teal'],
-            'Blue/Cyan':['Aqua', 'Cyan', 'LightCyan', 'PaleTurquoise',\
-                         'Aquamarine', 'Turquoise', 'MediumTurquoise',\
-                         'DarkTurquoise', 'CadetBlue', 'SteelBlue',\
-                         'LightSteelBlue', 'PowderBlue', 'LightBlue',\
-                         'SkyBlue', 'LightSkyBlue', 'DeepSkyBlue',\
-                         'DodgerBlue', 'CornflowerBlue', 'RoyalBlue', 'Blue',\
-                         'MediumBlue', 'DarkBlue', 'Navy', 'MidnightBlue'],
-            'Brown':['Cornsilk', 'BlanchedAlmond', 'Bisque', 'NavajoWhite',\
-                     'Wheat', 'BurlyWood', 'Tan', 'RosyBrown', 'SandyBrown',\
-                     'Goldenrod', 'DarkGoldenrod', 'Peru', 'Chocolate',\
-                     'SaddleBrown', 'Sienna', 'Brown', 'Maroon'],
-            'White':['White', 'Snow', 'Honeydew', 'MintCream', 'Azure',\
-                     'AliceBlue', 'GhostWhite', 'WhiteSmoke', 'Seashell',\
-                     'Beige', 'OldLace', 'FloralWhite', 'Ivory',\
-                     'AntiqueWhite', 'Linen',\
-                     'LavenderBlush', 'MistyRose'],
-            'Gray':['Gainsboro', 'LightGrey', 'Silver', 'DarkGray', 'Gray',\
-                    'DimGray', 'LightSlateGray', 'SlateGray', 'DarkSlateGray',\
-                    'Black']
-            }
+            'Red': ['IndianRed', 'LightCoral', 'Salmon', 'DarkSalmon',
+                    'LightSalmon', 'Red', 'Crimson', 'FireBrick', 'DarkRed'],
+            'Pink': ['Pink', 'LightPink', 'HotPink', 'DeepPink',
+                     'MediumVioletRed', 'PaleVioletRed'],
+            'Orange': ['LightSalmon', 'Coral', 'Tomato', 'OrangeRed',
+                       'DarkOrange', 'Orange'],
+            'Yellow': ['Gold', 'Yellow', 'LightYellow', 'LemonChiffon',
+                       'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin',
+                       'PeachPuff', 'PaleGoldenrod', 'Khaki', 'DarkKhaki'],
+            'Purple': ['Lavender', 'Thistle', 'Plum', 'Violet', 'Orchid',
+                       'Fuchsia', 'Magenta', 'MediumOrchid', 'MediumPurple',
+                       'BlueViolet', 'DarkViolet', 'DarkOrchid', 'DarkMagenta',
+                       'Purple', 'Indigo', 'DarkSlateBlue', 'SlateBlue',
+                       'MediumSlateBlue'],
+            'Green': ['GreenYellow', 'Chartreuse', 'LawnGreen', 'Lime',
+                      'LimeGreen', 'PaleGreen', 'LightGreen',
+                      'MediumSpringGreen', 'SpringGreen', 'MediumSeaGreen',
+                      'SeaGreen', 'ForestGreen', 'Green', 'DarkGreen',
+                      'YellowGreen', 'OliveDrab', 'Olive', 'DarkOliveGreen',
+                      'MediumAquamarine', 'DarkSeaGreen', 'LightSeaGreen',
+                      'DarkCyan', 'Teal'],
+            'Blue/Cyan': ['Aqua', 'Cyan', 'LightCyan', 'PaleTurquoise',
+                          'Aquamarine', 'Turquoise', 'MediumTurquoise',
+                          'DarkTurquoise', 'CadetBlue', 'SteelBlue',
+                          'LightSteelBlue', 'PowderBlue', 'LightBlue',
+                          'SkyBlue', 'LightSkyBlue', 'DeepSkyBlue',
+                          'DodgerBlue', 'CornflowerBlue', 'RoyalBlue', 'Blue',
+                          'MediumBlue', 'DarkBlue', 'Navy', 'MidnightBlue'],
+            'Brown': ['Cornsilk', 'BlanchedAlmond', 'Bisque', 'NavajoWhite',
+                      'Wheat', 'BurlyWood', 'Tan', 'RosyBrown', 'SandyBrown',
+                      'Goldenrod', 'DarkGoldenrod', 'Peru', 'Chocolate',
+                      'SaddleBrown', 'Sienna', 'Brown', 'Maroon'],
+            'White': ['White', 'Snow', 'Honeydew', 'MintCream', 'Azure',
+                      'AliceBlue', 'GhostWhite', 'WhiteSmoke', 'Seashell',
+                      'Beige', 'OldLace', 'FloralWhite', 'Ivory',
+                      'AntiqueWhite', 'Linen',
+                      'LavenderBlush', 'MistyRose'],
+            'Gray': ['Gainsboro', 'LightGrey', 'Silver', 'DarkGray', 'Gray',
+                     'DimGray', 'LightSlateGray', 'SlateGray', 'DarkSlateGray',
+                     'Black']
+        }
         # Ordering of the tables and when to start and end a column of tables
         # in the layout.
-        self.cnOrder = ['Red', 'Pink', 'Orange', 'Yellow', 'Purple', 'Green',\
+        self.cnOrder = ['Red', 'Pink', 'Orange', 'Yellow', 'Purple', 'Green',
                         'Blue/Cyan', 'Brown', 'White', 'Gray']
         self.cnStartTable = ['Red', 'Green', 'Brown']
         self.cnEndTable = ['Purple', 'Blue/Cyan', 'Gray']
 
         self.vtkcn = {
-            'Whites':['antique_white', 'azure', 'bisque', 'blanched_almond',\
-                      'cornsilk', 'eggshell', 'floral_white', 'gainsboro',\
-                      'ghost_white', 'honeydew', 'ivory', 'lavender',\
-                      'lavender_blush', 'lemon_chiffon', 'linen', 'mint_cream',\
-                      'misty_rose', 'moccasin', 'navajo_white', 'old_lace',\
-                      'papaya_whip',  'peach_puff', 'seashell', 'snow',\
-                      'thistle', 'titanium_white', 'wheat', 'white',\
-                      'white_smoke', 'zinc_white'],
-            'Greys':['cold_grey', 'dim_grey', 'grey', 'light_grey',\
-                     'slate_grey', 'slate_grey_dark', 'slate_grey_light',\
-                     'warm_grey'],
-            'Blacks':['black', 'ivory_black', 'lamp_black'],
-            'Reds':['alizarin_crimson', 'brick', 'cadmium_red_deep', 'coral',\
-                    'coral_light', 'deep_pink', 'english_red', 'firebrick',\
-                    'geranium_lake', 'hot_pink', 'indian_red', 'light_salmon',\
-                    'madder_lake_deep', 'maroon', 'pink', 'pink_light',\
-                    'raspberry', 'red', 'rose_madder', 'salmon', 'tomato',\
-                    'venetian_red'],
-            'Browns':['beige', 'brown', 'brown_madder', 'brown_ochre',\
-                      'burlywood', 'burnt_sienna', 'burnt_umber', 'chocolate',\
-                      'deep_ochre', 'flesh', 'flesh_ochre', 'gold_ochre',\
-                      'greenish_umber', 'khaki', 'khaki_dark', 'light_beige',\
-                      'peru', 'rosy_brown', 'raw_sienna', 'raw_umber', 'sepia',\
-                      'sienna', 'saddle_brown', 'sandy_brown', 'tan',\
-                      'van_dyke_brown'],
-            'Oranges':['cadmium_orange', 'cadmium_red_light', 'carrot',\
-                       'dark_orange', 'mars_orange', 'mars_yellow', 'orange',\
-                       'orange_red', 'yellow_ochre'],
-            'Yellows':['aureoline_yellow', 'banana', 'cadmium_lemon',\
-                       'cadmium_yellow', 'cadmium_yellow_light', 'gold',\
-                       'goldenrod', 'goldenrod_dark', 'goldenrod_light',\
-                       'goldenrod_pale', 'light_goldenrod', 'melon',\
-                       'naples_yellow_deep', 'yellow', 'yellow_light'],
-            'Greens':['chartreuse', 'chrome_oxide_green', 'cinnabar_green',\
-                      'cobalt_green', 'emerald_green', 'forest_green', 'green',\
-                      'green_dark', 'green_pale', 'green_yellow', 'lawn_green',\
-                      'lime_green', 'mint', 'olive', 'olive_drab',\
-                      'olive_green_dark', 'permanent_green', 'sap_green',\
-                      'sea_green', 'sea_green_dark', 'sea_green_medium',\
-                      'sea_green_light', 'spring_green', 'spring_green_medium',\
-                      'terre_verte', 'viridian_light', 'yellow_green'],
-            'Cyans':['aquamarine', 'aquamarine_medium', 'cyan', 'cyan_white',\
-                     'turquoise', 'turquoise_dark', 'turquoise_medium',\
-                     'turquoise_pale'],
-            'Blues':['alice_blue', 'blue', 'blue_light', 'blue_medium',\
-                     'cadet', 'cobalt', 'cornflower', 'cerulean', 'dodger_blue',\
-                     'indigo', 'manganese_blue', 'midnight_blue', 'navy',\
-                     'peacock',  'powder_blue', 'royal_blue', 'slate_blue',\
-                     'slate_blue_dark', 'slate_blue_light',\
-                     'slate_blue_medium', 'sky_blue', 'sky_blue_deep',\
-                     'sky_blue_light', 'steel_blue', 'steel_blue_light',\
-                     'turquoise_blue', 'ultramarine'],
-            'Magentas':['blue_violet', 'cobalt_violet_deep', 'magenta',\
-                        'orchid', 'orchid_dark', 'orchid_medium',\
-                        'permanent_red_violet', 'plum', 'purple',\
-                        'purple_medium', 'ultramarine_violet', 'violet',\
-                        'violet_dark', 'violet_red', 'violet_red_medium',\
-                        'violet_red_pale']
-            }
+            'Whites': ['antique_white', 'azure', 'bisque', 'blanched_almond',
+                       'cornsilk', 'eggshell', 'floral_white', 'gainsboro',
+                       'ghost_white', 'honeydew', 'ivory', 'lavender',
+                       'lavender_blush', 'lemon_chiffon', 'linen', 'mint_cream',
+                       'misty_rose', 'moccasin', 'navajo_white', 'old_lace',
+                       'papaya_whip', 'peach_puff', 'seashell', 'snow',
+                       'thistle', 'titanium_white', 'wheat', 'white',
+                       'white_smoke', 'zinc_white'],
+            'Greys': ['cold_grey', 'dim_grey', 'grey', 'light_grey',
+                      'slate_grey', 'slate_grey_dark', 'slate_grey_light',
+                      'warm_grey'],
+            'Blacks': ['black', 'ivory_black', 'lamp_black'],
+            'Reds': ['alizarin_crimson', 'brick', 'cadmium_red_deep', 'coral',
+                     'coral_light', 'deep_pink', 'english_red', 'firebrick',
+                     'geranium_lake', 'hot_pink', 'indian_red', 'light_salmon',
+                     'madder_lake_deep', 'maroon', 'pink', 'pink_light',
+                     'raspberry', 'red', 'rose_madder', 'salmon', 'tomato',
+                     'venetian_red'],
+            'Browns': ['beige', 'brown', 'brown_madder', 'brown_ochre',
+                       'burlywood', 'burnt_sienna', 'burnt_umber', 'chocolate',
+                       'deep_ochre', 'flesh', 'flesh_ochre', 'gold_ochre',
+                       'greenish_umber', 'khaki', 'khaki_dark', 'light_beige',
+                       'peru', 'rosy_brown', 'raw_sienna', 'raw_umber', 'sepia',
+                       'sienna', 'saddle_brown', 'sandy_brown', 'tan',
+                       'van_dyke_brown'],
+            'Oranges': ['cadmium_orange', 'cadmium_red_light', 'carrot',
+                        'dark_orange', 'mars_orange', 'mars_yellow', 'orange',
+                        'orange_red', 'yellow_ochre'],
+            'Yellows': ['aureoline_yellow', 'banana', 'cadmium_lemon',
+                        'cadmium_yellow', 'cadmium_yellow_light', 'gold',
+                        'goldenrod', 'goldenrod_dark', 'goldenrod_light',
+                        'goldenrod_pale', 'light_goldenrod', 'melon',
+                        'naples_yellow_deep', 'yellow', 'yellow_light'],
+            'Greens': ['chartreuse', 'chrome_oxide_green', 'cinnabar_green',
+                       'cobalt_green', 'emerald_green', 'forest_green', 'green',
+                       'green_dark', 'green_pale', 'green_yellow', 'lawn_green',
+                       'lime_green', 'mint', 'olive', 'olive_drab',
+                       'olive_green_dark', 'permanent_green', 'sap_green',
+                       'sea_green', 'sea_green_dark', 'sea_green_medium',
+                       'sea_green_light', 'spring_green', 'spring_green_medium',
+                       'terre_verte', 'viridian_light', 'yellow_green'],
+            'Cyans': ['aquamarine', 'aquamarine_medium', 'cyan', 'cyan_white',
+                      'turquoise', 'turquoise_dark', 'turquoise_medium',
+                      'turquoise_pale'],
+            'Blues': ['alice_blue', 'blue', 'blue_light', 'blue_medium',
+                      'cadet', 'cobalt', 'cornflower', 'cerulean', 'dodger_blue',
+                      'indigo', 'manganese_blue', 'midnight_blue', 'navy',
+                      'peacock', 'powder_blue', 'royal_blue', 'slate_blue',
+                      'slate_blue_dark', 'slate_blue_light',
+                      'slate_blue_medium', 'sky_blue', 'sky_blue_deep',
+                      'sky_blue_light', 'steel_blue', 'steel_blue_light',
+                      'turquoise_blue', 'ultramarine'],
+            'Magentas': ['blue_violet', 'cobalt_violet_deep', 'magenta',
+                         'orchid', 'orchid_dark', 'orchid_medium',
+                         'permanent_red_violet', 'plum', 'purple',
+                         'purple_medium', 'ultramarine_violet', 'violet',
+                         'violet_dark', 'violet_red', 'violet_red_medium',
+                         'violet_red_pale']
+        }
         # Ordering of the tables and when to start and end a column of tables
         # in the layout.
-        self.vtkcnOrder = ['Whites', 'Greys', 'Blacks', 'Reds', 'Oranges',\
-                           'Browns', 'Yellows', 'Greens', 'Cyans', 'Blues',\
+        self.vtkcnOrder = ['Whites', 'Greys', 'Blacks', 'Reds', 'Oranges', 'Browns', 'Yellows', 'Greens', 'Cyans',
+                           'Blues',
                            'Magentas']
         self.vtkcnStartTable = ['Whites', 'Browns', 'Cyans']
         self.vtkcnEndTable = ['Oranges', 'Greens', 'Magentas']
@@ -244,9 +251,9 @@ class HTMLTableMaker(object):
         return s
 
     def MakeTR(self, name, rgb, textColor):
-        '''
+        """
           Use when the name is a color name known to the web browser.
-        '''
+        """
         s = '<tr>\n'
         s += '<td style="background:' + name + ';color:' + textColor
         s += '">' + name + '</td>\n'
@@ -256,9 +263,9 @@ class HTMLTableMaker(object):
         return s
 
     def MakeVTKTR(self, name, nameColor, rgb, textColor):
-        '''
+        """
           Use when the name is not a color name known to the web browser.
-        '''
+        """
         s = '<tr>\n'
         s += '<td style="background:' + nameColor + ';color:'
         s += textColor + '">' + name + '</td>\n'
@@ -268,8 +275,8 @@ class HTMLTableMaker(object):
         return s
 
     def FindLongestColorName(self):
-        ''' Find the longest color name. '''
-        maxLength = -1;
+        """ Find the longest color name. """
+        maxLength = -1
         for key, value in self.cn.items():
             for val in value:
                 if len(val) > maxLength:
@@ -293,9 +300,9 @@ class HTMLTableMaker(object):
             for name in values:
                 rgb = self.nc.GetColor3ub(name)
                 Y = RGBToLumaCCIR601(rgb)
-                textColor = '#000000' # Black
+                textColor = '#000000'  # Black
                 if Y < 255 / 2.0:
-                    textColor = '#ffffff' # White
+                    textColor = '#ffffff'  # White
                 # Make the row for each color in the group.
                 # Here we use the name to set the background color
                 #  as it is known to the web browser.
@@ -318,9 +325,9 @@ class HTMLTableMaker(object):
             for name in values:
                 rgb = self.nc.GetColor3ub(name)
                 Y = RGBToLumaCCIR601(rgb)
-                textColor = '#000000' # Black
+                textColor = '#000000'  # Black
                 if Y < 255 / 2.0:
-                    textColor = '#ffffff' # White
+                    textColor = '#ffffff'  # White
                 # We must set the background color to a specific
                 # HTML color as the color name may not be a standard
                 # name known to the web browser.
@@ -342,15 +349,15 @@ class HTMLTableMaker(object):
             synonyms.append(ele.split('\n'))
         cn = list()
         for key, value in self.cn.items():
-           cn = cn + value
+            cn = cn + value
         # Create a dictionary where the key is the lowercase name.
         d = dict()
         for n in cn:
-            d.update({n.lower():n})
+            d.update({n.lower(): n})
         res = '<td>\n'
         res += '<table>\n'
         res += self.MakeSynonymTableHeader()
-        for colorNames in synonyms: #colors.GetSynonyms():
+        for colorNames in synonyms:  # colors.GetSynonyms():
             for idx, name in enumerate(colorNames):
                 if name in d:
                     colorNames[idx] = d[name]
@@ -358,9 +365,9 @@ class HTMLTableMaker(object):
             name = ", ".join(colorNames)
             rgb = self.nc.GetColor3ub(colorNames[0])
             Y = RGBToLumaCCIR601(rgb)
-            textColor = '#000000' # Black
+            textColor = '#000000'  # Black
             if Y < 255 / 2.0:
-                textColor = '#ffffff' # White
+                textColor = '#ffffff'  # White
             # We must set the background color to a specific
             # HTML color  names is just a list of
             # synonyms for that particular color.
@@ -443,21 +450,10 @@ class HTMLTableMaker(object):
         res += '</body>\n'
         return res
 
-def CheckVTKVersion(requiredMajorVersion):
-    '''
-    Check the VTK version.
-    :param: requiredMajorVersion e.g. 6
-    '''
-    version = vtk.vtkVersion()
-    if version.GetVTKMajorVersion() > requiredMajorVersion:
-        raise
-    else:
-        return
 
 if __name__ == "__main__":
-    try:
-        CheckVTKVersion(6)
-    except:
+    requiredMajorVersion = 6
+    if vtk.vtkVersion().GetVTKMajorVersion() < requiredMajorVersion:
         print("You need VTK Version 6 or greater.")
         print("The class vtkNamedColors is in VTK version 6 or greater.")
         exit(0)

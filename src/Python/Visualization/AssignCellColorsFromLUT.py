@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Demonstrates how to assign colors to cells in a vtkPolyData structure using
  lookup tables.
 Two techniques are demonstrated:
@@ -17,17 +17,19 @@ The top row of the display uses the color transfer function to create a
  green to tan transition in a diverging color space.
  Note that the central square is white indicating the midpoint.
 The bottom row of the display uses a lookup table of predefined colors.
-'''
+"""
 
 from __future__ import print_function
+
 import vtk
 
+
 def MakeLUT(tableSize):
-    '''
+    """
     Make a lookup table from a set of named colors.
     :param: tableSize - The table size
     :return: The lookup table.
-    '''
+    """
     nc = vtk.vtkNamedColors()
 
     lut = vtk.vtkLookupTable()
@@ -35,26 +37,27 @@ def MakeLUT(tableSize):
     lut.Build()
 
     # Fill in a few known colors, the rest will be generated if needed
-    lut.SetTableValue(0,nc.GetColor4d("Black"))
-    lut.SetTableValue(1,nc.GetColor4d("Banana"))
-    lut.SetTableValue(2,nc.GetColor4d("Tomato"))
-    lut.SetTableValue(3,nc.GetColor4d("Wheat"))
-    lut.SetTableValue(4,nc.GetColor4d("Lavender"))
-    lut.SetTableValue(5,nc.GetColor4d("Flesh"))
-    lut.SetTableValue(6,nc.GetColor4d("Raspberry"))
-    lut.SetTableValue(7,nc.GetColor4d("Salmon"))
-    lut.SetTableValue(8,nc.GetColor4d("Mint"))
-    lut.SetTableValue(9,nc.GetColor4d("Peacock"))
+    lut.SetTableValue(0, nc.GetColor4d("Black"))
+    lut.SetTableValue(1, nc.GetColor4d("Banana"))
+    lut.SetTableValue(2, nc.GetColor4d("Tomato"))
+    lut.SetTableValue(3, nc.GetColor4d("Wheat"))
+    lut.SetTableValue(4, nc.GetColor4d("Lavender"))
+    lut.SetTableValue(5, nc.GetColor4d("Flesh"))
+    lut.SetTableValue(6, nc.GetColor4d("Raspberry"))
+    lut.SetTableValue(7, nc.GetColor4d("Salmon"))
+    lut.SetTableValue(8, nc.GetColor4d("Mint"))
+    lut.SetTableValue(9, nc.GetColor4d("Peacock"))
 
     return lut
 
+
 def MakeLUTFromCTF(tableSize):
-    '''
+    """
     Use a color transfer Function to generate the colors in the lookup table.
     See: http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html
     :param: tableSize - The table size
     :return: The lookup table.
-    '''
+    """
     ctf = vtk.vtkColorTransferFunction()
     ctf.SetColorSpaceToDiverging()
     # Green to tan.
@@ -66,32 +69,33 @@ def MakeLUTFromCTF(tableSize):
     lut.SetNumberOfTableValues(tableSize)
     lut.Build()
 
-    for i in range(0,tableSize):
-        rgb = list(ctf.GetColor(float(i)/tableSize))+[1]
-        lut.SetTableValue(i,rgb)
+    for i in range(0, tableSize):
+        rgb = list(ctf.GetColor(float(i) / tableSize)) + [1]
+        lut.SetTableValue(i, rgb)
 
     return lut
 
+
 def MakeCellData(tableSize, lut, colors):
-    '''
+    """
     Create the cell data using the colors from the lookup table.
     :param: tableSize - The table size
     :param: lut - The lookup table.
     :param: colors - A reference to a vtkUnsignedCharArray().
-    '''
-    for i in range(1,tableSize):
+    """
+    for i in range(1, tableSize):
         rgb = [0.0, 0.0, 0.0]
-        lut.GetColor(float(i) / (tableSize - 1),rgb)
+        lut.GetColor(float(i) / (tableSize - 1), rgb)
         ucrgb = list(map(int, [x * 255 for x in rgb]))
         colors.InsertNextTuple3(ucrgb[0], ucrgb[1], ucrgb[2])
-        s = '['+ ', '.join(['{:0.6f}'.format(x) for x in rgb]) + ']'
+        s = '[' + ', '.join(['{:0.6f}'.format(x) for x in rgb]) + ']'
         print(s, ucrgb)
 
 
 def main():
-    '''
+    """
     :return: The render window interactor.
-    '''
+    """
 
     nc = vtk.vtkNamedColors()
 
@@ -117,7 +121,7 @@ def main():
     lut2 = MakeLUTFromCTF(tableSize)
 
     colorData1 = vtk.vtkUnsignedCharArray()
-    colorData1.SetName('colors') # Any name will work here.
+    colorData1.SetName('colors')  # Any name will work here.
     colorData1.SetNumberOfComponents(3)
     print('Using a lookup table from a set of named colors.')
     MakeCellData(tableSize, lut1, colorData1)
@@ -126,7 +130,7 @@ def main():
     plane11.GetOutput().GetCellData().SetScalars(colorData1)
 
     colorData2 = vtk.vtkUnsignedCharArray()
-    colorData2.SetName('colors') # Any name will work here.
+    colorData2.SetName('colors')  # Any name will work here.
     colorData2.SetNumberOfComponents(3)
     print('Using a lookup table created from a color transfer function.')
     MakeCellData(tableSize, lut2, colorData2)
@@ -223,21 +227,11 @@ def main():
 
     return iren
 
-def CheckVTKVersion(requiredMajorVersion):
-    '''
-    Check the VTK version.
-    :param: requiredMajorVersion e.g. 6
-    '''
-    version = vtk.vtkVersion()
-    if version.GetVTKMajorVersion() > requiredMajorVersion:
-        raise
-    else:
-        return
 
 if __name__ == '__main__':
-    try:
-        CheckVTKVersion(6)
-    except:
+    requiredMajorVersion = 6
+    print(vtk.vtkVersion().GetVTKMajorVersion())
+    if vtk.vtkVersion().GetVTKMajorVersion() < requiredMajorVersion:
         print("You need VTK Version 6 or greater.")
         print("The class vtkNamedColors is in VTK version 6 or greater.")
         exit(0)

@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+
 import math
+
 import vtk
 
 # Available surfaces are:
-SURFACE_TYPE = set(["TORUS", "PARAMETRIC_HILLS", "PARAMETRIC_TORUS"])
+SURFACE_TYPE = {"TORUS", "PARAMETRIC_HILLS", "PARAMETRIC_TORUS"}
 
-def WritePNG(ren, fn, magnification = 1):
-    '''
+
+def WritePNG(ren, fn, magnification=1):
+    """
     Save the image as a PNG
     :param: ren - the renderer.
     :param: fn - the file name.
     :param: magnification - the magnification, usually 1.
-    '''
+    """
     renLgeIm = vtk.vtkRenderLargeImage()
     imgWriter = vtk.vtkPNGWriter()
     renLgeIm.SetInput(ren)
@@ -22,14 +25,15 @@ def WritePNG(ren, fn, magnification = 1):
     imgWriter.SetFileName(fn)
     imgWriter.Write()
 
+
 def MakeBands(dR, numberOfBands, nearestInteger):
-    '''
+    """
     Divide a range into bands
     :param: dR - [min, max] the range that is to be covered by the bands.
     :param: numberOfBands - the number of bands, a positive integer.
     :param: nearestInteger - if True then [floor(min), ceil(max)] is used.
     :return: A List consisting of [min, midpoint, max] for each band.
-    '''
+    """
     bands = list()
     if (dR[1] < dR[0]) or (numberOfBands <= 0):
         return bands
@@ -37,7 +41,7 @@ def MakeBands(dR, numberOfBands, nearestInteger):
     if nearestInteger:
         x[0] = math.floor(x[0])
         x[1] = math.ceil(x[1])
-    dx = (x[1] - x[0])/float(numberOfBands)
+    dx = (x[1] - x[0]) / float(numberOfBands)
     b = [x[0], x[0] + dx / 2.0, x[0] + dx]
     i = 0
     while i < numberOfBands:
@@ -46,8 +50,9 @@ def MakeBands(dR, numberOfBands, nearestInteger):
         i += 1
     return bands
 
+
 def MakeCustomBands(dR, numberOfBands):
-    '''
+    """
     Divide a range into custom bands.
 
     You need to specify each band as a list [r1, r2] where r1 < r2 and
@@ -58,7 +63,7 @@ def MakeCustomBands(dR, numberOfBands):
     :param: dR - [min, max] the range that is to be covered by the bands.
     :param: numberOfBands - the number of bands, a positive integer.
     :return: A List consisting of [min, midpoint, max] for each band.
-    '''
+    """
     bands = list()
     if (dR[1] < dR[0]) or (numberOfBands <= 0):
         return bands
@@ -80,19 +85,20 @@ def MakeCustomBands(dR, numberOfBands):
     t[1] = dR[1]
     x[len(x) - 1] = t
     for e in x:
-        bands.append([e[0], e[0] + (e[1] - e[0])/2, e[1]])
+        bands.append([e[0], e[0] + (e[1] - e[0]) / 2, e[1]])
     return bands
 
+
 def Frequencies(bands, src):
-    '''
+    """
     Count the number of scalars in each band.
     :param: bands - the bands.
     :param: src - the vtkPolyData source.
     :return: The frequencies of the scalars in each band.
-    '''
+    """
     freq = dict()
     for i in range(len(bands)):
-        freq[i] = 0;
+        freq[i] = 0
     tuples = src.GetPointData().GetScalars().GetNumberOfTuples()
     for i in range(tuples):
         x = src.GetPointData().GetScalars().GetTuple1(i)
@@ -102,13 +108,14 @@ def Frequencies(bands, src):
                 break
     return freq
 
+
 def MakeElevations(src):
-    '''
+    """
     Generate elevations over the surface.
     :param: src - the vtkPolyData source.
     :return: - vtkPolyData source with elevations.
-    '''
-    bounds = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+    """
+    bounds = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     src.GetBounds(bounds)
     elevFilter = vtk.vtkElevationFilter()
     elevFilter.SetInputData(src)
@@ -118,12 +125,13 @@ def MakeElevations(src):
     elevFilter.Update()
     return elevFilter.GetPolyDataOutput()
 
+
 def MakeTorus():
-    '''
+    """
     Make a torus as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
-    source = vtk.vtkSuperquadricSource();
+    """
+    source = vtk.vtkSuperquadricSource()
     source.SetCenter(0.0, 0.0, 0.0)
     source.SetScale(1.0, 1.0, 1.0)
     source.SetPhiResolution(64)
@@ -147,11 +155,12 @@ def MakeTorus():
     cleaner.Update()
     return CalculateCurvatures(MakeElevations(cleaner.GetOutput()))
 
+
 def MakeParametricTorus():
-    '''
+    """
     Make a parametric torus as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     fn = vtk.vtkParametricTorus()
     fn.SetRingRadius(5)
     fn.SetCrossSectionRadius(2)
@@ -168,18 +177,20 @@ def MakeParametricTorus():
     source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
     return CalculateCurvatures(source.GetOutput())
 
+
 def MakeParametricHills():
-    '''
+    """
     Make a parametric hills surface as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     fn = vtk.vtkParametricRandomHills()
     fn.AllowRandomGenerationOn()
     fn.SetRandomSeed(1)
     fn.SetNumberOfHills(30)
-    if fn.GetClassName() == 'vtkParametricRandomHills':
-        # Make the normals face out of the surface.
-        fn.ClockwiseOrderingOff()
+    # Make the normals face out of the surface.
+    # Not needed with VTK 8.0 or later.
+    # if fn.GetClassName() == 'vtkParametricRandomHills':
+    #    fn.ClockwiseOrderingOff()
 
     source = vtk.vtkParametricFunctionSource()
     source.SetParametricFunction(fn)
@@ -193,8 +204,9 @@ def MakeParametricHills():
     source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
     return CalculateCurvatures(source.GetOutput())
 
+
 def Clipper(src, dx, dy, dz):
-    '''
+    """
     Clip a vtkPolyData source.
     A cube is made whose size corresponds the the bounds of the source.
     Then each side is shrunk by the appropriate dx, dy or dz. After
@@ -204,8 +216,8 @@ def Clipper(src, dx, dy, dz):
     :param: dy - the amount to clip in the y-direction
     :param: dz - the amount to clip in the z-direction
     :return: vtkPolyData.
-    '''
-    bounds = [0,0,0,0,0,0]
+    """
+    bounds = [0, 0, 0, 0, 0, 0]
     src.GetBounds(bounds)
 
     plane1 = vtk.vtkPlane()
@@ -242,32 +254,34 @@ def Clipper(src, dx, dy, dz):
     clipFunction.AddFunction(plane6)
 
     # Clip it.
-    clipper =vtk.vtkClipPolyData()
+    clipper = vtk.vtkClipPolyData()
     clipper.SetClipFunction(clipFunction)
     clipper.SetInputData(src)
     clipper.GenerateClipScalarsOff()
     clipper.GenerateClippedOutputOff()
-    #clipper.GenerateClippedOutputOn()
+    # clipper.GenerateClippedOutputOn()
     clipper.Update()
     return clipper.GetOutput()
 
+
 def CalculateCurvatures(src):
-    '''
+    """
     The source must be triangulated.
     :param: src - the source.
     :return: vtkPolyData with normal and scalar data representing curvatures.
-    '''
+    """
     curvature = vtk.vtkCurvatures()
     curvature.SetCurvatureTypeToGaussian()
     curvature.SetInputData(src)
     curvature.Update()
     return curvature.GetOutput()
 
+
 def MakeEnneper():
-    '''
+    """
     Make a parametric surface as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     fn = vtk.vtkParametricEnneper()
 
     source = vtk.vtkParametricFunctionSource()
@@ -282,11 +296,12 @@ def MakeEnneper():
     source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
     return CalculateCurvatures(source.GetOutput())
 
+
 def MakeBoys():
-    '''
+    """
     Make a parametric surface as the source.
     :return: vtkPolyData with normal and scalar data.
-    '''
+    """
     fn = vtk.vtkParametricBoy()
 
     source = vtk.vtkParametricFunctionSource()
@@ -301,51 +316,54 @@ def MakeBoys():
     source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
     return CalculateCurvatures(source.GetOutput())
 
+
 def MakeLUT():
-    '''
+    """
     Make a lookup table using vtkColorSeries.
     :return: An indexed lookup table.
-    '''
+    """
     # Make the lookup table.
     colorSeries = vtk.vtkColorSeries()
     # Select a color scheme.
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_PURPLE_ORANGE_9
-    #colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_PURPLE_9
-    #colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_GREEN_9
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3
+    # colorSeriesEnum = colorSeries.BREWER_DIVERGING_PURPLE_ORANGE_9
+    # colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_PURPLE_9
+    # colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_GREEN_9
     colorSeriesEnum = colorSeries.BREWER_QUALITATIVE_SET3
-    #colorSeriesEnum = colorSeries.CITRUS
+    # colorSeriesEnum = colorSeries.CITRUS
     colorSeries.SetColorScheme(colorSeriesEnum)
     lut = vtk.vtkLookupTable()
     colorSeries.BuildLookupTable(lut)
-    lut.SetNanColor(0,0,0,1)
+    lut.SetNanColor(0, 0, 0, 1)
     return lut
 
+
 def ReverseLUT(lut):
-    '''
+    """
     Create a lookup table with the colors reversed.
     :param: lut - An indexed lookup table.
     :return: The reversed indexed lookup table.
-    '''
+    """
     lutr = vtk.vtkLookupTable()
     lutr.DeepCopy(lut)
     t = lut.GetNumberOfTableValues() - 1
     revRange = reversed(list(range(t + 1)))
     for i in revRange:
-        rgba = [0,0,0]
+        rgba = [0, 0, 0]
         v = float(i)
-        lut.GetColor(v,rgba)
+        lut.GetColor(v, rgba)
         rgba.append(lut.GetOpacity(v))
-        lutr.SetTableValue(t - i,rgba)
+        lutr.SetTableValue(t - i, rgba)
     t = lut.GetNumberOfAnnotatedValues() - 1
     for i in revRange:
         lutr.SetAnnotation(t - i, lut.GetAnnotation(i))
     return lutr
 
+
 def MakeGlyphs(src, reverseNormals):
-    '''
+    """
     Glyph the normals on the surface.
 
     You may need to adjust the parameters for maskPts, arrow and glyph for a
@@ -355,7 +373,7 @@ def MakeGlyphs(src, reverseNormals):
     :param: reverseNormals - if True the normals on the surface are reversed.
     :return: The glyph object.
 
-    '''
+    """
     # Sometimes the contouring algorithm can create a volume whose gradient
     # vector and ordering of polygon (using the right hand rule) are
     # inconsistent. vtkReverseSense cures this problem.
@@ -390,14 +408,15 @@ def MakeGlyphs(src, reverseNormals):
     glyph.Update()
     return glyph
 
+
 def DisplaySurface(st):
-    '''
+    """
     Make and display the surface.
     :param: st - the surface to display.
     :return The vtkRenderWindowInteractor.
-    '''
+    """
     surface = st.upper()
-    if  (not(surface in SURFACE_TYPE) ):
+    if not (surface in SURFACE_TYPE):
         print(st, "is not a surface.")
         iren = vtk.vtkRenderWindowInteractor()
         return iren
@@ -405,12 +424,12 @@ def DisplaySurface(st):
     # Create the surface, lookup tables, contour filter etc.
     # ------------------------------------------------------------
     src = vtk.vtkPolyData()
-    if (surface == "TORUS"):
+    if surface == "TORUS":
         src = MakeTorus()
-    elif (surface == "PARAMETRIC_TORUS"):
+    elif surface == "PARAMETRIC_TORUS":
         src = MakeParametricTorus()
-    elif (surface == "PARAMETRIC_HILLS"):
-        src = Clipper(MakeParametricHills(),0.5,0.5,0.0)
+    elif surface == "PARAMETRIC_HILLS":
+        src = Clipper(MakeParametricHills(), 0.5, 0.5, 0.0)
     # Here we are assuming that the active scalars are the curvatures.
     curvatureName = src.GetPointData().GetScalars().GetName()
     # Use this range to color the glyphs for the normals by elevation.
@@ -443,7 +462,7 @@ def DisplaySurface(st):
     for i in range(len(labels)):
         values.InsertNextValue(vtk.vtkVariant(labels[i]))
     for i in range(values.GetNumberOfTuples()):
-        lut.SetAnnotation(i, values.GetValue(i).ToString());
+        lut.SetAnnotation(i, values.GetValue(i).ToString())
 
     # Create a lookup table with the colors reversed.
     lutr = ReverseLUT(lut)
@@ -459,7 +478,7 @@ def DisplaySurface(st):
     bcf.GenerateContourEdgesOn()
 
     # Generate the glyphs on the original surface.
-    glyph = MakeGlyphs(src,False)
+    glyph = MakeGlyphs(src, False)
 
     # ------------------------------------------------------------
     # Create the mappers and actors
@@ -532,12 +551,13 @@ def DisplaySurface(st):
 
     return iren
 
+
 if __name__ == '__main__':
-    #iren = vtk.vtkRenderWindowInteractor()
-    #iren = DisplaySurface("TORUS")
-    #iren = DisplaySurface("PARAMETRIC_TORUS")
+    # iren = vtk.vtkRenderWindowInteractor()
+    # iren = DisplaySurface("TORUS")
+    # iren = DisplaySurface("PARAMETRIC_TORUS")
     iren = DisplaySurface("PARAMETRIC_HILLS")
     iren.Render()
     iren.Start()
-#     WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
+# WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
 #               "CurvatureBandsWithGlyphs.png")

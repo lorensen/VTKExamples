@@ -17,29 +17,24 @@ function. This allows us to specify multiple surface types and, in this code,
 to use an enum to pick the one we want.
 
 The process is as follows:
-
-1. Use an enum to select your surface.
-
-2. Use vtkColorSeries to make an indexed lookup table.
-
-3. Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands.
-
-4. This list is then used to define the labels for the scalar bar using the midpoints of the ranges in the bands as the labels.
-
-5. Once this is done, we annotate the lookup table and then create a reversed lookup table. This will be used by the scalar bar actor.
-
-6. The maximum values in the ranges in the bands are used to set the bands in the banded contour filter.
-
-7. Glyphs are then created for the normals.
-
-8. Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.
-
-9. The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.
+ 1. Use an enum to select your surface.
+ 2. Use vtkColorSeries to make an indexed lookup table.
+ 3. Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands.
+ 4. This list is then used to define the labels for the scalar bar using the midpoints of the ranges in the bands as the labels.
+ 5. Once this is done, we annotate the lookup table and then create a reversed lookup table. This will be used by the scalar bar actor.
+ 6. The maximum values in the ranges in the bands are used to set the bands in the banded contour filter.
+ 7. Glyphs are then created for the normals.
+ 8. Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.
+ 9. The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.
 
 Feel free to experiment with different color schemes and/or the other
 sources from the parametric function group or a cone etc.
 
-Note that in the function MakeParametricSurface() we use ClockwiseOrderingOff() when using vtkParametricRandomHills as a source, this ensures that the normals face in the expected direction, the default is ClockwiseOrderingOn(). As an alternative, in MakeGlyphs(), you can set reverseNormals to true thereby invoking vtkReverseSense to achieve the same effect.
+For versions of VTK older than VTK 8.0:
+
+    In the function `MakeParametricHills()` you may have to set `ClockwiseOrderingOff()` when using vtkParametricRandomHills as a source,
+    this ensures that the normals face in the expected direction, the default is `ClockwiseOrderingOn()`.
+    As an alternative, in `MakeGlyphs()`, you can set reverseNormals to True thereby invoking vtkReverseSense to achieve the same effect.
 
 You will usually need to adjust the parameters for maskPts,
 arrow and glyph for a nice appearance.
