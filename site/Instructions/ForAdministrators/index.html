@@ -15979,10 +15979,12 @@
 <p>[https://github.com/lorensen/VTKWikiExamples/blob/master/Admin/CheckPagesForImages ''Admin/CheckPagesForImages'']
 : This is a python script that uses [http://sourceforge.net/projects/mwclient/ mwclient] to check each example to see if it should have a reference to a baseline image. If a baseline image exists for an example, the script looks for a <nowiki>''<div></div>''</nowiki> tag. This tag contains a reference for the baseline image for the example. If the tag is not found, the script generates a cut/paste line to edit the page as well as a cut/paste line that has the proper <nowiki>''<div></div>''</nowiki> for the baseline image.</p>
 </li>
-<li>
-<p>[https://github.com/lorensen/VTKWikiExamples/blob/master/SyncRepoWithWiki.sh ''SyncRepoWithWiki.sh'']
-: This shell script runs ''ScrapeWiki'' to create source files for all wiki examples. Then it uses git to add, remove or modify the source code. The resulting repository is pushed to [https://github.com/lorensen/VTKWikiExamples the github repository]. The script is run nightly by a cronjob on a designated host (currently BillsBasement). '''NOTE: this script should only be run by one individual (currently Lorensen)'''.</p>
-</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>this script should only be run by one individual (currently Lorensen)'''.</p>
+</div>
+<ul>
 <li>
 <p>[https://github.com/lorensen/VTKWikiExamples/tree/master/Testing/Data ''Testing/Data'']
 : Some examples require input data. A small number of datasets are distributed with the examples and are used by the regression tests. All administrators can add input data.</p>

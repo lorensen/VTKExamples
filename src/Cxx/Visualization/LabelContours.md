@@ -3,4 +3,5 @@ This example labels isolines created by vtkContourFilter. After the isolines are
 
 The program can be run with an input XML polydata file (.vtp) or without arguments. If a file is specified then one, two or a range of contours can be specified. If run without a file name, the example generates a random scalar field on a plane.
 
-'''NOTE:''' The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.
+!!! note
+    The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.

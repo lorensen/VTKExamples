@@ -16033,9 +16033,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Math/1DTupleInterpolation</p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Contributed by: Lars Friedrich</li>
-</ul>
+<p><em>Contributed by: Lars Friedrich</em></p>
 <p>A simple example that shows how to use vtkTupleInterpolator for the purpose of interpolating 1D functions. Internally the program investigates two functions: <em>sine</em> and <em>Runge</em> function with sparsely distributed supporting points. The application uses different interpolation modes: '''linear''', '''cardinal spline''' and '''Kochanek spline'''. Moreover, the example offers the "--csv-output" (or "-co") option which causes the program to generate CSV-sheets reflecting the interpolated data. In order to demonstrate the spline interpolation behavior at the edge regions, we use the '''open''' and '''closed''' interval spline options as well. For example, a Kochanek-interpolation of the Runge function:
 <a href="../[Image:Tuple1D_Kochanek_interpolation.png]"></a></p>
 <h3 id="program-usage">Program Usage<a class="headerlink" href="#program-usage" title="Permanent link">&para;</a></h3>
@@ -16043,7 +16041,10 @@
 <p>-h or --help ... print this short help
   -nv or --no-verbose ... no verbose messages to std::cout
   -co or --csv-output ... CSV (comma separated values) file outputs</p>
-<p><strong>NOTE:</strong> optional arguments are case-sensitive!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>optional arguments are case-sensitive!</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>1DTupleInterpolation.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="c1">//</span>

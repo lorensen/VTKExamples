@@ -11498,12 +11498,56 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        CurvedReformation
+      </label>
     
     <a href="./" title="CurvedReformation" class="md-nav__link md-nav__link--active">
       CurvedReformation
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-curvedreformation" title="Download and Build CurvedReformation" class="md-nav__link">
+    Download and Build CurvedReformation
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15924,8 +15968,41 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-curvedreformation" title="Download and Build CurvedReformation" class="md-nav__link">
+    Download and Build CurvedReformation
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
   
 </nav>
                   </div>
@@ -15938,14 +16015,27 @@
               
                 
                 
+                  <h1>CurvedReformation</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/CurvedReformation</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestCurvedReformation.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example makes a curved reformation of a volume. The example requires three parameters:</p>
-<h1 id="input-volume">Input volume<a class="headerlink" href="#input-volume" title="Permanent link">&para;</a></h1>
-<h1 id="input-polydata-that-defines-a-polyline-for-the-reformation-the-polyline-will-be-resampled-with-a-cubic-spline">Input polydata that defines a polyline for the reformation. The polyline will be resampled with a cubic spline<a class="headerlink" href="#input-polydata-that-defines-a-polyline-for-the-reformation-the-polyline-will-be-resampled-with-a-cubic-spline" title="Permanent link">&para;</a></h1>
-<h1 id="resolution-is-the-result-in-resolution-of-the-reformation">Resolution is the result in resolution of the reformation.<a class="headerlink" href="#resolution-is-the-result-in-resolution-of-the-reformation" title="Permanent link">&para;</a></h1>
-<p>'''NOTE:''' The image was generated with this volume data: [HeadMRVolume.mhd], [http://vtk.org/gitweb?p=VTKData.git;a=blob_plain;f=Data/HeadMRVolume.raw;hb=HEAD HeadMRVolume.raw] and this polyLine data: <a href="http://vtk.org/gitweb?p=VTKData.git;a=blob_plain;f=Data/HeadMRVolume.mhd;hb=HEAD">https://raw.githubusercontent.com/lorensen/VTKWikiExamples/master/Testing/Data/polyline.vtk polyline.vtk</a></p>
+<ol>
+<li>
+<p>Input volume</p>
+</li>
+<li>
+<p>Input polydata that defines a polyline for the reformation. The polyline will be resampled with a cubic spline</p>
+</li>
+<li>
+<p>Resolution is the result in resolution of the reformation.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The image was generated with this volume data: <a href="https://github.com/lorensen/VTKExamples/raw/master/src/Testing/Data/HeadMRVolume.mhd">HeadMRVolume.mhd</a> and HeadMRVolume.raw](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/HeadMRVolume.raw?raw=true and <a href="https://github.com/lorensen/VTKExamples/raw/master/src/Testing/Data/polyline.vtk">this polyLine data:</a></p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CurvedReformation.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>

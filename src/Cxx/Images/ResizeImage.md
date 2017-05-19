@@ -3,4 +3,5 @@ Resize an image using a sinc interpolator. Without command line arguments, the e
 
 ImageResize maintains the physical size of the image.
 
-'''NOTE:''' This example was inspired by a question asked by ''Qiang Wang''.
+!!! note
+    This example was inspired by a question asked by *Qiang Wang*.

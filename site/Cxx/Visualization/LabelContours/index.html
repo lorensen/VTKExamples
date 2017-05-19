@@ -16022,7 +16022,10 @@
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example labels isolines created by vtkContourFilter. After the isolines are generated, the resulting disconnected lines segments are gathered into polylines by vtkStripper. Then an appropriate position along each line is chosen to place the label for the contour. Two strategies for label placement are illustrated: a point at the midpoint of the line or a random point. vtkLabeledDataMapper places the labels for the contour lines.</p>
 <p>The program can be run with an input XML polydata file (.vtp) or without arguments. If a file is specified then one, two or a range of contours can be specified. If run without a file name, the example generates a random scalar field on a plane.</p>
-<p>'''NOTE:''' The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LabelContours.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>

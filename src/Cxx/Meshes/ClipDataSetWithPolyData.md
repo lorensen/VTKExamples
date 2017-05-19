@@ -1,6 +1,7 @@
 ### Description
-**NOTE:** This example was translated to C++ from the Python example
-[here](../Python/Meshes/vtkClipDataSetWithPolydata).
+
+!!! note
+    This example was translated to C++ from the Python example [here](/Python/Meshes/vtkClipDataSetWithPolydata).
 
 The example that shows how to use the vtkClipDataSet to clip a
 vtkRectilinearGrid with an arbitrary
@@ -13,10 +14,10 @@ including stl files.
 The left part of the image shows the inside clip and the distance
 field on a center slice. The right side shows the outside clip. When
 the program exits using the "e: key, the example will report the cell
-type for both the inside and outside clips. NOTE: vtkClipDataSet
-tetrahedralizes the volume before clipping. Contrast this with the
-vtkTableBasedClipDataSet example:
-[TableBasedClipDataSetWithPolyData](/Cxx/Meshes/TableBasedClipDataSetWithPolyData).
+type for both the inside and outside clips.
+
+!!! note
+    vtkClipDataSet tetrahedralizes the volume before clipping. Contrast this with the vtkTableBasedClipDataSet example: [TableBasedClipDataSetWithPolyData](/Cxx/Meshes/TableBasedClipDataSetWithPolyData).
 
 Here is the summary reported when the example exits:
 <samp>

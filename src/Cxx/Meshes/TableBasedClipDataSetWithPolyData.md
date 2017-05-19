@@ -1,4 +1,5 @@
 ### Description
+
 The example that shows how to use the vtkTableBasedClipDataSet to clip
 a vtkRectilinearGrid with an arbitrary
 polydata. vtkImplicitPolyDataDistance is used to turn the polydata
@@ -10,9 +11,10 @@ including stl files.
 The left part of the image shows the inside clip and the distance
 field on a center slice. The right side shows the outside clip. When
 the program exits using the "e: key, the example will report the cell
-type for both the inside and outside clips. NOTE: Contrast this with
-the vtkClipDataSet example:
-[ClipDataSetWithPolyData](ClipDataSetWithPolyData).
+type for both the inside and outside clips.
+
+!!! note
+    Contrast this with the vtkClipDataSet example: [ClipDataSetWithPolyData](ClipDataSetWithPolyData).
 
 Here is the summary reported when the example exits:
 <pre><code>
