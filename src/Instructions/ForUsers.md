@@ -23,15 +23,15 @@ downloading individual examples you can build them all.
 
 If you cloned the examples repository, you can get the latest updates:
 
-`
+``` bash
 cd VTKExamples
 git pull
 cd ../VTKExamples-build
 cmake ../VTKExamples
 make
-`
+```
 
-###Run all of the examples
+### Run all of the examples
 
 `
 ctest
