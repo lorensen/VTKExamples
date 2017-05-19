@@ -5,7 +5,7 @@ The goal of the VTK examples is to illustrate specific VTK concepts in a consist
 
 Hundreds of tests are distributed with the toolkit source. The tests reside in ''Kit''/Testing directories (for example, Filters/Points/Testing) in the source distribution. However, these tests are meant to exercise the toolkit rather than illustrate how to use it. For the most part, the tests are not good educational resources.
 
-We are now using a gitlab wiki to provide examples that will help both new and experienced VTK users. The wiki can be used to find examples that answer questions like, "How do I extract normals from a filter's output?", "How do I generate models from segmented data?", and "How do I compute the area of a triangle?", just to name a few.
+We are now using [github pages](https://pages.github.com/) to provide examples that will help both new and experienced VTK users. The wiki can be used to find examples that answer questions like, "How do I extract normals from a filter's output?", "How do I generate models from segmented data?", and "How do I compute the area of a triangle?", just to name a few.
 
 Over time we hope that the examples will answer many of the users' questions. Some questions won't have a solution in the current example repertoire. For those questions, we encourage the user to create a simple example that illustrates either a dilemma or a new solution.
 

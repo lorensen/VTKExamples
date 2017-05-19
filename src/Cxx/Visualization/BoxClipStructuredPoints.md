@@ -1,3 +1,4 @@
 ### Description
-This example uses the data files: [HeadMRVolume.mhd](https://gitlab.kitware.com/lorensen/VTKExamples/raw/master/Testing/Data/HeadMRVolume.mhd) and
-[HeadMRVolume.raw](https://gitlab.kitware.com/lorensen/VTKExamples/blob/master/Testing/Data/HeadMRVolume.raw)
+
+!!! note
+    The image was generated with this volume data: [HeadMRVolume.mhd](https://github.com/lorensen/VTKExamples/raw/master/src/Testing/Data/HeadMRVolume.mhd) and HeadMRVolume.raw](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/HeadMRVolume.raw?raw=true and [this polyLine data:](https://github.com/lorensen/VTKExamples/raw/master/src/Testing/Data/polyline.vtk)

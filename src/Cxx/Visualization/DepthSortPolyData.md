@@ -14,7 +14,8 @@ data.
 
 ### Program Usage
 
-*Usage: ./DepthSortPolyData DepthSortFlag ThetaResolution  PhiResolution ScalarVisibilityFlag*
+```
+Usage: ./DepthSortPolyData DepthSortFlag ThetaResolution  PhiResolution ScalarVisibilityFlag*
 
 DepthSortFlag ... activate/deactivate the depth sorting algorithm
 
@@ -23,16 +24,20 @@ ThetaResolution ... THETA resolution for the spheres
 PhiResolution ... PHI resolution for the spheres
 
 ScalarVisibilityFlag ... show/hide the found depth values as scalars
+```
 
 *Example calls:*
 
+```
 ./DepthSortPolyData 0 100 100 0
 ... will render the spheres 'as usual' (without depth sorting); in general you will be confronted with situations (specific view directions) where you cannot determine whether a small sphere is behind or in front of the big center sphere
-
+```
+```
 ./DepthSortPolyData 1 100 100 0
 ... will render the spheres using depth sorting; the sphere depth order should now be visually traceable
-
+```
+```
 ./DepthSortPolyData 1 100 100 1
 ... will render the spheres using depth sorting; the depth values are mapped to the spheres and renderd on the surfaces
-
+```
 Using higher PHI/THETA resolutions shows how depth sorting reduces the frame rate.
