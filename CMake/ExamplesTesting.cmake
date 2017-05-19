@@ -17,7 +17,7 @@ foreach(SOURCE_FILE ${ALL_FILES})
   set_property(TEST ${KIT}-${EXAMPLE} PROPERTY LABELS WikiExamples)
 endforeach(SOURCE_FILE)
 SET(VTK_BINARY_DIR ${WikiExamples_BINARY_DIR})
-SET(VTK_DATA_ROOT ${WikiExamples_SOURCE_DIR}/Testing)
+SET(VTK_DATA_ROOT ${WikiExamples_SOURCE_DIR}/src/Testing)
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/vtkTestingObjectFactory.cmake)
 ADD_EXECUTABLE(${KIT}CxxTests ${KIT}CxxTests.cxx
                ${MyTests})
