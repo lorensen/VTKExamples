@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15525,6 +15525,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,174 +15991,174 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/QuadraticSurface</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestQuadraticSurface.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Converted from c++ by Jim McCusker</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>QuadraticSurface.py</strong></p>
-<pre><code class="python">#!/usr/bin/python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/python</span>
 
-from vtk import *
+<span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span> <span class="o">*</span>
 
-def Sphere():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,1,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">Sphere</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2 + 1*z^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2 + 1*z^2</span>
 
-    PlotFunction(quadric, 1.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-def EllipticParaboloid():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,0,0,0,0,0,0,-1,0)
+<span class="k">def</span> <span class="nf">EllipticParaboloid</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2</span>
 
-    PlotFunction(quadric, 0.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-def HyperbolicParaboloid():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,-1,0,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">HyperbolicParaboloid</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 - 1*y^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 - 1*y^2</span>
 
-    PlotFunction(quadric, 1.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-def Cylinder():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,0,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">Cylinder</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2</span>
 
-    PlotFunction(quadric, 1.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-def HyperboloidOneSheet():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,-1,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">HyperboloidOneSheet</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2</span>
 
-    PlotFunction(quadric, 1.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-def HyperboloidTwoSheets():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,-1,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">HyperboloidTwoSheets</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2</span>
 
-    PlotFunction(quadric, -1.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
 
-def Ellipsoid():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,2,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">Ellipsoid</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2 + 1*z^2
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2 + 1*z^2</span>
 
-    PlotFunction(quadric, 1.0)
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-def Cone():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(1,1,-1,0,0,0,0,0,0,0)
+<span class="k">def</span> <span class="nf">Cone</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 1*x^2 + 1*y^2 - 1*z^2
-    PlotFunction(quadric, 0.0)
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2 - 1*z^2</span>
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
 
-def Other():
-    # create the quadric function definition
-    quadric = vtkQuadric()
-    quadric.SetCoefficients(.5,1,.2,0,.1,0,0,.2,0,0)
+<span class="k">def</span> <span class="nf">Other</span><span class="p">():</span>
+    <span class="c1"># create the quadric function definition</span>
+    <span class="n">quadric</span> <span class="o">=</span> <span class="n">vtkQuadric</span><span class="p">()</span>
+    <span class="n">quadric</span><span class="o">.</span><span class="n">SetCoefficients</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
-    # F(x,y,z) = 0.5*x^2 + 1*y^2 + 0.2*z^2 + 0*x*y + 0.1*y*z + 0*x*z + 0*x + 0.2*y + 0*z + 0
-    PlotFunction(quadric, 1.0)
+    <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
+    <span class="c1"># F(x,y,z) = 0.5*x^2 + 1*y^2 + 0.2*z^2 + 0*x*y + 0.1*y*z + 0*x*z + 0*x + 0.2*y + 0*z + 0</span>
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-def PlotFunction(quadric, value):
-    # sample the quadric function
-    sample = vtkSampleFunction()
-    sample.SetSampleDimensions(50,50,50)
-    sample.SetImplicitFunction(quadric)
-    #double xmin = 0, xmax=1, ymin=0, ymax=1, zmin=0, zmax=1
-    xmin = -10
-    xmax=11
-    ymin=-10
-    ymax=10
-    zmin=-10
-    zmax=10
-    sample.SetModelBounds(xmin, xmax, ymin, ymax, zmin, zmax)
+<span class="k">def</span> <span class="nf">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="c1"># sample the quadric function</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">vtkSampleFunction</span><span class="p">()</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">)</span>
+    <span class="c1">#double xmin = 0, xmax=1, ymin=0, ymax=1, zmin=0, zmax=1</span>
+    <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>
+    <span class="n">xmax</span><span class="o">=</span><span class="mi">11</span>
+    <span class="n">ymin</span><span class="o">=-</span><span class="mi">10</span>
+    <span class="n">ymax</span><span class="o">=</span><span class="mi">10</span>
+    <span class="n">zmin</span><span class="o">=-</span><span class="mi">10</span>
+    <span class="n">zmax</span><span class="o">=</span><span class="mi">10</span>
+    <span class="n">sample</span><span class="o">.</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">)</span>
 
-    #create the 0 isosurface
-    contours = vtkContourFilter()
-    contours.SetInput(sample.GetOutput())
-    contours.GenerateValues(1, value, value)
+    <span class="c1">#create the 0 isosurface</span>
+    <span class="n">contours</span> <span class="o">=</span> <span class="n">vtkContourFilter</span><span class="p">()</span>
+    <span class="n">contours</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">contours</span><span class="o">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-    # map the contours to graphical primitives
-    contourMapper = vtkPolyDataMapper()
-    contourMapper.SetInput(contours.GetOutput())
-    contourMapper.SetScalarRange(0.0, 1.2)
+    <span class="c1"># map the contours to graphical primitives</span>
+    <span class="n">contourMapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+    <span class="n">contourMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">contours</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">contourMapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
 
-    # create an actor for the contours
-    contourActor = vtkActor()
-    contourActor.SetMapper(contourMapper)
+    <span class="c1"># create an actor for the contours</span>
+    <span class="n">contourActor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">contourActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">)</span>
 
-    # -- create a box around the function to indicate the sampling volume --
+    <span class="c1"># -- create a box around the function to indicate the sampling volume --</span>
 
-    # create outline
-    outline = vtkOutlineFilter()
-    outline.SetInput(sample.GetOutput())
+    <span class="c1"># create outline</span>
+    <span class="n">outline</span> <span class="o">=</span> <span class="n">vtkOutlineFilter</span><span class="p">()</span>
+    <span class="n">outline</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    # map it to graphics primitives
-    outlineMapper = vtkPolyDataMapper()
-    outlineMapper.SetInput(outline.GetOutput())
+    <span class="c1"># map it to graphics primitives</span>
+    <span class="n">outlineMapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+    <span class="n">outlineMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">outline</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    # create an actor for it
-    outlineActor = vtkActor()
-    outlineActor.SetMapper(outlineMapper)
-    outlineActor.GetProperty().SetColor(0,0,0)
+    <span class="c1"># create an actor for it</span>
+    <span class="n">outlineActor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">outlineActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outlineMapper</span><span class="p">)</span>
+    <span class="n">outlineActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-    # setup the window
-    ren1 = vtkRenderer()
-    renWin = vtkRenderWindow()
-    renWin.AddRenderer(ren1)
-    iren = vtkRenderWindowInteractor()
-    iren.SetRenderWindow(renWin)
+    <span class="c1"># setup the window</span>
+    <span class="n">ren1</span> <span class="o">=</span> <span class="n">vtkRenderer</span><span class="p">()</span>
+    <span class="n">renWin</span> <span class="o">=</span> <span class="n">vtkRenderWindow</span><span class="p">()</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">)</span>
+    <span class="n">iren</span> <span class="o">=</span> <span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
 
-    # add the actors to the scene
-    ren1.AddActor(contourActor)
-    ren1.AddActor(outlineActor)
-    ren1.SetBackground(1,1,1) # Background color white
+    <span class="c1"># add the actors to the scene</span>
+    <span class="n">ren1</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">contourActor</span><span class="p">)</span>
+    <span class="n">ren1</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">)</span>
+    <span class="n">ren1</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Background color white</span>
 
-    # render and interact
-    renWin.Render()
-    iren.Start()
+    <span class="c1"># render and interact</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-Other()
-Sphere()
-Cone()
-Ellipsoid()
-Cylinder()
-HyperboloidOneSheet()
-HyperboloidTwoSheets()
-HyperbolicParaboloid()
-EllipticParaboloid()
-</code></pre>
+<span class="n">Other</span><span class="p">()</span>
+<span class="n">Sphere</span><span class="p">()</span>
+<span class="n">Cone</span><span class="p">()</span>
+<span class="n">Ellipsoid</span><span class="p">()</span>
+<span class="n">Cylinder</span><span class="p">()</span>
+<span class="n">HyperboloidOneSheet</span><span class="p">()</span>
+<span class="n">HyperboloidTwoSheets</span><span class="p">()</span>
+<span class="n">HyperbolicParaboloid</span><span class="p">()</span>
+<span class="n">EllipticParaboloid</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

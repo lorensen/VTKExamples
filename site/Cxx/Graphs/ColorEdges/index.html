@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,104 +16005,111 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/ColorEdges</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestColorEdges.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ColorEdges.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkDataSetAttributes.h&gt;
-#include &lt;vtkGraphLayoutView.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkMutableDirectedGraph.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkViewTheme.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetAttributes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayoutView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableDirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkViewTheme.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; graph = 
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create a graph
-  vtkIdType v1 = graph-&gt;AddVertex();
-  vtkIdType v2 = graph-&gt;AddVertex();
-  vtkIdType v3 = graph-&gt;AddVertex();
-  graph-&gt;AddEdge(v1,v2);
-  graph-&gt;AddEdge(v2,v3);
+  <span class="c1">// Create a graph</span>
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">);</span>
+  <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="n">v3</span><span class="p">);</span>
 
-  // Create the color array
-  vtkSmartPointer&lt;vtkIntArray&gt; edgeColors = 
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  edgeColors-&gt;SetNumberOfComponents(1);
-  edgeColors-&gt;SetName(&quot;Color&quot;);
+  <span class="c1">// Create the color array</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">edgeColors</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">edgeColors</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">edgeColors</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Color&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkLookupTable&gt; lookupTable = 
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  lookupTable-&gt;SetNumberOfTableValues(2);
-  lookupTable-&gt;SetTableValue(0, 1.0, 0.0, 0.0); // red
-  lookupTable-&gt;SetTableValue(1, 0.0, 1.0, 0.0); // green
-  lookupTable-&gt;Build();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lookupTable</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span> <span class="c1">// red</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span> <span class="c1">// green</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  edgeColors-&gt;InsertNextValue(0);
-  edgeColors-&gt;InsertNextValue(1);
+  <span class="n">edgeColors</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">edgeColors</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  // Add the color array to the graph
-  graph-&gt;GetEdgeData()-&gt;AddArray(edgeColors);
+  <span class="c1">// Add the color array to the graph</span>
+  <span class="n">graph</span><span class="o">-&gt;</span><span class="n">GetEdgeData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">edgeColors</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGraphLayoutView&gt; graphLayoutView = 
-    vtkSmartPointer&lt;vtkGraphLayoutView&gt;::New();
-  graphLayoutView-&gt;AddRepresentationFromInput(graph);
-  graphLayoutView-&gt;SetLayoutStrategyToTree();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;</span> <span class="n">graphLayoutView</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="n">graph</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">SetLayoutStrategyToTree</span><span class="p">();</span>
 
-  graphLayoutView-&gt;SetEdgeColorArrayName(&quot;Color&quot;);
-  graphLayoutView-&gt;ColorEdgesOn();
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">SetEdgeColorArrayName</span><span class="p">(</span><span class="s">&quot;Color&quot;</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ColorEdgesOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkViewTheme&gt; theme = 
-    vtkSmartPointer&lt;vtkViewTheme&gt;::New();
-  theme-&gt;SetCellLookupTable(lookupTable);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkViewTheme</span><span class="o">&gt;</span> <span class="n">theme</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkViewTheme</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">theme</span><span class="o">-&gt;</span><span class="n">SetCellLookupTable</span><span class="p">(</span><span class="n">lookupTable</span><span class="p">);</span>
 
-  graphLayoutView-&gt;ApplyViewTheme(theme);
-  graphLayoutView-&gt;ResetCamera();
-  graphLayoutView-&gt;GetInteractor()-&gt;Initialize();
-  graphLayoutView-&gt;GetInteractor()-&gt;Start();
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ApplyViewTheme</span><span class="p">(</span><span class="n">theme</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ColorEdges)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ColorEdges</span><span class="p">)</span>
 
-add_executable(ColorEdges MACOSX_BUNDLE ColorEdges.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ColorEdges ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ColorEdges</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ColorEdges.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-coloredges">Download and Build ColorEdges</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ColorEdges</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-coloredges">Download and Build ColorEdges<a class="headerlink" href="#download-and-build-coloredges" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ColorEdges.tar">here to download ColorEdges</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ColorEdges.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ColorEdges/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ColorEdges/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ColorEdges
-</code></pre>
+<div class="codehilite"><pre><span></span>./ColorEdges
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

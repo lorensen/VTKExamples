@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15523,6 +15523,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,54 +15991,54 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Widgets/BoxWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestBoxWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Widgets_BoxWidget.png]"></a></p>
 <p>An example that shows how to use the BoxWidget to interactively scale and rotate and object.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BoxWidget.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-# Call back function to resize the cone
-def boxCallback(obj, event):
-    t = vtk.vtkTransform()
-    obj.GetTransform(t)
-    obj.GetProp3D().SetUserTransform( t )
+<span class="c1"># Call back function to resize the cone</span>
+<span class="k">def</span> <span class="nf">boxCallback</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">GetTransform</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">GetProp3D</span><span class="p">()</span><span class="o">.</span><span class="n">SetUserTransform</span><span class="p">(</span> <span class="n">t</span> <span class="p">)</span>
 
-# Create a Cone
-cone = vtk.vtkConeSource()
-cone.SetResolution(20)
-coneMapper = vtk.vtkPolyDataMapper()
-coneMapper.SetInputConnection(cone.GetOutputPort())
-coneActor = vtk.vtkActor()
-coneActor.SetMapper(coneMapper)
+<span class="c1"># Create a Cone</span>
+<span class="n">cone</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">()</span>
+<span class="n">cone</span><span class="o">.</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">coneMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">coneMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cone</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">coneActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">coneActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">coneMapper</span><span class="p">)</span>
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(0, 0, 1)
-renderer.AddActor(coneActor)
+<span class="c1"># A renderer and render window</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">coneActor</span><span class="p">)</span>
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+<span class="n">renwin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renwin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
+<span class="c1"># An interactor</span>
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renwin</span><span class="p">)</span>
 
-# A Box widget
-boxWidget = vtk.vtkBoxWidget()
-boxWidget.SetInteractor(interactor)
-boxWidget.SetProp3D(coneActor)
-boxWidget.SetPlaceFactor( 1.25 ) # Make the box 1.25x larger than the actor
-boxWidget.PlaceWidget()
-boxWidget.On()
+<span class="c1"># A Box widget</span>
+<span class="n">boxWidget</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBoxWidget</span><span class="p">()</span>
+<span class="n">boxWidget</span><span class="o">.</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">)</span>
+<span class="n">boxWidget</span><span class="o">.</span><span class="n">SetProp3D</span><span class="p">(</span><span class="n">coneActor</span><span class="p">)</span>
+<span class="n">boxWidget</span><span class="o">.</span><span class="n">SetPlaceFactor</span><span class="p">(</span> <span class="mf">1.25</span> <span class="p">)</span> <span class="c1"># Make the box 1.25x larger than the actor</span>
+<span class="n">boxWidget</span><span class="o">.</span><span class="n">PlaceWidget</span><span class="p">()</span>
+<span class="n">boxWidget</span><span class="o">.</span><span class="n">On</span><span class="p">()</span>
 
-# Connect the event to a function
-boxWidget.AddObserver(&quot;InteractionEvent&quot;, boxCallback)
+<span class="c1"># Connect the event to a function</span>
+<span class="n">boxWidget</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;InteractionEvent&quot;</span><span class="p">,</span> <span class="n">boxCallback</span><span class="p">)</span>
 
-# Start
-interactor.Initialize()
-interactor.Start()
-</code></pre>
+<span class="c1"># Start</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

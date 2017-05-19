@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,142 +16019,149 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/BoxWidget2</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestBoxWidget2.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example uses a {{class|vtkBoxWidget2}} to manipulate an actor. The widget only contains the interaction logic; the actual box is drawn by the accompanying {{class|vtkBoxRepresentation}}.
 Contrary to the older {{class|vtkBoxWidget|older implementation}}, this widget doesn't provide functionality to assign it to one or more actors, so that has to be implemented manually. The box is dimensioned and positioned by passing a bounding box to <code>PlaceWidget</code> method, with the <code>SetPlaceFactor</code> method providing a scaling factor in relation to that bounding box. The transformations applied to the box can be used to manipulate any number of object(s), via a custom callback class, which is passed to the box widget through the <code>AddObserver</code> method.</p>
 <p>The older implementation {{class|vtkBoxWidget}} provides functionality to receive a {{class|vtkProp3D}} for the initial positioning and sizing, but the transformation synchronization still needs to be done manually. See <a href="../[../BoxWidget|BoxWidget]"></a> for a simple example of how to use it.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BoxWidget2.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-// For the rendering pipeline setup:
-#include &lt;vtkConeSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
-// For vtkBoxWidget2:
-#include &lt;vtkBoxWidget2.h&gt;
-#include &lt;vtkBoxRepresentation.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkTransform.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="c1">// For the rendering pipeline setup:</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkConeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
+<span class="c1">// For vtkBoxWidget2:</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoxWidget2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoxRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
 
-class vtkBoxCallback : public vtkCommand
-{
-public:
-  static vtkBoxCallback *New()
-  {
-    return new vtkBoxCallback;
-  }
+<span class="k">class</span> <span class="nc">vtkBoxCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkBoxCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkBoxCallback</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; m_actor;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">m_actor</span><span class="p">;</span>
 
-  void SetActor( vtkSmartPointer&lt;vtkActor&gt; actor )
-  {
-    m_actor = actor;
-  }
+  <span class="kt">void</span> <span class="nf">SetActor</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">m_actor</span> <span class="o">=</span> <span class="n">actor</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  virtual void Execute( vtkObject *caller, unsigned long, void* )
-  {
-    vtkSmartPointer&lt;vtkBoxWidget2&gt; boxWidget =
-      vtkBoxWidget2::SafeDownCast(caller);
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">Execute</span><span class="p">(</span> <span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxWidget2</span><span class="o">&gt;</span> <span class="n">boxWidget</span> <span class="o">=</span>
+      <span class="n">vtkBoxWidget2</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkTransform&gt; t =
-      vtkSmartPointer&lt;vtkTransform&gt;::New();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-    vtkBoxRepresentation::SafeDownCast( boxWidget-&gt;GetRepresentation() )-&gt;GetTransform( t );
-    this-&gt;m_actor-&gt;SetUserTransform( t );
-  }
+    <span class="n">vtkBoxRepresentation</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span> <span class="n">boxWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">()</span> <span class="p">)</span><span class="o">-&gt;</span><span class="n">GetTransform</span><span class="p">(</span> <span class="n">t</span> <span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">m_actor</span><span class="o">-&gt;</span><span class="n">SetUserTransform</span><span class="p">(</span> <span class="n">t</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkBoxCallback(){}
-};
+  <span class="n">vtkBoxCallback</span><span class="p">(){}</span>
+<span class="p">};</span>
 
-int main( int vtkNotUsed( argc ), char* vtkNotUsed( argv )[] )
-{
-  vtkSmartPointer&lt;vtkConeSource&gt; coneSource =
-    vtkSmartPointer&lt;vtkConeSource&gt;::New();
-  coneSource-&gt;SetHeight( 1.5 );
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span> <span class="n">argc</span> <span class="p">),</span> <span class="kt">char</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span> <span class="n">argv</span> <span class="p">)[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;</span> <span class="n">coneSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">SetHeight</span><span class="p">(</span> <span class="mf">1.5</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection( coneSource-&gt;GetOutputPort() );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper( mapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">mapper</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;ResetCamera(); // Reposition camera so the whole scene is visible
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span> <span class="c1">// Reposition camera so the whole scene is visible</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer( renderer );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow( renderWindow );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renderWindow</span> <span class="p">);</span>
 
-  // Use the &quot;trackball camera&quot; interactor style, rather than the default &quot;joystick camera&quot;
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New();
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="c1">// Use the &quot;trackball camera&quot; interactor style, rather than the default &quot;joystick camera&quot;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkBoxWidget2&gt; boxWidget =
-    vtkSmartPointer&lt;vtkBoxWidget2&gt;::New();
-  boxWidget-&gt;SetInteractor( renderWindowInteractor );
-  boxWidget-&gt;GetRepresentation()-&gt;SetPlaceFactor( 1 ); // Default is 0.5
-  boxWidget-&gt;GetRepresentation()-&gt;PlaceWidget(actor-&gt;GetBounds());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxWidget2</span><span class="o">&gt;</span> <span class="n">boxWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxWidget2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span> <span class="n">renderWindowInteractor</span> <span class="p">);</span>
+  <span class="n">boxWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPlaceFactor</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span> <span class="c1">// Default is 0.5</span>
+  <span class="n">boxWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">PlaceWidget</span><span class="p">(</span><span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">());</span>
 
-  // Set up a callback for the interactor to call so we can manipulate the actor
-  vtkSmartPointer&lt;vtkBoxCallback&gt; boxCallback =
-    vtkSmartPointer&lt;vtkBoxCallback&gt;::New();
-  boxCallback-&gt;SetActor(actor);
-  boxWidget-&gt;AddObserver( vtkCommand::InteractionEvent, boxCallback );
+  <span class="c1">// Set up a callback for the interactor to call so we can manipulate the actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxCallback</span><span class="o">&gt;</span> <span class="n">boxCallback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxCallback</span><span class="o">-&gt;</span><span class="n">SetActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">boxWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span> <span class="n">boxCallback</span> <span class="p">);</span>
 
-  boxWidget-&gt;On();
+  <span class="n">boxWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BoxWidget2)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BoxWidget2</span><span class="p">)</span>
 
-add_executable(BoxWidget2 MACOSX_BUNDLE BoxWidget2.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BoxWidget2 ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BoxWidget2</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BoxWidget2.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-boxwidget2">Download and Build BoxWidget2</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BoxWidget2</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-boxwidget2">Download and Build BoxWidget2<a class="headerlink" href="#download-and-build-boxwidget2" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoxWidget2.tar">here to download BoxWidget2</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoxWidget2.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BoxWidget2/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BoxWidget2/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BoxWidget2
-</code></pre>
+<div class="codehilite"><pre><span></span>./BoxWidget2
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

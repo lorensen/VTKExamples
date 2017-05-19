@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,137 +15991,137 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/VisualizationAlgorithms/BandedPolyDataContourFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BandedPolyDataContourFilter.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            BandedPolyDataContourFilter();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void BandedPolyDataContourFilter() {
-         vtkPoints pts = vtkPoints.New();
-         pts.InsertPoint(0, 0, 0, 0);
-         pts.InsertPoint(1, 0, 1, 0);
-         pts.InsertPoint(2, 0, 2, 0);
-         pts.InsertPoint(3, 1, 0, 0);
-         pts.InsertPoint(4, 1, 1, 0);
-         pts.InsertPoint(5, 1, 2, 0);
-         pts.InsertPoint(6, 2, 0, 0);
-         pts.InsertPoint(7, 2, 2, 0);
-         pts.InsertPoint(8, 3, 0, 0);
-         pts.InsertPoint(9, 3, 1, 0);
-         pts.InsertPoint(10, 3, 2, 0);
-         pts.InsertPoint(11, 4, 0, 0);
-         pts.InsertPoint(12, 6, 0, 0);
-         pts.InsertPoint(13, 5, 2, 0);
-         pts.InsertPoint(14, 7, 0, 0);
-         pts.InsertPoint(15, 9, 0, 0);
-         pts.InsertPoint(16, 7, 2, 0);
-         pts.InsertPoint(17, 9, 2, 0);
-         pts.InsertPoint(18, 10, 0, 0);
-         pts.InsertPoint(19, 12, 0, 0);
-         pts.InsertPoint(20, 10, 1, 0);
-         pts.InsertPoint(21, 12, 1, 0);
-         pts.InsertPoint(22, 10, 2, 0);
-         pts.InsertPoint(23, 12, 2, 0);
-         pts.InsertPoint(24, 10, 3, 0);
-         pts.InsertPoint(25, 12, 3, 0);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">BandedPolyDataContourFilter</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkCellArray polys = vtkCellArray.New();
-         polys.InsertNextCell(4);
-         polys.InsertCellPoint(14);
-         polys.InsertCellPoint(15);
-         polys.InsertCellPoint(17);
-         polys.InsertCellPoint(16);
-         polys.InsertNextCell(3);
-         polys.InsertCellPoint(11);
-         polys.InsertCellPoint(12);
-         polys.InsertCellPoint(13);
 
-         vtkFloatArray scalars = vtkFloatArray.New();
-         scalars.SetNumberOfTuples(26);
-         scalars.SetTuple1(0, 0);
-         scalars.SetTuple1(1, 50);
-         scalars.SetTuple1(2, 100);
-         scalars.SetTuple1(3, 0);
-         scalars.SetTuple1(4, 50);
-         scalars.SetTuple1(5, 100);
-         scalars.SetTuple1(6, 10);
-         scalars.SetTuple1(7, 90);
-         scalars.SetTuple1(8, 10);
-         scalars.SetTuple1(9, 50);
-         scalars.SetTuple1(10, 90);
-         scalars.SetTuple1(11, 10);
-         scalars.SetTuple1(12, 40);
-         scalars.SetTuple1(13, 100);
-         scalars.SetTuple1(14, 0);
-         scalars.SetTuple1(15, 60);
-         scalars.SetTuple1(16, 40);
-         scalars.SetTuple1(17, 100);
-         scalars.SetTuple1(18, 0);
-         scalars.SetTuple1(19, 25);
-         scalars.SetTuple1(20, 25);
-         scalars.SetTuple1(21, 50);
-         scalars.SetTuple1(22, 50);
-         scalars.SetTuple1(23, 75);
-         scalars.SetTuple1(24, 75);
-         scalars.SetTuple1(25, 100);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">BandedPolyDataContourFilter</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkPoints</span> <span class="n">pts</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">14</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">15</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">16</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">17</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">18</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">19</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">22</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">23</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">24</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">25</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
 
-         vtkPolyData polyData = vtkPolyData.New();
-         polyData.SetPoints(pts);
-         polyData.SetPolys(polys);
-         polyData.GetPointData().SetScalars(scalars);
+         <span class="n">vtkCellArray</span> <span class="n">polys</span> <span class="p">=</span> <span class="n">vtkCellArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="m">4</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">14</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">15</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">17</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">16</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">11</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">12</span><span class="p">);</span>
+         <span class="n">polys</span><span class="p">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="m">13</span><span class="p">);</span>
 
-         vtkBandedPolyDataContourFilter bf = vtkBandedPolyDataContourFilter.New();
-#if VTK_MAJOR_VERSION_5
-         bf.SetInput(polyData);
-#else
-         bf.SetInputData (polyData);
-#endif
-         bf.GenerateValues(3, 25, 75);
+         <span class="n">vtkFloatArray</span> <span class="n">scalars</span> <span class="p">=</span> <span class="n">vtkFloatArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="m">26</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">50</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="m">50</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">10</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="m">90</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="m">10</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="m">50</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">90</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="m">10</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="m">40</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">14</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">15</span><span class="p">,</span> <span class="m">60</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">16</span><span class="p">,</span> <span class="m">40</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">17</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">18</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">19</span><span class="p">,</span> <span class="m">25</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">25</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">50</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">22</span><span class="p">,</span> <span class="m">50</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">23</span><span class="p">,</span> <span class="m">75</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">24</span><span class="p">,</span> <span class="m">75</span><span class="p">);</span>
+         <span class="n">scalars</span><span class="p">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="m">25</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span>
 
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         mapper.SetInputConnection(bf.GetOutputPort());
-         mapper.SetScalarModeToUseCellData();
-         mapper.SetScalarRange(0, 4);
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
+         <span class="n">vtkPolyData</span> <span class="n">polyData</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">polyData</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">);</span>
+         <span class="n">polyData</span><span class="p">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">polys</span><span class="p">);</span>
+         <span class="n">polyData</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">scalars</span><span class="p">);</span>
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(.2, .3, .4);
-         // add our actor to the renderer
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkBandedPolyDataContourFilter</span> <span class="n">bf</span> <span class="p">=</span> <span class="n">vtkBandedPolyDataContourFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">bf</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+         <span class="n">bf</span><span class="p">.</span><span class="n">SetInputData</span> <span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">bf</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">75</span><span class="p">);</span>
+
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bf</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

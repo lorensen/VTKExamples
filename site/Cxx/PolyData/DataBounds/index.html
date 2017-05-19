@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,84 +16018,91 @@
                   <h1>DataBounds</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/DataBounds</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This examples gets the bounds of a dataset. Note that Update() must be applied to create the output of the filter.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DataBounds.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  if (argc &gt; 1)
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName ( argv[1] );
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkSphereSource&gt; modelSource =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    modelSource-&gt;Update();
-    polyData = modelSource-&gt;GetOutput();
-  }
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">modelSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">modelSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">modelSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  double bounds[6];
-  polyData-&gt;GetBounds(bounds);
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-  std::cout  &lt;&lt; &quot;xmin: &quot; &lt;&lt; bounds[0] &lt;&lt; &quot; &quot;
-             &lt;&lt; &quot;xmax: &quot; &lt;&lt; bounds[1] &lt;&lt; std::endl
-             &lt;&lt; &quot;ymin: &quot; &lt;&lt; bounds[2] &lt;&lt; &quot; &quot;
-             &lt;&lt; &quot;ymax: &quot; &lt;&lt; bounds[3] &lt;&lt; std::endl
-             &lt;&lt; &quot;zmin: &quot; &lt;&lt; bounds[4] &lt;&lt; &quot; &quot;
-             &lt;&lt; &quot;zmax: &quot; &lt;&lt; bounds[5] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span>  <span class="o">&lt;&lt;</span> <span class="s">&quot;xmin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot;xmax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot;ymin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot;ymax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot;zmin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot;zmax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DataBounds)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DataBounds</span><span class="p">)</span>
 
-add_executable(DataBounds MACOSX_BUNDLE DataBounds.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DataBounds ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DataBounds</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DataBounds.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-databounds">Download and Build DataBounds</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DataBounds</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-databounds">Download and Build DataBounds<a class="headerlink" href="#download-and-build-databounds" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DataBounds.tar">here to download DataBounds</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DataBounds.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DataBounds/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DataBounds/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DataBounds
-</code></pre>
+<div class="codehilite"><pre><span></span>./DataBounds
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

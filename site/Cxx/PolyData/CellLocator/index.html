@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,77 +16018,84 @@
                   <h1>CellLocator</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/CellLocator</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a sphere and then finds the closest point on the sphere to a test point.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CellLocator.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkCellLocator.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellLocator.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource = 
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create the tree
-  vtkSmartPointer&lt;vtkCellLocator&gt; cellLocator = 
-    vtkSmartPointer&lt;vtkCellLocator&gt;::New();
-  cellLocator-&gt;SetDataSet(sphereSource-&gt;GetOutput());
-  cellLocator-&gt;BuildLocator();
+  <span class="c1">// Create the tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;</span> <span class="n">cellLocator</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  double testPoint[3] = {2.0, 0.0, 0.0};
+  <span class="kt">double</span> <span class="n">testPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
 
-  //Find the closest points to TestPoint
-  double closestPoint[3];//the coordinates of the closest point will be returned here
-  double closestPointDist2; //the squared distance to the closest point will be returned here
-  vtkIdType cellId; //the cell id of the cell containing the closest point will be returned here
-  int subId; //this is rarely used (in triangle strips only, I believe)
-  cellLocator-&gt;FindClosestPoint(testPoint, closestPoint, cellId, subId, closestPointDist2);
+  <span class="c1">//Find the closest points to TestPoint</span>
+  <span class="kt">double</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="c1">//the coordinates of the closest point will be returned here</span>
+  <span class="kt">double</span> <span class="n">closestPointDist2</span><span class="p">;</span> <span class="c1">//the squared distance to the closest point will be returned here</span>
+  <span class="n">vtkIdType</span> <span class="n">cellId</span><span class="p">;</span> <span class="c1">//the cell id of the cell containing the closest point will be returned here</span>
+  <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span> <span class="c1">//this is rarely used (in triangle strips only, I believe)</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">FindClosestPoint</span><span class="p">(</span><span class="n">testPoint</span><span class="p">,</span> <span class="n">closestPoint</span><span class="p">,</span> <span class="n">cellId</span><span class="p">,</span> <span class="n">subId</span><span class="p">,</span> <span class="n">closestPointDist2</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;Coordinates of closest point: &quot; &lt;&lt; closestPoint[0] &lt;&lt; &quot; &quot; &lt;&lt; closestPoint[1] &lt;&lt; &quot; &quot; &lt;&lt; closestPoint[2] &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Squared distance to closest point: &quot; &lt;&lt; closestPointDist2 &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;CellId: &quot; &lt;&lt; cellId &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Coordinates of closest point: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Squared distance to closest point: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPointDist2</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;CellId: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cellId</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CellLocator)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CellLocator</span><span class="p">)</span>
 
-add_executable(CellLocator MACOSX_BUNDLE CellLocator.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CellLocator ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CellLocator</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CellLocator.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-celllocator">Download and Build CellLocator</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CellLocator</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-celllocator">Download and Build CellLocator<a class="headerlink" href="#download-and-build-celllocator" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CellLocator.tar">here to download CellLocator</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CellLocator.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CellLocator/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CellLocator/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CellLocator
-</code></pre>
+<div class="codehilite"><pre><span></span>./CellLocator
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

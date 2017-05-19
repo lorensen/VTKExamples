@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,84 +15991,84 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/GeometricObjects/LongLine</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestLongLine.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Connect several points with a line.<br />
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LongLine.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            LongLine();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void LongLine() {
-         // Create five points 
-         double[,] p = new double[,] { 
-            { 0.0, 0.0, 0.0 }, 
-            { 1.0, 0.0, 0.0 },
-            { 0.0, 1.0, 0.0 },
-            { 0.0, 1.0, 2.0 },
-            { 1.0, 2.0, 3.0 }
-         };
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">LongLine</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // Create a vtkPoints object and store the points in it
-         vtkPoints points = vtkPoints.New();
-         for(int i = 0; i &lt; 5; i++)
-            points.InsertNextPoint(p[i, 0], p[i, 1], p[i, 2]);
 
-         // Create a cell array to store the lines in and add the lines to it
-         vtkCellArray lines = vtkCellArray.New();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">LongLine</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Create five points </span>
+         <span class="kt">double</span><span class="p">[,]</span> <span class="n">p</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[,]</span> <span class="p">{</span> 
+            <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">},</span> 
+            <span class="p">{</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">2.0</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">,</span> <span class="m">3.0</span> <span class="p">}</span>
+         <span class="p">};</span>
 
-         for(int i = 0; i &lt; 4; i++) {
-            vtkLine line = vtkLine.New();
-            line.GetPointIds().SetId(0, i);
-            line.GetPointIds().SetId(1, i + 1);
-            lines.InsertNextCell(line);
-         }
+         <span class="c1">// Create a vtkPoints object and store the points in it</span>
+         <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+            <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="m">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="m">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="m">2</span><span class="p">]);</span>
 
-         // Create a polydata to store everything in
-         vtkPolyData linesPolyData = vtkPolyData.New();
+         <span class="c1">// Create a cell array to store the lines in and add the lines to it</span>
+         <span class="n">vtkCellArray</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">vtkCellArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         // Add the points to the dataset
-         linesPolyData.SetPoints(points);
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">4</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">vtkLine</span> <span class="n">line</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+            <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+            <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+         <span class="p">}</span>
 
-         // Add the lines to the dataset
-         linesPolyData.SetLines(lines);
-         // Visualize
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         mapper.SetInput(linesPolyData);
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
-         actor.GetProperty().SetLineWidth(4);
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         renderer.AddActor(actor);
-         renderer.ResetCamera();
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Create a polydata to store everything in</span>
+         <span class="n">vtkPolyData</span> <span class="n">linesPolyData</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+
+         <span class="c1">// Add the points to the dataset</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+
+         <span class="c1">// Add the lines to the dataset</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
+         <span class="c1">// Visualize</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">linesPolyData</span><span class="p">);</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="m">4</span><span class="p">);</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,106 +16019,113 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/Timer</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Utilities/TestTimer.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to use a timer with an interactor. It outputs a count every specified interval.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Timer.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRendererCollection.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRendererCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-class vtkTimerCallback : public vtkCommand
-{
-  public:
-    static vtkTimerCallback *New()
-    {
-      vtkTimerCallback *cb = new vtkTimerCallback;
-      cb-&gt;TimerCount = 0;
-      return cb;
-    }
+<span class="k">class</span> <span class="nc">vtkTimerCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">vtkTimerCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="n">vtkTimerCallback</span> <span class="o">*</span><span class="n">cb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkTimerCallback</span><span class="p">;</span>
+      <span class="n">cb</span><span class="o">-&gt;</span><span class="n">TimerCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">cb</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long eventId,
-                         void *vtkNotUsed(callData))
-    {
-      if (vtkCommand::TimerEvent == eventId)
-      {
-        ++this-&gt;TimerCount;
-      }
-        cout &lt;&lt; this-&gt;TimerCount &lt;&lt; endl;
-    }
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">eventId</span><span class="p">,</span>
+                         <span class="kt">void</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">TimerEvent</span> <span class="o">==</span> <span class="n">eventId</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="o">++</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">TimerCount</span><span class="p">;</span>
+      <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">TimerCount</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
 
-  private:
-    int TimerCount;
+  <span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">TimerCount</span><span class="p">;</span>
 
-};
+<span class="p">};</span>
 
-int main(int, char *[])
-{
-  // Setup renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Setup renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Initialize must be called prior to creating timer events.
-  interactor-&gt;Initialize();
+  <span class="c1">// Initialize must be called prior to creating timer events.</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  // Sign up to receive TimerEvent
-  vtkSmartPointer&lt;vtkTimerCallback&gt; cb =
-    vtkSmartPointer&lt;vtkTimerCallback&gt;::New();
-  interactor-&gt;AddObserver(vtkCommand::TimerEvent, cb);
+  <span class="c1">// Sign up to receive TimerEvent</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerCallback</span><span class="o">&gt;</span> <span class="n">cb</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">TimerEvent</span><span class="p">,</span> <span class="n">cb</span><span class="p">);</span>
 
-  int timerId = interactor-&gt;CreateRepeatingTimer(100);
-  std::cout &lt;&lt; &quot;timerId: &quot; &lt;&lt; timerId &lt;&lt; std::endl;
+  <span class="kt">int</span> <span class="n">timerId</span> <span class="o">=</span> <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">CreateRepeatingTimer</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;timerId: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">timerId</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Start the interaction and timer
-  interactor-&gt;Start();
+  <span class="c1">// Start the interaction and timer</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Timer)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Timer</span><span class="p">)</span>
 
-add_executable(Timer MACOSX_BUNDLE Timer.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Timer ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Timer</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Timer.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-timer">Download and Build Timer</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Timer</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-timer">Download and Build Timer<a class="headerlink" href="#download-and-build-timer" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Timer.tar">here to download Timer</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Timer.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Timer/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Timer/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Timer
-</code></pre>
+<div class="codehilite"><pre><span></span>./Timer
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

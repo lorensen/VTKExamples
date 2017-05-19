@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,176 +15990,176 @@
                   <h1>VectorFieldNonZeroExtraction</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/VectorFieldNonZeroExtraction</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><p>This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar values</p>
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VectorFieldNonZeroExtraction.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            VectorFieldNonZeroExtraction();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void VectorFieldNonZeroExtraction() { 
-         // Create an image
-         vtkImageData image = vtkImageData.New();
-         CreateVectorField(ref image);
-
-         // This filter produces a vtkImageData with an array named &quot;Magnitude&quot;
-         vtkImageMagnitude magnitudeFilter = vtkImageMagnitude.New();
-         magnitudeFilter.SetInputConnection(image.GetProducerPort());
-         magnitudeFilter.Update(); 
-
-         image.GetPointData().AddArray(magnitudeFilter.GetOutput().GetPointData().GetScalars());
-         image.GetPointData().SetActiveScalars(&quot;Magnitude&quot;);
-
-         vtkThresholdPoints thresholdVector = vtkThresholdPoints.New();
-         thresholdVector.SetInput(image);
-         thresholdVector.SetInputArrayToProcess(
-            0, 
-            0, 
-            (int)vtkDataObject.FieldAssociations.FIELD_ASSOCIATION_POINTS, 
-            (int)vtkDataSetAttributes.AttributeTypes.SCALARS,
-            &quot;Magnitude&quot;);
-         thresholdVector.ThresholdByUpper(0.00001);
-         thresholdVector.Update();
-
-         // in case you want to save imageData
-         //vtkXMLPolyDataWriter writer = vtkXMLPolyDataWriter.New();
-         //writer.SetFileName(&quot;output.vtp&quot;);
-         //writer.SetInputConnection(thresholdPoints.GetOutputPort());
-         //writer.Write();
-
-         // repesents the pixels
-         vtkCubeSource cubeSource = vtkCubeSource.New();
-         cubeSource.SetXLength(2.0);
-         cubeSource.SetYLength(2.0);
-         cubeSource.SetZLength(2.0);
-         vtkGlyph3D glyph = vtkGlyph3D.New();
-         glyph.SetInput(image);
-         glyph.SetSourceConnection(cubeSource.GetOutputPort());
-         // don't scale glyphs according to any scalar data
-         glyph.SetScaleModeToDataScalingOff();
-
-         vtkPolyDataMapper glyphMapper = vtkPolyDataMapper.New();
-         glyphMapper.SetInputConnection(glyph.GetOutputPort());
-         // don't color glyphs according to scalar data
-         glyphMapper.ScalarVisibilityOff();
-         glyphMapper.SetScalarModeToDefault();
-
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(glyphMapper);
-
-         // represent vector field
-         vtkGlyph3D vectorGlyph = vtkGlyph3D.New();
-         vtkArrowSource arrowSource = vtkArrowSource.New();
-         vtkPolyDataMapper vectorGlyphMapper = vtkPolyDataMapper.New();
-
-         int n = image.GetPointData().GetNumberOfArrays();
-         for(int i = 0; i &lt; n; i++) {
-            Debug.WriteLine(&quot;name of array[&quot;+ i + &quot;]: &quot; + image.GetPointData().GetArrayName(i));
-         }
-
-         vtkPolyData tmp = thresholdVector.GetOutput();
-         Debug.WriteLine(&quot;number of thresholded points: &quot; + tmp.GetNumberOfPoints());
-         vectorGlyph.SetInputConnection(thresholdVector.GetOutputPort());
-
-         // in case you want the point glyphs to be oriented according to 
-         // scalar values in array &quot;ImageScalars&quot; uncomment the following line
-         image.GetPointData().SetActiveVectors(&quot;ImageScalars&quot;);
-
-         vectorGlyph.SetSourceConnection(arrowSource.GetOutputPort());
-         vectorGlyph.SetScaleModeToScaleByVector();
-         vectorGlyph.SetVectorModeToUseVector();
-         vectorGlyph.ScalingOn();
-         vectorGlyph.OrientOn();
-         vectorGlyph.SetInputArrayToProcess(
-            1,
-            0,
-            (int)vtkDataObject.FieldAssociations.FIELD_ASSOCIATION_POINTS,
-            (int)vtkDataSetAttributes.AttributeTypes.SCALARS,
-            &quot;ImageScalars&quot;);
-
-         vectorGlyph.Update();
-
-         vectorGlyphMapper.SetInputConnection(vectorGlyph.GetOutputPort());
-         vectorGlyphMapper.Update();
-
-         vtkActor vectorActor = vtkActor.New();
-         vectorActor.SetMapper(vectorGlyphMapper);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">VectorFieldNonZeroExtraction</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(.2, .6, .3);
-         //Add the actors to the renderer, set the background and size 
-         renderer.AddActor(actor);
-         renderer.AddActor(vectorActor);
-      }
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">VectorFieldNonZeroExtraction</span><span class="p">()</span> <span class="p">{</span> 
+         <span class="c1">// Create an image</span>
+         <span class="n">vtkImageData</span> <span class="n">image</span> <span class="p">=</span> <span class="n">vtkImageData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">CreateVectorField</span><span class="p">(</span><span class="k">ref</span> <span class="n">image</span><span class="p">);</span>
+
+         <span class="c1">// This filter produces a vtkImageData with an array named &quot;Magnitude&quot;</span>
+         <span class="n">vtkImageMagnitude</span> <span class="n">magnitudeFilter</span> <span class="p">=</span> <span class="n">vtkImageMagnitude</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">magnitudeFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+         <span class="n">magnitudeFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span> 
+
+         <span class="n">image</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">AddArray</span><span class="p">(</span><span class="n">magnitudeFilter</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">().</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetScalars</span><span class="p">());</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s">&quot;Magnitude&quot;</span><span class="p">);</span>
+
+         <span class="n">vtkThresholdPoints</span> <span class="n">thresholdVector</span> <span class="p">=</span> <span class="n">vtkThresholdPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">thresholdVector</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+         <span class="n">thresholdVector</span><span class="p">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span>
+            <span class="m">0</span><span class="p">,</span> 
+            <span class="m">0</span><span class="p">,</span> 
+            <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">vtkDataObject</span><span class="p">.</span><span class="n">FieldAssociations</span><span class="p">.</span><span class="n">FIELD_ASSOCIATION_POINTS</span><span class="p">,</span> 
+            <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">vtkDataSetAttributes</span><span class="p">.</span><span class="n">AttributeTypes</span><span class="p">.</span><span class="n">SCALARS</span><span class="p">,</span>
+            <span class="s">&quot;Magnitude&quot;</span><span class="p">);</span>
+         <span class="n">thresholdVector</span><span class="p">.</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="m">0.00001</span><span class="p">);</span>
+         <span class="n">thresholdVector</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="c1">// in case you want to save imageData</span>
+         <span class="c1">//vtkXMLPolyDataWriter writer = vtkXMLPolyDataWriter.New();</span>
+         <span class="c1">//writer.SetFileName(&quot;output.vtp&quot;);</span>
+         <span class="c1">//writer.SetInputConnection(thresholdPoints.GetOutputPort());</span>
+         <span class="c1">//writer.Write();</span>
+
+         <span class="c1">// repesents the pixels</span>
+         <span class="n">vtkCubeSource</span> <span class="n">cubeSource</span> <span class="p">=</span> <span class="n">vtkCubeSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">cubeSource</span><span class="p">.</span><span class="n">SetXLength</span><span class="p">(</span><span class="m">2.0</span><span class="p">);</span>
+         <span class="n">cubeSource</span><span class="p">.</span><span class="n">SetYLength</span><span class="p">(</span><span class="m">2.0</span><span class="p">);</span>
+         <span class="n">cubeSource</span><span class="p">.</span><span class="n">SetZLength</span><span class="p">(</span><span class="m">2.0</span><span class="p">);</span>
+         <span class="n">vtkGlyph3D</span> <span class="n">glyph</span> <span class="p">=</span> <span class="n">vtkGlyph3D</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">cubeSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="c1">// don&#39;t scale glyphs according to any scalar data</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetScaleModeToDataScalingOff</span><span class="p">();</span>
+
+         <span class="n">vtkPolyDataMapper</span> <span class="n">glyphMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">glyphMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="c1">// don&#39;t color glyphs according to scalar data</span>
+         <span class="n">glyphMapper</span><span class="p">.</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+         <span class="n">glyphMapper</span><span class="p">.</span><span class="n">SetScalarModeToDefault</span><span class="p">();</span>
+
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">);</span>
+
+         <span class="c1">// represent vector field</span>
+         <span class="n">vtkGlyph3D</span> <span class="n">vectorGlyph</span> <span class="p">=</span> <span class="n">vtkGlyph3D</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">vtkArrowSource</span> <span class="n">arrowSource</span> <span class="p">=</span> <span class="n">vtkArrowSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">vectorGlyphMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+
+         <span class="kt">int</span> <span class="n">n</span> <span class="p">=</span> <span class="n">image</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetNumberOfArrays</span><span class="p">();</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;name of array[&quot;</span><span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot;]: &quot;</span> <span class="p">+</span> <span class="n">image</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+         <span class="p">}</span>
+
+         <span class="n">vtkPolyData</span> <span class="n">tmp</span> <span class="p">=</span> <span class="n">thresholdVector</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">();</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;number of thresholded points: &quot;</span> <span class="p">+</span> <span class="n">tmp</span><span class="p">.</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">thresholdVector</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+
+         <span class="c1">// in case you want the point glyphs to be oriented according to </span>
+         <span class="c1">// scalar values in array &quot;ImageScalars&quot; uncomment the following line</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="s">&quot;ImageScalars&quot;</span><span class="p">);</span>
+
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrowSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">();</span>
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">SetVectorModeToUseVector</span><span class="p">();</span>
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">ScalingOn</span><span class="p">();</span>
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">OrientOn</span><span class="p">();</span>
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span>
+            <span class="m">1</span><span class="p">,</span>
+            <span class="m">0</span><span class="p">,</span>
+            <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">vtkDataObject</span><span class="p">.</span><span class="n">FieldAssociations</span><span class="p">.</span><span class="n">FIELD_ASSOCIATION_POINTS</span><span class="p">,</span>
+            <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">vtkDataSetAttributes</span><span class="p">.</span><span class="n">AttributeTypes</span><span class="p">.</span><span class="n">SCALARS</span><span class="p">,</span>
+            <span class="s">&quot;ImageScalars&quot;</span><span class="p">);</span>
+
+         <span class="n">vectorGlyph</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="n">vectorGlyphMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">vectorGlyph</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">vectorGlyphMapper</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="n">vtkActor</span> <span class="n">vectorActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">vectorActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">vectorGlyphMapper</span><span class="p">);</span>
 
 
-      void CreateVectorField(ref vtkImageData image) {
-         // Specify the size of the image data
-         image.SetDimensions(3, 3, 3);
-         image.SetNumberOfScalarComponents(3);
-         image.SetScalarTypeToFloat();
-         image.AllocateScalars();
-         image.SetSpacing(10.0, 10.0, 10.0);
-         int[]  dims = image.GetDimensions();
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">6</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">);</span>
+         <span class="c1">//Add the actors to the renderer, set the background and size </span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">vectorActor</span><span class="p">);</span>
+      <span class="p">}</span>
 
-         float[] pixel = new float[] {0.0f, 0.0f, 0.0f};
-         IntPtr pPixel;
 
-         // Zero the vectors
-         for(int z = 0; z &lt; dims[2]; z++) {
-            for(int y = 0; y &lt; dims[1]; y++) {
-               for(int x = 0; x &lt; dims[0]; x++) {
-                  pPixel = image.GetScalarPointer(x, y, 0);
-                  Marshal.Copy(pixel, 0, pPixel, 3);
-               }
-            }
-         }
+      <span class="k">void</span> <span class="nf">CreateVectorField</span><span class="p">(</span><span class="k">ref</span> <span class="n">vtkImageData</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// Specify the size of the image data</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">SetDimensions</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">SetScalarTypeToFloat</span><span class="p">();</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">AllocateScalars</span><span class="p">();</span>
+         <span class="n">image</span><span class="p">.</span><span class="n">SetSpacing</span><span class="p">(</span><span class="m">10.0</span><span class="p">,</span> <span class="m">10.0</span><span class="p">,</span> <span class="m">10.0</span><span class="p">);</span>
+         <span class="kt">int</span><span class="p">[]</span>  <span class="n">dims</span> <span class="p">=</span> <span class="n">image</span><span class="p">.</span><span class="n">GetDimensions</span><span class="p">();</span>
 
-         // Set two of the pixels to non zero values
-         pixel[0] = 8.0f;
-         pixel[1] = 8.0f;
-         pixel[2] = -8.0f;
-         pPixel = image.GetScalarPointer(0, 2, 0);
-         Marshal.Copy(pixel, 0, pPixel, 3);
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">pixel</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span><span class="m">0.0f</span><span class="p">,</span> <span class="m">0.0f</span><span class="p">,</span> <span class="m">0.0f</span><span class="p">};</span>
+         <span class="n">IntPtr</span> <span class="n">pPixel</span><span class="p">;</span>
 
-         pixel[0] = 8.0f;
-         pixel[1] = -8.0f;
-         pixel[2] = 8.0f;
-         pPixel = image.GetScalarPointer(2, 0, 2);
-         Marshal.Copy(pixel, 0, pPixel, 3);
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Zero the vectors</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">z</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">z</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">2</span><span class="p">];</span> <span class="n">z</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">y</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">1</span><span class="p">];</span> <span class="n">y</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">x</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">0</span><span class="p">];</span> <span class="n">x</span><span class="p">++)</span> <span class="p">{</span>
+                  <span class="n">pPixel</span> <span class="p">=</span> <span class="n">image</span><span class="p">.</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+                  <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pPixel</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+
+         <span class="c1">// Set two of the pixels to non zero values</span>
+         <span class="n">pixel</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="m">8.0f</span><span class="p">;</span>
+         <span class="n">pixel</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="m">8.0f</span><span class="p">;</span>
+         <span class="n">pixel</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="p">-</span><span class="m">8.0f</span><span class="p">;</span>
+         <span class="n">pPixel</span> <span class="p">=</span> <span class="n">image</span><span class="p">.</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pPixel</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+
+         <span class="n">pixel</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="m">8.0f</span><span class="p">;</span>
+         <span class="n">pixel</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">-</span><span class="m">8.0f</span><span class="p">;</span>
+         <span class="n">pixel</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="m">8.0f</span><span class="p">;</span>
+         <span class="n">pPixel</span> <span class="p">=</span> <span class="n">image</span><span class="p">.</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pPixel</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

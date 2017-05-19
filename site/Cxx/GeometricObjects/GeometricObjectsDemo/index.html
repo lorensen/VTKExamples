@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,159 +16005,166 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/GeometricObjectsDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestGeometricObjectsDemo.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GeometricObjectsDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkTextMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkActor2D.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkArrowSource.h&gt;
-#include &lt;vtkConeSource.h&gt;
-#include &lt;vtkCubeSource.h&gt;
-#include &lt;vtkCylinderSource.h&gt;
-#include &lt;vtkDiskSource.h&gt;
-#include &lt;vtkLineSource.h&gt;
-#include &lt;vtkRegularPolygonSource.h&gt;
-#include &lt;vtkSphereSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkConeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCubeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCylinderSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDiskSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLineSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRegularPolygonSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;vector&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create container to hold the 3D object generators (sources)
-  std::vector&lt;vtkSmartPointer&lt;vtkPolyDataAlgorithm&gt; &gt; geometricObjectSources;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create container to hold the 3D object generators (sources)</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataAlgorithm</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">geometricObjectSources</span><span class="p">;</span>
 
-  // Populate the container with the various object sources to be demonstrated
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkArrowSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkConeSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkCubeSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkCylinderSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkDiskSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkLineSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkRegularPolygonSource&gt;::New() );
-  geometricObjectSources.push_back( vtkSmartPointer&lt;vtkSphereSource&gt;::New() );
+  <span class="c1">// Populate the container with the various object sources to be demonstrated</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCylinderSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDiskSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLineSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRegularPolygonSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
 
-  // Create containers for the remaining nodes of each pipeline
-  std::vector&lt;vtkSmartPointer&lt;vtkRenderer&gt; &gt; renderers;
-  std::vector&lt;vtkSmartPointer&lt;vtkPolyDataMapper&gt; &gt; mappers;
-  std::vector&lt;vtkSmartPointer&lt;vtkActor&gt; &gt; actors;
-  std::vector&lt;vtkSmartPointer&lt;vtkTextMapper&gt; &gt; textmappers;
-  std::vector&lt;vtkSmartPointer&lt;vtkActor2D&gt; &gt; textactors;
+  <span class="c1">// Create containers for the remaining nodes of each pipeline</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">renderers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">mappers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">actors</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">textmappers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">textactors</span><span class="p">;</span>
 
-  // Create a mapper and actor for each object and the corresponding text label
-  for( unsigned int i = 0; i &lt; geometricObjectSources.size(); i++ )
-  {
-    geometricObjectSources[i]-&gt;Update();
+  <span class="c1">// Create a mapper and actor for each object and the corresponding text label</span>
+  <span class="k">for</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">geometricObjectSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    mappers.push_back( vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New() );
-    mappers[i]-&gt;SetInputConnection( geometricObjectSources[i]-&gt;GetOutputPort() );
+    <span class="n">mappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">geometricObjectSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-    actors.push_back( vtkSmartPointer&lt;vtkActor&gt;::New() );
-    actors[i]-&gt;SetMapper( mappers[i] );
+    <span class="n">actors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">);</span>
 
-    textmappers.push_back( vtkSmartPointer&lt;vtkTextMapper&gt;::New() );
-    textmappers[i]-&gt;SetInput( geometricObjectSources[i]-&gt;GetClassName() ); // set text label to the name of the object source
+    <span class="n">textmappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">textmappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">geometricObjectSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetClassName</span><span class="p">()</span> <span class="p">);</span> <span class="c1">// set text label to the name of the object source</span>
 
-    textactors.push_back( vtkSmartPointer&lt;vtkActor2D&gt;::New() );
-    textactors[i]-&gt;SetMapper( textmappers[i] );
-    textactors[i]-&gt;SetPosition( 10, 10); // Note: the position of an Actor2D is specified in display coordinates
-  }
+    <span class="n">textactors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">textactors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">textmappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">);</span>
+    <span class="n">textactors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// Note: the position of an Actor2D is specified in display coordinates</span>
+  <span class="p">}</span>
 
-  // Define size of the grid that will hold the objects
-  int gridCols = 3;
-  int gridRows = 3;
-  // Define side length (in pixels) of each renderer square
-  int rendererSize = 200;
+  <span class="c1">// Define size of the grid that will hold the objects</span>
+  <span class="kt">int</span> <span class="n">gridCols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">gridRows</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="c1">// Define side length (in pixels) of each renderer square</span>
+  <span class="kt">int</span> <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(rendererSize*gridCols, rendererSize*gridRows);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span><span class="o">*</span><span class="n">gridCols</span><span class="p">,</span> <span class="n">rendererSize</span><span class="o">*</span><span class="n">gridRows</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Set up a grid of viewports for each renderer
-  for( double row = 0; row &lt; gridRows; row++ )
-  {
-    for( double col = 0; col &lt; gridCols; col++ )
-    {
-      double index = row*gridCols + col;
+  <span class="c1">// Set up a grid of viewports for each renderer</span>
+  <span class="k">for</span><span class="p">(</span> <span class="kt">double</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">gridRows</span><span class="p">;</span> <span class="n">row</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span> <span class="kt">double</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">gridCols</span><span class="p">;</span> <span class="n">col</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">index</span> <span class="o">=</span> <span class="n">row</span><span class="o">*</span><span class="n">gridCols</span> <span class="o">+</span> <span class="n">col</span><span class="p">;</span>
 
-      // Create a renderer for this grid cell
-      vtkSmartPointer&lt;vtkRenderer&gt; renderer = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-      renderer-&gt;SetBackground(.1, .2, .3);
+      <span class="c1">// Create a renderer for this grid cell</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span>
 
-      // Set the renderer's viewport dimensions (xmin, ymin, xmax, ymax) within the render window.
-      // Note that for the Y values, we need to subtract the row index from gridRows
-      // because the viewport Y axis points upwards, but we want to draw the grid from top to down
-      double viewport[4] = {
-        ((col    )              * rendererSize) / (gridCols * rendererSize),
-        ((gridRows - (row + 1)) * rendererSize) / (gridRows * rendererSize),
-        ((col + 1)              * rendererSize) / (gridCols * rendererSize),
-        ((gridRows - (row    )) * rendererSize) / (gridRows * rendererSize) };
-      renderer-&gt;SetViewport(viewport);
+      <span class="c1">// Set the renderer&#39;s viewport dimensions (xmin, ymin, xmax, ymax) within the render window.</span>
+      <span class="c1">// Note that for the Y values, we need to subtract the row index from gridRows</span>
+      <span class="c1">// because the viewport Y axis points upwards, but we want to draw the grid from top to down</span>
+      <span class="kt">double</span> <span class="n">viewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">((</span><span class="n">col</span>    <span class="p">)</span>              <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridCols</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+        <span class="p">((</span><span class="n">gridRows</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridRows</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+        <span class="p">((</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>              <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridCols</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+        <span class="p">((</span><span class="n">gridRows</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span>    <span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridRows</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)</span> <span class="p">};</span>
+      <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">);</span>
 
-      // Add the corresponding actor and label for this grid cell, if they exist
-      if( index &lt; geometricObjectSources.size() )
-      {
-        renderer-&gt;AddActor(actors[index]);
-        renderer-&gt;AddActor(textactors[index]);
-      }
+      <span class="c1">// Add the corresponding actor and label for this grid cell, if they exist</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+        <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textactors</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+      <span class="p">}</span>
 
-      renderWindow-&gt;AddRenderer(renderer);
-    }
-  }
+      <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  interactor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GeometricObjectsDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GeometricObjectsDemo</span><span class="p">)</span>
 
-add_executable(GeometricObjectsDemo MACOSX_BUNDLE GeometricObjectsDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GeometricObjectsDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GeometricObjectsDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GeometricObjectsDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-geometricobjectsdemo">Download and Build GeometricObjectsDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GeometricObjectsDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-geometricobjectsdemo">Download and Build GeometricObjectsDemo<a class="headerlink" href="#download-and-build-geometricobjectsdemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GeometricObjectsDemo.tar">here to download GeometricObjectsDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GeometricObjectsDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GeometricObjectsDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GeometricObjectsDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GeometricObjectsDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./GeometricObjectsDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

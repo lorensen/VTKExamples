@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,48 +15990,48 @@
                   <h1>ClosedSurface</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/ClosedSurface</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ClosedSurface.cs</strong></p>
-<pre><code class="csharp">using System;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
-      static void Main(string[] args) {
-         ClosedSurface();
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ClosedSurface</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private static void ClosedSurface() {
-         // Create a sphere
-         vtkSphereSource sphereSource = vtkSphereSource.New();
-         sphereSource.Update();
+      <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">ClosedSurface</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Create a sphere</span>
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkFeatureEdges featureEdges = vtkFeatureEdges.New();
-         featureEdges.FeatureEdgesOff();
-         featureEdges.BoundaryEdgesOn();
-         featureEdges.NonManifoldEdgesOn();
-         featureEdges.SetInputConnection(sphereSource.GetOutputPort());
-         featureEdges.Update();
+         <span class="n">vtkFeatureEdges</span> <span class="n">featureEdges</span> <span class="p">=</span> <span class="n">vtkFeatureEdges</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">featureEdges</span><span class="p">.</span><span class="n">FeatureEdgesOff</span><span class="p">();</span>
+         <span class="n">featureEdges</span><span class="p">.</span><span class="n">BoundaryEdgesOn</span><span class="p">();</span>
+         <span class="n">featureEdges</span><span class="p">.</span><span class="n">NonManifoldEdgesOn</span><span class="p">();</span>
+         <span class="n">featureEdges</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">featureEdges</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         int numberOfOpenEdges = featureEdges.GetOutput().GetNumberOfCells();
+         <span class="kt">int</span> <span class="n">numberOfOpenEdges</span> <span class="p">=</span> <span class="n">featureEdges</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">().</span><span class="n">GetNumberOfCells</span><span class="p">();</span>
 
-         if(numberOfOpenEdges &gt; 0) {
-            Console.WriteLine(&quot;Surface is not closed&quot;);
-         }
-         else {
-            Console.WriteLine(&quot;Surface is closed&quot;);
-         }
-         // nothing to show graphically
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
-   }
-}
-</code></pre>
+         <span class="k">if</span><span class="p">(</span><span class="n">numberOfOpenEdges</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Surface is not closed&quot;</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Surface is closed&quot;</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="c1">// nothing to show graphically</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

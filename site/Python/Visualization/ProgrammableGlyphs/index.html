@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15525,6 +15525,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,78 +15990,78 @@
                   <h1>ProgrammableGlyphs</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/ProgrammableGlyphs</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Visualization_ProgGlyph.png]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ProgrammableGlyphs.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Python example translated directly from Tcl test
-# [vtk_source]/Graphics/Testing/Tcl/progGlyphs.tcl
+<span class="c1"># Python example translated directly from Tcl test</span>
+<span class="c1"># [vtk_source]/Graphics/Testing/Tcl/progGlyphs.tcl</span>
 
-res = 6
-plane = vtk.vtkPlaneSource()
-plane.SetResolution(res, res)
-colors = vtk.vtkElevationFilter()
-colors.SetInputConnection(plane.GetOutputPort())
-colors.SetLowPoint(-0.25, -0.25, -0.25)
-colors.SetHighPoint(0.25, 0.25, 0.25)
-planeMapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    planeMapper.SetInput(colors.GetPolyDataOutput())
-else:
-    planeMapper.SetInputData(colors.GetPolyDataOutput())
-planeActor = vtk.vtkActor()
-planeActor.SetMapper(planeMapper)
-planeActor.GetProperty().SetRepresentationToWireframe()
+<span class="n">res</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">plane</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlaneSource</span><span class="p">()</span>
+<span class="n">plane</span><span class="o">.</span><span class="n">SetResolution</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkElevationFilter</span><span class="p">()</span>
+<span class="n">colors</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">plane</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">colors</span><span class="o">.</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">colors</span><span class="o">.</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+<span class="n">planeMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">planeMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">GetPolyDataOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">planeMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">GetPolyDataOutput</span><span class="p">())</span>
+<span class="n">planeActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">planeActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">planeMapper</span><span class="p">)</span>
+<span class="n">planeActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
 
-# procedure for generating glyphs
-def Glyph():
-    ptId = glypher.GetPointId()
-    pd = glypher.GetPointData()
-    xyz = glypher.GetPoint()
-    x = xyz[0]
-    y = xyz[1]
-    length = glypher.GetInput(0).GetLength()
-    scale = length / (2.0*res)
+<span class="c1"># procedure for generating glyphs</span>
+<span class="k">def</span> <span class="nf">Glyph</span><span class="p">():</span>
+    <span class="n">ptId</span> <span class="o">=</span> <span class="n">glypher</span><span class="o">.</span><span class="n">GetPointId</span><span class="p">()</span>
+    <span class="n">pd</span> <span class="o">=</span> <span class="n">glypher</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">glypher</span><span class="o">.</span><span class="n">GetPoint</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">glypher</span><span class="o">.</span><span class="n">GetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">GetLength</span><span class="p">()</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">res</span><span class="p">)</span>
 
-    squad.SetScale(scale,scale,scale)
-    squad.SetCenter(xyz)
-    squad.SetPhiRoundness(abs(x)*5.0)
-    squad.SetThetaRoundness(abs(y)*5.0)
+    <span class="n">squad</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span><span class="n">scale</span><span class="p">,</span><span class="n">scale</span><span class="p">)</span>
+    <span class="n">squad</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+    <span class="n">squad</span><span class="o">.</span><span class="n">SetPhiRoundness</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="mf">5.0</span><span class="p">)</span>
+    <span class="n">squad</span><span class="o">.</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="mf">5.0</span><span class="p">)</span>
 
-# create simple poly data so we can apply glyph
-squad = vtk.vtkSuperquadricSource()
+<span class="c1"># create simple poly data so we can apply glyph</span>
+<span class="n">squad</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSuperquadricSource</span><span class="p">()</span>
 
-glypher = vtk.vtkProgrammableGlyphFilter()
-glypher.SetInputConnection(colors.GetOutputPort())
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    glypher.SetSource(squad.GetOutput())
-else:
-    glypher.SetSourceConnection(squad.GetOutputPort())
-glypher.SetGlyphMethod(Glyph)
-glyphMapper = vtk.vtkPolyDataMapper()
-glyphMapper.SetInputConnection(glypher.GetOutputPort())
-glyphActor = vtk.vtkActor()
-glyphActor.SetMapper(glyphMapper)
+<span class="n">glypher</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkProgrammableGlyphFilter</span><span class="p">()</span>
+<span class="n">glypher</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">glypher</span><span class="o">.</span><span class="n">SetSource</span><span class="p">(</span><span class="n">squad</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">glypher</span><span class="o">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">squad</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">glypher</span><span class="o">.</span><span class="n">SetGlyphMethod</span><span class="p">(</span><span class="n">Glyph</span><span class="p">)</span>
+<span class="n">glyphMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">glyphMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glypher</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">glyphActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">glyphActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">)</span>
 
-# Create the rendering stuff
-ren1 = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.SetMultiSamples(0)
-renWin.AddRenderer(ren1)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-ren1.AddActor(planeActor)
-ren1.AddActor(glyphActor)
-ren1.SetBackground(1, 1, 1)
-renWin.SetSize(450, 450)
-renWin.Render()
+<span class="c1"># Create the rendering stuff</span>
+<span class="n">ren1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">planeActor</span><span class="p">)</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyphActor</span><span class="p">)</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-iren.Start()
-</code></pre>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

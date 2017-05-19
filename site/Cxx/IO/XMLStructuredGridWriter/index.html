@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,84 +16004,91 @@
                   <h1>XMLStructuredGridWriter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/IO/XMLStructuredGridWriter</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>XMLStructuredGridWriter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkXMLStructuredGridWriter.h&gt;
-#include &lt;vtkStructuredGrid.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLStructuredGridWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-int main ( int, char *[] )
-{
-   // Create a grid
-  vtkSmartPointer&lt;vtkStructuredGrid&gt; structuredGrid =
-    vtkSmartPointer&lt;vtkStructuredGrid&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+   <span class="c1">// Create a grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGrid</span><span class="o">&gt;</span> <span class="n">structuredGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  points-&gt;InsertNextPoint(0, 0, 0);
-  points-&gt;InsertNextPoint(1, 0, 0);
-  points-&gt;InsertNextPoint(0, 1, 0);
-  points-&gt;InsertNextPoint(1, 1, 0);
-  points-&gt;InsertNextPoint(0, 2, 0);
-  points-&gt;InsertNextPoint(1, 2, 1);
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  // Specify the dimensions of the grid
-  structuredGrid-&gt;SetDimensions(2,3,1);
-  structuredGrid-&gt;SetPoints(points);
+  <span class="c1">// Specify the dimensions of the grid</span>
+  <span class="n">structuredGrid</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">structuredGrid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  // Write file
-  vtkSmartPointer&lt;vtkXMLStructuredGridWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLStructuredGridWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;output.vts&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInput(structuredGrid);
-#else
-  writer-&gt;SetInputData(structuredGrid);
-#endif
-  writer-&gt;Write();
+  <span class="c1">// Write file</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLStructuredGridWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLStructuredGridWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;output.vts&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">structuredGrid</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">structuredGrid</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(XMLStructuredGridWriter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">XMLStructuredGridWriter</span><span class="p">)</span>
 
-add_executable(XMLStructuredGridWriter MACOSX_BUNDLE XMLStructuredGridWriter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(XMLStructuredGridWriter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">XMLStructuredGridWriter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">XMLStructuredGridWriter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-xmlstructuredgridwriter">Download and Build XMLStructuredGridWriter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">XMLStructuredGridWriter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-xmlstructuredgridwriter">Download and Build XMLStructuredGridWriter<a class="headerlink" href="#download-and-build-xmlstructuredgridwriter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/XMLStructuredGridWriter.tar">here to download XMLStructuredGridWriter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball XMLStructuredGridWriter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd XMLStructuredGridWriter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd XMLStructuredGridWriter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./XMLStructuredGridWriter
-</code></pre>
+<div class="codehilite"><pre><span></span>./XMLStructuredGridWriter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

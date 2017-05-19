@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,229 +16005,236 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/VolumeRendering/HAVSVolumeMapper</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/VolumeRendering/TestHAVSVolumeMapper.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>HAVSVolumeMapper.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkHAVSVolumeMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkStructuredPointsReader.h&gt;
-#include &lt;vtkSLCReader.h&gt;
-#include &lt;vtkStructuredPoints.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkThreshold.h&gt;
-#include &lt;vtkDataSetTriangleFilter.h&gt;
-#include &lt;vtkPiecewiseFunction.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
-#include &lt;vtkVolumeProperty.h&gt;
-#include &lt;vtkVolume.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkStdString.h&gt;
-#include &lt;vtkTextActor.h&gt;
-#include &lt;vtkTextProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkHAVSVolumeMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredPointsReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSLCReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkThreshold.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetTriangleFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPiecewiseFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolumeProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolume.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStdString.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char*argv[])
-{
-  if(argc &lt; 3)
-  {
-    std::cerr &lt;&lt; &quot;Required arguments: volumeVTKFile contourVTKFile&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: volumeVTKFile contourVTKFile&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // This is the data that will be volume rendered.
-  std::string volumeFilename = argv[1]; // &quot;/Data/ironProt.vtk&quot;;
+  <span class="c1">// This is the data that will be volume rendered.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">volumeFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// &quot;/Data/ironProt.vtk&quot;;</span>
 
-  // Create a reader for the other data that will be contoured and
-  // displayed as a polygonal mesh.
-  std::string contourFilename = argv[2]; // &quot;/Data/neghip.slc&quot;;
+  <span class="c1">// Create a reader for the other data that will be contoured and</span>
+  <span class="c1">// displayed as a polygonal mesh.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">contourFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// &quot;/Data/neghip.slc&quot;;</span>
 
-  // Create the standard renderer, render window, and interactor.
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
-  iren-&gt;SetDesiredUpdateRate(3);
+  <span class="c1">// Create the standard renderer, render window, and interactor.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetDesiredUpdateRate</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  // Create the reader for the data.
-  vtkSmartPointer&lt;vtkStructuredPointsReader&gt; reader =
-    vtkSmartPointer&lt;vtkStructuredPointsReader&gt;::New();
-  reader-&gt;SetFileName(volumeFilename.c_str());
+  <span class="c1">// Create the reader for the data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredPointsReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredPointsReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">volumeFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkSLCReader&gt; reader2 =
-    vtkSmartPointer&lt;vtkSLCReader&gt;::New();
-  reader2-&gt;SetFileName(contourFilename.c_str());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSLCReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSLCReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">contourFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 
-  // Convert from vtkImageData to vtkUnstructuredGrid.
-  // Remove any cells where all values are below 80.
-  vtkSmartPointer&lt;vtkThreshold&gt; thresh =
-    vtkSmartPointer&lt;vtkThreshold&gt;::New();
-  thresh-&gt;ThresholdByUpper(80);
-  thresh-&gt;AllScalarsOff();
-  thresh-&gt;SetInputConnection(reader-&gt;GetOutputPort());
+  <span class="c1">// Convert from vtkImageData to vtkUnstructuredGrid.</span>
+  <span class="c1">// Remove any cells where all values are below 80.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;</span> <span class="n">thresh</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">thresh</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+  <span class="n">thresh</span><span class="o">-&gt;</span><span class="n">AllScalarsOff</span><span class="p">();</span>
+  <span class="n">thresh</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Make sure we have only tetrahedra.
-  vtkSmartPointer&lt;vtkDataSetTriangleFilter&gt; trifilter =
-    vtkSmartPointer&lt;vtkDataSetTriangleFilter&gt;::New();
-  trifilter-&gt;SetInputConnection(thresh-&gt;GetOutputPort());
+  <span class="c1">// Make sure we have only tetrahedra.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetTriangleFilter</span><span class="o">&gt;</span> <span class="n">trifilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetTriangleFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">trifilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">thresh</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Create transfer mapping scalar value to opacity.
-  vtkSmartPointer&lt;vtkPiecewiseFunction&gt; opacityTransferFunction =
-    vtkSmartPointer&lt;vtkPiecewiseFunction&gt;::New();
-  opacityTransferFunction-&gt;AddPoint(80.0,  0.0);
-  opacityTransferFunction-&gt;AddPoint(120.0, 0.2);
-  opacityTransferFunction-&gt;AddPoint(255.0, 0.2);
+  <span class="c1">// Create transfer mapping scalar value to opacity.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;</span> <span class="n">opacityTransferFunction</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">opacityTransferFunction</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">opacityTransferFunction</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+  <span class="n">opacityTransferFunction</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">255.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
 
-  // Create transfer mapping scalar value to color.
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt; colorTransferFunction =
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  colorTransferFunction-&gt;AddRGBPoint(80.0,  0.0, 0.0, 0.0);
-  colorTransferFunction-&gt;AddRGBPoint(120.0, 0.0, 0.0, 1.0);
-  colorTransferFunction-&gt;AddRGBPoint(160.0, 1.0, 0.0, 0.0);
-  colorTransferFunction-&gt;AddRGBPoint(200.0, 0.0, 1.0, 0.0);
-  colorTransferFunction-&gt;AddRGBPoint(255.0, 0.0, 1.0, 1.0);
+  <span class="c1">// Create transfer mapping scalar value to color.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span> <span class="n">colorTransferFunction</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorTransferFunction</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">colorTransferFunction</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">colorTransferFunction</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">160.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">colorTransferFunction</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">200.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">colorTransferFunction</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">255.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 
-  // The property describes how the data will look.
-  vtkSmartPointer&lt;vtkVolumeProperty&gt; volumeProperty =
-    vtkSmartPointer&lt;vtkVolumeProperty&gt;::New();
-  volumeProperty-&gt;SetColor(colorTransferFunction);
-  volumeProperty-&gt;SetScalarOpacity(opacityTransferFunction);
-  volumeProperty-&gt;ShadeOff();
-  volumeProperty-&gt;SetInterpolationTypeToLinear();
+  <span class="c1">// The property describes how the data will look.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;</span> <span class="n">volumeProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colorTransferFunction</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetScalarOpacity</span><span class="p">(</span><span class="n">opacityTransferFunction</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">ShadeOff</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">();</span>
 
-  // The mapper that renders the volume data.
-  vtkSmartPointer&lt;vtkHAVSVolumeMapper&gt; volumeMapper =
-    vtkSmartPointer&lt;vtkHAVSVolumeMapper&gt;::New();
-  volumeMapper-&gt;SetInputConnection(trifilter-&gt;GetOutputPort());
-  volumeMapper-&gt;SetLevelOfDetail(false);
-  volumeMapper-&gt;SetGPUDataStructures(false);
-  volumeMapper-&gt;SetKBufferSizeTo2();
+  <span class="c1">// The mapper that renders the volume data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHAVSVolumeMapper</span><span class="o">&gt;</span> <span class="n">volumeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHAVSVolumeMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">trifilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetLevelOfDetail</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetGPUDataStructures</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetKBufferSizeTo2</span><span class="p">();</span>
 
-  // The volume holds the mapper and the property and can be used to
-  // position/orient the volume.
-  vtkSmartPointer&lt;vtkVolume&gt; volume =
-    vtkSmartPointer&lt;vtkVolume&gt;::New();
-  volume-&gt;SetMapper(volumeMapper);
-  volume-&gt;SetProperty(volumeProperty);
+  <span class="c1">// The volume holds the mapper and the property and can be used to</span>
+  <span class="c1">// position/orient the volume.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;</span> <span class="n">volume</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">volumeMapper</span><span class="p">);</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetProperty</span><span class="p">(</span><span class="n">volumeProperty</span><span class="p">);</span>
 
-  // Contour the second dataset.
-  vtkSmartPointer&lt;vtkContourFilter&gt; contour =
-    vtkSmartPointer&lt;vtkContourFilter&gt;::New();
-  contour-&gt;SetValue(0, 80);
-  contour-&gt;SetInputConnection(reader2-&gt;GetOutputPort());
+  <span class="c1">// Contour the second dataset.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contour</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contour</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">80</span><span class="p">);</span>
+  <span class="n">contour</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Create a mapper for the polygonal data.
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(contour-&gt;GetOutputPort());
-  mapper-&gt;ScalarVisibilityOff();
+  <span class="c1">// Create a mapper for the polygonal data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contour</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  // Create an actor for the polygonal data.
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="c1">// Create an actor for the polygonal data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // First test if mapper is supported
-  renWin-&gt;SetSize(300, 300);
-  renWin-&gt;Render();
+  <span class="c1">// First test if mapper is supported</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  int supported = volumeMapper-&gt;SupportedByHardware(ren1);
+  <span class="kt">int</span> <span class="n">supported</span> <span class="o">=</span> <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SupportedByHardware</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTextActor&gt; textActor =
-    vtkSmartPointer&lt;vtkTextActor&gt;::New();
-  textActor-&gt;SetInput(&quot;Required Extensions\nNot Supported&quot;);
-  textActor-&gt;SetDisplayPosition( 150, 150 );
-  textActor-&gt;GetTextProperty()-&gt;SetJustificationToCentered();
-  textActor-&gt;GetTextProperty()-&gt;SetFontSize(30);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextActor</span><span class="o">&gt;</span> <span class="n">textActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;Required Extensions</span><span class="se">\n</span><span class="s">Not Supported&quot;</span><span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetDisplayPosition</span><span class="p">(</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">150</span> <span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetJustificationToCentered</span><span class="p">();</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
 
 
-  if(!supported)
-  {
-    ren1-&gt;AddViewProp(textActor);
-  }
-  else
-  {
-    ren1-&gt;AddViewProp(actor);
-    ren1-&gt;AddViewProp(volume);
-  }
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">supported</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">textActor</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+    <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">volume</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;Azimuth(20.0);
-  ren1-&gt;GetActiveCamera()-&gt;Elevation(10.0);
-  ren1-&gt;GetActiveCamera()-&gt;Zoom(1.5);
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mf">20.0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mf">10.0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
 
-  // Test default settings
-  renWin-&gt;Render();
+  <span class="c1">// Test default settings</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Test kbuffer size 6
-  volumeMapper-&gt;SetKBufferSizeTo6();
-  renWin-&gt;Render();
+  <span class="c1">// Test kbuffer size 6</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetKBufferSizeTo6</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Test GPU Data structures
-  volumeMapper-&gt;SetGPUDataStructures(true);
-  renWin-&gt;Render();
+  <span class="c1">// Test GPU Data structures</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetGPUDataStructures</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Test Field Level of Detail
-  volumeMapper-&gt;SetLevelOfDetail(true);
-  volumeMapper-&gt;SetLevelOfDetailMethodField();
-  renWin-&gt;Render();
+  <span class="c1">// Test Field Level of Detail</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetLevelOfDetail</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetLevelOfDetailMethodField</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Test Area Level of Detail
-  volumeMapper-&gt;SetLevelOfDetailMethodArea();
-  renWin-&gt;Render();
+  <span class="c1">// Test Area Level of Detail</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetLevelOfDetailMethodArea</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Return to default KBuffer size and Level of Detail
-  volumeMapper-&gt;SetLevelOfDetail(false);
-  volumeMapper-&gt;SetKBufferSizeTo2();
-  renWin-&gt;Render();
+  <span class="c1">// Return to default KBuffer size and Level of Detail</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetLevelOfDetail</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetKBufferSizeTo2</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(HAVSVolumeMapper)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">HAVSVolumeMapper</span><span class="p">)</span>
 
-add_executable(HAVSVolumeMapper MACOSX_BUNDLE HAVSVolumeMapper.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(HAVSVolumeMapper ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">HAVSVolumeMapper</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">HAVSVolumeMapper.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-havsvolumemapper">Download and Build HAVSVolumeMapper</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">HAVSVolumeMapper</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-havsvolumemapper">Download and Build HAVSVolumeMapper<a class="headerlink" href="#download-and-build-havsvolumemapper" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/HAVSVolumeMapper.tar">here to download HAVSVolumeMapper</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball HAVSVolumeMapper.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd HAVSVolumeMapper/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd HAVSVolumeMapper/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./HAVSVolumeMapper
-</code></pre>
+<div class="codehilite"><pre><span></span>./HAVSVolumeMapper
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

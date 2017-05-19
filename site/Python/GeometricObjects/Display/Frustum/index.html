@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,54 +15978,54 @@
                   <h1>Frustum</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Frustum</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Frustum.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-camera = vtk.vtkCamera()
-planesArray = [0 for i in range(24)]
+<span class="n">camera</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCamera</span><span class="p">()</span>
+<span class="n">planesArray</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">)]</span>
 
-camera.GetFrustumPlanes(1, planesArray)
+<span class="n">camera</span><span class="o">.</span><span class="n">GetFrustumPlanes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">planesArray</span><span class="p">)</span>
 
-planes = vtk.vtkPlanes()
-planes.SetFrustumPlanes(planesArray)
+<span class="n">planes</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlanes</span><span class="p">()</span>
+<span class="n">planes</span><span class="o">.</span><span class="n">SetFrustumPlanes</span><span class="p">(</span><span class="n">planesArray</span><span class="p">)</span>
 
-frustumSource = vtk.vtkFrustumSource()
-frustumSource.SetPlanes(planes)
-frustumSource.Update()
+<span class="n">frustumSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFrustumSource</span><span class="p">()</span>
+<span class="n">frustumSource</span><span class="o">.</span><span class="n">SetPlanes</span><span class="p">(</span><span class="n">planes</span><span class="p">)</span>
+<span class="n">frustumSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-frustum = frustumSource.GetOutput()
+<span class="n">frustum</span> <span class="o">=</span> <span class="n">frustumSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
 
-mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    mapper.SetInput(frustum)
-else:
-    mapper.SetInputData(frustum)
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">frustum</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">frustum</span><span class="p">)</span>
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-# a renderer and render window
-renderer = vtk.vtkRenderer()
-renderWindow = vtk. vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+<span class="c1"># a renderer and render window</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-# an interactor
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># an interactor</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-# add the actors to the scene
-renderer.AddActor(actor)
-renderer.SetBackground( .2, .1, .3) # Background color dark purple
+<span class="c1"># add the actors to the scene</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Background color dark purple</span>
 
-# render an image (lights and cameras are created automatically)
-renderWindow.Render()
+<span class="c1"># render an image (lights and cameras are created automatically)</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-# begin mouse interaction
-renderWindowInteractor.Start()
-</code></pre>
+<span class="c1"># begin mouse interaction</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

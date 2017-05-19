@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,133 +16019,140 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Plotting/LinePlot</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Plotting/TestLinePlot.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to plot XY data.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LinePlot.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkChartXY.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkPlot.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkContextView.h&gt;
-#include &lt;vtkContextScene.h&gt;
-#include &lt;vtkPen.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartXY.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlot.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPen.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create a table with some points in it
-  vtkSmartPointer&lt;vtkTable&gt; table = 
-    vtkSmartPointer&lt;vtkTable&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a table with some points in it</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">table</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; arrX = 
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  arrX-&gt;SetName(&quot;X Axis&quot;);
-  table-&gt;AddColumn(arrX);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">arrX</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrX</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;X Axis&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrX</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; arrC = 
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  arrC-&gt;SetName(&quot;Cosine&quot;);
-  table-&gt;AddColumn(arrC);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">arrC</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrC</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Cosine&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrC</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; arrS = 
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  arrS-&gt;SetName(&quot;Sine&quot;);
-  table-&gt;AddColumn(arrS);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">arrS</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrS</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Sine&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrS</span><span class="p">);</span>
 
-  // Fill in the table with some example values
-  int numPoints = 69;
-  float inc = 7.5 / (numPoints-1);
-  table-&gt;SetNumberOfRows(numPoints);
-  for (int i = 0; i &lt; numPoints; ++i)
-  {
-    table-&gt;SetValue(i, 0, i * inc);
-    table-&gt;SetValue(i, 1, cos(i * inc));
-    table-&gt;SetValue(i, 2, sin(i * inc));
-  }
+  <span class="c1">// Fill in the table with some example values</span>
+  <span class="kt">int</span> <span class="n">numPoints</span> <span class="o">=</span> <span class="mi">69</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">inc</span> <span class="o">=</span> <span class="mf">7.5</span> <span class="o">/</span> <span class="p">(</span><span class="n">numPoints</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetNumberOfRows</span><span class="p">(</span><span class="n">numPoints</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numPoints</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">inc</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">inc</span><span class="p">));</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sin</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">inc</span><span class="p">));</span>
+  <span class="p">}</span>
 
-  // Set up the view
-  vtkSmartPointer&lt;vtkContextView&gt; view = 
-    vtkSmartPointer&lt;vtkContextView&gt;::New();
-  view-&gt;GetRenderer()-&gt;SetBackground(1.0, 1.0, 1.0);
+  <span class="c1">// Set up the view</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 
-  // Add multiple line plots, setting the colors etc
-  vtkSmartPointer&lt;vtkChartXY&gt; chart = 
-    vtkSmartPointer&lt;vtkChartXY&gt;::New();
-  view-&gt;GetScene()-&gt;AddItem(chart);
-  vtkPlot *line = chart-&gt;AddPlot(vtkChart::LINE);
-#if VTK_MAJOR_VERSION &lt;= 5
-  line-&gt;SetInput(table, 0, 1);
-#else
-  line-&gt;SetInputData(table, 0, 1);
-#endif
-  line-&gt;SetColor(0, 255, 0, 255);
-  line-&gt;SetWidth(1.0);
-  line = chart-&gt;AddPlot(vtkChart::LINE);
-#if VTK_MAJOR_VERSION &lt;= 5
-  line-&gt;SetInput(table, 0, 2);
-#else
-  line-&gt;SetInputData(table, 0, 2);
-#endif
-  line-&gt;SetColor(255, 0, 0, 255);
-  line-&gt;SetWidth(5.0);
+  <span class="c1">// Add multiple line plots, setting the colors etc</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartXY</span><span class="o">&gt;</span> <span class="n">chart</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartXY</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetScene</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">chart</span><span class="p">);</span>
+  <span class="n">vtkPlot</span> <span class="o">*</span><span class="n">line</span> <span class="o">=</span> <span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">LINE</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetWidth</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">line</span> <span class="o">=</span> <span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">LINE</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetWidth</span><span class="p">(</span><span class="mf">5.0</span><span class="p">);</span>
 
-  // For dotted line, the line type can be from 2 to 5 for different dash/dot
-  // patterns (see enum in vtkPen containing DASH_LINE, value 2):
-#ifndef WIN32
-  line-&gt;GetPen()-&gt;SetLineType(vtkPen::DASH_LINE);
-#endif
-  // (ifdef-ed out on Windows because DASH_LINE does not work on Windows
-  //  machines with built-in Intel HD graphics card...)
+  <span class="c1">// For dotted line, the line type can be from 2 to 5 for different dash/dot</span>
+  <span class="c1">// patterns (see enum in vtkPen containing DASH_LINE, value 2):</span>
+<span class="cp">#ifndef WIN32</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">GetPen</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineType</span><span class="p">(</span><span class="n">vtkPen</span><span class="o">::</span><span class="n">DASH_LINE</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="c1">// (ifdef-ed out on Windows because DASH_LINE does not work on Windows</span>
+  <span class="c1">//  machines with built-in Intel HD graphics card...)</span>
 
-  //view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
+  <span class="c1">//view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);</span>
 
-  // Start interactor
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="c1">// Start interactor</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LinePlot)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LinePlot</span><span class="p">)</span>
 
-add_executable(LinePlot MACOSX_BUNDLE LinePlot.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LinePlot ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LinePlot</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LinePlot.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-lineplot">Download and Build LinePlot</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LinePlot</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-lineplot">Download and Build LinePlot<a class="headerlink" href="#download-and-build-lineplot" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LinePlot.tar">here to download LinePlot</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LinePlot.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LinePlot/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LinePlot/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LinePlot
-</code></pre>
+<div class="codehilite"><pre><span></span>./LinePlot
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

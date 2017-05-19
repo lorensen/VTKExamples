@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,7 +16018,7 @@
                   <h1>PolyDataCellNormals</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PolyDataCellNormals</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to add normals to vertices. This is identical to adding normals to any type of cells. The only difference from [Normals to/from a Polydata]]([Add/Get) is</p>
 <p><source lang="cpp">
 polydata-&gt;GetPointData()-&gt;SetNormals(PointNormalsArray);
@@ -16022,126 +16034,133 @@ polydata-&gt;GetCellData()-&gt;SetNormals(CellNormalsArray);
 <p><source lang="cpp">
 vtkSmartPointer<vtkDoubleArray> CellNormalsRetrieved = vtkDoubleArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetNormals());
 </source></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolyDataCellNormals.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkCellData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
 
-  ///////// Set Point Normals ///////////
+  <span class="c1">///////// Set Point Normals ///////////</span>
 
-  //Setup point coordinates
-  double x[3] = {1.0, 0.0, 0.0};
-  double y[3] = {0.0, 0.0, 1.0};
-  double z[3] = {0.0, 0.0, 0.0};
+  <span class="c1">//Setup point coordinates</span>
+  <span class="kt">double</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">z</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
 
-  //create 3 points and add a vertex at each point
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-      vtkSmartPointer&lt;vtkPoints&gt;::New();
-  vtkSmartPointer&lt;vtkCellArray&gt; vertices =
-      vtkSmartPointer&lt;vtkCellArray&gt;::New();
+  <span class="c1">//create 3 points and add a vertex at each point</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">vertices</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for ( unsigned int i = 0; i &lt; 3; ++i )
-  {
-    //Declare a variable to store the index of the point that gets added. This behaves just like an unsigned int.
-    vtkIdType pid[1];
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">//Declare a variable to store the index of the point that gets added. This behaves just like an unsigned int.</span>
+    <span class="n">vtkIdType</span> <span class="n">pid</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-    //Add a point to the polydata and save its index, which we will use to create the vertex on that point.
-    pid[0] = points-&gt;InsertNextPoint ( x[i], y[i], z[i] );
+    <span class="c1">//Add a point to the polydata and save its index, which we will use to create the vertex on that point.</span>
+    <span class="n">pid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">);</span>
 
-    //create a vertex cell on the point that was just added.
-    vertices-&gt;InsertNextCell ( 1,pid );
-  }
+    <span class="c1">//create a vertex cell on the point that was just added.</span>
+    <span class="n">vertices</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="n">pid</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  //add the points and vertices to a polydata
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-      vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints(points);
-  polydata-&gt;SetVerts(vertices);
+  <span class="c1">//add the points and vertices to a polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetVerts</span><span class="p">(</span><span class="n">vertices</span><span class="p">);</span>
 
-  //set vertex (cell) normals
-  vtkSmartPointer&lt;vtkDoubleArray&gt; normalsArray =
-      vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  normalsArray-&gt;SetNumberOfComponents(3); //3d normals (ie x,y,z)
-  normalsArray-&gt;SetNumberOfTuples(polydata-&gt;GetNumberOfPoints());
+  <span class="c1">//set vertex (cell) normals</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">normalsArray</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">normalsArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//3d normals (ie x,y,z)</span>
+  <span class="n">normalsArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
 
-  //construct the normal vectors
-  double cN1[3] = {1.0, 0.0, 0.0};
-  double cN2[3] = {0.0, 1.0, 0.0};
-  double cN3[3] = {0.0, 0.0, 1.0};
+  <span class="c1">//construct the normal vectors</span>
+  <span class="kt">double</span> <span class="n">cN1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">cN2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">cN3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  //add the data to the normals array
-  normalsArray-&gt;SetTuple(0, cN1) ;
-  normalsArray-&gt;SetTuple(1, cN2) ;
-  normalsArray-&gt;SetTuple(2, cN3) ;
+  <span class="c1">//add the data to the normals array</span>
+  <span class="n">normalsArray</span><span class="o">-&gt;</span><span class="n">SetTuple</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cN1</span><span class="p">)</span> <span class="p">;</span>
+  <span class="n">normalsArray</span><span class="o">-&gt;</span><span class="n">SetTuple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cN2</span><span class="p">)</span> <span class="p">;</span>
+  <span class="n">normalsArray</span><span class="o">-&gt;</span><span class="n">SetTuple</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">cN3</span><span class="p">)</span> <span class="p">;</span>
 
-  //add the normals to the cells in the polydata
-  polydata-&gt;GetCellData()-&gt;SetNormals(normalsArray);
+  <span class="c1">//add the normals to the cells in the polydata</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNormals</span><span class="p">(</span><span class="n">normalsArray</span><span class="p">);</span>
 
-  ///////// Get cell normals ///////////
-  vtkSmartPointer&lt;vtkDoubleArray&gt; cellNormalsRetrieved =
-      vtkDoubleArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetNormals());
-  if(cellNormalsRetrieved)
-  {
-    cout &lt;&lt; &quot;There are &quot; &lt;&lt; cellNormalsRetrieved-&gt;GetNumberOfTuples() &lt;&lt; &quot; cell normals.&quot; &lt;&lt; endl;
+  <span class="c1">///////// Get cell normals ///////////</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">cellNormalsRetrieved</span> <span class="o">=</span>
+      <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">cellNormalsRetrieved</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cellNormalsRetrieved</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; cell normals.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 
-    for(vtkIdType i = 0; i &lt; cellNormalsRetrieved-&gt;GetNumberOfTuples(); i++)
-    {
-      double cN[3];
-      cellNormalsRetrieved-&gt;GetTuple(i, cN);
-      cout &lt;&lt; &quot;Cell normal &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; cN[0] &lt;&lt; &quot; &quot; &lt;&lt; cN[1] &lt;&lt; &quot; &quot; &lt;&lt; cN[2] &lt;&lt; endl;
-    }
-  }
-  else
-  {
-    cout &lt;&lt; &quot;No cell normals.&quot; &lt;&lt; endl;
-  }
+    <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cellNormalsRetrieved</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">cN</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">cellNormalsRetrieved</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cN</span><span class="p">);</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Cell normal &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cN</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cN</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cN</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;No cell normals.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PolyDataCellNormals)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PolyDataCellNormals</span><span class="p">)</span>
 
-add_executable(PolyDataCellNormals MACOSX_BUNDLE PolyDataCellNormals.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PolyDataCellNormals ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PolyDataCellNormals</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PolyDataCellNormals.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-polydatacellnormals">Download and Build PolyDataCellNormals</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PolyDataCellNormals</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-polydatacellnormals">Download and Build PolyDataCellNormals<a class="headerlink" href="#download-and-build-polydatacellnormals" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataCellNormals.tar">here to download PolyDataCellNormals</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataCellNormals.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PolyDataCellNormals/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PolyDataCellNormals/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PolyDataCellNormals
-</code></pre>
+<div class="codehilite"><pre><span></span>./PolyDataCellNormals
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

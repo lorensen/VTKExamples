@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,264 +16019,271 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/DataStructures/DataStructureComparison</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/DataStructures/TestDataStructureComparison.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Prior to August 20, 2010, the vtkModifiedBSPTree.cxx did not produce a proper data representation. To operate properly, update your vtk source tree.</p>
 <p>Use the 'n' key (for 'N'ext) and the 'p' key (for 'P'revious) to navigate the levels of the trees.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DataStructureComparison.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkObjectFactory.h&gt;
-#include &lt;vtkRendererCollection.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRendererCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkKdTreePointLocator.h&gt;
-#include &lt;vtkOctreePointLocator.h&gt;
-#include &lt;vtkOBBTree.h&gt;
-#include &lt;vtkModifiedBSPTree.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkKdTreePointLocator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOctreePointLocator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOBBTree.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkModifiedBSPTree.h&gt;</span><span class="cp"></span>
 
-#include &lt;vector&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
-class KeyPressInteractorStyle : public vtkInteractorStyleTrackballCamera
-{
-  public:
-    static KeyPressInteractorStyle* New();
-    vtkSmartPointer&lt;vtkPolyData&gt; data;
-    std::vector&lt;vtkRenderer*&gt; renderers;
-    std::vector&lt;vtkSmartPointer&lt;vtkLocator&gt; &gt; trees;
-    std::vector&lt;vtkSmartPointer&lt;vtkPolyDataMapper&gt; &gt; mappers;
-    std::vector&lt;vtkSmartPointer&lt;vtkActor&gt; &gt; actors;
+<span class="k">class</span> <span class="nc">KeyPressInteractorStyle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleTrackballCamera</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">KeyPressInteractorStyle</span><span class="o">*</span> <span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">*&gt;</span> <span class="n">renderers</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLocator</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">trees</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">mappers</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">actors</span><span class="p">;</span>
 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt; meshMapper;
-    vtkSmartPointer&lt;vtkActor&gt; meshActor;
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">meshMapper</span><span class="p">;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">meshActor</span><span class="p">;</span>
 
-    void Initialize()
-    {
-#if VTK_MAJOR_VERSION &lt;= 5
-      this-&gt;meshMapper-&gt;SetInputConnection(this-&gt;data-&gt;GetProducerPort());
-#else
-      this-&gt;meshMapper-&gt;SetInputData(this-&gt;data);
-#endif
-      for(unsigned int i = 0; i &lt; 4; i++)
-      {
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-    this-&gt;mappers.push_back(mapper);
-    vtkSmartPointer&lt;vtkActor&gt; actor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-    actor-&gt;SetMapper(mapper);
-    actor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-    this-&gt;actors.push_back(actor);
-    this-&gt;renderers[i]-&gt;AddActor(actor);
+    <span class="kt">void</span> <span class="nf">Initialize</span><span class="p">()</span>
+    <span class="p">{</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">meshMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">meshMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#endif</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">mappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">actors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
-        this-&gt;renderers[i]-&gt;AddActor(meshActor);
-      }
-      this-&gt;Level = 1;
-      std::cout &lt;&lt; &quot;Level = &quot; &lt;&lt; this-&gt;Level &lt;&lt; std::endl;
-      this-&gt;ReDraw();
-    }
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">meshActor</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Level = &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">ReDraw</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    KeyPressInteractorStyle()
-    {
-      this-&gt;Level = 1;
+    <span class="n">KeyPressInteractorStyle</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
-      vtkSmartPointer&lt;vtkLocator&gt; tree0 = vtkSmartPointer&lt;vtkKdTreePointLocator&gt;::New();
-      this-&gt;trees.push_back(tree0);
-      vtkSmartPointer&lt;vtkLocator&gt; tree1 = vtkSmartPointer&lt;vtkOBBTree&gt;::New();
-      this-&gt;trees.push_back(tree1);
-      vtkSmartPointer&lt;vtkLocator&gt; tree2 = vtkSmartPointer&lt;vtkOctreePointLocator&gt;::New();
-      this-&gt;trees.push_back(tree2);
-      vtkSmartPointer&lt;vtkLocator&gt; tree3 = vtkSmartPointer&lt;vtkModifiedBSPTree&gt;::New();
-      this-&gt;trees.push_back(tree3);
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLocator</span><span class="o">&gt;</span> <span class="n">tree0</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKdTreePointLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">trees</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tree0</span><span class="p">);</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLocator</span><span class="o">&gt;</span> <span class="n">tree1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOBBTree</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">trees</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tree1</span><span class="p">);</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLocator</span><span class="o">&gt;</span> <span class="n">tree2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOctreePointLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">trees</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tree2</span><span class="p">);</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLocator</span><span class="o">&gt;</span> <span class="n">tree3</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkModifiedBSPTree</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">trees</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tree3</span><span class="p">);</span>
 
-      this-&gt;meshMapper = vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-      this-&gt;meshActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-      this-&gt;meshActor-&gt;SetMapper(this-&gt;meshMapper);
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">meshMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">meshActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">meshActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">meshMapper</span><span class="p">);</span>
 
-    }
+    <span class="p">}</span>
 
-    virtual void OnChar()
-    {
-      char ch = this-&gt;Interactor-&gt;GetKeyCode() ;
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnChar</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="kt">char</span> <span class="n">ch</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Interactor</span><span class="o">-&gt;</span><span class="n">GetKeyCode</span><span class="p">()</span> <span class="p">;</span>
 
-      switch (ch)
-      {
-        case 'n':
-          this-&gt;Level++;
-          break;
-        case 'p':
-          if(this-&gt;Level &gt; 1)
-          {
-            this-&gt;Level--;
-          }
-          break ;
-        default:
-          std::cout &lt;&lt; &quot;An unhandled key was pressed.&quot; &lt;&lt; std::endl;
-          break;
-      }
+      <span class="k">switch</span> <span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;n&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span><span class="o">++</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;p&#39;</span><span class="o">:</span>
+          <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span><span class="o">--</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="k">break</span> <span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;An unhandled key was pressed.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
 
-       this-&gt;ReDraw();
+       <span class="k">this</span><span class="o">-&gt;</span><span class="n">ReDraw</span><span class="p">();</span>
 
-      // forward events
-      if(ch != 'p') //don't forward the &quot;pick&quot; command
-      {
-    vtkInteractorStyleTrackballCamera::OnChar();
-      }
-    }
+      <span class="c1">// forward events</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">ch</span> <span class="o">!=</span> <span class="sc">&#39;p&#39;</span><span class="p">)</span> <span class="c1">//don&#39;t forward the &quot;pick&quot; command</span>
+      <span class="p">{</span>
+    <span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">::</span><span class="n">OnChar</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
- void ReDraw()
- {
+ <span class="kt">void</span> <span class="n">ReDraw</span><span class="p">()</span>
+ <span class="p">{</span>
 
-   std::cout &lt;&lt; &quot;Level &quot; &lt;&lt; this-&gt;Level &lt;&lt; std::endl;
-  for(unsigned i = 0; i &lt; 4; i++)
-  {
+   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Level &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
 
-    vtkSmartPointer&lt;vtkLocator&gt; tree = this-&gt;trees[i];
-    //vtkRenderer* renderer = this-&gt;renderers[i];
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLocator</span><span class="o">&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">trees</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="c1">//vtkRenderer* renderer = this-&gt;renderers[i];</span>
 
-    tree-&gt;SetDataSet(data);
-    tree-&gt;BuildLocator();
+    <span class="n">tree</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+    <span class="n">tree</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-      vtkSmartPointer&lt;vtkPolyData&gt;::New();
-    std::cout &lt;&lt; &quot;Tree &quot; &lt;&lt; i &lt;&lt; &quot; has &quot; &lt;&lt; tree-&gt;GetLevel() &lt;&lt; &quot; levels.&quot; &lt;&lt; std::endl;
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Tree &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; has &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetLevel</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; levels.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    if(this-&gt;Level &gt; tree-&gt;GetLevel())
-    {
-      tree-&gt;GenerateRepresentation(tree-&gt;GetLevel(), polydata);
-    }
-    else
-    {
-      tree-&gt;GenerateRepresentation(this-&gt;Level, polydata);
-    }
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">&gt;</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetLevel</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GenerateRepresentation</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetLevel</span><span class="p">(),</span> <span class="n">polydata</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GenerateRepresentation</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span><span class="p">,</span> <span class="n">polydata</span><span class="p">);</span>
+    <span class="p">}</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-    this-&gt;mappers[i]-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-    this-&gt;mappers[i]-&gt;SetInputData(polydata);
-#endif
-  }
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="p">}</span>
 
-    this-&gt;Interactor-&gt;GetRenderWindow()-&gt;Render();
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Interactor</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
- }
+ <span class="p">}</span>
 
-  private:
-    int Level;
+  <span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">Level</span><span class="p">;</span>
 
-};
+<span class="p">};</span>
 
-vtkStandardNewMacro(KeyPressInteractorStyle);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">KeyPressInteractorStyle</span><span class="p">);</span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; originalMesh =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">originalMesh</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  if(argc &gt; 1) //If a file name is specified, open and use the file.
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
-    reader-&gt;Update();
-    originalMesh-&gt;ShallowCopy(reader-&gt;GetOutput());
-  }
-  else //If a file name is not specified, create a sphere
-  {
-    //vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-      //vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    vtkSmartPointer&lt;vtkPointSource&gt; sphereSource =
-      vtkSmartPointer&lt;vtkPointSource&gt;::New();
-      sphereSource-&gt;SetNumberOfPoints(1000);
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">//If a file name is specified, open and use the file.</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">originalMesh</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="c1">//If a file name is not specified, create a sphere</span>
+  <span class="p">{</span>
+    <span class="c1">//vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =</span>
+      <span class="c1">//vtkSmartPointer&lt;vtkSphereSource&gt;::New();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
 
-    sphereSource-&gt;Update();
-    originalMesh-&gt;ShallowCopy(sphereSource-&gt;GetOutput());
-  }
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">originalMesh</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  double numberOfViewports = 4.;
+  <span class="kt">double</span> <span class="n">numberOfViewports</span> <span class="o">=</span> <span class="mf">4.</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(200* numberOfViewports,200); //(width, height)
-  renderWindow-&gt;SetWindowName(&quot;Multiple ViewPorts&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">200</span><span class="o">*</span> <span class="n">numberOfViewports</span><span class="p">,</span><span class="mi">200</span><span class="p">);</span> <span class="c1">//(width, height)</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s">&quot;Multiple ViewPorts&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;KeyPressInteractorStyle&gt; style =
-    vtkSmartPointer&lt;KeyPressInteractorStyle&gt;::New();
-  style-&gt;data = originalMesh;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">KeyPressInteractorStyle</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">KeyPressInteractorStyle</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">originalMesh</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkCamera&gt; camera =
-    vtkSmartPointer&lt;vtkCamera&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">camera</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for(unsigned int i = 0; i &lt; 4; i++)
-  {
-    vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
-    renderWindow-&gt;AddRenderer(renderer);
-    style-&gt;renderers.push_back(renderer);
-    renderer-&gt;SetViewport(static_cast&lt;double&gt;(i)/numberOfViewports,0,
-              static_cast&lt;double&gt;(i+1)/numberOfViewports,1);
-    renderer-&gt;SetBackground(.2, .3, .4);
-    renderer-&gt;SetActiveCamera(camera);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+    <span class="n">style</span><span class="o">-&gt;</span><span class="n">renderers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="n">numberOfViewports</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+              <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">numberOfViewports</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">camera</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderWindowInteractor-&gt;SetInteractorStyle(style);
-  style-&gt;Initialize();
-  style-&gt;renderers[0]-&gt;ResetCamera();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">renderers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DataStructureComparison)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DataStructureComparison</span><span class="p">)</span>
 
-add_executable(DataStructureComparison MACOSX_BUNDLE DataStructureComparison.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DataStructureComparison ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DataStructureComparison</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DataStructureComparison.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-datastructurecomparison">Download and Build DataStructureComparison</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DataStructureComparison</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-datastructurecomparison">Download and Build DataStructureComparison<a class="headerlink" href="#download-and-build-datastructurecomparison" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DataStructureComparison.tar">here to download DataStructureComparison</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DataStructureComparison.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DataStructureComparison/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DataStructureComparison/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DataStructureComparison
-</code></pre>
+<div class="codehilite"><pre><span></span>./DataStructureComparison
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

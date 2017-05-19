@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,117 +16004,124 @@
                   <h1>ArrayCalculator</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/ArrayCalculator</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ArrayCalculator.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkArrayCalculator.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrayCalculator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(1.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(2.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(3.0, 0.0, 0.0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; array =
-      vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  array-&gt;SetName(&quot;orig&quot;);
-  array-&gt;InsertNextValue(1.0);
-  array-&gt;InsertNextValue(2.0);
-  array-&gt;InsertNextValue(3.0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;orig&quot;</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">3.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-      vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints(points);
-  polydata-&gt;GetPointData()-&gt;AddArray(array);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkArrayCalculator&gt; calc1 =
-      vtkSmartPointer&lt;vtkArrayCalculator&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  calc1-&gt;SetInput(polydata);
-#else
-  calc1-&gt;SetInputData(polydata);
-#endif
-  calc1-&gt;AddScalarArrayName(&quot;orig&quot;);
-  calc1-&gt;SetFunction(&quot;orig+1&quot;);
-  calc1-&gt;SetResultArrayName(&quot;orig&quot;);
-  calc1-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayCalculator</span><span class="o">&gt;</span> <span class="n">calc1</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayCalculator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">AddScalarArrayName</span><span class="p">(</span><span class="s">&quot;orig&quot;</span><span class="p">);</span>
+  <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">SetFunction</span><span class="p">(</span><span class="s">&quot;orig+1&quot;</span><span class="p">);</span>
+  <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">SetResultArrayName</span><span class="p">(</span><span class="s">&quot;orig&quot;</span><span class="p">);</span>
+  <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; output1 =
-    vtkDoubleArray::SafeDownCast(
-      calc1-&gt;GetPolyDataOutput()-&gt;GetPointData()-&gt;GetArray(&quot;orig&quot;));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">output1</span> <span class="o">=</span>
+    <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+      <span class="n">calc1</span><span class="o">-&gt;</span><span class="n">GetPolyDataOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;orig&quot;</span><span class="p">));</span>
 
-  for(vtkIdType i = 0; i &lt; output1-&gt;GetNumberOfTuples(); i++)
-  {
-    double val = output1-&gt;GetValue(i);
-    cout &lt;&lt; &quot;output1 value &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; val &lt;&lt; endl;
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">output1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">output1</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;output1 value &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkArrayCalculator&gt; calc2 =
-      vtkSmartPointer&lt;vtkArrayCalculator&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  calc2-&gt;SetInput(polydata);
-#else
-  calc2-&gt;SetInputData(polydata);
-#endif
-  calc2-&gt;AddScalarArrayName(&quot;orig&quot;);
-  calc2-&gt;SetFunction(&quot;if(orig=2,1,orig)&quot;);
-  calc2-&gt;SetResultArrayName(&quot;new&quot;);
-  calc2-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayCalculator</span><span class="o">&gt;</span> <span class="n">calc2</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayCalculator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">AddScalarArrayName</span><span class="p">(</span><span class="s">&quot;orig&quot;</span><span class="p">);</span>
+  <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">SetFunction</span><span class="p">(</span><span class="s">&quot;if(orig=2,1,orig)&quot;</span><span class="p">);</span>
+  <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">SetResultArrayName</span><span class="p">(</span><span class="s">&quot;new&quot;</span><span class="p">);</span>
+  <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; output2 =
-    vtkDoubleArray::SafeDownCast(
-      calc2-&gt;GetPolyDataOutput()-&gt;GetPointData()-&gt;GetArray(&quot;new&quot;));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">output2</span> <span class="o">=</span>
+    <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+      <span class="n">calc2</span><span class="o">-&gt;</span><span class="n">GetPolyDataOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;new&quot;</span><span class="p">));</span>
 
-  for(vtkIdType i = 0; i &lt; output2-&gt;GetNumberOfTuples(); i++)
-  {
-    double val = output2-&gt;GetValue(i);
-    cout &lt;&lt; &quot;output2 value &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; val &lt;&lt; endl;
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">output2</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">output2</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;output2 value &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ArrayCalculator)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ArrayCalculator</span><span class="p">)</span>
 
-add_executable(ArrayCalculator MACOSX_BUNDLE ArrayCalculator.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ArrayCalculator ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ArrayCalculator</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ArrayCalculator.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-arraycalculator">Download and Build ArrayCalculator</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ArrayCalculator</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-arraycalculator">Download and Build ArrayCalculator<a class="headerlink" href="#download-and-build-arraycalculator" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ArrayCalculator.tar">here to download ArrayCalculator</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ArrayCalculator.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ArrayCalculator/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ArrayCalculator/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ArrayCalculator
-</code></pre>
+<div class="codehilite"><pre><span></span>./ArrayCalculator
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,167 +16005,174 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Interaction/Picking</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Interaction/TestPicking.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Picking.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkRendererCollection.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
-#include &lt;vtkObjectFactory.h&gt;
-#include &lt;vtkPlaneSource.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkPropPicker.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRendererCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPropPicker.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 
-// Handle mouse events
-class MouseInteractorStyle2 : public vtkInteractorStyleTrackballCamera
-{
-  public:
-    static MouseInteractorStyle2* New();
-    vtkTypeMacro(MouseInteractorStyle2, vtkInteractorStyleTrackballCamera);
+<span class="c1">// Handle mouse events</span>
+<span class="k">class</span> <span class="nc">MouseInteractorStyle2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleTrackballCamera</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">MouseInteractorStyle2</span><span class="o">*</span> <span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">MouseInteractorStyle2</span><span class="p">,</span> <span class="n">vtkInteractorStyleTrackballCamera</span><span class="p">);</span>
 
-    virtual void OnLeftButtonDown()
-    {
-      int* clickPos = this-&gt;GetInteractor()-&gt;GetEventPosition();
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnLeftButtonDown</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="kt">int</span><span class="o">*</span> <span class="n">clickPos</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetEventPosition</span><span class="p">();</span>
 
-      // Pick from this location.
-      vtkSmartPointer&lt;vtkPropPicker&gt;  picker =
-        vtkSmartPointer&lt;vtkPropPicker&gt;::New();
-      picker-&gt;Pick(clickPos[0], clickPos[1], 0, this-&gt;GetDefaultRenderer());
+      <span class="c1">// Pick from this location.</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;</span>  <span class="n">picker</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">picker</span><span class="o">-&gt;</span><span class="n">Pick</span><span class="p">(</span><span class="n">clickPos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clickPos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetDefaultRenderer</span><span class="p">());</span>
 
-      double* pos = picker-&gt;GetPickPosition();
-      std::cout &lt;&lt; &quot;Pick position (world coordinates) is: &quot;
-                &lt;&lt; pos[0] &lt;&lt; &quot; &quot; &lt;&lt; pos[1]
-                &lt;&lt; &quot; &quot; &lt;&lt; pos[2] &lt;&lt; std::endl;
+      <span class="kt">double</span><span class="o">*</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">picker</span><span class="o">-&gt;</span><span class="n">GetPickPosition</span><span class="p">();</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Pick position (world coordinates) is: &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-      std::cout &lt;&lt; &quot;Picked actor: &quot; &lt;&lt; picker-&gt;GetActor() &lt;&lt; std::endl;
-      //Create a sphere
-      vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-        vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-      sphereSource-&gt;SetCenter(pos[0], pos[1], pos[2]);
-      sphereSource-&gt;SetRadius(0.1);
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Picked actor: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">picker</span><span class="o">-&gt;</span><span class="n">GetActor</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="c1">//Create a sphere</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+      <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
 
-      //Create a mapper and actor
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-        vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-      mapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
+      <span class="c1">//Create a mapper and actor</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-      vtkSmartPointer&lt;vtkActor&gt; actor =
-        vtkSmartPointer&lt;vtkActor&gt;::New();
-      actor-&gt;SetMapper(mapper);
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
 
-      //this-&gt;GetInteractor()-&gt;GetRenderWindow()-&gt;GetRenderers()-&gt;GetDefaultRenderer()-&gt;AddActor(actor);
-      this-&gt;GetDefaultRenderer()-&gt;AddActor(actor);
-      // Forward events
-      vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
-    }
+      <span class="c1">//this-&gt;GetInteractor()-&gt;GetRenderWindow()-&gt;GetRenderers()-&gt;GetDefaultRenderer()-&gt;AddActor(actor);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetDefaultRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="c1">// Forward events</span>
+      <span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">::</span><span class="n">OnLeftButtonDown</span><span class="p">();</span>
+    <span class="p">}</span>
 
-  private:
+  <span class="k">private</span><span class="o">:</span>
 
-};
+<span class="p">};</span>
 
-vtkStandardNewMacro(MouseInteractorStyle2);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">MouseInteractorStyle2</span><span class="p">);</span>
 
-// Execute application.
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPlaneSource&gt; planeSource =
-    vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-  planeSource-&gt;Update();
+<span class="c1">// Execute application.</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">planeSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">planeSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create a polydata object
-  vtkPolyData* polydata = planeSource-&gt;GetOutput();
+  <span class="c1">// Create a polydata object</span>
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span> <span class="o">=</span> <span class="n">planeSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Create a mapper
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  mapper-&gt;SetInput ( polydata );
-#else
-  mapper-&gt;SetInputData ( polydata );
-#endif
+  <span class="c1">// Create a mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span> <span class="p">(</span> <span class="n">polydata</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span> <span class="p">(</span> <span class="n">polydata</span> <span class="p">);</span>
+<span class="cp">#endif</span>
 
-  // Create an actor
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper ( mapper );
+  <span class="c1">// Create an actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span> <span class="p">(</span> <span class="n">mapper</span> <span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;Actor address: &quot; &lt;&lt; actor &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Actor address: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">actor</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer ( renderer );
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span> <span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow ( renderWindow );
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span> <span class="p">(</span> <span class="n">renderWindow</span> <span class="p">);</span>
 
-  // Set the custom stype to use for interaction.
-  vtkSmartPointer&lt;MouseInteractorStyle2&gt; style =
-    vtkSmartPointer&lt;MouseInteractorStyle2&gt;::New();
-  style-&gt;SetDefaultRenderer(renderer);
+  <span class="c1">// Set the custom stype to use for interaction.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">MouseInteractorStyle2</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">MouseInteractorStyle2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">SetDefaultRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor ( actor );
-  renderer-&gt;SetBackground ( 0,0,1 );
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span> <span class="p">(</span> <span class="n">actor</span> <span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span> <span class="p">(</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span> <span class="p">);</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Initialize();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Picking)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Picking</span><span class="p">)</span>
 
-add_executable(Picking MACOSX_BUNDLE Picking.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Picking ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Picking</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Picking.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-picking">Download and Build Picking</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Picking</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-picking">Download and Build Picking<a class="headerlink" href="#download-and-build-picking" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Picking.tar">here to download Picking</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Picking.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Picking/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Picking/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Picking
-</code></pre>
+<div class="codehilite"><pre><span></span>./Picking
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

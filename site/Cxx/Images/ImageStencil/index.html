@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,185 +16019,192 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageStencil</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageStencil.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a red image and a green image. It creates a mask that is half on and half off. It then combines the images according to the mask using an ImageStencil.</p>
 <p>:''See also: [and <a href="../[../../Visualization/ImageTransparency]]">[../Transparency]</a>''</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageStencil.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageStencil.h&gt;
-#include &lt;vtkImageStencilData.h&gt;
-#include &lt;vtkImageToImageStencil.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkImageActor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageStencil.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageStencilData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageToImageStencil.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 
-static void CreateColorImage(vtkImageData*, unsigned int channel);
-static void CreateMask(vtkImageData*);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateColorImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">channel</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateMask</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">);</span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkImageData&gt; image1 = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  CreateColorImage(image1, 0); // Create a red image
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">CreateColorImage</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// Create a red image</span>
 
-  vtkSmartPointer&lt;vtkImageData&gt; image2 = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  CreateColorImage(image2, 1); // Create a green image
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">CreateColorImage</span><span class="p">(</span><span class="n">image2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Create a green image</span>
 
-  vtkSmartPointer&lt;vtkImageData&gt; mask = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  CreateMask(mask);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">CreateMask</span><span class="p">(</span><span class="n">mask</span><span class="p">);</span>
 
-  //vtkSmartPointer&lt;vtkImageStencilData&gt; stencilData = vtkSmartPointer&lt;vtkImageStencilData&gt;::New();
-  vtkSmartPointer&lt;vtkImageToImageStencil&gt; imageToImageStencil = vtkSmartPointer&lt;vtkImageToImageStencil&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  imageToImageStencil-&gt;SetInputConnection(mask-&gt;GetProducerPort());
-#else
-  imageToImageStencil-&gt;SetInputData(mask);
-#endif
-  imageToImageStencil-&gt;ThresholdByUpper(122);
+  <span class="c1">//vtkSmartPointer&lt;vtkImageStencilData&gt; stencilData = vtkSmartPointer&lt;vtkImageStencilData&gt;::New();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToImageStencil</span><span class="o">&gt;</span> <span class="n">imageToImageStencil</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToImageStencil</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">mask</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">mask</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="mi">122</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageStencil&gt; stencil = vtkSmartPointer&lt;vtkImageStencil&gt;::New();
-  stencil-&gt;SetInputConnection(2, imageToImageStencil-&gt;GetOutputPort());
-  stencil-&gt;ReverseStencilOn();
-#if VTK_MAJOR_VERSION &lt;= 5
-  stencil-&gt;SetBackgroundInput(image2);
-  stencil-&gt;SetInputConnection(image1-&gt;GetProducerPort());
-#else
-  stencil-&gt;SetBackgroundInputData(image2);
-  stencil-&gt;SetInputData(image1);
-#endif
-  stencil-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageStencil</span><span class="o">&gt;</span> <span class="n">stencil</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageStencil</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">ReverseStencilOn</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetBackgroundInput</span><span class="p">(</span><span class="n">image2</span><span class="p">);</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetBackgroundInputData</span><span class="p">(</span><span class="n">image2</span><span class="p">);</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create an actor
-  vtkSmartPointer&lt;vtkImageActor&gt; actor = vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  actor-&gt;GetMapper()-&gt;SetInputConnection(stencil-&gt;GetOutputPort());
+  <span class="c1">// Create an actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">stencil</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Setup renderer
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;ResetCamera();
+  <span class="c1">// Setup renderer</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  // Setup render window
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// Setup render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // Setup render window interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkInteractorStyleImage&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();
+  <span class="c1">// Setup render window interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle(style);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  // Render and start interaction
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Render and start interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-void CreateColorImage(vtkImageData* image, const unsigned int channel)
-{
-  unsigned int dim = 20;
+<span class="kt">void</span> <span class="nf">CreateColorImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">channel</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 
-  image-&gt;SetDimensions(dim, dim, 1);
-#if VTK_MAJOR_VERSION &lt;= 5
-  image-&gt;SetNumberOfScalarComponents(3);
-  image-&gt;SetScalarTypeToUnsignedChar();
-  image-&gt;AllocateScalars();
-#else
-  image-&gt;AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
-  for(unsigned int x = 0; x &lt; dim; x++)
-  {
-    for(unsigned int y = 0; y &lt; dim; y++)
-    {
-      unsigned char* pixel = static_cast&lt;unsigned char*&gt;(image-&gt;GetScalarPointer(x,y,0));
-      pixel[0] = 0;
-      pixel[1] = 0;
-      pixel[2] = 0;
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-      pixel[channel] = 255;
-    }
-  }
+      <span class="n">pixel</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  image-&gt;Modified();
-}
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+<span class="p">}</span>
 
-static void CreateMask(vtkImageData* image)
-{
-  unsigned int dim = 20;
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateMask</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 
-  image-&gt;SetDimensions(dim, dim, 1);
-#if VTK_MAJOR_VERSION &lt;= 5
-  image-&gt;SetNumberOfScalarComponents(1);
-  image-&gt;SetScalarTypeToUnsignedChar();
-  image-&gt;AllocateScalars();
-#else
-  image-&gt;AllocateScalars(VTK_UNSIGNED_CHAR, 1);
-#endif
-  for(unsigned int x = 0; x &lt; dim; x++)
-  {
-    for(unsigned int y = 0; y &lt; dim; y++)
-    {
-      unsigned char* pixel = static_cast&lt;unsigned char*&gt;(image-&gt;GetScalarPointer(x,y,0));
-      if(x &lt; dim/2)
-      {
-        pixel[0] = 0;
-      }
-      else
-      {
-        pixel[0] = 255;
-      }
-    }
-  }
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  image-&gt;Modified();
-}
-</code></pre>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageStencil)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageStencil</span><span class="p">)</span>
 
-add_executable(ImageStencil MACOSX_BUNDLE ImageStencil.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageStencil ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageStencil</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageStencil.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imagestencil">Download and Build ImageStencil</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageStencil</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imagestencil">Download and Build ImageStencil<a class="headerlink" href="#download-and-build-imagestencil" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageStencil.tar">here to download ImageStencil</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageStencil.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageStencil/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageStencil/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageStencil
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageStencil
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

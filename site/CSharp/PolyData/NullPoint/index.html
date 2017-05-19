@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,77 +15990,77 @@
                   <h1>NullPoint</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/NullPoint</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><p>Set value of all associated arrays to zero all at once</p>
 A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>NullPoint.cs</strong></p>
-<pre><code class="csharp">using System;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
-      static void Main(string[] args) {
-         NullPoint();
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">NullPoint</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private static void NullPoint() {
-         vtkPoints points = vtkPoints.New();
-         points.InsertNextPoint(1, 1, 1);
-         points.InsertNextPoint(2, 2, 2);
-         points.InsertNextPoint(3, 3, 3);
+      <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">NullPoint</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
 
-         vtkPolyData polydata = vtkPolyData.New();
-         polydata.SetPoints(points);
+         <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-         vtkFloatArray floatArray = vtkFloatArray.New();
-         floatArray.SetNumberOfValues(3);
-         floatArray.SetNumberOfComponents(1);
-         floatArray.SetName(&quot;FloatArray&quot;);
-         for(int i = 0; i &lt; 3; i++) {
-            floatArray.SetValue(i, 2);
-         }
-         polydata.GetPointData().AddArray(floatArray);
+         <span class="n">vtkFloatArray</span> <span class="n">floatArray</span> <span class="p">=</span> <span class="n">vtkFloatArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">floatArray</span><span class="p">.</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">floatArray</span><span class="p">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">floatArray</span><span class="p">.</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;FloatArray&quot;</span><span class="p">);</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">floatArray</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">AddArray</span><span class="p">(</span><span class="n">floatArray</span><span class="p">);</span>
 
-         vtkIntArray intArray = vtkIntArray.New();
-         intArray.SetNumberOfValues(3);
-         intArray.SetNumberOfComponents(1);
-         intArray.SetName(&quot;IntArray&quot;);
-         for(int i = 0; i &lt; 3; i++) {
-            intArray.SetValue(i, 2);
-         }
+         <span class="n">vtkIntArray</span> <span class="n">intArray</span> <span class="p">=</span> <span class="n">vtkIntArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">intArray</span><span class="p">.</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">intArray</span><span class="p">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">intArray</span><span class="p">.</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;IntArray&quot;</span><span class="p">);</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">intArray</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="p">}</span>
 
-         polydata.GetPointData().AddArray(intArray);
+         <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">AddArray</span><span class="p">(</span><span class="n">intArray</span><span class="p">);</span>
 
-         Console.WriteLine(&quot;PointIdx   x y z &quot; + &quot;floatArray&quot; + &quot; &quot; + &quot;intArray&quot;);
-         Console.WriteLine(&quot;----------------------------------------&quot;);
-         for(int i = 0; i &lt; 3; i++) {
-            double[] p = polydata.GetPoint(i);
-            vtkFloatArray pointsFloatArray = vtkFloatArray.SafeDownCast(polydata.GetPointData().GetArray(&quot;FloatArray&quot;));
-            vtkIntArray pointsIntArray = vtkIntArray.SafeDownCast(polydata.GetPointData().GetArray(&quot;IntArray&quot;));
-            Console.WriteLine(&quot;   &quot; + i + &quot;       &quot; + p[0] + &quot; &quot; + p[1] + &quot; &quot; + p[2] + &quot;    &quot;
-                      + pointsFloatArray.GetValue(i) + &quot;          &quot; + pointsIntArray.GetValue(i));
-         }
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;PointIdx   x y z &quot;</span> <span class="p">+</span> <span class="s">&quot;floatArray&quot;</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="s">&quot;intArray&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;----------------------------------------&quot;</span><span class="p">);</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="kt">double</span><span class="p">[]</span> <span class="n">p</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">vtkFloatArray</span> <span class="n">pointsFloatArray</span> <span class="p">=</span> <span class="n">vtkFloatArray</span><span class="p">.</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;FloatArray&quot;</span><span class="p">));</span>
+            <span class="n">vtkIntArray</span> <span class="n">pointsIntArray</span> <span class="p">=</span> <span class="n">vtkIntArray</span><span class="p">.</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;IntArray&quot;</span><span class="p">));</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;   &quot;</span> <span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot;       &quot;</span> <span class="p">+</span> <span class="n">p</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">p</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">p</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot;    &quot;</span>
+                      <span class="p">+</span> <span class="n">pointsFloatArray</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">+</span> <span class="s">&quot;          &quot;</span> <span class="p">+</span> <span class="n">pointsIntArray</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+         <span class="p">}</span>
 
-         polydata.GetPointData().NullPoint(1);
-         polydata.Modified();
-         Console.WriteLine(&quot;&quot;);
+         <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">NullPoint</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">Modified</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
 
-         for(int i = 0; i &lt; 3; i++) {
-            double[] p = polydata.GetPoint(i);
-            vtkFloatArray pointsFloatArray = vtkFloatArray.SafeDownCast(polydata.GetPointData().GetArray(&quot;FloatArray&quot;));
-            vtkIntArray pointsIntArray = vtkIntArray.SafeDownCast(polydata.GetPointData().GetArray(&quot;IntArray&quot;));
-            Console.WriteLine(&quot;   &quot; + i + &quot;       &quot; + p[0] + &quot; &quot; + p[1] + &quot; &quot; + p[2] + &quot;    &quot;
-                      + pointsFloatArray.GetValue(i) + &quot;          &quot; + pointsIntArray.GetValue(i));
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="kt">double</span><span class="p">[]</span> <span class="n">p</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">vtkFloatArray</span> <span class="n">pointsFloatArray</span> <span class="p">=</span> <span class="n">vtkFloatArray</span><span class="p">.</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;FloatArray&quot;</span><span class="p">));</span>
+            <span class="n">vtkIntArray</span> <span class="n">pointsIntArray</span> <span class="p">=</span> <span class="n">vtkIntArray</span><span class="p">.</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;IntArray&quot;</span><span class="p">));</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;   &quot;</span> <span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot;       &quot;</span> <span class="p">+</span> <span class="n">p</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">p</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">p</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot;    &quot;</span>
+                      <span class="p">+</span> <span class="n">pointsFloatArray</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">+</span> <span class="s">&quot;          &quot;</span> <span class="p">+</span> <span class="n">pointsIntArray</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
 
-         }
-      }
-   }
-}
-</code></pre>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

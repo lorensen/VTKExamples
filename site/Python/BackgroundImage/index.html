@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15558,6 +15558,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,129 +15984,129 @@
                   <h1>BackgroundImage</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//BackgroundImage</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example displays an image as the "background" of a scene, and renders a superquadric in front of it.</p>
 <p>The example accepts a jpeg file on the command line to use as a background image. If there is no file, it generates a simple background.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BackgroundImage.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-&quot;&quot;&quot;
-based on:
- - http://www.vtk.org/Wiki/VTK/Examples/Cxx/Images/BackgroundImage
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">based on:</span>
+<span class="sd"> - http://www.vtk.org/Wiki/VTK/Examples/Cxx/Images/BackgroundImage</span>
 
-tested with:
- - VTK 6.3, Python 2.7
- - VTK 7.0, Python 3.5
+<span class="sd">tested with:</span>
+<span class="sd"> - VTK 6.3, Python 2.7</span>
+<span class="sd"> - VTK 7.0, Python 3.5</span>
 
-&gt;&gt;&gt; python background_image.py image_filename.jpg
-&quot;&quot;&quot;
-from __future__ import print_function
-import sys
-from vtk import (
-    vtkJPEGReader, vtkImageCanvasSource2D, vtkImageActor, vtkPolyDataMapper,
-    vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, vtkSuperquadricSource,
-    vtkActor, VTK_MAJOR_VERSION
-)
+<span class="sd">&gt;&gt;&gt; python background_image.py image_filename.jpg</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">vtkJPEGReader</span><span class="p">,</span> <span class="n">vtkImageCanvasSource2D</span><span class="p">,</span> <span class="n">vtkImageActor</span><span class="p">,</span> <span class="n">vtkPolyDataMapper</span><span class="p">,</span>
+    <span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">vtkRenderWindow</span><span class="p">,</span> <span class="n">vtkRenderWindowInteractor</span><span class="p">,</span> <span class="n">vtkSuperquadricSource</span><span class="p">,</span>
+    <span class="n">vtkActor</span><span class="p">,</span> <span class="n">VTK_MAJOR_VERSION</span>
+<span class="p">)</span>
 
-def main(argv):
-    #  Verify input arguments
-    if len(argv) &gt; 1:
-        # Read the image
-        jpeg_reader = vtkJPEGReader()
-        if not jpeg_reader.CanReadFile(argv[1]):
-            print(&quot;Error reading file %s&quot; % argv[1])
-            return
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="c1">#  Verify input arguments</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Read the image</span>
+        <span class="n">jpeg_reader</span> <span class="o">=</span> <span class="n">vtkJPEGReader</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">jpeg_reader</span><span class="o">.</span><span class="n">CanReadFile</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error reading file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span>
 
-        jpeg_reader.SetFileName(argv[1])
-        jpeg_reader.Update()
-        image_data = jpeg_reader.GetOutput()
-    else:
-        canvas_source = vtkImageCanvasSource2D()
-        canvas_source.SetExtent(0, 100, 0, 100, 0, 0)
-        canvas_source.SetScalarTypeToUnsignedChar()
-        canvas_source.SetNumberOfScalarComponents(3)
-        canvas_source.SetDrawColor(127, 127, 100)
-        canvas_source.FillBox(0, 100, 0, 100)
-        canvas_source.SetDrawColor(100, 255, 255)
-        canvas_source.FillTriangle(10, 10, 25, 10, 25, 25)
-        canvas_source.SetDrawColor(255, 100, 255)
-        canvas_source.FillTube(75, 75, 0, 75, 5.0)
-        canvas_source.Update()
-        image_data = canvas_source.GetOutput()
+        <span class="n">jpeg_reader</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">jpeg_reader</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+        <span class="n">image_data</span> <span class="o">=</span> <span class="n">jpeg_reader</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">canvas_source</span> <span class="o">=</span> <span class="n">vtkImageCanvasSource2D</span><span class="p">()</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">()</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">FillTriangle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">FillTube</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">canvas_source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+        <span class="n">image_data</span> <span class="o">=</span> <span class="n">canvas_source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
 
-    # Create an image actor to display the image
-    image_actor = vtkImageActor()
+    <span class="c1"># Create an image actor to display the image</span>
+    <span class="n">image_actor</span> <span class="o">=</span> <span class="n">vtkImageActor</span><span class="p">()</span>
 
-    if VTK_MAJOR_VERSION &lt;= 5:
-        image_actor.SetInput(image_data)
-    else:
-        image_actor.SetInputData(image_data)
+    <span class="k">if</span> <span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">image_actor</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">image_actor</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>
 
-    # Create a renderer to display the image in the background
-    background_renderer = vtkRenderer()
+    <span class="c1"># Create a renderer to display the image in the background</span>
+    <span class="n">background_renderer</span> <span class="o">=</span> <span class="n">vtkRenderer</span><span class="p">()</span>
 
-    # Create a superquadric
-    superquadric_source = vtkSuperquadricSource()
-    superquadric_source.SetPhiRoundness(1.1)
-    superquadric_source.SetThetaRoundness(.2)
+    <span class="c1"># Create a superquadric</span>
+    <span class="n">superquadric_source</span> <span class="o">=</span> <span class="n">vtkSuperquadricSource</span><span class="p">()</span>
+    <span class="n">superquadric_source</span><span class="o">.</span><span class="n">SetPhiRoundness</span><span class="p">(</span><span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">superquadric_source</span><span class="o">.</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 
-    # Create a mapper and actor
-    superquadric_mapper = vtkPolyDataMapper()
-    superquadric_mapper.SetInputConnection(superquadric_source.GetOutputPort())
+    <span class="c1"># Create a mapper and actor</span>
+    <span class="n">superquadric_mapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+    <span class="n">superquadric_mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">superquadric_source</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-    superquadric_actor = vtkActor()
-    superquadric_actor.SetMapper(superquadric_mapper)
+    <span class="n">superquadric_actor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">superquadric_actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">superquadric_mapper</span><span class="p">)</span>
 
-    scene_renderer = vtkRenderer()
+    <span class="n">scene_renderer</span> <span class="o">=</span> <span class="n">vtkRenderer</span><span class="p">()</span>
 
-    render_window = vtkRenderWindow()
+    <span class="n">render_window</span> <span class="o">=</span> <span class="n">vtkRenderWindow</span><span class="p">()</span>
 
-    # Set up the render window and renderers such that there is
-    # a background layer and a foreground layer
-    background_renderer.SetLayer(0)
-    background_renderer.InteractiveOff()
-    scene_renderer.SetLayer(1)
-    render_window.SetNumberOfLayers(2)
-    render_window.AddRenderer(background_renderer)
-    render_window.AddRenderer(scene_renderer)
+    <span class="c1"># Set up the render window and renderers such that there is</span>
+    <span class="c1"># a background layer and a foreground layer</span>
+    <span class="n">background_renderer</span><span class="o">.</span><span class="n">SetLayer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">background_renderer</span><span class="o">.</span><span class="n">InteractiveOff</span><span class="p">()</span>
+    <span class="n">scene_renderer</span><span class="o">.</span><span class="n">SetLayer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">render_window</span><span class="o">.</span><span class="n">SetNumberOfLayers</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">render_window</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">background_renderer</span><span class="p">)</span>
+    <span class="n">render_window</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">scene_renderer</span><span class="p">)</span>
 
-    render_window_interactor = vtkRenderWindowInteractor()
-    render_window_interactor.SetRenderWindow(render_window)
+    <span class="n">render_window_interactor</span> <span class="o">=</span> <span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+    <span class="n">render_window_interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">render_window</span><span class="p">)</span>
 
-    # Add actors to the renderers
-    scene_renderer.AddActor(superquadric_actor)
-    background_renderer.AddActor(image_actor)
+    <span class="c1"># Add actors to the renderers</span>
+    <span class="n">scene_renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">superquadric_actor</span><span class="p">)</span>
+    <span class="n">background_renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">image_actor</span><span class="p">)</span>
 
-    # Render once to figure out where the background camera will be
-    render_window.Render()
+    <span class="c1"># Render once to figure out where the background camera will be</span>
+    <span class="n">render_window</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-    # Set up the background camera to fill the renderer with the image
-    origin = image_data.GetOrigin()
-    spacing = image_data.GetSpacing()
-    extent = image_data.GetExtent()
+    <span class="c1"># Set up the background camera to fill the renderer with the image</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">image_data</span><span class="o">.</span><span class="n">GetOrigin</span><span class="p">()</span>
+    <span class="n">spacing</span> <span class="o">=</span> <span class="n">image_data</span><span class="o">.</span><span class="n">GetSpacing</span><span class="p">()</span>
+    <span class="n">extent</span> <span class="o">=</span> <span class="n">image_data</span><span class="o">.</span><span class="n">GetExtent</span><span class="p">()</span>
 
-    camera = background_renderer.GetActiveCamera()
-    camera.ParallelProjectionOn()
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">background_renderer</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span>
+    <span class="n">camera</span><span class="o">.</span><span class="n">ParallelProjectionOn</span><span class="p">()</span>
 
-    xc = origin[0] + 0.5*(extent[0] + extent[1]) * spacing[0]
-    yc = origin[1] + 0.5*(extent[2] + extent[3]) * spacing[1]
-    # xd = (extent[1] - extent[0] + 1) * spacing[0]
-    yd = (extent[3] - extent[2] + 1) * spacing[1]
-    d = camera.GetDistance()
-    camera.SetParallelScale(0.5 * yd)
-    camera.SetFocalPoint(xc, yc, 0.0)
-    camera.SetPosition(xc, yc, d)
+    <span class="n">xc</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">yc</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># xd = (extent[1] - extent[0] + 1) * spacing[0]</span>
+    <span class="n">yd</span> <span class="o">=</span> <span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">GetDistance</span><span class="p">()</span>
+    <span class="n">camera</span><span class="o">.</span><span class="n">SetParallelScale</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">yd</span><span class="p">)</span>
+    <span class="n">camera</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">camera</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 
-    # Render again to set the correct view
-    render_window.Render()
+    <span class="c1"># Render again to set the correct view</span>
+    <span class="n">render_window</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-    # Interact with the window
-    render_window_interactor.Start()
+    <span class="c1"># Interact with the window</span>
+    <span class="n">render_window_interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
 
-if __name__ == '__main__':
-    main(sys.argv)
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
                 
                   
                 

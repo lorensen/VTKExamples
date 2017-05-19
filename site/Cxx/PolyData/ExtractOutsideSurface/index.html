@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,198 +16019,205 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ExtractOutsideSurface</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestExtractOutsideSurface.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example extracts the outer surface of a multiple surface polydata model. The examples assumes the outside surface is closed and there is only one outside surface. It also assumes that the center of the model lies inside the outer surface.</p>
 <p>The example casts a ray from outside the bounds of the model into the center of the model. It uses a vtkCellLocator to intersect the ray with the model. The intersected cell is used as a seed to the vtkPolyDataConnectivityFilter which is run with the extraction mode set to CellSeededRegions.</p>
 <p>If run without arguments, the example generates a small (in area) sphere inside a large (in area) sphere. The inner sphere has more cells than the outer sphere, but should not be extracted.</p>
 <p>You can try your own surface by specifying a XML PolyData file (.vtp) on the command line.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExtractOutsideSurface.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyDataConnectivityFilter.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkAppendPolyData.h&gt;
-#include &lt;vtkCellLocator.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkTriangleFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataConnectivityFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAppendPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellLocator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangleFilter.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // PolyData to process
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// PolyData to process</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span><span class="p">;</span>
 
-  if (argc &gt; 1)
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else
-  {
-    // Small sphere with most polgons
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource1 =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource1-&gt;SetThetaResolution(10);
-    sphereSource1-&gt;SetPhiResolution(10);
-    sphereSource1-&gt;SetCenter(5, 5, 5);
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// Small sphere with most polgons</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource1</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
 
-    // Large sphere with least polygons
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource2 =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource2-&gt;SetRadius(10);
-    sphereSource2-&gt;SetCenter(10,1,10);
+    <span class="c1">// Large sphere with least polygons</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource2</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkAppendPolyData&gt; appendFilter =
-      vtkSmartPointer&lt;vtkAppendPolyData&gt;::New();
-    appendFilter-&gt;AddInputConnection(sphereSource1-&gt;GetOutputPort());
-    appendFilter-&gt;AddInputConnection(sphereSource2-&gt;GetOutputPort());
-    appendFilter-&gt;Update();
-    polyData = appendFilter-&gt;GetOutput();
-  }
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAppendPolyData</span><span class="o">&gt;</span> <span class="n">appendFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAppendPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">appendFilter</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">appendFilter</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">appendFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">appendFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  double center[3], bounds[6];
-  polyData-&gt;GetCenter(center);
-  std::cout &lt;&lt; &quot;Center of data is: &quot;
-            &lt;&lt; center[0] &lt;&lt; &quot;, &quot;
-            &lt;&lt; center[1] &lt;&lt; &quot;, &quot;
-            &lt;&lt; center[2] &lt;&lt; std::endl;
-  polyData-&gt;GetPoints()-&gt;GetBounds(bounds);
-  std::cout &lt;&lt; &quot;Bounds of data is: &quot;
-            &lt;&lt; bounds[0] &lt;&lt; &quot;, &quot;
-            &lt;&lt; bounds[1] &lt;&lt; &quot;, &quot;
-            &lt;&lt; bounds[2] &lt;&lt; &quot;, &quot;
-            &lt;&lt; bounds[3] &lt;&lt; &quot;, &quot;
-            &lt;&lt; bounds[4] &lt;&lt; &quot;, &quot;
-            &lt;&lt; bounds[5] &lt;&lt; std::endl;
+  <span class="kt">double</span> <span class="n">center</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">(</span><span class="n">center</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Center of data is: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Bounds of data is: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Build a cell locator.
-  vtkSmartPointer&lt;vtkCellLocator&gt; cellLocator =
-    vtkSmartPointer&lt;vtkCellLocator&gt;::New();
-  cellLocator-&gt;SetDataSet(polyData);
-  cellLocator-&gt;BuildLocator();
+  <span class="c1">// Build a cell locator.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;</span> <span class="n">cellLocator</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  // Now fire a ray from outside the bounds to the center and find a
-  // cell. This cell should be on the outside surface
-  double rayStart[3];
-  for (unsigned int i = 0; i &lt; 3; i++)
-  {
-    rayStart[i] = bounds[2 * i + 1] * 1.1;
-  }
+  <span class="c1">// Now fire a ray from outside the bounds to the center and find a</span>
+  <span class="c1">// cell. This cell should be on the outside surface</span>
+  <span class="kt">double</span> <span class="n">rayStart</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">rayStart</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkIdType cellId = -1;
-  double xyz[3], t, pcoords[3];
-  int subId;
+  <span class="n">vtkIdType</span> <span class="n">cellId</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span>
 
-  cellLocator-&gt;IntersectWithLine(
-    rayStart,
-    center,
-    0.0001,
-    t,
-    xyz,
-    pcoords,
-    subId,
-    cellId);
-  std::cout &lt;&lt; &quot;Id of cell on outside surface: &quot; &lt;&lt; cellId &lt;&lt; std::endl;
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">IntersectWithLine</span><span class="p">(</span>
+    <span class="n">rayStart</span><span class="p">,</span>
+    <span class="n">center</span><span class="p">,</span>
+    <span class="mf">0.0001</span><span class="p">,</span>
+    <span class="n">t</span><span class="p">,</span>
+    <span class="n">xyz</span><span class="p">,</span>
+    <span class="n">pcoords</span><span class="p">,</span>
+    <span class="n">subId</span><span class="p">,</span>
+    <span class="n">cellId</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Id of cell on outside surface: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cellId</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkPolyDataConnectivityFilter&gt; connectivityFilter =
-      vtkSmartPointer&lt;vtkPolyDataConnectivityFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  connectivityFilter-&gt;SetInput(polyData);
-#else
-  connectivityFilter-&gt;SetInputData(polyData);
-#endif
-  connectivityFilter-&gt;SetExtractionModeToCellSeededRegions();
-  connectivityFilter-&gt;InitializeSeedList();
-  connectivityFilter-&gt;AddSeed(cellId);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataConnectivityFilter</span><span class="o">&gt;</span> <span class="n">connectivityFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataConnectivityFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">SetExtractionModeToCellSeededRegions</span><span class="p">();</span>
+  <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">InitializeSeedList</span><span class="p">();</span>
+  <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">AddSeed</span><span class="p">(</span><span class="n">cellId</span><span class="p">);</span>
 
-  // Create a mapper and actor for original data
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt; originalMapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  originalMapper-&gt;SetInput(polyData);
-#else
-  originalMapper-&gt;SetInputData(polyData);
-#endif
+  <span class="c1">// Create a mapper and actor for original data</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">originalMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; originalActor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-  originalActor-&gt;SetMapper(originalMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalMapper</span><span class="p">);</span>
 
-  // Create a mapper and actor for extracted data
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; extractedMapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  extractedMapper-&gt;SetInputConnection(connectivityFilter-&gt;GetOutputPort());
+  <span class="c1">// Create a mapper and actor for extracted data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">extractedMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractedMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; extractedActor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-  extractedActor-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  extractedActor-&gt;SetMapper(extractedMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">extractedActor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">extractedMapper</span><span class="p">);</span>
 
-  // Create a renderer
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(originalActor);
-  renderer-&gt;AddActor(extractedActor);
+  <span class="c1">// Create a renderer</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">extractedActor</span><span class="p">);</span>
 
-  // Create a render window
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renwin =
-      vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renwin-&gt;AddRenderer(renderer);
+  <span class="c1">// Create a render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renwin</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // Create an interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renwin);
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="c1">// Create an interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renwin</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ExtractOutsideSurface)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ExtractOutsideSurface</span><span class="p">)</span>
 
-add_executable(ExtractOutsideSurface MACOSX_BUNDLE ExtractOutsideSurface.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ExtractOutsideSurface ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ExtractOutsideSurface</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ExtractOutsideSurface.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-extractoutsidesurface">Download and Build ExtractOutsideSurface</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ExtractOutsideSurface</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-extractoutsidesurface">Download and Build ExtractOutsideSurface<a class="headerlink" href="#download-and-build-extractoutsidesurface" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ExtractOutsideSurface.tar">here to download ExtractOutsideSurface</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ExtractOutsideSurface.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ExtractOutsideSurface/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ExtractOutsideSurface/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ExtractOutsideSurface
-</code></pre>
+<div class="codehilite"><pre><span></span>./ExtractOutsideSurface
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

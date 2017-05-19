@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,123 +15991,123 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/GeometricObjects/GeometricObjectsDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestGeometricObjectsDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GeometricObjectsDemo.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            GeometricObjectsDemo();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void GeometricObjectsDemo() {
-         // we create a matrix of 3x3 renderer in our renderwindow
-         // each renderer can be interacted with independently from one another
-         int rendererSize = 234; // width per renderer
-         int gridDimensions = 3;
-         this.Size = new System.Drawing.Size(756, 756);
-         Random rnd = new Random(2); // for background color variation
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">GeometricObjectsDemo</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         List&lt;vtkPolyDataAlgorithm&gt;  geometricObjectSources = new List&lt;vtkPolyDataAlgorithm&gt;();
-         geometricObjectSources.Add(vtkArrowSource.New());
-         geometricObjectSources.Add(vtkConeSource.New());
-         geometricObjectSources.Add(vtkCubeSource.New());
-         geometricObjectSources.Add(vtkCylinderSource.New());
-         geometricObjectSources.Add(vtkDiskSource.New());
-         geometricObjectSources.Add(vtkLineSource.New());
-         geometricObjectSources.Add(vtkRegularPolygonSource.New());
-         geometricObjectSources.Add(vtkSphereSource.New());
-         geometricObjectSources.Add(vtkEarthSource.New());
 
-         List&lt;vtkRenderer&gt; renderers = new List&lt;vtkRenderer&gt;();
-         List&lt;vtkPolyDataMapper&gt; mappers = new List&lt;vtkPolyDataMapper&gt;();
-         List&lt;vtkActor&gt; actors = new List&lt;vtkActor&gt;();
-         List&lt;vtkTextMapper&gt; textMappers = new List&lt;vtkTextMapper&gt;();
-         List&lt;vtkActor2D&gt; textActors = new List&lt;vtkActor2D&gt;();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">GeometricObjectsDemo</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// we create a matrix of 3x3 renderer in our renderwindow</span>
+         <span class="c1">// each renderer can be interacted with independently from one another</span>
+         <span class="kt">int</span> <span class="n">rendererSize</span> <span class="p">=</span> <span class="m">234</span><span class="p">;</span> <span class="c1">// width per renderer</span>
+         <span class="kt">int</span> <span class="n">gridDimensions</span> <span class="p">=</span> <span class="m">3</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">756</span><span class="p">,</span> <span class="m">756</span><span class="p">);</span>
+         <span class="n">Random</span> <span class="n">rnd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">(</span><span class="m">2</span><span class="p">);</span> <span class="c1">// for background color variation</span>
 
-         // Create one text property for all
-         vtkTextProperty textProperty = vtkTextProperty.New();
-         textProperty.SetFontSize(18);
-         textProperty.SetJustificationToCentered();
+         <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkPolyDataAlgorithm</span><span class="p">&gt;</span>  <span class="n">geometricObjectSources</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkPolyDataAlgorithm</span><span class="p">&gt;();</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkArrowSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkConeSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkCubeSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkCylinderSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkDiskSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkLineSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkRegularPolygonSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkEarthSource</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
 
-         // Create a source, renderer, mapper, and actor
-         // for each object 
-         for(int i = 0; i &lt; geometricObjectSources.Count; i++) {
-            geometricObjectSources[i].Update();
-            mappers.Add(vtkPolyDataMapper.New());
-            mappers[i].SetInputConnection(geometricObjectSources[i].GetOutputPort());
+         <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkRenderer</span><span class="p">&gt;</span> <span class="n">renderers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkRenderer</span><span class="p">&gt;();</span>
+         <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="p">&gt;</span> <span class="n">mappers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="p">&gt;();</span>
+         <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkActor</span><span class="p">&gt;</span> <span class="n">actors</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkActor</span><span class="p">&gt;();</span>
+         <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkTextMapper</span><span class="p">&gt;</span> <span class="n">textMappers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkTextMapper</span><span class="p">&gt;();</span>
+         <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkActor2D</span><span class="p">&gt;</span> <span class="n">textActors</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">vtkActor2D</span><span class="p">&gt;();</span>
 
-            actors.Add(vtkActor.New());
-            actors[i].SetMapper(mappers[i]);
+         <span class="c1">// Create one text property for all</span>
+         <span class="n">vtkTextProperty</span> <span class="n">textProperty</span> <span class="p">=</span> <span class="n">vtkTextProperty</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">textProperty</span><span class="p">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="m">18</span><span class="p">);</span>
+         <span class="n">textProperty</span><span class="p">.</span><span class="n">SetJustificationToCentered</span><span class="p">();</span>
 
-            textMappers.Add(vtkTextMapper.New());
-            textMappers[i].SetInput(geometricObjectSources[i].GetClassName());
-            textMappers[i].SetTextProperty(textProperty);
+         <span class="c1">// Create a source, renderer, mapper, and actor</span>
+         <span class="c1">// for each object </span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">geometricObjectSources</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">mappers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geometricObjectSources</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-            textActors.Add(vtkActor2D.New());
-            textActors[i].SetMapper(textMappers[i]);
-            textActors[i].SetPosition(rendererSize/2, 16);
+            <span class="n">actors</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+            <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
-            renderers.Add(vtkRenderer.New());
-         }
+            <span class="n">textMappers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkTextMapper</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+            <span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">SetInput</span><span class="p">(</span><span class="n">geometricObjectSources</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetClassName</span><span class="p">());</span>
+            <span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">);</span>
 
-         // Need a renderer even if there is no actor
-         for(int i = geometricObjectSources.Count; i &lt; gridDimensions * gridDimensions; i++) {
-            renderers.Add(vtkRenderer.New());
-         }
+            <span class="n">textActors</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkActor2D</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+            <span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">rendererSize</span><span class="p">/</span><span class="m">2</span><span class="p">,</span> <span class="m">16</span><span class="p">);</span>
 
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         renderWindow.SetSize(rendererSize*gridDimensions, rendererSize*gridDimensions);
+            <span class="n">renderers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="p">}</span>
 
-         for(int row = 0; row &lt; gridDimensions; row++) {
-            for(int col = 0; col &lt; gridDimensions; col++) {
-               int index = row * gridDimensions + col;
+         <span class="c1">// Need a renderer even if there is no actor</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">gridDimensions</span> <span class="p">*</span> <span class="n">gridDimensions</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">renderers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">());</span>
+         <span class="p">}</span>
 
-               // (xmin, ymin, xmax, ymax)
-               double[] viewport = new double[] {
-                  (col) * rendererSize / (double)(gridDimensions * rendererSize),
-                  (gridDimensions - (row+1)) * rendererSize / (double)(gridDimensions * rendererSize),
-                  (col+1)*rendererSize / (double)(gridDimensions * rendererSize),
-                  (gridDimensions - row) * rendererSize / (double)(gridDimensions * rendererSize)};
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span><span class="p">*</span><span class="n">gridDimensions</span><span class="p">,</span> <span class="n">rendererSize</span><span class="p">*</span><span class="n">gridDimensions</span><span class="p">);</span>
 
-               Debug.WriteLine(viewport[0] + &quot; &quot; + viewport[1] + &quot; &quot; + viewport[2] + &quot; &quot; + viewport[3]);
-               renderWindow.AddRenderer(renderers[index]);
-               IntPtr pViewport = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double))*4);
-               Marshal.Copy(viewport, 0, pViewport, 4);
-               renderers[index].SetViewport(pViewport);
-               Marshal.FreeHGlobal(pViewport);
-               if(index &gt; geometricObjectSources.Count - 1)
-                  continue;
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">row</span> <span class="p">&lt;</span> <span class="n">gridDimensions</span><span class="p">;</span> <span class="n">row</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">col</span> <span class="p">&lt;</span> <span class="n">gridDimensions</span><span class="p">;</span> <span class="n">col</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="kt">int</span> <span class="n">index</span> <span class="p">=</span> <span class="n">row</span> <span class="p">*</span> <span class="n">gridDimensions</span> <span class="p">+</span> <span class="n">col</span><span class="p">;</span>
 
-               renderers[index].AddActor(actors[index]);
-               renderers[index].AddActor(textActors[index]);
-               renderers[index].SetBackground(.2 + rnd.NextDouble() / 8, .3 + rnd.NextDouble() / 8, .4 + rnd.NextDouble() / 8);
-            }
-         }
-      }
-   }
-}
-</code></pre>
+               <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+               <span class="kt">double</span><span class="p">[]</span> <span class="n">viewport</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span>
+                  <span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="p">*</span> <span class="n">rendererSize</span> <span class="p">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">gridDimensions</span> <span class="p">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">gridDimensions</span> <span class="p">-</span> <span class="p">(</span><span class="n">row</span><span class="p">+</span><span class="m">1</span><span class="p">))</span> <span class="p">*</span> <span class="n">rendererSize</span> <span class="p">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">gridDimensions</span> <span class="p">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">col</span><span class="p">+</span><span class="m">1</span><span class="p">)*</span><span class="n">rendererSize</span> <span class="p">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">gridDimensions</span> <span class="p">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">gridDimensions</span> <span class="p">-</span> <span class="n">row</span><span class="p">)</span> <span class="p">*</span> <span class="n">rendererSize</span> <span class="p">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">gridDimensions</span> <span class="p">*</span> <span class="n">rendererSize</span><span class="p">)};</span>
+
+               <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">viewport</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">viewport</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">viewport</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">viewport</span><span class="p">[</span><span class="m">3</span><span class="p">]);</span>
+               <span class="n">renderWindow</span><span class="p">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+               <span class="n">IntPtr</span> <span class="n">pViewport</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))*</span><span class="m">4</span><span class="p">);</span>
+               <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">viewport</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pViewport</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+               <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">pViewport</span><span class="p">);</span>
+               <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pViewport</span><span class="p">);</span>
+               <span class="k">if</span><span class="p">(</span><span class="n">index</span> <span class="p">&gt;</span> <span class="n">geometricObjectSources</span><span class="p">.</span><span class="n">Count</span> <span class="p">-</span> <span class="m">1</span><span class="p">)</span>
+                  <span class="k">continue</span><span class="p">;</span>
+
+               <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+               <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textActors</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+               <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span> <span class="p">+</span> <span class="n">rnd</span><span class="p">.</span><span class="n">NextDouble</span><span class="p">()</span> <span class="p">/</span> <span class="m">8</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span> <span class="p">+</span> <span class="n">rnd</span><span class="p">.</span><span class="n">NextDouble</span><span class="p">()</span> <span class="p">/</span> <span class="m">8</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span> <span class="p">+</span> <span class="n">rnd</span><span class="p">.</span><span class="n">NextDouble</span><span class="p">()</span> <span class="p">/</span> <span class="m">8</span><span class="p">);</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

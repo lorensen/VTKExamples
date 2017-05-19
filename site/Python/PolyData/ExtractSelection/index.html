@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,149 +15991,149 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/PolyData/ExtractSelection</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestExtractSelection.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates 50 random points and extracts 10 of them (the points with ids 10-19).</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExtractSelection.py</strong></p>
-<pre><code class="python">&quot;&quot;&quot;
-converted from:
- - http://www.vtk.org/Wiki/VTK/Examples/Python/PolyData/ExtractSelectionCells
-&quot;&quot;&quot;
+<div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">converted from:</span>
+<span class="sd"> - http://www.vtk.org/Wiki/VTK/Examples/Python/PolyData/ExtractSelectionCells</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-def main():
-    pointSource = vtk.vtkPointSource()
-    pointSource.SetNumberOfPoints(50)
-    pointSource.Update()
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">pointSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPointSource</span><span class="p">()</span>
+    <span class="n">pointSource</span><span class="o">.</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">pointSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-    print(&quot;There are %s input points\n&quot; % pointSource.GetOutput().GetNumberOfPoints())
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">%s</span><span class="s2"> input points</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pointSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">())</span>
 
-    ids = vtk.vtkIdTypeArray()
-    ids.SetNumberOfComponents(1)
+    <span class="n">ids</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkIdTypeArray</span><span class="p">()</span>
+    <span class="n">ids</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    # Set values
-    i = 10
-    while i &lt; 20:
-        ids.InsertNextValue(i)
-        i += 1
+    <span class="c1"># Set values</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="n">ids</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    selectionNode = vtk.vtkSelectionNode()
-    selectionNode.SetFieldType(1) # POINT
-    #  CELL_DATA = 0
-    #  POINT_DATA = 1
-    #  FIELD_DATA = 2
-    #  VERTEX_DATA = 3
-    #  EDGE_DATA = 4
+    <span class="n">selectionNode</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSelectionNode</span><span class="p">()</span>
+    <span class="n">selectionNode</span><span class="o">.</span><span class="n">SetFieldType</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># POINT</span>
+    <span class="c1">#  CELL_DATA = 0</span>
+    <span class="c1">#  POINT_DATA = 1</span>
+    <span class="c1">#  FIELD_DATA = 2</span>
+    <span class="c1">#  VERTEX_DATA = 3</span>
+    <span class="c1">#  EDGE_DATA = 4</span>
 
-    selectionNode.SetContentType(4) # INDICES
-    #SELECTIONS = 0
-    #GLOBALIDS = 1
-    #PEDIGREEIDS = 2
-    #VALUES = 3
-    #INDICES = 4
-    #FRUSTUM = 5
-    #LOCATIONS = 6
-    #THRESHOLDS = 7
-    #BLOCKS = 8
-    selectionNode.SetSelectionList(ids)
+    <span class="n">selectionNode</span><span class="o">.</span><span class="n">SetContentType</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># INDICES</span>
+    <span class="c1">#SELECTIONS = 0</span>
+    <span class="c1">#GLOBALIDS = 1</span>
+    <span class="c1">#PEDIGREEIDS = 2</span>
+    <span class="c1">#VALUES = 3</span>
+    <span class="c1">#INDICES = 4</span>
+    <span class="c1">#FRUSTUM = 5</span>
+    <span class="c1">#LOCATIONS = 6</span>
+    <span class="c1">#THRESHOLDS = 7</span>
+    <span class="c1">#BLOCKS = 8</span>
+    <span class="n">selectionNode</span><span class="o">.</span><span class="n">SetSelectionList</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
 
-    selection = vtk.vtkSelection()
-    selection.AddNode(selectionNode)
+    <span class="n">selection</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSelection</span><span class="p">()</span>
+    <span class="n">selection</span><span class="o">.</span><span class="n">AddNode</span><span class="p">(</span><span class="n">selectionNode</span><span class="p">)</span>
 
-    extractSelection = vtk.vtkExtractSelection()
+    <span class="n">extractSelection</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkExtractSelection</span><span class="p">()</span>
 
-    extractSelection.SetInputConnection(0, pointSource.GetOutputPort())
-    if vtk.VTK_MAJOR_VERSION &lt;= 5:
-        extractSelection.SetInput(1, selection)
-    else:
-        extractSelection.SetInputData(1, selection)
-    extractSelection.Update()
+    <span class="n">extractSelection</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pointSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">extractSelection</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">extractSelection</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+    <span class="n">extractSelection</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-    # In selection
-    selected = vtk.vtkUnstructuredGrid()
-    selected.ShallowCopy(extractSelection.GetOutput())
+    <span class="c1"># In selection</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">selected</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">extractSelection</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    print(&quot;There are %s points in the selection&quot; % selected.GetNumberOfPoints())
-    print(&quot;There are %s cells in the selection&quot; %selected.GetNumberOfCells())
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">%s</span><span class="s2"> points in the selection&quot;</span> <span class="o">%</span> <span class="n">selected</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">%s</span><span class="s2"> cells in the selection&quot;</span> <span class="o">%</span><span class="n">selected</span><span class="o">.</span><span class="n">GetNumberOfCells</span><span class="p">())</span>
 
-    # Get points that are NOT in the selection
-    # invert the selection
-    selectionNode.GetProperties().Set(vtk.vtkSelectionNode.INVERSE(), 1)
-    extractSelection.Update()
+    <span class="c1"># Get points that are NOT in the selection</span>
+    <span class="c1"># invert the selection</span>
+    <span class="n">selectionNode</span><span class="o">.</span><span class="n">GetProperties</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkSelectionNode</span><span class="o">.</span><span class="n">INVERSE</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">extractSelection</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-    notSelected = vtk.vtkUnstructuredGrid()
-    notSelected.ShallowCopy(extractSelection.GetOutput())
+    <span class="n">notSelected</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">notSelected</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">extractSelection</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    print(&quot;There are %s points NOT in the selection&quot; % notSelected.GetNumberOfPoints())
-    print(&quot;There are %s cells NOT in the selection&quot; % notSelected.GetNumberOfCells())
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">%s</span><span class="s2"> points NOT in the selection&quot;</span> <span class="o">%</span> <span class="n">notSelected</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">%s</span><span class="s2"> cells NOT in the selection&quot;</span> <span class="o">%</span> <span class="n">notSelected</span><span class="o">.</span><span class="n">GetNumberOfCells</span><span class="p">())</span>
 
-    inputMapper = vtk.vtkDataSetMapper()
-    inputMapper.SetInputConnection(pointSource.GetOutputPort())
-    inputActor = vtk.vtkActor()
-    inputActor.SetMapper(inputMapper)
+    <span class="n">inputMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+    <span class="n">inputMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">inputActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">inputActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">inputMapper</span><span class="p">)</span>
 
-    selectedMapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION &lt;= 5:
-        selectedMapper.SetInputConnection(selected.GetProducerPort())
-    else:
-        selectedMapper.SetInputData(selected)
-    selectedActor = vtk.vtkActor()
-    selectedActor.SetMapper(selectedMapper)
+    <span class="n">selectedMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">selectedMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">selected</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selectedMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+    <span class="n">selectedActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">selectedActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">selectedMapper</span><span class="p">)</span>
 
-    notSelectedMapper = vtk.vtkDataSetMapper()
-    if vtk.VTK_MAJOR_VERSION &lt;= 5:
-        notSelectedMapper.SetInputConnection(notSelected.GetProducerPort())
-    else:
-        notSelectedMapper.SetInputData(notSelected)
-    notSelectedActor = vtk.vtkActor()
-    notSelectedActor.SetMapper(notSelectedMapper)
+    <span class="n">notSelectedMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">notSelectedMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">notSelected</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">notSelectedMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">notSelected</span><span class="p">)</span>
+    <span class="n">notSelectedActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">notSelectedActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">notSelectedMapper</span><span class="p">)</span>
 
 
-    # There will be one render window
-    renderWindow = vtk.vtkRenderWindow()
-    renderWindow.SetSize(900, 300)
+    <span class="c1"># There will be one render window</span>
+    <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
 
-    # And one interactor
-    interactor = vtk.vtkRenderWindowInteractor()
-    interactor.SetRenderWindow(renderWindow)
+    <span class="c1"># And one interactor</span>
+    <span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+    <span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-    # Define viewport ranges
-    # (xmin, ymin, xmax, ymax)
-    leftViewport = [0.0, 0.0, 0.33, 1.0]
-    centerViewport = [0.33, 0.0, .66, 1.0]
-    rightViewport = [0.66, 0.0, 1.0, 1.0]
+    <span class="c1"># Define viewport ranges</span>
+    <span class="c1"># (xmin, ymin, xmax, ymax)</span>
+    <span class="n">leftViewport</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">centerViewport</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">66</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">rightViewport</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
 
-    # Setup the renderers
-    leftRenderer = vtk.vtkRenderer()
-    renderWindow.AddRenderer(leftRenderer)
-    leftRenderer.SetViewport(leftViewport)
-    leftRenderer.SetBackground(.6, .5, .4)
+    <span class="c1"># Setup the renderers</span>
+    <span class="n">leftRenderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">)</span>
+    <span class="n">leftRenderer</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">)</span>
+    <span class="n">leftRenderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">4</span><span class="p">)</span>
 
-    centerRenderer = vtk.vtkRenderer()
-    renderWindow.AddRenderer(centerRenderer)
-    centerRenderer.SetViewport(centerViewport)
-    centerRenderer.SetBackground(.3, .1, .4)
+    <span class="n">centerRenderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">centerRenderer</span><span class="p">)</span>
+    <span class="n">centerRenderer</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">centerViewport</span><span class="p">)</span>
+    <span class="n">centerRenderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">4</span><span class="p">)</span>
 
-    rightRenderer = vtk.vtkRenderer()
-    renderWindow.AddRenderer(rightRenderer)
-    rightRenderer.SetViewport(rightViewport)
-    rightRenderer.SetBackground(.4, .5, .6)
+    <span class="n">rightRenderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">)</span>
+    <span class="n">rightRenderer</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">)</span>
+    <span class="n">rightRenderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">)</span>
 
-    leftRenderer.AddActor(inputActor)
-    centerRenderer.AddActor(selectedActor)
-    rightRenderer.AddActor(notSelectedActor)
+    <span class="n">leftRenderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">inputActor</span><span class="p">)</span>
+    <span class="n">centerRenderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">selectedActor</span><span class="p">)</span>
+    <span class="n">rightRenderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">notSelectedActor</span><span class="p">)</span>
 
-    leftRenderer.ResetCamera()
-    centerRenderer.ResetCamera()
-    rightRenderer.ResetCamera()
+    <span class="n">leftRenderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+    <span class="n">centerRenderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+    <span class="n">rightRenderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
 
-    renderWindow.Render()
-    interactor.Start()
+    <span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+    <span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-if __name__ == '__main__':
-    main()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

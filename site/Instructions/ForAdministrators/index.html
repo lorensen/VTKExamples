@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15528,6 +15528,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15944,7 +15956,7 @@
 </li>
 </ul>
 </div>
-<h1 id="organization-of-the-example-repository">Organization of the Example Repository</h1>
+<h1 id="organization-of-the-example-repository">Organization of the Example Repository<a class="headerlink" href="#organization-of-the-example-repository" title="Permanent link">&para;</a></h1>
 <p>The wiki examples are stored in a [https://github.com/lorensen/VTKWikiExamples.git git repository] hosted at [http://www.github.com/ github.com]. The repository contains several types of files:</p>
 <ul>
 <li>
@@ -15984,17 +15996,17 @@
 :Examples for each topic reside in a directory with the topic name. If the examples in a topic directory should be compiled and run, the topic directory has a CMakeLists.txt file. All administrators can create topic directories and CMakeLists.txt files.</p>
 </li>
 </ul>
-<h1 id="administrator-tasks">Administrator Tasks</h1>
-<h2 id="clone-repository-with-write-access">Clone repository with write access</h2>
+<h1 id="administrator-tasks">Administrator Tasks<a class="headerlink" href="#administrator-tasks" title="Permanent link">&para;</a></h1>
+<h2 id="clone-repository-with-write-access">Clone repository with write access<a class="headerlink" href="#clone-repository-with-write-access" title="Permanent link">&para;</a></h2>
 <p>Exactly the same as cloning anonymously:</p>
 <p>git clone https://github.com/lorensen/VTKWikiExamples.git</p>
-<h2 id="add-a-new-topic">Add a new topic</h2>
+<h2 id="add-a-new-topic">Add a new topic<a class="headerlink" href="#add-a-new-topic" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Create a topic subdirectoy
  mkdir '''''MyTopic'''''
  cd '''''MyTopic'''''</li>
 </ul>
-<h2 id="create-a-cmakeliststxt-file">* Create a CMakeLists.txt file</h2>
+<h2 id="create-a-cmakeliststxt-file">* Create a CMakeLists.txt file<a class="headerlink" href="#create-a-cmakeliststxt-file" title="Permanent link">&para;</a></h2>
 <p><source lang='cmake'>
 PROJECT (MyTopic)</p>
 <p>SET(KIT MyTopic)
@@ -16003,8 +16015,8 @@ SET(KIT_LIBS vtkHybrid)</p>
   FIND_PACKAGE(VTK REQUIRED)
   INCLUDE(${VTK_USE_FILE})
 ENDIF(NOT WikiExamples_BINARY_DIR)</p>
-<h1 id="_1"></h1>
-<h1 id="build-all-cxx-files-in-the-directory">Build all .cxx files in the directory</h1>
+<h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="build-all-cxx-files-in-the-directory">Build all .cxx files in the directory<a class="headerlink" href="#build-all-cxx-files-in-the-directory" title="Permanent link">&para;</a></h1>
 <p>FILE(GLOB ALL_FILES *.cxx)
 foreach(SOURCE_FILE ${ALL_FILES})
   STRING(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -16012,7 +16024,7 @@ foreach(SOURCE_FILE ${ALL_FILES})
   ADD_EXECUTABLE(${EXAMPLE} ${EXAMPLE}.cxx)
   TARGET_LINK_LIBRARIES(${EXAMPLE} ${KIT_LIBS})
 endforeach(SOURCE_FILE)</p>
-<h1 id="testing">Testing</h1>
+<h1 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h1>
 <p>INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 </source></p>
 <hr />
@@ -16029,7 +16041,7 @@ endforeach(SOURCE_FILE)</p>
 </ul>
 <p>If you get an error, you should make sure your rsa key is uploaded to github and that you have done:
  git config remote.origin.pushurl https://github.com/lorensen/VTKWikiExamples.git</p>
-<h2 id="add-a-test-that-requires-arguments">Add a test that requires arguments</h2>
+<h2 id="add-a-test-that-requires-arguments">Add a test that requires arguments<a class="headerlink" href="#add-a-test-that-requires-arguments" title="Permanent link">&para;</a></h2>
 <p>By default, the ''CMakeLists.txt'' in a topic directory creates a small test driver for each .cxx file it finds. Then it creates an '''ADD_TEST''' command. The default '''ADD_TEST''' command assumes that the test has no arguments.</p>
 <p>Some tests require arguments. To prevent the '''ADD_TEST''' from being generated, add any examples that require arguments to the list '''NEEDS_ARGS''':</p>
 <p><source lang="cmake">
@@ -16046,7 +16058,7 @@ endforeach(SOURCE_FILE)</p>
   ADD_TEST(${KIT}-Example2 ${EXECUTABLE_OUTPUT_PATH}/${KIT}CxxTests
     TestExample2  arg1 arg2 arg3)
 </source></p>
-<h2 id="add-a-regression-baseline-image">Add a regression baseline image</h2>
+<h2 id="add-a-regression-baseline-image">Add a regression baseline image<a class="headerlink" href="#add-a-regression-baseline-image" title="Permanent link">&para;</a></h2>
 <p>Any example that uses a render window interactor will expect to find a baseline image for regression testing. The first time the test for the example is run, using ctest, the test will fail and report that a baseline image could not be found.</p>
 <ul>
 <li>
@@ -16084,12 +16096,12 @@ You must add this tag to the top of the example page:</p>
 <nowiki>
  <div class="floatright">[[File:VTK_Examples_Baseline_Filtering_TestLandmarkTransform.png]]</div>
 </nowiki></p>
-<h2 id="add-example-input-data">Add example input data</h2>
+<h2 id="add-example-input-data">Add example input data<a class="headerlink" href="#add-example-input-data" title="Permanent link">&para;</a></h2>
 <p>We like to keep the example data to a small number of small files. If you must add input data for the tests:</p>
 <p>git add Testing/Data/MyData.whatever
  git commit -m "ENH: Added new example input data." Testing/Data/Mydata.whatever
  git push</p>
-<h2 id="add-a-testing-machine-to-the-dashboard">Add a testing machine to the dashboard</h2>
+<h2 id="add-a-testing-machine-to-the-dashboard">Add a testing machine to the dashboard<a class="headerlink" href="#add-a-testing-machine-to-the-dashboard" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The simplest way is to add an Experimental build
  make Experimental</li>
@@ -16108,9 +16120,9 @@ set(DASHBOARD Experimental)
 <hr />
 <p>:Copy the edited SampleBuildTest.cmake to '''''/home/foo/'''''WikiExamples.ctest. This can be run nightly from a cronjob (crontab -e)</p>
 <p>0 23 * * * ctest -S '''''/home/foo/'''''WikiExamples.ctest -V  &amp;&gt; '''''/home/foo/'''''WikiExamplesNightly.log</p>
-<h2 id="check-the-dashboard-frequently">Check the dashboard frequently!</h2>
+<h2 id="check-the-dashboard-frequently">Check the dashboard frequently!<a class="headerlink" href="#check-the-dashboard-frequently" title="Permanent link">&para;</a></h2>
 <p>http://www.cdash.org/CDash/index.php?project=VTKWikiExamples</p>
-<h2 id="fixing-build-problems">Fixing build problems</h2>
+<h2 id="fixing-build-problems">Fixing build problems<a class="headerlink" href="#fixing-build-problems" title="Permanent link">&para;</a></h2>
 <p>If you notice that 'make' fails with a compiler error, you should attempt to fix the error in the source tree to ensure it works before copying the fix to the wiki. Once you change the source file, you will need to 'make rebuild_cache' so to re-create the Cxx/[directory]/CMakeFiles/IOCxxTests.dir/Test[ExampleName].cxx file that is actually built.</p>
                 
                   

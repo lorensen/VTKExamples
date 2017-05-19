@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,110 +16018,117 @@
                   <h1>MiscCellData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/MiscCellData</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This demo attaches a double to a cell (triangle) in a polydata.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MiscCellData.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // We will write the resulting file to Test.vtp so it can be inspected in Paraview
-  std::string outputFilename = &quot;output.vtp&quot;;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// We will write the resulting file to Test.vtp so it can be inspected in Paraview</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">outputFilename</span> <span class="o">=</span> <span class="s">&quot;output.vtp&quot;</span><span class="p">;</span>
 
-  // Setup 3 points
-  vtkSmartPointer&lt;vtkPoints&gt; points = 
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(1.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(0.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(0.0, 1.0, 0.0);
+  <span class="c1">// Setup 3 points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  // Create a triangle
-  vtkSmartPointer&lt;vtkTriangle&gt; triangle = 
-    vtkSmartPointer&lt;vtkTriangle&gt;::New();
-  triangle-&gt;GetPointIds()-&gt;SetId(0,0);
-  triangle-&gt;GetPointIds()-&gt;SetId(1,1);
-  triangle-&gt;GetPointIds()-&gt;SetId(2,2);
+  <span class="c1">// Create a triangle</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">&gt;</span> <span class="n">triangle</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
 
-  // Add the triangle to a cell array
-  vtkSmartPointer&lt;vtkCellArray&gt; triangles = 
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  triangles-&gt;InsertNextCell(triangle);
+  <span class="c1">// Add the triangle to a cell array</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">triangles</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">);</span>
 
-  // Setup data for the triangle. Attach a value of 1.45.
-  // This can be anything you wish to store with it)
-  vtkSmartPointer&lt;vtkDoubleArray&gt; triangleData = 
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  triangleData-&gt;SetNumberOfComponents(1); //we will have only 1 value associated with the triangle
-  triangleData-&gt;SetName(&quot;TriangleData&quot;); //set the name of the value
-  triangleData-&gt;InsertNextValue(1.45); //set the actual value
+  <span class="c1">// Setup data for the triangle. Attach a value of 1.45.</span>
+  <span class="c1">// This can be anything you wish to store with it)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">triangleData</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">triangleData</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">//we will have only 1 value associated with the triangle</span>
+  <span class="n">triangleData</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;TriangleData&quot;</span><span class="p">);</span> <span class="c1">//set the name of the value</span>
+  <span class="n">triangleData</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.45</span><span class="p">);</span> <span class="c1">//set the actual value</span>
 
-  // Create a polydata that contains the points, 
-  // the triangle on those points, and the data 
-  // array (value) we created for the triangle
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata = 
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints(points);
-  polydata-&gt;SetPolys(triangles);
-  polydata-&gt;GetCellData()-&gt;AddArray(triangleData);
+  <span class="c1">// Create a polydata that contains the points, </span>
+  <span class="c1">// the triangle on those points, and the data </span>
+  <span class="c1">// array (value) we created for the triangle</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">triangles</span><span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">triangleData</span><span class="p">);</span>
 
-  // Write the file
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer = 
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInput(polydata);
-#else
-  writer-&gt;SetInputData(polydata);
-#endif
-  writer-&gt;SetFileName(outputFilename.c_str());
-  writer-&gt;Write();
+  <span class="c1">// Write the file</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">outputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MiscCellData)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MiscCellData</span><span class="p">)</span>
 
-add_executable(MiscCellData MACOSX_BUNDLE MiscCellData.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MiscCellData ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MiscCellData</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MiscCellData.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-misccelldata">Download and Build MiscCellData</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MiscCellData</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-misccelldata">Download and Build MiscCellData<a class="headerlink" href="#download-and-build-misccelldata" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MiscCellData.tar">here to download MiscCellData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MiscCellData.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MiscCellData/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MiscCellData/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MiscCellData
-</code></pre>
+<div class="codehilite"><pre><span></span>./MiscCellData
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

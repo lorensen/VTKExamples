@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,7 +16018,7 @@
                   <h1>LeastSquares</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Math/LeastSquares</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example solves XM = Y (an interesting way to write Ax = b). </p>
 <p>In particular, we are trying to solve
 <source lang="text">
@@ -16015,101 +16027,108 @@
 [3]     <a href="../2">1</a>
 </source></p>
 <p>It currently does not work.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LeastSquares.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkMath.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 
-  /* allocate memory for an nrow x ncol matrix */
-  template&lt;class TReal&gt;
-      TReal **create_matrix ( long nrow, long ncol )
-  {
-  typedef TReal* TRealPointer;
-  TReal **m = new TRealPointer[nrow];
+  <span class="cm">/* allocate memory for an nrow x ncol matrix */</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">TReal</span><span class="o">&gt;</span>
+      <span class="n">TReal</span> <span class="o">**</span><span class="n">create_matrix</span> <span class="p">(</span> <span class="kt">long</span> <span class="n">nrow</span><span class="p">,</span> <span class="kt">long</span> <span class="n">ncol</span> <span class="p">)</span>
+  <span class="p">{</span>
+  <span class="k">typedef</span> <span class="n">TReal</span><span class="o">*</span> <span class="n">TRealPointer</span><span class="p">;</span>
+  <span class="n">TReal</span> <span class="o">**</span><span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TRealPointer</span><span class="p">[</span><span class="n">nrow</span><span class="p">];</span>
 
-  TReal* block = ( TReal* ) calloc ( nrow*ncol, sizeof ( TReal ) );
-  m[0] = block;
-  for ( int row = 1; row &lt; nrow; ++row )
-  {
-    m[ row ] = &amp;block[ row * ncol ];
-  }
-  return m;
-  }
+  <span class="n">TReal</span><span class="o">*</span> <span class="n">block</span> <span class="o">=</span> <span class="p">(</span> <span class="n">TReal</span><span class="o">*</span> <span class="p">)</span> <span class="n">calloc</span> <span class="p">(</span> <span class="n">nrow</span><span class="o">*</span><span class="n">ncol</span><span class="p">,</span> <span class="k">sizeof</span> <span class="p">(</span> <span class="n">TReal</span> <span class="p">)</span> <span class="p">);</span>
+  <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">nrow</span><span class="p">;</span> <span class="o">++</span><span class="n">row</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">m</span><span class="p">[</span> <span class="n">row</span> <span class="p">]</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">[</span> <span class="n">row</span> <span class="o">*</span> <span class="n">ncol</span> <span class="p">];</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">m</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  /* free a TReal matrix allocated with matrix() */
-  template&lt;class TReal&gt;
-      void free_matrix ( TReal **m )
-  {
-  free ( m[0] );
-  delete[] m;
-  }
+  <span class="cm">/* free a TReal matrix allocated with matrix() */</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">TReal</span><span class="o">&gt;</span>
+      <span class="kt">void</span> <span class="n">free_matrix</span> <span class="p">(</span> <span class="n">TReal</span> <span class="o">**</span><span class="n">m</span> <span class="p">)</span>
+  <span class="p">{</span>
+  <span class="n">free</span> <span class="p">(</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">);</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">m</span><span class="p">;</span>
+  <span class="p">}</span>
 
-int main(int, char *[])
-{
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
 
-  // Solve XM = Y;
+  <span class="c1">// Solve XM = Y;</span>
 
-  int numberOfSamples = 3;
-  int numberOfVariables = 2;
-  double **x = create_matrix&lt;double&gt; (numberOfSamples, numberOfVariables);
-  x[0][0] = 1; x[0][1] = 4;
-  x[1][0] = 1; x[1][1] = 2;
-  x[2][0] = 2; x[2][1] = 3;
+  <span class="kt">int</span> <span class="n">numberOfSamples</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">numberOfVariables</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="o">**</span><span class="n">x</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">numberOfSamples</span><span class="p">,</span> <span class="n">numberOfVariables</span><span class="p">);</span>
+  <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 
-  double **m = create_matrix&lt;double&gt; ( numberOfVariables, 1 );
+  <span class="kt">double</span> <span class="o">**</span><span class="n">m</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span> <span class="n">numberOfVariables</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
 
-  double **y = create_matrix&lt;double&gt; ( numberOfSamples, 1 );
-  y[0][0] = -2;
-  y[1][0] = 6;
-  y[2][0] = 1;
+  <span class="kt">double</span> <span class="o">**</span><span class="n">y</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span> <span class="n">numberOfSamples</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+  <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
-  vtkMath::SolveLeastSquares(numberOfSamples, x, numberOfVariables, y, 1, m);
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">SolveLeastSquares</span><span class="p">(</span><span class="n">numberOfSamples</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">numberOfVariables</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;Solution is: &quot; &lt;&lt; m[0][0] &lt;&lt; &quot; &quot; &lt;&lt; m[1][0] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Solution is: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Solution should be [3; -1];
-  free_matrix(x);
-  free_matrix(m);
-  free_matrix(y);
+  <span class="c1">// Solution should be [3; -1];</span>
+  <span class="n">free_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+  <span class="n">free_matrix</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+  <span class="n">free_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LeastSquares)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LeastSquares</span><span class="p">)</span>
 
-add_executable(LeastSquares MACOSX_BUNDLE LeastSquares.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LeastSquares ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LeastSquares</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LeastSquares.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-leastsquares">Download and Build LeastSquares</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LeastSquares</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-leastsquares">Download and Build LeastSquares<a class="headerlink" href="#download-and-build-leastsquares" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LeastSquares.tar">here to download LeastSquares</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LeastSquares.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LeastSquares/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LeastSquares/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LeastSquares
-</code></pre>
+<div class="codehilite"><pre><span></span>./LeastSquares
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

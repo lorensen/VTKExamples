@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,27 +15990,27 @@
                   <h1>UniformRandomNumber</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/SimpleOperations/UniformRandomNumber</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example generates 3 random numbers between 0 and 2 from a uniform distribution. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>UniformRandomNumber.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void UniformRandomNumber() {
-   // Set the number of random numbers we wish to produce to 3.
-   uint numRand = 3;
-   // Without this line, the random numbers will be the same every iteration.
-   vtkMath.RandomSeed((int)( DateTime.Now.Ticks &amp; 0x0000FFFF ));
+<span class="k">void</span> <span class="nf">UniformRandomNumber</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// Set the number of random numbers we wish to produce to 3.</span>
+   <span class="kt">uint</span> <span class="n">numRand</span> <span class="p">=</span> <span class="m">3</span><span class="p">;</span>
+   <span class="c1">// Without this line, the random numbers will be the same every iteration.</span>
+   <span class="n">vtkMath</span><span class="p">.</span><span class="n">RandomSeed</span><span class="p">((</span><span class="kt">int</span><span class="p">)(</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">Ticks</span> <span class="p">&amp;</span> <span class="m">0</span><span class="n">x0000FFFF</span> <span class="p">));</span>
 
-   // Generate numRand random numbers from a uniform distribution between 0.0 and 2.0
-   for(uint i = 0; i &lt; numRand; i++) {
-      double a = vtkMath.Random(0.0, 2.0);
-      Console.WriteLine(a);
-   }
-}
-</code></pre>
+   <span class="c1">// Generate numRand random numbers from a uniform distribution between 0.0 and 2.0</span>
+   <span class="k">for</span><span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">numRand</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">a</span> <span class="p">=</span> <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">);</span>
+      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

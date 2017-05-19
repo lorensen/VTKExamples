@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,7 +15990,7 @@
                   <h1>LUTUtilities</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Utilities/LUTUtilities</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>==Description==
 A class called LUTUtilities is demonstrated along with a test harness that shows you how to use the class.</p>
 <p>This class allows you to:
@@ -15986,346 +15998,346 @@ A class called LUTUtilities is demonstrated along with a test harness that shows
 </em> Compare two lookup tables to see if they are the same.</p>
 <p>The test harness is a function called: TestLookupTables that tests pairs of lookup tables against each other.</p>
 <p>The program will not display any output if all tests are successful.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LUTUtilities.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
-from __future__ import print_function
-import sys
-import vtk
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-class LUTUtilities(object):
-    '''
-    Utilities for displaying and comparing lookup tables.
-    '''
+<span class="k">class</span> <span class="nc">LUTUtilities</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Utilities for displaying and comparing lookup tables.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
-    def __init__(self):
-        pass
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-    def DisplayLUTAsString(self,lut):
-        '''
-        Display the contents of the lookup table.
-        :param: lut - the lookup table.
-        :return: a string containing the table data.
-        '''
-        str = ''
-        tv = lut.GetNumberOfTableValues()
-        dR = lut.GetTableRange()
-        if lut.GetIndexedLookup():
-            av = lut.GetNumberOfAnnotatedValues()
-            str = &quot;Categorical Lookup Table\n&quot; +\
-            &quot;Number of annotated values: {:d}&quot;.format(av) +\
-            &quot; Number of table values: {:d}&quot;.format(tv) +\
-            &quot;\nTable Range: {:8.6f} to {:8.6f}\n&quot;.format(dR[0],dR[1])
-            if av &gt; 0:
-                for i in range(av):
-                    rgba = [0.0, 0.0, 0.0, 0.0]
-                    lut.GetAnnotationColor(lut.GetAnnotatedValue(i),rgba)
-                    str += &quot;{:&gt;5}: &quot;.format(lut.GetAnnotation(i))
-                    str += self.AssembleRGBAString(rgba)
-            else:
-                for i in range(tv):
-                    rgba = [0.0, 0.0, 0.0, 0.0]
-                    rgba = lut.GetTableValue(i)
-                    str += &quot;{:5d}: &quot;.format(i)
-                    str += self.AssembleRGBAString(rgba)
-        else:
-            str = &quot;Ordinal Lookup Table\n&quot; +\
-            &quot; Number of table values: {:d}&quot;.format(tv) +\
-            &quot;\nTable Range: {:8.6f} to {:8.6f}\n&quot;.format(dR[0],dR[1])
-            indices = [(dR[1] - dR[0]) *
-                           float(x)/tv + dR[0] for x in range(0,tv)]
-            for i, v in enumerate(indices):
-                rgb = [0.0, 0.0, 0.0]
-                lut.GetColor(v,rgb)
-                rgba = rgb + [lut.GetOpacity(v)]
-                str += &quot;{:5.2f}: &quot;.format(v)
-                str += self.AssembleRGBAString(rgba)
-        return str
+    <span class="k">def</span> <span class="nf">DisplayLUTAsString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">lut</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Display the contents of the lookup table.</span>
+<span class="sd">        :param: lut - the lookup table.</span>
+<span class="sd">        :return: a string containing the table data.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">tv</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span>
+        <span class="n">dR</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetTableRange</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetIndexedLookup</span><span class="p">():</span>
+            <span class="n">av</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">()</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Categorical Lookup Table</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>\
+            <span class="s2">&quot;Number of annotated values: {:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">av</span><span class="p">)</span> <span class="o">+</span>\
+            <span class="s2">&quot; Number of table values: {:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tv</span><span class="p">)</span> <span class="o">+</span>\
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table Range: {:8.6f} to {:8.6f}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">av</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">av</span><span class="p">):</span>
+                    <span class="n">rgba</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                    <span class="n">lut</span><span class="o">.</span><span class="n">GetAnnotationColor</span><span class="p">(</span><span class="n">lut</span><span class="o">.</span><span class="n">GetAnnotatedValue</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">rgba</span><span class="p">)</span>
+                    <span class="nb">str</span> <span class="o">+=</span> <span class="s2">&quot;{:&gt;5}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lut</span><span class="o">.</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                    <span class="nb">str</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">AssembleRGBAString</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tv</span><span class="p">):</span>
+                    <span class="n">rgba</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                    <span class="n">rgba</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="nb">str</span> <span class="o">+=</span> <span class="s2">&quot;{:5d}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="nb">str</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">AssembleRGBAString</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Ordinal Lookup Table</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>\
+            <span class="s2">&quot; Number of table values: {:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tv</span><span class="p">)</span> <span class="o">+</span>\
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table Range: {:8.6f} to {:8.6f}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span>
+                           <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">tv</span> <span class="o">+</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">tv</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+                <span class="n">rgb</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                <span class="n">lut</span><span class="o">.</span><span class="n">GetColor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">rgb</span><span class="p">)</span>
+                <span class="n">rgba</span> <span class="o">=</span> <span class="n">rgb</span> <span class="o">+</span> <span class="p">[</span><span class="n">lut</span><span class="o">.</span><span class="n">GetOpacity</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+                <span class="nb">str</span> <span class="o">+=</span> <span class="s2">&quot;{:5.2f}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="nb">str</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">AssembleRGBAString</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span>
 
-    def AssembleRGBAString(self,rgba):
-        '''
-        Display the contents of the rgba as a series of strings:
-        decimal [r g b a], integer [r g b a] where r,g ,b a are
-        in the range 0..255 and 0xrrggba .
-        :param: The rgba string.
-        :return: A string in the above format.
-        '''
-        s = '['+ ', '.join(['{:0.6f}'.format(x) for x in rgba]) + ']'
-        ucrgb = [int(x * 255) for x in rgba]
-        t = '['+ ', '.join(['{:3d}'.format(x) for x in ucrgb]) + ']'
-        #u = '0x'+''.join(map(lambda x: '{:02X}'.format(x),ucrgb[:3]))
-        u = '0x'+''.join(['{:02x}'.format(x) for x in ucrgb])
-        res = '{:s} {:s} {:s}\n'.format(s,t,u)
-        return res
+    <span class="k">def</span> <span class="nf">AssembleRGBAString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">rgba</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Display the contents of the rgba as a series of strings:</span>
+<span class="sd">        decimal [r g b a], integer [r g b a] where r,g ,b a are</span>
+<span class="sd">        in the range 0..255 and 0xrrggba .</span>
+<span class="sd">        :param: The rgba string.</span>
+<span class="sd">        :return: A string in the above format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span><span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;{:0.6f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rgba</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+        <span class="n">ucrgb</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rgba</span><span class="p">]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span><span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;{:3d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ucrgb</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+        <span class="c1">#u = &#39;0x&#39;+&#39;&#39;.join(map(lambda x: &#39;{:02X}&#39;.format(x),ucrgb[:3]))</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="s1">&#39;0x&#39;</span><span class="o">+</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;{:02x}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ucrgb</span><span class="p">])</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="s1">&#39;{:s} {:s} {:s}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
 
-    def CompareLUTs(self, lut1, lut2):
-        '''
-        Compare two lookup tables.
-        :param: lut1 - the lookup table.
-        :param: lut2 - the lookup table.
-        :return: True if the tables are the same.
-        '''
-        res = [True, '']
-        if lut1.GetIndexedLookup() != lut2.GetIndexedLookup():
-            res[0] = False
-            res[1] = &quot;One table is ordinal and the other is categorical.&quot;
-            return res
-        if lut1.GetIndexedLookup() and\
-            lut1.GetNumberOfAnnotatedValues() !=\
-             lut2.GetNumberOfAnnotatedValues():
-            res[0] = False
-            res[1] = &quot;The number of annotated values do not match.&quot;
-            return res
-        if lut1.GetNumberOfTableValues() != lut2.GetNumberOfTableValues():
-            res[0] = False
-            res[1] = &quot;Table values do not match.&quot;
-            return res
-        dR1 = lut1.GetTableRange()
-        dR2 = lut2.GetTableRange()
-        if dR1[0] != dR2[0] and dR1[1] != dR2[1]:
-            res[0] = False
-            res[1] = &quot;Table ranges do not match.&quot;
-            return res
-        if lut1.GetIndexedLookup():
-            av = lut1.GetNumberOfAnnotatedValues()
-            if av &gt; 0:
-                for i in range(av):
-                    if lut1.GetAnnotation(i) != lut1.GetAnnotation(i):
-                        res[0] = False
-                        res[1] = &quot;Annotations do not match.&quot;
-                        return res
-                for i in range(av):
-                    rgba1 = [0.0, 0.0, 0.0, 0.0]
-                    lut1.GetAnnotationColor(lut1.GetAnnotatedValue(i),rgba1)
-                    rgba2 = [0.0, 0.0, 0.0, 0.0]
-                    lut2.GetAnnotationColor(lut2.GetAnnotatedValue(i),rgba2)
-                    if not self.CompareRGBA(rgba1, rgba2):
-                        res[0] = False
-                        res[1] = &quot;Colors do not match.&quot;
-                        return res
-            else:
-                tv = lut1.GetNumberOfTableValues()
-                for i in range(tv):
-                    rgba1 = lut1.GetTableValue(i)
-                    rgba2 = lut2.GetTableValue(i)
-                    if not self.CompareRGBA(rgba1, rgba2):
-                        res[0] = False
-                        res[1] = &quot;Colors do not match.&quot;
-                        return res
-        else:
-            tv = lut1.GetNumberOfTableValues()
-            indices = [(dR1[1] - dR1[0]) *
-                           float(x)/tv + dR1[0] for x in range(0,tv)]
-            for i, v in enumerate(indices):
-                rgb1 = [0.0, 0.0, 0.0]
-                lut1.GetColor(v,rgb1)
-                rgba1 = rgb1 + [lut1.GetOpacity(v)]
-                rgb2 = [0.0, 0.0, 0.0]
-                lut2.GetColor(v,rgb2)
-                rgba2 = rgb2 + [lut2.GetOpacity(v)]
-                if not self.CompareRGBA(rgba1, rgba2):
-                    res[0] = False
-                    res[1] = &quot;Colors do not match.&quot;
-                    return res
+    <span class="k">def</span> <span class="nf">CompareLUTs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Compare two lookup tables.</span>
+<span class="sd">        :param: lut1 - the lookup table.</span>
+<span class="sd">        :param: lut2 - the lookup table.</span>
+<span class="sd">        :return: True if the tables are the same.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetIndexedLookup</span><span class="p">()</span> <span class="o">!=</span> <span class="n">lut2</span><span class="o">.</span><span class="n">GetIndexedLookup</span><span class="p">():</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;One table is ordinal and the other is categorical.&quot;</span>
+            <span class="k">return</span> <span class="n">res</span>
+        <span class="k">if</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetIndexedLookup</span><span class="p">()</span> <span class="ow">and</span>\
+            <span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">()</span> <span class="o">!=</span>\
+             <span class="n">lut2</span><span class="o">.</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">():</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;The number of annotated values do not match.&quot;</span>
+            <span class="k">return</span> <span class="n">res</span>
+        <span class="k">if</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span> <span class="o">!=</span> <span class="n">lut2</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">():</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Table values do not match.&quot;</span>
+            <span class="k">return</span> <span class="n">res</span>
+        <span class="n">dR1</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetTableRange</span><span class="p">()</span>
+        <span class="n">dR2</span> <span class="o">=</span> <span class="n">lut2</span><span class="o">.</span><span class="n">GetTableRange</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dR2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dR2</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Table ranges do not match.&quot;</span>
+            <span class="k">return</span> <span class="n">res</span>
+        <span class="k">if</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetIndexedLookup</span><span class="p">():</span>
+            <span class="n">av</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">av</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">av</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                        <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Annotations do not match.&quot;</span>
+                        <span class="k">return</span> <span class="n">res</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">av</span><span class="p">):</span>
+                    <span class="n">rgba1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                    <span class="n">lut1</span><span class="o">.</span><span class="n">GetAnnotationColor</span><span class="p">(</span><span class="n">lut1</span><span class="o">.</span><span class="n">GetAnnotatedValue</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">rgba1</span><span class="p">)</span>
+                    <span class="n">rgba2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                    <span class="n">lut2</span><span class="o">.</span><span class="n">GetAnnotationColor</span><span class="p">(</span><span class="n">lut2</span><span class="o">.</span><span class="n">GetAnnotatedValue</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">rgba2</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">CompareRGBA</span><span class="p">(</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">):</span>
+                        <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Colors do not match.&quot;</span>
+                        <span class="k">return</span> <span class="n">res</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tv</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tv</span><span class="p">):</span>
+                    <span class="n">rgba1</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="n">rgba2</span> <span class="o">=</span> <span class="n">lut2</span><span class="o">.</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">CompareRGBA</span><span class="p">(</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">):</span>
+                        <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Colors do not match.&quot;</span>
+                        <span class="k">return</span> <span class="n">res</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tv</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[(</span><span class="n">dR1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span>
+                           <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">tv</span> <span class="o">+</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">tv</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+                <span class="n">rgb1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                <span class="n">lut1</span><span class="o">.</span><span class="n">GetColor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">rgb1</span><span class="p">)</span>
+                <span class="n">rgba1</span> <span class="o">=</span> <span class="n">rgb1</span> <span class="o">+</span> <span class="p">[</span><span class="n">lut1</span><span class="o">.</span><span class="n">GetOpacity</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+                <span class="n">rgb2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+                <span class="n">lut2</span><span class="o">.</span><span class="n">GetColor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">rgb2</span><span class="p">)</span>
+                <span class="n">rgba2</span> <span class="o">=</span> <span class="n">rgb2</span> <span class="o">+</span> <span class="p">[</span><span class="n">lut2</span><span class="o">.</span><span class="n">GetOpacity</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">CompareRGBA</span><span class="p">(</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">):</span>
+                    <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Colors do not match.&quot;</span>
+                    <span class="k">return</span> <span class="n">res</span>
 
-        return res
+        <span class="k">return</span> <span class="n">res</span>
 
-    def CompareRGBA(self, rgba1, rgba2):
-        '''
-        Compare two rgba lists.
-        rgba can be a hexadecimal string, or a
-        list of rgb or rgba colors.
-        :param: rgba1 - the color.
-        :param: rgba2 - the color.
-        :return: True if the colors are the same.
-        '''
-        if len(rgba1) != len(rgba2):
-            return False
-        if type(rgba1) == type(''):
-            return rgba1 == rgba2
-        if len(rgba1) == 3 or len(rgba1) == 4:
-            for i in range(0,len(rgba1)):
-                if rgba1[i] != rgba2[i]:
-                    return False
-            return True
-        return False
+    <span class="k">def</span> <span class="nf">CompareRGBA</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Compare two rgba lists.</span>
+<span class="sd">        rgba can be a hexadecimal string, or a</span>
+<span class="sd">        list of rgb or rgba colors.</span>
+<span class="sd">        :param: rgba1 - the color.</span>
+<span class="sd">        :param: rgba2 - the color.</span>
+<span class="sd">        :return: True if the colors are the same.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgba1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgba2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">rgba1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">rgba1</span> <span class="o">==</span> <span class="n">rgba2</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgba1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgba1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">rgba1</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">rgba1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">rgba2</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
 
-def GetAllColorSchemes():
-    '''
-    Get all the color scheme names.
-    :return: a map of the names keyed on their index.
-    '''
-    colorSchemes = dict()
-    colorSeries = vtk.vtkColorSeries()
-    for i in range(colorSeries.GetNumberOfColorSchemes()):
-        colorSeries.SetColorScheme(i)
-        colorSchemes[i] = colorSeries.GetColorSchemeName()
-    return colorSchemes
+<span class="k">def</span> <span class="nf">GetAllColorSchemes</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get all the color scheme names.</span>
+<span class="sd">    :return: a map of the names keyed on their index.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">colorSchemes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">colorSeries</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkColorSeries</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">colorSeries</span><span class="o">.</span><span class="n">GetNumberOfColorSchemes</span><span class="p">()):</span>
+        <span class="n">colorSeries</span><span class="o">.</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">colorSchemes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">.</span><span class="n">GetColorSchemeName</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">colorSchemes</span>
 
-def AvailableColorSchemes(colorSchemes):
-    '''
-    The available color scheme indexes and names.
-    :param: colorSchemes - a map of the names keyed on their index.
-    :return:  a string if the indexes and names.
-    '''
-    str = ''
-    for k, v in colorSchemes.items():
-        str += '{:3d}\t{:s}\n'.format(k,v)
-    return str
+<span class="k">def</span> <span class="nf">AvailableColorSchemes</span><span class="p">(</span><span class="n">colorSchemes</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The available color scheme indexes and names.</span>
+<span class="sd">    :param: colorSchemes - a map of the names keyed on their index.</span>
+<span class="sd">    :return:  a string if the indexes and names.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">colorSchemes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">str</span> <span class="o">+=</span> <span class="s1">&#39;{:3d}</span><span class="se">\t</span><span class="s1">{:s}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">str</span>
 
-def DisplayAvailableColorSchemes():
-    '''
-    Display the available color schemes.
-    '''
-    line = &quot;-----------------------------------------------------------------------------\n&quot;
-    colorSchemes = GetAllColorSchemes()
-    print(line + AvailableColorSchemes(colorSchemes) + line)
+<span class="k">def</span> <span class="nf">DisplayAvailableColorSchemes</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Display the available color schemes.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;-----------------------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">colorSchemes</span> <span class="o">=</span> <span class="n">GetAllColorSchemes</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="n">AvailableColorSchemes</span><span class="p">(</span><span class="n">colorSchemes</span><span class="p">)</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
 
-def DisplayResults(reason, lut1, lut2):
-    '''
-    Display the lookup tables and reason for failure.
-    :param: reason - the reason.
-    :param: lut1 - the first lookup table.
-    :param: lut2 - the second lookup table.
-    '''
-    lutUtilities = LUTUtilities()
-    line = &quot;-----------------------------------------------------------------------------\n&quot;
-    print(line + reason + &quot;\n&quot;)
-    print(lutUtilities.DisplayLUTAsString(lut1))
-    print(lutUtilities.DisplayLUTAsString(lut2))
-    print(line)
+<span class="k">def</span> <span class="nf">DisplayResults</span><span class="p">(</span><span class="n">reason</span><span class="p">,</span> <span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Display the lookup tables and reason for failure.</span>
+<span class="sd">    :param: reason - the reason.</span>
+<span class="sd">    :param: lut1 - the first lookup table.</span>
+<span class="sd">    :param: lut2 - the second lookup table.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">lutUtilities</span> <span class="o">=</span> <span class="n">LUTUtilities</span><span class="p">()</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;-----------------------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="n">reason</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">lutUtilities</span><span class="o">.</span><span class="n">DisplayLUTAsString</span><span class="p">(</span><span class="n">lut1</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">lutUtilities</span><span class="o">.</span><span class="n">DisplayLUTAsString</span><span class="p">(</span><span class="n">lut2</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
-def TestTables(lut1, lut2, expected = True):
-    '''
-    Test pairs of lookup tables.
-    :param: lut1 - the first lookup table.
-    :param: lut2 - the second lookup table.
-    :param: expected - if False a fail is expected.
-    :return: True/False.
-    '''
-    lutUtilities = LUTUtilities()
-    comparison = lutUtilities.CompareLUTs(lut1, lut2)
-    if comparison[0] != expected:
-        DisplayResults(comparison[1], lut1, lut2)
-    if expected:
-        return comparison[0]
-    return not comparison[0]
+<span class="k">def</span> <span class="nf">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="n">expected</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Test pairs of lookup tables.</span>
+<span class="sd">    :param: lut1 - the first lookup table.</span>
+<span class="sd">    :param: lut2 - the second lookup table.</span>
+<span class="sd">    :param: expected - if False a fail is expected.</span>
+<span class="sd">    :return: True/False.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">lutUtilities</span> <span class="o">=</span> <span class="n">LUTUtilities</span><span class="p">()</span>
+    <span class="n">comparison</span> <span class="o">=</span> <span class="n">lutUtilities</span><span class="o">.</span><span class="n">CompareLUTs</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">comparison</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+        <span class="n">DisplayResults</span><span class="p">(</span><span class="n">comparison</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">expected</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">comparison</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="n">comparison</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-def TestLookupTables(lutMode):
-    '''
-    Test various combinations of lookup tables.
-    :param: lutMode - if True the tables are ordinal, categorical otherwise.
-    :return: True if all tests passed.
-    '''
-    lutUtilities = LUTUtilities()
-    lut1 = vtk.vtkLookupTable()
-    lut2 = vtk.vtkLookupTable()
-    colorSeries = vtk.vtkColorSeries()
-    colorSeriesEnum = colorSeries.SPECTRUM
-    colorSeries.SetColorScheme(colorSeriesEnum)
+<span class="k">def</span> <span class="nf">TestLookupTables</span><span class="p">(</span><span class="n">lutMode</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Test various combinations of lookup tables.</span>
+<span class="sd">    :param: lutMode - if True the tables are ordinal, categorical otherwise.</span>
+<span class="sd">    :return: True if all tests passed.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">lutUtilities</span> <span class="o">=</span> <span class="n">LUTUtilities</span><span class="p">()</span>
+    <span class="n">lut1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+    <span class="n">lut2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+    <span class="n">colorSeries</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkColorSeries</span><span class="p">()</span>
+    <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">.</span><span class="n">SPECTRUM</span>
+    <span class="n">colorSeries</span><span class="o">.</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">)</span>
 
-    colorSeries.BuildLookupTable(lut1)
-    colorSeries.BuildLookupTable(lut2)
-    if lutMode:
-        lut1.IndexedLookupOff()
-        lut2.IndexedLookupOff()
-    lut1.SetNanColor(1, 0, 0, 1)
-    lut2.SetNanColor(1, 0, 0, 1)
-    if not lutMode:
-        # For the annotation just use a letter of the alphabet.
-        values1 = vtk.vtkVariantArray()
-        values2 = vtk.vtkVariantArray()
-        str = &quot;abcdefghijklmnopqrstuvwxyz&quot;
-        for i in range(lut1.GetNumberOfTableValues()):
-            values1.InsertNextValue(vtk.vtkVariant(str[i]))
-        for i in range(lut2.GetNumberOfTableValues()):
-            values2.InsertNextValue(vtk.vtkVariant(str[i]))
-        for i in range(values1.GetNumberOfTuples()):
-            lut1.SetAnnotation(i, values1.GetValue(i).ToString())
-        for i in range(values2.GetNumberOfTuples()):
-            lut2.SetAnnotation(i, values2.GetValue(i).ToString())
-    # Are they the same?
-    res = True
-    res &amp;= TestTables(lut1, lut2)
+    <span class="n">colorSeries</span><span class="o">.</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut1</span><span class="p">)</span>
+    <span class="n">colorSeries</span><span class="o">.</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lutMode</span><span class="p">:</span>
+        <span class="n">lut1</span><span class="o">.</span><span class="n">IndexedLookupOff</span><span class="p">()</span>
+        <span class="n">lut2</span><span class="o">.</span><span class="n">IndexedLookupOff</span><span class="p">()</span>
+    <span class="n">lut1</span><span class="o">.</span><span class="n">SetNanColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">lut2</span><span class="o">.</span><span class="n">SetNanColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">lutMode</span><span class="p">:</span>
+        <span class="c1"># For the annotation just use a letter of the alphabet.</span>
+        <span class="n">values1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantArray</span><span class="p">()</span>
+        <span class="n">values2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantArray</span><span class="p">()</span>
+        <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()):</span>
+            <span class="n">values1</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="nb">str</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lut2</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()):</span>
+            <span class="n">values2</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="nb">str</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values1</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+            <span class="n">lut1</span><span class="o">.</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values1</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">ToString</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values2</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+            <span class="n">lut2</span><span class="o">.</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values2</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">ToString</span><span class="p">())</span>
+    <span class="c1"># Are they the same?</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">)</span>
 
-    # Different size
-    lut2.SetNumberOfTableValues(5)
-    res &amp;= TestTables(lut1, lut2, False)
-    lut2.SetNumberOfTableValues(lut1.GetNumberOfTableValues())
-    res &amp;= TestTables(lut1, lut2)
+    <span class="c1"># Different size</span>
+    <span class="n">lut2</span><span class="o">.</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">lut2</span><span class="o">.</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">lut1</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">())</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">)</span>
 
-    if lutMode:
-        # Different range
-        lut2.SetTableRange(1, 2)
-        res &amp;= TestTables(lut1, lut2, False)
-        tr = lut1.GetTableRange()
-        lut2.SetTableRange(tr)
-        res &amp;= TestTables(lut1, lut2)
+    <span class="k">if</span> <span class="n">lutMode</span><span class="p">:</span>
+        <span class="c1"># Different range</span>
+        <span class="n">lut2</span><span class="o">.</span><span class="n">SetTableRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="n">tr</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">.</span><span class="n">GetTableRange</span><span class="p">()</span>
+        <span class="n">lut2</span><span class="o">.</span><span class="n">SetTableRange</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">)</span>
 
-        # Different color
-        colorSeriesEnum = colorSeries.COOL
-        colorSeries.SetColorScheme(colorSeriesEnum)
-        lut3 = vtk.vtkLookupTable()
-        colorSeries.BuildLookupTable(lut3)
-        lut3.IndexedLookupOff()
-        res &amp;= TestTables(lut1, lut3, False)
+        <span class="c1"># Different color</span>
+        <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">.</span><span class="n">COOL</span>
+        <span class="n">colorSeries</span><span class="o">.</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">)</span>
+        <span class="n">lut3</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+        <span class="n">colorSeries</span><span class="o">.</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut3</span><span class="p">)</span>
+        <span class="n">lut3</span><span class="o">.</span><span class="n">IndexedLookupOff</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut3</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
-        # One indexed, the other ordinal.
-        lut1.IndexedLookupOn()
-        res &amp;= TestTables(lut1, lut2, False)
+        <span class="c1"># One indexed, the other ordinal.</span>
+        <span class="n">lut1</span><span class="o">.</span><span class="n">IndexedLookupOn</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
-    else:
-        # Different color
-        colorSeriesEnum = colorSeries.COOL
-        colorSeries.SetColorScheme(colorSeriesEnum)
-        lut3 = vtk.vtkLookupTable()
-        colorSeries.BuildLookupTable(lut3)
-        values = vtk.vtkVariantArray()
-        str = &quot;abcdefghijklmnopqrstuvwxyz&quot;
-        for i in range(lut3.GetNumberOfTableValues()):
-            values.InsertNextValue(vtk.vtkVariant(str[i]))
-        for i in range(values.GetNumberOfTuples()):
-            lut3.SetAnnotation(i, values.GetValue(i).ToString())
-        colorSeries.BuildLookupTable(lut3)
-        res &amp;= TestTables(lut1, lut3, False)
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Different color</span>
+        <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">.</span><span class="n">COOL</span>
+        <span class="n">colorSeries</span><span class="o">.</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">)</span>
+        <span class="n">lut3</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+        <span class="n">colorSeries</span><span class="o">.</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut3</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantArray</span><span class="p">()</span>
+        <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lut3</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()):</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="nb">str</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+            <span class="n">lut3</span><span class="o">.</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">ToString</span><span class="p">())</span>
+        <span class="n">colorSeries</span><span class="o">.</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut3</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut3</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
-        # Different annotations.
-        lut2.ResetAnnotations()
-        for i in range(values.GetNumberOfTuples()):
-          if i % 3 == 0:
-              continue
-          lut2.SetAnnotation(i, values.GetValue(i).ToString())
-        res &amp;= TestTables(lut1, lut2, False)
+        <span class="c1"># Different annotations.</span>
+        <span class="n">lut2</span><span class="o">.</span><span class="n">ResetAnnotations</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+          <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+              <span class="k">continue</span>
+          <span class="n">lut2</span><span class="o">.</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">ToString</span><span class="p">())</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
-        # No annotations
-        lut1.ResetAnnotations()
-        lut2.ResetAnnotations()
-        res &amp;= TestTables(lut1, lut2)
+        <span class="c1"># No annotations</span>
+        <span class="n">lut1</span><span class="o">.</span><span class="n">ResetAnnotations</span><span class="p">()</span>
+        <span class="n">lut2</span><span class="o">.</span><span class="n">ResetAnnotations</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">)</span>
 
-        # One indexed, the other ordinal.
-        lut1.IndexedLookupOff()
-        res &amp;= TestTables(lut1, lut2, False)
+        <span class="c1"># One indexed, the other ordinal.</span>
+        <span class="n">lut1</span><span class="o">.</span><span class="n">IndexedLookupOff</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
-    return res
+    <span class="k">return</span> <span class="n">res</span>
 
-def main():
-    #DisplayAvailableColorSchemes()
-    # Test ordinal LUTS.
-    res = TestLookupTables(True)
-    # Test categorical LUTs.
-    res &amp;= TestLookupTables(False)
-    return res
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1">#DisplayAvailableColorSchemes()</span>
+    <span class="c1"># Test ordinal LUTS.</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">TestLookupTables</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># Test categorical LUTs.</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestLookupTables</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
 
-if __name__ == '__main__':
-    res = main()
-    if res:
-        sys.exit(0)
-    else:
-        print('Ordinal or Categorical LookupTable tests failed.')
-        sys.exit(1)
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">main</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">res</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Ordinal or Categorical LookupTable tests failed.&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,86 +16018,93 @@
                   <h1>GetCellCenter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/ImageData/GetCellCenter</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Unfortunately this function is not built in directly, but rather quite convoluted to call. This is an easy to use wrapper.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GetCellCenter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCell.h&gt;
-#include &lt;vtkImageData.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCell.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 
-static void GetCellCenter(vtkImageData* imageData, const unsigned int cellId,
-                          double center[3]);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">GetCellCenter</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">imageData</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">cellId</span><span class="p">,</span>
+                          <span class="kt">double</span> <span class="n">center</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 
-int main(int, char *[])
-{
-  // Create an image data
-  vtkSmartPointer&lt;vtkImageData&gt; imageData = vtkSmartPointer&lt;vtkImageData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Specify the size of the image data
-  imageData-&gt;SetDimensions(3,3,2); // This will cause 18 points and 4 cells
-  imageData-&gt;SetSpacing(1.0, 1.0, 1.0);
-  imageData-&gt;SetOrigin(0.0, 0.0, 0.0);
+  <span class="c1">// Specify the size of the image data</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// This will cause 18 points and 4 cells</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;Number of points: &quot; &lt;&lt; imageData-&gt;GetNumberOfPoints() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Number of cells: &quot; &lt;&lt; imageData-&gt;GetNumberOfCells() &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of points: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of cells: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  double center[3] = {0,0,0};
-  for(vtkIdType cellId = 0; cellId &lt; imageData-&gt;GetNumberOfCells(); ++cellId)
-  {
-    GetCellCenter(imageData, cellId, center);
+  <span class="kt">double</span> <span class="n">center</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">cellId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">cellId</span> <span class="o">&lt;</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span> <span class="o">++</span><span class="n">cellId</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">GetCellCenter</span><span class="p">(</span><span class="n">imageData</span><span class="p">,</span> <span class="n">cellId</span><span class="p">,</span> <span class="n">center</span><span class="p">);</span>
 
-    std::cout &lt;&lt; &quot;Cell &quot; &lt;&lt; cellId &lt;&lt; &quot; center: &quot; &lt;&lt; center[0] &lt;&lt; &quot; &quot;
-              &lt;&lt; center[1] &lt;&lt; &quot; &quot; &lt;&lt; center[2] &lt;&lt; std::endl;
-  }
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Cell &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cellId</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; center: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void GetCellCenter(vtkImageData* imageData, const unsigned int cellId, double center[3])
-{
-  double pcoords[3] = {0,0,0};
-  double *weights = new double [imageData-&gt;GetMaxCellSize()];
-  vtkCell* cell = imageData-&gt;GetCell(cellId);
-  int subId = cell-&gt;GetParametricCenter(pcoords);
-  cell-&gt;EvaluateLocation(subId, pcoords, center, weights);
-}
-</code></pre>
+<span class="kt">void</span> <span class="nf">GetCellCenter</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">imageData</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">cellId</span><span class="p">,</span> <span class="kt">double</span> <span class="n">center</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span>
+  <span class="kt">double</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">weights</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span> <span class="p">[</span><span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetMaxCellSize</span><span class="p">()];</span>
+  <span class="n">vtkCell</span><span class="o">*</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetCell</span><span class="p">(</span><span class="n">cellId</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">subId</span> <span class="o">=</span> <span class="n">cell</span><span class="o">-&gt;</span><span class="n">GetParametricCenter</span><span class="p">(</span><span class="n">pcoords</span><span class="p">);</span>
+  <span class="n">cell</span><span class="o">-&gt;</span><span class="n">EvaluateLocation</span><span class="p">(</span><span class="n">subId</span><span class="p">,</span> <span class="n">pcoords</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">weights</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GetCellCenter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GetCellCenter</span><span class="p">)</span>
 
-add_executable(GetCellCenter MACOSX_BUNDLE GetCellCenter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GetCellCenter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GetCellCenter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GetCellCenter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-getcellcenter">Download and Build GetCellCenter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GetCellCenter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-getcellcenter">Download and Build GetCellCenter<a class="headerlink" href="#download-and-build-getcellcenter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GetCellCenter.tar">here to download GetCellCenter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GetCellCenter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GetCellCenter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GetCellCenter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GetCellCenter
-</code></pre>
+<div class="codehilite"><pre><span></span>./GetCellCenter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

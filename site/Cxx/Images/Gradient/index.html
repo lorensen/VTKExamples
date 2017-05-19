@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,324 +16019,331 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/Gradient</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestGradient.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Find the gradient vector of an image at every pixel. Display the original image, the x component of the gradient, the y component of the gradient, and the gradient itself.</p>
 <p>The example takes an optional .jpeg image file.</p>
 <ul>
 <li>Thanks to Eric Monson.</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Gradient.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkArrowSource.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkImageRGBToHSV.h&gt;
-#include &lt;vtkImageExtractComponents.h&gt;
-#include &lt;vtkImageGradient.h&gt;
-#include &lt;vtkImageShiftScale.h&gt;
-#include &lt;vtkFieldDataToAttributeDataFilter.h&gt;
-#include &lt;vtkImageMathematics.h&gt;
-#include &lt;vtkMaskPoints.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageRGBToHSV.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageExtractComponents.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageGradient.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageShiftScale.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFieldDataToAttributeDataFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMathematics.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskPoints.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkImageData&gt; originalImage =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  vtkSmartPointer&lt;vtkImageData&gt; image =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">originalImage</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  int onRatio;
-  double scaleFactor;
-  if (argc &lt; 2)
-  {
-    // Create an image
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; imageSource =
-      vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-    imageSource-&gt;SetScalarTypeToDouble();
-    imageSource-&gt;SetNumberOfScalarComponents(1);
-    imageSource-&gt;SetExtent(0, 6, 0, 6, 0, 0);
-    imageSource-&gt;SetDrawColor(127, 127, 127);
-    imageSource-&gt;FillBox(0, 6, 0, 6);
-    imageSource-&gt;SetDrawColor(255, 255, 255);
-    imageSource-&gt;FillBox(2, 4,  2, 4);
-    imageSource-&gt;Update();
+  <span class="kt">int</span> <span class="n">onRatio</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">scaleFactor</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Create an image</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">imageSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">);</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    originalImage = imageSource-&gt;GetOutput();
-    image = imageSource-&gt;GetOutput();
+    <span class="n">originalImage</span> <span class="o">=</span> <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    // Use all of the points
-    onRatio = 1;
-    scaleFactor = .01;
-  }
-  else
-  {
-    // Read an image
-    vtkSmartPointer&lt;vtkJPEGReader&gt; reader =
-      vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
+    <span class="c1">// Use all of the points</span>
+    <span class="n">onRatio</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">scaleFactor</span> <span class="o">=</span> <span class="mf">.01</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// Read an image</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-    // Convert to HSV and extract the Value
-    vtkSmartPointer&lt;vtkImageRGBToHSV&gt; hsvFilter =
-      vtkSmartPointer&lt;vtkImageRGBToHSV&gt;::New();
-    hsvFilter-&gt;SetInputConnection(reader-&gt;GetOutputPort());
+    <span class="c1">// Convert to HSV and extract the Value</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRGBToHSV</span><span class="o">&gt;</span> <span class="n">hsvFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRGBToHSV</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt; extractValue =
-      vtkSmartPointer&lt;vtkImageExtractComponents&gt;::New();
-    extractValue-&gt;SetInputConnection(hsvFilter-&gt;GetOutputPort());
-    extractValue-&gt;SetComponents(2);
-    extractValue-&gt;Update();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractValue</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">extractValue</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">extractValue</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">extractValue</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    image = extractValue-&gt;GetOutput();
-    originalImage = reader-&gt;GetOutput();
+    <span class="n">image</span> <span class="o">=</span> <span class="n">extractValue</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+    <span class="n">originalImage</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    // Use 1% of the points
-    onRatio = image-&gt;GetPointData()-&gt;GetScalars()-&gt;GetNumberOfTuples() /
-      (image-&gt;GetPointData()-&gt;GetScalars()-&gt;GetNumberOfTuples() * .01);
-    scaleFactor = 1.0;
-  }
+    <span class="c1">// Use 1% of the points</span>
+    <span class="n">onRatio</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">/</span>
+      <span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">*</span> <span class="mf">.01</span><span class="p">);</span>
+    <span class="n">scaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Compute the gradient of the Value
-  vtkSmartPointer&lt;vtkImageGradient&gt; gradientFilter =
-    vtkSmartPointer&lt;vtkImageGradient&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  gradientFilter-&gt;SetInput(image);
-#else
-  gradientFilter-&gt;SetInputData(image);
-#endif
-  gradientFilter-&gt;SetDimensionality(2);
-  gradientFilter-&gt;Update();
+  <span class="c1">// Compute the gradient of the Value</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageGradient</span><span class="o">&gt;</span> <span class="n">gradientFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageGradient</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Extract the x component of the gradient
-  vtkSmartPointer&lt;vtkImageExtractComponents&gt; extractXFilter =
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt;::New();
-  extractXFilter-&gt;SetComponents(0);
-  extractXFilter-&gt;SetInputConnection(gradientFilter-&gt;GetOutputPort());
+  <span class="c1">// Extract the x component of the gradient</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractXFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  double xRange[2];
+  <span class="kt">double</span> <span class="n">xRange</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-  extractXFilter-&gt;Update();
-  extractXFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange(xRange);
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">(</span><span class="n">xRange</span><span class="p">);</span>
 
-  // Gradient could be negative, so take the absolute value
-  vtkSmartPointer&lt;vtkImageMathematics&gt; imageAbsX =
-    vtkSmartPointer&lt;vtkImageMathematics&gt;::New();
-  imageAbsX-&gt;SetOperationToAbsoluteValue();
-  imageAbsX-&gt;SetInputConnection(extractXFilter-&gt;GetOutputPort());
+  <span class="c1">// Gradient could be negative, so take the absolute value</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;</span> <span class="n">imageAbsX</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageAbsX</span><span class="o">-&gt;</span><span class="n">SetOperationToAbsoluteValue</span><span class="p">();</span>
+  <span class="n">imageAbsX</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Scale the output (0,255)
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; shiftScaleX =
-    vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  shiftScaleX-&gt;SetOutputScalarTypeToUnsignedChar();
-  shiftScaleX-&gt;SetScale(255 / xRange[1]);
-  shiftScaleX-&gt;SetInputConnection(imageAbsX-&gt;GetOutputPort());
+  <span class="c1">// Scale the output (0,255)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">shiftScaleX</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shiftScaleX</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">shiftScaleX</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span><span class="mi">255</span> <span class="o">/</span> <span class="n">xRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">shiftScaleX</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageAbsX</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Extract the y component of the gradient
-  vtkSmartPointer&lt;vtkImageExtractComponents&gt; extractYFilter =
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt;::New();
-  extractYFilter-&gt;SetComponents(1);
-  extractYFilter-&gt;SetInputConnection(gradientFilter-&gt;GetOutputPort());
+  <span class="c1">// Extract the y component of the gradient</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractYFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  double yRange[2];
-  extractYFilter-&gt;Update();
-  extractYFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange(yRange);
+  <span class="kt">double</span> <span class="n">yRange</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">(</span><span class="n">yRange</span><span class="p">);</span>
 
-  // Gradient could be negative, so take the absolute value
-  vtkSmartPointer&lt;vtkImageMathematics&gt; imageAbsY =
-    vtkSmartPointer&lt;vtkImageMathematics&gt;::New();
-  imageAbsY-&gt;SetOperationToAbsoluteValue();
-  imageAbsY-&gt;SetInputConnection(extractYFilter-&gt;GetOutputPort());
+  <span class="c1">// Gradient could be negative, so take the absolute value</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;</span> <span class="n">imageAbsY</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageAbsY</span><span class="o">-&gt;</span><span class="n">SetOperationToAbsoluteValue</span><span class="p">();</span>
+  <span class="n">imageAbsY</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Scale the output (0,255)
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; shiftScaleY =
-    vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  shiftScaleY-&gt;SetOutputScalarTypeToUnsignedChar();
-  shiftScaleY-&gt;SetScale(255 / yRange[1]);
-  shiftScaleY-&gt;SetInputConnection(imageAbsY-&gt;GetOutputPort());
+  <span class="c1">// Scale the output (0,255)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">shiftScaleY</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shiftScaleY</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">shiftScaleY</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span><span class="mi">255</span> <span class="o">/</span> <span class="n">yRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">shiftScaleY</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageAbsY</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Create the Glyphs for the gradient
-  vtkSmartPointer&lt;vtkArrowSource&gt; arrowSource =
-    vtkSmartPointer&lt;vtkArrowSource&gt;::New();
+  <span class="c1">// Create the Glyphs for the gradient</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;</span> <span class="n">arrowSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // The gradient is 2D but Glyph3D needs 3D vectors. Add a 0 z-component
-  // Also, ImageGradient generates a 2-component scalar for the
-  // gradient, but Glyph3D needs normals or vectors
-  vtkSmartPointer&lt;vtkDoubleArray&gt; zeroes =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  zeroes-&gt;SetNumberOfComponents(1);
-  zeroes-&gt;SetName(&quot;Zero&quot;);
-  zeroes-&gt;SetNumberOfTuples(gradientFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetNumberOfTuples());
-  zeroes-&gt;FillComponent(0, 0.0);
-  gradientFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;AddArray(zeroes);
+  <span class="c1">// The gradient is 2D but Glyph3D needs 3D vectors. Add a 0 z-component</span>
+  <span class="c1">// Also, ImageGradient generates a 2-component scalar for the</span>
+  <span class="c1">// gradient, but Glyph3D needs normals or vectors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">zeroes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">zeroes</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">zeroes</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Zero&quot;</span><span class="p">);</span>
+  <span class="n">zeroes</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">());</span>
+  <span class="n">zeroes</span><span class="o">-&gt;</span><span class="n">FillComponent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">zeroes</span><span class="p">);</span>
 
-  std::string scalarName =
-    gradientFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetName();
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">scalarName</span> <span class="o">=</span>
+    <span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFieldDataToAttributeDataFilter&gt; scalarsToVectors =
-    vtkSmartPointer&lt;vtkFieldDataToAttributeDataFilter&gt;::New();
-  scalarsToVectors-&gt;SetInputConnection(gradientFilter-&gt;GetOutputPort());
-  scalarsToVectors-&gt;SetInputFieldToPointDataField();
-  scalarsToVectors-&gt;SetOutputAttributeDataToPointData();
-  scalarsToVectors-&gt;SetVectorComponent(0, scalarName.c_str(), 0);
-  scalarsToVectors-&gt;SetVectorComponent(1, scalarName.c_str(), 1);
-  scalarsToVectors-&gt;SetVectorComponent(2, &quot;Zero&quot;, 0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFieldDataToAttributeDataFilter</span><span class="o">&gt;</span> <span class="n">scalarsToVectors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFieldDataToAttributeDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">gradientFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">SetInputFieldToPointDataField</span><span class="p">();</span>
+  <span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">SetOutputAttributeDataToPointData</span><span class="p">();</span>
+  <span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">SetVectorComponent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scalarName</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">SetVectorComponent</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">scalarName</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">SetVectorComponent</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;Zero&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  // Select a small percentage of the gradients
-  vtkSmartPointer&lt;vtkMaskPoints&gt; maskPoints =
-    vtkSmartPointer&lt;vtkMaskPoints&gt;::New();
-  maskPoints-&gt;SetInputConnection(scalarsToVectors-&gt;GetOutputPort());
-  maskPoints-&gt;RandomModeOff();
-  maskPoints-&gt;SetOnRatio(onRatio);
+  <span class="c1">// Select a small percentage of the gradients</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;</span> <span class="n">maskPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">scalarsToVectors</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">RandomModeOff</span><span class="p">();</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">SetOnRatio</span><span class="p">(</span><span class="n">onRatio</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGlyph3D&gt; vectorGradientGlyph =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  vectorGradientGlyph-&gt;SetSourceConnection(arrowSource-&gt;GetOutputPort());
-  vectorGradientGlyph-&gt;SetInputConnection(maskPoints-&gt;GetOutputPort());
-  vectorGradientGlyph-&gt;SetScaleModeToScaleByVector();
-  vectorGradientGlyph-&gt;SetVectorModeToUseVector();
-  vectorGradientGlyph-&gt;SetScaleFactor(scaleFactor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">vectorGradientGlyph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vectorGradientGlyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrowSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vectorGradientGlyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vectorGradientGlyph</span><span class="o">-&gt;</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">();</span>
+  <span class="n">vectorGradientGlyph</span><span class="o">-&gt;</span><span class="n">SetVectorModeToUseVector</span><span class="p">();</span>
+  <span class="n">vectorGradientGlyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="n">scaleFactor</span><span class="p">);</span>
 
-  // Visualize
+  <span class="c1">// Visualize</span>
 
-  // (xmin, ymin, xmax, ymax)
-  double originalViewport[4] = {0.0, 0.0, 0.25, 1.0};
-  double xGradientViewport[4] = {0.25, 0.0, 0.5, 1.0};
-  double yGradientViewport[4] = {0.5, 0.0, 0.75, 1.0};
-  double vectorGradientViewport[4] = {0.75, 0.0, 1.0, 1.0};
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">originalViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">xGradientViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">yGradientViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">vectorGradientViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; vectorGradientMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  vectorGradientMapper-&gt;SetInputConnection(vectorGradientGlyph-&gt;GetOutputPort());
-  vectorGradientMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">vectorGradientMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vectorGradientMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">vectorGradientGlyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vectorGradientMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; vectorGradientActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  vectorGradientActor-&gt;SetMapper(vectorGradientMapper);
-  vectorGradientActor-&gt;GetProperty()-&gt;SetColor(1.0000, 0.3882, 0.2784);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">vectorGradientActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vectorGradientActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">vectorGradientMapper</span><span class="p">);</span>
+  <span class="n">vectorGradientActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkCamera&gt; sharedCamera =
-    vtkSmartPointer&lt;vtkCamera&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; originalRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  originalRenderer-&gt;SetViewport(originalViewport);
-  originalRenderer-&gt;SetBackground(.2, .3, .6);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">sharedCamera</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">originalRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">originalViewport</span><span class="p">);</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; xGradientRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  xGradientRenderer-&gt;SetViewport(xGradientViewport);
-  xGradientRenderer-&gt;SetBackground(.2, .3, .6);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">xGradientRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xGradientRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">xGradientViewport</span><span class="p">);</span>
+  <span class="n">xGradientRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; yGradientRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  yGradientRenderer-&gt;SetViewport(yGradientViewport);
-  yGradientRenderer-&gt;SetBackground(.2, .3, .6);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">yGradientRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yGradientRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">yGradientViewport</span><span class="p">);</span>
+  <span class="n">yGradientRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; vectorGradientRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vectorGradientRenderer-&gt;SetViewport(vectorGradientViewport);
-  vectorGradientRenderer-&gt;SetBackground(.2, .3, .6);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">vectorGradientRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vectorGradientRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">vectorGradientViewport</span><span class="p">);</span>
+  <span class="n">vectorGradientRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(1000,250);
-  renderWindow-&gt;AddRenderer(originalRenderer);
-  renderWindow-&gt;AddRenderer(xGradientRenderer);
-  renderWindow-&gt;AddRenderer(yGradientRenderer);
-  renderWindow-&gt;AddRenderer(vectorGradientRenderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">250</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">originalRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">xGradientRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">yGradientRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">vectorGradientRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; originalActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  originalActor-&gt;GetMapper()-&gt;SetInput(originalImage);
-#else
-  originalActor-&gt;GetMapper()-&gt;SetInputData(originalImage);
-#endif
-  originalActor-&gt;InterpolateOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">originalImage</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">originalImage</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">InterpolateOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; xGradientActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  xGradientActor-&gt;InterpolateOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">xGradientActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xGradientActor</span><span class="o">-&gt;</span><span class="n">InterpolateOff</span><span class="p">();</span>
 
-  xGradientActor-&gt;GetMapper()-&gt;SetInputConnection(shiftScaleX-&gt;GetOutputPort());
+  <span class="n">xGradientActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">shiftScaleX</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; yGradientActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">yGradientActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  yGradientActor-&gt;GetMapper()-&gt;SetInputConnection(shiftScaleY-&gt;GetOutputPort());
-  yGradientActor-&gt;InterpolateOff();
+  <span class="n">yGradientActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">shiftScaleY</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">yGradientActor</span><span class="o">-&gt;</span><span class="n">InterpolateOff</span><span class="p">();</span>
 
-  // Add the actors to the scenes
-  originalRenderer-&gt;AddActor(originalActor);
-  xGradientRenderer-&gt;AddActor(xGradientActor);
-  yGradientRenderer-&gt;AddActor(yGradientActor);
-  vectorGradientRenderer-&gt;AddActor(vectorGradientActor);
-  vectorGradientRenderer-&gt;AddActor(originalActor);
+  <span class="c1">// Add the actors to the scenes</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
+  <span class="n">xGradientRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">xGradientActor</span><span class="p">);</span>
+  <span class="n">yGradientRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">yGradientActor</span><span class="p">);</span>
+  <span class="n">vectorGradientRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">vectorGradientActor</span><span class="p">);</span>
+  <span class="n">vectorGradientRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Gradient)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Gradient</span><span class="p">)</span>
 
-add_executable(Gradient MACOSX_BUNDLE Gradient.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Gradient ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Gradient</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Gradient.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-gradient">Download and Build Gradient</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Gradient</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-gradient">Download and Build Gradient<a class="headerlink" href="#download-and-build-gradient" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Gradient.tar">here to download Gradient</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Gradient.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Gradient/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Gradient/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Gradient
-</code></pre>
+<div class="codehilite"><pre><span></span>./Gradient
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

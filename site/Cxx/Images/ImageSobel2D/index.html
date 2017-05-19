@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,216 +16005,223 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageSobel2D</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageSobel2D.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageSobel2D.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageMathematics.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkImageSobel2D.h&gt;
-#include &lt;vtkImageMagnitude.h&gt;
-#include &lt;vtkImageExtractComponents.h&gt;
-#include &lt;vtkImageShiftScale.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageEllipsoidSource.h&gt;
-#include &lt;vtkImageCast.h&gt;
-#include &lt;vtkGlyph3DMapper.h&gt;
-#include &lt;vtkArrowSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMathematics.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageSobel2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMagnitude.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageExtractComponents.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageShiftScale.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageEllipsoidSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCast.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3DMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create an image of a rectangle
-  vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; source = 
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-  source-&gt;SetScalarTypeToUnsignedChar();
-  source-&gt;SetExtent(0, 200, 0, 200, 0, 0);
-  source-&gt;SetDrawColor(0,0,0);
-  source-&gt;FillBox(0,200,0,200);
-  source-&gt;SetDrawColor(255,0,0);
-  source-&gt;FillBox(100,120,100,120);
-  source-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image of a rectangle</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">120</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Find the x and y gradients using a sobel filter
-  vtkSmartPointer&lt;vtkImageSobel2D&gt; sobelFilter = 
-    vtkSmartPointer&lt;vtkImageSobel2D&gt;::New();
-  sobelFilter-&gt;SetInputConnection(source-&gt;GetOutputPort());
-  sobelFilter-&gt;Update();
+  <span class="c1">// Find the x and y gradients using a sobel filter</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSobel2D</span><span class="o">&gt;</span> <span class="n">sobelFilter</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSobel2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sobelFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">sobelFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Extract the x component of the gradient
-  vtkSmartPointer&lt;vtkImageExtractComponents&gt; extractXFilter = 
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt;::New();
-  extractXFilter-&gt;SetComponents(0);
-  extractXFilter-&gt;SetInputConnection(sobelFilter-&gt;GetOutputPort());
-  extractXFilter-&gt;Update();
+  <span class="c1">// Extract the x component of the gradient</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractXFilter</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sobelFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  double xRange[2];
-  extractXFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange( xRange );
+  <span class="kt">double</span> <span class="n">xRange</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">(</span> <span class="n">xRange</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageMathematics&gt; xImageAbs =
-  vtkSmartPointer&lt;vtkImageMathematics&gt;::New();
-  xImageAbs-&gt;SetOperationToAbsoluteValue();
-  xImageAbs-&gt;SetInputConnection(extractXFilter-&gt;GetOutputPort());
-  xImageAbs-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;</span> <span class="n">xImageAbs</span> <span class="o">=</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xImageAbs</span><span class="o">-&gt;</span><span class="n">SetOperationToAbsoluteValue</span><span class="p">();</span>
+  <span class="n">xImageAbs</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractXFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">xImageAbs</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; xShiftScale =
-    vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  xShiftScale-&gt;SetOutputScalarTypeToUnsignedChar();
-  xShiftScale-&gt;SetScale( 255 / xRange[1] );
-  xShiftScale-&gt;SetInputConnection(xImageAbs-&gt;GetOutputPort());
-  xShiftScale-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">xShiftScale</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xShiftScale</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">xShiftScale</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span> <span class="mi">255</span> <span class="o">/</span> <span class="n">xRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+  <span class="n">xShiftScale</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">xImageAbs</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">xShiftScale</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Extract the y component of the gradient
-  vtkSmartPointer&lt;vtkImageExtractComponents&gt; extractYFilter = 
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt;::New();
-  extractYFilter-&gt;SetComponents(1);
-  extractYFilter-&gt;SetInputConnection(sobelFilter-&gt;GetOutputPort());
-  extractYFilter-&gt;Update();
+  <span class="c1">// Extract the y component of the gradient</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractYFilter</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sobelFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  double yRange[2];
-  extractYFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange(yRange);
+  <span class="kt">double</span> <span class="n">yRange</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">(</span><span class="n">yRange</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageMathematics&gt; yImageAbs =
-    vtkSmartPointer&lt;vtkImageMathematics&gt;::New();
-  yImageAbs-&gt;SetOperationToAbsoluteValue();
-  yImageAbs-&gt;SetInputConnection(extractYFilter-&gt;GetOutputPort());
-  yImageAbs-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;</span> <span class="n">yImageAbs</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMathematics</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yImageAbs</span><span class="o">-&gt;</span><span class="n">SetOperationToAbsoluteValue</span><span class="p">();</span>
+  <span class="n">yImageAbs</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractYFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">yImageAbs</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; yShiftScale =
-      vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  yShiftScale-&gt;SetOutputScalarTypeToUnsignedChar();
-  yShiftScale-&gt;SetScale( 255 / yRange[1] );
-  yShiftScale-&gt;SetInputConnection(yImageAbs-&gt;GetOutputPort());
-  yShiftScale-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">yShiftScale</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yShiftScale</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">yShiftScale</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span> <span class="mi">255</span> <span class="o">/</span> <span class="n">yRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+  <span class="n">yShiftScale</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">yImageAbs</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">yShiftScale</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create actors
-  vtkSmartPointer&lt;vtkImageActor&gt; originalActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  originalActor-&gt;GetMapper()-&gt;SetInputConnection(source-&gt;GetOutputPort());
+  <span class="c1">// Create actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; xActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  xActor-&gt;GetMapper()-&gt;SetInputConnection(xShiftScale-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">xActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">xShiftScale</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; yActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  yActor-&gt;GetMapper()-&gt;SetInputConnection(yShiftScale-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">yActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">yShiftScale</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkArrowSource&gt; arrowSource =
-    vtkSmartPointer&lt;vtkArrowSource&gt;::New();
-  sobelFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;SetActiveVectors(&quot;ImageScalarsGradient&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;</span> <span class="n">arrowSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sobelFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="s">&quot;ImageScalarsGradient&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGlyph3DMapper&gt; sobelMapper =
-    vtkSmartPointer&lt;vtkGlyph3DMapper&gt;::New();
-  sobelMapper-&gt;ScalingOn();
-  sobelMapper-&gt;SetScaleFactor(.05);
-  sobelMapper-&gt;SetSourceConnection(arrowSource-&gt;GetOutputPort());
-  sobelMapper-&gt;SetInputConnection(sobelFilter-&gt;GetOutputPort());
-  sobelMapper-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3DMapper</span><span class="o">&gt;</span> <span class="n">sobelMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3DMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sobelMapper</span><span class="o">-&gt;</span><span class="n">ScalingOn</span><span class="p">();</span>
+  <span class="n">sobelMapper</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mf">.05</span><span class="p">);</span>
+  <span class="n">sobelMapper</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrowSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">sobelMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sobelFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">sobelMapper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sobelActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sobelActor-&gt;SetMapper(sobelMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sobelActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sobelActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sobelMapper</span><span class="p">);</span>
 
-   // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double originalViewport[4] = {0.0, 0.0, 0.25, 1.0};
-  double xViewport[4] = {0.25, 0.0, 0.5, 1.0};
-  double yViewport[4] = {0.5, 0.0, 0.75, 1.0};
-  double sobelViewport[4] = {0.75, 0.0, 1.0, 1.0};
+   <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">originalViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">xViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">yViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">sobelViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Setup renderers
-  vtkSmartPointer&lt;vtkRenderer&gt; originalRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  originalRenderer-&gt;SetViewport(originalViewport);
-  originalRenderer-&gt;AddActor(originalActor);
-  originalRenderer-&gt;ResetCamera();
-  originalRenderer-&gt;SetBackground(.4, .5, .6);
+  <span class="c1">// Setup renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">originalRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">originalViewport</span><span class="p">);</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; xRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  xRenderer-&gt;SetViewport(xViewport);
-  xRenderer-&gt;AddActor(xActor);
-  xRenderer-&gt;ResetCamera();
-  xRenderer-&gt;SetBackground(.4, .5, .7);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">xRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">xViewport</span><span class="p">);</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">xActor</span><span class="p">);</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; yRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  yRenderer-&gt;SetViewport(yViewport);
-  yRenderer-&gt;AddActor(yActor);
-  yRenderer-&gt;ResetCamera();
-  yRenderer-&gt;SetBackground(.4, .5, .7);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">yRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">yViewport</span><span class="p">);</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">yActor</span><span class="p">);</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; sobelRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  sobelRenderer-&gt;SetViewport(sobelViewport);
-  sobelRenderer-&gt;AddActor(sobelActor);
-  sobelRenderer-&gt;ResetCamera();
-  sobelRenderer-&gt;SetBackground(.4, .5, .7);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">sobelRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sobelRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">sobelViewport</span><span class="p">);</span>
+  <span class="n">sobelRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sobelActor</span><span class="p">);</span>
+  <span class="n">sobelRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">sobelRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(1000,250);
-  renderWindow-&gt;AddRenderer(originalRenderer);
-  renderWindow-&gt;AddRenderer(xRenderer);
-  renderWindow-&gt;AddRenderer(yRenderer);
-  renderWindow-&gt;AddRenderer(sobelRenderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">250</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">originalRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">xRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">yRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">sobelRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkInteractorStyleImage&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle(style);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderWindowInteractor-&gt;Initialize();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageSobel2D)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageSobel2D</span><span class="p">)</span>
 
-add_executable(ImageSobel2D MACOSX_BUNDLE ImageSobel2D.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageSobel2D ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageSobel2D</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageSobel2D.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imagesobel2d">Download and Build ImageSobel2D</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageSobel2D</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imagesobel2d">Download and Build ImageSobel2D<a class="headerlink" href="#download-and-build-imagesobel2d" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageSobel2D.tar">here to download ImageSobel2D</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageSobel2D.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageSobel2D/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageSobel2D/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageSobel2D
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageSobel2D
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

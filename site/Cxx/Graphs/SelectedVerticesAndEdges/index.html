@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,160 +16019,167 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/SelectedVerticesAndEdges</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestSelectedVerticesAndEdges.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Thanks to Eric Monson</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SelectedVerticesAndEdges.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkAnnotationLink.h&gt;
-#include &lt;vtkRenderedGraphRepresentation.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkHardwareSelector.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkSelectionNode.h&gt;
-#include &lt;vtkIdTypeArray.h&gt;
-#include &lt;vtkSelection.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkUnsignedCharArray.h&gt;
-#include &lt;vtkObjectFactory.h&gt;
-#include &lt;vtkGraphLayoutStrategy.h&gt;
-#include &lt;vtkGraphLayoutView.h&gt;
-#include &lt;vtkGraphWriter.h&gt;
-#include &lt;vtkMutableUndirectedGraph.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSimple2DLayoutStrategy.h&gt;
-#include &lt;vtkInteractorStyleRubberBand2D.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAnnotationLink.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderedGraphRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkHardwareSelector.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelectionNode.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdTypeArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnsignedCharArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayoutStrategy.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayoutView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableUndirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSimple2DLayoutStrategy.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleRubberBand2D.h&gt;</span><span class="cp"></span>
 
-class RubberBandStyle : public vtkInteractorStyleRubberBand2D
-{
-  public:
-    static RubberBandStyle* New();
-    vtkTypeMacro(RubberBandStyle, vtkInteractorStyleRubberBand2D);
+<span class="k">class</span> <span class="nc">RubberBandStyle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleRubberBand2D</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">RubberBandStyle</span><span class="o">*</span> <span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">RubberBandStyle</span><span class="p">,</span> <span class="n">vtkInteractorStyleRubberBand2D</span><span class="p">);</span>
 
-  virtual void OnLeftButtonUp()
-  {
-    // Forward events
-    vtkInteractorStyleRubberBand2D::OnLeftButtonUp();
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnLeftButtonUp</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="c1">// Forward events</span>
+    <span class="n">vtkInteractorStyleRubberBand2D</span><span class="o">::</span><span class="n">OnLeftButtonUp</span><span class="p">();</span>
 
-    vtkSelection* selection = this-&gt;View-&gt;GetRepresentation()-&gt;GetAnnotationLink()-&gt;GetCurrentSelection();
-    vtkSelectionNode* vertices;
-    vtkSelectionNode* edges;
-    if(selection-&gt;GetNode(0)-&gt;GetFieldType() == vtkSelectionNode::VERTEX)
-    {
-      vertices = selection-&gt;GetNode(0);
-    }
-    else if(selection-&gt;GetNode(0)-&gt;GetFieldType() == vtkSelectionNode::EDGE)
-    {
-      edges = selection-&gt;GetNode(0);
-    }
+    <span class="n">vtkSelection</span><span class="o">*</span> <span class="n">selection</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">View</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetAnnotationLink</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCurrentSelection</span><span class="p">();</span>
+    <span class="n">vtkSelectionNode</span><span class="o">*</span> <span class="n">vertices</span><span class="p">;</span>
+    <span class="n">vtkSelectionNode</span><span class="o">*</span> <span class="n">edges</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetFieldType</span><span class="p">()</span> <span class="o">==</span> <span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">VERTEX</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">vertices</span> <span class="o">=</span> <span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetFieldType</span><span class="p">()</span> <span class="o">==</span> <span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">EDGE</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">edges</span> <span class="o">=</span> <span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    if(selection-&gt;GetNode(1)-&gt;GetFieldType() == vtkSelectionNode::VERTEX)
-    {
-      vertices = selection-&gt;GetNode(1);
-    }
-    else if(selection-&gt;GetNode(1)-&gt;GetFieldType() == vtkSelectionNode::EDGE)
-    {
-      edges = selection-&gt;GetNode(1);
-    }
+    <span class="k">if</span><span class="p">(</span><span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetFieldType</span><span class="p">()</span> <span class="o">==</span> <span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">VERTEX</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">vertices</span> <span class="o">=</span> <span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetFieldType</span><span class="p">()</span> <span class="o">==</span> <span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">EDGE</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">edges</span> <span class="o">=</span> <span class="n">selection</span><span class="o">-&gt;</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    vtkIdTypeArray* vertexList = vtkIdTypeArray::SafeDownCast(vertices-&gt;GetSelectionList());
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; vertexList-&gt;GetNumberOfTuples() &lt;&lt; &quot; vertices selected.&quot; &lt;&lt; std::endl;
+    <span class="n">vtkIdTypeArray</span><span class="o">*</span> <span class="n">vertexList</span> <span class="o">=</span> <span class="n">vtkIdTypeArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">vertices</span><span class="o">-&gt;</span><span class="n">GetSelectionList</span><span class="p">());</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">vertexList</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; vertices selected.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    if(vertexList-&gt;GetNumberOfTuples() &gt; 0)
-    {
-      std::cout &lt;&lt; &quot;Vertex Ids: &quot;;
-    }
-    for(vtkIdType i = 0; i &lt; vertexList-&gt;GetNumberOfTuples(); i++)
-    {
-      std::cout &lt;&lt; vertexList-&gt;GetValue(i) &lt;&lt; &quot; &quot;;
-    }
+    <span class="k">if</span><span class="p">(</span><span class="n">vertexList</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Vertex Ids: &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">vertexList</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">vertexList</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    std::cout &lt;&lt; std::endl;
-    vtkIdTypeArray* edgeList = vtkIdTypeArray::SafeDownCast(edges-&gt;GetSelectionList());
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; edgeList-&gt;GetNumberOfTuples() &lt;&lt; &quot; edges selected.&quot; &lt;&lt; std::endl;
-    if(edgeList-&gt;GetNumberOfTuples() &gt; 0)
-    {
-      std::cout &lt;&lt; &quot;Edge Ids: &quot;;
-    }
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">vtkIdTypeArray</span><span class="o">*</span> <span class="n">edgeList</span> <span class="o">=</span> <span class="n">vtkIdTypeArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">edges</span><span class="o">-&gt;</span><span class="n">GetSelectionList</span><span class="p">());</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">edgeList</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; edges selected.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">edgeList</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Edge Ids: &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    for(vtkIdType i = 0; i &lt; edgeList-&gt;GetNumberOfTuples(); i++)
-    {
-      std::cout &lt;&lt; edgeList-&gt;GetValue(i) &lt;&lt; &quot; &quot;;
-    }
-    std::cout &lt;&lt; std::endl;
-  }
+    <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">edgeList</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">edgeList</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkGraphLayoutView* View;
-};
-vtkStandardNewMacro(RubberBandStyle);
+  <span class="n">vtkGraphLayoutView</span><span class="o">*</span> <span class="n">View</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">RubberBandStyle</span><span class="p">);</span>
 
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt; g =
-    vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkIdType v1 = g-&gt;AddVertex();
-  vtkIdType v2 = g-&gt;AddVertex();
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
 
-  g-&gt;AddEdge(v1, v2);
-  g-&gt;AddEdge(v1, v2);
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGraphLayoutView&gt; view =
-    vtkSmartPointer&lt;vtkGraphLayoutView&gt;::New();
-  view-&gt;AddRepresentationFromInput(g);
-  view-&gt;SetLayoutStrategy(&quot;Simple 2D&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetLayoutStrategy</span><span class="p">(</span><span class="s">&quot;Simple 2D&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;RubberBandStyle&gt; style =
-    vtkSmartPointer&lt;RubberBandStyle&gt;::New();
-  style-&gt;View = view;
-  view-&gt;SetInteractorStyle(style);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">RubberBandStyle</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">RubberBandStyle</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">View</span> <span class="o">=</span> <span class="n">view</span><span class="p">;</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  view-&gt;ResetCamera();
-  view-&gt;Render();
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(SelectedVerticesAndEdges)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">SelectedVerticesAndEdges</span><span class="p">)</span>
 
-add_executable(SelectedVerticesAndEdges MACOSX_BUNDLE SelectedVerticesAndEdges.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(SelectedVerticesAndEdges ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">SelectedVerticesAndEdges</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">SelectedVerticesAndEdges.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-selectedverticesandedges">Download and Build SelectedVerticesAndEdges</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">SelectedVerticesAndEdges</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-selectedverticesandedges">Download and Build SelectedVerticesAndEdges<a class="headerlink" href="#download-and-build-selectedverticesandedges" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/SelectedVerticesAndEdges.tar">here to download SelectedVerticesAndEdges</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball SelectedVerticesAndEdges.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd SelectedVerticesAndEdges/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd SelectedVerticesAndEdges/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./SelectedVerticesAndEdges
-</code></pre>
+<div class="codehilite"><pre><span></span>./SelectedVerticesAndEdges
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,54 +15978,54 @@
                   <h1>TriangleStrip</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/TriangleStrip</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TriangleStrip.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-points = vtk.vtkPoints()
-points.InsertNextPoint(0,0,0)
-points.InsertNextPoint(0,1,0)
-points.InsertNextPoint(1,0,0)
-points.InsertNextPoint(1.5,1,0)
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-triangleStrip = vtk.vtkTriangleStrip()
-triangleStrip.GetPointIds().SetNumberOfIds(4)
-triangleStrip.GetPointIds().SetId(0,0)
-triangleStrip.GetPointIds().SetId(1,1)
-triangleStrip.GetPointIds().SetId(2,2)
-triangleStrip.GetPointIds().SetId(3,3)
+<span class="n">triangleStrip</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangleStrip</span><span class="p">()</span>
+<span class="n">triangleStrip</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">triangleStrip</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">triangleStrip</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">triangleStrip</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">triangleStrip</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 
-cells = vtk.vtkCellArray()
-cells.InsertNextCell(triangleStrip)
+<span class="n">cells</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+<span class="n">cells</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangleStrip</span><span class="p">)</span>
 
-polydata = vtk.vtkPolyData()
-polydata.SetPoints(points)
-polydata.SetStrips(cells)
+<span class="n">polydata</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">SetStrips</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
 
-# Create an actor and mapper
-mapper = vtk.vtkDataSetMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    mapper.SetInput(polydata)
-else:
-    mapper.SetInputData(polydata)
+<span class="c1"># Create an actor and mapper</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">)</span>
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-actor.GetProperty().SetRepresentationToWireframe()
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
 
-# Create a renderer, render window, and interactor
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># Create a renderer, render window, and interactor</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-renderer.AddActor(actor)
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

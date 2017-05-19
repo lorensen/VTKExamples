@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,239 +16005,246 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/CannyEdgeDetector</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestCannyEdgeDetector.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CannyEdgeDetector.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkStructuredPoints.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPNGReader.h&gt;
-#include &lt;vtkImageLuminance.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkImageGaussianSmooth.h&gt;
-#include &lt;vtkImageCast.h&gt;
-#include &lt;vtkImageGradient.h&gt;
-#include &lt;vtkImageMagnitude.h&gt;
-#include &lt;vtkImageNonMaximumSuppression.h&gt;
-#include &lt;vtkImageConstantPad.h&gt;
-#include &lt;vtkImageToStructuredPoints.h&gt;
-#include &lt;vtkLinkEdgels.h&gt;
-#include &lt;vtkThreshold.h&gt;
-#include &lt;vtkGeometryFilter.h&gt;
-#include &lt;vtkSubPixelPositionEdgels.h&gt;
-#include &lt;vtkStripper.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkCamera.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPNGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageLuminance.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageGaussianSmooth.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCast.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageGradient.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMagnitude.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageNonMaximumSuppression.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageConstantPad.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageToStructuredPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLinkEdgels.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkThreshold.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGeometryFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSubPixelPositionEdgels.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStripper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char* argv[])
-{
-  if(argc != 2)
-  {
-    std::cerr &lt;&lt; &quot;Required args: filename.png&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required args: filename.png&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  std::string filename = argv[1];
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
 
 
-    // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double originalViewport[4] = {0.0, 0.0, 0.5, 1.0};
-  double edgeViewport[4] = {0.5, 0.0, 1.0, 1.0};
+    <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">originalViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">edgeViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; originalRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  originalRenderer-&gt;SetViewport(originalViewport);
-  vtkSmartPointer&lt;vtkRenderer&gt; edgeRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  edgeRenderer-&gt;SetViewport(edgeViewport);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">originalRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">originalViewport</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">edgeRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">edgeRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">edgeViewport</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(600,300);
-  renderWindow-&gt;SetMultiSamples(0);
-  renderWindow-&gt;AddRenderer(originalRenderer);
-  renderWindow-&gt;AddRenderer(edgeRenderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">originalRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">edgeRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPNGReader&gt; imageIn =
-    vtkSmartPointer&lt;vtkPNGReader&gt;::New();
-  imageIn-&gt;SetFileName(filename.c_str());
-  imageIn-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPNGReader</span><span class="o">&gt;</span> <span class="n">imageIn</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPNGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageIn</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">imageIn</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; imageActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  imageActor-&gt;SetInput(imageIn-&gt;GetOutput());
-#else
-  imageActor-&gt;SetInputData(imageIn-&gt;GetOutput());
-#endif
-  originalRenderer-&gt;AddActor(imageActor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">imageActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">imageIn</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageIn</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">imageActor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageLuminance&gt; il =
-    vtkSmartPointer&lt;vtkImageLuminance&gt;::New();
-  il-&gt;SetInputConnection(imageIn-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageLuminance</span><span class="o">&gt;</span> <span class="n">il</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageLuminance</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">il</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageIn</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageCast&gt; ic =
-    vtkSmartPointer&lt;vtkImageCast&gt;::New();
-  ic-&gt;SetOutputScalarTypeToFloat();
-  ic-&gt;SetInputConnection(il-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">ic</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ic</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToFloat</span><span class="p">();</span>
+  <span class="n">ic</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">il</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Smooth the image
-  vtkSmartPointer&lt;vtkImageGaussianSmooth&gt; gs =
-    vtkSmartPointer&lt;vtkImageGaussianSmooth&gt;::New();
-  gs-&gt;SetInputConnection(ic-&gt;GetOutputPort());
-  gs-&gt;SetDimensionality(2);
-  gs-&gt;SetRadiusFactors(1, 1, 0);
+  <span class="c1">// Smooth the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageGaussianSmooth</span><span class="o">&gt;</span> <span class="n">gs</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageGaussianSmooth</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gs</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">ic</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">gs</span><span class="o">-&gt;</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">gs</span><span class="o">-&gt;</span><span class="n">SetRadiusFactors</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  // Gradient the image
-  vtkSmartPointer&lt;vtkImageGradient&gt; imgGradient =
-    vtkSmartPointer&lt;vtkImageGradient&gt;::New();
-  imgGradient-&gt;SetInputConnection(gs-&gt;GetOutputPort());
-  imgGradient-&gt;SetDimensionality(2);
+  <span class="c1">// Gradient the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageGradient</span><span class="o">&gt;</span> <span class="n">imgGradient</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageGradient</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">gs</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageMagnitude&gt; imgMagnitude =
-    vtkSmartPointer&lt;vtkImageMagnitude&gt;::New();
-  imgMagnitude-&gt;SetInputConnection(imgGradient-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMagnitude</span><span class="o">&gt;</span> <span class="n">imgMagnitude</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMagnitude</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgMagnitude</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Non maximum suppression
-  vtkSmartPointer&lt;vtkImageNonMaximumSuppression&gt; nonMax =
-    vtkSmartPointer&lt;vtkImageNonMaximumSuppression&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  nonMax-&gt;SetMagnitudeInput(imgMagnitude-&gt;GetOutput());
-  nonMax-&gt;SetVectorInput(imgGradient-&gt;GetOutput());
-#else
-  imgMagnitude-&gt;Update();
-  nonMax-&gt;SetMagnitudeInputData(imgMagnitude-&gt;GetOutput());
-  imgGradient-&gt;Update();
-  nonMax-&gt;SetVectorInputData(imgGradient-&gt;GetOutput());
-#endif
-  nonMax-&gt;SetDimensionality(2);
+  <span class="c1">// Non maximum suppression</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageNonMaximumSuppression</span><span class="o">&gt;</span> <span class="n">nonMax</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageNonMaximumSuppression</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">nonMax</span><span class="o">-&gt;</span><span class="n">SetMagnitudeInput</span><span class="p">(</span><span class="n">imgMagnitude</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">nonMax</span><span class="o">-&gt;</span><span class="n">SetVectorInput</span><span class="p">(</span><span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">imgMagnitude</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">nonMax</span><span class="o">-&gt;</span><span class="n">SetMagnitudeInputData</span><span class="p">(</span><span class="n">imgMagnitude</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">nonMax</span><span class="o">-&gt;</span><span class="n">SetVectorInputData</span><span class="p">(</span><span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">nonMax</span><span class="o">-&gt;</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageConstantPad&gt; pad =
-    vtkSmartPointer&lt;vtkImageConstantPad&gt;::New();
-  pad-&gt;SetInputConnection(imgGradient-&gt;GetOutputPort());
-  pad-&gt;SetOutputNumberOfScalarComponents(3);
-  pad-&gt;SetConstant(0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageConstantPad</span><span class="o">&gt;</span> <span class="n">pad</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageConstantPad</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgGradient</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">SetOutputNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">SetConstant</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageToStructuredPoints&gt; i2sp1 =
-    vtkSmartPointer&lt;vtkImageToStructuredPoints&gt;::New();
-  i2sp1-&gt;SetInputConnection(nonMax-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  i2sp1-&gt;SetVectorInput(pad-&gt;GetOutput());
-#else
-  pad-&gt;Update();
- i2sp1-&gt;SetVectorInputData(pad-&gt;GetOutput());
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToStructuredPoints</span><span class="o">&gt;</span> <span class="n">i2sp1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToStructuredPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">i2sp1</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">nonMax</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">i2sp1</span><span class="o">-&gt;</span><span class="n">SetVectorInput</span><span class="p">(</span><span class="n">pad</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+ <span class="n">i2sp1</span><span class="o">-&gt;</span><span class="n">SetVectorInputData</span><span class="p">(</span><span class="n">pad</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
 
-  // Link edgles
-  vtkSmartPointer&lt;vtkLinkEdgels&gt; imgLink =
-    vtkSmartPointer&lt;vtkLinkEdgels&gt;::New();
-  imgLink-&gt;SetInputConnection(i2sp1-&gt;GetOutputPort());
-  imgLink-&gt;SetGradientThreshold(2);
+  <span class="c1">// Link edgles</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLinkEdgels</span><span class="o">&gt;</span> <span class="n">imgLink</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLinkEdgels</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgLink</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">i2sp1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imgLink</span><span class="o">-&gt;</span><span class="n">SetGradientThreshold</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
-  // Threshold links
-  vtkSmartPointer&lt;vtkThreshold&gt; thresholdEdgels =
-    vtkSmartPointer&lt;vtkThreshold&gt;::New();
-  thresholdEdgels-&gt;SetInputConnection(imgLink-&gt;GetOutputPort());
-  thresholdEdgels-&gt;ThresholdByUpper(10);
-  thresholdEdgels-&gt;AllScalarsOff();
+  <span class="c1">// Threshold links</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;</span> <span class="n">thresholdEdgels</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">thresholdEdgels</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgLink</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">thresholdEdgels</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">thresholdEdgels</span><span class="o">-&gt;</span><span class="n">AllScalarsOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkGeometryFilter&gt; gf =
-    vtkSmartPointer&lt;vtkGeometryFilter&gt;::New();
-  gf-&gt;SetInputConnection(thresholdEdgels-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeometryFilter</span><span class="o">&gt;</span> <span class="n">gf</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeometryFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gf</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">thresholdEdgels</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageToStructuredPoints&gt; i2sp =
-    vtkSmartPointer&lt;vtkImageToStructuredPoints&gt;::New();
-  i2sp-&gt;SetInputConnection(imgMagnitude-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  i2sp-&gt;SetVectorInput(pad-&gt;GetOutput());
-#else
-  pad-&gt;Update();
-  i2sp-&gt;SetVectorInputData(pad-&gt;GetOutput());
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToStructuredPoints</span><span class="o">&gt;</span> <span class="n">i2sp</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToStructuredPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">i2sp</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgMagnitude</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">i2sp</span><span class="o">-&gt;</span><span class="n">SetVectorInput</span><span class="p">(</span><span class="n">pad</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">i2sp</span><span class="o">-&gt;</span><span class="n">SetVectorInputData</span><span class="p">(</span><span class="n">pad</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
 
-  // Subpixel them
-  vtkSmartPointer&lt;vtkSubPixelPositionEdgels&gt; spe =
-    vtkSmartPointer&lt;vtkSubPixelPositionEdgels&gt;::New();
-  spe-&gt;SetInputConnection(gf-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  spe-&gt;SetGradMaps(i2sp-&gt;GetStructuredPointsOutput());
-#else
-  i2sp-&gt;Update();
-  spe-&gt;SetGradMapsData(i2sp-&gt;GetStructuredPointsOutput());
-#endif
+  <span class="c1">// Subpixel them</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSubPixelPositionEdgels</span><span class="o">&gt;</span> <span class="n">spe</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSubPixelPositionEdgels</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">spe</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">gf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">spe</span><span class="o">-&gt;</span><span class="n">SetGradMaps</span><span class="p">(</span><span class="n">i2sp</span><span class="o">-&gt;</span><span class="n">GetStructuredPointsOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">i2sp</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">spe</span><span class="o">-&gt;</span><span class="n">SetGradMapsData</span><span class="p">(</span><span class="n">i2sp</span><span class="o">-&gt;</span><span class="n">GetStructuredPointsOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkStripper&gt; strip =
-    vtkSmartPointer&lt;vtkStripper&gt;::New();
-  strip-&gt;SetInputConnection(spe-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;</span> <span class="n">strip</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">strip</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">spe</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; dsm =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  dsm-&gt;SetInputConnection(strip-&gt;GetOutputPort());
-  dsm-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">dsm</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">dsm</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">strip</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">dsm</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; planeActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  planeActor-&gt;SetMapper(dsm);
-  planeActor-&gt;GetProperty()-&gt;SetAmbient(1.0);
-  planeActor-&gt;GetProperty()-&gt;SetDiffuse(0.0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">planeActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">planeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">dsm</span><span class="p">);</span>
+  <span class="n">planeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">planeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  edgeRenderer-&gt;AddActor(planeActor);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="n">edgeRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">planeActor</span><span class="p">);</span>
 
-  // Render the image
-  interactor-&gt;Initialize();
-  renderWindow-&gt;Render();
-  renderWindow-&gt;Render();
+  <span class="c1">// Render the image</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CannyEdgeDetector)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CannyEdgeDetector</span><span class="p">)</span>
 
-add_executable(CannyEdgeDetector MACOSX_BUNDLE CannyEdgeDetector.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CannyEdgeDetector ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CannyEdgeDetector</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CannyEdgeDetector.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-cannyedgedetector">Download and Build CannyEdgeDetector</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CannyEdgeDetector</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-cannyedgedetector">Download and Build CannyEdgeDetector<a class="headerlink" href="#download-and-build-cannyedgedetector" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CannyEdgeDetector.tar">here to download CannyEdgeDetector</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CannyEdgeDetector.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CannyEdgeDetector/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CannyEdgeDetector/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CannyEdgeDetector
-</code></pre>
+<div class="codehilite"><pre><span></span>./CannyEdgeDetector
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,79 +15991,79 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/IO/ReadPolyData</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadPolyData.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example reads a polygonal data (.vtp) file.
 An example data set can be found at VTKData/Data/SyntheticPolyline.vtp<br />
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadPolyData.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            ReadPolyData();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void ReadPolyData() {
-         // Path to vtk data must be set as an environment variable
-         // VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;
-         vtkTesting test = vtkTesting.New();
-         string root = test.GetDataRoot();
-         // string filePath = System.IO.Path.Combine(root, @&quot;Data\SyntheticPolyline.vtp&quot;);
-         // string filePath = System.IO.Path.Combine(root, @&quot;Data\uniform-001371-5x5x5.vtp&quot;);
-         // string filePath = System.IO.Path.Combine(root, @&quot;Data\political.vtp&quot;);
-         // string filePath = System.IO.Path.Combine(root, @&quot;Data\filledContours.vtp&quot;);
-         // string filePath = System.IO.Path.Combine(root, @&quot;Data\disk_out_ref_surface.vtp&quot;);
-         string filePath = System.IO.Path.Combine(root, @&quot;Data\cow.vtp&quot;);
-         // reader
-         // Read all the data from the file
-         vtkXMLPolyDataReader reader = vtkXMLPolyDataReader.New();
-         if(reader.CanReadFile(filePath) == 0) {
-            MessageBox.Show(&quot;Cannot read file \&quot;&quot; + filePath + &quot;\&quot;&quot;, &quot;Error&quot;, MessageBoxButtons.OK);
-            return;
-         }
-         reader.SetFileName(filePath);
-         reader.Update(); // here we read the file actually
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">ReadPolyData</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // mapper
-         vtkDataSetMapper mapper = vtkDataSetMapper.New();
-         mapper.SetInputConnection(reader.GetOutputPort());
 
-         // actor
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">ReadPolyData</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Path to vtk data must be set as an environment variable</span>
+         <span class="c1">// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+         <span class="n">vtkTesting</span> <span class="n">test</span> <span class="p">=</span> <span class="n">vtkTesting</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">root</span> <span class="p">=</span> <span class="n">test</span><span class="p">.</span><span class="n">GetDataRoot</span><span class="p">();</span>
+         <span class="c1">// string filePath = System.IO.Path.Combine(root, @&quot;Data\SyntheticPolyline.vtp&quot;);</span>
+         <span class="c1">// string filePath = System.IO.Path.Combine(root, @&quot;Data\uniform-001371-5x5x5.vtp&quot;);</span>
+         <span class="c1">// string filePath = System.IO.Path.Combine(root, @&quot;Data\political.vtp&quot;);</span>
+         <span class="c1">// string filePath = System.IO.Path.Combine(root, @&quot;Data\filledContours.vtp&quot;);</span>
+         <span class="c1">// string filePath = System.IO.Path.Combine(root, @&quot;Data\disk_out_ref_surface.vtp&quot;);</span>
+         <span class="kt">string</span> <span class="n">filePath</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\cow.vtp&quot;</span><span class="p">);</span>
+         <span class="c1">// reader</span>
+         <span class="c1">// Read all the data from the file</span>
+         <span class="n">vtkXMLPolyDataReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">CanReadFile</span><span class="p">(</span><span class="n">filePath</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="s">&quot;Cannot read file \&quot;&quot;</span> <span class="p">+</span> <span class="n">filePath</span> <span class="p">+</span> <span class="s">&quot;\&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Error&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// here we read the file actually</span>
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         // add our actor to the renderer
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// mapper</span>
+         <span class="n">vtkDataSetMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkDataSetMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+
+         <span class="c1">// actor</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

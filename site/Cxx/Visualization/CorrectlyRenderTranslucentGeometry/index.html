@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15585,6 +15585,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16021,7 +16033,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/CorrectlyRenderTranslucentGeometry</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestCorrectlyRenderTranslucentGeometry.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Contributed by: Lars Friedrich</li>
 </ul>
@@ -16055,7 +16067,7 @@ program tries to determine an average frame rate for the scene.</p>
 <p>The following image shows the spheres arrangement (and view position)
 and compares the different render modes: no special translucency
 treatment, CPU depth sorting and GPU depth peeling.</p>
-<h3 id="program-usage">Program Usage</h3>
+<h3 id="program-usage">Program Usage<a class="headerlink" href="#program-usage" title="Permanent link">&para;</a></h3>
 <p>./CorrectlyRenderTranslucentGeometry Theta Phi MaximumPeels OcclusionRatio ForceDepthSortingFlag DoNotUseAnyDepthRelatedAlgorithmFlag</p>
 <p>Theta ... spheres' THETA resolution</p>
 <p>Phi ... spheres' PHI resolution</p>
@@ -16068,336 +16080,343 @@ treatment, CPU depth sorting and GPU depth peeling.</p>
 <p>./CorrectlyRenderTranslucentGeometry 100 100 50 0.1 1 0 ... will render the spheres using depth sorting even if depth peeling is available</p>
 <p>./CorrectlyRenderTranslucentGeometry 100 100 50 0.1 0 1 ... will render the spheres using neither depth peeling nor depth sorting</p>
 <p><strong><em>Resultant frame rates show that depth peeling is usually much faster than the CPU-implementation, however, it will slow down the rendering process due to internal multi-pass rendering.</em></strong></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CorrectlyRenderTranslucentGeometry.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkAppendPolyData.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkTimerLog.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkDepthSortPolyData.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAppendPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTimerLog.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDepthSortPolyData.h&gt;</span><span class="cp"></span>
 
-/**
- * Generate a bunch of overlapping spheres within one poly data set:
- * one big sphere evenly surrounded by four small spheres that intersect the
- * centered sphere.
- * @param theta sphere sampling resolution (THETA)
- * @param phi sphere sampling resolution (PHI)
- * @return the set of spheres within one logical poly data set
- **/
-vtkSmartPointer&lt;vtkAppendPolyData&gt; GenerateOverlappingBunchOfSpheres(int theta,
-                                                                     int phi)
-{
-  vtkSmartPointer&lt;vtkAppendPolyData&gt; appendData =
-    vtkSmartPointer&lt;vtkAppendPolyData&gt;::New();
+<span class="cm">/**</span>
+<span class="cm"> * Generate a bunch of overlapping spheres within one poly data set:</span>
+<span class="cm"> * one big sphere evenly surrounded by four small spheres that intersect the</span>
+<span class="cm"> * centered sphere.</span>
+<span class="cm"> * @param theta sphere sampling resolution (THETA)</span>
+<span class="cm"> * @param phi sphere sampling resolution (PHI)</span>
+<span class="cm"> * @return the set of spheres within one logical poly data set</span>
+<span class="cm"> **/</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAppendPolyData</span><span class="o">&gt;</span> <span class="n">GenerateOverlappingBunchOfSpheres</span><span class="p">(</span><span class="kt">int</span> <span class="n">theta</span><span class="p">,</span>
+                                                                     <span class="kt">int</span> <span class="n">phi</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAppendPolyData</span><span class="o">&gt;</span> <span class="n">appendData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAppendPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for (int i = 0; i &lt; 5; i++)
-  {
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource-&gt;SetThetaResolution(theta);
-    sphereSource-&gt;SetPhiResolution(phi);
-    sphereSource-&gt;SetRadius(0.5); // all spheres except the center
-                                  // one should have radius = 0.5
-    switch (i)
-    {
-      case 0:
-        sphereSource-&gt;SetRadius(1);
-        sphereSource-&gt;SetCenter(0, 0, 0); break;
-      case 1:
-        sphereSource-&gt;SetCenter(1, 0, 0); break;
-      case 2:
-        sphereSource-&gt;SetCenter(-1, 0, 0); break;
-      case 3:
-        sphereSource-&gt;SetCenter(0, 1, 0); break;
-      case 4:
-        sphereSource-&gt;SetCenter(0, -1, 0); break;
-    }
-    sphereSource-&gt;Update();
-    appendData-&gt;AddInputConnection(sphereSource-&gt;GetOutputPort());
-  }
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="n">phi</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span> <span class="c1">// all spheres except the center</span>
+                                  <span class="c1">// one should have radius = 0.5</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+        <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+        <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">appendData</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  return appendData;
-}
+  <span class="k">return</span> <span class="n">appendData</span><span class="p">;</span>
+<span class="p">}</span>
 
-/**
- * Setup the rendering environment for depth peeling (general depth peeling
- * support is requested).
- * @see IsDepthPeelingSupported()
- * @param renderWindow a valid openGL-supporting render window
- * @param renderer a valid renderer instance
- * @param maxNoOfPeels maximum number of depth peels (multi-pass rendering)
- * @param occulusionRation the occlusion ration (0.0 means a perfect image,
- * &gt;0.0 means a non-perfect image which in general results in faster rendering)
- * @return TRUE if depth peeling could be set up
- */
-bool SetupEnvironmentForDepthPeeling(
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow,
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer, int maxNoOfPeels,
-  double occlusionRatio)
-{
-  if (!renderWindow || !renderer)
-    return false;
+<span class="cm">/**</span>
+<span class="cm"> * Setup the rendering environment for depth peeling (general depth peeling</span>
+<span class="cm"> * support is requested).</span>
+<span class="cm"> * @see IsDepthPeelingSupported()</span>
+<span class="cm"> * @param renderWindow a valid openGL-supporting render window</span>
+<span class="cm"> * @param renderer a valid renderer instance</span>
+<span class="cm"> * @param maxNoOfPeels maximum number of depth peels (multi-pass rendering)</span>
+<span class="cm"> * @param occulusionRation the occlusion ration (0.0 means a perfect image,</span>
+<span class="cm"> * &gt;0.0 means a non-perfect image which in general results in faster rendering)</span>
+<span class="cm"> * @return TRUE if depth peeling could be set up</span>
+<span class="cm"> */</span>
+<span class="kt">bool</span> <span class="n">SetupEnvironmentForDepthPeeling</span><span class="p">(</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span><span class="p">,</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxNoOfPeels</span><span class="p">,</span>
+  <span class="kt">double</span> <span class="n">occlusionRatio</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">renderWindow</span> <span class="o">||</span> <span class="o">!</span><span class="n">renderer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 
-  // 1. Use a render window with alpha bits (as initial value is 0 (false)):
-  renderWindow-&gt;SetAlphaBitPlanes(true);
+  <span class="c1">// 1. Use a render window with alpha bits (as initial value is 0 (false)):</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetAlphaBitPlanes</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 
-  // 2. Force to not pick a framebuffer with a multisample buffer
-  // (as initial value is 8):
-  renderWindow-&gt;SetMultiSamples(0);
+  <span class="c1">// 2. Force to not pick a framebuffer with a multisample buffer</span>
+  <span class="c1">// (as initial value is 8):</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  // 3. Choose to use depth peeling (if supported) (initial value is 0 (false)):
-  renderer-&gt;SetUseDepthPeeling(true);
+  <span class="c1">// 3. Choose to use depth peeling (if supported) (initial value is 0 (false)):</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetUseDepthPeeling</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 
-  // 4. Set depth peeling parameters
-  // - Set the maximum number of rendering passes (initial value is 4):
-  renderer-&gt;SetMaximumNumberOfPeels(maxNoOfPeels);
-  // - Set the occlusion ratio (initial value is 0.0, exact image):
-  renderer-&gt;SetOcclusionRatio(occlusionRatio);
+  <span class="c1">// 4. Set depth peeling parameters</span>
+  <span class="c1">// - Set the maximum number of rendering passes (initial value is 4):</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetMaximumNumberOfPeels</span><span class="p">(</span><span class="n">maxNoOfPeels</span><span class="p">);</span>
+  <span class="c1">// - Set the occlusion ratio (initial value is 0.0, exact image):</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetOcclusionRatio</span><span class="p">(</span><span class="n">occlusionRatio</span><span class="p">);</span>
 
-  return true;
-}
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
 
-/**
- * Find out whether this box supports depth peeling. Depth peeling requires
- * a variety of openGL extensions and appropriate drivers.
- * @param renderWindow a valid openGL-supporting render window
- * @param renderer a valid renderer instance
- * @param doItOffscreen do the test off screen which means that nothing is
- * rendered to screen (this requires the box to support off screen rendering)
- * @return TRUE if depth peeling is supported, FALSE otherwise (which means
- * that another strategy must be used for correct rendering of translucent
- * geometry, e.g. CPU-based depth sorting)
- */
-bool IsDepthPeelingSupported(vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow,
-                             vtkSmartPointer&lt;vtkRenderer&gt; renderer,
-                             bool doItOffScreen)
-{
-  if (!renderWindow || !renderer)
-  {
-    return false;
-  }
+<span class="cm">/**</span>
+<span class="cm"> * Find out whether this box supports depth peeling. Depth peeling requires</span>
+<span class="cm"> * a variety of openGL extensions and appropriate drivers.</span>
+<span class="cm"> * @param renderWindow a valid openGL-supporting render window</span>
+<span class="cm"> * @param renderer a valid renderer instance</span>
+<span class="cm"> * @param doItOffscreen do the test off screen which means that nothing is</span>
+<span class="cm"> * rendered to screen (this requires the box to support off screen rendering)</span>
+<span class="cm"> * @return TRUE if depth peeling is supported, FALSE otherwise (which means</span>
+<span class="cm"> * that another strategy must be used for correct rendering of translucent</span>
+<span class="cm"> * geometry, e.g. CPU-based depth sorting)</span>
+<span class="cm"> */</span>
+<span class="kt">bool</span> <span class="n">IsDepthPeelingSupported</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span><span class="p">,</span>
+                             <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span><span class="p">,</span>
+                             <span class="kt">bool</span> <span class="n">doItOffScreen</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">renderWindow</span> <span class="o">||</span> <span class="o">!</span><span class="n">renderer</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  bool success = true;
+  <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 
-  // Save original renderer / render window state
-  bool origOffScreenRendering = renderWindow-&gt;GetOffScreenRendering() == 1;
-  bool origAlphaBitPlanes = renderWindow-&gt;GetAlphaBitPlanes() == 1;
-  int origMultiSamples = renderWindow-&gt;GetMultiSamples();
-  bool origUseDepthPeeling = renderer-&gt;GetUseDepthPeeling() == 1;
-  int origMaxPeels = renderer-&gt;GetMaximumNumberOfPeels();
-  double origOcclusionRatio = renderer-&gt;GetOcclusionRatio();
+  <span class="c1">// Save original renderer / render window state</span>
+  <span class="kt">bool</span> <span class="n">origOffScreenRendering</span> <span class="o">=</span> <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">GetOffScreenRendering</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">origAlphaBitPlanes</span> <span class="o">=</span> <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">GetAlphaBitPlanes</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">origMultiSamples</span> <span class="o">=</span> <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">GetMultiSamples</span><span class="p">();</span>
+  <span class="kt">bool</span> <span class="n">origUseDepthPeeling</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetUseDepthPeeling</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">origMaxPeels</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetMaximumNumberOfPeels</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">origOcclusionRatio</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetOcclusionRatio</span><span class="p">();</span>
 
-  // Activate off screen rendering on demand
-  renderWindow-&gt;SetOffScreenRendering(doItOffScreen);
+  <span class="c1">// Activate off screen rendering on demand</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetOffScreenRendering</span><span class="p">(</span><span class="n">doItOffScreen</span><span class="p">);</span>
 
-  // Setup environment for depth peeling (with some default parametrization)
-  success = success &amp;&amp; SetupEnvironmentForDepthPeeling(renderWindow, renderer,
-                                                       100, 0.1);
+  <span class="c1">// Setup environment for depth peeling (with some default parametrization)</span>
+  <span class="n">success</span> <span class="o">=</span> <span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="n">SetupEnvironmentForDepthPeeling</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span>
+                                                       <span class="mi">100</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
 
-  // Do a test render
-  renderWindow-&gt;Render();
+  <span class="c1">// Do a test render</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Check whether depth peeling was used
-  success = success &amp;&amp; renderer-&gt;GetLastRenderingUsedDepthPeeling();
+  <span class="c1">// Check whether depth peeling was used</span>
+  <span class="n">success</span> <span class="o">=</span> <span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetLastRenderingUsedDepthPeeling</span><span class="p">();</span>
 
-  // recover original state
-  renderWindow-&gt;SetOffScreenRendering(origOffScreenRendering);
-  renderWindow-&gt;SetAlphaBitPlanes(origAlphaBitPlanes);
-  renderWindow-&gt;SetMultiSamples(origMultiSamples);
-  renderer-&gt;SetUseDepthPeeling(origUseDepthPeeling);
-  renderer-&gt;SetMaximumNumberOfPeels(origMaxPeels);
-  renderer-&gt;SetOcclusionRatio(origOcclusionRatio);
+  <span class="c1">// recover original state</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetOffScreenRendering</span><span class="p">(</span><span class="n">origOffScreenRendering</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetAlphaBitPlanes</span><span class="p">(</span><span class="n">origAlphaBitPlanes</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="n">origMultiSamples</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetUseDepthPeeling</span><span class="p">(</span><span class="n">origUseDepthPeeling</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetMaximumNumberOfPeels</span><span class="p">(</span><span class="n">origMaxPeels</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetOcclusionRatio</span><span class="p">(</span><span class="n">origOcclusionRatio</span><span class="p">);</span>
 
-  return success;
-}
+  <span class="k">return</span> <span class="n">success</span><span class="p">;</span>
+<span class="p">}</span>
 
-/**
- * Example application demonstrating correct rendering of translucent geometry.
- * It will automatically detect whether depth peeling is supported by the
- * hardware and software, and will apply depth peeling if possible. Otherwise
- * a fallback strategy is used: depth sorting on the CPU.
- * &lt;br&gt;Usage:
- * [ProgramName] Theta Phi MaximumPeels OcclusionRatio ForceDepthSortingFlag
- * DoNotUseAnyDepthRelatedAlgorithmFlag
- * &lt;br&gt;
- * Theta ... spheres' THETA resolution &lt;br&gt;
- * Phi ... spheres' PHI resolution &lt;br&gt;
- * MaximumPeels ... maximum number of depth peels (multi-pass rendering) for
- * depth peeling mode &lt;br&gt;
- * OcclusionRatio ... occlusion ratio for depth peeling mode (0.0 for a
- * perfect rendered image, &gt;0.0 for a non-perfect image which is expected to
- * be slower) &lt;br&gt;
- * ForceDepthSortingFlag ... force depth sorting even if depth peeling is
- * supported &lt;br&gt;
- * DoNotUseAnyDepthRelatedAlgorithmFlag ... neither use depth peeling nor
- * depth sorting - just render as usual
- */
-int main (int argc, char *argv[])
-{
-  if (argc != 7)
-  {
-    cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; Theta Phi MaximumPeels &quot; &lt;&lt;
-      &quot;OcclusionRatio ForceDepthSortingFlag &quot; &lt;&lt;
-      &quot;DoNotUseAnyDepthRelatedAlgorithmFlag&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="cm">/**</span>
+<span class="cm"> * Example application demonstrating correct rendering of translucent geometry.</span>
+<span class="cm"> * It will automatically detect whether depth peeling is supported by the</span>
+<span class="cm"> * hardware and software, and will apply depth peeling if possible. Otherwise</span>
+<span class="cm"> * a fallback strategy is used: depth sorting on the CPU.</span>
+<span class="cm"> * &lt;br&gt;Usage:</span>
+<span class="cm"> * [ProgramName] Theta Phi MaximumPeels OcclusionRatio ForceDepthSortingFlag</span>
+<span class="cm"> * DoNotUseAnyDepthRelatedAlgorithmFlag</span>
+<span class="cm"> * &lt;br&gt;</span>
+<span class="cm"> * Theta ... spheres&#39; THETA resolution &lt;br&gt;</span>
+<span class="cm"> * Phi ... spheres&#39; PHI resolution &lt;br&gt;</span>
+<span class="cm"> * MaximumPeels ... maximum number of depth peels (multi-pass rendering) for</span>
+<span class="cm"> * depth peeling mode &lt;br&gt;</span>
+<span class="cm"> * OcclusionRatio ... occlusion ratio for depth peeling mode (0.0 for a</span>
+<span class="cm"> * perfect rendered image, &gt;0.0 for a non-perfect image which is expected to</span>
+<span class="cm"> * be slower) &lt;br&gt;</span>
+<span class="cm"> * ForceDepthSortingFlag ... force depth sorting even if depth peeling is</span>
+<span class="cm"> * supported &lt;br&gt;</span>
+<span class="cm"> * DoNotUseAnyDepthRelatedAlgorithmFlag ... neither use depth peeling nor</span>
+<span class="cm"> * depth sorting - just render as usual</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="n">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">7</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Theta Phi MaximumPeels &quot;</span> <span class="o">&lt;&lt;</span>
+      <span class="s">&quot;OcclusionRatio ForceDepthSortingFlag &quot;</span> <span class="o">&lt;&lt;</span>
+      <span class="s">&quot;DoNotUseAnyDepthRelatedAlgorithmFlag&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  int theta = atoi(argv[1]);
-  int phi = atoi(argv[2]);
-  int maxPeels = atoi(argv[3]);
-  double occulusionRatio = atof(argv[4]);
-  bool forceDepthSort =  atoi(argv[5]) == 1;
-  bool withoutAnyDepthThings = atoi(argv[6]) == 1;
+  <span class="kt">int</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="kt">int</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="kt">int</span> <span class="n">maxPeels</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="kt">double</span> <span class="n">occulusionRatio</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+  <span class="kt">bool</span> <span class="n">forceDepthSort</span> <span class="o">=</span>  <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">withoutAnyDepthThings</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
 
-  // Generate a translucent sphere poly data set that partially overlaps:
-  vtkSmartPointer&lt;vtkAppendPolyData&gt; translucentGeometry =
-    GenerateOverlappingBunchOfSpheres(theta, phi);
+  <span class="c1">// Generate a translucent sphere poly data set that partially overlaps:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAppendPolyData</span><span class="o">&gt;</span> <span class="n">translucentGeometry</span> <span class="o">=</span>
+    <span class="n">GenerateOverlappingBunchOfSpheres</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">);</span>
 
-  // generate a basic Mapper and Actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(translucentGeometry-&gt;GetOutputPort());
+  <span class="c1">// generate a basic Mapper and Actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">translucentGeometry</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
-  actor-&gt;GetProperty()-&gt;SetOpacity(0.5); // translucent !!!
-  actor-&gt;GetProperty()-&gt;SetColor(1, 0, 0);
-  actor-&gt;RotateX(-72); // put the objects in a position where it is easy to see
-                       // different overlapping regions
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span> <span class="c1">// translucent !!!</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">72</span><span class="p">);</span> <span class="c1">// put the objects in a position where it is easy to see</span>
+                       <span class="c1">// different overlapping regions</span>
 
-  // Create the RenderWindow, Renderer and RenderWindowInteractor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create the RenderWindow, Renderer and RenderWindowInteractor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(1, 1, 1);
-  renderWindow-&gt;SetSize(600, 400);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
 
-  // Setup view geometry
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Zoom(2.2); // so the object is larger
+  <span class="c1">// Setup view geometry</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">2.2</span><span class="p">);</span> <span class="c1">// so the object is larger</span>
 
-  // Answer the key question: Does this box support GPU Depth Peeling?
-  bool useDepthPeeling = IsDepthPeelingSupported(renderWindow, renderer, true);
-  std::cout &lt;&lt; &quot;DEPTH PEELING SUPPORT: &quot; &lt;&lt; (useDepthPeeling ? &quot;YES&quot; : &quot;NO&quot;) &lt;&lt; std::endl;
+  <span class="c1">// Answer the key question: Does this box support GPU Depth Peeling?</span>
+  <span class="kt">bool</span> <span class="n">useDepthPeeling</span> <span class="o">=</span> <span class="n">IsDepthPeelingSupported</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;DEPTH PEELING SUPPORT: &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">useDepthPeeling</span> <span class="o">?</span> <span class="s">&quot;YES&quot;</span> <span class="o">:</span> <span class="s">&quot;NO&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  int success = EXIT_SUCCESS;
+  <span class="kt">int</span> <span class="n">success</span> <span class="o">=</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 
-  // Use depth peeling if available and not explicitly prohibited, otherwise we
-  // use manual depth sorting
-  std::cout &lt;&lt; std::endl &lt;&lt; &quot;CHOSEN MODE: &quot;;
-  if (useDepthPeeling &amp;&amp; !forceDepthSort &amp;&amp; !withoutAnyDepthThings) // GPU
-  {
-    std::cout &lt;&lt; &quot;*** DEPTH PEELING ***&quot; &lt;&lt; std::endl;
-    // Setup GPU depth peeling with configured parameters
-    success = !SetupEnvironmentForDepthPeeling(renderWindow, renderer,
-                                               maxPeels, occulusionRatio);
-  }
-  else if (!withoutAnyDepthThings) // CPU
-  {
-    std::cout &lt;&lt; &quot;*** DEPTH SORTING ***&quot; &lt;&lt; std::endl;
-    // Setup CPU depth sorting filter
-    vtkSmartPointer&lt;vtkDepthSortPolyData&gt; depthSort =
-      vtkSmartPointer&lt;vtkDepthSortPolyData&gt;::New();
-    depthSort-&gt;SetInputConnection(translucentGeometry-&gt;GetOutputPort());
-    depthSort-&gt;SetDirectionToBackToFront();
-    depthSort-&gt;SetVector(1, 1, 1);
-    depthSort-&gt;SetCamera(renderer-&gt;GetActiveCamera());
-    depthSort-&gt;SortScalarsOff(); // do not really need this here
-    // Bring it to the mapper's input
-    mapper-&gt;SetInputConnection(depthSort-&gt;GetOutputPort());
-    depthSort-&gt;Update();
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;*** NEITHER DEPTH PEELING NOR DEPTH SORTING ***&quot; &lt;&lt; std::endl;
-  }
+  <span class="c1">// Use depth peeling if available and not explicitly prohibited, otherwise we</span>
+  <span class="c1">// use manual depth sorting</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;CHOSEN MODE: &quot;</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">useDepthPeeling</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">forceDepthSort</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">withoutAnyDepthThings</span><span class="p">)</span> <span class="c1">// GPU</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;*** DEPTH PEELING ***&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// Setup GPU depth peeling with configured parameters</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="o">!</span><span class="n">SetupEnvironmentForDepthPeeling</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span>
+                                               <span class="n">maxPeels</span><span class="p">,</span> <span class="n">occulusionRatio</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">withoutAnyDepthThings</span><span class="p">)</span> <span class="c1">// CPU</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;*** DEPTH SORTING ***&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// Setup CPU depth sorting filter</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDepthSortPolyData</span><span class="o">&gt;</span> <span class="n">depthSort</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDepthSortPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">translucentGeometry</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">SetDirectionToBackToFront</span><span class="p">();</span>
+    <span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">SetVector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+    <span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">SortScalarsOff</span><span class="p">();</span> <span class="c1">// do not really need this here</span>
+    <span class="c1">// Bring it to the mapper&#39;s input</span>
+    <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">depthSort</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;*** NEITHER DEPTH PEELING NOR DEPTH SORTING ***&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Initialize interaction
-  renderWindowInteractor-&gt;Initialize();
+  <span class="c1">// Initialize interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  // Check the average frame rate when rotating the actor
-  int endCount = 100;
-  vtkSmartPointer&lt;vtkTimerLog&gt; clock =
-    vtkSmartPointer&lt;vtkTimerLog&gt;::New();
-  // Set a user transform for successively rotating the camera position
-  vtkSmartPointer&lt;vtkTransform&gt; transform =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform-&gt;Identity();
-  transform-&gt;RotateY(2.0); // rotate 2 degrees around Y-axis at each iteration
-  vtkSmartPointer&lt;vtkCamera&gt; camera = renderer-&gt;GetActiveCamera();
-  double camPos[3]; // camera position
-  // Start test
-  clock-&gt;StartTimer();
-  for (int i = 0; i &lt; endCount; i++)
-  {
-    camera-&gt;GetPosition(camPos);
-    transform-&gt;TransformPoint(camPos, camPos);
-    camera-&gt;SetPosition(camPos);
-    renderWindow-&gt;Render();
-  }
-  clock-&gt;StopTimer();
-  double frameRate = (double)endCount / clock-&gt;GetElapsedTime();
-  std::cout &lt;&lt; &quot;AVERAGE FRAME RATE: &quot; &lt;&lt; frameRate &lt;&lt; &quot; fps&quot; &lt;&lt; std::endl;
+  <span class="c1">// Check the average frame rate when rotating the actor</span>
+  <span class="kt">int</span> <span class="n">endCount</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerLog</span><span class="o">&gt;</span> <span class="n">clock</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerLog</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="c1">// Set a user transform for successively rotating the camera position</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform</span><span class="o">-&gt;</span><span class="n">Identity</span><span class="p">();</span>
+  <span class="n">transform</span><span class="o">-&gt;</span><span class="n">RotateY</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span> <span class="c1">// rotate 2 degrees around Y-axis at each iteration</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">camPos</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// camera position</span>
+  <span class="c1">// Start test</span>
+  <span class="n">clock</span><span class="o">-&gt;</span><span class="n">StartTimer</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">endCount</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">camera</span><span class="o">-&gt;</span><span class="n">GetPosition</span><span class="p">(</span><span class="n">camPos</span><span class="p">);</span>
+    <span class="n">transform</span><span class="o">-&gt;</span><span class="n">TransformPoint</span><span class="p">(</span><span class="n">camPos</span><span class="p">,</span> <span class="n">camPos</span><span class="p">);</span>
+    <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">camPos</span><span class="p">);</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">clock</span><span class="o">-&gt;</span><span class="n">StopTimer</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">frameRate</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">endCount</span> <span class="o">/</span> <span class="n">clock</span><span class="o">-&gt;</span><span class="n">GetElapsedTime</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;AVERAGE FRAME RATE: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">frameRate</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; fps&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Start interaction
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Start interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
 
-  return success;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">success</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CorrectlyRenderTranslucentGeometry)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CorrectlyRenderTranslucentGeometry</span><span class="p">)</span>
 
-add_executable(CorrectlyRenderTranslucentGeometry MACOSX_BUNDLE CorrectlyRenderTranslucentGeometry.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CorrectlyRenderTranslucentGeometry ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CorrectlyRenderTranslucentGeometry</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CorrectlyRenderTranslucentGeometry.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-correctlyrendertranslucentgeometry">Download and Build CorrectlyRenderTranslucentGeometry</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CorrectlyRenderTranslucentGeometry</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-correctlyrendertranslucentgeometry">Download and Build CorrectlyRenderTranslucentGeometry<a class="headerlink" href="#download-and-build-correctlyrendertranslucentgeometry" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CorrectlyRenderTranslucentGeometry.tar">here to download CorrectlyRenderTranslucentGeometry</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CorrectlyRenderTranslucentGeometry.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CorrectlyRenderTranslucentGeometry/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CorrectlyRenderTranslucentGeometry/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CorrectlyRenderTranslucentGeometry
-</code></pre>
+<div class="codehilite"><pre><span></span>./CorrectlyRenderTranslucentGeometry
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

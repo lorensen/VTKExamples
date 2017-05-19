@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15517,6 +15517,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,83 +15984,83 @@
                   <h1>Cylinder</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Tcl">Tcl</a>//Cylinder</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrate a minimal visualization created with VTK.
 See also [C++]], [[VTK/Examples/Java/Cylinder| Java]] and <a href="../[VTK/Examples/Cxx/Rendering/Cylinder|">[VTK/Examples/Python/Cylinder| Python]</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cylinder.tcl</strong></p>
-<pre><code class="tcl">#
-# This simple example shows how to do basic rendering and pipeline
-# creation.
-#
-# We start off by loading some Tcl modules. One is the basic VTK library;
-# the second is a package for rendering, and the last includes a set
-# of color definitions.
-#
-package require vtk
-package require vtkinteraction
-package require vtktesting
+<div class="codehilite"><pre><span></span><span class="c">#</span>
+<span class="c"># This simple example shows how to do basic rendering and pipeline</span>
+<span class="c"># creation.</span>
+<span class="c">#</span>
+<span class="c"># We start off by loading some Tcl modules. One is the basic VTK library;</span>
+<span class="c"># the second is a package for rendering, and the last includes a set</span>
+<span class="c"># of color definitions.</span>
+<span class="c">#</span>
+<span class="nb">package</span> require vtk
+<span class="nb">package</span> require vtkinteraction
+<span class="nb">package</span> require vtktesting
 
-# This creates a polygonal cylinder model with eight circumferential facets.
-#
-vtkCylinderSource cylinder
-    cylinder SetResolution 8
+<span class="c"># This creates a polygonal cylinder model with eight circumferential facets.</span>
+<span class="c">#</span>
+<span class="nv">vtkCylinderSource</span> cylinder
+    <span class="nv">cylinder</span> SetResolution <span class="mi">8</span>
 
-# The mapper is responsible for pushing the geometry into the graphics
-# library. It may also do color mapping, if scalars or other attributes
-# are defined.
-#
-vtkPolyDataMapper cylinderMapper
-    cylinderMapper SetInputConnection [cylinder GetOutputPort]
+<span class="c"># The mapper is responsible for pushing the geometry into the graphics</span>
+<span class="c"># library. It may also do color mapping, if scalars or other attributes</span>
+<span class="c"># are defined.</span>
+<span class="c">#</span>
+<span class="nv">vtkPolyDataMapper</span> cylinderMapper
+    <span class="nv">cylinderMapper</span> SetInputConnection <span class="k">[</span><span class="nv">cylinder</span> GetOutputPort<span class="k">]</span>
 
-# The actor is a grouping mechanism: besides the geometry (mapper), it
-# also has a property, transformation matrix, and/or texture map.
-# Here we set its color and rotate it -22.5 degrees.
-vtkActor cylinderActor
-    cylinderActor SetMapper cylinderMapper
-    eval [cylinderActor GetProperty] SetColor $tomato
-    cylinderActor RotateX  30.0
-    cylinderActor RotateY -45.0
+<span class="c"># The actor is a grouping mechanism: besides the geometry (mapper), it</span>
+<span class="c"># also has a property, transformation matrix, and/or texture map.</span>
+<span class="c"># Here we set its color and rotate it -22.5 degrees.</span>
+<span class="nv">vtkActor</span> cylinderActor
+    <span class="nv">cylinderActor</span> SetMapper cylinderMapper
+    <span class="k">eval</span> <span class="k">[</span><span class="nv">cylinderActor</span> GetProperty<span class="k">]</span> SetColor <span class="nv">$tomato</span>
+    <span class="nv">cylinderActor</span> RotateX  <span class="mf">30.0</span>
+    <span class="nv">cylinderActor</span> RotateY <span class="o">-</span><span class="mf">45.0</span>
 
-# Create the graphics structure. The renderer renders into the
-# render window. The render window interactor captures mouse events
-# and will perform appropriate camera or actor manipulation
-# depending on the nature of the events.
-#
-vtkRenderer ren1
-vtkRenderWindow renWin
-    renWin AddRenderer ren1
-vtkRenderWindowInteractor iren
-    iren SetRenderWindow renWin
+<span class="c"># Create the graphics structure. The renderer renders into the</span>
+<span class="c"># render window. The render window interactor captures mouse events</span>
+<span class="c"># and will perform appropriate camera or actor manipulation</span>
+<span class="c"># depending on the nature of the events.</span>
+<span class="c">#</span>
+<span class="nv">vtkRenderer</span> ren1
+<span class="nv">vtkRenderWindow</span> renWin
+    <span class="nv">renWin</span> AddRenderer ren1
+<span class="nv">vtkRenderWindowInteractor</span> iren
+    <span class="nv">iren</span> SetRenderWindow renWin
 
-# Add the actors to the renderer, set the background and size
-#
-ren1 AddActor cylinderActor
-ren1 SetBackground 0.1 0.2 0.4
-renWin SetSize 200 200
+<span class="c"># Add the actors to the renderer, set the background and size</span>
+<span class="c">#</span>
+<span class="nv">ren1</span> AddActor cylinderActor
+<span class="nv">ren1</span> SetBackground <span class="mf">0.1</span> <span class="mf">0.2</span> <span class="mf">0.4</span>
+<span class="nv">renWin</span> SetSize <span class="mi">200</span> <span class="mi">200</span>
 
-# The next line associates a Tcl proc with a &quot;keypress-u&quot; event
-# in the rendering window. In this case the proc deiconifies the
-# .vtkInteract Tk form that was defined when we loaded
-# &quot;package require vtkinteraction&quot;.
-iren AddObserver UserEvent {wm deiconify .vtkInteract}
+<span class="c"># The next line associates a Tcl proc with a &quot;keypress-u&quot; event</span>
+<span class="c"># in the rendering window. In this case the proc deiconifies the</span>
+<span class="c"># .vtkInteract Tk form that was defined when we loaded</span>
+<span class="c"># &quot;package require vtkinteraction&quot;.</span>
+<span class="nv">iren</span> AddObserver UserEvent <span class="k">{</span><span class="nv">wm</span> deiconify .vtkInteract<span class="k">}</span>
 
-# This allows the interactor to initalize itself. It has to be
-# called before an event loop. In this example, we allow Tk to
-# start the event loop (this is done automatically by Tk after
-# the user script is executed).
-iren Initialize
+<span class="c"># This allows the interactor to initalize itself. It has to be</span>
+<span class="c"># called before an event loop. In this example, we allow Tk to</span>
+<span class="c"># start the event loop (this is done automatically by Tk after</span>
+<span class="c"># the user script is executed).</span>
+<span class="nv">iren</span> Initialize
 
-# We'll zoom in a little by accessing the camera and invoking a &quot;Zoom&quot;
-# method on it.
-ren1 ResetCamera
-[ren1 GetActiveCamera] Zoom 1.5
-renWin Render
+<span class="c"># We&#39;ll zoom in a little by accessing the camera and invoking a &quot;Zoom&quot;</span>
+<span class="c"># method on it.</span>
+<span class="nv">ren1</span> ResetCamera
+<span class="k">[</span><span class="nv">ren1</span> GetActiveCamera<span class="k">]</span> <span class="nv">Zoom</span> <span class="mf">1.5</span>
+<span class="nv">renWin</span> Render
 
-# prevent the tk window from showing up then start the event loop
-wm withdraw .
-iren Start
-</code></pre>
+<span class="c"># prevent the tk window from showing up then start the event loop</span>
+<span class="nv">wm</span> withdraw .
+<span class="nv">iren</span> Start
+</pre></div>
                 
                   
                 

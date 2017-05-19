@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15521,6 +15521,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15965,30 +15977,30 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Tcl">Tcl</a>/GeometricObjects/Cube</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestCube.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cube.tcl</strong></p>
-<pre><code class="tcl">package require vtk
+<div class="codehilite"><pre><span></span><span class="nb">package</span> require vtk
 
-vtkUnstructuredGridWriter writer
+<span class="nv">vtkUnstructuredGridWriter</span> writer
 
-#Generate a synthetic cube
-vtkCubeSource cube
-cube SetCenter 0.0 0.0 0.0
-cube SetXLength 0.5
-cube SetYLength 0.5
-cube SetZLength 0.5
-cube Update
+<span class="c">#Generate a synthetic cube</span>
+<span class="nv">vtkCubeSource</span> cube
+<span class="nv">cube</span> SetCenter <span class="mf">0.0</span> <span class="mf">0.0</span> <span class="mf">0.0</span>
+<span class="nv">cube</span> SetXLength <span class="mf">0.5</span>
+<span class="nv">cube</span> SetYLength <span class="mf">0.5</span>
+<span class="nv">cube</span> SetZLength <span class="mf">0.5</span>
+<span class="nv">cube</span> Update
 
-vtkDelaunay3D cubeMesh
-cubeMesh SetInput [ cube GetOutput ]
-cubeMesh Update
+<span class="nv">vtkDelaunay3D</span> cubeMesh
+<span class="nv">cubeMesh</span> SetInput <span class="k">[</span> <span class="nv">cube</span> GetOutput <span class="k">]</span>
+<span class="nv">cubeMesh</span> Update
 
-#Write unstructured grid file
-writer SetInput [ cubeMesh GetOutput ]
-set filename &quot;cube.vtu&quot;
-writer SetFileName $filename
-writer Update
-</code></pre>
+<span class="c">#Write unstructured grid file</span>
+<span class="nv">writer</span> SetInput <span class="k">[</span> <span class="nv">cubeMesh</span> GetOutput <span class="k">]</span>
+<span class="k">set</span> filename <span class="s2">&quot;cube.vtu&quot;</span>
+<span class="nv">writer</span> SetFileName <span class="nv">$filename</span>
+<span class="nv">writer</span> Update
+</pre></div>
                 
                   
                 

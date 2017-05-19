@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,100 +16004,107 @@
                   <h1>vtkTestGraphAlgorithmFilter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestGraphAlgorithmFilter</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>vtkTestGraphAlgorithmFilter.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkTestGraphAlgorithmFilter.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTestGraphAlgorithmFilter.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkObjectFactory.h&quot;
-#include &quot;vtkStreamingDemandDrivenPipeline.h&quot;
-#include &quot;vtkInformationVector.h&quot;
-#include &quot;vtkInformation.h&quot;
-#include &quot;vtkDataObject.h&quot;
-#include &quot;vtkSmartPointer.h&quot;
-#include &quot;vtkMutableUndirectedGraph.h&quot;
-#include &quot;vtkMutableDirectedGraph.h&quot;
-#include &quot;vtkMutableGraphHelper.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkMutableUndirectedGraph.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkMutableDirectedGraph.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkMutableGraphHelper.h&quot;</span><span class="cp"></span>
 
-vtkStandardNewMacro(vtkTestGraphAlgorithmFilter);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestGraphAlgorithmFilter</span><span class="p">);</span>
 
-int vtkTestGraphAlgorithmFilter::RequestData(vtkInformation *vtkNotUsed(request),
-                                             vtkInformationVector **inputVector,
-                                             vtkInformationVector *outputVector)
-{
+<span class="kt">int</span> <span class="n">vtkTestGraphAlgorithmFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
 
-  // get the info objects
-  vtkInformation *inInfo = inputVector[0]-&gt;GetInformationObject(0);
-  vtkInformation *outInfo = outputVector-&gt;GetInformationObject(0);
+  <span class="c1">// get the info objects</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">inInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  // get the input and ouptut
-  vtkGraph *input = vtkGraph::SafeDownCast(
-      inInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));
+  <span class="c1">// get the input and ouptut</span>
+  <span class="n">vtkGraph</span> <span class="o">*</span><span class="n">input</span> <span class="o">=</span> <span class="n">vtkGraph</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+      <span class="n">inInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
 
-  vtkGraph *output = vtkGraph::SafeDownCast(
-                                    outInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));
+  <span class="n">vtkGraph</span> <span class="o">*</span><span class="n">output</span> <span class="o">=</span> <span class="n">vtkGraph</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+                                    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
 
-  vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; mdg =
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">mdg</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt; mug =
-    vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">mug</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  if(input-&gt;IsA(&quot;vtkMutableUndirectedGraph&quot;))
-  {
-    vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt; ug =
-      vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt;::New();
-    ug-&gt;AddVertex();
-    output-&gt;ShallowCopy(ug);
-  }
-  else if(input-&gt;IsA(&quot;vtkMutableDirectedGraph&quot;))
-  {
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; dg =
-      vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
-    dg-&gt;AddVertex();
-    output-&gt;ShallowCopy(dg);
-  }
+  <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">IsA</span><span class="p">(</span><span class="s">&quot;vtkMutableUndirectedGraph&quot;</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">ug</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">ug</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+    <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">ug</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">IsA</span><span class="p">(</span><span class="s">&quot;vtkMutableDirectedGraph&quot;</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">dg</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">dg</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+    <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">dg</span><span class="p">);</span>
+  <span class="p">}</span>
 
 
-  std::cout &lt;&lt; &quot;Output is type: &quot; &lt;&lt; output-&gt;GetClassName() &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Output is type: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">output</span><span class="o">-&gt;</span><span class="n">GetClassName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return 1;
-}
-</code></pre>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(vtkTestGraphAlgorithmFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">vtkTestGraphAlgorithmFilter</span><span class="p">)</span>
 
-add_executable(vtkTestGraphAlgorithmFilter MACOSX_BUNDLE vtkTestGraphAlgorithmFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(vtkTestGraphAlgorithmFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">vtkTestGraphAlgorithmFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">vtkTestGraphAlgorithmFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-vtktestgraphalgorithmfilter">Download and Build vtkTestGraphAlgorithmFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">vtkTestGraphAlgorithmFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-vtktestgraphalgorithmfilter">Download and Build vtkTestGraphAlgorithmFilter<a class="headerlink" href="#download-and-build-vtktestgraphalgorithmfilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/vtkTestGraphAlgorithmFilter.tar">here to download vtkTestGraphAlgorithmFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball vtkTestGraphAlgorithmFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd vtkTestGraphAlgorithmFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd vtkTestGraphAlgorithmFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./vtkTestGraphAlgorithmFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./vtkTestGraphAlgorithmFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

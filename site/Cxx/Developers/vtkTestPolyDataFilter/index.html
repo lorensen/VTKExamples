@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,86 +16004,93 @@
                   <h1>vtkTestPolyDataFilter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestPolyDataFilter</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>vtkTestPolyDataFilter.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkTestPolyDataFilter.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTestPolyDataFilter.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkObjectFactory.h&quot;
-#include &quot;vtkStreamingDemandDrivenPipeline.h&quot;
-#include &quot;vtkInformationVector.h&quot;
-#include &quot;vtkInformation.h&quot;
-#include &quot;vtkDataObject.h&quot;
-#include &quot;vtkSmartPointer.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-vtkStandardNewMacro(vtkTestPolyDataFilter);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestPolyDataFilter</span><span class="p">);</span>
 
-vtkTestPolyDataFilter::vtkTestPolyDataFilter()
-{
-  this-&gt;SetNumberOfInputPorts(1);
-  this-&gt;SetNumberOfOutputPorts(1);
-}
+<span class="n">vtkTestPolyDataFilter</span><span class="o">::</span><span class="n">vtkTestPolyDataFilter</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputPorts</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfOutputPorts</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
 
-vtkTestPolyDataFilter::~vtkTestPolyDataFilter()
-{
-}
+<span class="n">vtkTestPolyDataFilter</span><span class="o">::~</span><span class="n">vtkTestPolyDataFilter</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-int vtkTestPolyDataFilter::RequestData(vtkInformation *vtkNotUsed(request),
-                                             vtkInformationVector **inputVector,
-                                             vtkInformationVector *outputVector)
-{
+<span class="kt">int</span> <span class="n">vtkTestPolyDataFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
 
-  // get the input and output
-  vtkPolyData* input = vtkPolyData::GetData(inputVector[0],0);
-  vtkPolyData* output = vtkPolyData::GetData(outputVector,0);
+  <span class="c1">// get the input and output</span>
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">input</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">GetData</span><span class="p">(</span><span class="n">inputVector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">GetData</span><span class="p">(</span><span class="n">outputVector</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  input-&gt;GetPoints()-&gt;InsertNextPoint(1.0, 1.0, 1.0);
+  <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 
-  output-&gt;ShallowCopy(input);
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
 
-  return 1;
-}
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-void vtkTestPolyDataFilter::PrintSelf(ostream&amp; os, vtkIndent indent)
-{
-  this-&gt;Superclass::PrintSelf(os,indent);
-}
-</code></pre>
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestPolyDataFilter</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">os</span><span class="p">,</span><span class="n">indent</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(vtkTestPolyDataFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">vtkTestPolyDataFilter</span><span class="p">)</span>
 
-add_executable(vtkTestPolyDataFilter MACOSX_BUNDLE vtkTestPolyDataFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(vtkTestPolyDataFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">vtkTestPolyDataFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">vtkTestPolyDataFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-vtktestpolydatafilter">Download and Build vtkTestPolyDataFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">vtkTestPolyDataFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-vtktestpolydatafilter">Download and Build vtkTestPolyDataFilter<a class="headerlink" href="#download-and-build-vtktestpolydatafilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/vtkTestPolyDataFilter.tar">here to download vtkTestPolyDataFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball vtkTestPolyDataFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd vtkTestPolyDataFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd vtkTestPolyDataFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./vtkTestPolyDataFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./vtkTestPolyDataFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

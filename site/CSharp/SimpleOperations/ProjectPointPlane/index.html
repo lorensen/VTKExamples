@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,40 +15990,40 @@
                   <h1>ProjectPointPlane</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/SimpleOperations/ProjectPointPlane</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example projects a point onto a plane</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ProjectPointPlane.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void ProjectPointPlane() {
-   vtkPlane plane = vtkPlane.New();
-   plane.SetOrigin(0.0, 0.0, 0.0);
-   plane.SetNormal(0.0, 0.0, 1.0);
+<span class="k">void</span> <span class="nf">ProjectPointPlane</span><span class="p">()</span> <span class="p">{</span>
+   <span class="n">vtkPlane</span> <span class="n">plane</span> <span class="p">=</span> <span class="n">vtkPlane</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">plane</span><span class="p">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+   <span class="n">plane</span><span class="p">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">);</span>
 
-   double[] p = new double[] { 23.1, 54.6, 9.2 };
-   double[] projected = new double[3];
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">p</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">23.1</span><span class="p">,</span> <span class="m">54.6</span><span class="p">,</span> <span class="m">9.2</span> <span class="p">};</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">projected</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
 
-   IntPtr pP = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   IntPtr pProjected = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   Marshal.Copy(p, 0, pP, 3);
-   Marshal.Copy(projected, 0, pProjected, 3);
+   <span class="n">IntPtr</span> <span class="n">pP</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">IntPtr</span> <span class="n">pProjected</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">projected</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pProjected</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
 
-   // NOTE: normal assumed to have magnitude 1
-   plane.ProjectPoint(pP, pProjected);
-   Marshal.Copy(pProjected, projected, 0, 3);
-   Marshal.FreeHGlobal(pP);
-   Marshal.FreeHGlobal(pProjected);
+   <span class="c1">// NOTE: normal assumed to have magnitude 1</span>
+   <span class="n">plane</span><span class="p">.</span><span class="n">ProjectPoint</span><span class="p">(</span><span class="n">pP</span><span class="p">,</span> <span class="n">pProjected</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pProjected</span><span class="p">,</span> <span class="n">projected</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pProjected</span><span class="p">);</span>
 
-   Console.WriteLine(&quot;Projected: &quot;
-      + projected[0] + &quot; &quot;
-      + projected[1] + &quot; &quot;
-      + projected[2]);
-}
-</code></pre>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Projected: &quot;</span>
+      <span class="p">+</span> <span class="n">projected</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span>
+      <span class="p">+</span> <span class="n">projected</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span>
+      <span class="p">+</span> <span class="n">projected</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

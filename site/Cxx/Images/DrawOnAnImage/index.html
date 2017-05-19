@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,127 +16019,134 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/DrawOnAnImage</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestDrawOnAnImage.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example draws a circle in the center of the input image using {{class|vtkImageCanvasSource2D}}'s <code>DrawCircle</code> method.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DrawOnAnImage.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageViewer2.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkImageBlend.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageViewer2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageBlend.h&gt;</span><span class="cp"></span>
 
-int main ( int argc, char* argv[] )
-{
-  //Verify input arguments
-  if ( argc != 2 )
-  {
-    std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; InputFilename(jpg)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">//Verify input arguments</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; InputFilename(jpg)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Parse input arguments
-  std::string inputFilename = argv[1];
+  <span class="c1">// Parse input arguments</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-  // Read the image
-  vtkSmartPointer&lt;vtkJPEGReader&gt; jPEGReader =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  jPEGReader-&gt;SetFileName ( inputFilename.c_str() );
-  jPEGReader-&gt;Update();
+  <span class="c1">// Read the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkImageData* image = jPEGReader-&gt;GetOutput();
+  <span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span> <span class="o">=</span> <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Find center of image
-  int center[2];
-  center[0] = (image-&gt;GetExtent()[1] + image-&gt;GetExtent()[0]) / 2;
-  center[1] = (image-&gt;GetExtent()[3] + image-&gt;GetExtent()[2]) / 2;
+  <span class="c1">// Find center of image</span>
+  <span class="kt">int</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
 
-  // Pick a radius for the circle
-  int radius;
-  radius = (image-&gt;GetExtent()[1] &lt; image-&gt;GetExtent()[3]) ?
-    image-&gt;GetExtent()[1] * 2 / 5 : image-&gt;GetExtent()[3] * 2 / 5;
+  <span class="c1">// Pick a radius for the circle</span>
+  <span class="kt">int</span> <span class="n">radius</span><span class="p">;</span>
+  <span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span> <span class="o">?</span>
+    <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">:</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">5</span><span class="p">;</span>
 
-  // Draw a circle in the center of the image
-  vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; drawing =
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-  drawing-&gt;SetNumberOfScalarComponents(3);
-  drawing-&gt;SetScalarTypeToUnsignedChar();
-  drawing-&gt;SetExtent(image-&gt;GetExtent());
-  drawing-&gt;SetDrawColor(0.0, 0.0, 0.0);
-  drawing-&gt;FillBox(image-&gt;GetExtent()[0], image-&gt;GetExtent()[1],
-    image-&gt;GetExtent()[2], image-&gt;GetExtent()[3]);
-  drawing-&gt;SetDrawColor(255.0, 255.0, 255.0);
-  drawing-&gt;DrawCircle(center[0], center[1], radius);
+  <span class="c1">// Draw a circle in the center of the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">drawing</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">());</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">()[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mf">255.0</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">);</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">DrawCircle</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">radius</span><span class="p">);</span>
 
-  // Combine the images (blend takes multiple connections on the 0th
-  // input port)
-  vtkSmartPointer&lt;vtkImageBlend&gt; blend =
-    vtkSmartPointer&lt;vtkImageBlend&gt;::New();
-  blend-&gt;AddInputConnection(jPEGReader-&gt;GetOutputPort());
-  blend-&gt;AddInputConnection(drawing-&gt;GetOutputPort());
-  blend-&gt;SetOpacity(0,.6);
-  blend-&gt;SetOpacity(1,.4);
+  <span class="c1">// Combine the images (blend takes multiple connections on the 0th</span>
+  <span class="c1">// input port)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;</span> <span class="n">blend</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">drawing</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.6</span><span class="p">);</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">.4</span><span class="p">);</span>
 
-  // Display the result
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="c1">// Display the result</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageViewer2&gt; imageViewer =
-    vtkSmartPointer&lt;vtkImageViewer2&gt;::New();
-  imageViewer-&gt;SetInputConnection(blend-&gt;GetOutputPort());
-  imageViewer-&gt;SetSize(640, 512);
-  imageViewer-&gt;SetupInteractor(renderWindowInteractor);
-  imageViewer-&gt;GetRenderer()-&gt;ResetCamera();
-  imageViewer-&gt;GetRenderer()-&gt;SetBackground(1,0,0); //red
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;</span> <span class="n">imageViewer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">blend</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">512</span><span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetupInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> <span class="c1">//red</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DrawOnAnImage)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DrawOnAnImage</span><span class="p">)</span>
 
-add_executable(DrawOnAnImage MACOSX_BUNDLE DrawOnAnImage.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DrawOnAnImage ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DrawOnAnImage</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DrawOnAnImage.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-drawonanimage">Download and Build DrawOnAnImage</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DrawOnAnImage</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-drawonanimage">Download and Build DrawOnAnImage<a class="headerlink" href="#download-and-build-drawonanimage" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DrawOnAnImage.tar">here to download DrawOnAnImage</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DrawOnAnImage.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DrawOnAnImage/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DrawOnAnImage/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DrawOnAnImage
-</code></pre>
+<div class="codehilite"><pre><span></span>./DrawOnAnImage
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

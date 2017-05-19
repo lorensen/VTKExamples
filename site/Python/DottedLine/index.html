@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15551,6 +15551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15958,44 +15970,44 @@
                   <h1>DottedLine</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//DottedLine</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DottedLine.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-Line=vtk.vtkLineSource()
-Line.SetPoint1(-50,0,0)
-Line.SetPoint2(50,0,0)
-Line.SetResolution(100)
-
-
-Mapper=vtk.vtkPolyDataMapper()
-Mapper.SetInputConnection(Line.GetOutputPort())
+<span class="n">Line</span><span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkLineSource</span><span class="p">()</span>
+<span class="n">Line</span><span class="o">.</span><span class="n">SetPoint1</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Line</span><span class="o">.</span><span class="n">SetPoint2</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Line</span><span class="o">.</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
 
-Actor=vtk.vtkActor()
-Actor.SetMapper(Mapper)
+<span class="n">Mapper</span><span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">Mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">Line</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+
+
+<span class="n">Actor</span><span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">Actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">Mapper</span><span class="p">)</span>
 
 
 
-#create renderers and add actors of plane and cube
-ren = vtk.vtkRenderer()
-ren.AddActor(Actor)
-Actor.GetProperty().SetColor(1,1,0)
-Actor.GetProperty().SetLineStipplePattern(0xf0f0)
-Actor.GetProperty().SetLineStippleRepeatFactor(1)
-Actor.GetProperty().SetPointSize(1)
-Actor.GetProperty().SetLineWidth(1.5)
+<span class="c1">#create renderers and add actors of plane and cube</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">Actor</span><span class="p">)</span>
+<span class="n">Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineStipplePattern</span><span class="p">(</span><span class="mh">0xf0f0</span><span class="p">)</span>
+<span class="n">Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineStippleRepeatFactor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 
-#Add renderer to renderwindow and render
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-renWin.SetSize(600, 600)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-ren.SetBackground(0,0,0)
-renWin.Render()
-iren.Start()
-</code></pre>
+<span class="c1">#Add renderer to renderwindow and render</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

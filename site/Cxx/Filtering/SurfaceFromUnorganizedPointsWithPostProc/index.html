@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,229 +16019,236 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Filtering/SurfaceFromUnorganizedPointsWithPostProc</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestSurfaceFromUnorganizedPointsWithPostProc.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example is an extension to the example previously posted at:
 <a href="../SurfaceFromUnorganizedPoints">Create a surface from Unorganized Points</a></p>
 <p>The objective is again to use vtkSurfaceReconstructionFilter to construct a surface from a set of points.
 However, the direct output of the vtkSurfaceReconstructionFilter does not match with the spatial position of the original point set.
 Instead, there is a scale change and translation in between.
 To cure this, in this example we added a post transformation to move the reconstructed surface back to the position of the original points, which in some cases might be more favorable.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SurfaceFromUnorganizedPointsWithPostProc.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSurfaceReconstructionFilter.h&gt;
-#include &lt;vtkProgrammableSource.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkReverseSense.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;cmath&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSurfaceReconstructionFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProgrammableSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkReverseSense.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
 
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkTransformPolyDataFilter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransformPolyDataFilter.h&gt;</span><span class="cp"></span>
 
-static void readPoints(vtkPoints* points);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">readPoints</span><span class="p">(</span><span class="n">vtkPoints</span><span class="o">*</span> <span class="n">points</span><span class="p">);</span>
 
-static vtkSmartPointer&lt;vtkPolyData&gt; transform_back(vtkSmartPointer&lt;vtkPoints&gt; pt, vtkSmartPointer&lt;vtkPolyData&gt; pd);
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">transform_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">pt</span><span class="p">,</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">pd</span><span class="p">);</span>
 
-int main(int, char *[])
-{
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
 
-  // Read some points
-  vtkSmartPointer&lt;vtkPoints&gt; points = vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="c1">// Read some points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  readPoints(points);
+  <span class="n">readPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata = vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints(points);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  // Construct the surface and create isosurface.   
-  vtkSmartPointer&lt;vtkSurfaceReconstructionFilter&gt; surf =
-    vtkSmartPointer&lt;vtkSurfaceReconstructionFilter&gt;::New();
+  <span class="c1">// Construct the surface and create isosurface.   </span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSurfaceReconstructionFilter</span><span class="o">&gt;</span> <span class="n">surf</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSurfaceReconstructionFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  surf-&gt;SetInput(polydata);
-#else
-  surf-&gt;SetInputData(polydata);
-#endif
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">surf</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">surf</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkContourFilter&gt; contourFilter = vtkSmartPointer&lt;vtkContourFilter&gt;::New();
-  contourFilter-&gt;SetInputConnection(surf-&gt;GetOutputPort());
-  contourFilter-&gt;SetValue(0, 0.0);
-
-
-  // Sometimes the contouring algorithm can create a volume whose gradient
-  // vector and ordering of polygon (using the right hand rule) are
-  // inconsistent. vtkReverseSense cures this problem.
-  vtkSmartPointer&lt;vtkReverseSense&gt; reverse = vtkSmartPointer&lt;vtkReverseSense&gt;::New();
-  reverse-&gt;SetInputConnection(contourFilter-&gt;GetOutputPort());
-  reverse-&gt;ReverseCellsOn();
-  reverse-&gt;ReverseNormalsOn();
-  reverse-&gt;Update();
-
-  vtkSmartPointer&lt;vtkPolyData&gt; newSurf = transform_back( points, reverse-&gt;GetOutput());
-
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; map = vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  map-&gt;SetInputConnection(reverse-&gt;GetOutputPort());
-  map-&gt;ScalarVisibilityOff();
-
-  vtkSmartPointer&lt;vtkActor&gt; surfaceActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  surfaceActor-&gt;SetMapper(map);
-  surfaceActor-&gt;GetProperty()-&gt;SetDiffuseColor(1.0000, 0.3882, 0.2784);
-  surfaceActor-&gt;GetProperty()-&gt;SetSpecularColor(1, 1, 1);
-  surfaceActor-&gt;GetProperty()-&gt;SetSpecular(.4);
-  surfaceActor-&gt;GetProperty()-&gt;SetSpecularPower(50);
-
-  // Create the RenderWindow, Renderer and both Actors
-  vtkSmartPointer&lt;vtkRenderer&gt; ren = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin = vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
-
-  // Add the actors to the renderer, set the background and size
-  ren-&gt;AddActor(surfaceActor);
-  ren-&gt;SetBackground(1, 1, 1);
-  renWin-&gt;SetSize(400, 400);
-  ren-&gt;GetActiveCamera()-&gt;SetFocalPoint(0, 0, 0);
-  ren-&gt;GetActiveCamera()-&gt;SetPosition(1, 0, 0);
-  ren-&gt;GetActiveCamera()-&gt;SetViewUp(0, 0, 1);
-  ren-&gt;ResetCamera();
-  ren-&gt;GetActiveCamera()-&gt;Azimuth(20);
-  ren-&gt;GetActiveCamera()-&gt;Elevation(30);
-  ren-&gt;GetActiveCamera()-&gt;Dolly(1.2);
-  ren-&gt;ResetCameraClippingRange();
-
-  iren-&gt;Initialize();
-  renWin-&gt;Render();
-  iren-&gt;Start();
-
-  return 0;
-}
-
-vtkSmartPointer&lt;vtkPolyData&gt; transform_back(vtkSmartPointer&lt;vtkPoints&gt; pt, vtkSmartPointer&lt;vtkPolyData&gt; pd)
-{
-  // The reconstructed surface is transformed back to where the
-  // original points are. (Hopefully) it is only a similarity
-  // transformation.
-
-  // 1. Get bounding box of pt, get its minimum corner (left, bottom, least-z), at c0, pt_bounds
-
-  // 2. Get bounding box of surface pd, get its minimum corner (left, bottom, least-z), at c1, pd_bounds
-
-  // 3. compute scale as:
-  //       scale = (pt_bounds[1] - pt_bounds[0])/(pd_bounds[1] - pd_bounds[0]);
-
-  // 4. transform the surface by T := T(pt_bounds[0], [2], [4]).S(scale).T(-pd_bounds[0], -[2], -[4])
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contourFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">surf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
 
+  <span class="c1">// Sometimes the contouring algorithm can create a volume whose gradient</span>
+  <span class="c1">// vector and ordering of polygon (using the right hand rule) are</span>
+  <span class="c1">// inconsistent. vtkReverseSense cures this problem.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkReverseSense</span><span class="o">&gt;</span> <span class="n">reverse</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkReverseSense</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">ReverseCellsOn</span><span class="p">();</span>
+  <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">ReverseNormalsOn</span><span class="p">();</span>
+  <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // 1.
-  double pt_bounds[6];  // (xmin,xmax, ymin,ymax, zmin,zmax)
-  pt-&gt;GetBounds(pt_bounds);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">newSurf</span> <span class="o">=</span> <span class="n">transform_back</span><span class="p">(</span> <span class="n">points</span><span class="p">,</span> <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">map</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reverse</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">map</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">surfaceActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.4</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+
+  <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">surfaceActor</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetViewUp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.2</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
+
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">transform_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">pt</span><span class="p">,</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">pd</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// The reconstructed surface is transformed back to where the</span>
+  <span class="c1">// original points are. (Hopefully) it is only a similarity</span>
+  <span class="c1">// transformation.</span>
+
+  <span class="c1">// 1. Get bounding box of pt, get its minimum corner (left, bottom, least-z), at c0, pt_bounds</span>
+
+  <span class="c1">// 2. Get bounding box of surface pd, get its minimum corner (left, bottom, least-z), at c1, pd_bounds</span>
+
+  <span class="c1">// 3. compute scale as:</span>
+  <span class="c1">//       scale = (pt_bounds[1] - pt_bounds[0])/(pd_bounds[1] - pd_bounds[0]);</span>
+
+  <span class="c1">// 4. transform the surface by T := T(pt_bounds[0], [2], [4]).S(scale).T(-pd_bounds[0], -[2], -[4])</span>
 
 
-  // 2.
-  double pd_bounds[6];  // (xmin,xmax, ymin,ymax, zmin,zmax)
-  pd-&gt;GetBounds(pd_bounds);
 
-//   // test, make sure it is isotropic
-//   std::cout&lt;&lt;(pt_bounds[1] - pt_bounds[0])/(pd_bounds[1] - pd_bounds[0])&lt;&lt;std::endl;
-//   std::cout&lt;&lt;(pt_bounds[3] - pt_bounds[2])/(pd_bounds[3] - pd_bounds[2])&lt;&lt;std::endl;
-//   std::cout&lt;&lt;(pt_bounds[5] - pt_bounds[4])/(pd_bounds[5] - pd_bounds[4])&lt;&lt;std::endl;
-//   // TEST
+  <span class="c1">// 1.</span>
+  <span class="kt">double</span> <span class="n">pt_bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>  <span class="c1">// (xmin,xmax, ymin,ymax, zmin,zmax)</span>
+  <span class="n">pt</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">pt_bounds</span><span class="p">);</span>
 
 
-  // 3
-  double scale = (pt_bounds[1] - pt_bounds[0])/(pd_bounds[1] - pd_bounds[0]);
+  <span class="c1">// 2.</span>
+  <span class="kt">double</span> <span class="n">pd_bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>  <span class="c1">// (xmin,xmax, ymin,ymax, zmin,zmax)</span>
+  <span class="n">pd</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">pd_bounds</span><span class="p">);</span>
+
+<span class="c1">//   // test, make sure it is isotropic</span>
+<span class="c1">//   std::cout&lt;&lt;(pt_bounds[1] - pt_bounds[0])/(pd_bounds[1] - pd_bounds[0])&lt;&lt;std::endl;</span>
+<span class="c1">//   std::cout&lt;&lt;(pt_bounds[3] - pt_bounds[2])/(pd_bounds[3] - pd_bounds[2])&lt;&lt;std::endl;</span>
+<span class="c1">//   std::cout&lt;&lt;(pt_bounds[5] - pt_bounds[4])/(pd_bounds[5] - pd_bounds[4])&lt;&lt;std::endl;</span>
+<span class="c1">//   // TEST</span>
 
 
-  // 4.
-  vtkSmartPointer&lt;vtkTransform&gt; transp = vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transp-&gt;Translate(pt_bounds[0], pt_bounds[2], pt_bounds[4]);
-  transp-&gt;Scale(scale, scale, scale);
-  transp-&gt;Translate(- pd_bounds[0], - pd_bounds[2], - pd_bounds[4]);
-
-  vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt; tpd = vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  tpd-&gt;SetInput(pd);
-#else
-  tpd-&gt;SetInputData(pd);
-#endif
-  tpd-&gt;SetTransform(transp);
-  tpd-&gt;Update();
+  <span class="c1">// 3</span>
+  <span class="kt">double</span> <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">pt_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">pd_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 
 
-  return tpd-&gt;GetOutput();
-}
+  <span class="c1">// 4.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transp</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transp</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span><span class="n">pt_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pt_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">pt_bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+  <span class="n">transp</span><span class="o">-&gt;</span><span class="n">Scale</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">scale</span><span class="p">);</span>
+  <span class="n">transp</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span><span class="o">-</span> <span class="n">pd_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span> <span class="n">pd_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span> <span class="n">pd_bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;</span> <span class="n">tpd</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">tpd</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">tpd</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">tpd</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transp</span><span class="p">);</span>
+  <span class="n">tpd</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
 
-void readPoints(vtkPoints* points)
-{
+  <span class="k">return</span> <span class="n">tpd</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+<span class="p">}</span>
 
-  float x, y, z;
-  // generate random points on unit sphere
-  for(int i=0; i&lt;5000; i++)
-  {
 
-      double u = vtkMath::Random(0.0,1.0);
-      double v = vtkMath::Random(0.0,1.0);
-      double phi = 2.0*3.14159265*u;
-      double theta = acos(2.0*v-1.0);
+<span class="kt">void</span> <span class="n">readPoints</span><span class="p">(</span><span class="n">vtkPoints</span><span class="o">*</span> <span class="n">points</span><span class="p">)</span>
+<span class="p">{</span>
 
-      x = std::cos(phi)*std::sin(theta);
-      y = std::sin(phi)*std::sin(theta);
-      z = std::cos(theta);
+  <span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">;</span>
+  <span class="c1">// generate random points on unit sphere</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
 
-      points-&gt;InsertNextPoint(x, y, z);
-  }
+      <span class="kt">double</span> <span class="n">u</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+      <span class="kt">double</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+      <span class="kt">double</span> <span class="n">phi</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="mf">3.14159265</span><span class="o">*</span><span class="n">u</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">v</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
 
-  return;
-}
-</code></pre>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">std</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+      <span class="n">y</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">std</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+      <span class="n">z</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
+      <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+  <span class="p">}</span>
 
-PROJECT(SurfaceFromUnorganizedPointsWithPostProc)
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
 
-add_executable(SurfaceFromUnorganizedPointsWithPostProc MACOSX_BUNDLE SurfaceFromUnorganizedPointsWithPostProc.cxx)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-target_link_libraries(SurfaceFromUnorganizedPointsWithPostProc ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">SurfaceFromUnorganizedPointsWithPostProc</span><span class="p">)</span>
 
-<h3 id="download-and-build-surfacefromunorganizedpointswithpostproc">Download and Build SurfaceFromUnorganizedPointsWithPostProc</h3>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">SurfaceFromUnorganizedPointsWithPostProc</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">SurfaceFromUnorganizedPointsWithPostProc.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">SurfaceFromUnorganizedPointsWithPostProc</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-surfacefromunorganizedpointswithpostproc">Download and Build SurfaceFromUnorganizedPointsWithPostProc<a class="headerlink" href="#download-and-build-surfacefromunorganizedpointswithpostproc" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/SurfaceFromUnorganizedPointsWithPostProc.tar">here to download SurfaceFromUnorganizedPointsWithPostProc</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball SurfaceFromUnorganizedPointsWithPostProc.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd SurfaceFromUnorganizedPointsWithPostProc/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd SurfaceFromUnorganizedPointsWithPostProc/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./SurfaceFromUnorganizedPointsWithPostProc
-</code></pre>
+<div class="codehilite"><pre><span></span>./SurfaceFromUnorganizedPointsWithPostProc
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

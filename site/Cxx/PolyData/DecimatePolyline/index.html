@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,138 +16019,145 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/DecimatePolyline</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestDecimatePolyline.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to [(signal processing)|decimate]]([wikipedia:Decimation) a polyline.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DecimatePolyline.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkDecimatePolylineFilter.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDecimatePolylineFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  const unsigned int numberofpoints = 100;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">numberofpoints</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 
-  vtkPolyData* circle = vtkPolyData::New();
-  vtkSmartPointer&lt;vtkPoints&gt; points = vtkSmartPointer&lt;vtkPoints&gt;::New();
-  vtkSmartPointer&lt;vtkCellArray&gt; lines = vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  vtkIdType* lineIndices = new vtkIdType[numberofpoints+1];
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">circle</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkIdType</span><span class="o">*</span> <span class="n">lineIndices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkIdType</span><span class="p">[</span><span class="n">numberofpoints</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
 
-  for( unsigned int i = 0; i &lt; numberofpoints; i++ )
-  {
-    const double angle = 2.0 * vtkMath::Pi() * static_cast&lt; double &gt;( i ) /
-      static_cast&lt; double &gt;( numberofpoints );
-    points-&gt;InsertPoint( static_cast&lt; vtkIdType &gt;( i ),
-                         cos( angle ),
-                         sin( angle ),
-                         0. );
-    lineIndices[i] = static_cast&lt; vtkIdType &gt;( i );
-  }
-  lineIndices[numberofpoints] = 0;
-  lines-&gt;InsertNextCell( numberofpoints+1, lineIndices );
-  delete[] lineIndices;
+  <span class="k">for</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberofpoints</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">angle</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">()</span> <span class="o">*</span> <span class="k">static_cast</span><span class="o">&lt;</span> <span class="kt">double</span> <span class="o">&gt;</span><span class="p">(</span> <span class="n">i</span> <span class="p">)</span> <span class="o">/</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span> <span class="kt">double</span> <span class="o">&gt;</span><span class="p">(</span> <span class="n">numberofpoints</span> <span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="k">static_cast</span><span class="o">&lt;</span> <span class="n">vtkIdType</span> <span class="o">&gt;</span><span class="p">(</span> <span class="n">i</span> <span class="p">),</span>
+                         <span class="n">cos</span><span class="p">(</span> <span class="n">angle</span> <span class="p">),</span>
+                         <span class="n">sin</span><span class="p">(</span> <span class="n">angle</span> <span class="p">),</span>
+                         <span class="mf">0.</span> <span class="p">);</span>
+    <span class="n">lineIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span> <span class="n">vtkIdType</span> <span class="o">&gt;</span><span class="p">(</span> <span class="n">i</span> <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">lineIndices</span><span class="p">[</span><span class="n">numberofpoints</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">lines</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span> <span class="n">numberofpoints</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">lineIndices</span> <span class="p">);</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">lineIndices</span><span class="p">;</span>
 
-  circle-&gt;SetPoints( points );
-  circle-&gt;SetLines( lines );
+  <span class="n">circle</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span> <span class="n">points</span> <span class="p">);</span>
+  <span class="n">circle</span><span class="o">-&gt;</span><span class="n">SetLines</span><span class="p">(</span> <span class="n">lines</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; c_mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  c_mapper-&gt;SetInput( circle );
-#else
-  c_mapper-&gt;SetInputData( circle );
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">c_mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">c_mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">c_mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; c_actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  c_actor-&gt;SetMapper( c_mapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">c_actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">c_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">c_mapper</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDecimatePolylineFilter&gt; decimate =
-    vtkSmartPointer&lt;vtkDecimatePolylineFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  decimate-&gt;SetInput( circle );
-#else
-  decimate-&gt;SetInputData( circle );
-#endif
-  decimate-&gt;SetTargetReduction( 0.95 );
-  decimate-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDecimatePolylineFilter</span><span class="o">&gt;</span> <span class="n">decimate</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDecimatePolylineFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetTargetReduction</span><span class="p">(</span> <span class="mf">0.95</span> <span class="p">);</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; d_mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  d_mapper-&gt;SetInputConnection( decimate-&gt;GetOutputPort() );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">d_mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">d_mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; d_actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  d_actor-&gt;SetMapper( d_mapper );
-  d_actor-&gt;GetProperty()-&gt;SetColor( 1., 0. ,0. );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">d_actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">d_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">d_mapper</span> <span class="p">);</span>
+  <span class="n">d_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; ren =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren-&gt;AddActor( c_actor );
-  ren-&gt;AddActor( d_actor );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">c_actor</span> <span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">d_actor</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renwin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renwin-&gt;AddRenderer( ren );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renwin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">ren</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow( renwin );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renwin</span> <span class="p">);</span>
 
-  renwin-&gt;Render();
+  <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  circle-&gt;Delete();
+  <span class="n">circle</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DecimatePolyline)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DecimatePolyline</span><span class="p">)</span>
 
-add_executable(DecimatePolyline MACOSX_BUNDLE DecimatePolyline.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DecimatePolyline ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DecimatePolyline</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DecimatePolyline.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-decimatepolyline">Download and Build DecimatePolyline</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DecimatePolyline</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-decimatepolyline">Download and Build DecimatePolyline<a class="headerlink" href="#download-and-build-decimatepolyline" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DecimatePolyline.tar">here to download DecimatePolyline</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DecimatePolyline.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DecimatePolyline/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DecimatePolyline/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DecimatePolyline
-</code></pre>
+<div class="codehilite"><pre><span></span>./DecimatePolyline
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,83 +16004,90 @@
                   <h1>AttachAttributes</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/AttachAttributes</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AttachAttributes.cxx</strong></p>
-<pre><code class="c++">// vtk includes
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkInformation.h&gt;
-#include &lt;vtkInformationDoubleVectorKey.h&gt;
+<div class="codehilite"><pre><span></span><span class="c1">// vtk includes</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformationDoubleVectorKey.h&gt;</span><span class="cp"></span>
 
-// std includes
-#include &lt;iostream&gt;
+<span class="c1">// std includes</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
-int main(int, char *[]) {
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span> <span class="p">{</span>
 
-  // create a 2-element array
-  vtkDoubleArray* array = vtkDoubleArray::New();
-  array-&gt;SetName(&quot;array&quot;);
-  array-&gt;SetNumberOfComponents(1);
-  array-&gt;SetNumberOfTuples(2);
-  array-&gt;SetValue(0, 1.);
-  array-&gt;SetValue(1, 2.);
+  <span class="c1">// create a 2-element array</span>
+  <span class="n">vtkDoubleArray</span><span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;array&quot;</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.</span><span class="p">);</span>
 
-  // access the info (presently none stored)
-  vtkInformation* info = array-&gt;GetInformation();
+  <span class="c1">// access the info (presently none stored)</span>
+  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span> <span class="o">=</span> <span class="n">array</span><span class="o">-&gt;</span><span class="n">GetInformation</span><span class="p">();</span>
 
-  // add one attribute, a double vector
-  const char *name = &quot;myKey&quot;;
-  const char *location = &quot;MyClass&quot;; // 
-  const int length = 3;
-  vtkInformationDoubleVectorKey *key = new vtkInformationDoubleVectorKey(name, 
-                                                                         location, 
-                                                                         length);
-  double values[] = {0.1, 0.2, 0.3};
-  info-&gt;Set(key, values[0], values[1],values[2]);
+  <span class="c1">// add one attribute, a double vector</span>
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;myKey&quot;</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">location</span> <span class="o">=</span> <span class="s">&quot;MyClass&quot;</span><span class="p">;</span> <span class="c1">// </span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">vtkInformationDoubleVectorKey</span> <span class="o">*</span><span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkInformationDoubleVectorKey</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> 
+                                                                         <span class="n">location</span><span class="p">,</span> 
+                                                                         <span class="n">length</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">values</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">};</span>
+  <span class="n">info</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
-  // extract the key
-  double *vals = info-&gt;Get(key);
-  std::cout &lt;&lt; &quot;extracted values are: &quot; &lt;&lt; vals[0] &lt;&lt; &quot;, &quot; &lt;&lt; vals[1] &lt;&lt; &quot;, &quot; &lt;&lt; vals[2] &lt;&lt; '\n';
-  array-&gt;Delete();
-  // array-&gt;Delete will also delete key (do not call delete key)
+  <span class="c1">// extract the key</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">vals</span> <span class="o">=</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;extracted values are: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">vals</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+  <span class="c1">// array-&gt;Delete will also delete key (do not call delete key)</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AttachAttributes)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AttachAttributes</span><span class="p">)</span>
 
-add_executable(AttachAttributes MACOSX_BUNDLE AttachAttributes.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AttachAttributes ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AttachAttributes</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AttachAttributes.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-attachattributes">Download and Build AttachAttributes</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AttachAttributes</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-attachattributes">Download and Build AttachAttributes<a class="headerlink" href="#download-and-build-attachattributes" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AttachAttributes.tar">here to download AttachAttributes</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AttachAttributes.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AttachAttributes/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AttachAttributes/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AttachAttributes
-</code></pre>
+<div class="codehilite"><pre><span></span>./AttachAttributes
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

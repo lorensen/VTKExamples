@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15534,6 +15534,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15928,176 +15940,176 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/GeometricObjects/OrientedArrow</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestOrientedArrow.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example illustrates how to create and display an arrow that passes through two points.</p>
 <p>It demonstrates two different ways to apply the transform:</p>
-<h1 id="use-vtktransformpolydatafilter-to-create-a-new-transformed-polydata-this-method-is-useful-if-the-transformed-polydata-is-needed-later-in-the-pipeline-eg-vtkglyph3dfilter">Use <a href="http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html">vtkTransformPolyDataFilter</a> to create a new transformed polydata. This method is useful if the transformed polydata is needed later in the pipeline, e.g. vtkGlyph3DFilter.</h1>
-<h1 id="apply-the-transform-directly-to-the-actor-using-vtkprop3ds-setusermatrix-no-new-data-is-produced">Apply the transform directly to the actor using <a href="http://www.vtk.org/doc/nightly/html/classvtkProp3D.html#a950378fc70405a58bd998c00f84a39a3">vtkProp3D's SetUserMatrix</a>. No new data is produced.<br /></h1>
+<h1 id="use-vtktransformpolydatafilter-to-create-a-new-transformed-polydata-this-method-is-useful-if-the-transformed-polydata-is-needed-later-in-the-pipeline-eg-vtkglyph3dfilter">Use <a href="http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html">vtkTransformPolyDataFilter</a> to create a new transformed polydata. This method is useful if the transformed polydata is needed later in the pipeline, e.g. vtkGlyph3DFilter.<a class="headerlink" href="#use-vtktransformpolydatafilter-to-create-a-new-transformed-polydata-this-method-is-useful-if-the-transformed-polydata-is-needed-later-in-the-pipeline-eg-vtkglyph3dfilter" title="Permanent link">&para;</a></h1>
+<h1 id="apply-the-transform-directly-to-the-actor-using-vtkprop3ds-setusermatrix-no-new-data-is-produced">Apply the transform directly to the actor using <a href="http://www.vtk.org/doc/nightly/html/classvtkProp3D.html#a950378fc70405a58bd998c00f84a39a3">vtkProp3D's SetUserMatrix</a>. No new data is produced.<br /><a class="headerlink" href="#apply-the-transform-directly-to-the-actor-using-vtkprop3ds-setusermatrix-no-new-data-is-produced" title="Permanent link">&para;</a></h1>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OrientedArrow.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            OrientedArrow();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void OrientedArrow() {
-         //Create an arrow.
-         vtkArrowSource arrowSource = vtkArrowSource.New();
-
-         // Generate a random start and end point
-         vtkMath.RandomSeed(8775070);
-         double[] startPoint = new double[]{
-            vtkMath.Random(-10,10),
-            vtkMath.Random(-10,10),
-            vtkMath.Random(-10,10)
-         };
-
-         double[] endPoint = new double[]{
-            vtkMath.Random(-10,10),
-            vtkMath.Random(-10,10),
-            vtkMath.Random(-10,10)
-         };
-
-         // Compute a basis
-         double[] normalizedX = new double[3];
-         double[] normalizedY = new double[3];
-         double[] normalizedZ = new double[3];
-
-         // The X axis is a vector from start to end
-         myMath.Subtract(endPoint, startPoint, ref normalizedX);
-         double length = myMath.Norm(normalizedX);
-         myMath.Normalize(ref normalizedX);
-
-         // The Z axis is an arbitrary vector cross X
-         double[] arbitrary = new double[]{
-            vtkMath.Random(-10,10),
-            vtkMath.Random(-10,10),
-            vtkMath.Random(-10,10)
-         };
-         myMath.Cross(normalizedX, arbitrary, ref normalizedZ);
-         myMath.Normalize(ref normalizedZ);
-         // The Y axis is Z cross X
-         myMath.Cross(normalizedZ, normalizedX, ref normalizedY);
-         vtkMatrix4x4 matrix = vtkMatrix4x4.New();
-
-         // Create the direction cosine matrix
-         matrix.Identity();
-         for(int i = 0; i &lt; 3; i++) {
-            matrix.SetElement(i, 0, normalizedX[i]);
-            matrix.SetElement(i, 1, normalizedY[i]);
-            matrix.SetElement(i, 2, normalizedZ[i]);
-         }
-
-         // Apply the transforms
-         vtkTransform transform = vtkTransform.New();
-         transform.Translate(startPoint[0], startPoint[1], startPoint[2]);
-         transform.Concatenate(matrix);
-         transform.Scale(length, length, length);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">OrientedArrow</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-         //Create a mapper and actor for the arrow
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         vtkActor actor = vtkActor.New();
-#if USER_MATRIX
-         mapper.SetInputConnection(arrowSource.GetOutputPort());
-         actor.SetUserMatrix(transform.GetMatrix());
-#else
-         // Transform the polydata
-         vtkTransformPolyDataFilter transformPD = vtkTransformPolyDataFilter.New();
-         transformPD.SetTransform(transform);
-         transformPD.SetInputConnection(arrowSource.GetOutputPort());
-         mapper.SetInputConnection(transformPD.GetOutputPort());
-#endif
-         actor.SetMapper(mapper);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">OrientedArrow</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">//Create an arrow.</span>
+         <span class="n">vtkArrowSource</span> <span class="n">arrowSource</span> <span class="p">=</span> <span class="n">vtkArrowSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         // Create spheres for start and end point
-         vtkSphereSource sphereStartSource = vtkSphereSource.New();
-         sphereStartSource.SetCenter(startPoint[0], startPoint[1], startPoint[2]);
-         vtkPolyDataMapper sphereStartMapper = vtkPolyDataMapper.New();
-         sphereStartMapper.SetInputConnection(sphereStartSource.GetOutputPort());
-         vtkActor sphereStart = vtkActor.New();
-         sphereStart.SetMapper(sphereStartMapper);
-         sphereStart.GetProperty().SetColor(1.0, 1.0, .3);
+         <span class="c1">// Generate a random start and end point</span>
+         <span class="n">vtkMath</span><span class="p">.</span><span class="n">RandomSeed</span><span class="p">(</span><span class="m">8775070</span><span class="p">);</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">startPoint</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]{</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
+         <span class="p">};</span>
 
-         vtkSphereSource sphereEndSource = vtkSphereSource.New();
-         sphereEndSource.SetCenter(endPoint[0], endPoint[1], endPoint[2]);
-         vtkPolyDataMapper sphereEndMapper = vtkPolyDataMapper.New();
-         sphereEndMapper.SetInputConnection(sphereEndSource.GetOutputPort());
-         vtkActor sphereEnd = vtkActor.New();
-         sphereEnd.SetMapper(sphereEndMapper);
-         sphereEnd.GetProperty().SetColor(1.0, .3, .3);
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">endPoint</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]{</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
+         <span class="p">};</span>
 
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         renderer.AddActor(actor);
-         renderer.AddActor(sphereStart);
-         renderer.AddActor(sphereEnd);
-         renderer.ResetCamera();
-      }
-   }
+         <span class="c1">// Compute a basis</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">normalizedX</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">normalizedY</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">normalizedZ</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
 
+         <span class="c1">// The X axis is a vector from start to end</span>
+         <span class="n">myMath</span><span class="p">.</span><span class="n">Subtract</span><span class="p">(</span><span class="n">endPoint</span><span class="p">,</span> <span class="n">startPoint</span><span class="p">,</span> <span class="k">ref</span> <span class="n">normalizedX</span><span class="p">);</span>
+         <span class="kt">double</span> <span class="n">length</span> <span class="p">=</span> <span class="n">myMath</span><span class="p">.</span><span class="n">Norm</span><span class="p">(</span><span class="n">normalizedX</span><span class="p">);</span>
+         <span class="n">myMath</span><span class="p">.</span><span class="n">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="n">normalizedX</span><span class="p">);</span>
 
-   // I'm using my own math class
-   // reason: due to the fact that ActiViz wraps native, unmanaged functions in class vtkMath
-   // many of the arguments like double arrays (for vector definition) has to be passed by an IntPtr.
-   //
-   // But there do exist some managed open source math libraries of professional quality, that it
-   // should be not a problem at all using another math library for vector algebra.
-   //   
-   // vtkmath could be used for vetor algebra, no doubt, but then functions which heavily relies on 
-   // vector algebra like dot or cross product, etc. would be full of Marshaling code.
+         <span class="c1">// The Z axis is an arbitrary vector cross X</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">arbitrary</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]{</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">),</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Random</span><span class="p">(-</span><span class="m">10</span><span class="p">,</span><span class="m">10</span><span class="p">)</span>
+         <span class="p">};</span>
+         <span class="n">myMath</span><span class="p">.</span><span class="n">Cross</span><span class="p">(</span><span class="n">normalizedX</span><span class="p">,</span> <span class="n">arbitrary</span><span class="p">,</span> <span class="k">ref</span> <span class="n">normalizedZ</span><span class="p">);</span>
+         <span class="n">myMath</span><span class="p">.</span><span class="n">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="n">normalizedZ</span><span class="p">);</span>
+         <span class="c1">// The Y axis is Z cross X</span>
+         <span class="n">myMath</span><span class="p">.</span><span class="n">Cross</span><span class="p">(</span><span class="n">normalizedZ</span><span class="p">,</span> <span class="n">normalizedX</span><span class="p">,</span> <span class="k">ref</span> <span class="n">normalizedY</span><span class="p">);</span>
+         <span class="n">vtkMatrix4x4</span> <span class="n">matrix</span> <span class="p">=</span> <span class="n">vtkMatrix4x4</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-   public class myMath {
-      public static void Subtract(double[] a, double[] b, ref double[] c) {
-         c[0] = a[0] - b[0];
-         c[1] = a[1] - b[1];
-         c[2] = a[2] - b[2];
-      }
+         <span class="c1">// Create the direction cosine matrix</span>
+         <span class="n">matrix</span><span class="p">.</span><span class="n">Identity</span><span class="p">();</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">3</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">matrix</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">normalizedX</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="n">matrix</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">normalizedY</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="n">matrix</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">normalizedZ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+         <span class="p">}</span>
+
+         <span class="c1">// Apply the transforms</span>
+         <span class="n">vtkTransform</span> <span class="n">transform</span> <span class="p">=</span> <span class="n">vtkTransform</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">transform</span><span class="p">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">startPoint</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">startPoint</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">startPoint</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">transform</span><span class="p">.</span><span class="n">Concatenate</span><span class="p">(</span><span class="n">matrix</span><span class="p">);</span>
+         <span class="n">transform</span><span class="p">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
 
 
-      public static double Norm(double[] x) {
-         return Math.Sqrt(x[0] * x[0] + x[1] * x[1] + x[2] * x[2]);
-      }
+         <span class="c1">//Create a mapper and actor for the arrow</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if USER_MATRIX</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">arrowSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetUserMatrix</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">GetMatrix</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="c1">// Transform the polydata</span>
+         <span class="n">vtkTransformPolyDataFilter</span> <span class="n">transformPD</span> <span class="p">=</span> <span class="n">vtkTransformPolyDataFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">transformPD</span><span class="p">.</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+         <span class="n">transformPD</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">arrowSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">transformPD</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+
+         <span class="c1">// Create spheres for start and end point</span>
+         <span class="n">vtkSphereSource</span> <span class="n">sphereStartSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereStartSource</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">startPoint</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">startPoint</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">startPoint</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">sphereStartMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereStartMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereStartSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">vtkActor</span> <span class="n">sphereStart</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereStart</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereStartMapper</span><span class="p">);</span>
+         <span class="n">sphereStart</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetColor</span><span class="p">(</span><span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">);</span>
+
+         <span class="n">vtkSphereSource</span> <span class="n">sphereEndSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereEndSource</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">endPoint</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">endPoint</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">endPoint</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">sphereEndMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereEndMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereEndSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">vtkActor</span> <span class="n">sphereEnd</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereEnd</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereEndMapper</span><span class="p">);</span>
+         <span class="n">sphereEnd</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetColor</span><span class="p">(</span><span class="m">1.0</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">);</span>
+
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereStart</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereEnd</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
 
 
-      public static void Normalize(ref double[] x) {
-         double length = Norm(x);
-         x[0] /= length;
-         x[1] /= length;
-         x[2] /= length;
-      }
+   <span class="c1">// I&#39;m using my own math class</span>
+   <span class="c1">// reason: due to the fact that ActiViz wraps native, unmanaged functions in class vtkMath</span>
+   <span class="c1">// many of the arguments like double arrays (for vector definition) has to be passed by an IntPtr.</span>
+   <span class="c1">//</span>
+   <span class="c1">// But there do exist some managed open source math libraries of professional quality, that it</span>
+   <span class="c1">// should be not a problem at all using another math library for vector algebra.</span>
+   <span class="c1">//   </span>
+   <span class="c1">// vtkmath could be used for vetor algebra, no doubt, but then functions which heavily relies on </span>
+   <span class="c1">// vector algebra like dot or cross product, etc. would be full of Marshaling code.</span>
 
-      public static void Cross(double[] x, double[] y, ref double[] z) {
-         z[0] = ( x[1] * y[2] ) - ( x[2] * y[1] );
-         z[1] = ( x[2] * y[0] ) - ( x[0] * y[2] );
-         z[2] = ( x[0] * y[1] ) - ( x[1] * y[0] );
-      }
-   }
+   <span class="k">public</span> <span class="k">class</span> <span class="nc">myMath</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Subtract</span><span class="p">(</span><span class="kt">double</span><span class="p">[]</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span><span class="p">[]</span> <span class="n">b</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">double</span><span class="p">[]</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">c</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="n">a</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">-</span> <span class="n">b</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+         <span class="n">c</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">a</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">-</span> <span class="n">b</span><span class="p">[</span><span class="m">1</span><span class="p">];</span>
+         <span class="n">c</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="n">a</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">-</span> <span class="n">b</span><span class="p">[</span><span class="m">2</span><span class="p">];</span>
+      <span class="p">}</span>
 
-}
-</code></pre>
+
+      <span class="k">public</span> <span class="k">static</span> <span class="kt">double</span> <span class="nf">Norm</span><span class="p">(</span><span class="kt">double</span><span class="p">[]</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">*</span> <span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">*</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">*</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+      <span class="p">}</span>
+
+
+      <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="kt">double</span><span class="p">[]</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+         <span class="kt">double</span> <span class="n">length</span> <span class="p">=</span> <span class="n">Norm</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+         <span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">/=</span> <span class="n">length</span><span class="p">;</span>
+         <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">/=</span> <span class="n">length</span><span class="p">;</span>
+         <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">/=</span> <span class="n">length</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Cross</span><span class="p">(</span><span class="kt">double</span><span class="p">[]</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span><span class="p">[]</span> <span class="n">y</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">double</span><span class="p">[]</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">z</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">*</span> <span class="n">y</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">)</span> <span class="p">-</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">*</span> <span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">);</span>
+         <span class="n">z</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">*</span> <span class="n">y</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">-</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">*</span> <span class="n">y</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">);</span>
+         <span class="n">z</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">*</span> <span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">-</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">*</span> <span class="n">y</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

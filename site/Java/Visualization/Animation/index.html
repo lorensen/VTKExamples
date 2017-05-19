@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,85 +15990,85 @@
                   <h1>Animation</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Visualization/Animation</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to create a simple animation. A timer is used to move a sphere across a scene.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Animation.java</strong></p>
-<pre><code class="java">import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class Animation
-{
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Animation</span>
+<span class="o">{</span>
 
-  static
-  {
-    System.loadLibrary(&quot;vtkCommonJava&quot;);
-    System.loadLibrary(&quot;vtkFilteringJava&quot;);
-    System.loadLibrary(&quot;vtkIOJava&quot;);
-    System.loadLibrary(&quot;vtkImagingJava&quot;);
-    System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-    System.loadLibrary(&quot;vtkRenderingJava&quot;);
-  }
+  <span class="kd">static</span>
+  <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  static class vtkTimerCallback
-  {
-    void Execute()
-    {
-      ++this.TimerCount;
-      System.out.println(this.TimerCount);
-      actor.SetPosition(this.TimerCount, this.TimerCount,0);
-      iren.GetRenderWindow().Render();
-    }
+  <span class="kd">static</span> <span class="kd">class</span> <span class="nc">vtkTimerCallback</span>
+  <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">Execute</span><span class="o">()</span>
+    <span class="o">{</span>
+      <span class="o">++</span><span class="k">this</span><span class="o">.</span><span class="na">TimerCount</span><span class="o">;</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">TimerCount</span><span class="o">);</span>
+      <span class="n">actor</span><span class="o">.</span><span class="na">SetPosition</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">TimerCount</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">TimerCount</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+      <span class="n">iren</span><span class="o">.</span><span class="na">GetRenderWindow</span><span class="o">().</span><span class="na">Render</span><span class="o">();</span>
+    <span class="o">}</span>
 
-    private int TimerCount = 0;
-    public vtkActor actor;
-    public vtkRenderWindowInteractor iren;
-  }
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">TimerCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">vtkActor</span> <span class="n">actor</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">vtkRenderWindowInteractor</span> <span class="n">iren</span><span class="o">;</span>
+  <span class="o">}</span>
 
-  public static void main(String[] args)
-  {
-    //Create a sphere
-    vtkSphereSource sphereSource = new vtkSphereSource();
-    sphereSource.SetCenter(0.0, 0.0, 0.0);
-    sphereSource.SetRadius(5.0);
-    sphereSource.Update();
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="c1">//Create a sphere</span>
+    <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSphereSource</span><span class="o">();</span>
+    <span class="n">sphereSource</span><span class="o">.</span><span class="na">SetCenter</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">);</span>
+    <span class="n">sphereSource</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span><span class="mf">5.0</span><span class="o">);</span>
+    <span class="n">sphereSource</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
-    //Create a mapper and actor
-    vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-    mapper.SetInputConnection(sphereSource.GetOutputPort());
-    vtkActor actor = new vtkActor();
-    actor.SetMapper(mapper);
+    <span class="c1">//Create a mapper and actor</span>
+    <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
+    <span class="n">vtkActor</span> <span class="n">actor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">actor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">mapper</span><span class="o">);</span>
 
-    //Create a renderer, render window, and interactor
-    vtkRenderer renderer = new vtkRenderer();
-    vtkRenderWindow renderWindow = new vtkRenderWindow();
-    renderWindow.AddRenderer(renderer);
-    vtkRenderWindowInteractor renderWindowInteractor = new vtkRenderWindowInteractor();
-    renderWindowInteractor.SetRenderWindow(renderWindow);
+    <span class="c1">//Create a renderer, render window, and interactor</span>
+    <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+    <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span><span class="n">renderer</span><span class="o">);</span>
+    <span class="n">vtkRenderWindowInteractor</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">();</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">SetRenderWindow</span><span class="o">(</span><span class="n">renderWindow</span><span class="o">);</span>
 
-    //Add the actor to the scene
-    renderer.AddActor(actor);
-    renderer.SetBackground(1,1,1); // Background color white
+    <span class="c1">//Add the actor to the scene</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">actor</span><span class="o">);</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">SetBackground</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// Background color white</span>
 
-    //Render and interact
-    renderWindow.Render();
+    <span class="c1">//Render and interact</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
 
-    // Initialize must be called prior to creating timer events.
-    renderWindowInteractor.Initialize();
+    <span class="c1">// Initialize must be called prior to creating timer events.</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">Initialize</span><span class="o">();</span>
 
-    // Sign up to receive TimerEvent
-    vtkTimerCallback cb = new vtkTimerCallback();
-    cb.actor = actor;
-    cb.iren = renderWindowInteractor;
-    renderWindowInteractor.AddObserver(&quot;TimerEvent&quot;, cb, &quot;Execute&quot;);
+    <span class="c1">// Sign up to receive TimerEvent</span>
+    <span class="n">vtkTimerCallback</span> <span class="n">cb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkTimerCallback</span><span class="o">();</span>
+    <span class="n">cb</span><span class="o">.</span><span class="na">actor</span> <span class="o">=</span> <span class="n">actor</span><span class="o">;</span>
+    <span class="n">cb</span><span class="o">.</span><span class="na">iren</span> <span class="o">=</span> <span class="n">renderWindowInteractor</span><span class="o">;</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">AddObserver</span><span class="o">(</span><span class="s">&quot;TimerEvent&quot;</span><span class="o">,</span> <span class="n">cb</span><span class="o">,</span> <span class="s">&quot;Execute&quot;</span><span class="o">);</span>
 
-    int timerId = renderWindowInteractor.CreateRepeatingTimer(100);
-    System.out.println(&quot;timerId: &quot; + timerId);
+    <span class="kt">int</span> <span class="n">timerId</span> <span class="o">=</span> <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">CreateRepeatingTimer</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;timerId: &quot;</span> <span class="o">+</span> <span class="n">timerId</span><span class="o">);</span>
 
-    //start the interaction and timer
-    renderWindowInteractor.Start();
-  }
-}
-</code></pre>
+    <span class="c1">//start the interaction and timer</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">Start</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

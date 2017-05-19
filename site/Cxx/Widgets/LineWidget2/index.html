@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,141 +16005,148 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/LineWidget2</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestLineWidget2.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LineWidget2.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkLineWidget2.h&gt;
-#include &lt;vtkLineRepresentation.h&gt;
-#include &lt;vtkCommand.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLineWidget2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLineRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
 
-// This does the actual work.
-// Callback for the interaction
-class vtkLineCallback : public vtkCommand
-{
-  public:
-    static vtkLineCallback *New()
-    {
-      return new vtkLineCallback;
-    }
+<span class="c1">// This does the actual work.</span>
+<span class="c1">// Callback for the interaction</span>
+<span class="k">class</span> <span class="nc">vtkLineCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">vtkLineCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">vtkLineCallback</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    virtual void Execute(vtkObject *caller, unsigned long, void*)
-    {
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="p">{</span>
 
-      vtkLineWidget2 *lineWidget = 
-          reinterpret_cast&lt;vtkLineWidget2*&gt;(caller);
+      <span class="n">vtkLineWidget2</span> <span class="o">*</span><span class="n">lineWidget</span> <span class="o">=</span> 
+          <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkLineWidget2</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
 
-      // Get the actual box coordinates of the line
-      vtkSmartPointer&lt;vtkPolyData&gt; polydata = 
-          vtkSmartPointer&lt;vtkPolyData&gt;::New();
-      static_cast&lt;vtkLineRepresentation*&gt;(lineWidget-&gt;GetRepresentation())-&gt;GetPolyData (polydata);
+      <span class="c1">// Get the actual box coordinates of the line</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> 
+          <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkLineRepresentation</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">lineWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetPolyData</span> <span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
 
-      // Display one of the points, just so we know it's working
-      double p[3];
-      polydata-&gt;GetPoint(0,p);
-      std::cout &lt;&lt; &quot;P: &quot; &lt;&lt; p[0] &lt;&lt; &quot; &quot; &lt;&lt; p[1] &lt;&lt; &quot; &quot; &lt;&lt; p[2] &lt;&lt; std::endl;
-    }
-    vtkLineCallback(){}
+      <span class="c1">// Display one of the points, just so we know it&#39;s working</span>
+      <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">p</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;P: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">vtkLineCallback</span><span class="p">(){}</span>
 
-};
+<span class="p">};</span>
 
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource = 
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; actor = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  //renderer-&gt;AddActor(actor);
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="c1">//renderer-&gt;AddActor(actor);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkLineWidget2&gt; lineWidget = 
-    vtkSmartPointer&lt;vtkLineWidget2&gt;::New();
-  lineWidget-&gt;SetInteractor(renderWindowInteractor);
-  lineWidget-&gt;CreateDefaultRepresentation();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLineWidget2</span><span class="o">&gt;</span> <span class="n">lineWidget</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLineWidget2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lineWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="n">lineWidget</span><span class="o">-&gt;</span><span class="n">CreateDefaultRepresentation</span><span class="p">();</span>
 
-  // You could do this if you want to set properties at this point:
-  //vtkSmartPointer&lt;vtkLineRepresentation&gt; lineRepresentation = 
-    //vtkSmartPointer&lt;vtkLineRepresentation&gt;::New();
-  //lineWidget-&gt;SetRepresentation(lineRepresentation);
+  <span class="c1">// You could do this if you want to set properties at this point:</span>
+  <span class="c1">//vtkSmartPointer&lt;vtkLineRepresentation&gt; lineRepresentation = </span>
+    <span class="c1">//vtkSmartPointer&lt;vtkLineRepresentation&gt;::New();</span>
+  <span class="c1">//lineWidget-&gt;SetRepresentation(lineRepresentation);</span>
 
-  vtkSmartPointer&lt;vtkLineCallback&gt; lineCallback = 
-    vtkSmartPointer&lt;vtkLineCallback&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLineCallback</span><span class="o">&gt;</span> <span class="n">lineCallback</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLineCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  lineWidget-&gt;AddObserver(vtkCommand::InteractionEvent,lineCallback);
+  <span class="n">lineWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">lineCallback</span><span class="p">);</span>
 
-  // Render
-  renderWindow-&gt;Render();
+  <span class="c1">// Render</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindow-&gt;Render();
-  lineWidget-&gt;On();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">lineWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
 
-  // Begin mouse interaction
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Begin mouse interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LineWidget2)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LineWidget2</span><span class="p">)</span>
 
-add_executable(LineWidget2 MACOSX_BUNDLE LineWidget2.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LineWidget2 ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LineWidget2</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LineWidget2.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-linewidget2">Download and Build LineWidget2</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LineWidget2</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-linewidget2">Download and Build LineWidget2<a class="headerlink" href="#download-and-build-linewidget2" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LineWidget2.tar">here to download LineWidget2</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LineWidget2.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LineWidget2/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LineWidget2/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LineWidget2
-</code></pre>
+<div class="codehilite"><pre><span></span>./LineWidget2
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

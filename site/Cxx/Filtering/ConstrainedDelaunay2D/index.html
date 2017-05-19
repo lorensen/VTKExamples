@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,166 +16019,173 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Filtering/ConstrainedDelaunay2D</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestConstrainedDelaunay2D.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Perform a 2D Delaunay triangulation respecting a specified boundary. This examples constructs a 10x10 grid of points. It then defines a polygon that uses the points in the grid. We want to triangulate all of the points except the region inside the boundary of the polygon. We expect a rectangular hole of size 4x3 in the resulting triangulated plane.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConstrainedDelaunay2D.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPolygon.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkDelaunay2D.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolygon.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDelaunay2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Generate a 10 x 10 grid of points
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  for(unsigned int x = 0; x &lt; 10; x++)
-  {
-    for(unsigned int y = 0; y &lt; 10; y++)
-    {
-      points-&gt;InsertNextPoint(x + vtkMath::Random(-.25, .25),
-                              y + vtkMath::Random(-.25,.25),
-                              0);
-    }
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Generate a 10 x 10 grid of points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mf">.25</span><span class="p">,</span> <span class="mf">.25</span><span class="p">),</span>
+                              <span class="n">y</span> <span class="o">+</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.25</span><span class="p">),</span>
+                              <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; aPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  aPolyData-&gt;SetPoints(points);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">aPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">aPolyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  // Create a cell array to store the polygon in
-  vtkSmartPointer&lt;vtkCellArray&gt; aCellArray =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
+  <span class="c1">// Create a cell array to store the polygon in</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">aCellArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Define a polygonal hole with a clockwise polygon
-  vtkSmartPointer&lt;vtkPolygon&gt; aPolygon =
-   vtkSmartPointer&lt;vtkPolygon&gt;::New();
+  <span class="c1">// Define a polygonal hole with a clockwise polygon</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolygon</span><span class="o">&gt;</span> <span class="n">aPolygon</span> <span class="o">=</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolygon</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(22);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(23);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(24);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(25);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(35);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(45);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(44);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(43);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(42);
-  aPolygon-&gt;GetPointIds()-&gt;InsertNextId(32);
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">22</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">44</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">43</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+  <span class="n">aPolygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InsertNextId</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
 
-  aCellArray-&gt;InsertNextCell(aPolygon);
+  <span class="n">aCellArray</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">aPolygon</span><span class="p">);</span>
 
-  // Create a polydata to store the boundary. The points must be the
-  // same as the points we will triangulate.
-  vtkSmartPointer&lt;vtkPolyData&gt; boundary =
-   vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  boundary-&gt;SetPoints(aPolyData-&gt;GetPoints());
-  boundary-&gt;SetPolys(aCellArray);
+  <span class="c1">// Create a polydata to store the boundary. The points must be the</span>
+  <span class="c1">// same as the points we will triangulate.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">boundary</span> <span class="o">=</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boundary</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">aPolyData</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">());</span>
+  <span class="n">boundary</span><span class="o">-&gt;</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">aCellArray</span><span class="p">);</span>
 
-  // Triangulate the grid points
-  vtkSmartPointer&lt;vtkDelaunay2D&gt; delaunay =
-   vtkSmartPointer&lt;vtkDelaunay2D&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  delaunay-&gt;SetInput(aPolyData);
-  delaunay-&gt;SetSource(boundary);
-#else
-  delaunay-&gt;SetInputData(aPolyData);
-  delaunay-&gt;SetSourceData(boundary);
-#endif
-  delaunay-&gt;Update();
+  <span class="c1">// Triangulate the grid points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;</span> <span class="n">delaunay</span> <span class="o">=</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">aPolyData</span><span class="p">);</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">SetSource</span><span class="p">(</span><span class="n">boundary</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">aPolyData</span><span class="p">);</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">SetSourceData</span><span class="p">(</span><span class="n">boundary</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; meshMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  meshMapper-&gt;SetInputConnection(delaunay-&gt;GetOutputPort());
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">meshMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">meshMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; meshActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  meshActor-&gt;SetMapper(meshMapper);
-  //meshActor-&gt;GetProperty()-&gt;SetEdgeColor(0,0,1); // Why aren't the edges aren't visible unless we set the representation to wireframe?
-  //meshActor-&gt;GetProperty()-&gt;SetInterpolationToFlat();
-  meshActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">meshActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">meshActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">meshMapper</span><span class="p">);</span>
+  <span class="c1">//meshActor-&gt;GetProperty()-&gt;SetEdgeColor(0,0,1); // Why aren&#39;t the edges aren&#39;t visible unless we set the representation to wireframe?</span>
+  <span class="c1">//meshActor-&gt;GetProperty()-&gt;SetInterpolationToFlat();</span>
+  <span class="n">meshActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; boundaryMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  boundaryMapper-&gt;SetInputConnection(boundary-&gt;GetProducerPort());
-#else
-  boundaryMapper-&gt;SetInputData(boundary);
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">boundaryMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">boundaryMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">boundary</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">boundaryMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">boundary</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; boundaryActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  boundaryActor-&gt;SetMapper(boundaryMapper);
-  boundaryActor-&gt;GetProperty()-&gt;SetColor(1,0,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">boundaryActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boundaryActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">boundaryMapper</span><span class="p">);</span>
+  <span class="n">boundaryActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actor to the scene
-  renderer-&gt;AddActor(meshActor);
-  renderer-&gt;AddActor(boundaryActor);
-  renderer-&gt;SetBackground(.3, .6, .3); // Background color green
+  <span class="c1">// Add the actor to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">meshActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">boundaryActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color green</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ConstrainedDelaunay2D)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ConstrainedDelaunay2D</span><span class="p">)</span>
 
-add_executable(ConstrainedDelaunay2D MACOSX_BUNDLE ConstrainedDelaunay2D.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ConstrainedDelaunay2D ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ConstrainedDelaunay2D</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ConstrainedDelaunay2D.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-constraineddelaunay2d">Download and Build ConstrainedDelaunay2D</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ConstrainedDelaunay2D</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-constraineddelaunay2d">Download and Build ConstrainedDelaunay2D<a class="headerlink" href="#download-and-build-constraineddelaunay2d" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConstrainedDelaunay2D.tar">here to download ConstrainedDelaunay2D</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConstrainedDelaunay2D.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ConstrainedDelaunay2D/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ConstrainedDelaunay2D/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ConstrainedDelaunay2D
-</code></pre>
+<div class="codehilite"><pre><span></span>./ConstrainedDelaunay2D
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,137 +16019,144 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/OrientationMarkerWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestOrientationMarkerWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example uses a polydata as an orientation icon. You can get the bunny data <a href="https://gitlab.kitware.com/lorensen/VTKExamples/raw/master/Testing/Data/Bunny.vtp">here</a>.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OrientationMarkerWidget.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkOrientationMarkerWidget.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkSuperquadricSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOrientationMarkerWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSuperquadricSource.h&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[] )
-{
-  // Parse command line arguments
-  if(argc != 2)
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; Filename(.vtp)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Parse command line arguments</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename(.vtp)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Read the polydata for the icon
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader-&gt;SetFileName(argv[1]);
+  <span class="c1">// Read the polydata for the icon</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; iconMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  iconMapper-&gt;SetInputConnection(reader-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">iconMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iconMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; iconActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  iconActor-&gt;SetMapper(iconMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">iconActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iconActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">iconMapper</span><span class="p">);</span>
 
-  // Set up the renderer, window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;SetBackground( 0.0980, 0.0980, 0.4392 );
+  <span class="c1">// Set up the renderer, window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span> <span class="mf">0.0980</span><span class="p">,</span> <span class="mf">0.0980</span><span class="p">,</span> <span class="mf">0.4392</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer( renderer );
-  renWin-&gt;SetSize( 400, 400 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">400</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow( renWin );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renWin</span> <span class="p">);</span>
 
-  // Set up the widget
-  vtkSmartPointer&lt;vtkOrientationMarkerWidget&gt; widget =
-    vtkSmartPointer&lt;vtkOrientationMarkerWidget&gt;::New();
-  widget-&gt;SetOutlineColor( 0.9300, 0.5700, 0.1300 );
-  widget-&gt;SetOrientationMarker( iconActor );
-  widget-&gt;SetInteractor( iren );
-  widget-&gt;SetViewport( 0.0, 0.0, 0.2, 0.2 );
-  widget-&gt;SetEnabled( 1 );
-  widget-&gt;InteractiveOn();
+  <span class="c1">// Set up the widget</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOrientationMarkerWidget</span><span class="o">&gt;</span> <span class="n">widget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOrientationMarkerWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetOutlineColor</span><span class="p">(</span> <span class="mf">0.9300</span><span class="p">,</span> <span class="mf">0.5700</span><span class="p">,</span> <span class="mf">0.1300</span> <span class="p">);</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetOrientationMarker</span><span class="p">(</span> <span class="n">iconActor</span> <span class="p">);</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span> <span class="n">iren</span> <span class="p">);</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span> <span class="p">);</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetEnabled</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">InteractiveOn</span><span class="p">();</span>
 
-  // Create a superquadric
-  vtkSmartPointer&lt;vtkSuperquadricSource&gt; superquadricSource =
-    vtkSmartPointer&lt;vtkSuperquadricSource&gt;::New();
-  superquadricSource-&gt;SetPhiRoundness(.2);
-  superquadricSource-&gt;SetThetaRoundness(.8);
+  <span class="c1">// Create a superquadric</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadricSource</span><span class="o">&gt;</span> <span class="n">superquadricSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadricSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">superquadricSource</span><span class="o">-&gt;</span><span class="n">SetPhiRoundness</span><span class="p">(</span><span class="mf">.2</span><span class="p">);</span>
+  <span class="n">superquadricSource</span><span class="o">-&gt;</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="mf">.8</span><span class="p">);</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; superquadricMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  superquadricMapper-&gt;SetInputConnection(superquadricSource-&gt;GetOutputPort());
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">superquadricMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">superquadricMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">superquadricSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; superquadricActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  superquadricActor-&gt;SetMapper(superquadricMapper);
-  superquadricActor-&gt;GetProperty()-&gt;SetInterpolationToFlat();
-  superquadricActor-&gt;GetProperty()-&gt;SetDiffuseColor(0.93, 0.57, 0.13);
-  superquadricActor-&gt;GetProperty()-&gt;SetSpecularColor(1.0, 1.0, 1.0);
-  superquadricActor-&gt;GetProperty()-&gt;SetDiffuse(.6);
-  superquadricActor-&gt;GetProperty()-&gt;SetSpecular(.5);
-  superquadricActor-&gt;GetProperty()-&gt;SetSpecularPower(5.0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">superquadricActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">superquadricMapper</span><span class="p">);</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.57</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">);</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">.6</span><span class="p">);</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mf">5.0</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(superquadricActor);
-  renderer-&gt;ResetCamera();
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">superquadricActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  renWin-&gt;Render();
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  iren-&gt;Initialize();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(OrientationMarkerWidget)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">OrientationMarkerWidget</span><span class="p">)</span>
 
-add_executable(OrientationMarkerWidget MACOSX_BUNDLE OrientationMarkerWidget.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(OrientationMarkerWidget ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">OrientationMarkerWidget</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">OrientationMarkerWidget.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-orientationmarkerwidget">Download and Build OrientationMarkerWidget</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">OrientationMarkerWidget</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-orientationmarkerwidget">Download and Build OrientationMarkerWidget<a class="headerlink" href="#download-and-build-orientationmarkerwidget" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OrientationMarkerWidget.tar">here to download OrientationMarkerWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball OrientationMarkerWidget.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd OrientationMarkerWidget/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd OrientationMarkerWidget/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./OrientationMarkerWidget
-</code></pre>
+<div class="codehilite"><pre><span></span>./OrientationMarkerWidget
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

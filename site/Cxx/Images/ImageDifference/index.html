@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,145 +16019,152 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageDifference</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageDifference.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example makes a large square and a smaller square and subtracts them, leaving the outline of a square.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageDifference.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkImageDifference.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkImageActor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageDifference.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create an image
-  vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; source1 = 
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-  source1-&gt;SetScalarTypeToUnsignedChar();
-  source1-&gt;SetNumberOfScalarComponents(3);
-  source1-&gt;SetExtent(0, 100, 0, 100, 0, 0);
-  source1-&gt;SetDrawColor(0,0,0,1);
-  source1-&gt;FillBox(0, 100, 0, 100);
-  source1-&gt;SetDrawColor(255,0,0,1);
-  source1-&gt;FillBox(10, 90, 10, 90);
-  source1-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">source1</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+  <span class="n">source1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create another image
-  vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; source2 = 
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-  source2-&gt;SetScalarTypeToUnsignedChar();
-  source2-&gt;SetNumberOfScalarComponents(3);
-  source2-&gt;SetExtent(0, 100, 0, 100, 0, 0);
-  source2-&gt;SetDrawColor(0,0,0,1);
-  source2-&gt;FillBox(0, 100, 0, 100);
-  source2-&gt;SetDrawColor(255,0,0,1);
-  source2-&gt;FillBox(20, 80, 20, 80);
-  source2-&gt;Update();
+  <span class="c1">// Create another image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">source2</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">);</span>
+  <span class="n">source2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageDifference&gt; differenceFilter = 
-    vtkSmartPointer&lt;vtkImageDifference&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageDifference</span><span class="o">&gt;</span> <span class="n">differenceFilter</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageDifference</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  differenceFilter-&gt;SetInputConnection(source1-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  differenceFilter-&gt;SetImage(source2-&gt;GetOutput());
-#else
-  differenceFilter-&gt;SetImageConnection(source2-&gt;GetOutputPort());
-#endif
-  differenceFilter-&gt;Update();
+  <span class="n">differenceFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">differenceFilter</span><span class="o">-&gt;</span><span class="n">SetImage</span><span class="p">(</span><span class="n">source2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">differenceFilter</span><span class="o">-&gt;</span><span class="n">SetImageConnection</span><span class="p">(</span><span class="n">source2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">differenceFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double leftViewport[4] = {0.0, 0.0, 0.33, 1.0};
-  double centerViewport[4] = {0.33, 0.0, 0.66, 1.0};
-  double rightViewport[4] = {0.66, 0.0, 1.0, 1.0};
+  <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">leftViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">centerViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">rightViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Setup render window
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
+  <span class="c1">// Setup render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Setup renderers
-  vtkSmartPointer&lt;vtkRenderer&gt; leftRenderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(leftRenderer);
-  leftRenderer-&gt;SetViewport(leftViewport);
-  vtkSmartPointer&lt;vtkImageActor&gt; leftActor = 
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  leftActor-&gt;GetMapper()-&gt;SetInputConnection(source1-&gt;GetOutputPort());
-  leftRenderer-&gt;AddActor(leftActor);
+  <span class="c1">// Setup renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">leftRenderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">leftActor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">leftActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">leftActor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; centerRenderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(centerRenderer);
-  centerRenderer-&gt;SetViewport(centerViewport);
-  vtkSmartPointer&lt;vtkImageActor&gt; centerActor = 
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  centerActor-&gt;GetMapper()-&gt;SetInputConnection(source2-&gt;GetOutputPort());
-  centerRenderer-&gt;AddActor(centerActor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">centerRenderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">centerRenderer</span><span class="p">);</span>
+  <span class="n">centerRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">centerViewport</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">centerActor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">centerActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">centerRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">centerActor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; rightRenderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(rightRenderer);
-  rightRenderer-&gt;SetViewport(rightViewport);
-  vtkSmartPointer&lt;vtkImageActor&gt; rightActor = 
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  rightActor-&gt;GetMapper()-&gt;SetInputConnection(differenceFilter-&gt;GetOutputPort());
-  rightRenderer-&gt;AddActor(rightActor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">rightRenderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">rightActor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rightActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">differenceFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">rightActor</span><span class="p">);</span>
 
-  // Setup render window interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="c1">// Setup render window interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Render and start interaction
-  renderWindowInteractor-&gt;SetRenderWindow ( renderWindow );
-  renderWindowInteractor-&gt;Initialize();
+  <span class="c1">// Render and start interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span> <span class="p">(</span> <span class="n">renderWindow</span> <span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageDifference)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageDifference</span><span class="p">)</span>
 
-add_executable(ImageDifference MACOSX_BUNDLE ImageDifference.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageDifference ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageDifference</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageDifference.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imagedifference">Download and Build ImageDifference</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageDifference</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imagedifference">Download and Build ImageDifference<a class="headerlink" href="#download-and-build-imagedifference" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageDifference.tar">here to download ImageDifference</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageDifference.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageDifference/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageDifference/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageDifference
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageDifference
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

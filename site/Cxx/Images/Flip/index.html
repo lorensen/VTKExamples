@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,186 +16019,193 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/Flip</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestFlip.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to flip an image over an axis.</p>
 <p>Need a better source image (non-symmetrical!).</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Flip.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageCast.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageFlip.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkImageMandelbrotSource.h&gt;
-#include &lt;vtkImageActor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCast.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageFlip.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMandelbrotSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create an image
-  vtkSmartPointer&lt;vtkImageMandelbrotSource&gt; source =
-    vtkSmartPointer&lt;vtkImageMandelbrotSource&gt;::New();
-  source-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMandelbrotSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMandelbrotSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageCast&gt; castSource =
-    vtkSmartPointer&lt;vtkImageCast&gt;::New();
-  castSource-&gt;SetOutputScalarTypeToUnsignedChar();
-  castSource-&gt;SetInputConnection(source-&gt;GetOutputPort());
-  castSource-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">castSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">castSource</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">castSource</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">castSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageFlip&gt; flipXFilter =
-    vtkSmartPointer&lt;vtkImageFlip&gt;::New();
-  flipXFilter-&gt;SetFilteredAxis(0); // flip x axis
-  flipXFilter-&gt;SetInputConnection(source-&gt;GetOutputPort());
-  flipXFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageFlip</span><span class="o">&gt;</span> <span class="n">flipXFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageFlip</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">flipXFilter</span><span class="o">-&gt;</span><span class="n">SetFilteredAxis</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// flip x axis</span>
+  <span class="n">flipXFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">flipXFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageCast&gt; castXFilter =
-    vtkSmartPointer&lt;vtkImageCast&gt;::New();
-  castXFilter-&gt;SetOutputScalarTypeToUnsignedChar();
-  castXFilter-&gt;SetInputConnection(flipXFilter-&gt;GetOutputPort());
-  castXFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">castXFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">castXFilter</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">castXFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">flipXFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">castXFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageFlip&gt; flipYFilter =
-    vtkSmartPointer&lt;vtkImageFlip&gt;::New();
-  flipYFilter-&gt;SetFilteredAxis(1); // flip y axis
-  flipYFilter-&gt;SetInputConnection(source-&gt;GetOutputPort());
-  flipYFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageFlip</span><span class="o">&gt;</span> <span class="n">flipYFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageFlip</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">flipYFilter</span><span class="o">-&gt;</span><span class="n">SetFilteredAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// flip y axis</span>
+  <span class="n">flipYFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">flipYFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageCast&gt; castYFilter =
-    vtkSmartPointer&lt;vtkImageCast&gt;::New();
-  castYFilter-&gt;SetOutputScalarTypeToUnsignedChar();
-  castYFilter-&gt;SetInputConnection(flipYFilter-&gt;GetOutputPort());
-  castYFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">castYFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">castYFilter</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">castYFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">flipYFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">castYFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageFlip&gt; flipZFilter =
-    vtkSmartPointer&lt;vtkImageFlip&gt;::New();
-  flipZFilter-&gt;SetFilteredAxis(2); // flip z axis
-  flipZFilter-&gt;SetInputConnection(source-&gt;GetOutputPort());
-  flipZFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageFlip</span><span class="o">&gt;</span> <span class="n">flipZFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageFlip</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">flipZFilter</span><span class="o">-&gt;</span><span class="n">SetFilteredAxis</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// flip z axis</span>
+  <span class="n">flipZFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">flipZFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageCast&gt; castZFilter =
-    vtkSmartPointer&lt;vtkImageCast&gt;::New();
-  castZFilter-&gt;SetOutputScalarTypeToUnsignedChar();
-  castZFilter-&gt;SetInputConnection(flipZFilter-&gt;GetOutputPort());
-  castZFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">castZFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">castZFilter</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">castZFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">flipZFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">castZFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create actors
-  vtkSmartPointer&lt;vtkImageActor&gt; inputActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  inputActor-&gt;GetMapper()-&gt;SetInputConnection(castSource-&gt;GetOutputPort());
+  <span class="c1">// Create actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">inputActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">inputActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; xActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  xActor-&gt;GetMapper()-&gt;SetInputConnection(castXFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">xActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castXFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; yActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  yActor-&gt;GetMapper()-&gt;SetInputConnection(castYFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">yActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castYFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; zActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  zActor-&gt;GetMapper()-&gt;SetInputConnection(castZFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">zActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">zActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castZFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double inputViewport[4] = {0.0, 0.0, 0.25, 1.0};
-  double xViewport[4] = {0.25, 0.0, 0.5, 1.0};
-  double yViewport[4] = {0.5, 0.0, 0.75, 1.0};
-  double zViewport[4] = {0.75, 0.0, 1.0, 1.0};
+  <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">inputViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">xViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">yViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">zViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Setup renderers
-  vtkSmartPointer&lt;vtkRenderer&gt; inputRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  inputRenderer-&gt;SetViewport(inputViewport);
-  inputRenderer-&gt;AddActor(inputActor);
-  inputRenderer-&gt;ResetCamera();
-  inputRenderer-&gt;SetBackground(.4, .5, .9);
+  <span class="c1">// Setup renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">inputRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">inputViewport</span><span class="p">);</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">inputActor</span><span class="p">);</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; xRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  xRenderer-&gt;SetViewport(xViewport);
-  xRenderer-&gt;AddActor(xActor);
-  xRenderer-&gt;ResetCamera();
-  xRenderer-&gt;SetBackground(.4, .5, .6);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">xRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">xViewport</span><span class="p">);</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">xActor</span><span class="p">);</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">xRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; yRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  yRenderer-&gt;SetViewport(yViewport);
-  yRenderer-&gt;AddActor(yActor);
-  yRenderer-&gt;ResetCamera();
-  yRenderer-&gt;SetBackground(.4, .5, .7);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">yRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">yViewport</span><span class="p">);</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">yActor</span><span class="p">);</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">yRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; zRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  zRenderer-&gt;SetViewport(zViewport);
-  zRenderer-&gt;AddActor(zActor);
-  zRenderer-&gt;ResetCamera();
-  zRenderer-&gt;SetBackground(.4, .5, .8);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">zRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">zRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">zViewport</span><span class="p">);</span>
+  <span class="n">zRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">zActor</span><span class="p">);</span>
+  <span class="n">zRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">zRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.8</span><span class="p">);</span>
 
-  // Setup render window
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(1000, 250);
-  renderWindow-&gt;AddRenderer(inputRenderer);
-  renderWindow-&gt;AddRenderer(xRenderer);
-  renderWindow-&gt;AddRenderer(yRenderer);
-  renderWindow-&gt;AddRenderer(zRenderer);
+  <span class="c1">// Setup render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">250</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">inputRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">xRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">yRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">zRenderer</span><span class="p">);</span>
 
-  // Setup render window interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkInteractorStyleImage&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();
+  <span class="c1">// Setup render window interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle(style);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  // Render and start interaction
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderWindowInteractor-&gt;Initialize();
+  <span class="c1">// Render and start interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Flip)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Flip</span><span class="p">)</span>
 
-add_executable(Flip MACOSX_BUNDLE Flip.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Flip ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Flip</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Flip.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-flip">Download and Build Flip</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Flip</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-flip">Download and Build Flip<a class="headerlink" href="#download-and-build-flip" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Flip.tar">here to download Flip</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Flip.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Flip/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Flip/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Flip
-</code></pre>
+<div class="codehilite"><pre><span></span>./Flip
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

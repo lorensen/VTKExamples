@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,140 +15990,140 @@
                   <h1>SmoothMeshgrid</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/PolyData/SmoothMeshgrid</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_PolyData_SubdivisionFilters.png]"></a></p>
 <p>Create a terrain with regularly spaced points. The triangles are created manually. Then different types of smoothing filters are used to smooth the terrain.</p>
 <p>Left : initial terrain, middle : vtkLoopSubdivisionFilter, right : vtkButterflySubdivisionFilter</p>
 <p>*Contributed by Michka Popoff, with the help of Bill Lorensen and madz (madaramh).</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SmoothMeshgrid.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
-import random
-import numpy
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
 
-# Make a 32 x 32 grid
-size = 32
+<span class="c1"># Make a 32 x 32 grid</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">32</span>
 
-# Define z values for the topography (random height)
-topography = numpy.zeros([size, size])
-for i in range(size):
-    for j in range(size):
-        topography[i][j] = random.randrange(0, 5)
+<span class="c1"># Define z values for the topography (random height)</span>
+<span class="n">topography</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 
-# Define points, triangles and colors
-colors = vtk.vtkUnsignedCharArray()
-colors.SetNumberOfComponents(3)
-points = vtk.vtkPoints()
-triangles = vtk.vtkCellArray()
+<span class="c1"># Define points, triangles and colors</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedCharArray</span><span class="p">()</span>
+<span class="n">colors</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">triangles</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
 
-# Build the meshgrid manually
-count = 0
-for i in range(size-1):
-    for j in range(size-1):
+<span class="c1"># Build the meshgrid manually</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
 
-        z1 = topography[i][j]
-        z2 = topography[i][j+1]
-        z3 = topography[i+1][j]
+        <span class="n">z1</span> <span class="o">=</span> <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">z2</span> <span class="o">=</span> <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">z3</span> <span class="o">=</span> <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
 
-        # Triangle 1
-        points.InsertNextPoint(i, j, z1)
-        points.InsertNextPoint(i, (j+1), z2)
-        points.InsertNextPoint((i+1), j, z3)
+        <span class="c1"># Triangle 1</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">z1</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">z2</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">j</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
 
-        triangle = vtk.vtkTriangle()
-        triangle.GetPointIds().SetId(0, count)
-        triangle.GetPointIds().SetId(1, count + 1)
-        triangle.GetPointIds().SetId(2, count + 2)
+        <span class="n">triangle</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangle</span><span class="p">()</span>
+        <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+        <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
-        triangles.InsertNextCell(triangle)
+        <span class="n">triangles</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
 
-        z1 = topography[i][j+1]
-        z2 = topography[i+1][j+1]
-        z3 = topography[i+1][j]
+        <span class="n">z1</span> <span class="o">=</span> <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">z2</span> <span class="o">=</span> <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">z3</span> <span class="o">=</span> <span class="n">topography</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
 
-        # Triangle 2
-        points.InsertNextPoint(i, (j+1), z1)
-        points.InsertNextPoint((i+1), (j+1), z2)
-        points.InsertNextPoint((i+1), j, z3)
+        <span class="c1"># Triangle 2</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">z1</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">z2</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">j</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
 
-        triangle = vtk.vtkTriangle()
-        triangle.GetPointIds().SetId(0, count + 3)
-        triangle.GetPointIds().SetId(1, count + 4)
-        triangle.GetPointIds().SetId(2, count + 5)
+        <span class="n">triangle</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangle</span><span class="p">()</span>
+        <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
 
-        count += 6
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">6</span>
 
-        triangles.InsertNextCell(triangle)
+        <span class="n">triangles</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
 
-        # Add some color
-        r = [int(i/float(size)*255),int(j/float(size)*255),0]
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
+        <span class="c1"># Add some color</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="mi">255</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="mi">255</span><span class="p">),</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-# Create a polydata object
-trianglePolyData = vtk.vtkPolyData()
+<span class="c1"># Create a polydata object</span>
+<span class="n">trianglePolyData</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
 
-# Add the geometry and topology to the polydata
-trianglePolyData.SetPoints(points)
-trianglePolyData.GetPointData().SetScalars(colors)
-trianglePolyData.SetPolys(triangles)
+<span class="c1"># Add the geometry and topology to the polydata</span>
+<span class="n">trianglePolyData</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">trianglePolyData</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">trianglePolyData</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">triangles</span><span class="p">)</span>
 
-# Clean the polydata so that the edges are shared !
-cleanPolyData = vtk.vtkCleanPolyData()
-cleanPolyData.SetInputData(trianglePolyData)
+<span class="c1"># Clean the polydata so that the edges are shared !</span>
+<span class="n">cleanPolyData</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCleanPolyData</span><span class="p">()</span>
+<span class="n">cleanPolyData</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">trianglePolyData</span><span class="p">)</span>
 
-# Use a filter to smooth the data (will add triangles and smooth)
-# Use two different filters to show the difference
-smooth_loop = vtk.vtkLoopSubdivisionFilter()
-smooth_loop.SetNumberOfSubdivisions(3)
-smooth_loop.SetInputConnection(cleanPolyData.GetOutputPort())
-smooth_butterfly = vtk.vtkButterflySubdivisionFilter()
-smooth_butterfly.SetNumberOfSubdivisions(3)
-smooth_butterfly.SetInputConnection(cleanPolyData.GetOutputPort())
+<span class="c1"># Use a filter to smooth the data (will add triangles and smooth)</span>
+<span class="c1"># Use two different filters to show the difference</span>
+<span class="n">smooth_loop</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLoopSubdivisionFilter</span><span class="p">()</span>
+<span class="n">smooth_loop</span><span class="o">.</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">smooth_loop</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cleanPolyData</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">smooth_butterfly</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkButterflySubdivisionFilter</span><span class="p">()</span>
+<span class="n">smooth_butterfly</span><span class="o">.</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">smooth_butterfly</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cleanPolyData</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# Create a mapper and actor for initial dataset
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputData(trianglePolyData)
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="c1"># Create a mapper and actor for initial dataset</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">trianglePolyData</span><span class="p">)</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-# Create a mapper and actor for smoothed dataset (vtkLoopSubdivisionFilter)
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(smooth_loop.GetOutputPort())
-actor_loop = vtk.vtkActor()
-actor_loop.SetMapper(mapper)
-actor_loop.SetPosition(32, 0, 0)
+<span class="c1"># Create a mapper and actor for smoothed dataset (vtkLoopSubdivisionFilter)</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">smooth_loop</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">actor_loop</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor_loop</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+<span class="n">actor_loop</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-# Create a mapper and actor for smoothed dataset (vtkButterflySubdivisionFilter)
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(smooth_butterfly.GetOutputPort())
-actor_butterfly = vtk.vtkActor()
-actor_butterfly.SetMapper(mapper)
-actor_butterfly.SetPosition(64, 0, 0)
+<span class="c1"># Create a mapper and actor for smoothed dataset (vtkButterflySubdivisionFilter)</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">smooth_butterfly</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">actor_butterfly</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor_butterfly</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+<span class="n">actor_butterfly</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-# Visualise
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># Visualise</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-# Add actors and render
-renderer.AddActor(actor)
-renderer.AddActor(actor_loop)
-renderer.AddActor(actor_butterfly)
+<span class="c1"># Add actors and render</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor_loop</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor_butterfly</span><span class="p">)</span>
 
-renderer.SetBackground(1, 1, 1) # Background color white
-renderWindow.SetSize(800, 800)
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Background color white</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,269 +16019,276 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/KochSnowflake</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestKochSnowflake.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This demo uses recursion to represent a Koch snowflake fractal. For more information about this fractal, there are many resources on the web:
 http://en.wikipedia.org/wiki/Koch_snowflake, http://mathworld.wolfram.com/KochSnowflake.html.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>KochSnowflake.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkPolyLine.h&gt;
-#include &lt;vtkCellData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyLine.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
 
-# define VTK_CREATE(type, name) \
-  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()
+<span class="cp"># define VTK_CREATE(type, name) \</span>
+<span class="cp">  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()</span>
 
-# define LEVEL 6
+<span class="cp"># define LEVEL 6</span>
 
-/*----------------------------------------------------------------------------*
- *                       Koch Snowflake as vtkPolyLine                        *
- *----------------------------------------------------------------------------*/
-vtkSmartPointer&lt;vtkPolyData&gt; as_polyline(vtkSmartPointer&lt;vtkPoints&gt; points, int level)
-{
-  // Use the points from the previous iteration to create the points of the
-  // next level. There is an assumption on my part that the curve is traversed
-  // in a counterclockwise fashion. If the initial triangle above is written to
-  // describe clockwise motion, the points will face inward instead of outward.
-  for (int i = 0; i &lt; level; i++)
-  {
-    // We're going to make the next set of points from the old one and swap
-    // them at the end. The vtkSmartPointer will go out of scope and be
-    // deleted.
-    VTK_CREATE(vtkPoints, temp);
-    double v0[3];
-    double v1[3];
+<span class="cm">/*----------------------------------------------------------------------------*</span>
+<span class="cm"> *                       Koch Snowflake as vtkPolyLine                        *</span>
+<span class="cm"> *----------------------------------------------------------------------------*/</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">as_polyline</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span><span class="p">,</span> <span class="kt">int</span> <span class="n">level</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Use the points from the previous iteration to create the points of the</span>
+  <span class="c1">// next level. There is an assumption on my part that the curve is traversed</span>
+  <span class="c1">// in a counterclockwise fashion. If the initial triangle above is written to</span>
+  <span class="c1">// describe clockwise motion, the points will face inward instead of outward.</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">level</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// We&#39;re going to make the next set of points from the old one and swap</span>
+    <span class="c1">// them at the end. The vtkSmartPointer will go out of scope and be</span>
+    <span class="c1">// deleted.</span>
+    <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPoints</span><span class="p">,</span> <span class="n">temp</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">v0</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">v1</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-    // The first point of the previous vtkPoints is the first point of the next vtkPoints.
-    points-&gt;GetPoint(0, v0);
-    temp-&gt;InsertNextPoint(v0);
+    <span class="c1">// The first point of the previous vtkPoints is the first point of the next vtkPoints.</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">v0</span><span class="p">);</span>
+    <span class="n">temp</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
 
-    // Iterate over &quot;edges&quot; in the vtkPoints
-    for (int ii = 1; ii &lt; points-&gt;GetNumberOfPoints(); ii++)
-    {
-      points-&gt;GetPoint(ii - 1, v0);
-      points-&gt;GetPoint(ii, v1);
-      double t = sqrt(vtkMath::Distance2BetweenPoints(v0, v1));
-      double nx = (v1[0] - v0[0])/t; // x-component of edge unit tangent
-      double ny = (v1[1] - v0[1])/t; // y-component of edge unit tangent
+    <span class="c1">// Iterate over &quot;edges&quot; in the vtkPoints</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">ii</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">ii</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="p">);</span>
+      <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">v1</span><span class="p">);</span>
+      <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Distance2BetweenPoints</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">v1</span><span class="p">));</span>
+      <span class="kt">double</span> <span class="n">nx</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">v0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">t</span><span class="p">;</span> <span class="c1">// x-component of edge unit tangent</span>
+      <span class="kt">double</span> <span class="n">ny</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">t</span><span class="p">;</span> <span class="c1">// y-component of edge unit tangent</span>
 
-      v1[0] = v0[0] + nx*t/3.;
-      v1[1] = v0[1] + ny*t/3.;
-      v1[2] = 0.;
-      temp-&gt;InsertNextPoint(v1);
+      <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mf">3.</span><span class="p">;</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mf">3.</span><span class="p">;</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
+      <span class="n">temp</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
 
-      v1[0] = v0[0] + t*(nx/2. + ny*sqrt(3.)/6.);
-      v1[1] = v0[1] + t*(ny/2. - nx*sqrt(3.)/6.);
-      v1[2] = 0.;
-      temp-&gt;InsertNextPoint(v1);
+      <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">t</span><span class="o">*</span><span class="p">(</span><span class="n">nx</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span><span class="o">/</span><span class="mf">6.</span><span class="p">);</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">t</span><span class="o">*</span><span class="p">(</span><span class="n">ny</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">nx</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span><span class="o">/</span><span class="mf">6.</span><span class="p">);</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
+      <span class="n">temp</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
 
-      v1[0] = v0[0] + 2./3.*nx*t;
-      v1[1] = v0[1] + 2./3.*ny*t;
-      v1[2] = 0.;
-      temp-&gt;InsertNextPoint(v1);
+      <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">/</span><span class="mf">3.</span><span class="o">*</span><span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">/</span><span class="mf">3.</span><span class="o">*</span><span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
+      <span class="n">temp</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
 
-      v1[0] = v0[0] + nx*t;
-      v1[1] = v0[1] + ny*t;
-      v1[2] = 0.;
-      temp-&gt;InsertNextPoint(v1);
-    }
-    points = temp;
-  }
+      <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+      <span class="n">v1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">;</span>
+      <span class="n">temp</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // draw the outline
-  VTK_CREATE(vtkCellArray, lines);
-  VTK_CREATE(vtkPolyLine, pl);
-  pl-&gt;GetPointIds()-&gt;SetNumberOfIds(points-&gt;GetNumberOfPoints());
-  for (int i = 0; i &lt; points-&gt;GetNumberOfPoints(); i++)
-  {
-    pl-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-  lines-&gt;InsertNextCell(pl);
+  <span class="c1">// draw the outline</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkCellArray</span><span class="p">,</span> <span class="n">lines</span><span class="p">);</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPolyLine</span><span class="p">,</span> <span class="n">pl</span><span class="p">);</span>
+  <span class="n">pl</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">pl</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">lines</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pl</span><span class="p">);</span>
 
-  // complete the polydata
-  VTK_CREATE(vtkPolyData, polydata);
-  polydata-&gt;SetLines(lines);
-  polydata-&gt;SetPoints(points);
+  <span class="c1">// complete the polydata</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">polydata</span><span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  return polydata;
-}
+  <span class="k">return</span> <span class="n">polydata</span><span class="p">;</span>
+<span class="p">}</span>
 
-/*----------------------------------------------------------------------------*
- *                Koch Snowflake as collection of vtkTriangles                *
- *----------------------------------------------------------------------------*/
-void as_triangles(int start, int end, vtkCellArray *cells, int level, vtkIntArray *data)
-{
-  if (end - start &gt;= 3)
-  {
-    int stride = (end - start + 1)/4;
+<span class="cm">/*----------------------------------------------------------------------------*</span>
+<span class="cm"> *                Koch Snowflake as collection of vtkTriangles                *</span>
+<span class="cm"> *----------------------------------------------------------------------------*/</span>
+<span class="kt">void</span> <span class="n">as_triangles</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">,</span> <span class="n">vtkCellArray</span> <span class="o">*</span><span class="n">cells</span><span class="p">,</span> <span class="kt">int</span> <span class="n">level</span><span class="p">,</span> <span class="n">vtkIntArray</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">stride</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
 
-    VTK_CREATE(vtkTriangle, triangle);
-    triangle-&gt;GetPointIds()-&gt;SetId(0, start +   stride);
-    triangle-&gt;GetPointIds()-&gt;SetId(1, start + 2*stride);
-    triangle-&gt;GetPointIds()-&gt;SetId(2, start + 3*stride);
+    <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkTriangle</span><span class="p">,</span> <span class="n">triangle</span><span class="p">);</span>
+    <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span>   <span class="n">stride</span><span class="p">);</span>
+    <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">);</span>
+    <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">);</span>
 
-    cells-&gt;InsertNextCell(triangle);
-    data-&gt;InsertNextValue(level);
+    <span class="n">cells</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">);</span>
+    <span class="n">data</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">level</span><span class="p">);</span>
 
-    as_triangles(start,            start +   stride, cells, level + 1, data);
-    as_triangles(start +   stride, start + 2*stride, cells, level + 1, data);
-    as_triangles(start + 2*stride, start + 3*stride, cells, level + 1, data);
-    as_triangles(start + 3*stride, start + 4*stride, cells, level + 1, data);
-  }
-}
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">start</span><span class="p">,</span>            <span class="n">start</span> <span class="o">+</span>   <span class="n">stride</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span>   <span class="n">stride</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-/*----------------------------------------------------------------------------*
- *                                Main Method                                 *
- *----------------------------------------------------------------------------*/
-int main(int, char *[]) {
+<span class="cm">/*----------------------------------------------------------------------------*</span>
+<span class="cm"> *                                Main Method                                 *</span>
+<span class="cm"> *----------------------------------------------------------------------------*/</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span> <span class="p">{</span>
 
-  // Initially, set up the points to be an equilateral triangle. Note that the
-  // first point is the same as the last point to make this a closed curve when
-  // I create the vtkPolyLine.
-  VTK_CREATE(vtkPoints, points);
-  for (int i = 0; i &lt; 4; i++) {
-    points-&gt;InsertNextPoint(cos(2.*vtkMath::Pi()*i/3), sin(2*vtkMath::Pi()*i/3.), 0.);
-  }
+  <span class="c1">// Initially, set up the points to be an equilateral triangle. Note that the</span>
+  <span class="c1">// first point is the same as the last point to make this a closed curve when</span>
+  <span class="c1">// I create the vtkPolyLine.</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPoints</span><span class="p">,</span> <span class="n">points</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">()</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">()</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mf">3.</span><span class="p">),</span> <span class="mf">0.</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; outline_pd  = as_polyline(points, LEVEL);
-  // You have already gone through the trouble of putting the points in the
-  // right places - so &quot;all&quot; you need to do now is to create polygons from the
-  // points that are in the vtkPoints.
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">outline_pd</span>  <span class="o">=</span> <span class="n">as_polyline</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">LEVEL</span><span class="p">);</span>
+  <span class="c1">// You have already gone through the trouble of putting the points in the</span>
+  <span class="c1">// right places - so &quot;all&quot; you need to do now is to create polygons from the</span>
+  <span class="c1">// points that are in the vtkPoints.</span>
 
-  // The points that are passed in, have an overlap of the beginning and the end.
+  <span class="c1">// The points that are passed in, have an overlap of the beginning and the end.</span>
 
 
-  // Set this up for each of the initial sides, then call the recursive function.
-  VTK_CREATE(vtkCellArray, triangles);
-  int stride = outline_pd-&gt;GetPoints()-&gt;GetNumberOfPoints()/3;
+  <span class="c1">// Set this up for each of the initial sides, then call the recursive function.</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkCellArray</span><span class="p">,</span> <span class="n">triangles</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">stride</span> <span class="o">=</span> <span class="n">outline_pd</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span><span class="o">/</span><span class="mi">3</span><span class="p">;</span>
 
-  // The cell data will allow us to color the triangles based on the level of
-  // the iteration of the Koch snowflake.
-  VTK_CREATE(vtkIntArray, data);
-  data-&gt;SetNumberOfComponents(0);
-  data-&gt;SetName(&quot;Iteration Level&quot;);
+  <span class="c1">// The cell data will allow us to color the triangles based on the level of</span>
+  <span class="c1">// the iteration of the Koch snowflake.</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkIntArray</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Iteration Level&quot;</span><span class="p">);</span>
 
-  // This is the starting triangle.
-  VTK_CREATE(vtkTriangle, t);
-  t-&gt;GetPointIds()-&gt;SetId(0,        0);
-  t-&gt;GetPointIds()-&gt;SetId(1,   stride);
-  t-&gt;GetPointIds()-&gt;SetId(2, 2*stride);
-  triangles-&gt;InsertNextCell(t);
-  data-&gt;InsertNextValue(0);
+  <span class="c1">// This is the starting triangle.</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkTriangle</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>        <span class="mi">0</span><span class="p">);</span>
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span>   <span class="n">stride</span><span class="p">);</span>
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">);</span>
+  <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  as_triangles(       0,   stride, triangles, 1, data);
-  as_triangles(  stride, 2*stride, triangles, 1, data);
-  as_triangles(2*stride, 3*stride, triangles, 1, data);
+  <span class="n">as_triangles</span><span class="p">(</span>       <span class="mi">0</span><span class="p">,</span>   <span class="n">stride</span><span class="p">,</span> <span class="n">triangles</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+  <span class="n">as_triangles</span><span class="p">(</span>  <span class="n">stride</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">triangles</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+  <span class="n">as_triangles</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">,</span> <span class="n">triangles</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
 
-  VTK_CREATE(vtkPolyData, triangle_pd);
-  triangle_pd-&gt;SetPoints(outline_pd-&gt;GetPoints());
-  triangle_pd-&gt;SetPolys(triangles);
-  triangle_pd-&gt;GetCellData()-&gt;SetScalars(data);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">triangle_pd</span><span class="p">);</span>
+  <span class="n">triangle_pd</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">outline_pd</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">());</span>
+  <span class="n">triangle_pd</span><span class="o">-&gt;</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">triangles</span><span class="p">);</span>
+  <span class="n">triangle_pd</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 
-  //-----------------//
-  // rendering stuff //
-  //-----------------//
-  VTK_CREATE(vtkPolyDataMapper, outline_mapper);
-#if VTK_MAJOR_VERSION &lt;= 5
-  outline_mapper-&gt;SetInput(outline_pd);
-#else
-  outline_mapper-&gt;SetInputData(outline_pd);
-#endif
+  <span class="c1">//-----------------//</span>
+  <span class="c1">// rendering stuff //</span>
+  <span class="c1">//-----------------//</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">outline_mapper</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">outline_mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">outline_pd</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">outline_mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">outline_pd</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  VTK_CREATE(vtkLookupTable, lut);
-  lut-&gt;SetNumberOfTableValues(256);
-  lut-&gt;SetHueRange(0.6, 0.6);
-  lut-&gt;SetSaturationRange(0., 1.);
-  lut-&gt;Build();
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="p">,</span> <span class="n">lut</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">256</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetHueRange</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetSaturationRange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  VTK_CREATE(vtkPolyDataMapper, triangle_mapper);
-#if VTK_MAJOR_VERSION &lt;= 5
-  triangle_mapper-&gt;SetInput(triangle_pd);
-#else
-  triangle_mapper-&gt;SetInputData(triangle_pd);
-#endif
-  triangle_mapper-&gt;SetScalarRange(0.0, LEVEL);
-  triangle_mapper-&gt;SetLookupTable(lut);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">triangle_mapper</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">triangle_mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">triangle_pd</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">triangle_mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">triangle_pd</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">triangle_mapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">LEVEL</span><span class="p">);</span>
+  <span class="n">triangle_mapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
 
-  VTK_CREATE(vtkActor, outline_actor);
-  outline_actor-&gt;SetMapper(outline_mapper);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">outline_actor</span><span class="p">);</span>
+  <span class="n">outline_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outline_mapper</span><span class="p">);</span>
 
-  VTK_CREATE(vtkActor, triangle_actor);
-  triangle_actor-&gt;SetMapper(triangle_mapper);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">triangle_actor</span><span class="p">);</span>
+  <span class="n">triangle_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">triangle_mapper</span><span class="p">);</span>
 
-  VTK_CREATE(vtkRenderer, outline_ren);
-  outline_ren-&gt;AddActor(outline_actor);
-  outline_ren-&gt;SetViewport(0.0, 0.0, 0.5, 1.0);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">outline_ren</span><span class="p">);</span>
+  <span class="n">outline_ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outline_actor</span><span class="p">);</span>
+  <span class="n">outline_ren</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 
-  VTK_CREATE(vtkRenderer, triangle_ren);
-  triangle_ren-&gt;AddActor(triangle_actor);
-  triangle_ren-&gt;SetViewport(0.5, 0.0, 1.0, 1.0);
-  triangle_ren-&gt;SetActiveCamera(outline_ren-&gt;GetActiveCamera());
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">triangle_ren</span><span class="p">);</span>
+  <span class="n">triangle_ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">triangle_actor</span><span class="p">);</span>
+  <span class="n">triangle_ren</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">triangle_ren</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">outline_ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
 
-  VTK_CREATE(vtkRenderWindow, renw);
-  renw-&gt;SetMultiSamples(0);
-  renw-&gt;AddRenderer(outline_ren);
-  renw-&gt;AddRenderer(triangle_ren);
-  renw-&gt;SetSize(800, 400);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkRenderWindow</span><span class="p">,</span> <span class="n">renw</span><span class="p">);</span>
+  <span class="n">renw</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">renw</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">outline_ren</span><span class="p">);</span>
+  <span class="n">renw</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">triangle_ren</span><span class="p">);</span>
+  <span class="n">renw</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
 
-  VTK_CREATE(vtkRenderWindowInteractor, iren);
-  iren-&gt;SetRenderWindow(renw);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkRenderWindowInteractor</span><span class="p">,</span> <span class="n">iren</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renw</span><span class="p">);</span>
 
-  outline_ren-&gt;ResetCamera();
-  renw-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">outline_ren</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renw</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(KochSnowflake)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">KochSnowflake</span><span class="p">)</span>
 
-add_executable(KochSnowflake MACOSX_BUNDLE KochSnowflake.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(KochSnowflake ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">KochSnowflake</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">KochSnowflake.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-kochsnowflake">Download and Build KochSnowflake</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">KochSnowflake</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-kochsnowflake">Download and Build KochSnowflake<a class="headerlink" href="#download-and-build-kochsnowflake" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/KochSnowflake.tar">here to download KochSnowflake</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball KochSnowflake.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd KochSnowflake/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd KochSnowflake/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./KochSnowflake
-</code></pre>
+<div class="codehilite"><pre><span></span>./KochSnowflake
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

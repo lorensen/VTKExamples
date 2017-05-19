@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,191 +16019,198 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/CubeAxesActor2D</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestCubeAxesActor2D.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>For more information on how to configure this actor, see:<br>
 http://vtk.1045678.n5.nabble.com/How-to-Scale-vtkCubeAxesActor2D-td5090262.html</p>
 <p>This was converted from Python to C++, the source I found for the Python was at:<br>
 https://github.com/Kitware/VTK/blob/master/Examples/Annotation/Python/cubeAxes.py</p>
 <p>:''See also: [and <a href="../[../../PolyData/Outline]]">[../../Utilities/BoundingBox]</a>''</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CubeAxesActor2D.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkNew.h&gt;
-#include &lt;vtkPlatonicSolidSource.h&gt;
-#include &lt;vtkPolyDataNormals.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkLODActor.h&gt;
-#include &lt;vtkOutlineFilter.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkLight.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkTextProperty.h&gt;
-#include &lt;vtkCubeAxesActor2D.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNew.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlatonicSolidSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataNormals.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLODActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOutlineFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLight.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCubeAxesActor2D.h&gt;</span><span class="cp"></span>
 
-// The vtkCubeAxesActor2D draws axes on the bounding box of the data set and
-// labels the axes with x-y-z coordinates.
+<span class="c1">// The vtkCubeAxesActor2D draws axes on the bounding box of the data set and</span>
+<span class="c1">// labels the axes with x-y-z coordinates.</span>
 
-//----------------------------------------------------------------------------//
-int main(int, char *[])
-{
-  vtkNew&lt;vtkPlatonicSolidSource&gt; icosahedron;
-  icosahedron-&gt;SetSolidTypeToIcosahedron();
+<span class="c1">//----------------------------------------------------------------------------//</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkPlatonicSolidSource</span><span class="o">&gt;</span> <span class="n">icosahedron</span><span class="p">;</span>
+  <span class="n">icosahedron</span><span class="o">-&gt;</span><span class="n">SetSolidTypeToIcosahedron</span><span class="p">();</span>
 
-  // Create a vtkPolyDataNormals filter to calculate the normals of the data set.
-  vtkNew&lt;vtkPolyDataNormals&gt; normals;
-#if VTK_MAJOR_VERSION &lt;= 5
-  icosahedron-&gt;Update();
-  normals-&gt;SetInput(icosahedron-&gt;GetOutput());
-#else
-  normals-&gt;SetInputConnection(icosahedron-&gt;GetOutputPort());
-#endif
+  <span class="c1">// Create a vtkPolyDataNormals filter to calculate the normals of the data set.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normals</span><span class="p">;</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">icosahedron</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">icosahedron</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">icosahedron</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
 
-  // Set up the associated mapper and actor.
-  vtkNew&lt;vtkPolyDataMapper&gt; icosahedron_mapper;
-#if VTK_MAJOR_VERSION &lt;= 5
-  normals-&gt;Update();
-  icosahedron_mapper-&gt;SetInput(normals-&gt;GetOutput());
-#else
-  icosahedron_mapper-&gt;SetInputConnection(normals-&gt;GetOutputPort());
-#endif
-  icosahedron_mapper-&gt;ScalarVisibilityOff();
+  <span class="c1">// Set up the associated mapper and actor.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">icosahedron_mapper</span><span class="p">;</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">icosahedron_mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">icosahedron_mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">icosahedron_mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkNew&lt;vtkLODActor&gt; icosahedron_actor;
-  icosahedron_actor-&gt;SetMapper(icosahedron_mapper.GetPointer());
-  icosahedron_actor-&gt;GetProperty()-&gt;SetColor(0.8, .1, .9);
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkLODActor</span><span class="o">&gt;</span> <span class="n">icosahedron_actor</span><span class="p">;</span>
+  <span class="n">icosahedron_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">icosahedron_mapper</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">icosahedron_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
 
-  // Create a vtkOutlineFilter to draw the bounding box of the data set.
-  // Also create the associated mapper and actor.
-  vtkNew&lt;vtkOutlineFilter&gt; outline;
-#if VTK_MAJOR_VERSION &lt;= 5
-  outline-&gt;SetInput(normals-&gt;GetOutput());
-#else
-  outline-&gt;SetInputConnection(normals-&gt;GetOutputPort());
-#endif
+  <span class="c1">// Create a vtkOutlineFilter to draw the bounding box of the data set.</span>
+  <span class="c1">// Also create the associated mapper and actor.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkOutlineFilter</span><span class="o">&gt;</span> <span class="n">outline</span><span class="p">;</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">outline</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">outline</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
 
-  vtkNew&lt;vtkPolyDataMapper&gt; map_outline;
-#if VTK_MAJOR_VERSION &lt;= 5
-  map_outline-&gt;SetInput(outline-&gt;GetOutput());
-#else
-  map_outline-&gt;SetInputConnection(outline-&gt;GetOutputPort());
-#endif
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">map_outline</span><span class="p">;</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">map_outline</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">outline</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">map_outline</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outline</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
 
-  vtkNew&lt;vtkActor&gt; outline_actor;
-  outline_actor-&gt;SetMapper(map_outline.GetPointer());
-  outline_actor-&gt;GetProperty()-&gt;SetColor(0., 0., 0.);
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">outline_actor</span><span class="p">;</span>
+  <span class="n">outline_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map_outline</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">outline_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">);</span>
 
-  // Create the Renderers.  Assign them the appropriate viewport
-  // coordinates, active camera, and light.
-  vtkNew&lt;vtkRenderer&gt; ren;
-  ren-&gt;SetViewport(0, 0, 0.5, 1.0);
-  // It is also possible to enhance the display with cameras.
-  // ren-&gt;SetActiveCamera(camera);
-  // ren-&gt;AddLight(light);
+  <span class="c1">// Create the Renderers.  Assign them the appropriate viewport</span>
+  <span class="c1">// coordinates, active camera, and light.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span><span class="p">;</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="c1">// It is also possible to enhance the display with cameras.</span>
+  <span class="c1">// ren-&gt;SetActiveCamera(camera);</span>
+  <span class="c1">// ren-&gt;AddLight(light);</span>
 
-  vtkNew&lt;vtkRenderer&gt; ren2;
-  ren2-&gt;SetViewport(0.5, 0, 1.0, 1.0);
-  ren2-&gt;SetActiveCamera(ren-&gt;GetActiveCamera());
-  // ren2-&gt;AddLight(light);
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren2</span><span class="p">;</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="c1">// ren2-&gt;AddLight(light);</span>
 
-  // Create the RenderWindow and RenderWindowInteractor.
-  vtkNew&lt;vtkRenderWindow&gt; renWin;
-  renWin-&gt;AddRenderer(ren.GetPointer());
-  renWin-&gt;AddRenderer(ren2.GetPointer());
-  renWin-&gt;SetWindowName(&quot;VTK - Cube Axes&quot;);
-  renWin-&gt;SetSize(600, 300);
+  <span class="c1">// Create the RenderWindow and RenderWindowInteractor.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span><span class="p">;</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren2</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s">&quot;VTK - Cube Axes&quot;</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
-  vtkNew&lt;vtkRenderWindowInteractor&gt; iren;
-  iren-&gt;SetRenderWindow(renWin.GetPointer());
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span><span class="p">;</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  // Add the actors to the renderer, and set the background.
-  ren-&gt;AddViewProp(icosahedron_actor.GetPointer());
-  ren-&gt;AddViewProp(outline_actor.GetPointer());
-  ren2-&gt;AddViewProp(icosahedron_actor.GetPointer());
-  ren2-&gt;AddViewProp(outline_actor.GetPointer());
+  <span class="c1">// Add the actors to the renderer, and set the background.</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">icosahedron_actor</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">outline_actor</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">icosahedron_actor</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">outline_actor</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  ren-&gt;SetBackground(0.1, 0.2, 0.4);
-  ren2-&gt;SetBackground(0.1, 0.2, 0.4);
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
 
-  // Create a text property for both cube axes
-  vtkNew&lt;vtkTextProperty&gt; tprop;
-  tprop-&gt;SetColor(1, 1, 1);
-  tprop-&gt;ShadowOn();
-  tprop-&gt;SetFontSize(20);
+  <span class="c1">// Create a text property for both cube axes</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">tprop</span><span class="p">;</span>
+  <span class="n">tprop</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">tprop</span><span class="o">-&gt;</span><span class="n">ShadowOn</span><span class="p">();</span>
+  <span class="n">tprop</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
 
-  // Create a vtkCubeAxesActor2D.  Use the outer edges of the bounding box to
-  // draw the axes.  Add the actor to the renderer.
-  vtkNew&lt;vtkCubeAxesActor2D&gt; axes;
-#if VTK_MAJOR_VERSION &lt;= 5
-  axes-&gt;SetInput(normals-&gt;GetOutput());
-#else
-  axes-&gt;SetInputConnection(normals-&gt;GetOutputPort());
-#endif
-  axes-&gt;SetCamera(ren-&gt;GetActiveCamera());
-  axes-&gt;SetLabelFormat(&quot;%6.4g&quot;);
-  axes-&gt;SetFlyModeToOuterEdges();
-  axes-&gt;SetAxisTitleTextProperty(tprop.GetPointer());
-  axes-&gt;SetAxisLabelTextProperty(tprop.GetPointer());
-  ren-&gt;AddViewProp(axes.GetPointer());
+  <span class="c1">// Create a vtkCubeAxesActor2D.  Use the outer edges of the bounding box to</span>
+  <span class="c1">// draw the axes.  Add the actor to the renderer.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkCubeAxesActor2D</span><span class="o">&gt;</span> <span class="n">axes</span><span class="p">;</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetLabelFormat</span><span class="p">(</span><span class="s">&quot;%6.4g&quot;</span><span class="p">);</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetFlyModeToOuterEdges</span><span class="p">();</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetAxisTitleTextProperty</span><span class="p">(</span><span class="n">tprop</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetAxisLabelTextProperty</span><span class="p">(</span><span class="n">tprop</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">axes</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  // Create a vtkCubeAxesActor2D.  Use the closest vertex to the camera to
-  // determine where to draw the axes.  Add the actor to the renderer.
-  vtkNew&lt;vtkCubeAxesActor2D&gt; axes2;
-  axes2-&gt;SetViewProp(icosahedron_actor.GetPointer());
-  axes2-&gt;SetCamera(ren2-&gt;GetActiveCamera());
-  axes2-&gt;SetLabelFormat(&quot;%6.4g&quot;);
-  axes2-&gt;SetFlyModeToClosestTriad();
-  axes2-&gt;ScalingOff();
-  axes2-&gt;SetAxisTitleTextProperty(tprop.GetPointer());
-  axes2-&gt;SetAxisLabelTextProperty(tprop.GetPointer());
-  ren2-&gt;AddViewProp(axes2.GetPointer());
+  <span class="c1">// Create a vtkCubeAxesActor2D.  Use the closest vertex to the camera to</span>
+  <span class="c1">// determine where to draw the axes.  Add the actor to the renderer.</span>
+  <span class="n">vtkNew</span><span class="o">&lt;</span><span class="n">vtkCubeAxesActor2D</span><span class="o">&gt;</span> <span class="n">axes2</span><span class="p">;</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">SetViewProp</span><span class="p">(</span><span class="n">icosahedron_actor</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">ren2</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">SetLabelFormat</span><span class="p">(</span><span class="s">&quot;%6.4g&quot;</span><span class="p">);</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">SetFlyModeToClosestTriad</span><span class="p">();</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">ScalingOff</span><span class="p">();</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">SetAxisTitleTextProperty</span><span class="p">(</span><span class="n">tprop</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">axes2</span><span class="o">-&gt;</span><span class="n">SetAxisLabelTextProperty</span><span class="p">(</span><span class="n">tprop</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">axes2</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  ren-&gt;ResetCamera();
-  iren-&gt;Initialize();
-  renWin-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CubeAxesActor2D)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CubeAxesActor2D</span><span class="p">)</span>
 
-add_executable(CubeAxesActor2D MACOSX_BUNDLE CubeAxesActor2D.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CubeAxesActor2D ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CubeAxesActor2D</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CubeAxesActor2D.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-cubeaxesactor2d">Download and Build CubeAxesActor2D</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CubeAxesActor2D</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-cubeaxesactor2d">Download and Build CubeAxesActor2D<a class="headerlink" href="#download-and-build-cubeaxesactor2d" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CubeAxesActor2D.tar">here to download CubeAxesActor2D</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CubeAxesActor2D.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CubeAxesActor2D/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CubeAxesActor2D/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CubeAxesActor2D
-</code></pre>
+<div class="codehilite"><pre><span></span>./CubeAxesActor2D
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

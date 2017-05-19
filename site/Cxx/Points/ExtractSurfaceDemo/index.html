@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,7 +16019,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Points/ExtractSurfaceDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Points/TestExtractSurfaceDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example loosely follows the most excellent paper by Curless and
 Levoy: <a href="https://graphics.stanford.edu/papers/volrange">"A Volumetric Method for Building Complex Models from Range
 Images."</a> First it
@@ -16018,276 +16030,283 @@ distance field.</p>
 dataset</a></p>
 <p>This is a demo version of <a href="../ExtractSurface">ExtractSurface</a>. It displays some a sampling of the normals with arrows. It also uses a different color for the front and back surfaces.</p>
 <p><strong>NOTE:</strong> The classes used in this example require vtk 7.1 or later.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExtractSurfaceDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPLYReader.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkOBJReader.h&gt;
-#include &lt;vtkSTLReader.h&gt;
-#include &lt;vtkPointSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPLYReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOBJReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSTLReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPCANormalEstimation.h&gt;
-#include &lt;vtkSignedDistance.h&gt;
-#include &lt;vtkExtractSurface.h&gt;
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPCANormalEstimation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSignedDistance.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkExtractSurface.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkArrowSource.h&gt;
-#include &lt;vtkMaskPoints.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkCamera.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtksys/SystemTools.hxx&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtksys/SystemTools.hxx&gt;</span><span class="cp"></span>
 
-static void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
-static vtkSmartPointer&lt;vtkPolyData&gt; ReadPolyData(const char *fileName);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="n">size</span><span class="p">,</span> <span class="n">vtkGlyph3D</span> <span class="o">*</span><span class="n">glyph</span><span class="p">);</span>
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">ReadPolyData</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fileName</span><span class="p">);</span>
 
-int main (int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData = ReadPolyData(argc &gt; 1 ? argv[1] : &quot;&quot;);;
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span> <span class="n">ReadPolyData</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="s">&quot;&quot;</span><span class="p">);;</span>
 
-  double bounds[6];
-  polyData-&gt;GetBounds(bounds);
-  double range[3];
-  for (int i = 0; i &lt; 3; ++i)
-  {
-    range[i] = bounds[2*i + 1] - bounds[2*i];
-  }
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">range</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">range</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span>
 
-  int sampleSize = 15;
+  <span class="kt">int</span> <span class="n">sampleSize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
 
-  std::cout &lt;&lt; &quot;Sample size is: &quot; &lt;&lt; sampleSize &lt;&lt; std::endl;
-  // Do we need to estimate normals?
-  vtkSmartPointer&lt;vtkSignedDistance&gt; distance =
-    vtkSmartPointer&lt;vtkSignedDistance&gt;::New();
-  vtkSmartPointer&lt;vtkPCANormalEstimation&gt; normals =
-    vtkSmartPointer&lt;vtkPCANormalEstimation&gt;::New();
-  if (polyData-&gt;GetPointData()-&gt;GetNormals())
-  {
-    std::cout &lt;&lt; &quot;Using normals from input file&quot; &lt;&lt; std::endl;
-    distance-&gt;SetInputData (polyData);
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Estimating normals using PCANormalEstimation&quot; &lt;&lt; std::endl;
-    normals-&gt;SetInputData (polyData);
-    normals-&gt;SetSampleSize(sampleSize);
-    normals-&gt;SetNormalOrientationToGraphTraversal();
-    normals-&gt;FlipNormalsOn();
-    distance-&gt;SetInputConnection (normals-&gt;GetOutputPort());
-  }
-  std::cout &lt;&lt; &quot;Range: &quot;
-            &lt;&lt; range[0] &lt;&lt; &quot;, &quot;
-            &lt;&lt; range[1] &lt;&lt; &quot;, &quot;
-            &lt;&lt; range[2] &lt;&lt; std::endl;
-  int dimension = 512;
-  double radius;
-  radius = range[0] / static_cast&lt;double&gt;(dimension) * 3; // ~3 voxels
-  std::cout &lt;&lt; &quot;Radius: &quot; &lt;&lt; radius &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Sample size is: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sampleSize</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="c1">// Do we need to estimate normals?</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSignedDistance</span><span class="o">&gt;</span> <span class="n">distance</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSignedDistance</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPCANormalEstimation</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPCANormalEstimation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Using normals from input file&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">distance</span><span class="o">-&gt;</span><span class="n">SetInputData</span> <span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Estimating normals using PCANormalEstimation&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputData</span> <span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+    <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetSampleSize</span><span class="p">(</span><span class="n">sampleSize</span><span class="p">);</span>
+    <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetNormalOrientationToGraphTraversal</span><span class="p">();</span>
+    <span class="n">normals</span><span class="o">-&gt;</span><span class="n">FlipNormalsOn</span><span class="p">();</span>
+    <span class="n">distance</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Range: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">dimension</span> <span class="o">=</span> <span class="mi">512</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
+  <span class="n">radius</span> <span class="o">=</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// ~3 voxels</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Radius: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">radius</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  distance-&gt;SetRadius(radius);
-  distance-&gt;SetDimensions(dimension, dimension, dimension);
-  distance-&gt;SetBounds(
-    bounds[0] - range[0] * .1,
-    bounds[1] + range[0] * .1,
-    bounds[2] - range[1] * .1,
-    bounds[3] + range[1] * .1,
-    bounds[4] - range[2] * .1,
-    bounds[5] + range[2] * .1);
+  <span class="n">distance</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span><span class="p">);</span>
+  <span class="n">distance</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">);</span>
+  <span class="n">distance</span><span class="o">-&gt;</span><span class="n">SetBounds</span><span class="p">(</span>
+    <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkExtractSurface&gt; surface =
-    vtkSmartPointer&lt;vtkExtractSurface&gt;::New();
-  surface-&gt;SetInputConnection (distance-&gt;GetOutputPort());
-  surface-&gt;SetRadius(radius * .99);
-  surface-&gt;HoleFillingOn();
-  surface-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSurface</span><span class="o">&gt;</span> <span class="n">surface</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSurface</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">distance</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="mf">.99</span><span class="p">);</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">HoleFillingOn</span><span class="p">();</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph3D =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  if (polyData-&gt;GetPointData()-&gt;GetNormals())
-  {
-    MakeGlyphs(polyData, radius * 2.0, glyph3D.GetPointer());
-  }
-  else
-  {
-    MakeGlyphs(normals-&gt;GetOutput(), radius * 2.0, glyph3D.GetPointer());
-  }
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; surfaceMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  surfaceMapper-&gt;SetInputConnection(surface-&gt;GetOutputPort());
-  surfaceMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph3D</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">polyData</span><span class="p">,</span> <span class="n">radius</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">glyph3D</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">radius</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">glyph3D</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">surfaceMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">surface</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkProperty&gt; backProp =
-    vtkSmartPointer&lt;vtkProperty&gt;::New();
-  backProp-&gt;SetColor(0.8900, 0.8100, 0.3400);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backProp</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">backProp</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; surfaceActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  surfaceActor-&gt;SetMapper(surfaceMapper);
-  surfaceActor-&gt;GetProperty()-&gt;SetColor(1.0000, 0.4900, 0.2500);
-  surfaceActor-&gt;SetBackfaceProperty(backProp);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">surfaceActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">surfaceMapper</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.4900</span><span class="p">,</span> <span class="mf">0.2500</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backProp</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyph3DMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  glyph3DMapper-&gt;SetInputConnection(glyph3D-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyph3DMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph3D</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; glyph3DActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyph3DActor-&gt;SetMapper(glyph3DMapper);
-  glyph3DActor-&gt;GetProperty()-&gt;SetColor(0.6902, 0.7686, 0.8706);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3DMapper</span><span class="p">);</span>
+  <span class="n">glyph3DActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.6902</span><span class="p">,</span> <span class="mf">0.7686</span><span class="p">,</span> <span class="mf">0.8706</span><span class="p">);</span>
 
-  // Create graphics stuff
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren1-&gt;SetBackground(.3, .4, .6);
+  <span class="c1">// Create graphics stuff</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  renWin-&gt;SetSize(512,512);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;AddActor(surfaceActor);
-  ren1-&gt;AddActor(glyph3DActor);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">surfaceActor</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyph3DActor</span><span class="p">);</span>
 
-  // Generate an interesting view
-  //
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;Azimuth(120);
-  ren1-&gt;GetActiveCamera()-&gt;Elevation(30);
-  ren1-&gt;GetActiveCamera()-&gt;Dolly(1.0);
-  ren1-&gt;ResetCameraClippingRange();
+  <span class="c1">// Generate an interesting view</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
-{
-  vtkSmartPointer&lt;vtkMaskPoints&gt; maskPts =
-    vtkSmartPointer&lt;vtkMaskPoints&gt;::New();
-  maskPts-&gt;SetOnRatio(20);
-  maskPts-&gt;RandomModeOn();
-  maskPts-&gt;SetInputData(src);
-  // Source for the glyph filter
-  vtkSmartPointer&lt;vtkArrowSource&gt; arrow =
-    vtkSmartPointer&lt;vtkArrowSource&gt;::New();
-  arrow-&gt;SetTipResolution(16);
-  arrow-&gt;SetTipLength(.3);
-  arrow-&gt;SetTipRadius(.1);
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="n">size</span><span class="p">,</span> <span class="n">vtkGlyph3D</span> <span class="o">*</span><span class="n">glyph</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;</span> <span class="n">maskPts</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">SetOnRatio</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">RandomModeOn</span><span class="p">();</span>
+  <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="c1">// Source for the glyph filter</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;</span> <span class="n">arrow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipLength</span><span class="p">(</span><span class="mf">.3</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipRadius</span><span class="p">(</span><span class="mf">.1</span><span class="p">);</span>
 
-  glyph-&gt;SetSourceConnection(arrow-&gt;GetOutputPort());
-  glyph-&gt;SetInputConnection(maskPts-&gt;GetOutputPort());
-  glyph-&gt;SetVectorModeToUseNormal();
-//  glyph-&gt;SetColorModeToColorByVector();
-  glyph-&gt;SetScaleModeToScaleByVector();
-  glyph-&gt;SetScaleFactor(size);
-  glyph-&gt;OrientOn();
-  glyph-&gt;Update();
-}
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrow</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetVectorModeToUseNormal</span><span class="p">();</span>
+<span class="c1">//  glyph-&gt;SetColorModeToColorByVector();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">OrientOn</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
 
-static vtkSmartPointer&lt;vtkPolyData&gt; ReadPolyData(const char *fileName)
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData;
-  std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
-  if (extension == &quot;.ply&quot;)
-  {
-    vtkSmartPointer&lt;vtkPLYReader&gt; reader =
-      vtkSmartPointer&lt;vtkPLYReader&gt;::New();
-    reader-&gt;SetFileName (fileName);
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else if (extension == &quot;.vtp&quot;)
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName (fileName);
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else if (extension == &quot;.obj&quot;)
-  {
-    vtkSmartPointer&lt;vtkOBJReader&gt; reader =
-      vtkSmartPointer&lt;vtkOBJReader&gt;::New();
-    reader-&gt;SetFileName (fileName);
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else if (extension == &quot;.stl&quot;)
-  {
-    vtkSmartPointer&lt;vtkSTLReader&gt; reader =
-      vtkSmartPointer&lt;vtkSTLReader&gt;::New();
-    reader-&gt;SetFileName (fileName);
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkPointSource&gt; points =
-      vtkSmartPointer&lt;vtkPointSource&gt;::New();
-    points-&gt;SetNumberOfPoints(100000);
-    points-&gt;SetRadius(10.0);
-    points-&gt;SetCenter(vtkMath::Random(-100, 100),
-                      vtkMath::Random(-100, 100),
-                      vtkMath::Random(-100, 100));
-    points-&gt;SetDistributionToShell();
-    points-&gt;Update();
-    polyData = points-&gt;GetOutput();
-  }
-  return polyData;
-}
-</code></pre>
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">ReadPolyData</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fileName</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">vtksys</span><span class="o">::</span><span class="n">SystemTools</span><span class="o">::</span><span class="n">GetFilenameExtension</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">fileName</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.ply&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPLYReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPLYReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vtp&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.obj&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOBJReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOBJReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.stl&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSTLReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSTLReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">10.0</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                      <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                      <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetDistributionToShell</span><span class="p">();</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">polyData</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ExtractSurfaceDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ExtractSurfaceDemo</span><span class="p">)</span>
 
-add_executable(ExtractSurfaceDemo MACOSX_BUNDLE ExtractSurfaceDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ExtractSurfaceDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ExtractSurfaceDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ExtractSurfaceDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-extractsurfacedemo">Download and Build ExtractSurfaceDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ExtractSurfaceDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-extractsurfacedemo">Download and Build ExtractSurfaceDemo<a class="headerlink" href="#download-and-build-extractsurfacedemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ExtractSurfaceDemo.tar">here to download ExtractSurfaceDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ExtractSurfaceDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ExtractSurfaceDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ExtractSurfaceDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ExtractSurfaceDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./ExtractSurfaceDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,93 +15990,93 @@
                   <h1>FindAllArrayNames</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/IO/FindAllArrayNames</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FindAllArrayNames.cs</strong></p>
-<pre><code class="csharp">using System;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
-      static void Main(string[] args) {
-         FindAllArrayNames(null);
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
-
-
-     private static void FindAllArrayNames(string filePath) {
-         vtkPolyData polydata = vtkPolyData.New();
-
-         if(filePath == null) {
-            vtkSphereSource sphereSource = vtkSphereSource.New();
-            sphereSource.Update();
-            vtkXMLPolyDataWriter writer = vtkXMLPolyDataWriter.New();
-            writer.SetFileName(@&quot;c:\vtk\vtkdata-5.8.0\Data\testFindAllArrayNames.vtp&quot;);
-            writer.SetInputConnection(sphereSource.GetOutputPort());
-            writer.Write();
-            polydata = sphereSource.GetOutput();
-         }
-         else {
-            vtkXMLPolyDataReader reader = vtkXMLPolyDataReader.New();
-            reader.SetFileName(filePath);
-            reader.Update();
-            polydata = reader.GetOutput();
-         }
-         FindAllData(ref polydata);
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">FindAllArrayNames</span><span class="p">(</span><span class="k">null</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private static void FindAllData(ref vtkPolyData polydata) {
-         Console.WriteLine(&quot;Normals: &quot; + polydata.GetPointData().GetNormals());
+     <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">FindAllArrayNames</span><span class="p">(</span><span class="kt">string</span> <span class="n">filePath</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         int numberOfPointArrays = polydata.GetPointData().GetNumberOfArrays();
-         Console.WriteLine(&quot;Number of PointData arrays: &quot; + numberOfPointArrays);
+         <span class="k">if</span><span class="p">(</span><span class="n">filePath</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">sphereSource</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">vtkXMLPolyDataWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">@&quot;c:\vtk\vtkdata-5.8.0\Data\testFindAllArrayNames.vtp&quot;</span><span class="p">);</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">();</span>
+            <span class="n">polydata</span> <span class="p">=</span> <span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+            <span class="n">vtkXMLPolyDataReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+            <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">polydata</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="n">FindAllData</span><span class="p">(</span><span class="k">ref</span> <span class="n">polydata</span><span class="p">);</span>
+      <span class="p">}</span>
 
-         int numberOfCellArrays = polydata.GetCellData().GetNumberOfArrays();
-         Console.WriteLine(&quot;Number of CellData arrays: &quot; + numberOfCellArrays);
 
-         Console.WriteLine(
-            Environment.NewLine + 
-            &quot;Type table/key: &quot; + 
-            Environment.NewLine + 
-            &quot;-------------------------&quot;);
-         //more values can be found in &lt;VTK_DIR&gt;/Common/vtkSetGet.h
+      <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">FindAllData</span><span class="p">(</span><span class="k">ref</span> <span class="n">vtkPolyData</span> <span class="n">polydata</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Normals: &quot;</span> <span class="p">+</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetNormals</span><span class="p">());</span>
 
-         Console.WriteLine(3 + &quot; unsigned char&quot;);
-         Console.WriteLine(7 + &quot; unsigned int&quot;);
-         Console.WriteLine(10 + &quot; float&quot;);
-         Console.WriteLine(11 + &quot; double&quot; + Environment.NewLine);
+         <span class="kt">int</span> <span class="n">numberOfPointArrays</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetNumberOfArrays</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Number of PointData arrays: &quot;</span> <span class="p">+</span> <span class="n">numberOfPointArrays</span><span class="p">);</span>
 
-         for(int i = 0; i &lt; numberOfPointArrays; i++) {
-            // The following two lines are equivalent
-            //arrayNames.push_back(polydata.GetPointData().GetArray(i).GetName());
-            //arrayNames.push_back(polydata.GetPointData().GetArrayName(i));
-            int dataTypeID = polydata.GetPointData().GetArray(i).GetDataType();
-            string dataTypeAsString = polydata.GetPointData().GetArray(i).GetDataTypeAsString();
-            Console.WriteLine(&quot;Array &quot; + i + &quot;: &quot; 
-               + polydata.GetPointData().GetArrayName(i)
-               + &quot; (type: &quot; + dataTypeID + &quot;)&quot;
-               + &quot; (type as string: &quot; + dataTypeAsString + &quot;)&quot; + Environment.NewLine);
-         }
+         <span class="kt">int</span> <span class="n">numberOfCellArrays</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetCellData</span><span class="p">().</span><span class="n">GetNumberOfArrays</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Number of CellData arrays: &quot;</span> <span class="p">+</span> <span class="n">numberOfCellArrays</span><span class="p">);</span>
 
-         for(int i = 0; i &lt; numberOfCellArrays; i++) {
-            // The following two lines are equivalent
-            //polydata.GetPointData().GetArray(i).GetName();
-            //polydata.GetPointData().GetArrayName(i);
-            int dataTypeID = polydata.GetCellData().GetArray(i).GetDataType();
-            string dataTypeAsString = polydata.GetPointData().GetArray(i).GetDataTypeAsString();
-            Console.WriteLine(&quot;Array &quot; + i + &quot;: &quot;
-               + polydata.GetCellData().GetArrayName(i)
-               + &quot; (type: &quot; + dataTypeID + &quot;)&quot;
-               + &quot; (type as string: &quot; + dataTypeAsString + &quot;)&quot;);
-         }
-      }
-    }
-}
-</code></pre>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span>
+            <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span> <span class="p">+</span> 
+            <span class="s">&quot;Type table/key: &quot;</span> <span class="p">+</span> 
+            <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span> <span class="p">+</span> 
+            <span class="s">&quot;-------------------------&quot;</span><span class="p">);</span>
+         <span class="c1">//more values can be found in &lt;VTK_DIR&gt;/Common/vtkSetGet.h</span>
+
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="m">3</span> <span class="p">+</span> <span class="s">&quot; unsigned char&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="m">7</span> <span class="p">+</span> <span class="s">&quot; unsigned int&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="m">10</span> <span class="p">+</span> <span class="s">&quot; float&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="m">11</span> <span class="p">+</span> <span class="s">&quot; double&quot;</span> <span class="p">+</span> <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span><span class="p">);</span>
+
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">numberOfPointArrays</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="c1">// The following two lines are equivalent</span>
+            <span class="c1">//arrayNames.push_back(polydata.GetPointData().GetArray(i).GetName());</span>
+            <span class="c1">//arrayNames.push_back(polydata.GetPointData().GetArrayName(i));</span>
+            <span class="kt">int</span> <span class="n">dataTypeID</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">GetDataType</span><span class="p">();</span>
+            <span class="kt">string</span> <span class="n">dataTypeAsString</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">GetDataTypeAsString</span><span class="p">();</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Array &quot;</span> <span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot;: &quot;</span> 
+               <span class="p">+</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+               <span class="p">+</span> <span class="s">&quot; (type: &quot;</span> <span class="p">+</span> <span class="n">dataTypeID</span> <span class="p">+</span> <span class="s">&quot;)&quot;</span>
+               <span class="p">+</span> <span class="s">&quot; (type as string: &quot;</span> <span class="p">+</span> <span class="n">dataTypeAsString</span> <span class="p">+</span> <span class="s">&quot;)&quot;</span> <span class="p">+</span> <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span><span class="p">);</span>
+         <span class="p">}</span>
+
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">numberOfCellArrays</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="c1">// The following two lines are equivalent</span>
+            <span class="c1">//polydata.GetPointData().GetArray(i).GetName();</span>
+            <span class="c1">//polydata.GetPointData().GetArrayName(i);</span>
+            <span class="kt">int</span> <span class="n">dataTypeID</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetCellData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">GetDataType</span><span class="p">();</span>
+            <span class="kt">string</span> <span class="n">dataTypeAsString</span> <span class="p">=</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">GetDataTypeAsString</span><span class="p">();</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Array &quot;</span> <span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot;: &quot;</span>
+               <span class="p">+</span> <span class="n">polydata</span><span class="p">.</span><span class="n">GetCellData</span><span class="p">().</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+               <span class="p">+</span> <span class="s">&quot; (type: &quot;</span> <span class="p">+</span> <span class="n">dataTypeID</span> <span class="p">+</span> <span class="s">&quot;)&quot;</span>
+               <span class="p">+</span> <span class="s">&quot; (type as string: &quot;</span> <span class="p">+</span> <span class="n">dataTypeAsString</span> <span class="p">+</span> <span class="s">&quot;)&quot;</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

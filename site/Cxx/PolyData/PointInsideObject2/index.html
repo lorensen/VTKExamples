@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,165 +16019,172 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PointInsideObject2</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestPointInsideObject2.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a volume (convex hull-ish) out of a mesh object. It then uses FindCell (which determines if a point is inside of a cell) to determine if a point is inside of any of the 3D cells created by Delaunay3D or not. This could potentially lead to false positives - that is, points that are outside the mesh but inside the convex hull.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PointInsideObject2.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include&lt;vtkPolyDataMapper.h&gt;
-#include&lt;vtkDelaunay3D.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;vtkDelaunay3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
 
-int main(int , char *[])
-{
-  // Create a sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; bigSphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  bigSphereSource-&gt;SetCenter(0.0, 0.0, 0.0);
-  bigSphereSource-&gt;SetRadius(4);
-  bigSphereSource-&gt;SetThetaResolution(20);
-  bigSphereSource-&gt;SetPhiResolution(20);
-  bigSphereSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">bigSphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; bigSphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  bigSphereMapper-&gt;SetInputConnection(bigSphereSource-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">bigSphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bigSphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; bigSphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  bigSphereActor-&gt;SetMapper(bigSphereMapper);
-  bigSphereActor-&gt;GetProperty()-&gt;SetOpacity(.5);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">bigSphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bigSphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">bigSphereMapper</span><span class="p">);</span>
+  <span class="n">bigSphereActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSphereSource&gt; smallSphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  smallSphereSource-&gt;SetCenter(1, 2, 1);
-  smallSphereSource-&gt;SetRadius(2);
-  smallSphereSource-&gt;SetThetaResolution(20);
-  smallSphereSource-&gt;SetPhiResolution(20);
-  smallSphereSource-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">smallSphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; smallSphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  smallSphereMapper-&gt;SetInputConnection(smallSphereSource-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">smallSphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">smallSphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; smallSphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  smallSphereActor-&gt;SetMapper(smallSphereMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">smallSphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">smallSphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">smallSphereMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; pointsInside = vtkSmartPointer&lt;vtkPoints&gt;::New();
-  vtkSmartPointer&lt;vtkPolyData&gt; polyDataInside = vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  double point[3];
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">pointsInside</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyDataInside</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-  vtkSmartPointer&lt;vtkDelaunay3D&gt; delaunay3D = vtkSmartPointer&lt;vtkDelaunay3D&gt;::New();
-  delaunay3D-&gt;SetInputConnection (bigSphereSource-&gt;GetOutputPort());
-  delaunay3D-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay3D</span><span class="o">&gt;</span> <span class="n">delaunay3D</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">delaunay3D</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">bigSphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">delaunay3D</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  for(vtkIdType i = 0; i &lt; smallSphereSource-&gt;GetOutput()-&gt;GetNumberOfPoints(); i++)
-  {
-    smallSphereSource-&gt;GetOutput()-&gt;GetPoint(i,point);
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">smallSphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">point</span><span class="p">);</span>
 
-    double pcoords[3];
-    // The number of weights &gt;= max number of nodes in each cell
-    double weights[4];
+    <span class="kt">double</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="c1">// The number of weights &gt;= max number of nodes in each cell</span>
+    <span class="kt">double</span> <span class="n">weights</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
 
-    int subId;
-    vtkIdType cellId = delaunay3D-&gt;GetOutput()-&gt;FindCell(point,NULL, 0, .1,subId, pcoords, weights);
+    <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span>
+    <span class="n">vtkIdType</span> <span class="n">cellId</span> <span class="o">=</span> <span class="n">delaunay3D</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">FindCell</span><span class="p">(</span><span class="n">point</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span><span class="n">subId</span><span class="p">,</span> <span class="n">pcoords</span><span class="p">,</span> <span class="n">weights</span><span class="p">);</span>
 
-    if (cellId&gt;=0)
-    {
-      std::cout &lt;&lt; &quot;In cell &quot; &lt;&lt; cellId &lt;&lt; std::endl;
-      std::cout &lt;&lt; &quot;inside&quot; &lt;&lt; std::endl;
-      pointsInside-&gt;InsertNextPoint(point);
-    }
-    else
-    {
-      std::cout &lt;&lt; &quot;outside&quot; &lt;&lt; std::endl;
-    }
-  }
+    <span class="k">if</span> <span class="p">(</span><span class="n">cellId</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;In cell &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cellId</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;inside&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="n">pointsInside</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;outside&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  polyDataInside-&gt;SetPoints(pointsInside);
+  <span class="n">polyDataInside</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pointsInside</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVertexGlyphFilter&gt; vertexGlyphFilter = vtkSmartPointer&lt;vtkVertexGlyphFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  vertexGlyphFilter-&gt;SetInputConnection(polyDataInside-&gt;GetProducerPort());
-#else
-  vertexGlyphFilter-&gt;SetInputData(polyDataInside);
-#endif
-  vertexGlyphFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;</span> <span class="n">vertexGlyphFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polyDataInside</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyDataInside</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Mapper and actor for points inside
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; pointsInsideMapper = vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  pointsInsideMapper-&gt;SetInputConnection(vertexGlyphFilter-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; pointsInsideActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  pointsInsideActor-&gt;SetMapper(pointsInsideMapper);
-  pointsInsideActor-&gt;GetProperty()-&gt;SetPointSize(6);
-  pointsInsideActor-&gt;GetProperty()-&gt;SetColor(1,0,1);
+  <span class="c1">// Mapper and actor for points inside</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">pointsInsideMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointsInsideMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">pointsInsideActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointsInsideActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">pointsInsideMapper</span><span class="p">);</span>
+  <span class="n">pointsInsideActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+  <span class="n">pointsInsideActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(smallSphereActor);
-  renderer-&gt;AddActor(bigSphereActor);
-  renderer-&gt;AddActor(pointsInsideActor);
-  renderer-&gt;SetBackground(.3, .6, .3); // Background color green
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">smallSphereActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">bigSphereActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">pointsInsideActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color green</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PointInsideObject2)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PointInsideObject2</span><span class="p">)</span>
 
-add_executable(PointInsideObject2 MACOSX_BUNDLE PointInsideObject2.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PointInsideObject2 ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PointInsideObject2</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PointInsideObject2.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-pointinsideobject2">Download and Build PointInsideObject2</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PointInsideObject2</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-pointinsideobject2">Download and Build PointInsideObject2<a class="headerlink" href="#download-and-build-pointinsideobject2" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PointInsideObject2.tar">here to download PointInsideObject2</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PointInsideObject2.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PointInsideObject2/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PointInsideObject2/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PointInsideObject2
-</code></pre>
+<div class="codehilite"><pre><span></span>./PointInsideObject2
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

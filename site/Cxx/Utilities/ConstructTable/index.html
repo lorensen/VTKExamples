@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,7 +16018,7 @@
                   <h1>ConstructTable</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/ConstructTable</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a 3x3 table. The columns MUST be added first - if you attempt to call AddRow type functions, they will not do anything (or produce errors) because the table still has 0 columns until you tell it otherwise. This example adds 3 empty columns to the table, then goes back and fills them in. </p>
 <p>Warning: the table does not copy the data, so if you add the SAME column to the table each time, i.e.
 <source lang="cpp">
@@ -16019,96 +16031,103 @@ table-&gt;AddColumn(Col);
 table-&gt;AddColumn(Col);
 </source></p>
 <p>If you modify one of the entries in the table with  Table-&gt;SetValue ( r,c, vtkVariant ( counter ) ); after they have all been set to the same column, the rth entry in EVERY column will be changed.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConstructTable.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkTable.h&gt;
-#include &lt;vtkVariant.h&gt;
-#include &lt;vtkVariantArray.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVariant.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVariantArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  //construct an empty table
-  vtkSmartPointer&lt;vtkTable&gt; table =
-    vtkSmartPointer&lt;vtkTable&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">//construct an empty table</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">table</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for ( unsigned int i = 0; i &lt; 3; i++ )
-  {
-    vtkSmartPointer&lt;vtkVariantArray&gt; col =
-      vtkSmartPointer&lt;vtkVariantArray&gt;::New();
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;</span> <span class="n">col</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-    col-&gt;InsertNextValue ( vtkVariant ( 0.0 ) );
-    col-&gt;InsertNextValue ( vtkVariant ( 0.0 ) );
-    col-&gt;InsertNextValue ( vtkVariant ( 0.0 ) );
-    table-&gt;AddColumn ( col );
-  }
+    <span class="n">col</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span> <span class="p">(</span> <span class="n">vtkVariant</span> <span class="p">(</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="n">col</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span> <span class="p">(</span> <span class="n">vtkVariant</span> <span class="p">(</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="n">col</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span> <span class="p">(</span> <span class="n">vtkVariant</span> <span class="p">(</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span> <span class="p">(</span> <span class="n">col</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  //fill the table with values
-  unsigned int counter = 0;
-  for(vtkIdType r = 0; r &lt; table-&gt;GetNumberOfRows(); r++ )
-  {
-    for(vtkIdType c = 0; c &lt; table-&gt;GetNumberOfColumns(); c++ )
-    {
-      table-&gt;SetValue ( r,c, vtkVariant ( counter ) );
-      counter++;
-    }
-  }
+  <span class="c1">//fill the table with values</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfRows</span><span class="p">();</span> <span class="n">r</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfColumns</span><span class="p">();</span> <span class="n">c</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span> <span class="p">(</span> <span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">,</span> <span class="n">vtkVariant</span> <span class="p">(</span> <span class="n">counter</span> <span class="p">)</span> <span class="p">);</span>
+      <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  //print information about the table
-  std::cout &lt;&lt; &quot;NumRows: &quot; &lt;&lt; table-&gt;GetNumberOfRows() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;NumCols: &quot; &lt;&lt; table-&gt;GetNumberOfColumns() &lt;&lt; std::endl;
+  <span class="c1">//print information about the table</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;NumRows: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfRows</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;NumCols: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfColumns</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  //display the table
-  table-&gt;Dump ( 3 );
+  <span class="c1">//display the table</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">Dump</span> <span class="p">(</span> <span class="mi">3</span> <span class="p">);</span>
 
-  //access elements of the table
-  for(vtkIdType r = 0; r &lt; table-&gt;GetNumberOfRows(); r++ )
-  {
-    for(vtkIdType c = 0; c &lt; table-&gt;GetNumberOfColumns(); c++ )
-    {
-    vtkVariant v = table-&gt;GetValue( r,c);
-    std::cout &lt;&lt; &quot;(r,c) = (&quot; &lt;&lt; r &lt;&lt; &quot;,&quot; &lt;&lt; c &lt;&lt; &quot;) = &quot; &lt;&lt; v &lt;&lt; std::endl;
-    }
-  }
+  <span class="c1">//access elements of the table</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfRows</span><span class="p">();</span> <span class="n">r</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfColumns</span><span class="p">();</span> <span class="n">c</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+    <span class="n">vtkVariant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span> <span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(r,c) = (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">r</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ConstructTable)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ConstructTable</span><span class="p">)</span>
 
-add_executable(ConstructTable MACOSX_BUNDLE ConstructTable.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ConstructTable ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ConstructTable</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ConstructTable.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-constructtable">Download and Build ConstructTable</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ConstructTable</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-constructtable">Download and Build ConstructTable<a class="headerlink" href="#download-and-build-constructtable" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConstructTable.tar">here to download ConstructTable</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConstructTable.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ConstructTable/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ConstructTable/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ConstructTable
-</code></pre>
+<div class="codehilite"><pre><span></span>./ConstructTable
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15580,6 +15580,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16008,240 +16020,247 @@
                   <h1>HistogramBarChart</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Cxx">Cxx</a>/WishList/Images/HistogramBarChart</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example works, but the testing images produced usually vary slightly from the baseline.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>HistogramBarChart.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkActor.h&gt;
-#include &lt;vtkBarChartActor.h&gt;
-#include &lt;vtkFieldData.h&gt;
-#include &lt;vtkImageAccumulate.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageExtractComponents.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkLegendBoxActor.h&gt;
-#include &lt;vtkProperty2D.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkStdString.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBarChartActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFieldData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageAccumulate.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageExtractComponents.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLegendBoxActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStdString.h&gt;</span><span class="cp"></span>
 
-int main( int argc, char *argv[] )
-{
-  // Handle the arguments
-  if( argc &lt; 2 )
-  {
-    std::cout &lt;&lt; &quot;Required arguments: filename.jpg, [optional ignore zero:] &lt;y/n&gt;&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
-  int ignoreZero = 0;
-  if( argc == 3 )
-  {
-    vtkStdString ignore = argv[2];
-    std::cout &lt;&lt; ignore &lt;&lt; std::endl;
-    if( ignore == &quot;y&quot; || ignore == &quot;Y&quot; )
-    {
-      ignoreZero = 1;
-    }
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Handle the arguments</span>
+  <span class="k">if</span><span class="p">(</span> <span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: filename.jpg, [optional ignore zero:] &lt;y/n&gt;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">int</span> <span class="n">ignoreZero</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span> <span class="n">argc</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkStdString</span> <span class="n">ignore</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ignore</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">ignore</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span> <span class="o">||</span> <span class="n">ignore</span> <span class="o">==</span> <span class="s">&quot;Y&quot;</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">ignoreZero</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Read a jpeg image
-  vtkSmartPointer&lt;vtkJPEGReader&gt; reader =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  if( !reader-&gt;CanReadFile( argv[1] ) )
-  {
-    std::cout &lt;&lt; &quot;Error: cannot read &quot; &lt;&lt; argv[1] &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
-  reader-&gt;SetFileName( argv[1] );
-  reader-&gt;Update();
+  <span class="c1">// Read a jpeg image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">CanReadFile</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error: cannot read &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  int numComponents = reader-&gt;GetOutput()-&gt;GetNumberOfScalarComponents();
-  if( numComponents &gt; 3 )
-  {
-    std::cout &lt;&lt; &quot;Error: cannot process an image with &quot; &lt;&lt; numComponents &lt;&lt; &quot; components!&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+  <span class="kt">int</span> <span class="n">numComponents</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfScalarComponents</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span> <span class="n">numComponents</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error: cannot process an image with &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numComponents</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; components!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  double colors[3][3] = {
-    { 1, 0, 0 },
-    { 0, 1, 0 },
-    { 0, 0, 1 } };
+  <span class="kt">double</span> <span class="n">colors</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">};</span>
 
-  //const char* labels[3] = {
-  //  &quot;Red&quot;, &quot;Green&quot;, &quot;Blue&quot; };
+  <span class="c1">//const char* labels[3] = {</span>
+  <span class="c1">//  &quot;Red&quot;, &quot;Green&quot;, &quot;Blue&quot; };</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; redFrequencies =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  vtkSmartPointer&lt;vtkIntArray&gt; greenFrequencies =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  vtkSmartPointer&lt;vtkIntArray&gt; blueFrequencies =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">redFrequencies</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">greenFrequencies</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">blueFrequencies</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Process the image, extracting and barChartting a histogram for each component
-  for( int i = 0; i &lt; numComponents; ++i )
-  {
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt; extract =
-    vtkSmartPointer&lt;vtkImageExtractComponents&gt;::New();
-    extract-&gt;SetInputConnection( reader-&gt;GetOutputPort() );
-    extract-&gt;SetComponents( i );
-    extract-&gt;Update();
+  <span class="c1">// Process the image, extracting and barChartting a histogram for each component</span>
+  <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numComponents</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extract</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">extract</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">extract</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span> <span class="n">i</span> <span class="p">);</span>
+    <span class="n">extract</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkImageAccumulate&gt; histogram =
-    vtkSmartPointer&lt;vtkImageAccumulate&gt;::New();
-    histogram-&gt;SetInputConnection( extract-&gt;GetOutputPort() );
-    histogram-&gt;SetComponentExtent( 0,255,0,0,0,0 );
-    histogram-&gt;SetComponentOrigin( 0,0,0 );
-    histogram-&gt;SetComponentSpacing( 1,0,0 );
-    histogram-&gt;SetIgnoreZero( ignoreZero );
-    histogram-&gt;Update();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAccumulate</span><span class="o">&gt;</span> <span class="n">histogram</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAccumulate</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">extract</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentExtent</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">);</span>
+    <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentOrigin</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">);</span>
+    <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentSpacing</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">);</span>
+    <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetIgnoreZero</span><span class="p">(</span> <span class="n">ignoreZero</span> <span class="p">);</span>
+    <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    vtkIntArray* currentArray = 0;
-    if( i == 0 )
-    {
-      currentArray = redFrequencies;
-    }
-    else if( i == 1 )
-    {
-      currentArray = greenFrequencies;
-    }
-    else
-    {
-      currentArray = blueFrequencies;
-    }
+    <span class="n">vtkIntArray</span><span class="o">*</span> <span class="n">currentArray</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">currentArray</span> <span class="o">=</span> <span class="n">redFrequencies</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">currentArray</span> <span class="o">=</span> <span class="n">greenFrequencies</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">currentArray</span> <span class="o">=</span> <span class="n">blueFrequencies</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    currentArray-&gt;SetNumberOfComponents(1);
-    currentArray-&gt;SetNumberOfTuples( 256 );
-    int* output = static_cast&lt;int*&gt;(histogram-&gt;GetOutput()-&gt;GetScalarPointer());
+    <span class="n">currentArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">currentArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span> <span class="mi">256</span> <span class="p">);</span>
+    <span class="kt">int</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">histogram</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">());</span>
 
-    for( int j = 0; j &lt; 256; ++j )
-    {
-      currentArray-&gt;SetTuple1( j, *output++ );
-    }
-  }
+    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">currentArray</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="n">j</span><span class="p">,</span> <span class="o">*</span><span class="n">output</span><span class="o">++</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkDataObject&gt; dataObject =
-    vtkSmartPointer&lt;vtkDataObject&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataObject</span><span class="o">&gt;</span> <span class="n">dataObject</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataObject</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  if( numComponents == 1 )
-  {
-    dataObject-&gt;GetFieldData()-&gt;AddArray( redFrequencies );
-  }
-  else
-  {
-    vtkIntArray* rgb[3] = {0,0,0};
-    vtkSmartPointer&lt;vtkIntArray&gt; allFrequencies = vtkSmartPointer&lt;vtkIntArray&gt;::New();
-    allFrequencies-&gt;SetNumberOfComponents(1);
-    if( numComponents == 2 )
-    {
-      rgb[0] = redFrequencies;
-      rgb[1] = greenFrequencies;
-    }
-    else
-    {
-      rgb[0] = redFrequencies;
-      rgb[1] = greenFrequencies;
-      rgb[2] = blueFrequencies;
-    }
-    for( int i = 0; i &lt; 256; ++i )
-    {
-      for( int j = 0; j &lt; numComponents; ++j )
-      {
-        allFrequencies-&gt;InsertNextTuple1( rgb[j]-&gt;GetTuple1( i ) );
-      }
-    }
+  <span class="k">if</span><span class="p">(</span> <span class="n">numComponents</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">dataObject</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span> <span class="n">redFrequencies</span> <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkIntArray</span><span class="o">*</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">allFrequencies</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">allFrequencies</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">numComponents</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">redFrequencies</span><span class="p">;</span>
+      <span class="n">rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">greenFrequencies</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">redFrequencies</span><span class="p">;</span>
+      <span class="n">rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">greenFrequencies</span><span class="p">;</span>
+      <span class="n">rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">blueFrequencies</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">numComponents</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">allFrequencies</span><span class="o">-&gt;</span><span class="n">InsertNextTuple1</span><span class="p">(</span> <span class="n">rgb</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetTuple1</span><span class="p">(</span> <span class="n">i</span> <span class="p">)</span> <span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-    dataObject-&gt;GetFieldData()-&gt;AddArray( allFrequencies );
-  }
+    <span class="n">dataObject</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span> <span class="n">allFrequencies</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  // Create a vtkBarChartActor
-  vtkSmartPointer&lt;vtkBarChartActor&gt; barChart =
-    vtkSmartPointer&lt;vtkBarChartActor&gt;::New();
+  <span class="c1">// Create a vtkBarChartActor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBarChartActor</span><span class="o">&gt;</span> <span class="n">barChart</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBarChartActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // BUG 1: if input is not set first, the x-axis of the bar chart will be too long
-  //
-  barChart-&gt;SetInput( dataObject );
-  barChart-&gt;SetTitle( &quot;Histogram&quot; );
-  barChart-&gt;GetPositionCoordinate()-&gt;SetValue(0.05,0.05,0.0);
-  barChart-&gt;GetPosition2Coordinate()-&gt;SetValue(0.95,0.85,0.0);
-  barChart-&gt;GetProperty()-&gt;SetColor(1,1,1);
+  <span class="c1">// BUG 1: if input is not set first, the x-axis of the bar chart will be too long</span>
+  <span class="c1">//</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">dataObject</span> <span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span> <span class="s">&quot;Histogram&quot;</span> <span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetPositionCoordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetPosition2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  // BUG 2: if the number of entries is not set to the number of data array tuples, the bar chart actor will crash.
-  // The crash occurs whether the legend and or labels are visible or not.
+  <span class="c1">// BUG 2: if the number of entries is not set to the number of data array tuples, the bar chart actor will crash.</span>
+  <span class="c1">// The crash occurs whether the legend and or labels are visible or not.</span>
 
-  barChart-&gt;GetLegendActor()-&gt;SetNumberOfEntries( dataObject-&gt;GetFieldData()-&gt;GetArray(0)-&gt;GetNumberOfTuples() );
-  barChart-&gt;LegendVisibilityOff();
-  barChart-&gt;LabelVisibilityOff();
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetLegendActor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNumberOfEntries</span><span class="p">(</span> <span class="n">dataObject</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">LegendVisibilityOff</span><span class="p">();</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">LabelVisibilityOff</span><span class="p">();</span>
 
-  // BUG 3: the y-axis labels do not accurately reflect the range of data
+  <span class="c1">// BUG 3: the y-axis labels do not accurately reflect the range of data</span>
 
-  int count = 0;
-  for( int i = 0; i &lt; 256; ++i )
-  {
-    for( int j = 0; j &lt; numComponents; ++j )
-    {
-      barChart-&gt;SetBarColor( count++, colors[j] );
-    }
-  }
+  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">numComponents</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">SetBarColor</span><span class="p">(</span> <span class="n">count</span><span class="o">++</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Visualize the histogram(s)
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor( barChart );
+  <span class="c1">// Visualize the histogram(s)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">barChart</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer( renderer );
-  renderWindow-&gt;SetSize(640, 480);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow( renderWindow );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renderWindow</span> <span class="p">);</span>
 
-  // Initialize the event loop and then start it
-  interactor-&gt;Initialize();
-  interactor-&gt;Start();
+  <span class="c1">// Initialize the event loop and then start it</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return  EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span>  <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(HistogramBarChart)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">HistogramBarChart</span><span class="p">)</span>
 
-add_executable(HistogramBarChart MACOSX_BUNDLE HistogramBarChart.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(HistogramBarChart ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">HistogramBarChart</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">HistogramBarChart.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-histogrambarchart">Download and Build HistogramBarChart</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">HistogramBarChart</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-histogrambarchart">Download and Build HistogramBarChart<a class="headerlink" href="#download-and-build-histogrambarchart" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/HistogramBarChart.tar">here to download HistogramBarChart</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball HistogramBarChart.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd HistogramBarChart/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd HistogramBarChart/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./HistogramBarChart
-</code></pre>
+<div class="codehilite"><pre><span></span>./HistogramBarChart
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

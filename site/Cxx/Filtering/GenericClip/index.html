@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,171 +16019,178 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Filtering/GenericClip</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestGenericClip.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>'''NOTE:''' This example requires vtk 6.0 or greater.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GenericClip.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkActor.h&gt;
-#include &lt;vtkBridgeDataSet.h&gt; // Must build VTK with BUILD_TESTING=ON
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkDelaunay3D.h&gt;
-#include &lt;vtkElevationFilter.h&gt;
-#include &lt;vtkGenericClip.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImplicitDataSet.h&gt;
-#include &lt;vtkIdFilter.h&gt;
-#include &lt;vtkIdTypeArray.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSampleFunction.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPlane.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBridgeDataSet.h&gt; // Must build VTK with BUILD_TESTING=ON</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDelaunay3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkElevationFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGenericClip.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImplicitDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdTypeArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSampleFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlane.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
 
-int main(int, char*[])
-{
-    // If we try to use a PointSource with vtkBridgeDataSet, an error is produced:
-//    vtkBridgeCell.cxx:141: virtual int vtkBridgeCell::GetType(): Assertion `&quot;check: impossible case&quot; &amp;&amp; 0' failed.
-    // There does not seem to be a case to handle VTK_VERTEX (which is what is produced by PointSource) in vtkBridgeDataSet.
-//  vtkSmartPointer&lt;vtkPointSource&gt; pointSource =
-//      vtkSmartPointer&lt;vtkPointSource&gt;::New();
-//  pointSource-&gt;SetNumberOfPoints(100);
-//  pointSource-&gt;SetRadius(1.0);
-//  pointSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// If we try to use a PointSource with vtkBridgeDataSet, an error is produced:</span>
+<span class="c1">//    vtkBridgeCell.cxx:141: virtual int vtkBridgeCell::GetType(): Assertion `&quot;check: impossible case&quot; &amp;&amp; 0&#39; failed.</span>
+    <span class="c1">// There does not seem to be a case to handle VTK_VERTEX (which is what is produced by PointSource) in vtkBridgeDataSet.</span>
+<span class="c1">//  vtkSmartPointer&lt;vtkPointSource&gt; pointSource =</span>
+<span class="c1">//      vtkSmartPointer&lt;vtkPointSource&gt;::New();</span>
+<span class="c1">//  pointSource-&gt;SetNumberOfPoints(100);</span>
+<span class="c1">//  pointSource-&gt;SetRadius(1.0);</span>
+<span class="c1">//  pointSource-&gt;Update();</span>
 
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetRadius(5);
-  sphereSource-&gt;SetThetaResolution(10);
-  sphereSource-&gt;SetPhiResolution(10);
-  sphereSource-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Add ids to the points and cells of the sphere
-  vtkSmartPointer&lt;vtkIdFilter&gt; idFilter =
-      vtkSmartPointer&lt;vtkIdFilter&gt;::New();
-  idFilter-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  idFilter-&gt;Update();
+  <span class="c1">// Add ids to the points and cells of the sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;</span> <span class="n">idFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">idFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">idFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create a plane to clip with
-  vtkSmartPointer&lt;vtkPlane&gt; plane = vtkSmartPointer&lt;vtkPlane&gt;::New();
-  plane-&gt;SetOrigin(0, 0, 0);
-  plane-&gt;SetNormal(1, 1, 1);
+  <span class="c1">// Create a plane to clip with</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">plane</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">plane</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  // Convert the DataSet to a GenericDataSet
-  vtkSmartPointer&lt;vtkBridgeDataSet&gt; bridgeDataSet = vtkSmartPointer&lt;vtkBridgeDataSet&gt;::New();
-  bridgeDataSet-&gt;SetDataSet(idFilter-&gt;GetOutput());
+  <span class="c1">// Convert the DataSet to a GenericDataSet</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBridgeDataSet</span><span class="o">&gt;</span> <span class="n">bridgeDataSet</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBridgeDataSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bridgeDataSet</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">idFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkGenericClip&gt; clipper =
-      vtkSmartPointer&lt;vtkGenericClip&gt;::New();
-  clipper-&gt;SetClipFunction(plane);
-  clipper-&gt;SetInputData(bridgeDataSet);
-  clipper-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGenericClip</span><span class="o">&gt;</span> <span class="n">clipper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGenericClip</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetClipFunction</span><span class="p">(</span><span class="n">plane</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">bridgeDataSet</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Get the clipped cell ids
-  vtkUnstructuredGrid* clipped = clipper-&gt;GetOutput();
-  vtkIdTypeArray* originalIds = vtkIdTypeArray::SafeDownCast(clipped-&gt;GetCellData()-&gt;GetArray(&quot;vtkIdFilter_Ids&quot;));
-  for(vtkIdType i = 0; i &lt; originalIds-&gt;GetNumberOfTuples(); i++)
-  {
-    std::cout &lt;&lt; &quot;new id &quot; &lt;&lt; i &lt;&lt; &quot;, original id &quot; &lt;&lt; originalIds-&gt;GetValue(i) &lt;&lt; std::endl;
-  }
+  <span class="c1">// Get the clipped cell ids</span>
+  <span class="n">vtkUnstructuredGrid</span><span class="o">*</span> <span class="n">clipped</span> <span class="o">=</span> <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="n">vtkIdTypeArray</span><span class="o">*</span> <span class="n">originalIds</span> <span class="o">=</span> <span class="n">vtkIdTypeArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">clipped</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;vtkIdFilter_Ids&quot;</span><span class="p">));</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">originalIds</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;new id &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, original id &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">originalIds</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Create a mapper and actor for clipped points
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapper-&gt;SetInputConnection(clipper-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="c1">// Create a mapper and actor for clipped points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // Create a mapper and actor for clipping function
-  vtkSmartPointer&lt;vtkSampleFunction&gt; sample =
-    vtkSmartPointer&lt;vtkSampleFunction&gt;::New();
-  sample-&gt;SetSampleDimensions(20,20,20);
-  sample-&gt;SetImplicitFunction(plane);
-  double value = 10.0;
-  double xmin = -value, xmax = value, ymin = -value, ymax = value, zmin = -value, zmax = value;
-  sample-&gt;SetModelBounds(xmin, xmax, ymin, ymax, zmin, zmax);
+  <span class="c1">// Create a mapper and actor for clipping function</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;</span> <span class="n">sample</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">plane</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">);</span>
 
-  // Create the 0 isosurface
-  vtkSmartPointer&lt;vtkContourFilter&gt; contours =
-    vtkSmartPointer&lt;vtkContourFilter&gt;::New();
-  contours-&gt;SetInputConnection(sample-&gt;GetOutputPort());
-  contours-&gt;GenerateValues(1, 1, 1);
+  <span class="c1">// Create the 0 isosurface</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contours</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sample</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contours</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  // Map the contours to graphical primitives
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; contourMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  contourMapper-&gt;SetInputConnection(contours-&gt;GetOutputPort());
-  contourMapper-&gt;SetScalarRange(0.0, 1.2);
+  <span class="c1">// Map the contours to graphical primitives</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">contourMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contours</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">);</span>
 
-  // Create an actor for the sphere
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphereActor-&gt;SetMapper(contourMapper);
+  <span class="c1">// Create an actor for the sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actor to the scene
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;AddActor(sphereActor);
-  renderer-&gt;SetBackground(1,1,1); // Background color white
+  <span class="c1">// Add the actor to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GenericClip)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GenericClip</span><span class="p">)</span>
 
-add_executable(GenericClip MACOSX_BUNDLE GenericClip.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GenericClip ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GenericClip</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GenericClip.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-genericclip">Download and Build GenericClip</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GenericClip</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-genericclip">Download and Build GenericClip<a class="headerlink" href="#download-and-build-genericclip" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GenericClip.tar">here to download GenericClip</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GenericClip.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GenericClip/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GenericClip/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GenericClip
-</code></pre>
+<div class="codehilite"><pre><span></span>./GenericClip
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

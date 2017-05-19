@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,171 +16005,178 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageShiftScale</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageShiftScale.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageShiftScale.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkImageShiftScale.h&gt;
-#include &lt;vtkImageEllipsoidSource.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkImageSlice.h&gt;
-#include &lt;vtkImageSliceMapper.h&gt;
-#include &lt;vtkImageProperty.h&gt;
-#include &lt;vtkPNGWriter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageShiftScale.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageEllipsoidSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageSlice.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageSliceMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPNGWriter.h&gt;</span><span class="cp"></span>
 
-static void CreateImage(vtkImageData*);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">);</span>
 
-int main(int, char *[])
-{
-  // Create an image
-  vtkSmartPointer&lt;vtkImageData&gt; image = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  CreateImage(image);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">CreateImage</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; shiftScaleFilter =
-    vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  shiftScaleFilter-&gt;SetOutputScalarTypeToUnsignedChar();
-#if VTK_MAJOR_VERSION &lt;= 5
-  shiftScaleFilter-&gt;SetInputConnection(image-&gt;GetProducerPort());
-#else
-  shiftScaleFilter-&gt;SetInputData(image);
-#endif
-  shiftScaleFilter-&gt;SetShift(100);
-  shiftScaleFilter-&gt;SetScale(1);
-  shiftScaleFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">shiftScaleFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">SetShift</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+  <span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create actors
-  vtkSmartPointer&lt;vtkImageSliceMapper&gt; originalSliceMapper = vtkSmartPointer&lt;vtkImageSliceMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  originalSliceMapper-&gt;SetInputConnection(image-&gt;GetProducerPort());
-#else
-  originalSliceMapper-&gt;SetInputData(image);
-#endif
+  <span class="c1">// Create actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSliceMapper</span><span class="o">&gt;</span> <span class="n">originalSliceMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSliceMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">originalSliceMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">originalSliceMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkImageSlice&gt; originalSlice = vtkSmartPointer&lt;vtkImageSlice&gt;::New();
-  originalSlice-&gt;SetMapper(originalSliceMapper);
-  originalSlice-&gt;GetProperty()-&gt;SetInterpolationTypeToNearest();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSlice</span><span class="o">&gt;</span> <span class="n">originalSlice</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSlice</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalSlice</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalSliceMapper</span><span class="p">);</span>
+  <span class="n">originalSlice</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToNearest</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageSliceMapper&gt; shiftScaleMapper = vtkSmartPointer&lt;vtkImageSliceMapper&gt;::New();
-  shiftScaleMapper-&gt;SetInputConnection(shiftScaleFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSliceMapper</span><span class="o">&gt;</span> <span class="n">shiftScaleMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSliceMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shiftScaleMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">shiftScaleFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageSlice&gt; shiftScaleSlice = vtkSmartPointer&lt;vtkImageSlice&gt;::New();
-  shiftScaleSlice-&gt;SetMapper(shiftScaleMapper);
-  shiftScaleSlice-&gt;GetProperty()-&gt;SetInterpolationTypeToNearest();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSlice</span><span class="o">&gt;</span> <span class="n">shiftScaleSlice</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSlice</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shiftScaleSlice</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">shiftScaleMapper</span><span class="p">);</span>
+  <span class="n">shiftScaleSlice</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToNearest</span><span class="p">();</span>
 
-  // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double originalViewport[4] = {0.0, 0.0, 0.5, 1.0};
-  double shiftScaleViewport[4] = {0.5, 0.0, 1.0, 1.0};
+  <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">originalViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">shiftScaleViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Setup renderers
-  vtkSmartPointer&lt;vtkRenderer&gt; originalRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  originalRenderer-&gt;SetViewport(originalViewport);
-  originalRenderer-&gt;AddViewProp(originalSlice);
-  originalRenderer-&gt;ResetCamera();
-  originalRenderer-&gt;SetBackground(.4, .5, .6);
+  <span class="c1">// Setup renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">originalRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">originalViewport</span><span class="p">);</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">originalSlice</span><span class="p">);</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; shiftScaleRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  shiftScaleRenderer-&gt;SetViewport(shiftScaleViewport);
-  shiftScaleRenderer-&gt;AddViewProp(shiftScaleSlice);
-  shiftScaleRenderer-&gt;ResetCamera();
-  shiftScaleRenderer-&gt;SetBackground(.4, .5, .7);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">shiftScaleRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shiftScaleRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">shiftScaleViewport</span><span class="p">);</span>
+  <span class="n">shiftScaleRenderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">shiftScaleSlice</span><span class="p">);</span>
+  <span class="n">shiftScaleRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">shiftScaleRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(600, 300);
-  renderWindow-&gt;AddRenderer(originalRenderer);
-  renderWindow-&gt;AddRenderer(shiftScaleRenderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">originalRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">shiftScaleRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkInteractorStyleImage&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle(style);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderWindowInteractor-&gt;Initialize();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-void CreateImage(vtkImageData* image)
-{
-  unsigned int dim = 20;
+<span class="kt">void</span> <span class="nf">CreateImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 
-  image-&gt;SetDimensions(dim, dim, 1);
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  image-&gt;SetNumberOfScalarComponents(1);
-  image-&gt;SetScalarTypeToUnsignedChar();
-  image-&gt;AllocateScalars();
-#else
-  image-&gt;AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
-  for(unsigned int x = 0; x &lt; dim; x++)
-  {
-    for(unsigned int y = 0; y &lt; dim; y++)
-    {
-      unsigned char* pixel = static_cast&lt;unsigned char*&gt;(image-&gt;GetScalarPointer(x,y,0));
-      if(x &lt; dim/2)
-      {
-    pixel[0] = 50;
-      }
-      else
-      {
-    pixel[0] = 150;
-      }
-    }
-  }
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+      <span class="p">{</span>
+    <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+    <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  image-&gt;Modified();
-}
-</code></pre>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageShiftScale)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageShiftScale</span><span class="p">)</span>
 
-add_executable(ImageShiftScale MACOSX_BUNDLE ImageShiftScale.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageShiftScale ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageShiftScale</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageShiftScale.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imageshiftscale">Download and Build ImageShiftScale</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageShiftScale</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imageshiftscale">Download and Build ImageShiftScale<a class="headerlink" href="#download-and-build-imageshiftscale" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageShiftScale.tar">here to download ImageShiftScale</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageShiftScale.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageShiftScale/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageShiftScale/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageShiftScale
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageShiftScale
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

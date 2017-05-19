@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,7 +16018,7 @@
                   <h1>GenerateModelsFromLabels</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Medical/GenerateModelsFromLabels</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates polydata models from a 3D volume that contains
 discrete labels. These volume are normally the output of a
 segmentation algorithm. The polydata for each label will be output
@@ -16015,174 +16027,181 @@ cube models, see the example [cubes from labeled volume data]]. The
 input volume must be in <a href="../[VTK/Examples/Medical/Cxx/GenerateCubesFromLabels|Create">[ MetaIO/Documentation| META
 format]</a>.</p>
 <p>Once you generate the models, you can view them with <a href="http://paraview.org">Paraview</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GenerateModelsFromLabels.cxx</strong></p>
-<pre><code class="c++">//
-// GenerateModelsFromLabels
-//   Usage: GenerateModelsFromLabels InputVolume Startlabel Endlabel
-//          where
-//          InputVolume is a meta file containing a 3 volume of
-//            discrete labels.
-//          StartLabel is the first label to be processed
-//          EndLabel is the last label to be processed
-//          NOTE: There can be gaps in the labeling. If a label does
-//          not exist in the volume, it will be skipped.
-//
-//
-#include &lt;vtkMetaImageReader.h&gt;
-#include &lt;vtkImageAccumulate.h&gt;
-#include &lt;vtkDiscreteMarchingCubes.h&gt;
-#include &lt;vtkWindowedSincPolyDataFilter.h&gt;
-#include &lt;vtkMaskFields.h&gt;
-#include &lt;vtkThreshold.h&gt;
-#include &lt;vtkGeometryFilter.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">// GenerateModelsFromLabels</span>
+<span class="c1">//   Usage: GenerateModelsFromLabels InputVolume Startlabel Endlabel</span>
+<span class="c1">//          where</span>
+<span class="c1">//          InputVolume is a meta file containing a 3 volume of</span>
+<span class="c1">//            discrete labels.</span>
+<span class="c1">//          StartLabel is the first label to be processed</span>
+<span class="c1">//          EndLabel is the last label to be processed</span>
+<span class="c1">//          NOTE: There can be gaps in the labeling. If a label does</span>
+<span class="c1">//          not exist in the volume, it will be skipped.</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageAccumulate.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDiscreteMarchingCubes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWindowedSincPolyDataFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskFields.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkThreshold.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGeometryFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;sstream&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[])
-{
-  if (argc &lt; 4)
-  {
-    std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; InputVolume StartLabel EndLabel&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; InputVolume StartLabel EndLabel&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Create all of the classes we will need
-  vtkSmartPointer&lt;vtkMetaImageReader&gt; reader =
-    vtkSmartPointer&lt;vtkMetaImageReader&gt;::New();
-  vtkSmartPointer&lt;vtkImageAccumulate&gt; histogram =
-    vtkSmartPointer&lt;vtkImageAccumulate&gt;::New();
-  vtkSmartPointer&lt;vtkDiscreteMarchingCubes&gt; discreteCubes =
-    vtkSmartPointer&lt;vtkDiscreteMarchingCubes&gt;::New();
-  vtkSmartPointer&lt;vtkWindowedSincPolyDataFilter&gt; smoother =
-    vtkSmartPointer&lt;vtkWindowedSincPolyDataFilter&gt;::New();
-  vtkSmartPointer&lt;vtkThreshold&gt; selector =
-    vtkSmartPointer&lt;vtkThreshold&gt;::New();
-  vtkSmartPointer&lt;vtkMaskFields&gt; scalarsOff =
-    vtkSmartPointer&lt;vtkMaskFields&gt;::New();
-  vtkSmartPointer&lt;vtkGeometryFilter&gt; geometry =
-    vtkSmartPointer&lt;vtkGeometryFilter&gt;::New();
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
+  <span class="c1">// Create all of the classes we will need</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAccumulate</span><span class="o">&gt;</span> <span class="n">histogram</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAccumulate</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDiscreteMarchingCubes</span><span class="o">&gt;</span> <span class="n">discreteCubes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDiscreteMarchingCubes</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWindowedSincPolyDataFilter</span><span class="o">&gt;</span> <span class="n">smoother</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWindowedSincPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;</span> <span class="n">selector</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskFields</span><span class="o">&gt;</span> <span class="n">scalarsOff</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskFields</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeometryFilter</span><span class="o">&gt;</span> <span class="n">geometry</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeometryFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Define all of the variables
-  unsigned int startLabel = atoi(argv[2]);
-  unsigned int endLabel = atoi(argv[3]);
-  std::string filePrefix = &quot;Label&quot;;
-  unsigned int smoothingIterations = 15;
-  double passBand = 0.001;
-  double featureAngle = 120.0;
+  <span class="c1">// Define all of the variables</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">startLabel</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">endLabel</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filePrefix</span> <span class="o">=</span> <span class="s">&quot;Label&quot;</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">smoothingIterations</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">passBand</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">featureAngle</span> <span class="o">=</span> <span class="mf">120.0</span><span class="p">;</span>
 
-  // Generate models from labels
-  // 1) Read the meta file
-  // 2) Generate a histogram of the labels
-  // 3) Generate models from the labeled volume
-  // 4) Smooth the models
-  // 5) Output each model into a separate file
+  <span class="c1">// Generate models from labels</span>
+  <span class="c1">// 1) Read the meta file</span>
+  <span class="c1">// 2) Generate a histogram of the labels</span>
+  <span class="c1">// 3) Generate models from the labeled volume</span>
+  <span class="c1">// 4) Smooth the models</span>
+  <span class="c1">// 5) Output each model into a separate file</span>
 
-  reader-&gt;SetFileName(argv[1]);
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  histogram-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  histogram-&gt;SetComponentExtent(0, endLabel, 0, 0, 0, 0);
-  histogram-&gt;SetComponentOrigin(0, 0, 0);
-  histogram-&gt;SetComponentSpacing(1, 1, 1);
-  histogram-&gt;Update();
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">endLabel</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  discreteCubes-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  discreteCubes-&gt;GenerateValues(
-    endLabel - startLabel + 1, startLabel, endLabel);
+  <span class="n">discreteCubes</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">discreteCubes</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span>
+    <span class="n">endLabel</span> <span class="o">-</span> <span class="n">startLabel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">startLabel</span><span class="p">,</span> <span class="n">endLabel</span><span class="p">);</span>
 
-  smoother-&gt;SetInputConnection(discreteCubes-&gt;GetOutputPort());
-  smoother-&gt;SetNumberOfIterations(smoothingIterations);
-  smoother-&gt;BoundarySmoothingOff();
-  smoother-&gt;FeatureEdgeSmoothingOff();
-  smoother-&gt;SetFeatureAngle(featureAngle);
-  smoother-&gt;SetPassBand(passBand);
-  smoother-&gt;NonManifoldSmoothingOn();
-  smoother-&gt;NormalizeCoordinatesOn();
-  smoother-&gt;Update();
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">discreteCubes</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">SetNumberOfIterations</span><span class="p">(</span><span class="n">smoothingIterations</span><span class="p">);</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">BoundarySmoothingOff</span><span class="p">();</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">FeatureEdgeSmoothingOff</span><span class="p">();</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">SetFeatureAngle</span><span class="p">(</span><span class="n">featureAngle</span><span class="p">);</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">SetPassBand</span><span class="p">(</span><span class="n">passBand</span><span class="p">);</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">NonManifoldSmoothingOn</span><span class="p">();</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">NormalizeCoordinatesOn</span><span class="p">();</span>
+  <span class="n">smoother</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  selector-&gt;SetInputConnection(smoother-&gt;GetOutputPort());
-  selector-&gt;SetInputArrayToProcess(0, 0, 0,
-                                   vtkDataObject::FIELD_ASSOCIATION_CELLS,
-                                   vtkDataSetAttributes::SCALARS);
+  <span class="n">selector</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">smoother</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">selector</span><span class="o">-&gt;</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                   <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">FIELD_ASSOCIATION_CELLS</span><span class="p">,</span>
+                                   <span class="n">vtkDataSetAttributes</span><span class="o">::</span><span class="n">SCALARS</span><span class="p">);</span>
 
-  // Strip the scalars from the output
-  scalarsOff-&gt;SetInputConnection(selector-&gt;GetOutputPort());
-  scalarsOff-&gt;CopyAttributeOff(vtkMaskFields::POINT_DATA,
-                               vtkDataSetAttributes::SCALARS);
-  scalarsOff-&gt;CopyAttributeOff(vtkMaskFields::CELL_DATA,
-                               vtkDataSetAttributes::SCALARS);
+  <span class="c1">// Strip the scalars from the output</span>
+  <span class="n">scalarsOff</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">selector</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">scalarsOff</span><span class="o">-&gt;</span><span class="n">CopyAttributeOff</span><span class="p">(</span><span class="n">vtkMaskFields</span><span class="o">::</span><span class="n">POINT_DATA</span><span class="p">,</span>
+                               <span class="n">vtkDataSetAttributes</span><span class="o">::</span><span class="n">SCALARS</span><span class="p">);</span>
+  <span class="n">scalarsOff</span><span class="o">-&gt;</span><span class="n">CopyAttributeOff</span><span class="p">(</span><span class="n">vtkMaskFields</span><span class="o">::</span><span class="n">CELL_DATA</span><span class="p">,</span>
+                               <span class="n">vtkDataSetAttributes</span><span class="o">::</span><span class="n">SCALARS</span><span class="p">);</span>
 
-  geometry-&gt;SetInputConnection(scalarsOff-&gt;GetOutputPort());
+  <span class="n">geometry</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">scalarsOff</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  writer-&gt;SetInputConnection(geometry-&gt;GetOutputPort());
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geometry</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  for (unsigned int i = startLabel; i &lt;= endLabel; i++)
-  {
-    // see if the label exists, if not skip it
-    double frequency =
-      histogram-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetTuple1(i);
-    if (frequency == 0.0)
-    {
-      continue;
-    }
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">startLabel</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">endLabel</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// see if the label exists, if not skip it</span>
+    <span class="kt">double</span> <span class="n">frequency</span> <span class="o">=</span>
+      <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">frequency</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    // select the cells for a given label
-    selector-&gt;ThresholdBetween(i, i);
+    <span class="c1">// select the cells for a given label</span>
+    <span class="n">selector</span><span class="o">-&gt;</span><span class="n">ThresholdBetween</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
 
-    // output the polydata
-    std::stringstream ss;
-    ss &lt;&lt; filePrefix &lt;&lt; i &lt;&lt; &quot;.vtp&quot;;
-    std::cout &lt;&lt; argv[0] &lt;&lt; &quot; writing &quot; &lt;&lt; ss.str() &lt;&lt; std::endl;
+    <span class="c1">// output the polydata</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
+    <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">filePrefix</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;.vtp&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; writing &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    writer-&gt;SetFileName(ss.str().c_str());
-    writer-&gt;Write();
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  }
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GenerateModelsFromLabels)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GenerateModelsFromLabels</span><span class="p">)</span>
 
-add_executable(GenerateModelsFromLabels MACOSX_BUNDLE GenerateModelsFromLabels.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GenerateModelsFromLabels ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GenerateModelsFromLabels</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GenerateModelsFromLabels.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-generatemodelsfromlabels">Download and Build GenerateModelsFromLabels</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GenerateModelsFromLabels</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-generatemodelsfromlabels">Download and Build GenerateModelsFromLabels<a class="headerlink" href="#download-and-build-generatemodelsfromlabels" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GenerateModelsFromLabels.tar">here to download GenerateModelsFromLabels</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GenerateModelsFromLabels.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GenerateModelsFromLabels/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GenerateModelsFromLabels/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GenerateModelsFromLabels
-</code></pre>
+<div class="codehilite"><pre><span></span>./GenerateModelsFromLabels
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,129 +15991,129 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Meshes/Subdivision</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestSubdivision.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><p>In this example a mesh is read from a file and then subdivided using linear subdivision. The SetNumberOfSubdivisions(n) function controls how many times the mesh is subdivided. For each n, the number of triangles will increase by approximately a factor of 4. For example, if n=2, the number of triangles in the resulting mesh will be 16x the number of triangles in the original mesh.<br /></p>
 <p>Different types of subdivisions can be obtained by replacing vtkLinearSubdivisionFilter with either vtkLoopSubdivisionFilter or vtkButterflySubdivisionFilter.</p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Subdivision.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            Subdivision(null); // you may provide a full path to a *.vtu file
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void Subdivision(string filePath) {
-         vtkPolyData originalMesh;
-         if(filePath != null) {
-            vtkXMLPolyDataReader reader = vtkXMLPolyDataReader.New();
-            reader.SetFileName(filePath);
-            // Subdivision filters only work on triangles
-            vtkTriangleFilter triangles = vtkTriangleFilter.New();
-            triangles.SetInputConnection(reader.GetOutputPort());
-            triangles.Update();
-            originalMesh = triangles.GetOutput();
-         }
-         else {
-            vtkSphereSource sphereSource = vtkSphereSource.New();
-            sphereSource.Update();
-            originalMesh = sphereSource.GetOutput();
-         }
-         Debug.WriteLine(&quot;Before subdivision&quot;);
-         Debug.WriteLine(&quot;    There are &quot; + originalMesh.GetNumberOfPoints()
-            + &quot; points.&quot;);
-         Debug.WriteLine(&quot;    There are &quot; + originalMesh.GetNumberOfPolys()
-            + &quot; triangles.&quot;);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">Subdivision</span><span class="p">(</span><span class="k">null</span><span class="p">);</span> <span class="c1">// you may provide a full path to a *.vtu file</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         int numberOfViewports = 3;
 
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         this.Size = new System.Drawing.Size(200 * numberOfViewports + 12, 252);
-         this.Text += &quot; - Subdivision&quot;;
-         Random rnd = new Random(2);
-         int numberOfSubdivisions = 2;
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">Subdivision</span><span class="p">(</span><span class="kt">string</span> <span class="n">filePath</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">vtkPolyData</span> <span class="n">originalMesh</span><span class="p">;</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">filePath</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vtkXMLPolyDataReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+            <span class="c1">// Subdivision filters only work on triangles</span>
+            <span class="n">vtkTriangleFilter</span> <span class="n">triangles</span> <span class="p">=</span> <span class="n">vtkTriangleFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">triangles</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+            <span class="n">triangles</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">originalMesh</span> <span class="p">=</span> <span class="n">triangles</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+            <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">sphereSource</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">originalMesh</span> <span class="p">=</span> <span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Before subdivision&quot;</span><span class="p">);</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;    There are &quot;</span> <span class="p">+</span> <span class="n">originalMesh</span><span class="p">.</span><span class="n">GetNumberOfPoints</span><span class="p">()</span>
+            <span class="p">+</span> <span class="s">&quot; points.&quot;</span><span class="p">);</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;    There are &quot;</span> <span class="p">+</span> <span class="n">originalMesh</span><span class="p">.</span><span class="n">GetNumberOfPolys</span><span class="p">()</span>
+            <span class="p">+</span> <span class="s">&quot; triangles.&quot;</span><span class="p">);</span>
 
-         // Create one text property for all
-         vtkTextProperty textProperty = vtkTextProperty.New();
-         textProperty.SetFontSize(14);
-         textProperty.SetJustificationToCentered();
+         <span class="kt">int</span> <span class="n">numberOfViewports</span> <span class="p">=</span> <span class="m">3</span><span class="p">;</span>
 
-         for(int i = 0; i &lt; numberOfViewports; i++) {
-            // Note: Here we create a superclass pointer (vtkPolyDataAlgorithm) so that we can easily instantiate different
-            // types of subdivision filters. Typically you would not want to do this, but rather create the pointer to be the type
-            // filter you will actually use, e.g. 
-            // &lt;vtkLinearSubdivisionFilter&gt;  subdivisionFilter = &lt;vtkLinearSubdivisionFilter&gt;.New();
-            vtkPolyDataAlgorithm subdivisionFilter;
-            switch(i) {
-               case 0:
-                  subdivisionFilter = vtkLinearSubdivisionFilter.New();
-                  ( (vtkLinearSubdivisionFilter)subdivisionFilter ).SetNumberOfSubdivisions(numberOfSubdivisions);
-                  break;
-               case 1:
-                  subdivisionFilter = vtkLoopSubdivisionFilter.New();
-                  ( (vtkLoopSubdivisionFilter)subdivisionFilter ).SetNumberOfSubdivisions(numberOfSubdivisions);
-                  break;
-               case 2:
-                  subdivisionFilter = vtkButterflySubdivisionFilter.New();
-                  ( (vtkButterflySubdivisionFilter)subdivisionFilter ).SetNumberOfSubdivisions(numberOfSubdivisions);
-                  break;
-               default:
-                  subdivisionFilter = vtkLinearSubdivisionFilter.New();
-                  ( (vtkLinearSubdivisionFilter)subdivisionFilter ).SetNumberOfSubdivisions(numberOfSubdivisions);
-                  break;
-            }
-#if VTK_MAJOR_VERSION_5
-            subdivisionFilter.SetInputConnection(originalMesh.GetProducerPort());
-#else
-            subdivisionFilter.SetInputData(originalMesh);
-#endif
-            subdivisionFilter.Update();
-            vtkRenderer renderer = vtkRenderer.New();
-            renderWindow.AddRenderer(renderer);
-            renderer.SetViewport((float)i / numberOfViewports, 0, (float)( i + 1 ) / numberOfViewports, 1);
-            renderer.SetBackground(.2 + rnd.NextDouble() / 8, .3 + rnd.NextDouble() / 8, .4 + rnd.NextDouble() / 8);
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">200</span> <span class="p">*</span> <span class="n">numberOfViewports</span> <span class="p">+</span> <span class="m">12</span><span class="p">,</span> <span class="m">252</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Text</span> <span class="p">+=</span> <span class="s">&quot; - Subdivision&quot;</span><span class="p">;</span>
+         <span class="n">Random</span> <span class="n">rnd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+         <span class="kt">int</span> <span class="n">numberOfSubdivisions</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
 
-            vtkTextMapper textMapper = vtkTextMapper.New();
-            vtkActor2D textActor = vtkActor2D.New();
-            textMapper.SetInput(subdivisionFilter.GetClassName());
-            textMapper.SetTextProperty(textProperty);
+         <span class="c1">// Create one text property for all</span>
+         <span class="n">vtkTextProperty</span> <span class="n">textProperty</span> <span class="p">=</span> <span class="n">vtkTextProperty</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">textProperty</span><span class="p">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="m">14</span><span class="p">);</span>
+         <span class="n">textProperty</span><span class="p">.</span><span class="n">SetJustificationToCentered</span><span class="p">();</span>
 
-            textActor.SetMapper(textMapper);
-            textActor.SetPosition(100, 16);
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">numberOfViewports</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="c1">// Note: Here we create a superclass pointer (vtkPolyDataAlgorithm) so that we can easily instantiate different</span>
+            <span class="c1">// types of subdivision filters. Typically you would not want to do this, but rather create the pointer to be the type</span>
+            <span class="c1">// filter you will actually use, e.g. </span>
+            <span class="c1">// &lt;vtkLinearSubdivisionFilter&gt;  subdivisionFilter = &lt;vtkLinearSubdivisionFilter&gt;.New();</span>
+            <span class="n">vtkPolyDataAlgorithm</span> <span class="n">subdivisionFilter</span><span class="p">;</span>
+            <span class="k">switch</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">case</span> <span class="m">0</span><span class="p">:</span>
+                  <span class="n">subdivisionFilter</span> <span class="p">=</span> <span class="n">vtkLinearSubdivisionFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+                  <span class="p">(</span> <span class="p">(</span><span class="n">vtkLinearSubdivisionFilter</span><span class="p">)</span><span class="n">subdivisionFilter</span> <span class="p">).</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+                  <span class="k">break</span><span class="p">;</span>
+               <span class="k">case</span> <span class="m">1</span><span class="p">:</span>
+                  <span class="n">subdivisionFilter</span> <span class="p">=</span> <span class="n">vtkLoopSubdivisionFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+                  <span class="p">(</span> <span class="p">(</span><span class="n">vtkLoopSubdivisionFilter</span><span class="p">)</span><span class="n">subdivisionFilter</span> <span class="p">).</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+                  <span class="k">break</span><span class="p">;</span>
+               <span class="k">case</span> <span class="m">2</span><span class="p">:</span>
+                  <span class="n">subdivisionFilter</span> <span class="p">=</span> <span class="n">vtkButterflySubdivisionFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+                  <span class="p">(</span> <span class="p">(</span><span class="n">vtkButterflySubdivisionFilter</span><span class="p">)</span><span class="n">subdivisionFilter</span> <span class="p">).</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+                  <span class="k">break</span><span class="p">;</span>
+               <span class="k">default</span><span class="p">:</span>
+                  <span class="n">subdivisionFilter</span> <span class="p">=</span> <span class="n">vtkLinearSubdivisionFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+                  <span class="p">(</span> <span class="p">(</span><span class="n">vtkLinearSubdivisionFilter</span><span class="p">)</span><span class="n">subdivisionFilter</span> <span class="p">).</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+                  <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+            <span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">originalMesh</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+            <span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">originalMesh</span><span class="p">);</span>
+<span class="cp">#endif</span>
+            <span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">renderWindow</span><span class="p">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+            <span class="n">renderer</span><span class="p">.</span><span class="n">SetViewport</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">i</span> <span class="p">/</span> <span class="n">numberOfViewports</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">float</span><span class="p">)(</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span> <span class="p">)</span> <span class="p">/</span> <span class="n">numberOfViewports</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+            <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span> <span class="p">+</span> <span class="n">rnd</span><span class="p">.</span><span class="n">NextDouble</span><span class="p">()</span> <span class="p">/</span> <span class="m">8</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span> <span class="p">+</span> <span class="n">rnd</span><span class="p">.</span><span class="n">NextDouble</span><span class="p">()</span> <span class="p">/</span> <span class="m">8</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span> <span class="p">+</span> <span class="n">rnd</span><span class="p">.</span><span class="n">NextDouble</span><span class="p">()</span> <span class="p">/</span> <span class="m">8</span><span class="p">);</span>
 
-            //Create a mapper and actor
-            vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-            mapper.SetInputConnection(subdivisionFilter.GetOutputPort());
-            vtkActor actor = vtkActor.New();
-            actor.SetMapper(mapper);
-            renderer.AddActor(actor);
-            renderer.AddActor(textActor);
-            renderer.ResetCamera();
-         }
-         renderWindow.Render();
-      }
-   }
-}
-</code></pre>
+            <span class="n">vtkTextMapper</span> <span class="n">textMapper</span> <span class="p">=</span> <span class="n">vtkTextMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">vtkActor2D</span> <span class="n">textActor</span> <span class="p">=</span> <span class="n">vtkActor2D</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">textMapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">GetClassName</span><span class="p">());</span>
+            <span class="n">textMapper</span><span class="p">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">);</span>
+
+            <span class="n">textActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textMapper</span><span class="p">);</span>
+            <span class="n">textActor</span><span class="p">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">16</span><span class="p">);</span>
+
+            <span class="c1">//Create a mapper and actor</span>
+            <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+            <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+            <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+            <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textActor</span><span class="p">);</span>
+            <span class="n">renderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

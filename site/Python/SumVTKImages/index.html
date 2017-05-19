@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15551,6 +15551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15958,27 +15970,27 @@
                   <h1>SumVTKImages</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//SumVTKImages</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SumVTKImages.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# ImageSets = List of Image sets
-# Weights  = List of wieghts e.g [1, 1, 1]
+<span class="c1"># ImageSets = List of Image sets</span>
+<span class="c1"># Weights  = List of wieghts e.g [1, 1, 1]</span>
 
-def SumVTKImages(ImageSets, Weights):
+<span class="k">def</span> <span class="nf">SumVTKImages</span><span class="p">(</span><span class="n">ImageSets</span><span class="p">,</span> <span class="n">Weights</span><span class="p">):</span>
 
-    NumOfImages = len(ImageSets)
-    SumFilter = vtk.vtkImageWeightedSum()
-    for x in range(0, NumOfImages, 1):
-        SumFilter.AddInputConnection(ImageSets[x])
-        SumFilter.SetWeight(x, Weights[x])
-    SumFilter.Update()
+    <span class="n">NumOfImages</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ImageSets</span><span class="p">)</span>
+    <span class="n">SumFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageWeightedSum</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NumOfImages</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">SumFilter</span><span class="o">.</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">ImageSets</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="n">SumFilter</span><span class="o">.</span><span class="n">SetWeight</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Weights</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+    <span class="n">SumFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-    # Return summed Image as vtkImageData
-    return SumFilter.GetOutput()
-</code></pre>
+    <span class="c1"># Return summed Image as vtkImageData</span>
+    <span class="k">return</span> <span class="n">SumFilter</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

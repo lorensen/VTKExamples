@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,27 +15990,27 @@
                   <h1>GetValues</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Arrays/GetValues</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Seems to work, but segfaults at the end? </p>
 <p>Tested: No segfault in Python 2.7 and Python 3.4.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GetValues.py</strong></p>
-<pre><code class="python">from __future__ import print_function
-import vtk
-from vtk import *
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span> <span class="o">*</span>
 
-#setup sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.Update()
+<span class="c1">#setup sphere</span>
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-polydata = vtk.vtkPolyData()
-polydata.ShallowCopy(sphereSource.GetOutput())
+<span class="n">polydata</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-normals = polydata.GetPointData().GetNormals();
-normal0 = normals.GetTuple3(0);
+<span class="n">normals</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetNormals</span><span class="p">();</span>
+<span class="n">normal0</span> <span class="o">=</span> <span class="n">normals</span><span class="o">.</span><span class="n">GetTuple3</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-print(&quot;Normal0: {:3.1f} {:3.1f} {:3.1f}&quot;.format(normal0[0], normal0[1], normal0[2]))
-</code></pre>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Normal0: {:3.1f} {:3.1f} {:3.1f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">normal0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">normal0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">normal0</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
                 
                   
                 

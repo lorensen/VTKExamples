@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,294 +16019,301 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Filtering/IterativeClosestPointsTransform</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestIterativeClosestPointsTransform.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This demo produces target points (green) which are at the origin and unit length along each axis. It then perturbs the points and shifts each of them .3 in +y direction -
 the resulting points are the "source" points (red). It then attempts to move the source points as close as possible to the target points. The resulting points are shown in blue. The noise is added to make the example more realistic. Also, the noise ensures nothing was done wrong (i.e. accidentally using the target points as the result and claiming it worked perfectly when in fact nothing happened!)</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IterativeClosestPointsTransform.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkIterativeClosestPointTransform.h&gt;
-#include &lt;vtkTransformPolyDataFilter.h&gt;
-#include &lt;vtkLandmarkTransform.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkMatrix4x4.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIterativeClosestPointTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransformPolyDataFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLandmarkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMatrix4x4.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-namespace
-{
-void CreatePolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata);
-void PerturbPolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata);
-void TranslatePolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata);
-}
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">CreatePolyData</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">PerturbPolyData</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">TranslatePolyData</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span><span class="p">);</span>
+<span class="p">}</span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; source =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  vtkSmartPointer&lt;vtkPolyData&gt; target =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">target</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  if(argc == 3)
-  {
-    std::cout &lt;&lt; &quot;Reading data...&quot; &lt;&lt; std::endl;
-    std::string strSource = argv[1];
-    std::string strTarget = argv[2];
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; sourceReader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    sourceReader-&gt;SetFileName(strSource.c_str());
-    sourceReader-&gt;Update();
-    source-&gt;ShallowCopy(sourceReader-&gt;GetOutput());
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reading data...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">strSource</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">strTarget</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">sourceReader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sourceReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">strSource</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">sourceReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">source</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sourceReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; targetReader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    targetReader-&gt;SetFileName(strTarget.c_str());
-    targetReader-&gt;Update();
-    target-&gt;ShallowCopy(targetReader-&gt;GetOutput());
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Creating data...&quot; &lt;&lt; std::endl;
-    CreatePolyData(source);
-    target-&gt;ShallowCopy(source);
-    TranslatePolyData(target);
-    PerturbPolyData(target);
-  }
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">targetReader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">targetReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">strTarget</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">targetReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">target</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">targetReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Creating data...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">CreatePolyData</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+    <span class="n">target</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+    <span class="n">TranslatePolyData</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+    <span class="n">PerturbPolyData</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Setup ICP transform
-  vtkSmartPointer&lt;vtkIterativeClosestPointTransform&gt; icp =
-      vtkSmartPointer&lt;vtkIterativeClosestPointTransform&gt;::New();
-  icp-&gt;SetSource(source);
-  icp-&gt;SetTarget(target);
-  icp-&gt;GetLandmarkTransform()-&gt;SetModeToRigidBody();
-  icp-&gt;SetMaximumNumberOfIterations(20);
-  //icp-&gt;StartByMatchingCentroidsOn();
-  icp-&gt;Modified();
-  icp-&gt;Update();
+  <span class="c1">// Setup ICP transform</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIterativeClosestPointTransform</span><span class="o">&gt;</span> <span class="n">icp</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIterativeClosestPointTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">icp</span><span class="o">-&gt;</span><span class="n">SetSource</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+  <span class="n">icp</span><span class="o">-&gt;</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+  <span class="n">icp</span><span class="o">-&gt;</span><span class="n">GetLandmarkTransform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetModeToRigidBody</span><span class="p">();</span>
+  <span class="n">icp</span><span class="o">-&gt;</span><span class="n">SetMaximumNumberOfIterations</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="c1">//icp-&gt;StartByMatchingCentroidsOn();</span>
+  <span class="n">icp</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+  <span class="n">icp</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Get the resulting transformation matrix (this matrix takes the source points to the target points)
-  vtkSmartPointer&lt;vtkMatrix4x4&gt; m = icp-&gt;GetMatrix();
-  std::cout &lt;&lt; &quot;The resulting matrix is: &quot; &lt;&lt; *m &lt;&lt; std::endl;
+  <span class="c1">// Get the resulting transformation matrix (this matrix takes the source points to the target points)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMatrix4x4</span><span class="o">&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">icp</span><span class="o">-&gt;</span><span class="n">GetMatrix</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;The resulting matrix is: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">m</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Transform the source points by the ICP solution
-  vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt; icpTransformFilter =
-    vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  icpTransformFilter-&gt;SetInput(source);
-#else
-  icpTransformFilter-&gt;SetInputData(source);
-#endif
-  icpTransformFilter-&gt;SetTransform(icp);
-  icpTransformFilter-&gt;Update();
+  <span class="c1">// Transform the source points by the ICP solution</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;</span> <span class="n">icpTransformFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">icpTransformFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">icpTransformFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">icpTransformFilter</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">icp</span><span class="p">);</span>
+  <span class="n">icpTransformFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  /*
-  // If you need to take the target points to the source points, the matrix is:
-  icp-&gt;Inverse();
-  vtkSmartPointer&lt;vtkMatrix4x4&gt; minv = icp-&gt;GetMatrix();
-  std::cout &lt;&lt; &quot;The resulting inverse matrix is: &quot; &lt;&lt; *minv &lt;&lt; std::cout;
-  */
+  <span class="cm">/*</span>
+<span class="cm">  // If you need to take the target points to the source points, the matrix is:</span>
+<span class="cm">  icp-&gt;Inverse();</span>
+<span class="cm">  vtkSmartPointer&lt;vtkMatrix4x4&gt; minv = icp-&gt;GetMatrix();</span>
+<span class="cm">  std::cout &lt;&lt; &quot;The resulting inverse matrix is: &quot; &lt;&lt; *minv &lt;&lt; std::cout;</span>
+<span class="cm">  */</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sourceMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  sourceMapper-&gt;SetInputConnection(source-&gt;GetProducerPort());
-#else
-  sourceMapper-&gt;SetInputData(source);
-#endif
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sourceMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">sourceMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">sourceMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sourceActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sourceActor-&gt;SetMapper(sourceMapper);
-  sourceActor-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sourceActor-&gt;GetProperty()-&gt;SetPointSize(4);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sourceActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sourceActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sourceMapper</span><span class="p">);</span>
+  <span class="n">sourceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sourceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; targetMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  targetMapper-&gt;SetInputConnection(target-&gt;GetProducerPort());
-#else
-  targetMapper-&gt;SetInputData(target);
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">targetMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">targetMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">target</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">targetMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; targetActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  targetActor-&gt;SetMapper(targetMapper);
-  targetActor-&gt;GetProperty()-&gt;SetColor(0,1,0);
-  targetActor-&gt;GetProperty()-&gt;SetPointSize(4);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">targetActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">targetActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">targetMapper</span><span class="p">);</span>
+  <span class="n">targetActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">targetActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; solutionMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  solutionMapper-&gt;SetInputConnection(icpTransformFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">solutionMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">solutionMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">icpTransformFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; solutionActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  solutionActor-&gt;SetMapper(solutionMapper);
-  solutionActor-&gt;GetProperty()-&gt;SetColor(0,0,1);
-  solutionActor-&gt;GetProperty()-&gt;SetPointSize(3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">solutionActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">solutionActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">solutionMapper</span><span class="p">);</span>
+  <span class="n">solutionActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">solutionActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actor to the scene
-  renderer-&gt;AddActor(sourceActor);
-  renderer-&gt;AddActor(targetActor);
-  renderer-&gt;AddActor(solutionActor);
-  renderer-&gt;SetBackground(.3, .6, .3); // Background color green
+  <span class="c1">// Add the actor to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sourceActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">targetActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">solutionActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color green</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-namespace // anonymous
-{
+<span class="k">namespace</span> <span class="c1">// anonymous</span>
+<span class="p">{</span>
 
-void CreatePolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata)
-{
-  // This function creates a set of 4 points (the origin and a point unit distance along each axis)
+<span class="kt">void</span> <span class="n">CreatePolyData</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// This function creates a set of 4 points (the origin and a point unit distance along each axis)</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create points
-  double origin[3] = {0.0, 0.0, 0.0};
-  points-&gt;InsertNextPoint(origin);
-  double p1[3] = {1.0, 0.0, 0.0};
-  points-&gt;InsertNextPoint(p1);
-  double p2[3] = {0.0, 1.0, 0.0};
-  points-&gt;InsertNextPoint(p2);
-  double p3[3] = {0.0, 0.0, 1.0};
-  points-&gt;InsertNextPoint(p3);
+  <span class="c1">// Create points</span>
+  <span class="kt">double</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">p2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">p3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p3</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; temp =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  temp-&gt;SetPoints(points);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">temp</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">temp</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVertexGlyphFilter&gt; vertexFilter =
-    vtkSmartPointer&lt;vtkVertexGlyphFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  vertexFilter-&gt;SetInputConnection(temp-&gt;GetProducerPort());
-#else
-  vertexFilter-&gt;SetInputData(temp);
-#endif
-  vertexFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;</span> <span class="n">vertexFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">vertexFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">vertexFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vertexFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  polydata-&gt;ShallowCopy(vertexFilter-&gt;GetOutput());
-}
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">vertexFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
 
-void PerturbPolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata)
-{
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;ShallowCopy(polydata-&gt;GetPoints());
+<span class="kt">void</span> <span class="n">PerturbPolyData</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">());</span>
 
-  for(vtkIdType i = 0; i &lt; points-&gt;GetNumberOfPoints(); i++)
-  {
-    double p[3];
-    points-&gt;GetPoint(i, p);
-    double perturb[3];
-    if(i%3 == 0)
-    {
-      perturb[0] = .1; perturb[1] = 0; perturb[2] = 0;
-    }
-    else if(i%3 == 1)
-    {
-      perturb[0] = 0; perturb[1] = .1; perturb[2] = 0;
-    }
-    else
-    {
-      perturb[0] = 0; perturb[1] = 0; perturb[2] = .1;
-    }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">perturb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">3</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">perturb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">perturb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">perturb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    for(unsigned int j = 0; j &lt; 3; j++)
-    {
-      p[j] += perturb[j];
-    }
-    points-&gt;SetPoint(i, p);
-  }
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">perturb</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  polydata-&gt;SetPoints(points);
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-}
+<span class="p">}</span>
 
-void TranslatePolyData(vtkSmartPointer&lt;vtkPolyData&gt; polydata)
-{
-  vtkSmartPointer&lt;vtkTransform&gt; transform =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform-&gt;Translate(0,.3,0);
+<span class="kt">void</span> <span class="n">TranslatePolyData</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.3</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt; transformFilter =
-    vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  transformFilter-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-  transformFilter-&gt;SetInputData(polydata);
-#endif
-  transformFilter-&gt;SetTransform(transform);
-  transformFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;</span> <span class="n">transformFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+  <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  polydata-&gt;ShallowCopy(transformFilter-&gt;GetOutput());
-}
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
 
-} // end anonymous namespace
-</code></pre>
+<span class="p">}</span> <span class="c1">// end anonymous namespace</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(IterativeClosestPointsTransform)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">IterativeClosestPointsTransform</span><span class="p">)</span>
 
-add_executable(IterativeClosestPointsTransform MACOSX_BUNDLE IterativeClosestPointsTransform.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(IterativeClosestPointsTransform ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">IterativeClosestPointsTransform</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">IterativeClosestPointsTransform.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-iterativeclosestpointstransform">Download and Build IterativeClosestPointsTransform</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">IterativeClosestPointsTransform</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-iterativeclosestpointstransform">Download and Build IterativeClosestPointsTransform<a class="headerlink" href="#download-and-build-iterativeclosestpointstransform" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/IterativeClosestPointsTransform.tar">here to download IterativeClosestPointsTransform</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball IterativeClosestPointsTransform.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd IterativeClosestPointsTransform/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd IterativeClosestPointsTransform/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./IterativeClosestPointsTransform
-</code></pre>
+<div class="codehilite"><pre><span></span>./IterativeClosestPointsTransform
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

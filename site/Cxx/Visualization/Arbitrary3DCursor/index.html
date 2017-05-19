@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,226 +16005,233 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/Arbitrary3DCursor</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestArbitrary3DCursor.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Arbitrary3DCursor.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &quot;vtkSmartPointer.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkActor.h&quot;
-#include &quot;vtkProperty.h&quot;
-#include &quot;vtkCommand.h&quot;
-#include &quot;vtkConeSource.h&quot;
-#include &quot;vtkSphereSource.h&quot;
-#include &quot;vtkGlyph3D.h&quot;
-#include &quot;vtkPointWidget.h&quot;
-#include &quot;vtkPolyData.h&quot;
-#include &quot;vtkPolyDataMapper.h&quot;
-#include &quot;vtkProbeFilter.h&quot;
-#include &quot;vtkProperty.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkTextActor.h&quot;
-#include &quot;vtkTextProperty.h&quot;
-#include &quot;vtkXMLPolyDataReader.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCommand.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkConeSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSphereSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkGlyph3D.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPointWidget.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProbeFilter.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTextActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTextProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkXMLPolyDataReader.h&quot;</span><span class="cp"></span>
 
-#include &lt;sstream&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
 
-// This does the actual work: updates the probe.
-// Callback for the interaction
-class vtkmyPWCallback : public vtkCommand
-{
-public:
-  static vtkmyPWCallback *New()
-  {
-    return new vtkmyPWCallback;
-  }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkPointWidget *pointWidget = reinterpret_cast&lt;vtkPointWidget*&gt;(caller);
-    pointWidget-&gt;GetPolyData(this-&gt;PolyData);
-    double position[3];
-    pointWidget-&gt;GetPosition(position);
-    std::ostringstream text;
-    text &lt;&lt; &quot;cursor: &quot;
-         &lt;&lt; std::fixed &lt;&lt; std::setprecision(4)
-         &lt;&lt; position[0] &lt;&lt; &quot;, &quot; &lt;&lt; position[1] &lt;&lt; &quot;, &quot; &lt;&lt; position[2];
-    this-&gt;PositionActor-&gt;SetInput(text.str().c_str());
-    this-&gt;CursorActor-&gt;VisibilityOn();
-  }
-  vtkmyPWCallback():PolyData(0),CursorActor(0) {}
-  vtkPolyData  *PolyData;
-  vtkActor     *CursorActor;
-  vtkTextActor *PositionActor;
-};
+<span class="c1">// This does the actual work: updates the probe.</span>
+<span class="c1">// Callback for the interaction</span>
+<span class="k">class</span> <span class="nc">vtkmyPWCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkmyPWCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkmyPWCallback</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkPointWidget</span> <span class="o">*</span><span class="n">pointWidget</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkPointWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">GetPolyData</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">PolyData</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">position</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">GetPosition</span><span class="p">(</span><span class="n">position</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">text</span><span class="p">;</span>
+    <span class="n">text</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;cursor: &quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+         <span class="o">&lt;&lt;</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">PositionActor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">CursorActor</span><span class="o">-&gt;</span><span class="n">VisibilityOn</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">vtkmyPWCallback</span><span class="p">()</span><span class="o">:</span><span class="n">PolyData</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">CursorActor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">vtkPolyData</span>  <span class="o">*</span><span class="n">PolyData</span><span class="p">;</span>
+  <span class="n">vtkActor</span>     <span class="o">*</span><span class="n">CursorActor</span><span class="p">;</span>
+  <span class="n">vtkTextActor</span> <span class="o">*</span><span class="n">PositionActor</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main( int argc, char *argv[] )
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; inputPolyData;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">inputPolyData</span><span class="p">;</span>
 
-  if(argc &gt; 1)
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
-    reader-&gt;Update();
-    inputPolyData = reader-&gt;GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource-&gt;SetPhiResolution(15);
-    sphereSource-&gt;SetThetaResolution(15);
-    sphereSource-&gt;Update();
-    inputPolyData = sphereSource-&gt;GetOutput();
-  }
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">inputPolyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">inputPolyData</span> <span class="o">=</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; point =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">point</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkProbeFilter&gt; probe =
-    vtkSmartPointer&lt;vtkProbeFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  probe-&gt;SetInput(point);
-  probe-&gt;SetSource(inputPolyData);
-#else
-  probe-&gt;SetInputData(point);
-  probe-&gt;SetSourceData(inputPolyData);
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;</span> <span class="n">probe</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetSource</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetSourceData</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  // create glyph
-  vtkSmartPointer&lt;vtkConeSource&gt; cone =
-    vtkSmartPointer&lt;vtkConeSource&gt;::New();
-  cone-&gt;SetResolution(16);
+  <span class="c1">// create glyph</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;</span> <span class="n">cone</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cone</span><span class="o">-&gt;</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  glyph-&gt;SetInputConnection(probe-&gt;GetOutputPort());
-  glyph-&gt;SetSourceConnection(cone-&gt;GetOutputPort());
-  glyph-&gt;SetVectorModeToUseVector();
-  glyph-&gt;SetScaleModeToDataScalingOff();
-  glyph-&gt;SetScaleFactor(inputPolyData-&gt;GetLength() * 0.1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">probe</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">cone</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetVectorModeToUseVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleModeToDataScalingOff</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="n">inputPolyData</span><span class="o">-&gt;</span><span class="n">GetLength</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyphMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  glyphMapper-&gt;SetInputConnection(glyph-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyphMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; glyphActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyphActor-&gt;SetMapper(glyphMapper);
-  glyphActor-&gt;VisibilityOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyphActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">);</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">VisibilityOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  mapper-&gt;SetInput(inputPolyData);
-#else
-  mapper-&gt;SetInputData(inputPolyData);
-#endif
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
-  actor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-  actor-&gt;GetProperty()-&gt;SetColor(0.8900, 0.8100, 0.3400 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTextActor&gt; textActor =
-    vtkSmartPointer&lt;vtkTextActor&gt;::New();
-  textActor-&gt;GetTextProperty()-&gt;SetFontSize ( 12 );
-  textActor-&gt;SetPosition ( 10, 20 );
-  textActor-&gt;SetInput ( &quot;cursor:&quot; );
-  textActor-&gt;GetTextProperty()-&gt;SetColor ( 1.0,0.0,0.0 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextActor</span><span class="o">&gt;</span> <span class="n">textActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFontSize</span> <span class="p">(</span> <span class="mi">12</span> <span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span> <span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span> <span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetInput</span> <span class="p">(</span> <span class="s">&quot;cursor:&quot;</span> <span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span> <span class="p">(</span> <span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span> <span class="p">);</span>
 
-  // Create the RenderWindow, Render1er and both Actors
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
+  <span class="c1">// Create the RenderWindow, Render1er and both Actors</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // The SetInteractor method is how 3D widgets are associated with the render
-  // window interactor. Internally, SetInteractor sets up a bunch of callbacks
-  // using the Command/Observer mechanism (AddObserver()).
-  vtkSmartPointer&lt;vtkmyPWCallback&gt; myCallback =
-    vtkSmartPointer&lt;vtkmyPWCallback&gt;::New();
-  myCallback-&gt;PolyData = point;
-  myCallback-&gt;CursorActor = glyphActor;
-  myCallback-&gt;PositionActor = textActor;
+  <span class="c1">// The SetInteractor method is how 3D widgets are associated with the render</span>
+  <span class="c1">// window interactor. Internally, SetInteractor sets up a bunch of callbacks</span>
+  <span class="c1">// using the Command/Observer mechanism (AddObserver()).</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkmyPWCallback</span><span class="o">&gt;</span> <span class="n">myCallback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkmyPWCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">myCallback</span><span class="o">-&gt;</span><span class="n">PolyData</span> <span class="o">=</span> <span class="n">point</span><span class="p">;</span>
+  <span class="n">myCallback</span><span class="o">-&gt;</span><span class="n">CursorActor</span> <span class="o">=</span> <span class="n">glyphActor</span><span class="p">;</span>
+  <span class="n">myCallback</span><span class="o">-&gt;</span><span class="n">PositionActor</span> <span class="o">=</span> <span class="n">textActor</span><span class="p">;</span>
 
-  // The point widget is used probe the dataset.
-  //
-  vtkSmartPointer&lt;vtkPointWidget&gt; pointWidget =
-    vtkSmartPointer&lt;vtkPointWidget&gt;::New();
-  pointWidget-&gt;SetInteractor(iren);
-#if VTK_MAJOR_VERSION &lt;= 5
-  pointWidget-&gt;SetInput(inputPolyData);
-#else
-  pointWidget-&gt;SetInputData(inputPolyData);
-#endif
-  pointWidget-&gt;AllOff();
-  pointWidget-&gt;PlaceWidget();
-  pointWidget-&gt;AddObserver(vtkCommand::InteractionEvent,myCallback);
+  <span class="c1">// The point widget is used probe the dataset.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointWidget</span><span class="o">&gt;</span> <span class="n">pointWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">iren</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">AllOff</span><span class="p">();</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">PlaceWidget</span><span class="p">();</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">myCallback</span><span class="p">);</span>
 
-  ren1-&gt;AddActor(glyphActor);
-  ren1-&gt;AddActor(actor);
-  ren1-&gt;AddActor2D ( textActor );
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyphActor</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor2D</span> <span class="p">(</span> <span class="n">textActor</span> <span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;SetBackground(0.1, 0.2, 0.4);
-  renWin-&gt;SetSize(300, 300);
-  renWin-&gt;Render();
-  pointWidget-&gt;On();
-  // render the image
-  //
-  iren-&gt;Initialize();
-  renWin-&gt;Render();
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">pointWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="c1">// render the image</span>
+  <span class="c1">//</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Arbitrary3DCursor)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Arbitrary3DCursor</span><span class="p">)</span>
 
-add_executable(Arbitrary3DCursor MACOSX_BUNDLE Arbitrary3DCursor.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Arbitrary3DCursor ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Arbitrary3DCursor</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Arbitrary3DCursor.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-arbitrary3dcursor">Download and Build Arbitrary3DCursor</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Arbitrary3DCursor</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-arbitrary3dcursor">Download and Build Arbitrary3DCursor<a class="headerlink" href="#download-and-build-arbitrary3dcursor" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Arbitrary3DCursor.tar">here to download Arbitrary3DCursor</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Arbitrary3DCursor.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Arbitrary3DCursor/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Arbitrary3DCursor/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Arbitrary3DCursor
-</code></pre>
+<div class="codehilite"><pre><span></span>./Arbitrary3DCursor
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

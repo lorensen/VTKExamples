@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,52 +15990,52 @@
                   <h1>WritePolyData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/IO/WritePolyData</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>In this example, we add 10 points to a polygonal data (polydata) object and write the result to a VTP file.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>WritePolyData.java</strong></p>
-<pre><code class="java">import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class WritePolyData
-{
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WritePolyData</span>
+<span class="o">{</span>
 
-  static
-  {
-    System.loadLibrary(&quot;vtkCommonJava&quot;);
-    System.loadLibrary(&quot;vtkFilteringJava&quot;);
-    System.loadLibrary(&quot;vtkIOJava&quot;);
-    System.loadLibrary(&quot;vtkImagingJava&quot;);
-    System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-    System.loadLibrary(&quot;vtkRenderingJava&quot;);
-  }
+  <span class="kd">static</span>
+  <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  public static void main(String[] args)
-  {
-    //Create 10 points.
-    vtkPoints points = new vtkPoints();
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="c1">//Create 10 points.</span>
+    <span class="n">vtkPoints</span> <span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPoints</span><span class="o">();</span>
 
-    for ( int i = 0; i &lt; 10; ++i )
-      {
-      points.InsertNextPoint ( i, i, i );
-      }
+    <span class="k">for</span> <span class="o">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span> <span class="o">)</span>
+      <span class="o">{</span>
+      <span class="n">points</span><span class="o">.</span><span class="na">InsertNextPoint</span> <span class="o">(</span> <span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">i</span> <span class="o">);</span>
+      <span class="o">}</span>
 
-    //Create a polydata object and add the points to it.
-    vtkPolyData polydata = new vtkPolyData();
-    polydata.SetPoints(points);
+    <span class="c1">//Create a polydata object and add the points to it.</span>
+    <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyData</span><span class="o">();</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="na">SetPoints</span><span class="o">(</span><span class="n">points</span><span class="o">);</span>
 
-    //Write the file
-    vtkXMLPolyDataWriter writer = new vtkXMLPolyDataWriter();
-    writer.SetFileName(&quot;test.vtp&quot;);
-    writer.SetInput(polydata);
+    <span class="c1">//Write the file</span>
+    <span class="n">vtkXMLPolyDataWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkXMLPolyDataWriter</span><span class="o">();</span>
+    <span class="n">writer</span><span class="o">.</span><span class="na">SetFileName</span><span class="o">(</span><span class="s">&quot;test.vtp&quot;</span><span class="o">);</span>
+    <span class="n">writer</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span><span class="n">polydata</span><span class="o">);</span>
 
-    //Optional - set the mode. The default is binary.
-    //writer.SetDataModeToBinary();
-    //writer.SetDataModeToAscii();
+    <span class="c1">//Optional - set the mode. The default is binary.</span>
+    <span class="c1">//writer.SetDataModeToBinary();</span>
+    <span class="c1">//writer.SetDataModeToAscii();</span>
 
-    writer.Write();
-  }
-}
-</code></pre>
+    <span class="n">writer</span><span class="o">.</span><span class="na">Write</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

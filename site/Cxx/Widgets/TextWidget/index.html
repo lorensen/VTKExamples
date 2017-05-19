@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,118 +16019,125 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/TextWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestTextWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>:''See also: <a href="../[../../Visualization/DrawText]"></a>''</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TextWidget.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTextWidget.h&gt;
-#include &lt;vtkTextActor.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkTextActor.h&gt;
-#include &lt;vtkTextProperty.h&gt;
-#include &lt;vtkTextRepresentation.h&gt;
-#include &lt;vtkCoordinate.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkCommand.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCoordinate.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create the RenderWindow, Renderer and both Actors
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Create a test pipeline
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="c1">// Create a test pipeline</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // Create the widget
-  vtkSmartPointer&lt;vtkTextActor&gt; textActor =
-    vtkSmartPointer&lt;vtkTextActor&gt;::New();
-  textActor-&gt;SetInput(&quot;This is a test&quot;);
-  textActor-&gt;GetTextProperty()-&gt;SetColor( 0.0, 1.0, 0.0 );
+  <span class="c1">// Create the widget</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextActor</span><span class="o">&gt;</span> <span class="n">textActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;This is a test&quot;</span><span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTextWidget&gt; textWidget =
-    vtkSmartPointer&lt;vtkTextWidget&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextWidget</span><span class="o">&gt;</span> <span class="n">textWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkTextRepresentation&gt; textRepresentation =
-    vtkSmartPointer&lt;vtkTextRepresentation&gt;::New();
-  textRepresentation-&gt;GetPositionCoordinate()-&gt;SetValue( .15, .15 );
-  textRepresentation-&gt;GetPosition2Coordinate()-&gt;SetValue( .7, .2 );
-  textWidget -&gt;SetRepresentation( textRepresentation );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextRepresentation</span><span class="o">&gt;</span> <span class="n">textRepresentation</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextRepresentation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textRepresentation</span><span class="o">-&gt;</span><span class="n">GetPositionCoordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span> <span class="mf">.15</span><span class="p">,</span> <span class="mf">.15</span> <span class="p">);</span>
+  <span class="n">textRepresentation</span><span class="o">-&gt;</span><span class="n">GetPosition2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.2</span> <span class="p">);</span>
+  <span class="n">textWidget</span> <span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span> <span class="n">textRepresentation</span> <span class="p">);</span>
 
-  textWidget-&gt;SetInteractor(interactor);
-  textWidget-&gt;SetTextActor(textActor);
-  textWidget-&gt;SelectableOff();
+  <span class="n">textWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">);</span>
+  <span class="n">textWidget</span><span class="o">-&gt;</span><span class="n">SetTextActor</span><span class="p">(</span><span class="n">textActor</span><span class="p">);</span>
+  <span class="n">textWidget</span><span class="o">-&gt;</span><span class="n">SelectableOff</span><span class="p">();</span>
 
-  // Add the actors to the renderer, set the background and size
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(0.1, 0.2, 0.4);
-  renderWindow-&gt;SetSize(300, 300);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
-  interactor-&gt;Initialize();
-  renderWindow-&gt;Render();
-  textWidget-&gt;On();
-  renderWindow-&gt;Render();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">textWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 
-}
-</code></pre>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TextWidget)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TextWidget</span><span class="p">)</span>
 
-add_executable(TextWidget MACOSX_BUNDLE TextWidget.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TextWidget ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TextWidget</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TextWidget.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-textwidget">Download and Build TextWidget</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TextWidget</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-textwidget">Download and Build TextWidget<a class="headerlink" href="#download-and-build-textwidget" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TextWidget.tar">here to download TextWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TextWidget.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TextWidget/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TextWidget/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TextWidget
-</code></pre>
+<div class="codehilite"><pre><span></span>./TextWidget
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

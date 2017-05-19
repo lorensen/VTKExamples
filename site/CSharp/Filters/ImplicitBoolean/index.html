@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,90 +15990,90 @@
                   <h1>ImplicitBoolean</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Filters/ImplicitBoolean</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImplicitBoolean.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            ImplicitBoolean();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void ImplicitBoolean() {
-         vtkSphere sphere1 = vtkSphere.New();
-         sphere1.SetCenter(.9, 0, 0);
-         vtkSphere sphere2 = vtkSphere.New();
-         sphere2.SetCenter(-.9, 0, 0);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">ImplicitBoolean</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkImplicitBoolean implicitBoolean = vtkImplicitBoolean.New();
-         implicitBoolean.AddFunction(sphere1);
-         implicitBoolean.AddFunction(sphere2);
-         implicitBoolean.SetOperationTypeToUnion();
-         //implicitBoolean.SetOperationTypeToIntersection();
 
-         // Sample the function
-         vtkSampleFunction sample = vtkSampleFunction.New();
-         sample.SetSampleDimensions(50, 50, 50);
-         sample.SetImplicitFunction(implicitBoolean);
-         double value = 3.0;
-         double xmin = -value, xmax = value,
-                ymin = -value, ymax = value,
-                zmin = -value, zmax = value;
-         sample.SetModelBounds(xmin, xmax, ymin, ymax, zmin, zmax);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">ImplicitBoolean</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkSphere</span> <span class="n">sphere1</span> <span class="p">=</span> <span class="n">vtkSphere</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphere1</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(.</span><span class="m">9</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">vtkSphere</span> <span class="n">sphere2</span> <span class="p">=</span> <span class="n">vtkSphere</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphere2</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(-.</span><span class="m">9</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
 
-         // Create the 0 isosurface
-         vtkContourFilter contours = vtkContourFilter.New();
-#if VTK_MAJOR_VERSION_5
-         contours.SetInputConnection(sample.GetOutputPort());
-#else
-         contours.SetInputData(sample);
-#endif
-         contours.GenerateValues(1, 1, 1);
+         <span class="n">vtkImplicitBoolean</span> <span class="n">implicitBoolean</span> <span class="p">=</span> <span class="n">vtkImplicitBoolean</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">implicitBoolean</span><span class="p">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">sphere1</span><span class="p">);</span>
+         <span class="n">implicitBoolean</span><span class="p">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">sphere2</span><span class="p">);</span>
+         <span class="n">implicitBoolean</span><span class="p">.</span><span class="n">SetOperationTypeToUnion</span><span class="p">();</span>
+         <span class="c1">//implicitBoolean.SetOperationTypeToIntersection();</span>
 
-         // Map the contours to graphical primitives
-         vtkPolyDataMapper contourMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         contourMapper.SetInputConnection(contours.GetOutputPort());
-#else
-         contourMapper.SetInputData(contours);
-#endif
-         contourMapper.ScalarVisibilityOff();
+         <span class="c1">// Sample the function</span>
+         <span class="n">vtkSampleFunction</span> <span class="n">sample</span> <span class="p">=</span> <span class="n">vtkSampleFunction</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sample</span><span class="p">.</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="m">50</span><span class="p">);</span>
+         <span class="n">sample</span><span class="p">.</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">implicitBoolean</span><span class="p">);</span>
+         <span class="kt">double</span> <span class="k">value</span> <span class="p">=</span> <span class="m">3.0</span><span class="p">;</span>
+         <span class="kt">double</span> <span class="n">xmin</span> <span class="p">=</span> <span class="p">-</span><span class="k">value</span><span class="p">,</span> <span class="n">xmax</span> <span class="p">=</span> <span class="k">value</span><span class="p">,</span>
+                <span class="n">ymin</span> <span class="p">=</span> <span class="p">-</span><span class="k">value</span><span class="p">,</span> <span class="n">ymax</span> <span class="p">=</span> <span class="k">value</span><span class="p">,</span>
+                <span class="n">zmin</span> <span class="p">=</span> <span class="p">-</span><span class="k">value</span><span class="p">,</span> <span class="n">zmax</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+         <span class="n">sample</span><span class="p">.</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">);</span>
 
-         // Create an actor for the contours
-         vtkActor contourActor = vtkActor.New();
-         contourActor.SetMapper(contourMapper);
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(.2, .3, .4);
-         renderer.AddActor(contourActor);
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Create the 0 isosurface</span>
+         <span class="n">vtkContourFilter</span> <span class="n">contours</span> <span class="p">=</span> <span class="n">vtkContourFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">contours</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sample</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">contours</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">sample</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">contours</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+
+         <span class="c1">// Map the contours to graphical primitives</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">contourMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">contourMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contours</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">contourMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">contours</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">contourMapper</span><span class="p">.</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+
+         <span class="c1">// Create an actor for the contours</span>
+         <span class="n">vtkActor</span> <span class="n">contourActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">contourActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">);</span>
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">contourActor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

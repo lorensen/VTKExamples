@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,107 +16004,114 @@
                   <h1>StructuredPointsToUnstructuredGrid</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/StructuredPoints/StructuredPointsToUnstructuredGrid</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>StructuredPointsToUnstructuredGrid.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkStructuredPoints.h&gt;
-#include &lt;vtkXMLUnstructuredGridWriter.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLUnstructuredGridWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // Create a structuredpoints
-  vtkSmartPointer&lt;vtkStructuredPoints&gt; structuredPoints =
-    vtkSmartPointer&lt;vtkStructuredPoints&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a structuredpoints</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredPoints</span><span class="o">&gt;</span> <span class="n">structuredPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Specify the size of the image data
-  structuredPoints-&gt;SetDimensions(2,3,1);
-  structuredPoints-&gt;SetNumberOfScalarComponents(1);
-  structuredPoints-&gt;SetScalarTypeToDouble();
+  <span class="c1">// Specify the size of the image data</span>
+  <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
 
-  int* dims = structuredPoints-&gt;GetDimensions();
+  <span class="kt">int</span><span class="o">*</span> <span class="n">dims</span> <span class="o">=</span> <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;Dims: &quot; &lt;&lt; &quot; x: &quot; &lt;&lt; dims[0] &lt;&lt; &quot; y: &quot; &lt;&lt; dims[1] &lt;&lt; &quot; z: &quot; &lt;&lt; dims[2] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Dims: &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; x: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; y: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; z: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  std::cout &lt;&lt; &quot;Number of points: &quot; &lt;&lt; structuredPoints-&gt;GetNumberOfPoints() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Number of cells: &quot; &lt;&lt; structuredPoints-&gt;GetNumberOfCells() &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of points: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of cells: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  //fill every entry of the image data with &quot;2.0&quot;
-  for (int z = 0; z &lt; dims[2]; z++)
-  {
-    for (int y = 0; y &lt; dims[1]; y++)
-    {
-      for (int x = 0; x &lt; dims[0]; x++)
-      {
-        double* pixel = static_cast&lt;double*&gt;(structuredPoints-&gt;GetScalarPointer(x,y,z));
-        pixel[0] = 2.0;
-      }
-    }
-  }
+  <span class="c1">//fill every entry of the image data with &quot;2.0&quot;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">z</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="kt">double</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">));</span>
+        <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
 
-  // Copy the points from the StructuredPoints to the UnstructuredGrid
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="c1">// Copy the points from the StructuredPoints to the UnstructuredGrid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  //retrieve the entries from the grid and print them to the screen
-  unsigned int counter = 0;
-  for(vtkIdType i = 0; i &lt; structuredPoints-&gt;GetNumberOfPoints(); i++)
-  {
-    double p[3];
-    structuredPoints-&gt;GetPoint(i, p);
+  <span class="c1">//retrieve the entries from the grid and print them to the screen</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">structuredPoints</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
 
-    points-&gt;InsertNextPoint(p);
-  }
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; ug =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  ug-&gt;SetPoints(points);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">ug</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkXMLUnstructuredGridWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLUnstructuredGridWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;output.vtu&quot;);
-  writer-&gt;SetInput(ug);
-  writer-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLUnstructuredGridWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLUnstructuredGridWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;output.vtu&quot;</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">ug</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(StructuredPointsToUnstructuredGrid)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">StructuredPointsToUnstructuredGrid</span><span class="p">)</span>
 
-add_executable(StructuredPointsToUnstructuredGrid MACOSX_BUNDLE StructuredPointsToUnstructuredGrid.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(StructuredPointsToUnstructuredGrid ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">StructuredPointsToUnstructuredGrid</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">StructuredPointsToUnstructuredGrid.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-structuredpointstounstructuredgrid">Download and Build StructuredPointsToUnstructuredGrid</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">StructuredPointsToUnstructuredGrid</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-structuredpointstounstructuredgrid">Download and Build StructuredPointsToUnstructuredGrid<a class="headerlink" href="#download-and-build-structuredpointstounstructuredgrid" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/StructuredPointsToUnstructuredGrid.tar">here to download StructuredPointsToUnstructuredGrid</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball StructuredPointsToUnstructuredGrid.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd StructuredPointsToUnstructuredGrid/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd StructuredPointsToUnstructuredGrid/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./StructuredPointsToUnstructuredGrid
-</code></pre>
+<div class="codehilite"><pre><span></span>./StructuredPointsToUnstructuredGrid
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

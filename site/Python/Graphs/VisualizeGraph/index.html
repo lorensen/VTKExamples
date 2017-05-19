@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,7 +15991,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Graphs/VisualizeGraph</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestVisualizeGraph.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Graphs_VisualizeGraph.png]"></a></p>
 <ul>
 <li>
@@ -15989,30 +16001,30 @@
 <p>Note: AddEdge() is not enabled through python, but AddGraphEdge() is.</p>
 </li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VisualizeGraph.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-g = vtk.vtkMutableDirectedGraph()
+<span class="n">g</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMutableDirectedGraph</span><span class="p">()</span>
 
-v1 = g.AddVertex()
-v2 = g.AddVertex()
+<span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">AddVertex</span><span class="p">()</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">AddVertex</span><span class="p">()</span>
 
-g.AddGraphEdge(v1, v2)
-g.AddGraphEdge(v1, v2)
+<span class="n">g</span><span class="o">.</span><span class="n">AddGraphEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">AddGraphEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
 
-graphLayoutView = vtk.vtkGraphLayoutView()
-graphLayoutView.AddRepresentationFromInput(g)
-graphLayoutView.SetLayoutStrategy(&quot;Simple 2D&quot;)
-graphLayoutView.ResetCamera()
-graphLayoutView.Render()
+<span class="n">graphLayoutView</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGraphLayoutView</span><span class="p">()</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">SetLayoutStrategy</span><span class="p">(</span><span class="s2">&quot;Simple 2D&quot;</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-graphLayoutView.GetLayoutStrategy().SetRandomSeed(0)
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">GetLayoutStrategy</span><span class="p">()</span><span class="o">.</span><span class="n">SetRandomSeed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-graphLayoutView.GetInteractor().Start()
-</code></pre>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

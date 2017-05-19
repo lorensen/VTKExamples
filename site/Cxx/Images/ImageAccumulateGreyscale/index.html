@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,148 +16005,155 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageAccumulateGreyscale</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageAccumulateGreyscale.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageAccumulateGreyscale.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkActor.h&gt;
-#include &lt;vtkBarChartActor.h&gt;
-#include &lt;vtkFieldData.h&gt;
-#include &lt;vtkImageAccumulate.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageExtractComponents.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkLegendBoxActor.h&gt;
-#include &lt;vtkProperty2D.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageMagnitude.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBarChartActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFieldData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageAccumulate.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageExtractComponents.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLegendBoxActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMagnitude.h&gt;</span><span class="cp"></span>
 
-int main( int argc, char *argv[] )
-{
-  // Handle the arguments
-  if( argc &lt; 2 )
-  {
-    std::cout &lt;&lt; &quot;Required arguments: filename.jpg&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Handle the arguments</span>
+  <span class="k">if</span><span class="p">(</span> <span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: filename.jpg&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Read a jpeg image
-  vtkSmartPointer&lt;vtkJPEGReader&gt; reader =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  reader-&gt;SetFileName( argv[1] );
-  reader-&gt;Update();
+  <span class="c1">// Read a jpeg image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageMagnitude&gt; magnitude =
-    vtkSmartPointer&lt;vtkImageMagnitude&gt;::New();
-  magnitude-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  magnitude-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMagnitude</span><span class="o">&gt;</span> <span class="n">magnitude</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMagnitude</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">magnitude</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">magnitude</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  double red[3] = {1, 0, 0 };
+  <span class="kt">double</span> <span class="n">red</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; frequencies =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">frequencies</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageAccumulate&gt; histogram =
-    vtkSmartPointer&lt;vtkImageAccumulate&gt;::New();
-  histogram-&gt;SetInputConnection(magnitude-&gt;GetOutputPort());
-  histogram-&gt;SetComponentExtent(0,255,0,0,0,0);
-  histogram-&gt;SetComponentOrigin(0,0,0);
-  histogram-&gt;SetComponentSpacing(1,0,0);
-  histogram-&gt;IgnoreZeroOn();
-  histogram-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAccumulate</span><span class="o">&gt;</span> <span class="n">histogram</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAccumulate</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">magnitude</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">SetComponentSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">IgnoreZeroOn</span><span class="p">();</span>
+  <span class="n">histogram</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  frequencies-&gt;SetNumberOfComponents(1);
-  frequencies-&gt;SetNumberOfTuples(256);
-  int* output = static_cast&lt;int*&gt;(histogram-&gt;GetOutput()-&gt;GetScalarPointer());
+  <span class="n">frequencies</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">frequencies</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="mi">256</span><span class="p">);</span>
+  <span class="kt">int</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">histogram</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">());</span>
 
-  for(int j = 0; j &lt; 256; ++j)
-  {
-    frequencies-&gt;SetTuple1(j, *output++);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">frequencies</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="o">*</span><span class="n">output</span><span class="o">++</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkDataObject&gt; dataObject =
-    vtkSmartPointer&lt;vtkDataObject&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataObject</span><span class="o">&gt;</span> <span class="n">dataObject</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataObject</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  dataObject-&gt;GetFieldData()-&gt;AddArray( frequencies );
+  <span class="n">dataObject</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span> <span class="n">frequencies</span> <span class="p">);</span>
 
-  // Create a vtkBarChartActor
-  vtkSmartPointer&lt;vtkBarChartActor&gt; barChart =
-    vtkSmartPointer&lt;vtkBarChartActor&gt;::New();
+  <span class="c1">// Create a vtkBarChartActor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBarChartActor</span><span class="o">&gt;</span> <span class="n">barChart</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBarChartActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  barChart-&gt;SetInput(dataObject);
-  barChart-&gt;SetTitle(&quot;Histogram&quot;);
-  barChart-&gt;GetPositionCoordinate()-&gt;SetValue(0.05,0.05,0.0);
-  barChart-&gt;GetPosition2Coordinate()-&gt;SetValue(0.95,0.85,0.0);
-  barChart-&gt;GetProperty()-&gt;SetColor(1,1,1);
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">dataObject</span><span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Histogram&quot;</span><span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetPositionCoordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetPosition2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  barChart-&gt;GetLegendActor()-&gt;SetNumberOfEntries(dataObject-&gt;GetFieldData()-&gt;GetArray(0)-&gt;GetNumberOfTuples());
-  barChart-&gt;LegendVisibilityOff();
-  barChart-&gt;LabelVisibilityOff();
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">GetLegendActor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNumberOfEntries</span><span class="p">(</span><span class="n">dataObject</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">());</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">LegendVisibilityOff</span><span class="p">();</span>
+  <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">LabelVisibilityOff</span><span class="p">();</span>
 
-  int count = 0;
-  for(int i = 0; i &lt; 256; ++i)
-  {
-    barChart-&gt;SetBarColor( count++, red );
-  }
+  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">barChart</span><span class="o">-&gt;</span><span class="n">SetBarColor</span><span class="p">(</span> <span class="n">count</span><span class="o">++</span><span class="p">,</span> <span class="n">red</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  // Visualize the histogram
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(barChart);
+  <span class="c1">// Visualize the histogram</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">barChart</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  renderWindow-&gt;SetSize(640, 480);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Initialize the event loop and then start it
-  interactor-&gt;Initialize();
-  interactor-&gt;Start();
+  <span class="c1">// Initialize the event loop and then start it</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return  EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span>  <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageAccumulateGreyscale)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageAccumulateGreyscale</span><span class="p">)</span>
 
-add_executable(ImageAccumulateGreyscale MACOSX_BUNDLE ImageAccumulateGreyscale.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageAccumulateGreyscale ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageAccumulateGreyscale</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageAccumulateGreyscale.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imageaccumulategreyscale">Download and Build ImageAccumulateGreyscale</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageAccumulateGreyscale</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imageaccumulategreyscale">Download and Build ImageAccumulateGreyscale<a class="headerlink" href="#download-and-build-imageaccumulategreyscale" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageAccumulateGreyscale.tar">here to download ImageAccumulateGreyscale</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageAccumulateGreyscale.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageAccumulateGreyscale/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageAccumulateGreyscale/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageAccumulateGreyscale
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageAccumulateGreyscale
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

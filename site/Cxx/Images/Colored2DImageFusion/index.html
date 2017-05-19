@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,136 +16019,143 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/Colored2DImageFusion</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestColored2DImageFusion.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example use the vtkImageBlend class for a simple fusion of two 2D images with different color maps for each of the images.</p>
 <ul>
 <li>Contributed by: Tim Hutz</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Colored2DImageFusion.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkDataSet.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkImageBlend.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageMapToColors.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageBlend.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapToColors.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // Parse input arguments
-  if ( argc != 3 )
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; Input1Filename Input2Filename&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Parse input arguments</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">3</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Input1Filename Input2Filename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkLookupTable&gt; imgFirstColorMap =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New(); // hot color map
-  imgFirstColorMap-&gt;SetRange( 0.0, 255.0 );
-  imgFirstColorMap-&gt;SetHueRange( 0.0, 0.1 );
-  imgFirstColorMap-&gt;SetValueRange( 0.4, 0.8 );
-  imgFirstColorMap-&gt;Build();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">imgFirstColorMap</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> <span class="c1">// hot color map</span>
+  <span class="n">imgFirstColorMap</span><span class="o">-&gt;</span><span class="n">SetRange</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">255.0</span> <span class="p">);</span>
+  <span class="n">imgFirstColorMap</span><span class="o">-&gt;</span><span class="n">SetHueRange</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span> <span class="p">);</span>
+  <span class="n">imgFirstColorMap</span><span class="o">-&gt;</span><span class="n">SetValueRange</span><span class="p">(</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span> <span class="p">);</span>
+  <span class="n">imgFirstColorMap</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkLookupTable&gt; imgSecondColorMap =
-      vtkSmartPointer&lt;vtkLookupTable&gt;::New(); // cold color map
-  imgSecondColorMap-&gt;SetRange( 0.0, 255.0 );
-  imgSecondColorMap-&gt;SetHueRange( 0.67, 0.68 );
-  imgSecondColorMap-&gt;SetValueRange( 0.4, 0.8 );
-  imgSecondColorMap-&gt;Build();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">imgSecondColorMap</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> <span class="c1">// cold color map</span>
+  <span class="n">imgSecondColorMap</span><span class="o">-&gt;</span><span class="n">SetRange</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">255.0</span> <span class="p">);</span>
+  <span class="n">imgSecondColorMap</span><span class="o">-&gt;</span><span class="n">SetHueRange</span><span class="p">(</span> <span class="mf">0.67</span><span class="p">,</span> <span class="mf">0.68</span> <span class="p">);</span>
+  <span class="n">imgSecondColorMap</span><span class="o">-&gt;</span><span class="n">SetValueRange</span><span class="p">(</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span> <span class="p">);</span>
+  <span class="n">imgSecondColorMap</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkJPEGReader&gt; imgReader =
-      vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  imgReader-&gt;SetFileName( argv[1] );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">imgReader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkJPEGReader&gt; imgReaderMoving =
-      vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  imgReaderMoving-&gt;SetFileName( argv[2] );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">imgReaderMoving</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgReaderMoving</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageMapToColors&gt; firstColorMapper =
-      vtkSmartPointer&lt;vtkImageMapToColors&gt;::New();
-  firstColorMapper-&gt;SetInputConnection( imgReader-&gt;GetOutputPort() );
-  firstColorMapper-&gt;SetLookupTable( imgFirstColorMap );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMapToColors</span><span class="o">&gt;</span> <span class="n">firstColorMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMapToColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">firstColorMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">imgReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">firstColorMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span> <span class="n">imgFirstColorMap</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageMapToColors&gt; secondColorMapper =
-      vtkSmartPointer&lt;vtkImageMapToColors&gt;::New();
-  secondColorMapper-&gt;SetInputConnection( imgReaderMoving-&gt;GetOutputPort() );
-  secondColorMapper-&gt;SetLookupTable( imgSecondColorMap );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMapToColors</span><span class="o">&gt;</span> <span class="n">secondColorMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMapToColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">secondColorMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">imgReaderMoving</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">secondColorMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span> <span class="n">imgSecondColorMap</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageBlend&gt; imgBlender =
-      vtkSmartPointer&lt;vtkImageBlend&gt;::New();
-  imgBlender-&gt;SetOpacity( 0, 0.5 );
-  imgBlender-&gt;SetOpacity( 1, 0.5 );
-  imgBlender-&gt;AddInputConnection( firstColorMapper-&gt;GetOutputPort() );
-  imgBlender-&gt;AddInputConnection( secondColorMapper-&gt;GetOutputPort() );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;</span> <span class="n">imgBlender</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgBlender</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="p">);</span>
+  <span class="n">imgBlender</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span> <span class="p">);</span>
+  <span class="n">imgBlender</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span> <span class="n">firstColorMapper</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">imgBlender</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span> <span class="n">secondColorMapper</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; imgDataSetMapper =
-      vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  imgDataSetMapper-&gt;SetInputConnection(imgBlender-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">imgDataSetMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgDataSetMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgBlender</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; imgActor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-  imgActor-&gt;SetMapper( imgDataSetMapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">imgActor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">imgDataSetMapper</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; imgRenderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  imgRenderer-&gt;AddActor( imgActor );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">imgRenderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">imgActor</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; imgRenderWindow =
-      vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  imgRenderWindow-&gt;AddRenderer( imgRenderer );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">imgRenderWindow</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgRenderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">imgRenderer</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; imgInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  imgInteractor-&gt;SetRenderWindow( imgRenderWindow );
-  imgInteractor-&gt;Initialize();
-  imgInteractor-&gt;Start();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">imgInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imgInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">imgRenderWindow</span> <span class="p">);</span>
+  <span class="n">imgInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">imgInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Colored2DImageFusion)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Colored2DImageFusion</span><span class="p">)</span>
 
-add_executable(Colored2DImageFusion MACOSX_BUNDLE Colored2DImageFusion.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Colored2DImageFusion ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Colored2DImageFusion</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Colored2DImageFusion.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-colored2dimagefusion">Download and Build Colored2DImageFusion</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Colored2DImageFusion</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-colored2dimagefusion">Download and Build Colored2DImageFusion<a class="headerlink" href="#download-and-build-colored2dimagefusion" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Colored2DImageFusion.tar">here to download Colored2DImageFusion</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Colored2DImageFusion.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Colored2DImageFusion/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Colored2DImageFusion/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Colored2DImageFusion
-</code></pre>
+<div class="codehilite"><pre><span></span>./Colored2DImageFusion
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

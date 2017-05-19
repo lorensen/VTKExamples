@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15558,6 +15558,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,158 +15984,158 @@
                   <h1>MeshLabelImageColor</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//MeshLabelImageColor</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example takes a label image in Meta format and meshes a single label of it. It then smoothes the mesh and colours the vertices according to the displacement error introduced by the smoothing. The whole thing is then displayed. An example data can be found here <a href="../[Media:labels.tgz]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MeshLabelImageColor.py</strong></p>
-<pre><code class="python">from __future__ import print_function
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-input='labels.mhd'
+<span class="nb">input</span><span class="o">=</span><span class="s1">&#39;labels.mhd&#39;</span>
 
-# Prepare to read the file
+<span class="c1"># Prepare to read the file</span>
 
-readerVolume = vtk.vtkMetaImageReader()
-readerVolume.SetFileName(input)
-readerVolume.Update()
-
-
-# Extract the region of interest
-voi = vtk.vtkExtractVOI()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    voi.SetInput(readerVolume.GetOutput())
-else:
-    voi.SetInputConnection(readerVolume.GetOutputPort())
-#voi.SetVOI(0,517, 0,228, 0,392)
-voi.SetSampleRate(1,1,1)
-#voi.SetSampleRate(3,3,3)
-voi.Update()#necessary for GetScalarRange()
-srange= voi.GetOutput().GetScalarRange()#needs Update() before!
-print(&quot;Range&quot;, srange)
+<span class="n">readerVolume</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMetaImageReader</span><span class="p">()</span>
+<span class="n">readerVolume</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="n">readerVolume</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
 
-##Prepare surface generation
-contour = vtk.vtkDiscreteMarchingCubes() #for label images
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    contour.SetInput( voi.GetOutput() )
-else:
-    contour.SetInputConnection( voi.GetOutputPort() )
-#contour.ComputeNormalsOn()
+<span class="c1"># Extract the region of interest</span>
+<span class="n">voi</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkExtractVOI</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">voi</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">readerVolume</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">voi</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">readerVolume</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="c1">#voi.SetVOI(0,517, 0,228, 0,392)</span>
+<span class="n">voi</span><span class="o">.</span><span class="n">SetSampleRate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#voi.SetSampleRate(3,3,3)</span>
+<span class="n">voi</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span><span class="c1">#necessary for GetScalarRange()</span>
+<span class="n">srange</span><span class="o">=</span> <span class="n">voi</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalarRange</span><span class="p">()</span><span class="c1">#needs Update() before!</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Range&quot;</span><span class="p">,</span> <span class="n">srange</span><span class="p">)</span>
 
 
-#choose one label
-index= 31
-
-print(&quot;Doing label&quot;, index)
-
-contour.SetValue(0, index)
-contour.Update() #needed for GetNumberOfPolys() !!!
-
-
-smoother= vtk.vtkWindowedSincPolyDataFilter()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    smoother.SetInput(contour.GetOutput())
-else:
-    smoother.SetInputConnection(contour.GetOutputPort())
-smoother.SetNumberOfIterations(30) #this has little effect on the error!
-#smoother.BoundarySmoothingOff()
-#smoother.FeatureEdgeSmoothingOff()
-#smoother.SetFeatureAngle(120.0)
-#smoother.SetPassBand(.001)        #this increases the error a lot!
-smoother.NonManifoldSmoothingOn()
-smoother.NormalizeCoordinatesOn()
-smoother.GenerateErrorScalarsOn()
-#smoother.GenerateErrorVectorsOn()
-smoother.Update()
-
-smoothed_polys= smoother.GetOutput()
-smoother_error= smoothed_polys.GetPointData().GetScalars()
-
-##Find min and max z
-se_range= smoother_error.GetRange()
-print(se_range)
-minz= se_range[0] #min(smoother_error)
-maxz= se_range[1] #max(smoother_error)
-if (maxz &gt; 1):
-    print(&quot;Big smoother error: min/max:&quot;, minz, maxz)
-minz=  .3 #this way colours of different particles are comparable
-maxz= 1
-
-## Create the color map
-colorLookupTable= vtk.vtkLookupTable()
-colorLookupTable.SetTableRange(minz, maxz) #this does nothing, use mapper.SetScalarRange(minz, maxz)
-colorLookupTable.SetHueRange(2/3.0, 1)
-#colorLookupTable.SetSaturationRange(0, 0)
-#colorLookupTable.SetValueRange(1, 0)
-#colorLookupTable.SetNumberOfColors(256) #256 default
-colorLookupTable.Build()
-
-##calc cell normal
-triangleCellNormals= vtk.vtkPolyDataNormals()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    triangleCellNormals.SetInput(smoothed_polys)
-else:
-    triangleCellNormals.SetInputData(smoothed_polys)
-triangleCellNormals.ComputeCellNormalsOn()
-triangleCellNormals.ComputePointNormalsOff()
-triangleCellNormals.ConsistencyOn()
-triangleCellNormals.AutoOrientNormalsOn()
-triangleCellNormals.Update() #creates vtkPolyData
+<span class="c1">##Prepare surface generation</span>
+<span class="n">contour</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDiscreteMarchingCubes</span><span class="p">()</span> <span class="c1">#for label images</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">contour</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">voi</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span> <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">contour</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">voi</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">)</span>
+<span class="c1">#contour.ComputeNormalsOn()</span>
 
 
-mapper= vtk.vtkPolyDataMapper()
-#mapper.SetInput(smoothed_polys) #this has no normals
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    mapper.SetInput(triangleCellNormals.GetOutput()) #this is better for vis;-)
-else:
-    mapper.SetInputConnection(triangleCellNormals.GetOutputPort()) #this is better for vis;-)
-mapper.ScalarVisibilityOn()#show colour
-mapper.SetScalarRange(minz, maxz)
-#mapper.SetScalarModeToUseCellData() # contains the label eg. 31
-mapper.SetScalarModeToUsePointData() #the smoother error relates to the verts
-mapper.SetLookupTable(colorLookupTable)
+<span class="c1">#choose one label</span>
+<span class="n">index</span><span class="o">=</span> <span class="mi">31</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Doing label&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+<span class="n">contour</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+<span class="n">contour</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span> <span class="c1">#needed for GetNumberOfPolys() !!!</span>
 
 
-# Take the isosurface data and create geometry
+<span class="n">smoother</span><span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWindowedSincPolyDataFilter</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">smoother</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">contour</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">smoother</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contour</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">smoother</span><span class="o">.</span><span class="n">SetNumberOfIterations</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="c1">#this has little effect on the error!</span>
+<span class="c1">#smoother.BoundarySmoothingOff()</span>
+<span class="c1">#smoother.FeatureEdgeSmoothingOff()</span>
+<span class="c1">#smoother.SetFeatureAngle(120.0)</span>
+<span class="c1">#smoother.SetPassBand(.001)        #this increases the error a lot!</span>
+<span class="n">smoother</span><span class="o">.</span><span class="n">NonManifoldSmoothingOn</span><span class="p">()</span>
+<span class="n">smoother</span><span class="o">.</span><span class="n">NormalizeCoordinatesOn</span><span class="p">()</span>
+<span class="n">smoother</span><span class="o">.</span><span class="n">GenerateErrorScalarsOn</span><span class="p">()</span>
+<span class="c1">#smoother.GenerateErrorVectorsOn()</span>
+<span class="n">smoother</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-actor = vtk.vtkLODActor()
+<span class="n">smoothed_polys</span><span class="o">=</span> <span class="n">smoother</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+<span class="n">smoother_error</span><span class="o">=</span> <span class="n">smoothed_polys</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span>
 
-actor.SetNumberOfCloudPoints( 100000 )
-actor.SetMapper(mapper)
+<span class="c1">##Find min and max z</span>
+<span class="n">se_range</span><span class="o">=</span> <span class="n">smoother_error</span><span class="o">.</span><span class="n">GetRange</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">se_range</span><span class="p">)</span>
+<span class="n">minz</span><span class="o">=</span> <span class="n">se_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#min(smoother_error)</span>
+<span class="n">maxz</span><span class="o">=</span> <span class="n">se_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#max(smoother_error)</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">maxz</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Big smoother error: min/max:&quot;</span><span class="p">,</span> <span class="n">minz</span><span class="p">,</span> <span class="n">maxz</span><span class="p">)</span>
+<span class="n">minz</span><span class="o">=</span>  <span class="o">.</span><span class="mi">3</span> <span class="c1">#this way colours of different particles are comparable</span>
+<span class="n">maxz</span><span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1">## Create the color map</span>
+<span class="n">colorLookupTable</span><span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+<span class="n">colorLookupTable</span><span class="o">.</span><span class="n">SetTableRange</span><span class="p">(</span><span class="n">minz</span><span class="p">,</span> <span class="n">maxz</span><span class="p">)</span> <span class="c1">#this does nothing, use mapper.SetScalarRange(minz, maxz)</span>
+<span class="n">colorLookupTable</span><span class="o">.</span><span class="n">SetHueRange</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">#colorLookupTable.SetSaturationRange(0, 0)</span>
+<span class="c1">#colorLookupTable.SetValueRange(1, 0)</span>
+<span class="c1">#colorLookupTable.SetNumberOfColors(256) #256 default</span>
+<span class="n">colorLookupTable</span><span class="o">.</span><span class="n">Build</span><span class="p">()</span>
+
+<span class="c1">##calc cell normal</span>
+<span class="n">triangleCellNormals</span><span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataNormals</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">smoothed_polys</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">smoothed_polys</span><span class="p">)</span>
+<span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">ComputeCellNormalsOn</span><span class="p">()</span>
+<span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">ComputePointNormalsOff</span><span class="p">()</span>
+<span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">ConsistencyOn</span><span class="p">()</span>
+<span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">AutoOrientNormalsOn</span><span class="p">()</span>
+<span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span> <span class="c1">#creates vtkPolyData</span>
 
 
-# Create renderer
+<span class="n">mapper</span><span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="c1">#mapper.SetInput(smoothed_polys) #this has no normals</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span> <span class="c1">#this is better for vis;-)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">triangleCellNormals</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span> <span class="c1">#this is better for vis;-)</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">ScalarVisibilityOn</span><span class="p">()</span><span class="c1">#show colour</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">minz</span><span class="p">,</span> <span class="n">maxz</span><span class="p">)</span>
+<span class="c1">#mapper.SetScalarModeToUseCellData() # contains the label eg. 31</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetScalarModeToUsePointData</span><span class="p">()</span> <span class="c1">#the smoother error relates to the verts</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">colorLookupTable</span><span class="p">)</span>
 
-ren = vtk.vtkRenderer()
-ren.SetBackground( 0, 0, 0 )
-ren.AddActor(actor)
+
+<span class="c1"># Take the isosurface data and create geometry</span>
+
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLODActor</span><span class="p">()</span>
+
+<span class="n">actor</span><span class="o">.</span><span class="n">SetNumberOfCloudPoints</span><span class="p">(</span> <span class="mi">100000</span> <span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
 
+<span class="c1"># Create renderer</span>
 
-# Create a window for the renderer of size 250x250
-
-renWin = vtk.vtkRenderWindow()
-
-renWin.AddRenderer(ren)
-renWin.SetSize(250, 250)
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 
 
 
-# Set an user interface interactor for the render window
+<span class="c1"># Create a window for the renderer of size 250x250</span>
 
-iren = vtk.vtkRenderWindowInteractor()
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
 
-iren.SetRenderWindow(renWin)
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 
 
 
-# Start the initialization and rendering
+<span class="c1"># Set an user interface interactor for the render window</span>
 
-iren.Initialize()
-renWin.Render()
-iren.Start()
-</code></pre>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+
+
+
+<span class="c1"># Start the initialization and rendering</span>
+
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

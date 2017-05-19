@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,58 +15991,58 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Geovis/GeoAssignCoordinates</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Geovis_GeoAssignCoordinates.png]"></a></p>
 <ul>
 <li>Contributed by Jim McCusker</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GeoAssignCoordinates.py</strong></p>
-<pre><code class="python">#!/usr/bin/python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-g = vtk.vtkMutableDirectedGraph()
-latitude = vtk.vtkDoubleArray()
-latitude.SetName(&quot;latitude&quot;)
-longitude = vtk.vtkDoubleArray()
-longitude.SetName(&quot;longitude&quot;)
-for i in range(-90, 90, 10):
-    for j in range(-180, 180, 20):
-        g.AddVertex()
-        latitude.InsertNextValue(i)
-        longitude.InsertNextValue(j)
-g.GetVertexData().AddArray(latitude)
-g.GetVertexData().AddArray(longitude)
+<span class="n">g</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMutableDirectedGraph</span><span class="p">()</span>
+<span class="n">latitude</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDoubleArray</span><span class="p">()</span>
+<span class="n">latitude</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">)</span>
+<span class="n">longitude</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDoubleArray</span><span class="p">()</span>
+<span class="n">longitude</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">AddVertex</span><span class="p">()</span>
+        <span class="n">latitude</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">longitude</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span>
 
-assign = vtk.vtkGeoAssignCoordinates()
-mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    assign.SetInput(g)
-else:
-    assign.SetInputData(g)
+<span class="n">assign</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGeoAssignCoordinates</span><span class="p">()</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">assign</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">assign</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 
-assign.SetLatitudeArrayName(&quot;latitude&quot;)
-assign.SetLongitudeArrayName(&quot;longitude&quot;)
-assign.SetGlobeRadius(1.0)
-assign.Update()
+<span class="n">assign</span><span class="o">.</span><span class="n">SetLatitudeArrayName</span><span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">)</span>
+<span class="n">assign</span><span class="o">.</span><span class="n">SetLongitudeArrayName</span><span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">)</span>
+<span class="n">assign</span><span class="o">.</span><span class="n">SetGlobeRadius</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">assign</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-mapper = vtk.vtkGraphMapper()
-mapper.SetInputConnection(assign.GetOutputPort())
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-ren = vtk.vtkRenderer()
-ren.AddActor(actor)
-iren = vtk.vtkRenderWindowInteractor()
-win = vtk.vtkRenderWindow()
-win.AddRenderer(ren)
-win.SetInteractor(iren)
-ren.ResetCamera()
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGraphMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">assign</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">win</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">win</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">win</span><span class="o">.</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">iren</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
 
-iren.Initialize()
-ren.Render()
-iren.Start()
-</code></pre>
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

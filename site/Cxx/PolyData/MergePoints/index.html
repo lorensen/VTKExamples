@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,131 +16018,138 @@
                   <h1>MergePoints</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/MergePoints</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Add new points if they are unique. You must add the original points first. After that, the locator will only add unique points.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MergePoints.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkMergePoints.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMergePoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create a set of points
-  vtkSmartPointer&lt;vtkPointSource&gt; pointsSource =
-    vtkSmartPointer&lt;vtkPointSource&gt;::New();
-  pointsSource-&gt;SetNumberOfPoints(100);
-  pointsSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a set of points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">pointsSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+  <span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkPolyData* points = pointsSource-&gt;GetOutput();
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">points</span> <span class="o">=</span> <span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Get a point point in the set
-  double inSet[3];
-  points-&gt;GetPoint(25, inSet);
+  <span class="c1">// Get a point point in the set</span>
+  <span class="kt">double</span> <span class="n">inSet</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">inSet</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;There are &quot;
-            &lt;&lt; points-&gt;GetNumberOfPoints() &lt;&lt; &quot; input points.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; input points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkIdType id;
+  <span class="n">vtkIdType</span> <span class="n">id</span><span class="p">;</span>
 
-  // Insert all of the points
-  vtkSmartPointer&lt;vtkMergePoints&gt; mergePoints =
-    vtkSmartPointer&lt;vtkMergePoints&gt;::New();
-  mergePoints-&gt;SetDataSet(points);
-  mergePoints-&gt;SetDivisions(10,10,10);
-  mergePoints-&gt;InitPointInsertion(points-&gt;GetPoints(), points-&gt;GetBounds());
+  <span class="c1">// Insert all of the points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMergePoints</span><span class="o">&gt;</span> <span class="n">mergePoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMergePoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mergePoints</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">mergePoints</span><span class="o">-&gt;</span><span class="n">SetDivisions</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">mergePoints</span><span class="o">-&gt;</span><span class="n">InitPointInsertion</span><span class="p">(</span><span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">(),</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">());</span>
 
-  for (vtkIdType i = 0; i &lt; points-&gt;GetNumberOfPoints(); i++)
-  {
-    mergePoints-&gt;InsertUniquePoint(points-&gt;GetPoint(i), id);
-  }
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">mergePoints</span><span class="o">-&gt;</span><span class="n">InsertUniquePoint</span><span class="p">(</span><span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">id</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Insert a few of the original points
-  std::cout &lt;&lt; &quot;Insert some of the original points&quot; &lt;&lt; std::endl;
-  int inserted;
-  for (vtkIdType i = 0; i &lt; points-&gt;GetNumberOfPoints(); i+=10)
-  {
-    points-&gt;GetPoint(i, inSet);
-    inserted = mergePoints-&gt;InsertUniquePoint(inSet, id);
-    std::cout &lt;&lt; &quot;\tPoint: &quot;
-              &lt;&lt; inSet[0] &lt;&lt; &quot;, &quot;
-              &lt;&lt; inSet[1] &lt;&lt; &quot;, &quot;
-              &lt;&lt; inSet[2] &lt;&lt; &quot; &quot;;
+  <span class="c1">// Insert a few of the original points</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Insert some of the original points&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">inserted</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">+=</span><span class="mi">10</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">inSet</span><span class="p">);</span>
+    <span class="n">inserted</span> <span class="o">=</span> <span class="n">mergePoints</span><span class="o">-&gt;</span><span class="n">InsertUniquePoint</span><span class="p">(</span><span class="n">inSet</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Point: &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">inSet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">inSet</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">inSet</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
 
-    std::cout &lt;&lt; &quot;Inserted? &quot; &lt;&lt; ((inserted == 0) ? &quot;No, &quot; : &quot;Yes, &quot;);
-    std::cout &lt;&lt; &quot;Id:: &quot; &lt;&lt; id &lt;&lt; std::endl;
-  }
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Inserted? &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">((</span><span class="n">inserted</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;No, &quot;</span> <span class="o">:</span> <span class="s">&quot;Yes, &quot;</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Id:: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">id</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // These points are probably outside the original set of points
-  std::cout &lt;&lt; &quot;Insert some new points&quot; &lt;&lt; std::endl;
-  double outsideSet[3];
-  for (unsigned int i = 0; i &lt; 10; i++)
-  {
-    outsideSet[0] = vtkMath::Random(
-      -pointsSource-&gt;GetRadius(),
-      pointsSource-&gt;GetRadius());
-    outsideSet[1] = vtkMath::Random(
-      -pointsSource-&gt;GetRadius(),
-      pointsSource-&gt;GetRadius());
-    outsideSet[2] = vtkMath::Random(
-      -pointsSource-&gt;GetRadius(),
-      pointsSource-&gt;GetRadius());
+  <span class="c1">// These points are probably outside the original set of points</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Insert some new points&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">outsideSet</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">outsideSet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span>
+      <span class="o">-</span><span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetRadius</span><span class="p">(),</span>
+      <span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetRadius</span><span class="p">());</span>
+    <span class="n">outsideSet</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span>
+      <span class="o">-</span><span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetRadius</span><span class="p">(),</span>
+      <span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetRadius</span><span class="p">());</span>
+    <span class="n">outsideSet</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span>
+      <span class="o">-</span><span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetRadius</span><span class="p">(),</span>
+      <span class="n">pointsSource</span><span class="o">-&gt;</span><span class="n">GetRadius</span><span class="p">());</span>
 
-    inserted = mergePoints-&gt;InsertUniquePoint(outsideSet, id);
-    std::cout &lt;&lt; &quot;\tPoint: &quot;
-              &lt;&lt; outsideSet[0] &lt;&lt; &quot;, &quot;
-              &lt;&lt; outsideSet[1] &lt;&lt; &quot;, &quot;
-              &lt;&lt; outsideSet[2] &lt;&lt; &quot; &quot;;
+    <span class="n">inserted</span> <span class="o">=</span> <span class="n">mergePoints</span><span class="o">-&gt;</span><span class="n">InsertUniquePoint</span><span class="p">(</span><span class="n">outsideSet</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Point: &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">outsideSet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">outsideSet</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">outsideSet</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
 
-    std::cout &lt;&lt; &quot;Inserted? &quot; &lt;&lt; ((inserted == 0) ? &quot;No, &quot; : &quot;Yes, &quot;);
-    std::cout &lt;&lt; &quot;Id:: &quot; &lt;&lt; id &lt;&lt; std::endl;
-  }
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Inserted? &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">((</span><span class="n">inserted</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;No, &quot;</span> <span class="o">:</span> <span class="s">&quot;Yes, &quot;</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Id:: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">id</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  std::cout &lt;&lt; &quot;There are now &quot;
-            &lt;&lt; points-&gt;GetNumberOfPoints() &lt;&lt; &quot; points.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are now &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MergePoints)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MergePoints</span><span class="p">)</span>
 
-add_executable(MergePoints MACOSX_BUNDLE MergePoints.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MergePoints ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MergePoints</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MergePoints.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-mergepoints">Download and Build MergePoints</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MergePoints</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-mergepoints">Download and Build MergePoints<a class="headerlink" href="#download-and-build-mergepoints" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MergePoints.tar">here to download MergePoints</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MergePoints.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MergePoints/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MergePoints/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MergePoints
-</code></pre>
+<div class="codehilite"><pre><span></span>./MergePoints
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

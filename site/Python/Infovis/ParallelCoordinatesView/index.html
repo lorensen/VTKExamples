@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,97 +15990,97 @@
                   <h1>ParallelCoordinatesView</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Infovis/ParallelCoordinatesView</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>[Coordinates View of the example data after selecting low Elevation values with lasso.]]([Image:ParallelCoordinatesView.png|Parallel)</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ParallelCoordinatesView.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-# Example of how to use Parallel Coordinates View to plot and compare
-# data set attributes.
-# Use the &quot;u&quot; character to toggle between &quot;inspect modes&quot; on the parallel
-# coordinates view (i.e. between selecting data and manipulating axes).
-# Lines which are commented out show alternative options.
+<span class="c1"># Example of how to use Parallel Coordinates View to plot and compare</span>
+<span class="c1"># data set attributes.</span>
+<span class="c1"># Use the &quot;u&quot; character to toggle between &quot;inspect modes&quot; on the parallel</span>
+<span class="c1"># coordinates view (i.e. between selecting data and manipulating axes).</span>
+<span class="c1"># Lines which are commented out show alternative options.</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Generate an example image data set with multiple attribute arrays to probe
-# and view.
-# This is where you would put your reader instead of this rt-&gt;elev pipeline...
-rt = vtk.vtkRTAnalyticSource()
-rt.SetWholeExtent(-3, 3, -3, 3, -3, 3)
-grad = vtk.vtkImageGradient()
-grad.SetDimensionality(3)
-grad.SetInputConnection(rt.GetOutputPort())
-brown = vtk.vtkBrownianPoints()
-brown.SetMinimumSpeed(0.5)
-brown.SetMaximumSpeed(1.0)
-brown.SetInputConnection(grad.GetOutputPort())
-elev = vtk.vtkElevationFilter()
-elev.SetLowPoint(-3, -3, -3)
-elev.SetHighPoint(3, 3, 3)
-elev.SetInputConnection(brown.GetOutputPort())
+<span class="c1"># Generate an example image data set with multiple attribute arrays to probe</span>
+<span class="c1"># and view.</span>
+<span class="c1"># This is where you would put your reader instead of this rt-&gt;elev pipeline...</span>
+<span class="n">rt</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRTAnalyticSource</span><span class="p">()</span>
+<span class="n">rt</span><span class="o">.</span><span class="n">SetWholeExtent</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">grad</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageGradient</span><span class="p">()</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">rt</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">brown</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBrownianPoints</span><span class="p">()</span>
+<span class="n">brown</span><span class="o">.</span><span class="n">SetMinimumSpeed</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">brown</span><span class="o">.</span><span class="n">SetMaximumSpeed</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">brown</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">elev</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkElevationFilter</span><span class="p">()</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">brown</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# Set up the parallel coordinates Representation to be used in the View
-rep = vtk.vtkParallelCoordinatesRepresentation()
+<span class="c1"># Set up the parallel coordinates Representation to be used in the View</span>
+<span class="n">rep</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParallelCoordinatesRepresentation</span><span class="p">()</span>
 
-# Plug your reader in here for your own data
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    rep.SetInput(elev.GetOutput())
-else:
-    rep.SetInputConnection(elev.GetOutputPort())
+<span class="c1"># Plug your reader in here for your own data</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">rep</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">elev</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">rep</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">elev</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# List all of the attribute arrays you want plotted in parallel coordinates
-rep.SetInputArrayToProcess(0, 0, 0, 0, 'RTDataGradient')
-rep.SetInputArrayToProcess(1, 0, 0, 0, 'RTData')
-rep.SetInputArrayToProcess(2, 0, 0, 0, 'Elevation')
-rep.SetInputArrayToProcess(3, 0, 0, 0, 'BrownianVectors')
+<span class="c1"># List all of the attribute arrays you want plotted in parallel coordinates</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;RTDataGradient&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;RTData&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;BrownianVectors&#39;</span><span class="p">)</span>
 
-rep.SetUseCurves(0)     # set to 1 to use smooth curves
-rep.SetLineOpacity(0.5)
+<span class="n">rep</span><span class="o">.</span><span class="n">SetUseCurves</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>     <span class="c1"># set to 1 to use smooth curves</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetLineOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-# Set up the Parallel Coordinates View and hook in the Representation
-view = vtk.vtkParallelCoordinatesView()
-view.SetRepresentation(rep)
+<span class="c1"># Set up the Parallel Coordinates View and hook in the Representation</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParallelCoordinatesView</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">rep</span><span class="p">)</span>
 
-# Inspect Mode determines whether your interactions manipulate the axes or
-# select data
-# view.SetInspectMode(0)    # VTK_INSPECT_MANIPULATE_AXES = 0,
-view.SetInspectMode(1)      # VTK_INSPECT_SELECT_DATA = 1
+<span class="c1"># Inspect Mode determines whether your interactions manipulate the axes or</span>
+<span class="c1"># select data</span>
+<span class="c1"># view.SetInspectMode(0)    # VTK_INSPECT_MANIPULATE_AXES = 0,</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>      <span class="c1"># VTK_INSPECT_SELECT_DATA = 1</span>
 
-# Brush Mode determines the type of interaction you perform to select data
-view.SetBrushModeToLasso()
-# view.SetBrushModeToAngle()
-# view.SetBrushModeToFunction()
-# view.SetBrushModeToAxisThreshold()  # not implemented yet (as of 21 Feb 2010)
+<span class="c1"># Brush Mode determines the type of interaction you perform to select data</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetBrushModeToLasso</span><span class="p">()</span>
+<span class="c1"># view.SetBrushModeToAngle()</span>
+<span class="c1"># view.SetBrushModeToFunction()</span>
+<span class="c1"># view.SetBrushModeToAxisThreshold()  # not implemented yet (as of 21 Feb 2010)</span>
 
-# Brush Operator determines how each new selection interaction changes
-# selected lines
-# view.SetBrushOperatorToAdd()
-# view.SetBrushOperatorToSubtract()
-# view.SetBrushOperatorToIntersect()
-view.SetBrushOperatorToReplace()
+<span class="c1"># Brush Operator determines how each new selection interaction changes</span>
+<span class="c1"># selected lines</span>
+<span class="c1"># view.SetBrushOperatorToAdd()</span>
+<span class="c1"># view.SetBrushOperatorToSubtract()</span>
+<span class="c1"># view.SetBrushOperatorToIntersect()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetBrushOperatorToReplace</span><span class="p">()</span>
 
 
-def ToggleInspectors(obj, event):
-    # Define the callback routine which toggles between &quot;Inspect Modes&quot;
-    if (view.GetInspectMode() == 0):
-        view.SetInspectMode(1)
-    else:
-        view.SetInspectMode(0)
+<span class="k">def</span> <span class="nf">ToggleInspectors</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="c1"># Define the callback routine which toggles between &quot;Inspect Modes&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">GetInspectMode</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-# Hook up the callback to toggle between inspect modes
-# (manip axes &amp; select data)
-view.GetInteractor().AddObserver(&quot;UserEvent&quot;, ToggleInspectors)
+<span class="c1"># Hook up the callback to toggle between inspect modes</span>
+<span class="c1"># (manip axes &amp; select data)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;UserEvent&quot;</span><span class="p">,</span> <span class="n">ToggleInspectors</span><span class="p">)</span>
 
-# Set up render window
-view.GetRenderWindow().SetSize(600, 300)
-view.ResetCamera()
-view.Render()
+<span class="c1"># Set up render window</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-# Start interaction event loop
-view.GetInteractor().Start()
-</code></pre>
+<span class="c1"># Start interaction event loop</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

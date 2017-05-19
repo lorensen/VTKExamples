@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,28 +15990,28 @@
                   <h1>ConvertFile</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/IO/ConvertFile</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to read a file and then write it to a different type of file. In this example, we read a vtp file and write a ply file, but simply by changing the reader/writer classes instantiated, different behavior can be achieved. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConvertFile.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void ConvertFile() {
-   string inputFileName = &quot;test.vtu&quot;;
-   string outputFileName = &quot;test.ply&quot;;
+<span class="k">void</span> <span class="nf">ConvertFile</span><span class="p">()</span> <span class="p">{</span>
+   <span class="kt">string</span> <span class="n">inputFileName</span> <span class="p">=</span> <span class="s">&quot;test.vtu&quot;</span><span class="p">;</span>
+   <span class="kt">string</span> <span class="n">outputFileName</span> <span class="p">=</span> <span class="s">&quot;test.ply&quot;</span><span class="p">;</span>
 
-   vtkXMLPolyDataReader reader = vtkXMLPolyDataReader.New();
-   reader.SetFileName(inputFileName);
-   reader.Update();
+   <span class="n">vtkXMLPolyDataReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFileName</span><span class="p">);</span>
+   <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-   vtkPLYWriter writer = vtkPLYWriter.New();
-   writer.SetFileName(outputFileName);
-   writer.SetInputConnection(reader.GetOutputPort());
-   writer.Update();
-}
-</code></pre>
+   <span class="n">vtkPLYWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkPLYWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">outputFileName</span><span class="p">);</span>
+   <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+   <span class="n">writer</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

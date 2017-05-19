@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,79 +15991,79 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/ColorDisconnectedRegions</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestColorDisconnectedRegions.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ColorDisconnectedRegions.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            ColorDisconnectedRegions();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void ColorDisconnectedRegions() {
-         // Create some spheres
-         vtkSphereSource sphereSource1 = vtkSphereSource.New();
-         sphereSource1.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">ColorDisconnectedRegions</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkSphereSource sphereSource2 = vtkSphereSource.New();
-         sphereSource2.SetCenter(5, 0, 0);
-         sphereSource2.Update();
 
-         vtkSphereSource sphereSource3 = vtkSphereSource.New();
-         sphereSource3.SetCenter(10, 0, 0);
-         sphereSource3.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">ColorDisconnectedRegions</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Create some spheres</span>
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource1</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource1</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkAppendPolyData appendFilter = vtkAppendPolyData.New();
-         appendFilter.AddInputConnection(sphereSource1.GetOutputPort());
-         appendFilter.AddInputConnection(sphereSource2.GetOutputPort());
-         appendFilter.AddInputConnection(sphereSource3.GetOutputPort());
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource2</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource2</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">sphereSource2</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkPolyDataConnectivityFilter connectivityFilter = vtkPolyDataConnectivityFilter.New();
-         connectivityFilter.SetInputConnection(appendFilter.GetOutputPort());
-         connectivityFilter.SetExtractionModeToAllRegions();
-         connectivityFilter.ColorRegionsOn();
-         connectivityFilter.Update();
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource3</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource3</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">sphereSource3</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         // Visualize
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         mapper.SetInputConnection(connectivityFilter.GetOutputPort());
-         double[] range = connectivityFilter.GetOutput().GetPointData().GetArray(&quot;RegionId&quot;).GetRange();
-         mapper.SetScalarRange(range[0], range[1] );
+         <span class="n">vtkAppendPolyData</span> <span class="n">appendFilter</span> <span class="p">=</span> <span class="n">vtkAppendPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">appendFilter</span><span class="p">.</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource1</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">appendFilter</span><span class="p">.</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource2</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">appendFilter</span><span class="p">.</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource3</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(0.0, 0.0, 0.0);
-         // add our actor to the renderer
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkPolyDataConnectivityFilter</span> <span class="n">connectivityFilter</span> <span class="p">=</span> <span class="n">vtkPolyDataConnectivityFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">connectivityFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">appendFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">connectivityFilter</span><span class="p">.</span><span class="n">SetExtractionModeToAllRegions</span><span class="p">();</span>
+         <span class="n">connectivityFilter</span><span class="p">.</span><span class="n">ColorRegionsOn</span><span class="p">();</span>
+         <span class="n">connectivityFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="c1">// Visualize</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">connectivityFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">range</span> <span class="p">=</span> <span class="n">connectivityFilter</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">().</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;RegionId&quot;</span><span class="p">).</span><span class="n">GetRange</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">range</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">range</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">);</span>
+
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

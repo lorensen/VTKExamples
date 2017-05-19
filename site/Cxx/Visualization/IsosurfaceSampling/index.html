@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,149 +16019,156 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/IsosurfaceSampling</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestIsosurfaceSampling.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example illustrates how to create an isosurface and create point data on that isosurface that is sampled from another dataset. This example creates an isosurface of a sphere and then uses the vtkProbeFilter to compute point data from a sampled cylinder. '''Note''', that all point data is sampled, even the normals. This example restores the original isosurface normals after the probe. The example has one optional command line argument that controls the sample resolution of the sphere and cylinder. The default is 50.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IsosurfaceSampling.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSampleFunction.h&gt;
-#include &lt;vtkSphere.h&gt;
-#include &lt;vtkCylinder.h&gt;
-#include &lt;vtkMarchingCubes.h&gt;
-#include &lt;vtkProbeFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSampleFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphere.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCylinder.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMarchingCubes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProbeFilter.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkUnsignedCharArray.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnsignedCharArray.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  int resolution = 50;
-  if (argc &gt; 1)
-  {
-    resolution = atoi(argv[1]);
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  // Create a sampled sphere
-  vtkSmartPointer&lt;vtkSphere&gt; implicitSphere =
-    vtkSmartPointer&lt;vtkSphere&gt;::New();
-  double radius = 1.0;
-  implicitSphere-&gt;SetRadius(radius);
+  <span class="c1">// Create a sampled sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">implicitSphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+  <span class="n">implicitSphere</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSampleFunction&gt; sampledSphere =
-    vtkSmartPointer&lt;vtkSampleFunction&gt;::New();
-  sampledSphere-&gt;SetSampleDimensions(resolution, resolution, resolution);
-  double xMin = -radius * 2.0;
-  double xMax =  radius * 2.0;
-  sampledSphere-&gt;SetModelBounds(xMin, xMax,
-                                xMin, xMax,
-                                xMin, xMax);
-  sampledSphere-&gt;SetImplicitFunction(implicitSphere);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;</span> <span class="n">sampledSphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sampledSphere</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">xMin</span> <span class="o">=</span> <span class="o">-</span><span class="n">radius</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">xMax</span> <span class="o">=</span>  <span class="n">radius</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">;</span>
+  <span class="n">sampledSphere</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span>
+                                <span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span>
+                                <span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">);</span>
+  <span class="n">sampledSphere</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">implicitSphere</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkMarchingCubes&gt; isoSphere =
-    vtkSmartPointer&lt;vtkMarchingCubes&gt;:: New();
-  isoSphere-&gt;SetValue(0,1.0);
-  isoSphere-&gt;SetInputConnection(sampledSphere-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMarchingCubes</span><span class="o">&gt;</span> <span class="n">isoSphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMarchingCubes</span><span class="o">&gt;::</span> <span class="n">New</span><span class="p">();</span>
+  <span class="n">isoSphere</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">isoSphere</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sampledSphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Create a sampled cylinder
-  vtkSmartPointer&lt;vtkCylinder&gt; implicitCylinder =
-    vtkSmartPointer&lt;vtkCylinder&gt;::New();
-  implicitCylinder-&gt;SetRadius(radius/2.0);
-  vtkSmartPointer&lt;vtkSampleFunction&gt; sampledCylinder =
-    vtkSmartPointer&lt;vtkSampleFunction&gt;::New();
-  sampledCylinder-&gt;SetSampleDimensions(resolution, resolution, resolution);
-  sampledCylinder-&gt;SetModelBounds(xMin, xMax,
-                                  xMin, xMax,
-                                  xMin, xMax);
-  sampledCylinder-&gt;SetImplicitFunction(implicitCylinder);
+  <span class="c1">// Create a sampled cylinder</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCylinder</span><span class="o">&gt;</span> <span class="n">implicitCylinder</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCylinder</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">implicitCylinder</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;</span> <span class="n">sampledCylinder</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sampledCylinder</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">);</span>
+  <span class="n">sampledCylinder</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span>
+                                  <span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span>
+                                  <span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">);</span>
+  <span class="n">sampledCylinder</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">implicitCylinder</span><span class="p">);</span>
 
-  // Probe cylinder with the sphere isosurface
-  vtkSmartPointer&lt;vtkProbeFilter&gt; probeCylinder =
-    vtkSmartPointer&lt;vtkProbeFilter&gt;::New();
-  probeCylinder-&gt;SetInputConnection(0, isoSphere-&gt;GetOutputPort());
-  probeCylinder-&gt;SetInputConnection(1, sampledCylinder-&gt;GetOutputPort());
-  probeCylinder-&gt;Update();
+  <span class="c1">// Probe cylinder with the sphere isosurface</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;</span> <span class="n">probeCylinder</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">isoSphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sampledCylinder</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Restore the original normals
-  probeCylinder-&gt;GetOutput()-&gt;GetPointData()-&gt;SetNormals(
-    isoSphere-&gt;GetOutput()-&gt;GetPointData()-&gt;GetNormals());
+  <span class="c1">// Restore the original normals</span>
+  <span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNormals</span><span class="p">(</span>
+    <span class="n">isoSphere</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
 
-  std::cout &lt;&lt; &quot;Scalar range: &quot;
-            &lt;&lt; probeCylinder-&gt;GetOutput()-&gt;GetScalarRange()[0] &lt;&lt; &quot;, &quot;
-            &lt;&lt; probeCylinder-&gt;GetOutput()-&gt;GetScalarRange()[1] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Scalar range: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapSphere =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapSphere-&gt;SetInputConnection(probeCylinder-&gt;GetOutputPort());
-  mapSphere-&gt;SetScalarRange(probeCylinder-&gt;GetOutput()-&gt;GetScalarRange());
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapSphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapSphere</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapSphere</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">probeCylinder</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere-&gt;SetMapper(mapSphere);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapSphere</span><span class="p">);</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(sphere);
-  renderer-&gt;SetBackground(1,1,1); // Background color white
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
 
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(IsosurfaceSampling)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">IsosurfaceSampling</span><span class="p">)</span>
 
-add_executable(IsosurfaceSampling MACOSX_BUNDLE IsosurfaceSampling.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(IsosurfaceSampling ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">IsosurfaceSampling</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">IsosurfaceSampling.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-isosurfacesampling">Download and Build IsosurfaceSampling</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">IsosurfaceSampling</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-isosurfacesampling">Download and Build IsosurfaceSampling<a class="headerlink" href="#download-and-build-isosurfacesampling" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/IsosurfaceSampling.tar">here to download IsosurfaceSampling</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball IsosurfaceSampling.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd IsosurfaceSampling/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd IsosurfaceSampling/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./IsosurfaceSampling
-</code></pre>
+<div class="codehilite"><pre><span></span>./IsosurfaceSampling
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,148 +15991,146 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/ParametricObjectsDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestParametricObjectsDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
-<p>==Description==
-See <a href="http://www.vtk.org/VTK/img/ParametricSurfaces.pdf">Parametric Equations for Surfaces</a> by Andrew Maclean for an excellent description of these beautiful parametric surfaces.</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>See: <a href="http://www.vtk.org/wp-content/uploads/2015/11/ParametricSurfaces.pdf">Parametric Equations for Surfaces</a></p>
 <p>This example also demonstrates how to manipulate lists of VTK objects using lists. Notice how parameters of the various Parametric Objects are accessed and set in the parametricObjects list.</p>
-<p><a href="../[File:python_examples_parametric_objects.png]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ParametricObjectsDemo.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
-import random
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-class ParametricObjects():
 
-    def ParametricObjects(self):
+<span class="k">class</span> <span class="nc">ParametricObjects</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ParametricObjects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        parametricObjects = list()
-        parametricObjects.append(vtk.vtkParametricBoy())
-        parametricObjects.append(vtk.vtkParametricConicSpiral())
-        parametricObjects.append(vtk.vtkParametricCrossCap())
-        parametricObjects.append(vtk.vtkParametricDini())
+        <span class="n">parametricObjects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricBoy</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricConicSpiral</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricCrossCap</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricDini</span><span class="p">())</span>
 
-        parametricObjects.append(vtk.vtkParametricEllipsoid())
-        parametricObjects[-1].SetXRadius(0.5)
-        parametricObjects[-1].SetYRadius(2.0)
-        parametricObjects.append(vtk.vtkParametricEnneper())
-        parametricObjects.append(vtk.vtkParametricFigure8Klein())
-        parametricObjects.append(vtk.vtkParametricKlein())
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricEllipsoid</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetXRadius</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetYRadius</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricEnneper</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFigure8Klein</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricKlein</span><span class="p">())</span>
 
-        parametricObjects.append(vtk.vtkParametricMobius())
-        parametricObjects[-1].SetRadius(2)
-        parametricObjects[-1].SetMinimumV(-0.5)
-        parametricObjects[-1].SetMaximumV(0.5)
-        parametricObjects.append(vtk.vtkParametricRandomHills())
-        parametricObjects[-1].AllowRandomGenerationOff()
-        parametricObjects.append(vtk.vtkParametricRoman())
-        parametricObjects.append(vtk.vtkParametricSuperEllipsoid())
-        parametricObjects[-1].SetN1(0.5)
-        parametricObjects[-1].SetN2(0.1)
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricMobius</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetMinimumV</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetMaximumV</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricRandomHills</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">AllowRandomGenerationOff</span><span class="p">()</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricRoman</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricSuperEllipsoid</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetN1</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetN2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 
-        parametricObjects.append(vtk.vtkParametricSuperToroid())
-        parametricObjects[-1].SetN1(0.2)
-        parametricObjects[-1].SetN2(3.0)
-        parametricObjects.append(vtk.vtkParametricTorus())
-        parametricObjects.append(vtk.vtkParametricSpline())
-        # Add some points to the parametric spline.
-        inputPoints = vtk.vtkPoints()
-        vtk.vtkMath.RandomSeed(8775070)
-        for i in range(10):
-            x = vtk.vtkMath.Random(0.0,1.0)
-            y = vtk.vtkMath.Random(0.0,1.0)
-            z = vtk.vtkMath.Random(0.0,1.0)
-            inputPoints.InsertNextPoint(x, y, z)
-        parametricObjects[-1].SetPoints(inputPoints)
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricSuperToroid</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetN1</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetN2</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricTorus</span><span class="p">())</span>
+        <span class="n">parametricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricSpline</span><span class="p">())</span>
+        <span class="c1"># Add some points to the parametric spline.</span>
+        <span class="n">inputPoints</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+        <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">RandomSeed</span><span class="p">(</span><span class="mi">8775070</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">inputPoints</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="n">parametricObjects</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">inputPoints</span><span class="p">)</span>
 
-        # There are only 15 objects.
-        parametricFunctionSources = list()
-        renderers = list()
-        mappers = list()
-        actors = list()
-        textmappers = list()
-        textactors = list()
+        <span class="c1"># There are only 15 objects.</span>
+        <span class="n">parametricFunctionSources</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">mappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">actors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textmappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textactors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-        # Create a common text property.
-        textProperty = vtk.vtkTextProperty()
-        textProperty.SetFontSize(10)
-        textProperty.SetJustificationToCentered()
+        <span class="c1"># Create a common text property.</span>
+        <span class="n">textProperty</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextProperty</span><span class="p">()</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetJustificationToCentered</span><span class="p">()</span>
 
-        # Create a parametric function source, renderer, mapper
-        # and actor for each object.
-        for idx, item in enumerate(parametricObjects):
-            parametricFunctionSources.append(vtk.vtkParametricFunctionSource())
-            parametricFunctionSources[idx].SetParametricFunction(item)
-            parametricFunctionSources[idx].Update()
+        <span class="c1"># Create a parametric function source, renderer, mapper</span>
+        <span class="c1"># and actor for each object.</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">):</span>
+            <span class="n">parametricFunctionSources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFunctionSource</span><span class="p">())</span>
+            <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-            mappers.append(vtk.vtkPolyDataMapper())
-            mappers[idx].SetInputConnection(parametricFunctionSources[idx].GetOutputPort())
+            <span class="n">mappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">())</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-            actors.append(vtk.vtkActor())
-            actors[idx].SetMapper(mappers[idx])
+            <span class="n">actors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">())</span>
+            <span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-            textmappers.append(vtk.vtkTextMapper())
-            textmappers[idx].SetInput(item.GetClassName())
-            textmappers[idx].SetTextProperty(textProperty)
+            <span class="n">textmappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextMapper</span><span class="p">())</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">GetClassName</span><span class="p">())</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">)</span>
 
-            textactors.append(vtk.vtkActor2D())
-            textactors[idx].SetMapper(textmappers[idx])
-            textactors[idx].SetPosition(100, 16)
+            <span class="n">textactors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor2D</span><span class="p">())</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 
-            renderers.append(vtk.vtkRenderer())
+            <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">())</span>
 
-        gridDimensions = 4
+        <span class="n">gridDimensions</span> <span class="o">=</span> <span class="mi">4</span>
 
-        for idx in range(len(parametricObjects)):
-            if idx &lt; gridDimensions * gridDimensions:
-                renderers.append(vtk.vtkRenderer)
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">:</span>
+                <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">)</span>
 
-        rendererSize = 200
+        <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">200</span>
 
-        # Create the RenderWindow
-        #
-        renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
+        <span class="c1"># Create the RenderWindow</span>
+        <span class="c1">#</span>
+        <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">,</span> <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">)</span>
 
-        # Add and position the renders to the render window.
-        viewport = list()
-        for row in range(gridDimensions):
-            for col in range(gridDimensions):
-                idx = row * gridDimensions + col
+        <span class="c1"># Add and position the renders to the render window.</span>
+        <span class="n">viewport</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">):</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">gridDimensions</span> <span class="o">+</span> <span class="n">col</span>
 
-                viewport[:] = []
-                viewport.append(float(col) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - (row+1)) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(col+1)*rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize))
+                <span class="n">viewport</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
 
-                if idx &gt; (len(parametricObjects) - 1):
-                    continue
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">continue</span>
 
-                renderers[idx].SetViewport(viewport)
-                renderWindow.AddRenderer(renderers[idx])
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">)</span>
+                <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-                renderers[idx].AddActor(actors[idx])
-                renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.2,0.3,0.4)
-                renderers[idx].ResetCamera()
-                renderers[idx].GetActiveCamera().Azimuth(30)
-                renderers[idx].GetActiveCamera().Elevation(-30)
-                renderers[idx].GetActiveCamera().Zoom(0.9)
-                renderers[idx].ResetCameraClippingRange()
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">)</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">ResetCameraClippingRange</span><span class="p">()</span>
 
-        interactor = vtk.vtkRenderWindowInteractor()
-        interactor.SetRenderWindow(renderWindow)
+        <span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+        <span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-        renderWindow.Render()
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-        interactor.Start()
+        <span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-if __name__ == &quot;__main__&quot;:
-    po = ParametricObjects()
-    po.ParametricObjects()
-</code></pre>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">po</span> <span class="o">=</span> <span class="n">ParametricObjects</span><span class="p">()</span>
+    <span class="n">po</span><span class="o">.</span><span class="n">ParametricObjects</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

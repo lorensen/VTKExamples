@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,96 +15991,96 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/GeometricObjects/Tetrahedron</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestTetrahedron.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Tetrahedron.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            Tetrahedron();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void Tetrahedron() {
-         vtkPoints points = vtkPoints.New();
-         points.InsertNextPoint(0, 0, 0);
-         points.InsertNextPoint(1, 0, 0);
-         points.InsertNextPoint(1, 1, 0);
-         points.InsertNextPoint(0, 1, 1);
-         points.InsertNextPoint(5, 5, 5);
-         points.InsertNextPoint(6, 5, 5);
-         points.InsertNextPoint(6, 6, 5);
-         points.InsertNextPoint(5, 6, 6);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">Tetrahedron</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // Method 1
-         vtkUnstructuredGrid unstructuredGrid1 = vtkUnstructuredGrid.New();
-         unstructuredGrid1.SetPoints(points);
 
-         int[] ptIds = new int[] { 0, 1, 2, 3 };
-         IntPtr ptIdsPointer = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(int)) * 4);
-         Marshal.Copy(ptIds, 0, ptIdsPointer, 4);
-         unstructuredGrid1.InsertNextCell(10, 4, ptIdsPointer);
-         Marshal.FreeHGlobal(ptIdsPointer);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">Tetrahedron</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">6</span><span class="p">);</span>
 
-         // Method 2
-         vtkUnstructuredGrid unstructuredGrid2 = vtkUnstructuredGrid.New();
-         unstructuredGrid2.SetPoints(points);
+         <span class="c1">// Method 1</span>
+         <span class="n">vtkUnstructuredGrid</span> <span class="n">unstructuredGrid1</span> <span class="p">=</span> <span class="n">vtkUnstructuredGrid</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">unstructuredGrid1</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-         vtkTetra tetra = vtkTetra.New();
+         <span class="kt">int</span><span class="p">[]</span> <span class="n">ptIds</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">};</span>
+         <span class="n">IntPtr</span> <span class="n">ptIdsPointer</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="p">*</span> <span class="m">4</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">ptIds</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">ptIdsPointer</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+         <span class="n">unstructuredGrid1</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="n">ptIdsPointer</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">ptIdsPointer</span><span class="p">);</span>
 
-         tetra.GetPointIds().SetId(0, 4);
-         tetra.GetPointIds().SetId(1, 5);
-         tetra.GetPointIds().SetId(2, 6);
-         tetra.GetPointIds().SetId(3, 7);
+         <span class="c1">// Method 2</span>
+         <span class="n">vtkUnstructuredGrid</span> <span class="n">unstructuredGrid2</span> <span class="p">=</span> <span class="n">vtkUnstructuredGrid</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">unstructuredGrid2</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-         vtkCellArray cellArray = vtkCellArray.New();
-         cellArray.InsertNextCell(tetra);
-         unstructuredGrid2.SetCells(10, cellArray);
+         <span class="n">vtkTetra</span> <span class="n">tetra</span> <span class="p">=</span> <span class="n">vtkTetra</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         // Create a mapper and actor
-         vtkDataSetMapper mapper1 = vtkDataSetMapper.New();
-         mapper1.SetInputConnection(unstructuredGrid1.GetProducerPort());
+         <span class="n">tetra</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+         <span class="n">tetra</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+         <span class="n">tetra</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">);</span>
+         <span class="n">tetra</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">);</span>
 
-         vtkActor actor1 = vtkActor.New();
-         actor1.SetMapper(mapper1);
+         <span class="n">vtkCellArray</span> <span class="n">cellArray</span> <span class="p">=</span> <span class="n">vtkCellArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">cellArray</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">tetra</span><span class="p">);</span>
+         <span class="n">unstructuredGrid2</span><span class="p">.</span><span class="n">SetCells</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="n">cellArray</span><span class="p">);</span>
 
-         // Create a mapper and actor
-         vtkDataSetMapper mapper2 = vtkDataSetMapper.New();
-         mapper2.SetInputConnection(unstructuredGrid2.GetProducerPort());
+         <span class="c1">// Create a mapper and actor</span>
+         <span class="n">vtkDataSetMapper</span> <span class="n">mapper1</span> <span class="p">=</span> <span class="n">vtkDataSetMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper1</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">unstructuredGrid1</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
 
-         vtkActor actor2 = vtkActor.New();
-         actor2.SetMapper(mapper2);
+         <span class="n">vtkActor</span> <span class="n">actor1</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor1</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper1</span><span class="p">);</span>
 
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         // Add the actor to the scene
-         renderer.AddActor(actor1);
-         renderer.AddActor(actor2);
-         renderer.SetBackground(.3, .6, .3); // Background color green
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Create a mapper and actor</span>
+         <span class="n">vtkDataSetMapper</span> <span class="n">mapper2</span> <span class="p">=</span> <span class="n">vtkDataSetMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper2</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">unstructuredGrid2</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+
+         <span class="n">vtkActor</span> <span class="n">actor2</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor2</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper2</span><span class="p">);</span>
+
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="c1">// Add the actor to the scene</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor1</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor2</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">3</span><span class="p">,</span> <span class="p">.</span><span class="m">6</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">);</span> <span class="c1">// Background color green</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

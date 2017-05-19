@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,124 +16005,131 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/VolumeRendering/MinIntensityRendering</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/VolumeRendering/TestMinIntensityRendering.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MinIntensityRendering.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkFiniteDifferenceGradientEstimator.h&gt;
-#include &lt;vtkImageClip.h&gt;
-#include &lt;vtkPiecewiseFunction.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkStructuredPoints.h&gt;
-#include &lt;vtkStructuredPointsReader.h&gt;
-#include &lt;vtkVolume.h&gt;
-#include &lt;vtkVolumeProperty.h&gt;
-#include &lt;vtkFixedPointVolumeRayCastMapper.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFiniteDifferenceGradientEstimator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageClip.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPiecewiseFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredPointsReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolume.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolumeProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFixedPointVolumeRayCastMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  if(argc &lt; 2)
-  {
-    std::cerr &lt;&lt; &quot;Required arguments: vtkFile&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: vtkFile&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  std::string filename = argv[1]; //  &quot;/Data/ironProt.vtk&quot;;
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//  &quot;/Data/ironProt.vtk&quot;;</span>
 
-  // Create the renderers, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
-  vtkSmartPointer&lt;vtkRenderer&gt; ren =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renWin-&gt;AddRenderer(ren);
+  <span class="c1">// Create the renderers, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
 
-  // Read the data from a vtk file
-  vtkSmartPointer&lt;vtkStructuredPointsReader&gt; reader = 
-    vtkSmartPointer&lt;vtkStructuredPointsReader&gt;::New();
-  reader-&gt;SetFileName(filename.c_str());
-  reader-&gt;Update();
+  <span class="c1">// Read the data from a vtk file</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredPointsReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredPointsReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create a transfer function mapping scalar value to opacity
-  vtkSmartPointer&lt;vtkPiecewiseFunction&gt; oTFun = 
-    vtkSmartPointer&lt;vtkPiecewiseFunction&gt;::New();
-  oTFun-&gt;AddSegment(0, 1.0, 256, 0.1);
+  <span class="c1">// Create a transfer function mapping scalar value to opacity</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;</span> <span class="n">oTFun</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">oTFun</span><span class="o">-&gt;</span><span class="n">AddSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt; cTFun = 
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  cTFun-&gt;AddRGBPoint(   0, 1.0, 1.0, 1.0 );
-  cTFun-&gt;AddRGBPoint( 255, 1.0, 1.0, 1.0 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span> <span class="n">cTFun</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cTFun</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span>   <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
+  <span class="n">cTFun</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
 
-  // Need to crop to actually see minimum intensity
-  vtkSmartPointer&lt;vtkImageClip&gt; clip = 
-    vtkSmartPointer&lt;vtkImageClip&gt;::New();
-  clip-&gt;SetInputConnection( reader-&gt;GetOutputPort() );
-  clip-&gt;SetOutputWholeExtent(0,66,0,66,30,37);
-  clip-&gt;ClipDataOn();
+  <span class="c1">// Need to crop to actually see minimum intensity</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageClip</span><span class="o">&gt;</span> <span class="n">clip</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageClip</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clip</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">clip</span><span class="o">-&gt;</span><span class="n">SetOutputWholeExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">37</span><span class="p">);</span>
+  <span class="n">clip</span><span class="o">-&gt;</span><span class="n">ClipDataOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkVolumeProperty&gt; property = 
-    vtkSmartPointer&lt;vtkVolumeProperty&gt;::New();
-  property-&gt;SetScalarOpacity(oTFun);
-  property-&gt;SetColor(cTFun);
-  property-&gt;SetInterpolationTypeToLinear();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;</span> <span class="n">property</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">property</span><span class="o">-&gt;</span><span class="n">SetScalarOpacity</span><span class="p">(</span><span class="n">oTFun</span><span class="p">);</span>
+  <span class="n">property</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">cTFun</span><span class="p">);</span>
+  <span class="n">property</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFixedPointVolumeRayCastMapper&gt; mapper = 
-    vtkSmartPointer&lt;vtkFixedPointVolumeRayCastMapper&gt;::New();
-  mapper-&gt;SetBlendModeToMinimumIntensity();
-  mapper-&gt;SetInputConnection( clip-&gt;GetOutputPort() );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFixedPointVolumeRayCastMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFixedPointVolumeRayCastMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetBlendModeToMinimumIntensity</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVolume&gt; volume = 
-    vtkSmartPointer&lt;vtkVolume&gt;::New();
-  volume-&gt;SetMapper(mapper);
-  volume-&gt;SetProperty(property);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;</span> <span class="n">volume</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetProperty</span><span class="p">(</span><span class="n">property</span><span class="p">);</span>
 
-  ren-&gt;AddViewProp(volume);
-  renWin-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">volume</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MinIntensityRendering)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MinIntensityRendering</span><span class="p">)</span>
 
-add_executable(MinIntensityRendering MACOSX_BUNDLE MinIntensityRendering.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MinIntensityRendering ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MinIntensityRendering</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MinIntensityRendering.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-minintensityrendering">Download and Build MinIntensityRendering</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MinIntensityRendering</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-minintensityrendering">Download and Build MinIntensityRendering<a class="headerlink" href="#download-and-build-minintensityrendering" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MinIntensityRendering.tar">here to download MinIntensityRendering</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MinIntensityRendering.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MinIntensityRendering/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MinIntensityRendering/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MinIntensityRendering
-</code></pre>
+<div class="codehilite"><pre><span></span>./MinIntensityRendering
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15995,108 +16007,115 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Rendering/TestCylinderRenderingProperties.png?raw=true" width="256" /></p>
 <p>This example creates a minimal visualization program, demonstrating VTK's basic rendering and pipeline creation.
 See also the <a href="../Java">Java</a>, <a href="../Python">Python</a> and <a href="../Tcl">Tcl</a> versions of this example.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CylinderRenderingProperties.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkCylinderSource.h&quot;
-#include &quot;vtkPolyDataMapper.h&quot;
-#include &quot;vtkActor.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkProperty.h&quot;
-#include &quot;vtkCamera.h&quot;
-#include &quot;vtkSmartPointer.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkCylinderSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCamera.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // This creates a polygonal cylinder model with eight circumferential facets
-  // (i.e, in practice an octagonal prism).
-  vtkSmartPointer&lt;vtkCylinderSource&gt; cylinder =
-    vtkSmartPointer&lt;vtkCylinderSource&gt;::New();
-  cylinder-&gt;SetResolution(8);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// This creates a polygonal cylinder model with eight circumferential facets</span>
+  <span class="c1">// (i.e, in practice an octagonal prism).</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCylinderSource</span><span class="o">&gt;</span> <span class="n">cylinder</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCylinderSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cylinder</span><span class="o">-&gt;</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
 
-  // The mapper is responsible for pushing the geometry into the graphics library.
-  // It may also do color mapping, if scalars or other attributes are defined.
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; cylinderMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  cylinderMapper-&gt;SetInputConnection(cylinder-&gt;GetOutputPort());
+  <span class="c1">// The mapper is responsible for pushing the geometry into the graphics library.</span>
+  <span class="c1">// It may also do color mapping, if scalars or other attributes are defined.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">cylinderMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cylinderMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cylinder</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // The actor is a grouping mechanism: besides the geometry (mapper), it
-  // also has a property, transformation matrix, and/or texture map.
-  // Here we set its color and rotate it around the X and Y axes.
-  vtkSmartPointer&lt;vtkActor&gt; cylinderActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  cylinderActor-&gt;SetMapper(cylinderMapper);
-  cylinderActor-&gt;GetProperty()-&gt;SetColor(1.0000, 0.3882, 0.2784);
-  cylinderActor-&gt;RotateX(30.0);
-  cylinderActor-&gt;RotateY(-45.0);
+  <span class="c1">// The actor is a grouping mechanism: besides the geometry (mapper), it</span>
+  <span class="c1">// also has a property, transformation matrix, and/or texture map.</span>
+  <span class="c1">// Here we set its color and rotate it around the X and Y axes.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">cylinderActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cylinderActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">cylinderMapper</span><span class="p">);</span>
+  <span class="n">cylinderActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">cylinderActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
+  <span class="n">cylinderActor</span><span class="o">-&gt;</span><span class="n">RotateY</span><span class="p">(</span><span class="o">-</span><span class="mf">45.0</span><span class="p">);</span>
 
-  // The renderer generates the image
-  // which is then displayed on the render window.
-  // It can be thought of as a scene to which the actor is added
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(cylinderActor);
-  renderer-&gt;SetBackground(0.1, 0.2, 0.4);
-  // Zoom in a little by accessing the camera and invoking its &quot;Zoom&quot; method.
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Zoom(1.5);
+  <span class="c1">// The renderer generates the image</span>
+  <span class="c1">// which is then displayed on the render window.</span>
+  <span class="c1">// It can be thought of as a scene to which the actor is added</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cylinderActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="c1">// Zoom in a little by accessing the camera and invoking its &quot;Zoom&quot; method.</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
 
-  // The render window is the actual GUI window
-  // that appears on the computer screen
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(200, 200);
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// The render window is the actual GUI window</span>
+  <span class="c1">// that appears on the computer screen</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // The render window interactor captures mouse events
-  // and will perform appropriate camera or actor manipulation
-  // depending on the nature of the events.
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// The render window interactor captures mouse events</span>
+  <span class="c1">// and will perform appropriate camera or actor manipulation</span>
+  <span class="c1">// depending on the nature of the events.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // This starts the event loop and as a side effect causes an initial render.
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// This starts the event loop and as a side effect causes an initial render.</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CylinderRenderingProperties)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CylinderRenderingProperties</span><span class="p">)</span>
 
-add_executable(CylinderRenderingProperties MACOSX_BUNDLE CylinderRenderingProperties.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CylinderRenderingProperties ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CylinderRenderingProperties</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CylinderRenderingProperties.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-cylinderrenderingproperties">Download and Build CylinderRenderingProperties</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CylinderRenderingProperties</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-cylinderrenderingproperties">Download and Build CylinderRenderingProperties<a class="headerlink" href="#download-and-build-cylinderrenderingproperties" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CylinderRenderingProperties.tar">here to download CylinderRenderingProperties</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CylinderRenderingProperties.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CylinderRenderingProperties/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CylinderRenderingProperties/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CylinderRenderingProperties
-</code></pre>
+<div class="codehilite"><pre><span></span>./CylinderRenderingProperties
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

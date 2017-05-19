@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,94 +16018,101 @@
                   <h1>GetClassName</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/GetClassName</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates the GetClassName function. This should be available for every VTK class. This is extremely helpful for debugging - you are able to determine the type of a variable that is passed as an abstract type. With this information, the list of functions that can be called on this variable can be determined.</p>
 <p>The example illustrates alternative ways to get the "name" of a class. Notice that the GetClassName provides a simple and useful solution.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GetClassName.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;typeinfo&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;typeinfo&gt;</span><span class="cp"></span>
 
-static const char *unmangleName (const char * name);
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">unmangleName</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">name</span><span class="p">);</span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPoints&gt; points = 
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;points-&gt;GetClassName():             &quot;
-            &lt;&lt; points-&gt;GetClassName() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Mangled&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;\ttypeid(points).name():              &quot;
-            &lt;&lt; typeid(points).name() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;\ttypeid(points.GetPointer()).name(): &quot;
-            &lt;&lt; typeid(points.GetPointer()).name() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Unmangled&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;\ttypeid(points.GetPointer()).name(): &quot;
-            &lt;&lt; unmangleName(typeid(points).name()) &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;\ttypeid(points.GetPointer()).name(): &quot;
-            &lt;&lt; unmangleName(typeid(points.GetPointer()).name()) &lt;&lt; std::endl;
-  return EXIT_SUCCESS;
-}
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;points-&gt;GetClassName():             &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetClassName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Mangled&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">typeid(points).name():              &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">points</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">typeid(points.GetPointer()).name(): &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">points</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">()).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Unmangled&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">typeid(points.GetPointer()).name(): &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">unmangleName</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">points</span><span class="p">).</span><span class="n">name</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">typeid(points.GetPointer()).name(): &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">unmangleName</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">points</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">()).</span><span class="n">name</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-// Better name demangling for gcc
-#if __GNUC__ &gt; 3 || ( __GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt; 0 )
-#define GCC_USEDEMANGLE
-#endif
+<span class="c1">// Better name demangling for gcc</span>
+<span class="cp">#if __GNUC__ &gt; 3 || ( __GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt; 0 )</span>
+<span class="cp">#define GCC_USEDEMANGLE</span>
+<span class="cp">#endif</span>
 
-#ifdef GCC_USEDEMANGLE
-#include &lt;cstdlib&gt;
-#include &lt;cxxabi.h&gt;
-#endif
+<span class="cp">#ifdef GCC_USEDEMANGLE</span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cxxabi.h&gt;</span><span class="cp"></span>
+<span class="cp">#endif</span>
 
-const char *unmangleName (const char * name)
-{
-#ifdef GCC_USEDEMANGLE
-  char const *mangledName = name;
-  int         status;
-  char *      unmangled = abi::__cxa_demangle(mangledName, 0, 0, &amp;status);
-  return unmangled;
-#else
-  return name;
-#endif
-}
-</code></pre>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">unmangleName</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cp">#ifdef GCC_USEDEMANGLE</span>
+  <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">mangledName</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+  <span class="kt">int</span>         <span class="n">status</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span>      <span class="n">unmangled</span> <span class="o">=</span> <span class="n">abi</span><span class="o">::</span><span class="n">__cxa_demangle</span><span class="p">(</span><span class="n">mangledName</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">unmangled</span><span class="p">;</span>
+<span class="cp">#else</span>
+  <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GetClassName)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GetClassName</span><span class="p">)</span>
 
-add_executable(GetClassName MACOSX_BUNDLE GetClassName.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GetClassName ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GetClassName</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GetClassName.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-getclassname">Download and Build GetClassName</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GetClassName</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-getclassname">Download and Build GetClassName<a class="headerlink" href="#download-and-build-getclassname" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GetClassName.tar">here to download GetClassName</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GetClassName.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GetClassName/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GetClassName/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GetClassName
-</code></pre>
+<div class="codehilite"><pre><span></span>./GetClassName
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,38 +15990,38 @@
                   <h1>DistanceBetweenPoints</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/SimpleOperations/DistanceBetweenPoints</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example finds the squared distance and the Euclidean distance between two 3D points. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DistanceBetweenPoints.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void DistanceBetweenPoints() {
-   // Create two points.
-   double[] p0 = new double[] { 0.0, 0.0, 0.0 };
-   double[] p1 = new double[] { 1.0, 1.0, 1.0 };
+<span class="k">void</span> <span class="nf">DistanceBetweenPoints</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// Create two points.</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">p0</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">p1</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span> <span class="p">};</span>
 
-   IntPtr pP0 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   IntPtr pP1 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   Marshal.Copy(p0, 0, pP0, 3);
-   Marshal.Copy(p1, 0, pP1, 3);
+   <span class="n">IntPtr</span> <span class="n">pP0</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">IntPtr</span> <span class="n">pP1</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP1</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
 
-   // Find the squared distance between the points.
-   double squaredDistance = vtkMath.Distance2BetweenPoints(pP0, pP1);
+   <span class="c1">// Find the squared distance between the points.</span>
+   <span class="kt">double</span> <span class="n">squaredDistance</span> <span class="p">=</span> <span class="n">vtkMath</span><span class="p">.</span><span class="n">Distance2BetweenPoints</span><span class="p">(</span><span class="n">pP0</span><span class="p">,</span> <span class="n">pP1</span><span class="p">);</span>
 
-   // Take the square root to get the Euclidean distance between the points.
-   double distance = Math.Sqrt(squaredDistance);
+   <span class="c1">// Take the square root to get the Euclidean distance between the points.</span>
+   <span class="kt">double</span> <span class="n">distance</span> <span class="p">=</span> <span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">squaredDistance</span><span class="p">);</span>
 
-   // Output the results.
-   Console.WriteLine(&quot;SquaredDistance = &quot; + squaredDistance);
-   Console.WriteLine(&quot;Distance = &quot; + distance);
-   Marshal.FreeHGlobal(pP0);
-   Marshal.FreeHGlobal(pP1);
-}
-</code></pre>
+   <span class="c1">// Output the results.</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;SquaredDistance = &quot;</span> <span class="p">+</span> <span class="n">squaredDistance</span><span class="p">);</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Distance = &quot;</span> <span class="p">+</span> <span class="n">distance</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP0</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

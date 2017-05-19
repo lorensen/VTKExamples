@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,114 +15991,114 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/GeometricObjects/ColoredLines</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestColoredLines.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Displays two lines, each with a different color.<br /> 
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ColoredLines.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            ColoredLines();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void ColoredLines() {
-         // Create three points. Join (Origin and P0) with a red line and
-         // (Origin and P1) with a green line
-         double[] origin = new double[] { 0.0, 0.0, 0.0 };
-         double[] p0 = new double[] { 1.0, 0.0, 0.0 };
-         double[] p1 = new double[] { 0.0, 1.0, 0.0 };
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">ColoredLines</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // Create a vtkPoints object and store the points in it
-         vtkPoints pts = vtkPoints.New();
-         pts.InsertNextPoint(origin[0], origin[1], origin[2]);
-         pts.InsertNextPoint(p0[0], p0[1], p0[2]);
-         pts.InsertNextPoint(p1[0], p1[1], p1[2]);
 
-         // Setup two colors - one for each line
-         byte[] red = new byte[] { 255, 0, 0 };
-         byte[] green = new byte[] { 0, 255, 0 };
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">ColoredLines</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Create three points. Join (Origin and P0) with a red line and</span>
+         <span class="c1">// (Origin and P1) with a green line</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">origin</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">p0</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">p1</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
 
-         // Setup the colors array
-         vtkUnsignedCharArray colors = vtkUnsignedCharArray.New();
-         colors.SetNumberOfComponents(3);
-         colors.SetName(&quot;Colors&quot;);
+         <span class="c1">// Create a vtkPoints object and store the points in it</span>
+         <span class="n">vtkPoints</span> <span class="n">pts</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">origin</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">origin</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">p0</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">p0</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">pts</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-         // Add the colors we created to the colors array
-         colors.InsertNextValue(red[0]);
-         colors.InsertNextValue(red[1]);
-         colors.InsertNextValue(red[2]);
+         <span class="c1">// Setup two colors - one for each line</span>
+         <span class="kt">byte</span><span class="p">[]</span> <span class="n">red</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[]</span> <span class="p">{</span> <span class="m">255</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="kt">byte</span><span class="p">[]</span> <span class="n">green</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
 
-         colors.InsertNextValue(green[0]);
-         colors.InsertNextValue(green[1]);
-         colors.InsertNextValue(green[2]);
+         <span class="c1">// Setup the colors array</span>
+         <span class="n">vtkUnsignedCharArray</span> <span class="n">colors</span> <span class="p">=</span> <span class="n">vtkUnsignedCharArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Colors&quot;</span><span class="p">);</span>
 
-         // Create the first line (between Origin and P0)
-         vtkLine line0 = vtkLine.New();
-         line0.GetPointIds().SetId(0, 0); //the second 0 is the index of the Origin in the vtkPoints
-         line0.GetPointIds().SetId(1, 1); //the second 1 is the index of P0 in the vtkPoints
+         <span class="c1">// Add the colors we created to the colors array</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="m">1</span><span class="p">]);</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-         // Create the second line (between Origin and P1)
-         vtkLine line1 = vtkLine.New();
-         line1.GetPointIds().SetId(0, 0); //the second 0 is the index of the Origin in the vtkPoints
-         line1.GetPointIds().SetId(1, 2); //2 is the index of P1 in the vtkPoints
+         <span class="n">colors</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">green</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">green</span><span class="p">[</span><span class="m">1</span><span class="p">]);</span>
+         <span class="n">colors</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">green</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-         // Create a cell array to store the lines in and add the lines to it
-         vtkCellArray lines = vtkCellArray.New();
-         lines.InsertNextCell(line0);
-         lines.InsertNextCell(line1);
+         <span class="c1">// Create the first line (between Origin and P0)</span>
+         <span class="n">vtkLine</span> <span class="n">line0</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">line0</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span> <span class="c1">//the second 0 is the index of the Origin in the vtkPoints</span>
+         <span class="n">line0</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span> <span class="c1">//the second 1 is the index of P0 in the vtkPoints</span>
 
-         // Create a polydata to store everything in
-         vtkPolyData linesPolyData = vtkPolyData.New();
+         <span class="c1">// Create the second line (between Origin and P1)</span>
+         <span class="n">vtkLine</span> <span class="n">line1</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">line1</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span> <span class="c1">//the second 0 is the index of the Origin in the vtkPoints</span>
+         <span class="n">line1</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span> <span class="c1">//2 is the index of P1 in the vtkPoints</span>
 
-         // Add the points to the dataset
-         linesPolyData.SetPoints(pts);
+         <span class="c1">// Create a cell array to store the lines in and add the lines to it</span>
+         <span class="n">vtkCellArray</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">vtkCellArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line0</span><span class="p">);</span>
+         <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line1</span><span class="p">);</span>
 
-         // Add the lines to the dataset
-         linesPolyData.SetLines(lines);
+         <span class="c1">// Create a polydata to store everything in</span>
+         <span class="n">vtkPolyData</span> <span class="n">linesPolyData</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         // Color the lines - associate the first component (red) of the
-         // colors array with the first component of the cell array (line 0)
-         // and the second component (green) of the colors array with the
-         // second component of the cell array (line 1)
-         linesPolyData.GetCellData().SetScalars(colors);
+         <span class="c1">// Add the points to the dataset</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">);</span>
 
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         mapper.SetInput(linesPolyData);
-         // create an actor
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
+         <span class="c1">// Add the lines to the dataset</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
 
-         // a renderer and render window
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         renderer.SetBackground(0.2, 0.3, 0.4);
+         <span class="c1">// Color the lines - associate the first component (red) of the</span>
+         <span class="c1">// colors array with the first component of the cell array (line 0)</span>
+         <span class="c1">// and the second component (green) of the colors array with the</span>
+         <span class="c1">// second component of the cell array (line 1)</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">GetCellData</span><span class="p">().</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">colors</span><span class="p">);</span>
 
-         // add the actors to the scene
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">linesPolyData</span><span class="p">);</span>
+         <span class="c1">// create an actor</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+
+         <span class="c1">// a renderer and render window</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+
+         <span class="c1">// add the actors to the scene</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

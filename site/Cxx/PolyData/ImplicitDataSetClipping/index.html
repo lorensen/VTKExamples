@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,215 +16019,222 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ImplicitDataSetClipping</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestImplicitDataSetClipping.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to clip one object with another.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImplicitDataSetClipping.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkVersion.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkBox.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkClipPolyData.h&gt;
-#include &lt;vtkCubeSource.h&gt;
-#include &lt;vtkDataSetWriter.h&gt;
-#include &lt;vtkIdFilter.h&gt;
-#include &lt;vtkIdTypeArray.h&gt;
-#include &lt;vtkImplicitDataSet.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBox.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkClipPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCubeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdTypeArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImplicitDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
 
-void WritePolyData(vtkPolyData* const polyData, const std::string&amp; filename)
-{
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer = vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-    writer-&gt;SetInput(polyData);
-#else
-    writer-&gt;SetInputData(polyData);
-#endif
-    writer-&gt;SetFileName(filename.c_str());
-    writer-&gt;Write();
-}
+<span class="kt">void</span> <span class="nf">WritePolyData</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="k">const</span> <span class="n">polyData</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">filename</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
 
-void WriteDataSet(vtkDataSet* const dataSet, const std::string&amp; filename)
-{
-    vtkSmartPointer&lt;vtkDataSetWriter&gt; writer = vtkSmartPointer&lt;vtkDataSetWriter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-    writer-&gt;SetInput(dataSet);
-#else
-    writer-&gt;SetInputData(dataSet);
-#endif
-    writer-&gt;SetFileName(filename.c_str());
-    writer-&gt;Write();
-}
+<span class="kt">void</span> <span class="nf">WriteDataSet</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">*</span> <span class="k">const</span> <span class="n">dataSet</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">filename</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetCenter(.75, 0, 0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">.75</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  unsigned int res = 10;
-  sphereSource-&gt;SetThetaResolution(res);
-  sphereSource-&gt;SetPhiResolution(res);
-  sphereSource-&gt;Update();
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;The sphere has &quot; &lt;&lt; sphereSource-&gt;GetOutput()-&gt;GetNumberOfPoints()
-            &lt;&lt; &quot; points.&quot; &lt;&lt; &quot; and &quot; &lt;&lt; sphereSource-&gt;GetOutput()-&gt;GetNumberOfCells()
-            &lt;&lt; &quot; cells. &quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;The sphere has &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; and &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; cells. &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Add ids to the points and cells of the sphere
-  vtkSmartPointer&lt;vtkIdFilter&gt; cellIdFilter =
-      vtkSmartPointer&lt;vtkIdFilter&gt;::New();
-  cellIdFilter-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  cellIdFilter-&gt;SetCellIds(true);
-  cellIdFilter-&gt;SetPointIds(false);
-  cellIdFilter-&gt;SetIdsArrayName(&quot;CellIds&quot;);
-  cellIdFilter-&gt;Update();
+  <span class="c1">// Add ids to the points and cells of the sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;</span> <span class="n">cellIdFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">SetCellIds</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">SetPointIds</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">SetIdsArrayName</span><span class="p">(</span><span class="s">&quot;CellIds&quot;</span><span class="p">);</span>
+  <span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  WriteDataSet(cellIdFilter-&gt;GetOutput(), &quot;CellIdFilter.vtp&quot;);
+  <span class="n">WriteDataSet</span><span class="p">(</span><span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="s">&quot;CellIdFilter.vtp&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIdFilter&gt; pointIdFilter =
-      vtkSmartPointer&lt;vtkIdFilter&gt;::New();
-  pointIdFilter-&gt;SetInputConnection(cellIdFilter-&gt;GetOutputPort());
-  pointIdFilter-&gt;SetCellIds(false);
-  pointIdFilter-&gt;SetPointIds(true);
-  pointIdFilter-&gt;SetIdsArrayName(&quot;PointIds&quot;);
-  pointIdFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;</span> <span class="n">pointIdFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointIdFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cellIdFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">pointIdFilter</span><span class="o">-&gt;</span><span class="n">SetCellIds</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">pointIdFilter</span><span class="o">-&gt;</span><span class="n">SetPointIds</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">pointIdFilter</span><span class="o">-&gt;</span><span class="n">SetIdsArrayName</span><span class="p">(</span><span class="s">&quot;PointIds&quot;</span><span class="p">);</span>
+  <span class="n">pointIdFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
- vtkDataSet* sphereWithIds = pointIdFilter-&gt;GetOutput();
+ <span class="n">vtkDataSet</span><span class="o">*</span> <span class="n">sphereWithIds</span> <span class="o">=</span> <span class="n">pointIdFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  WriteDataSet(sphereWithIds, &quot;BothIdFilter.vtp&quot;);
+  <span class="n">WriteDataSet</span><span class="p">(</span><span class="n">sphereWithIds</span><span class="p">,</span> <span class="s">&quot;BothIdFilter.vtp&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCubeSource&gt; cubeSource =
-      vtkSmartPointer&lt;vtkCubeSource&gt;::New();
-  cubeSource-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;</span> <span class="n">cubeSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cubeSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkBox&gt; implicitCube =
-      vtkSmartPointer&lt;vtkBox&gt;::New();
-  implicitCube-&gt;SetBounds(cubeSource-&gt;GetOutput()-&gt;GetBounds());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBox</span><span class="o">&gt;</span> <span class="n">implicitCube</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBox</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">implicitCube</span><span class="o">-&gt;</span><span class="n">SetBounds</span><span class="p">(</span><span class="n">cubeSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkClipPolyData&gt; clipper =
-      vtkSmartPointer&lt;vtkClipPolyData&gt;::New();
-  clipper-&gt;SetClipFunction(implicitCube);
-#if VTK_MAJOR_VERSION &lt;= 5
-  clipper-&gt;SetInput(sphereWithIds);
-#else
-  clipper-&gt;SetInputData(sphereWithIds);
-#endif
-  clipper-&gt;InsideOutOn();
-  clipper-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipPolyData</span><span class="o">&gt;</span> <span class="n">clipper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetClipFunction</span><span class="p">(</span><span class="n">implicitCube</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sphereWithIds</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">sphereWithIds</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">InsideOutOn</span><span class="p">();</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  WriteDataSet(clipper-&gt;GetOutput(), &quot;clipper.vtp&quot;);
+  <span class="n">WriteDataSet</span><span class="p">(</span><span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="s">&quot;clipper.vtp&quot;</span><span class="p">);</span>
 
-  // Get the clipped cell ids
-  vtkPolyData* clipped = clipper-&gt;GetOutput();
+  <span class="c1">// Get the clipped cell ids</span>
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">clipped</span> <span class="o">=</span> <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; clipped-&gt;GetNumberOfPoints() &lt;&lt; &quot; clipped points.&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; clipped-&gt;GetNumberOfCells() &lt;&lt; &quot; clipped cells.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">clipped</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; clipped points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">clipped</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; clipped cells.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkIdTypeArray* clippedCellIds = vtkIdTypeArray::SafeDownCast(clipped-&gt;GetCellData()-&gt;GetArray(&quot;CellIds&quot;));
+  <span class="n">vtkIdTypeArray</span><span class="o">*</span> <span class="n">clippedCellIds</span> <span class="o">=</span> <span class="n">vtkIdTypeArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">clipped</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;CellIds&quot;</span><span class="p">));</span>
 
-  for(vtkIdType i = 0; i &lt; clippedCellIds-&gt;GetNumberOfTuples(); i++)
-  {
-    std::cout &lt;&lt; &quot;Clipped cell id &quot; &lt;&lt; i &lt;&lt; &quot; : &quot; &lt;&lt; clippedCellIds-&gt;GetValue(i) &lt;&lt; std::endl;
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">clippedCellIds</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Clipped cell id &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">clippedCellIds</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Create a mapper and actor for clipped sphere
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; clippedMapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  clippedMapper-&gt;SetInputConnection(clipper-&gt;GetOutputPort());
-  clippedMapper-&gt;ScalarVisibilityOff();
+  <span class="c1">// Create a mapper and actor for clipped sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">clippedMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clippedMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">clippedMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; clippedActor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-  clippedActor-&gt;SetMapper(clippedMapper);
-  clippedActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">clippedActor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clippedActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">clippedMapper</span><span class="p">);</span>
+  <span class="n">clippedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
 
-  // Create a mapper and actor for cube
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; cubeMapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  cubeMapper-&gt;SetInputConnection(cubeSource-&gt;GetOutputPort());
+  <span class="c1">// Create a mapper and actor for cube</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">cubeMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cubeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cubeSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; cubeActor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-  cubeActor-&gt;SetMapper(cubeMapper);
-  cubeActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-  cubeActor-&gt;GetProperty()-&gt;SetOpacity(0.5);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">cubeActor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cubeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">cubeMapper</span><span class="p">);</span>
+  <span class="n">cubeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+  <span class="n">cubeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
 
-  //Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-      vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">//Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  //Add the actor to the scene
-  renderer-&gt;AddActor(clippedActor);
-  renderer-&gt;AddActor(cubeActor);
-  renderer-&gt;SetBackground(.2, .3, .4);
+  <span class="c1">//Add the actor to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">clippedActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cubeActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
 
-  // Generate an interesting view
-  //
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(-30);
-  renderer-&gt;GetActiveCamera()-&gt;Elevation(30);
-  renderer-&gt;GetActiveCamera()-&gt;Dolly(1.1);
-  renderer-&gt;ResetCameraClippingRange();
+  <span class="c1">// Generate an interesting view</span>
+  <span class="c1">//</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.1</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  //Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">//Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImplicitDataSetClipping)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImplicitDataSetClipping</span><span class="p">)</span>
 
-add_executable(ImplicitDataSetClipping MACOSX_BUNDLE ImplicitDataSetClipping.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImplicitDataSetClipping ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImplicitDataSetClipping</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImplicitDataSetClipping.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-implicitdatasetclipping">Download and Build ImplicitDataSetClipping</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImplicitDataSetClipping</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-implicitdatasetclipping">Download and Build ImplicitDataSetClipping<a class="headerlink" href="#download-and-build-implicitdatasetclipping" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImplicitDataSetClipping.tar">here to download ImplicitDataSetClipping</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImplicitDataSetClipping.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImplicitDataSetClipping/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImplicitDataSetClipping/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImplicitDataSetClipping
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImplicitDataSetClipping
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

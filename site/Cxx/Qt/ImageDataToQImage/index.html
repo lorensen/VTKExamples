@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,127 +16018,134 @@
                   <h1>ImageDataToQImage</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Qt/ImageDataToQImage</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how a vtkImageData can be converted into a <a href="http://doc.qt.io/qt-5/qimage.html">QImage</a>.</p>
 <p>See also the <a href="../QImageToImageSource">QImageToImageSource</a> example.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageDataToQImage.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;QImage&gt;
-#include &lt;QColor&gt;
-#include &lt;QApplication&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;QImage&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;QColor&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;QApplication&gt;</span><span class="cp"></span>
 
-// Create a green 50x50 imageData for demonstration purposes
-vtkSmartPointer&lt;vtkImageData&gt; createDemoImageData()
-{
-  vtkSmartPointer&lt;vtkImageData&gt; image = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  image-&gt;SetDimensions( 50, 50, 1 );
-#if VTK_MAJOR_VERSION &lt;= 5
-  #pragma message( VTK_MAJOR_VERSION )
-  image-&gt;SetNumberOfScalarComponents( 3 );
-  image-&gt;SetScalarTypeToUnsignedChar();
-  image-&gt;AllocateScalars();
-#else
-  image-&gt;AllocateScalars( VTK_UNSIGNED_CHAR, 3 );
-#endif
+<span class="c1">// Create a green 50x50 imageData for demonstration purposes</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">createDemoImageData</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="cp">#pragma message( VTK_MAJOR_VERSION )</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span> <span class="mi">3</span> <span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span> <span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span> <span class="mi">3</span> <span class="p">);</span>
+<span class="cp">#endif</span>
 
-  int width = image-&gt;GetDimensions()[0];
-  int height = image-&gt;GetDimensions()[1];
+  <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">()[</span><span class="mi">1</span><span class="p">];</span>
 
-  for ( int y = 0; y &lt; height; y++ )
-  {
-    for ( int x = 0; x &lt; width; x++ )
-    {
-      unsigned char *pixel =
-        static_cast&lt;unsigned char *&gt;( image-&gt;GetScalarPointer( x, y, 0 ) );
-      pixel[0] = 0;
-      pixel[1] = 255;
-      pixel[2] = 0;
-    }
-  }
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pixel</span> <span class="o">=</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">);</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  return image;
-}
+  <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+<span class="p">}</span>
 
-// The actual conversion code
-QImage vtkImageDataToQImage( vtkSmartPointer&lt;vtkImageData&gt; imageData )
-{
-  if ( !imageData ) { return QImage(); }
+<span class="c1">// The actual conversion code</span>
+<span class="n">QImage</span> <span class="n">vtkImageDataToQImage</span><span class="p">(</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">imageData</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">QImage</span><span class="p">();</span> <span class="p">}</span>
 
-  /// \todo retrieve just the UpdateExtent
-  int width = imageData-&gt;GetDimensions()[0];
-  int height = imageData-&gt;GetDimensions()[1];
-  QImage image( width, height, QImage::Format_RGB32 );
-  QRgb *rgbPtr =
-    reinterpret_cast&lt;QRgb *&gt;( image.bits() ) + width * ( height - 1 );
-  unsigned char *colorsPtr =
-    reinterpret_cast&lt;unsigned char *&gt;( imageData-&gt;GetScalarPointer() );
+  <span class="c1">/// \todo retrieve just the UpdateExtent</span>
+  <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">()[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">QImage</span> <span class="nf">image</span><span class="p">(</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">QImage</span><span class="o">::</span><span class="n">Format_RGB32</span> <span class="p">);</span>
+  <span class="n">QRgb</span> <span class="o">*</span><span class="n">rgbPtr</span> <span class="o">=</span>
+    <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">QRgb</span> <span class="o">*&gt;</span><span class="p">(</span> <span class="n">image</span><span class="p">.</span><span class="n">bits</span><span class="p">()</span> <span class="p">)</span> <span class="o">+</span> <span class="n">width</span> <span class="o">*</span> <span class="p">(</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">colorsPtr</span> <span class="o">=</span>
+    <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">()</span> <span class="p">);</span>
 
-  // Loop over the vtkImageData contents.
-  for ( int row = 0; row &lt; height; row++ )
-  {
-    for ( int col = 0; col &lt; width; col++ )
-    {
-      // Swap the vtkImageData RGB values with an equivalent QColor
-      *( rgbPtr++ ) = QColor( colorsPtr[0], colorsPtr[1], colorsPtr[2] ).rgb();
-      colorsPtr += imageData-&gt;GetNumberOfScalarComponents();
-    }
+  <span class="c1">// Loop over the vtkImageData contents.</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">;</span> <span class="n">row</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">;</span> <span class="n">col</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="c1">// Swap the vtkImageData RGB values with an equivalent QColor</span>
+      <span class="o">*</span><span class="p">(</span> <span class="n">rgbPtr</span><span class="o">++</span> <span class="p">)</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span> <span class="n">colorsPtr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colorsPtr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">colorsPtr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">).</span><span class="n">rgb</span><span class="p">();</span>
+      <span class="n">colorsPtr</span> <span class="o">+=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetNumberOfScalarComponents</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    rgbPtr -= width * 2;
-  }
+    <span class="n">rgbPtr</span> <span class="o">-=</span> <span class="n">width</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return image;
-}
+  <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+<span class="p">}</span>
 
-int main( int argc, char *argv[] )
-{
-  QApplication app( argc, argv );
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">QApplication</span> <span class="n">app</span><span class="p">(</span> <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span> <span class="p">);</span>
 
-  QImage qimage = vtkImageDataToQImage( createDemoImageData() );
-  qimage.save( &quot;qimage.png&quot; );
+  <span class="n">QImage</span> <span class="n">qimage</span> <span class="o">=</span> <span class="n">vtkImageDataToQImage</span><span class="p">(</span> <span class="n">createDemoImageData</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">qimage</span><span class="p">.</span><span class="n">save</span><span class="p">(</span> <span class="s">&quot;qimage.png&quot;</span> <span class="p">);</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageDataToQImage)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageDataToQImage</span><span class="p">)</span>
 
-add_executable(ImageDataToQImage MACOSX_BUNDLE ImageDataToQImage.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageDataToQImage ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageDataToQImage</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageDataToQImage.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imagedatatoqimage">Download and Build ImageDataToQImage</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageDataToQImage</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imagedatatoqimage">Download and Build ImageDataToQImage<a class="headerlink" href="#download-and-build-imagedatatoqimage" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageDataToQImage.tar">here to download ImageDataToQImage</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageDataToQImage.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageDataToQImage/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageDataToQImage/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageDataToQImage
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageDataToQImage
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

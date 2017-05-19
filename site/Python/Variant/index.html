@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15551,6 +15551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15958,147 +15970,147 @@
                   <h1>Variant</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//Variant</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Variant.py</strong></p>
-<pre><code class="python">from __future__ import print_function
-import vtk
-import sys
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-# Unicode string for demonstration (etre with circumflex)
-if sys.hexversion &gt;= 0x03000000:
-    unicodeEtre = '\xeatre' # unicode in Python 3
-else:
-    unicodeEtre = unicode('\xeatre', 'latin1')
+<span class="c1"># Unicode string for demonstration (etre with circumflex)</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">hexversion</span> <span class="o">&gt;=</span> <span class="mh">0x03000000</span><span class="p">:</span>
+    <span class="n">unicodeEtre</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\xea</span><span class="s1">tre&#39;</span> <span class="c1"># unicode in Python 3</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">unicodeEtre</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xea</span><span class="s1">tre&#39;</span><span class="p">,</span> <span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
 
-#
-# Basic vtkVariant usage
-#
+<span class="c1">#</span>
+<span class="c1"># Basic vtkVariant usage</span>
+<span class="c1">#</span>
 
-# Default constructor
-v = vtk.vtkVariant()
-print(&quot;Invalid variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
+<span class="c1"># Default constructor</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Invalid variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
 
-# Copy constructor
-v = vtk.vtkVariant(vtk.vtkVariant(&quot;variant&quot;))
-print(&quot;Copied variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
+<span class="c1"># Copy constructor</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s2">&quot;variant&quot;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Copied variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
 
-# Conversion constructors
-v = vtk.vtkVariant(1)
-print(&quot;Integer variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
-v = vtk.vtkVariant(1.0)
-print(&quot;Float variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
-v = vtk.vtkVariant(&quot;hello&quot;)
-print(&quot;String variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
-v = vtk.vtkVariant(unicodeEtre)
-print(&quot;Unicode variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
-v = vtk.vtkVariant(vtk.vtkStringArray())
-print(&quot;Object variant: %r, '%s'&quot; % (v, v.GetTypeAsString()))
+<span class="c1"># Conversion constructors</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Integer variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Float variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;String variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">unicodeEtre</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Unicode variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkStringArray</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Object variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
 
-# Explicit type constructor
-v1 = vtk.vtkVariant(1, vtk.VTK_UNSIGNED_SHORT)
-v2 = vtk.vtkVariant(2, v1.GetType())
-print(&quot;UShort variant: %r, '%s'&quot; % (v2, v2.GetTypeAsString()))
+<span class="c1"># Explicit type constructor</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_UNSIGNED_SHORT</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">v1</span><span class="o">.</span><span class="n">GetType</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;UShort variant: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v2</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
 
-# Type checking
-if v2.IsUnsignedShort():
-    print(&quot;v2 is UnsignedShort&quot;)
-else:
-    print(&quot;v2 is not UnsignedShort, it is&quot;, v2.GetTypeAsString())
+<span class="c1"># Type checking</span>
+<span class="k">if</span> <span class="n">v2</span><span class="o">.</span><span class="n">IsUnsignedShort</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;v2 is UnsignedShort&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;v2 is not UnsignedShort, it is&quot;</span><span class="p">,</span> <span class="n">v2</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">())</span>
 
-# Explicit value extraction
-s = v2.ToString()
-print(&quot;String value: %s, %s&quot; % (s, type(s)))
-i = v2.ToInt()
-print(&quot;Int value: %i, %s&quot; % (i, type(i)))
+<span class="c1"># Explicit value extraction</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;String value: </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">ToInt</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Int value: </span><span class="si">%i</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
 
-# Automatic argument conversion
-a = vtk.vtkVariantArray()
-a.InsertNextValue(vtk.vtkVariant())
-a.InsertNextValue(1)
-a.InsertNextValue(2.0)
-a.InsertNextValue(&quot;hello&quot;)
-a.InsertNextValue(unicodeEtre)
-a.InsertNextValue(vtk.vtkVariantArray())
-print(&quot;Variant array:&quot;)
-for i in range(a.GetNumberOfValues()):
-    v = a.GetValue(i)
-    print(&quot;%i: %r, '%s'&quot; % (i, v, v.GetTypeAsString()))
+<span class="c1"># Automatic argument conversion</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantArray</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">())</span>
+<span class="n">a</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">unicodeEtre</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantArray</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Variant array:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">GetNumberOfValues</span><span class="p">()):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%i</span><span class="s2">: </span><span class="si">%r</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">GetTypeAsString</span><span class="p">()))</span>
 
-# Comparison
-if v2 == vtk.vtkVariant(2):
-   print(&quot;v2 is equal to 2&quot;)
-if v2 &gt; vtk.vtkVariant(1):
-   print(&quot;v2 is greater than 1&quot;)
-if v2 &lt; vtk.vtkVariant(3):
-   print(&quot;v2 is less than 3&quot;)
-if v2 == vtk.vtkVariant(&quot;2&quot;):
-   print(&quot;v2 is equal to '2'&quot;)
+<span class="c1"># Comparison</span>
+<span class="k">if</span> <span class="n">v2</span> <span class="o">==</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;v2 is equal to 2&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">v2</span> <span class="o">&gt;</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;v2 is greater than 1&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">v2</span> <span class="o">&lt;</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;v2 is less than 3&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">v2</span> <span class="o">==</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;v2 is equal to &#39;2&#39;&quot;</span><span class="p">)</span>
 
-# Use as a dict key (hashed as a string)
-d = {}
-d[vtk.vtkVariant(1)] = 0
-d[vtk.vtkVariant('1')] = 1
-d[vtk.vtkVariant()] = 3
-print(&quot;Index is %i&quot; % d[vtk.vtkVariant(1.0)])
+<span class="c1"># Use as a dict key (hashed as a string)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">d</span><span class="p">[</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">d</span><span class="p">[</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">d</span><span class="p">[</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Index is </span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)])</span>
 
-#
-# Extra functionality from vtk.util.vtkVariant
-#
-# These are templated functions in C++, but in Python
-# they take the template arg as a string instead,
-# e.g. vtkVariantCreate&lt;unsigned int&gt;(1) becomes
-#      vtkVariantCreate(1, 'unsigned int')
+<span class="c1">#</span>
+<span class="c1"># Extra functionality from vtk.util.vtkVariant</span>
+<span class="c1">#</span>
+<span class="c1"># These are templated functions in C++, but in Python</span>
+<span class="c1"># they take the template arg as a string instead,</span>
+<span class="c1"># e.g. vtkVariantCreate&lt;unsigned int&gt;(1) becomes</span>
+<span class="c1">#      vtkVariantCreate(1, &#39;unsigned int&#39;)</span>
 
-# Creation
-v = vtk.vtkVariantCreate(1, 'unsigned int')
+<span class="c1"># Creation</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantCreate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;unsigned int&#39;</span><span class="p">)</span>
 
-# Value extraction
-v = vtk.vtkVariant(6.0)
-f = vtk.vtkVariantExtract(v)
+<span class="c1"># Value extraction</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantExtract</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-# Value extraction with type specified
-f = vtk.vtkVariantExtract(v, 'double')
+<span class="c1"># Value extraction with type specified</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantExtract</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;double&#39;</span><span class="p">)</span>
 
-# Casting a variant
-v = vtk.vtkVariant(&quot;10&quot;)
-i = vtk.vtkVariantCast(v, 'int')
-print(&quot;Valid cast result: %r&quot; % i)
+<span class="c1"># Casting a variant</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantCast</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Valid cast result: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
 
-# A failed cast returns None
-v = vtk.vtkVariant(&quot;hello&quot;)
-i = vtk.vtkVariantCast(v, 'int')
-print(&quot;Invalid cast result: %r&quot; % i)
+<span class="c1"># A failed cast returns None</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantCast</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Invalid cast result: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
 
-#
-# Comparisons and sorting: See VTK docs for more info
-#
+<span class="c1">#</span>
+<span class="c1"># Comparisons and sorting: See VTK docs for more info</span>
+<span class="c1">#</span>
 
-# Special function vtk.vtkVariantStrictWeakOrder:
-# Compare variants by type first, and then by value.  For Python 2, the
-# return values are -1, 0, 1 like the Python 2 &quot;cmp()&quot; method.  This is
-# in contrast with the Python 3 and C++ versions of this function, which
-# check if (v1 &lt; v2) and return True or False.
-v1 = vtk.vtkVariant(10)
-v2 = vtk.vtkVariant(&quot;10&quot;)
-r = vtk.vtkVariantStrictWeakOrder(v1, v2)
-print(&quot;Strict weak order (10, '10') -&gt;&quot;, r)
+<span class="c1"># Special function vtk.vtkVariantStrictWeakOrder:</span>
+<span class="c1"># Compare variants by type first, and then by value.  For Python 2, the</span>
+<span class="c1"># return values are -1, 0, 1 like the Python 2 &quot;cmp()&quot; method.  This is</span>
+<span class="c1"># in contrast with the Python 3 and C++ versions of this function, which</span>
+<span class="c1"># check if (v1 &lt; v2) and return True or False.</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantStrictWeakOrder</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Strict weak order (10, &#39;10&#39;) -&gt;&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 
-# Sorting by strict weak order, using a key function:
-unsorted = [1, 2.5, vtk.vtkVariant(), &quot;0&quot;, unicodeEtre]
-l = [vtk.vtkVariant(x) for x in unsorted]
-l.sort(key=vtk.vtkVariantStrictWeakOrderKey)
-print(&quot;Sort by weak order -&gt;&quot;, l)
+<span class="c1"># Sorting by strict weak order, using a key function:</span>
+<span class="n">unsorted</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(),</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">unicodeEtre</span><span class="p">]</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unsorted</span><span class="p">]</span>
+<span class="n">l</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantStrictWeakOrderKey</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Sort by weak order -&gt;&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
 
-# Check two variants for strict equality of type and value.
-b = vtk.vtkVariantStrictEquality(v1, v2)
-print(&quot;Strict equality (10, '10') -&gt; %s&quot; % b)
+<span class="c1"># Check two variants for strict equality of type and value.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantStrictEquality</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Strict equality (10, &#39;10&#39;) -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
 
-# Two special-purpose methods.
-# First is identical to (v1 &lt; v2)
-b = vtk.vtkVariantLessThan(v1, v2)
-# Second is identical to (v1 == v2)
-b = vtk.vtkVariantEqual(v1, v2)
-</code></pre>
+<span class="c1"># Two special-purpose methods.</span>
+<span class="c1"># First is identical to (v1 &lt; v2)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantLessThan</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+<span class="c1"># Second is identical to (v1 == v2)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantEqual</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+</pre></div>
                 
                   
                 

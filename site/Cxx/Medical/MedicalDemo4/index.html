@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,184 +16005,191 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Medical/MedicalDemo4</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Medical/TestMedicalDemo4.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MedicalDemo4.cxx</strong></p>
-<pre><code class="c++">// Derived from VTK/Examples/Cxx/Medical3.cxx
-// This example reads a volume dataset and displays it via volume rendering.
-//
+<div class="codehilite"><pre><span></span><span class="c1">// Derived from VTK/Examples/Cxx/Medical3.cxx</span>
+<span class="c1">// This example reads a volume dataset and displays it via volume rendering.</span>
+<span class="c1">//</span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkMetaImageReader.h&gt;
-#include &lt;vtkVolume.h&gt;
-#include &lt;vtkFixedPointVolumeRayCastMapper.h&gt;
-#include &lt;vtkVolumeProperty.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
-#include &lt;vtkPiecewiseFunction.h&gt;
-#include &lt;vtkCamera.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolume.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFixedPointVolumeRayCastMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolumeProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPiecewiseFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[])
-{
-  if (argc &lt; 2)
-  {
-    cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot;file.mhd&quot; &lt;&lt; endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;file.mhd&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Create the renderer, the render window, and the interactor. The renderer
-  // draws into the render window, the interactor enables mouse- and
-  // keyboard-based interaction with the scene.
-  vtkSmartPointer&lt;vtkRenderer&gt; ren =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="c1">// Create the renderer, the render window, and the interactor. The renderer</span>
+  <span class="c1">// draws into the render window, the interactor enables mouse- and</span>
+  <span class="c1">// keyboard-based interaction with the scene.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // The following reader is used to read a series of 2D slices (images)
-  // that compose the volume. The slice dimensions are set, and the
-  // pixel spacing. The data Endianness must also be specified. The reader
-  // uses the FilePrefix in combination with the slice number to construct
-  // filenames using the format FilePrefix.%d. (In this case the FilePrefix
-  // is the root name of the file: quarter.)
-  vtkSmartPointer&lt;vtkMetaImageReader&gt; reader =
-    vtkSmartPointer&lt;vtkMetaImageReader&gt;::New();
-  reader-&gt;SetFileName(argv[1]);
+  <span class="c1">// The following reader is used to read a series of 2D slices (images)</span>
+  <span class="c1">// that compose the volume. The slice dimensions are set, and the</span>
+  <span class="c1">// pixel spacing. The data Endianness must also be specified. The reader</span>
+  <span class="c1">// uses the FilePrefix in combination with the slice number to construct</span>
+  <span class="c1">// filenames using the format FilePrefix.%d. (In this case the FilePrefix</span>
+  <span class="c1">// is the root name of the file: quarter.)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  // The volume will be displayed by ray-cast alpha compositing.
-  // A ray-cast mapper is needed to do the ray-casting.
-  vtkSmartPointer&lt;vtkFixedPointVolumeRayCastMapper&gt; volumeMapper =
-    vtkSmartPointer&lt;vtkFixedPointVolumeRayCastMapper&gt;::New();
-  volumeMapper-&gt;SetInputConnection(reader-&gt;GetOutputPort());
+  <span class="c1">// The volume will be displayed by ray-cast alpha compositing.</span>
+  <span class="c1">// A ray-cast mapper is needed to do the ray-casting.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFixedPointVolumeRayCastMapper</span><span class="o">&gt;</span> <span class="n">volumeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFixedPointVolumeRayCastMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // The color transfer function maps voxel intensities to colors.
-  // It is modality-specific, and often anatomy-specific as well.
-  // The goal is to one color for flesh (between 500 and 1000)
-  // and another color for bone (1150 and over).
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt;volumeColor =
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  volumeColor-&gt;AddRGBPoint(0,    0.0, 0.0, 0.0);
-  volumeColor-&gt;AddRGBPoint(500,  1.0, 0.5, 0.3);
-  volumeColor-&gt;AddRGBPoint(1000, 1.0, 0.5, 0.3);
-  volumeColor-&gt;AddRGBPoint(1150, 1.0, 1.0, 0.9);
+  <span class="c1">// The color transfer function maps voxel intensities to colors.</span>
+  <span class="c1">// It is modality-specific, and often anatomy-specific as well.</span>
+  <span class="c1">// The goal is to one color for flesh (between 500 and 1000)</span>
+  <span class="c1">// and another color for bone (1150 and over).</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span><span class="n">volumeColor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeColor</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>    <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">volumeColor</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">volumeColor</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">volumeColor</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mi">1150</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">);</span>
 
-  // The opacity transfer function is used to control the opacity
-  // of different tissue types.
-  vtkSmartPointer&lt;vtkPiecewiseFunction&gt; volumeScalarOpacity =
-    vtkSmartPointer&lt;vtkPiecewiseFunction&gt;::New();
-  volumeScalarOpacity-&gt;AddPoint(0,    0.00);
-  volumeScalarOpacity-&gt;AddPoint(500,  0.15);
-  volumeScalarOpacity-&gt;AddPoint(1000, 0.15);
-  volumeScalarOpacity-&gt;AddPoint(1150, 0.85);
+  <span class="c1">// The opacity transfer function is used to control the opacity</span>
+  <span class="c1">// of different tissue types.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;</span> <span class="n">volumeScalarOpacity</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeScalarOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>    <span class="mf">0.00</span><span class="p">);</span>
+  <span class="n">volumeScalarOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span>  <span class="mf">0.15</span><span class="p">);</span>
+  <span class="n">volumeScalarOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">);</span>
+  <span class="n">volumeScalarOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">1150</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">);</span>
 
-  // The gradient opacity function is used to decrease the opacity
-  // in the &quot;flat&quot; regions of the volume while maintaining the opacity
-  // at the boundaries between tissue types.  The gradient is measured
-  // as the amount by which the intensity changes over unit distance.
-  // For most medical data, the unit distance is 1mm.
-  vtkSmartPointer&lt;vtkPiecewiseFunction&gt; volumeGradientOpacity =
-    vtkSmartPointer&lt;vtkPiecewiseFunction&gt;::New();
-  volumeGradientOpacity-&gt;AddPoint(0,   0.0);
-  volumeGradientOpacity-&gt;AddPoint(90,  0.5);
-  volumeGradientOpacity-&gt;AddPoint(100, 1.0);
+  <span class="c1">// The gradient opacity function is used to decrease the opacity</span>
+  <span class="c1">// in the &quot;flat&quot; regions of the volume while maintaining the opacity</span>
+  <span class="c1">// at the boundaries between tissue types.  The gradient is measured</span>
+  <span class="c1">// as the amount by which the intensity changes over unit distance.</span>
+  <span class="c1">// For most medical data, the unit distance is 1mm.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;</span> <span class="n">volumeGradientOpacity</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeGradientOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>   <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">volumeGradientOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">);</span>
+  <span class="n">volumeGradientOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 
-  // The VolumeProperty attaches the color and opacity functions to the
-  // volume, and sets other volume properties.  The interpolation should
-  // be set to linear to do a high-quality rendering.  The ShadeOn option
-  // turns on directional lighting, which will usually enhance the
-  // appearance of the volume and make it look more &quot;3D&quot;.  However,
-  // the quality of the shading depends on how accurately the gradient
-  // of the volume can be calculated, and for noisy data the gradient
-  // estimation will be very poor.  The impact of the shading can be
-  // decreased by increasing the Ambient coefficient while decreasing
-  // the Diffuse and Specular coefficient.  To increase the impact
-  // of shading, decrease the Ambient and increase the Diffuse and Specular.
-  vtkSmartPointer&lt;vtkVolumeProperty&gt; volumeProperty =
-    vtkSmartPointer&lt;vtkVolumeProperty&gt;::New();
-  volumeProperty-&gt;SetColor(volumeColor);
-  volumeProperty-&gt;SetScalarOpacity(volumeScalarOpacity);
-  volumeProperty-&gt;SetGradientOpacity(volumeGradientOpacity);
-  volumeProperty-&gt;SetInterpolationTypeToLinear();
-  volumeProperty-&gt;ShadeOn();
-  volumeProperty-&gt;SetAmbient(0.4);
-  volumeProperty-&gt;SetDiffuse(0.6);
-  volumeProperty-&gt;SetSpecular(0.2);
+  <span class="c1">// The VolumeProperty attaches the color and opacity functions to the</span>
+  <span class="c1">// volume, and sets other volume properties.  The interpolation should</span>
+  <span class="c1">// be set to linear to do a high-quality rendering.  The ShadeOn option</span>
+  <span class="c1">// turns on directional lighting, which will usually enhance the</span>
+  <span class="c1">// appearance of the volume and make it look more &quot;3D&quot;.  However,</span>
+  <span class="c1">// the quality of the shading depends on how accurately the gradient</span>
+  <span class="c1">// of the volume can be calculated, and for noisy data the gradient</span>
+  <span class="c1">// estimation will be very poor.  The impact of the shading can be</span>
+  <span class="c1">// decreased by increasing the Ambient coefficient while decreasing</span>
+  <span class="c1">// the Diffuse and Specular coefficient.  To increase the impact</span>
+  <span class="c1">// of shading, decrease the Ambient and increase the Diffuse and Specular.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;</span> <span class="n">volumeProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">volumeColor</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetScalarOpacity</span><span class="p">(</span><span class="n">volumeScalarOpacity</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetGradientOpacity</span><span class="p">(</span><span class="n">volumeGradientOpacity</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">ShadeOn</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.6</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.2</span><span class="p">);</span>
 
-  // The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position
-  // and orientation of the volume in world coordinates.
-  vtkSmartPointer&lt;vtkVolume&gt; volume =
-    vtkSmartPointer&lt;vtkVolume&gt;::New();
-  volume-&gt;SetMapper(volumeMapper);
-  volume-&gt;SetProperty(volumeProperty);
+  <span class="c1">// The vtkVolume is a vtkProp3D (like a vtkActor) and controls the position</span>
+  <span class="c1">// and orientation of the volume in world coordinates.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;</span> <span class="n">volume</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">volumeMapper</span><span class="p">);</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetProperty</span><span class="p">(</span><span class="n">volumeProperty</span><span class="p">);</span>
 
-  // Finally, add the volume to the renderer
-  ren-&gt;AddViewProp(volume);
+  <span class="c1">// Finally, add the volume to the renderer</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">volume</span><span class="p">);</span>
 
-  // Set up an initial view of the volume.  The focal point will be the
-  // center of the volume, and the camera position will be 400mm to the
-  // patient's left (which is our right).
-  vtkCamera *camera = ren-&gt;GetActiveCamera();
-  double *c = volume-&gt;GetCenter();
-  camera-&gt;SetViewUp (0, 0, -1);
-  camera-&gt;SetPosition (c[0], c[1] - 400, c[2]);
-  camera-&gt;SetFocalPoint (c[0], c[1], c[2]);
-  camera-&gt;ComputeViewPlaneNormal();
-  camera-&gt;Azimuth(30.0);
-  camera-&gt;Elevation(30.0);
+  <span class="c1">// Set up an initial view of the volume.  The focal point will be the</span>
+  <span class="c1">// center of the volume, and the camera position will be 400mm to the</span>
+  <span class="c1">// patient&#39;s left (which is our right).</span>
+  <span class="n">vtkCamera</span> <span class="o">*</span><span class="n">camera</span> <span class="o">=</span> <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="n">volume</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetViewUp</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetPosition</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">400</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">ComputeViewPlaneNormal</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
 
-  // Set a background color for the renderer
-  ren-&gt;SetBackground(.2, .3, .4);
+  <span class="c1">// Set a background color for the renderer</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
 
-  renWin-&gt;SetSize(640, 480);
-  // Increase the size of the render window
-  renWin-&gt;SetSize(640, 480);
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
+  <span class="c1">// Increase the size of the render window</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
 
-  // Interact with the data.
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="c1">// Interact with the data.</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MedicalDemo4)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MedicalDemo4</span><span class="p">)</span>
 
-add_executable(MedicalDemo4 MACOSX_BUNDLE MedicalDemo4.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MedicalDemo4 ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MedicalDemo4</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MedicalDemo4.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-medicaldemo4">Download and Build MedicalDemo4</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MedicalDemo4</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-medicaldemo4">Download and Build MedicalDemo4<a class="headerlink" href="#download-and-build-medicaldemo4" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MedicalDemo4.tar">here to download MedicalDemo4</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MedicalDemo4.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MedicalDemo4/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MedicalDemo4/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MedicalDemo4
-</code></pre>
+<div class="codehilite"><pre><span></span>./MedicalDemo4
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

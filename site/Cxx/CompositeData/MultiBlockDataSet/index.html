@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,139 +16005,146 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/CompositeData/MultiBlockDataSet</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CompositeData/TestMultiBlockDataSet.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MultiBlockDataSet.cxx</strong></p>
-<pre><code class="c++">// Demonstrates how to make and use VTK's MultiBlock type data
+<div class="codehilite"><pre><span></span><span class="c1">// Demonstrates how to make and use VTK&#39;s MultiBlock type data</span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCompositeDataGeometryFilter.h&gt;
-#include &lt;vtkExtractEdges.h&gt;
-#include &lt;vtkMultiBlockDataSet.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCompositeDataGeometryFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkExtractEdges.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMultiBlockDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-int main (int, char *[])
-{
-  // PART 1 Make some Data
-  // make a tree
-  vtkSmartPointer&lt;vtkMultiBlockDataSet&gt; root =
-    vtkSmartPointer&lt;vtkMultiBlockDataSet&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// PART 1 Make some Data</span>
+  <span class="c1">// make a tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockDataSet</span><span class="o">&gt;</span> <span class="n">root</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockDataSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkMultiBlockDataSet&gt; branch =
-    vtkSmartPointer&lt;vtkMultiBlockDataSet&gt;::New();
-  root-&gt;SetBlock(0, branch);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockDataSet</span><span class="o">&gt;</span> <span class="n">branch</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockDataSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">root</span><span class="o">-&gt;</span><span class="n">SetBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">branch</span><span class="p">);</span>
 
-  // make some leaves
-  vtkSmartPointer&lt;vtkSphereSource&gt; leaf1 =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  leaf1-&gt;SetCenter(0,0,0);
-  leaf1-&gt;Update();
-  branch-&gt;SetBlock(0, leaf1-&gt;GetOutput());
+  <span class="c1">// make some leaves</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">leaf1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">leaf1</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">leaf1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">branch</span><span class="o">-&gt;</span><span class="n">SetBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">leaf1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkSphereSource&gt; leaf2 =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  leaf2-&gt;SetCenter(1.75,2.5,0);
-  leaf2-&gt;SetRadius(1.5);
-  leaf2-&gt;Update();
-  branch-&gt;SetBlock(1, leaf2-&gt;GetOutput());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">leaf2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">leaf2</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">1.75</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">leaf2</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
+  <span class="n">leaf2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">branch</span><span class="o">-&gt;</span><span class="n">SetBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">leaf2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkSphereSource&gt; leaf3 =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  leaf3-&gt;SetCenter(4,0,0);
-  leaf3-&gt;SetRadius(2);
-  leaf3-&gt;Update();
-  root-&gt;SetBlock(1, leaf3-&gt;GetOutput());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">leaf3</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">leaf3</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">leaf3</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">leaf3</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">root</span><span class="o">-&gt;</span><span class="n">SetBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">leaf3</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  // uncomment to inspect
-  //std::cerr &lt;&lt; root-&gt;GetClassName() &lt;&lt; std::endl;
-  //root-&gt;PrintSelf(std::cerr, vtkIndent(0));
+  <span class="c1">// uncomment to inspect</span>
+  <span class="c1">//std::cerr &lt;&lt; root-&gt;GetClassName() &lt;&lt; std::endl;</span>
+  <span class="c1">//root-&gt;PrintSelf(std::cerr, vtkIndent(0));</span>
 
-  // PART 2 Do something with the data
-  // a non composite aware filter, the pipeline will iterate
-  vtkSmartPointer&lt;vtkExtractEdges&gt; edges =
-    vtkSmartPointer&lt;vtkExtractEdges&gt;::New();
-  edges-&gt;SetInputData(root);
+  <span class="c1">// PART 2 Do something with the data</span>
+  <span class="c1">// a non composite aware filter, the pipeline will iterate</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractEdges</span><span class="o">&gt;</span> <span class="n">edges</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractEdges</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">edges</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
 
-  // uncomment to inspect
-  //edges-&gt;Update();
-  //cerr &lt;&lt; edges-&gt;GetOutputDataObject(0)-&gt;GetClassName() &lt;&lt; endl;
-  //edges-&gt;GetOutputDataObject(0)-&gt;PrintSelf(std::cerr, vtkIndent(0));
+  <span class="c1">// uncomment to inspect</span>
+  <span class="c1">//edges-&gt;Update();</span>
+  <span class="c1">//cerr &lt;&lt; edges-&gt;GetOutputDataObject(0)-&gt;GetClassName() &lt;&lt; endl;</span>
+  <span class="c1">//edges-&gt;GetOutputDataObject(0)-&gt;PrintSelf(std::cerr, vtkIndent(0));</span>
 
-  // PART 3 Show the data
-  // also demonstrate a composite aware filter
-  // this filter aggregates all blocks into one polydata
-  // this is handy for display, although fairly limited
-  // see vtkCompositePolyDataMapper2 for something better
-  vtkSmartPointer&lt;vtkCompositeDataGeometryFilter&gt; polydata =
-    vtkSmartPointer&lt;vtkCompositeDataGeometryFilter&gt;::New();
-  polydata-&gt;SetInputConnection(edges-&gt;GetOutputPort());
+  <span class="c1">// PART 3 Show the data</span>
+  <span class="c1">// also demonstrate a composite aware filter</span>
+  <span class="c1">// this filter aggregates all blocks into one polydata</span>
+  <span class="c1">// this is handy for display, although fairly limited</span>
+  <span class="c1">// see vtkCompositePolyDataMapper2 for something better</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">edges</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // uncomment to inspect
-  //polydata-&gt;Update();
-  //std::cerr &lt;&lt; polydata-&gt;GetOutput()-&gt;GetClassName() &lt;&lt; std::endl;
-  //polydata-&gt;GetOutput()-&gt;PrintSelf(std::cerr, vtkIndent(0));
+  <span class="c1">// uncomment to inspect</span>
+  <span class="c1">//polydata-&gt;Update();</span>
+  <span class="c1">//std::cerr &lt;&lt; polydata-&gt;GetOutput()-&gt;GetClassName() &lt;&lt; std::endl;</span>
+  <span class="c1">//polydata-&gt;GetOutput()-&gt;PrintSelf(std::cerr, vtkIndent(0));</span>
 
-  // display the data
-  vtkSmartPointer&lt;vtkRenderer&gt; aren = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin  =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(aren);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="c1">// display the data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">aren</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span>  <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">aren</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(0, polydata-&gt;GetOutputPort(0));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
-  aren-&gt;AddActor(actor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">aren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MultiBlockDataSet)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MultiBlockDataSet</span><span class="p">)</span>
 
-add_executable(MultiBlockDataSet MACOSX_BUNDLE MultiBlockDataSet.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MultiBlockDataSet ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MultiBlockDataSet</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MultiBlockDataSet.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-multiblockdataset">Download and Build MultiBlockDataSet</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MultiBlockDataSet</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-multiblockdataset">Download and Build MultiBlockDataSet<a class="headerlink" href="#download-and-build-multiblockdataset" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MultiBlockDataSet.tar">here to download MultiBlockDataSet</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MultiBlockDataSet.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MultiBlockDataSet/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MultiBlockDataSet/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MultiBlockDataSet
-</code></pre>
+<div class="codehilite"><pre><span></span>./MultiBlockDataSet
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

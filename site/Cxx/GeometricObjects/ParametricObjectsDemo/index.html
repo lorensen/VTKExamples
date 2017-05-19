@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,265 +16019,259 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/ParametricObjectsDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestParametricObjectsDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
-<p>See <a href="http://www.vtk.org/img/ParametricSurfaces.pdf">Parametric Equations for Surfaces</a> by Andrew Maclean for an excellent description of these beautiful parametric surfaces.</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>See <a href="http://www.vtk.org/wp-content/uploads/2015/11/ParametricSurfaces.pdf">Parametric Equations for Surfaces</a> by Andrew Maclean for an excellent description of these beautiful parametric surfaces.</p>
 <p>This example also demonstrates how to manipulate lists of VTK objects using vectors. Notice how parameters of the various Parametric Objects are accessed and set in the parametricObjects vector.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ParametricObjectsDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkTextMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkActor2D.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkTextProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkParametricFunctionSource.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkPoints.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricFunctionSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkParametricTorus.h&gt;
-#include &lt;vtkParametricBoy.h&gt;
-#include &lt;vtkParametricConicSpiral.h&gt;
-#include &lt;vtkParametricCrossCap.h&gt;
-#include &lt;vtkParametricDini.h&gt;
-#include &lt;vtkParametricEllipsoid.h&gt;
-#include &lt;vtkParametricEnneper.h&gt;
-#include &lt;vtkParametricFigure8Klein.h&gt;
-#include &lt;vtkParametricKlein.h&gt;
-#include &lt;vtkParametricMobius.h&gt;
-#include &lt;vtkParametricRandomHills.h&gt;
-#include &lt;vtkParametricRoman.h&gt;
-#include &lt;vtkParametricSpline.h&gt;
-#include &lt;vtkParametricSuperEllipsoid.h&gt;
-#include &lt;vtkParametricSuperToroid.h&gt;
-#include &lt;vtkParametricTorus.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricBoy.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricConicSpiral.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricCrossCap.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricDini.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricEllipsoid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricEnneper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricFigure8Klein.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricKlein.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricMobius.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricRandomHills.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricRoman.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricSpline.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricSuperEllipsoid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricSuperToroid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricTorus.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricTorus.h&gt;</span><span class="cp"></span>
 
-#include &lt;vector&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Select one of the following (matching the selection above)
-  std::vector&lt;vtkSmartPointer&lt;vtkParametricFunction&gt; &gt; parametricObjects;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Select one of the following (matching the selection above)</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunction</span><span class="o">&gt;&gt;</span> <span class="n">parametricObjects</span><span class="p">;</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricBoy&gt;::New());
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricConicSpiral&gt;::New());
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricCrossCap&gt;::New());
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricDini&gt;::New());
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricBoy</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricConicSpiral</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricCrossCap</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricDini</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricEllipsoid&gt;::New());
-  static_cast&lt;vtkParametricEllipsoid *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetXRadius(.5);
-  static_cast&lt;vtkParametricEllipsoid *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetYRadius(2.0);
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricEllipsoid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricEllipsoid</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetXRadius</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricEllipsoid</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetYRadius</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricEnneper&gt;::New());
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricFigure8Klein&gt;::New());
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricKlein&gt;::New());
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricMobius&gt;::New());
-  static_cast&lt;vtkParametricMobius *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetRadius(2.0);
-  static_cast&lt;vtkParametricMobius *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetMinimumV(-0.5);
-  static_cast&lt;vtkParametricMobius *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetMaximumV(0.5);
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricEnneper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFigure8Klein</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricKlein</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricMobius</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricMobius</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricMobius</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetMinimumV</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">);</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricMobius</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetMaximumV</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkParametricRandomHills&gt; randomHills =
-    vtkSmartPointer&lt;vtkParametricRandomHills&gt;::New();
-  randomHills-&gt;AllowRandomGenerationOff();
-  parametricObjects.push_back(randomHills);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricRandomHills</span><span class="o">&gt;</span> <span class="n">randomHills</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricRandomHills</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">randomHills</span><span class="o">-&gt;</span><span class="n">AllowRandomGenerationOff</span><span class="p">();</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">randomHills</span><span class="p">);</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricRoman&gt;::New());
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricRoman</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricSuperEllipsoid&gt;::New());
-  static_cast&lt;vtkParametricSuperEllipsoid *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetN1(.50);
-  static_cast&lt;vtkParametricSuperEllipsoid *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetN2(.1);
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricSuperEllipsoid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricSuperEllipsoid</span><span class="o">*&gt;</span><span class="p">(</span>
+    <span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetN1</span><span class="p">(</span><span class="mf">.50</span><span class="p">);</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricSuperEllipsoid</span><span class="o">*&gt;</span><span class="p">(</span>
+    <span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetN2</span><span class="p">(</span><span class="mf">.1</span><span class="p">);</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricSuperToroid&gt;::New());
-  static_cast&lt;vtkParametricSuperToroid *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetN1(.2);
-  static_cast&lt;vtkParametricSuperToroid *&gt;(
-    parametricObjects.back().GetPointer())-&gt;SetN2(3.0);
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricSuperToroid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricSuperToroid</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetN1</span><span class="p">(</span><span class="mf">.2</span><span class="p">);</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkParametricSuperToroid</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">GetPointer</span><span class="p">())</span>
+    <span class="o">-&gt;</span><span class="n">SetN2</span><span class="p">(</span><span class="mf">3.0</span><span class="p">);</span>
 
-  parametricObjects.push_back(
-    vtkSmartPointer&lt;vtkParametricTorus&gt;::New());
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricTorus</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
 
-  // The spline needs points
-  vtkSmartPointer&lt;vtkParametricSpline&gt; spline =
-    vtkSmartPointer&lt;vtkParametricSpline&gt;::New();
-  vtkSmartPointer&lt;vtkPoints&gt; inputPoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  vtkMath::RandomSeed(8775070);
-  for (int p = 0; p &lt; 10; p++)
-  {
-    double x = vtkMath::Random(0.0, 1.0);
-    double y = vtkMath::Random(0.0, 1.0);
-    double z = vtkMath::Random(0.0, 1.0);
-    inputPoints-&gt;InsertNextPoint(x, y, z);
-  }
-  spline-&gt;SetPoints(inputPoints);
-  parametricObjects.push_back(spline);
+  <span class="c1">// The spline needs points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricSpline</span><span class="o">&gt;</span> <span class="n">spline</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricSpline</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">inputPoints</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">RandomSeed</span><span class="p">(</span><span class="mi">8775070</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">p</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="n">inputPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">spline</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">inputPoints</span><span class="p">);</span>
+  <span class="n">parametricObjects</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">spline</span><span class="p">);</span>
 
-  std::vector&lt;vtkSmartPointer&lt;vtkParametricFunctionSource&gt; &gt;
-    parametricFunctionSources;
-  std::vector&lt;vtkSmartPointer&lt;vtkRenderer&gt; &gt;
-    renderers;
-  std::vector&lt;vtkSmartPointer&lt;vtkPolyDataMapper&gt; &gt;
-    mappers;
-  std::vector&lt;vtkSmartPointer&lt;vtkActor&gt; &gt;
-    actors;
-  std::vector&lt;vtkSmartPointer&lt;vtkTextMapper&gt; &gt;
-    textmappers;
-  std::vector&lt;vtkSmartPointer&lt;vtkActor2D&gt; &gt;
-    textactors;
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;&gt;</span>
+    <span class="n">parametricFunctionSources</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;&gt;</span> <span class="n">renderers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;&gt;</span> <span class="n">mappers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;&gt;</span> <span class="n">actors</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;&gt;</span> <span class="n">textmappers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;&gt;</span> <span class="n">textactors</span><span class="p">;</span>
 
-  // Create one text property for all
-  vtkSmartPointer&lt;vtkTextProperty&gt; textProperty =
-    vtkSmartPointer&lt;vtkTextProperty&gt;::New();
-  textProperty-&gt;SetFontSize(10);
-  textProperty-&gt;SetJustificationToCentered();
+  <span class="c1">// Create one text property for all</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">textProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetJustificationToCentered</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkProperty&gt; backProperty =
-    vtkSmartPointer&lt;vtkProperty&gt;::New();
-  backProperty-&gt;SetColor(1.0, 0.0, 0.0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">backProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  // Create a parametric function source, renderer, mapper, and actor
-  // for each object
-  for(unsigned int i = 0; i &lt; parametricObjects.size(); i++)
-  {
-    parametricFunctionSources.push_back(
-      vtkSmartPointer&lt;vtkParametricFunctionSource&gt;::New());
-    parametricFunctionSources[i]-&gt;SetParametricFunction(parametricObjects[i]);
-    parametricFunctionSources[i]-&gt;SetUResolution(51);
-    parametricFunctionSources[i]-&gt;SetVResolution(51);
-    parametricFunctionSources[i]-&gt;SetWResolution(51);
-    parametricFunctionSources[i]-&gt;Update();
+  <span class="c1">// Create a parametric function source, renderer, mapper, and actor</span>
+  <span class="c1">// for each object</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">parametricObjects</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">parametricFunctionSources</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">51</span><span class="p">);</span>
+    <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">51</span><span class="p">);</span>
+    <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetWResolution</span><span class="p">(</span><span class="mi">51</span><span class="p">);</span>
+    <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    mappers.push_back(vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New());
-    mappers[i]-&gt;SetInputConnection(
-      parametricFunctionSources[i]-&gt;GetOutputPort());
+    <span class="n">mappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span>
+      <span class="n">parametricFunctionSources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-    actors.push_back(vtkSmartPointer&lt;vtkActor&gt;::New());
-    actors[i]-&gt;SetMapper(mappers[i]);
-    actors[i]-&gt;SetBackfaceProperty(backProperty);
+    <span class="n">actors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backProperty</span><span class="p">);</span>
 
-    textmappers.push_back(vtkSmartPointer&lt;vtkTextMapper&gt;::New());
-    textmappers[i]-&gt;SetInput(parametricObjects[i]-&gt;GetClassName());
-    textmappers[i]-&gt;SetTextProperty(textProperty);
+    <span class="n">textmappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">textmappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetClassName</span><span class="p">());</span>
+    <span class="n">textmappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">);</span>
 
-    textactors.push_back(vtkSmartPointer&lt;vtkActor2D&gt;::New());
-    textactors[i]-&gt;SetMapper(textmappers[i]);
-    textactors[i]-&gt;SetPosition(100, 16);
-    renderers.push_back(vtkSmartPointer&lt;vtkRenderer&gt;::New());
-  }
-  unsigned int gridDimensions = 4;
+    <span class="n">textactors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">textactors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textmappers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">textactors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+    <span class="n">renderers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">gridDimensions</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
 
-  // Need a renderer even if there is no actor
-  for(size_t i = parametricObjects.size();
-      i &lt; gridDimensions * gridDimensions;
-      i++)
-  {
-    renderers.push_back(vtkSmartPointer&lt;vtkRenderer&gt;::New());
-  }
+  <span class="c1">// Need a renderer even if there is no actor</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="n">parametricObjects</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">;</span>
+       <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">renderers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  int rendererSize = 200;
-  renderWindow-&gt;SetSize(
-    rendererSize*gridDimensions, rendererSize*gridDimensions);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span>
+    <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">,</span> <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">);</span>
 
-  for(int row = 0; row &lt; static_cast&lt;int&gt;(gridDimensions); row++)
-  {
-    for(int col = 0; col &lt; static_cast&lt;int&gt;(gridDimensions); col++)
-    {
-      int index = row*gridDimensions + col;
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">);</span> <span class="n">row</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">);</span> <span class="n">col</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">gridDimensions</span> <span class="o">+</span> <span class="n">col</span><span class="p">;</span>
 
-      // (xmin, ymin, xmax, ymax)
-      double viewport[4] =
-        {static_cast&lt;double&gt;(col) * rendererSize / (gridDimensions * rendererSize),
-         static_cast&lt;double&gt;(gridDimensions - (row+1)) * rendererSize / (gridDimensions * rendererSize),
-         static_cast&lt;double&gt;(col+1)*rendererSize / (gridDimensions * rendererSize),
-         static_cast&lt;double&gt;(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize)};
+      <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+      <span class="kt">double</span> <span class="n">viewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                              <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+          <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+          <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+          <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)};</span>
 
-      renderWindow-&gt;AddRenderer(renderers[index]);
-      renderers[index]-&gt;SetViewport(viewport);
-      if(index &gt; static_cast&lt;int&gt;(parametricObjects.size() - 1))
-      {
-        continue;
-      }
-      renderers[index]-&gt;AddActor(actors[index]);
-      renderers[index]-&gt;AddActor(textactors[index]);
-      renderers[index]-&gt;SetBackground(.2, .3, .4);
-      renderers[index]-&gt;ResetCamera();
-      renderers[index]-&gt;GetActiveCamera()-&gt;Azimuth(30);
-      renderers[index]-&gt;GetActiveCamera()-&gt;Elevation(-30);
-      renderers[index]-&gt;GetActiveCamera()-&gt;Zoom(0.9);
-      renderers[index]-&gt;ResetCameraClippingRange();
-    }
-  }
+      <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">parametricObjects</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+      <span class="p">{</span>
+        <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textactors</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">0.9</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  interactor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ParametricObjectsDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ParametricObjectsDemo</span><span class="p">)</span>
 
-add_executable(ParametricObjectsDemo MACOSX_BUNDLE ParametricObjectsDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ParametricObjectsDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ParametricObjectsDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ParametricObjectsDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-parametricobjectsdemo">Download and Build ParametricObjectsDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ParametricObjectsDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-parametricobjectsdemo">Download and Build ParametricObjectsDemo<a class="headerlink" href="#download-and-build-parametricobjectsdemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ParametricObjectsDemo.tar">here to download ParametricObjectsDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ParametricObjectsDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ParametricObjectsDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ParametricObjectsDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ParametricObjectsDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./ParametricObjectsDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

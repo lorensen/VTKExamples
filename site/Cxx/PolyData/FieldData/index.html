@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,96 +16018,103 @@
                   <h1>FieldData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/FieldData</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Three types of data can be stored in a vtkPolyData object - PointData, CellData, and FieldData. For PointData, there must be a piece of data associated with each point (e.g. a temperature data array with the temperature at each point). For CellData, there must be a piece of data associated with each cell (e.g. the area of each triangle). For data that does not align with either points or cells, FieldData should be used. This is typically data that describes the dataset as a whole. An example could be the name of the dataset, or the center of mass of the points, etc.</p>
 <p>This demo adds general data to a polydata (not at each point or cell). In this example, the center of mass of the data is stored.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FieldData.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkFieldData.h&gt;
-#include &lt;vtkSphereSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFieldData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; source = 
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  source-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Extract the polydata
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata = 
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;ShallowCopy(source-&gt;GetOutput());
+  <span class="c1">// Extract the polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; location = 
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">location</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create the data to store (here we just use (0,0,0))
-  double locationValue[3] = {0,0,0};
+  <span class="c1">// Create the data to store (here we just use (0,0,0))</span>
+  <span class="kt">double</span> <span class="n">locationValue</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
 
-  location-&gt;SetNumberOfComponents(3);
-  location-&gt;SetName(&quot;MyDoubleArray&quot;);
-  location-&gt;InsertNextTuple(locationValue);
-  // The data is added to FIELD data (rather than POINT data as usual)
-  polydata-&gt;GetFieldData()-&gt;AddArray(location);
+  <span class="n">location</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">location</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;MyDoubleArray&quot;</span><span class="p">);</span>
+  <span class="n">location</span><span class="o">-&gt;</span><span class="n">InsertNextTuple</span><span class="p">(</span><span class="n">locationValue</span><span class="p">);</span>
+  <span class="c1">// The data is added to FIELD data (rather than POINT data as usual)</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">location</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; intValue =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  intValue-&gt;SetNumberOfComponents(1);
-  intValue-&gt;SetName(&quot;MyIntValue&quot;);
-  intValue-&gt;InsertNextValue(5);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">intValue</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">intValue</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">intValue</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;MyIntValue&quot;</span><span class="p">);</span>
+  <span class="n">intValue</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 
-  polydata-&gt;GetFieldData()-&gt;AddArray(intValue);
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">intValue</span><span class="p">);</span>
 
-  // Get the data back out
-  vtkIntArray* retrievedArray = vtkIntArray::SafeDownCast(polydata-&gt;GetFieldData()-&gt;GetAbstractArray(&quot;MyIntValue&quot;));
+  <span class="c1">// Get the data back out</span>
+  <span class="n">vtkIntArray</span><span class="o">*</span> <span class="n">retrievedArray</span> <span class="o">=</span> <span class="n">vtkIntArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetAbstractArray</span><span class="p">(</span><span class="s">&quot;MyIntValue&quot;</span><span class="p">));</span>
 
-  std::cout &lt;&lt; retrievedArray-&gt;GetValue(0) &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">retrievedArray</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(FieldData)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">FieldData</span><span class="p">)</span>
 
-add_executable(FieldData MACOSX_BUNDLE FieldData.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(FieldData ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">FieldData</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">FieldData.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-fielddata">Download and Build FieldData</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">FieldData</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-fielddata">Download and Build FieldData<a class="headerlink" href="#download-and-build-fielddata" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FieldData.tar">here to download FieldData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FieldData.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd FieldData/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd FieldData/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./FieldData
-</code></pre>
+<div class="codehilite"><pre><span></span>./FieldData
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

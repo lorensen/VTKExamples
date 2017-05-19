@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,155 +16005,162 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Animation/AnimateActors</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Animation/TestAnimateActors.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AnimateActors.cxx</strong></p>
-<pre><code class="c++">#include &quot;AnimateActors.h&quot;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkAnimationCue.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkConeSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkAnimationScene.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkCamera.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;AnimateActors.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAnimationCue.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkConeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAnimationScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // Create the graphics structure. The renderer renders into the
-  // render window.
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;SetMultiSamples(0);
-  iren-&gt;SetRenderWindow(renWin);
-  renWin-&gt;AddRenderer(ren1);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create the graphics structure. The renderer renders into the</span>
+  <span class="c1">// render window.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
 
-  // Generate a sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection( sphereSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; sphere =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere-&gt;SetMapper(sphereMapper);
-  ren1-&gt;AddActor(sphere);
+  <span class="c1">// Generate a sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere</span><span class="p">);</span>
 
-  // Generate a cone
-  vtkSmartPointer&lt;vtkConeSource&gt; coneSource =
-    vtkSmartPointer&lt;vtkConeSource&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; coneMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  coneMapper-&gt;SetInputConnection( coneSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; cone =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  cone-&gt;SetMapper(coneMapper);
-  ren1-&gt;AddActor(cone);
+  <span class="c1">// Generate a cone</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;</span> <span class="n">coneSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">coneMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">cone</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cone</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">coneMapper</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cone</span><span class="p">);</span>
 
-  // Create an Animation Scene
-  vtkSmartPointer&lt;vtkAnimationScene&gt; scene =
-    vtkSmartPointer&lt;vtkAnimationScene&gt;::New();
-  if(argc&gt;=2 &amp;&amp; strcmp(argv[1],&quot;-real&quot;)==0)
-  {
-    cout &lt;&lt; &quot;real-time mode&quot; &lt;&lt; endl;
-    scene-&gt;SetModeToRealTime();
-  }
-  else
-  {
-    cout &lt;&lt; &quot;sequence mode&quot; &lt;&lt; endl;
-    scene-&gt;SetModeToSequence();
-  }
-  scene-&gt;SetLoop(0);
-  scene-&gt;SetFrameRate(5);
-  scene-&gt;SetStartTime(0);
-  scene-&gt;SetEndTime(20);
+  <span class="c1">// Create an Animation Scene</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationScene</span><span class="o">&gt;</span> <span class="n">scene</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationScene</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">&gt;=</span><span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s">&quot;-real&quot;</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;real-time mode&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetModeToRealTime</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;sequence mode&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetModeToSequence</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetFrameRate</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetStartTime</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetEndTime</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;AnimationSceneObserver&gt; sceneObserver =
-    vtkSmartPointer&lt;AnimationSceneObserver&gt;::New();
-  sceneObserver-&gt;SetRenderWindow(renWin);
-  scene-&gt;AddObserver(vtkCommand::AnimationCueTickEvent,sceneObserver);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">AnimationSceneObserver</span><span class="o">&gt;</span> <span class="n">sceneObserver</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">AnimationSceneObserver</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sceneObserver</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">AnimationCueTickEvent</span><span class="p">,</span><span class="n">sceneObserver</span><span class="p">);</span>
 
-  // Create an Animation Cue for each actor
-  vtkSmartPointer&lt;vtkAnimationCue&gt; cue1 =
-    vtkSmartPointer&lt;vtkAnimationCue&gt;::New();
-  cue1-&gt;SetStartTime(5);
-  cue1-&gt;SetEndTime(23);
-  scene-&gt;AddCue(cue1);
+  <span class="c1">// Create an Animation Cue for each actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">&gt;</span> <span class="n">cue1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">SetStartTime</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">SetEndTime</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">AddCue</span><span class="p">(</span><span class="n">cue1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkAnimationCue&gt; cue2 =
-    vtkSmartPointer&lt;vtkAnimationCue&gt;::New();
-  cue2-&gt;SetStartTime(1);
-  cue2-&gt;SetEndTime(10);
-  scene-&gt;AddCue(cue2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">&gt;</span> <span class="n">cue2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cue2</span><span class="o">-&gt;</span><span class="n">SetStartTime</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">cue2</span><span class="o">-&gt;</span><span class="n">SetEndTime</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">AddCue</span><span class="p">(</span><span class="n">cue2</span><span class="p">);</span>
 
-  // Create an ActorAnimator for each actor;
-  ActorAnimator animateSphere;
-  animateSphere.SetActor(sphere);
-  animateSphere.AddObserversToCue(cue1);
+  <span class="c1">// Create an ActorAnimator for each actor;</span>
+  <span class="n">ActorAnimator</span> <span class="n">animateSphere</span><span class="p">;</span>
+  <span class="n">animateSphere</span><span class="p">.</span><span class="n">SetActor</span><span class="p">(</span><span class="n">sphere</span><span class="p">);</span>
+  <span class="n">animateSphere</span><span class="p">.</span><span class="n">AddObserversToCue</span><span class="p">(</span><span class="n">cue1</span><span class="p">);</span>
 
-  ActorAnimator animateCone;
-  std::vector&lt;double&gt; endCone(3);
-    endCone[0] = -1;
-    endCone[1] = -1;
-    endCone[2] = -1;
-  animateCone.SetEndPosition(endCone);
-  animateCone.SetActor(cone);
-  animateCone.AddObserversToCue(cue2);
+  <span class="n">ActorAnimator</span> <span class="n">animateCone</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">endCone</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">endCone</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">endCone</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">endCone</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="n">animateCone</span><span class="p">.</span><span class="n">SetEndPosition</span><span class="p">(</span><span class="n">endCone</span><span class="p">);</span>
+  <span class="n">animateCone</span><span class="p">.</span><span class="n">SetActor</span><span class="p">(</span><span class="n">cone</span><span class="p">);</span>
+  <span class="n">animateCone</span><span class="p">.</span><span class="n">AddObserversToCue</span><span class="p">(</span><span class="n">cue2</span><span class="p">);</span>
 
-  renWin-&gt;Render();
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;Dolly(.5);
-  ren1-&gt;ResetCameraClippingRange();
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  // Create Cue observer.
-  scene-&gt;Play();
-  scene-&gt;Stop();
+  <span class="c1">// Create Cue observer.</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">Play</span><span class="p">();</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">Stop</span><span class="p">();</span>
 
-  iren-&gt;Start();
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AnimateActors)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AnimateActors</span><span class="p">)</span>
 
-add_executable(AnimateActors MACOSX_BUNDLE AnimateActors.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AnimateActors ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AnimateActors</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AnimateActors.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-animateactors">Download and Build AnimateActors</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AnimateActors</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-animateactors">Download and Build AnimateActors<a class="headerlink" href="#download-and-build-animateactors" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AnimateActors.tar">here to download AnimateActors</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AnimateActors.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AnimateActors/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AnimateActors/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AnimateActors
-</code></pre>
+<div class="codehilite"><pre><span></span>./AnimateActors
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

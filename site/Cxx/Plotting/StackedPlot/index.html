@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,176 +16005,183 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Plotting/StackedPlot</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Plotting/TestStackedPlot.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>StackedPlot.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkChartXY.h&gt;
-#include &lt;vtkPlot.h&gt;
-#include &lt;vtkAxis.h&gt;
-#include &lt;vtkPlotStacked.h&gt;
-#include &lt;vtkColor.h&gt;
-#include &lt;vtkColorSeries.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkStringArray.h&gt;
-#include &lt;vtkContextView.h&gt;
-#include &lt;vtkContextScene.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartXY.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlot.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAxis.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlotStacked.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorSeries.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStringArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
 
-// Monthly checkout data
-static const char *month_labels[] = {&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;,
-                                     &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;};
-static int book[] =       {5675, 5902, 6388, 5990, 5575, 7393, 9878, 8082, 6417, 5946, 5526, 5166};
-static int new_popular[] = {701,  687,  736,  696,  750,  814,  923,  860,  786,  735,  680,  741};
-static int periodical[] =  {184,  176,  166,  131,  171,  191,  231,  166,  197,  162,  152,  143};
-static int audiobook[] =   {903, 1038,  987, 1073, 1144, 1203, 1173, 1196, 1213, 1076,  926,  874};
-static int video[] =      {1524, 1565, 1627, 1445, 1179, 1816, 2293, 1811, 1588, 1561, 1542, 1563};
+<span class="c1">// Monthly checkout data</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">month_labels</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;Jan&quot;</span><span class="p">,</span> <span class="s">&quot;Feb&quot;</span><span class="p">,</span> <span class="s">&quot;Mar&quot;</span><span class="p">,</span> <span class="s">&quot;Apr&quot;</span><span class="p">,</span> <span class="s">&quot;May&quot;</span><span class="p">,</span> <span class="s">&quot;Jun&quot;</span><span class="p">,</span>
+                                     <span class="s">&quot;Jul&quot;</span><span class="p">,</span> <span class="s">&quot;Aug&quot;</span><span class="p">,</span> <span class="s">&quot;Sep&quot;</span><span class="p">,</span> <span class="s">&quot;Oct&quot;</span><span class="p">,</span> <span class="s">&quot;Nov&quot;</span><span class="p">,</span> <span class="s">&quot;Dec&quot;</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">book</span><span class="p">[]</span> <span class="o">=</span>       <span class="p">{</span><span class="mi">5675</span><span class="p">,</span> <span class="mi">5902</span><span class="p">,</span> <span class="mi">6388</span><span class="p">,</span> <span class="mi">5990</span><span class="p">,</span> <span class="mi">5575</span><span class="p">,</span> <span class="mi">7393</span><span class="p">,</span> <span class="mi">9878</span><span class="p">,</span> <span class="mi">8082</span><span class="p">,</span> <span class="mi">6417</span><span class="p">,</span> <span class="mi">5946</span><span class="p">,</span> <span class="mi">5526</span><span class="p">,</span> <span class="mi">5166</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">new_popular</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">701</span><span class="p">,</span>  <span class="mi">687</span><span class="p">,</span>  <span class="mi">736</span><span class="p">,</span>  <span class="mi">696</span><span class="p">,</span>  <span class="mi">750</span><span class="p">,</span>  <span class="mi">814</span><span class="p">,</span>  <span class="mi">923</span><span class="p">,</span>  <span class="mi">860</span><span class="p">,</span>  <span class="mi">786</span><span class="p">,</span>  <span class="mi">735</span><span class="p">,</span>  <span class="mi">680</span><span class="p">,</span>  <span class="mi">741</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">periodical</span><span class="p">[]</span> <span class="o">=</span>  <span class="p">{</span><span class="mi">184</span><span class="p">,</span>  <span class="mi">176</span><span class="p">,</span>  <span class="mi">166</span><span class="p">,</span>  <span class="mi">131</span><span class="p">,</span>  <span class="mi">171</span><span class="p">,</span>  <span class="mi">191</span><span class="p">,</span>  <span class="mi">231</span><span class="p">,</span>  <span class="mi">166</span><span class="p">,</span>  <span class="mi">197</span><span class="p">,</span>  <span class="mi">162</span><span class="p">,</span>  <span class="mi">152</span><span class="p">,</span>  <span class="mi">143</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">audiobook</span><span class="p">[]</span> <span class="o">=</span>   <span class="p">{</span><span class="mi">903</span><span class="p">,</span> <span class="mi">1038</span><span class="p">,</span>  <span class="mi">987</span><span class="p">,</span> <span class="mi">1073</span><span class="p">,</span> <span class="mi">1144</span><span class="p">,</span> <span class="mi">1203</span><span class="p">,</span> <span class="mi">1173</span><span class="p">,</span> <span class="mi">1196</span><span class="p">,</span> <span class="mi">1213</span><span class="p">,</span> <span class="mi">1076</span><span class="p">,</span>  <span class="mi">926</span><span class="p">,</span>  <span class="mi">874</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">video</span><span class="p">[]</span> <span class="o">=</span>      <span class="p">{</span><span class="mi">1524</span><span class="p">,</span> <span class="mi">1565</span><span class="p">,</span> <span class="mi">1627</span><span class="p">,</span> <span class="mi">1445</span><span class="p">,</span> <span class="mi">1179</span><span class="p">,</span> <span class="mi">1816</span><span class="p">,</span> <span class="mi">2293</span><span class="p">,</span> <span class="mi">1811</span><span class="p">,</span> <span class="mi">1588</span><span class="p">,</span> <span class="mi">1561</span><span class="p">,</span> <span class="mi">1542</span><span class="p">,</span> <span class="mi">1563</span><span class="p">};</span>
 
-//----------------------------------------------------------------------------
-int main(int, char*[])
-{
-  // Set up a 2D scene, add an XY chart to it
-  vtkSmartPointer&lt;vtkContextView&gt; view =
-    vtkSmartPointer&lt;vtkContextView&gt;::New();
-  view-&gt;GetRenderer()-&gt;SetBackground(1.0, 1.0, 1.0);
-  view-&gt;GetRenderWindow()-&gt;SetSize(400, 300);
-  vtkSmartPointer&lt;vtkChartXY&gt; chart =
-    vtkSmartPointer&lt;vtkChartXY&gt;::New();
-  view-&gt;GetScene()-&gt;AddItem(chart);
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Set up a 2D scene, add an XY chart to it</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartXY</span><span class="o">&gt;</span> <span class="n">chart</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartXY</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetScene</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">chart</span><span class="p">);</span>
 
-  // Create a table with some points in it...
-  vtkSmartPointer&lt;vtkTable&gt; table =
-    vtkSmartPointer&lt;vtkTable&gt;::New();
+  <span class="c1">// Create a table with some points in it...</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">table</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkStringArray&gt; arrMonthLabel =
-    vtkSmartPointer&lt;vtkStringArray&gt;::New();
-  arrMonthLabel-&gt;SetNumberOfValues(12);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;</span> <span class="n">arrMonthLabel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrMonthLabel</span><span class="o">-&gt;</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; arrXTickPositions =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  arrXTickPositions-&gt;SetNumberOfValues(12);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">arrXTickPositions</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrXTickPositions</span><span class="o">-&gt;</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrMonth =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  arrMonth-&gt;SetName(&quot;Month&quot;);
-  table-&gt;AddColumn(arrMonth);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrMonth</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrMonth</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Month&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrMonth</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrBook =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  arrBook-&gt;SetName(&quot;Books&quot;);
-  table-&gt;AddColumn(arrBook);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrBook</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrBook</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Books&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrBook</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrNewPopularBook =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  arrNewPopularBook-&gt;SetName(&quot;New / Popular&quot;);
-  table-&gt;AddColumn(arrNewPopularBook);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrNewPopularBook</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrNewPopularBook</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;New / Popular&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrNewPopularBook</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrPeriodical =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  arrPeriodical-&gt;SetName(&quot;Periodical&quot;);
-  table-&gt;AddColumn(arrPeriodical);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrPeriodical</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrPeriodical</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Periodical&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrPeriodical</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrAudiobook =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  arrAudiobook-&gt;SetName(&quot;Audiobook&quot;);
-  table-&gt;AddColumn(arrAudiobook);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrAudiobook</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrAudiobook</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Audiobook&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrAudiobook</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrVideo =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  arrVideo-&gt;SetName(&quot;Video&quot;);
-  table-&gt;AddColumn(arrVideo);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrVideo</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrVideo</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Video&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrVideo</span><span class="p">);</span>
 
-  table-&gt;SetNumberOfRows(12);
-  for (int i = 0; i &lt; 12; i++)
-  {
-    arrMonthLabel-&gt;SetValue(i,month_labels[i]);
-    arrXTickPositions-&gt;SetValue(i,i);
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetNumberOfRows</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">arrMonthLabel</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">month_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">arrXTickPositions</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
 
-    arrBook-&gt;SetValue(i,book[i]);
-    arrNewPopularBook-&gt;SetValue(i,new_popular[i]);
-    arrPeriodical-&gt;SetValue(i,periodical[i]);
-    arrAudiobook-&gt;SetValue(i,audiobook[i]);
-    arrVideo-&gt;SetValue(i,video[i]);
-  }
+    <span class="n">arrBook</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">book</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">arrNewPopularBook</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">new_popular</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">arrPeriodical</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">periodical</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">arrAudiobook</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">audiobook</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">arrVideo</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">video</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  // Set the Month Labels
-  chart-&gt;GetAxis(1)-&gt;SetCustomTickPositions(arrXTickPositions, arrMonthLabel);
-  chart-&gt;GetAxis(1)-&gt;SetMaximum(11);
+  <span class="c1">// Set the Month Labels</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetCustomTickPositions</span><span class="p">(</span><span class="n">arrXTickPositions</span><span class="p">,</span> <span class="n">arrMonthLabel</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetMaximum</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
 
-  chart-&gt;GetAxis(1)-&gt;SetRange(0, 11);
-  chart-&gt;GetAxis(1)-&gt;SetBehavior(vtkAxis::FIXED);
-  chart-&gt;GetAxis(1)-&gt;SetTitle(&quot;Month&quot;);
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetBehavior</span><span class="p">(</span><span class="n">vtkAxis</span><span class="o">::</span><span class="n">FIXED</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Month&quot;</span><span class="p">);</span>
 
-  chart-&gt;SetShowLegend(true);
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">SetShowLegend</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 
-  chart-&gt;GetAxis(0)-&gt;SetTitle(&quot;Checkouts&quot;);
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetAxis</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Checkouts&quot;</span><span class="p">);</span>
 
-  // Add multiple line plots, setting the colors etc
-  vtkPlotStacked *stack = 0;
+  <span class="c1">// Add multiple line plots, setting the colors etc</span>
+  <span class="n">vtkPlotStacked</span> <span class="o">*</span><span class="n">stack</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-  // Books
-  stack = vtkPlotStacked::SafeDownCast(chart-&gt;AddPlot(vtkChart::STACKED));
-  stack-&gt;SetUseIndexForXSeries(true);
-  stack-&gt;SetInputData(table);
-  stack-&gt;SetInputArray(1,&quot;Books&quot;);
-  stack-&gt;SetInputArray(2,&quot;New / Popular&quot;);
-  stack-&gt;SetInputArray(3,&quot;Periodical&quot;);
-  stack-&gt;SetInputArray(4,&quot;Audiobook&quot;);
-  stack-&gt;SetInputArray(5,&quot;Video&quot;);
+  <span class="c1">// Books</span>
+  <span class="n">stack</span> <span class="o">=</span> <span class="n">vtkPlotStacked</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">STACKED</span><span class="p">));</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetUseIndexForXSeries</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetInputArray</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&quot;Books&quot;</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetInputArray</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&quot;New / Popular&quot;</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetInputArray</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s">&quot;Periodical&quot;</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetInputArray</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s">&quot;Audiobook&quot;</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetInputArray</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s">&quot;Video&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkColorSeries&gt; colorSeries =
-    vtkSmartPointer&lt;vtkColorSeries&gt;::New();
-  colorSeries-&gt;SetColorScheme(vtkColorSeries::WILD_FLOWER);
-  stack-&gt;SetColorSeries(colorSeries);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;</span> <span class="n">colorSeries</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">vtkColorSeries</span><span class="o">::</span><span class="n">WILD_FLOWER</span><span class="p">);</span>
+  <span class="n">stack</span><span class="o">-&gt;</span><span class="n">SetColorSeries</span><span class="p">(</span><span class="n">colorSeries</span><span class="p">);</span>
 
-  // Finally render the scene and compare the image to a reference image
-  view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
+  <span class="c1">// Finally render the scene and compare the image to a reference image</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(StackedPlot)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">StackedPlot</span><span class="p">)</span>
 
-add_executable(StackedPlot MACOSX_BUNDLE StackedPlot.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(StackedPlot ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">StackedPlot</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">StackedPlot.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-stackedplot">Download and Build StackedPlot</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">StackedPlot</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-stackedplot">Download and Build StackedPlot<a class="headerlink" href="#download-and-build-stackedplot" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/StackedPlot.tar">here to download StackedPlot</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball StackedPlot.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd StackedPlot/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd StackedPlot/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./StackedPlot
-</code></pre>
+<div class="codehilite"><pre><span></span>./StackedPlot
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

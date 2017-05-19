@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,77 +16005,84 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/InfoVis/MutableGraphHelper</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/InfoVis/TestMutableGraphHelper.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MutableGraphHelper.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkMutableDirectedGraph.h&gt;
-#include &lt;vtkMutableUndirectedGraph.h&gt;
-#include &lt;vtkMutableGraphHelper.h&gt;
-#include &lt;vtkGraphLayoutView.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableDirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableUndirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableGraphHelper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayoutView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-int main(int, char*[])
-{
-  vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt; g =
-    vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkMutableGraphHelper&gt; graphHelper =
-    vtkSmartPointer&lt;vtkMutableGraphHelper&gt;::New();
-  graphHelper-&gt;SetGraph(g);
-  vtkIdType v0 = graphHelper-&gt;AddVertex();
-  vtkIdType v1 = graphHelper-&gt;AddVertex();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableGraphHelper</span><span class="o">&gt;</span> <span class="n">graphHelper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableGraphHelper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">graphHelper</span><span class="o">-&gt;</span><span class="n">SetGraph</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+  <span class="n">vtkIdType</span> <span class="n">v0</span> <span class="o">=</span> <span class="n">graphHelper</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">graphHelper</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
 
-  graphHelper-&gt;AddEdge(v0, v1);
+  <span class="n">graphHelper</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">v1</span><span class="p">);</span>
 
-  // Can also do this:
-  graphHelper-&gt;RemoveEdge(0);
+  <span class="c1">// Can also do this:</span>
+  <span class="n">graphHelper</span><span class="o">-&gt;</span><span class="n">RemoveEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGraphLayoutView&gt; treeLayoutView =
-    vtkSmartPointer&lt;vtkGraphLayoutView&gt;::New();
-  treeLayoutView-&gt;AddRepresentationFromInput(graphHelper-&gt;GetGraph());
-  treeLayoutView-&gt;SetLayoutStrategyToTree();
-  treeLayoutView-&gt;ResetCamera();
-  treeLayoutView-&gt;Render();
-  treeLayoutView-&gt;GetInteractor()-&gt;Start();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;</span> <span class="n">treeLayoutView</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">treeLayoutView</span><span class="o">-&gt;</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="n">graphHelper</span><span class="o">-&gt;</span><span class="n">GetGraph</span><span class="p">());</span>
+  <span class="n">treeLayoutView</span><span class="o">-&gt;</span><span class="n">SetLayoutStrategyToTree</span><span class="p">();</span>
+  <span class="n">treeLayoutView</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">treeLayoutView</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">treeLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MutableGraphHelper)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MutableGraphHelper</span><span class="p">)</span>
 
-add_executable(MutableGraphHelper MACOSX_BUNDLE MutableGraphHelper.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MutableGraphHelper ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MutableGraphHelper</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MutableGraphHelper.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-mutablegraphhelper">Download and Build MutableGraphHelper</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MutableGraphHelper</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-mutablegraphhelper">Download and Build MutableGraphHelper<a class="headerlink" href="#download-and-build-mutablegraphhelper" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MutableGraphHelper.tar">here to download MutableGraphHelper</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MutableGraphHelper.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MutableGraphHelper/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MutableGraphHelper/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MutableGraphHelper
-</code></pre>
+<div class="codehilite"><pre><span></span>./MutableGraphHelper
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

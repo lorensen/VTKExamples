@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,127 +16019,134 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ColorCells</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestColorCells.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to assign specific colors to individual cells of a polydata.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ColorCells.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPlaneSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;algorithm&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
 
-int main(int , char *[])
-{
-  // Provide some geometry
-  int resolution = 3;
-  vtkSmartPointer&lt;vtkPlaneSource&gt; aPlane =
-    vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-  aPlane-&gt;SetXResolution(resolution);
-  aPlane-&gt;SetYResolution(resolution);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Provide some geometry</span>
+  <span class="kt">int</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">aPlane</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">aPlane</span><span class="o">-&gt;</span><span class="n">SetXResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
+  <span class="n">aPlane</span><span class="o">-&gt;</span><span class="n">SetYResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
 
-  // Create cell data
-  vtkSmartPointer&lt;vtkFloatArray&gt; cellData =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  for (int i = 0; i &lt; resolution * resolution; i++)
-  {
-    cellData-&gt;InsertNextValue(i + 1);
-  }
+  <span class="c1">// Create cell data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">cellData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">resolution</span> <span class="o">*</span> <span class="n">resolution</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cellData</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Create a lookup table to map cell data to colors
-  vtkSmartPointer&lt;vtkLookupTable&gt; lut =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  int tableSize = std::max(resolution*resolution + 1, 10);
-  lut-&gt;SetNumberOfTableValues(tableSize);
-  lut-&gt;Build();
+  <span class="c1">// Create a lookup table to map cell data to colors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">tableSize</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">resolution</span><span class="o">*</span><span class="n">resolution</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">tableSize</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  // Fill in a few known colors, the rest will be generated if needed
-  lut-&gt;SetTableValue(0     , 0     , 0     , 0, 1);  //Black
-  lut-&gt;SetTableValue(1, 0.8900, 0.8100, 0.3400, 1); // Banana
-  lut-&gt;SetTableValue(2, 1.0000, 0.3882, 0.2784, 1); // Tomato
-  lut-&gt;SetTableValue(3, 0.9608, 0.8706, 0.7020, 1); // Wheat
-  lut-&gt;SetTableValue(4, 0.9020, 0.9020, 0.9804, 1); // Lavender
-  lut-&gt;SetTableValue(5, 1.0000, 0.4900, 0.2500, 1); // Flesh
-  lut-&gt;SetTableValue(6, 0.5300, 0.1500, 0.3400, 1); // Raspberry
-  lut-&gt;SetTableValue(7, 0.9804, 0.5020, 0.4471, 1); // Salmon
-  lut-&gt;SetTableValue(8, 0.7400, 0.9900, 0.7900, 1); // Mint
-  lut-&gt;SetTableValue(9, 0.2000, 0.6300, 0.7900, 1); // Peacock
+  <span class="c1">// Fill in a few known colors, the rest will be generated if needed</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">0</span>     <span class="p">,</span> <span class="mi">0</span>     <span class="p">,</span> <span class="mi">0</span>     <span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">//Black</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Banana</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Tomato</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.9608</span><span class="p">,</span> <span class="mf">0.8706</span><span class="p">,</span> <span class="mf">0.7020</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Wheat</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.9020</span><span class="p">,</span> <span class="mf">0.9020</span><span class="p">,</span> <span class="mf">0.9804</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Lavender</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.4900</span><span class="p">,</span> <span class="mf">0.2500</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Flesh</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.5300</span><span class="p">,</span> <span class="mf">0.1500</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Raspberry</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">0.9804</span><span class="p">,</span> <span class="mf">0.5020</span><span class="p">,</span> <span class="mf">0.4471</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Salmon</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.7400</span><span class="p">,</span> <span class="mf">0.9900</span><span class="p">,</span> <span class="mf">0.7900</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Mint</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">0.2000</span><span class="p">,</span> <span class="mf">0.6300</span><span class="p">,</span> <span class="mf">0.7900</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Peacock</span>
 
-  aPlane-&gt;Update(); // Force an update so we can set cell data
-  aPlane-&gt;GetOutput()-&gt;GetCellData()-&gt;SetScalars(cellData);
+  <span class="n">aPlane</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// Force an update so we can set cell data</span>
+  <span class="n">aPlane</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">cellData</span><span class="p">);</span>
 
-  // Setup actor and mapper
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(aPlane-&gt;GetOutputPort());
-  mapper-&gt;SetScalarRange(0, tableSize - 1);
-  mapper-&gt;SetLookupTable(lut);
+  <span class="c1">// Setup actor and mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">aPlane</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tableSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // Setup render window, renderer, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(.1,.2,.3);
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Setup render window, renderer, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.3</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ColorCells)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ColorCells</span><span class="p">)</span>
 
-add_executable(ColorCells MACOSX_BUNDLE ColorCells.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ColorCells ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ColorCells</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ColorCells.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-colorcells">Download and Build ColorCells</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ColorCells</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-colorcells">Download and Build ColorCells<a class="headerlink" href="#download-and-build-colorcells" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ColorCells.tar">here to download ColorCells</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ColorCells.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ColorCells/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ColorCells/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ColorCells
-</code></pre>
+<div class="codehilite"><pre><span></span>./ColorCells
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

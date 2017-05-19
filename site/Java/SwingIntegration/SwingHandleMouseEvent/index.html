@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,111 +15990,111 @@
                   <h1>SwingHandleMouseEvent</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/SwingIntegration/SwingHandleMouseEvent</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to display in a JLabel the point the mouse is hovering over using a mouse listener.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SwingHandleMouseEvent.java</strong></p>
-<pre><code class="java">import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.border.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class SwingHandleMouseEvent extends JFrame
-{
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwingHandleMouseEvent</span> <span class="kd">extends</span> <span class="n">JFrame</span>
+<span class="o">{</span>
 
-  static
-  {
-    System.loadLibrary(&quot;vtkCommonJava&quot;);
-    System.loadLibrary(&quot;vtkFilteringJava&quot;);
-    System.loadLibrary(&quot;vtkIOJava&quot;);
-    System.loadLibrary(&quot;vtkImagingJava&quot;);
-    System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-    System.loadLibrary(&quot;vtkRenderingJava&quot;);
-  }
+  <span class="kd">static</span>
+  <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  public SwingHandleMouseEvent()
-  {
-    // Create a sphere source
-    vtkSphereSource sphere = new vtkSphereSource();
-    sphere.SetRadius(10.0);
+  <span class="kd">public</span> <span class="nf">SwingHandleMouseEvent</span><span class="o">()</span>
+  <span class="o">{</span>
+    <span class="c1">// Create a sphere source</span>
+    <span class="n">vtkSphereSource</span> <span class="n">sphere</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSphereSource</span><span class="o">();</span>
+    <span class="n">sphere</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span><span class="mf">10.0</span><span class="o">);</span>
 
-    // Create a sphere mapper
-    vtkPolyDataMapper sphereMapper = new vtkPolyDataMapper();
-    sphereMapper.SetInputConnection(sphere.GetOutputPort());
+    <span class="c1">// Create a sphere mapper</span>
+    <span class="n">vtkPolyDataMapper</span> <span class="n">sphereMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">sphereMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">sphere</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
 
-    //create sphere actor
-    vtkActor sphereActor = new vtkActor();
-    sphereActor.SetMapper(sphereMapper);
+    <span class="c1">//create sphere actor</span>
+    <span class="n">vtkActor</span> <span class="n">sphereActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">sphereActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">sphereMapper</span><span class="o">);</span>
 
-    // Create a render window panel to display the sphere
-    final vtkRenderWindowPanel renderWindowPanel = new vtkRenderWindowPanel();
-    renderWindowPanel.setPreferredSize(new Dimension(600, 600));
-    renderWindowPanel.setInteractorStyle(new vtkInteractorStyleTrackballCamera());
+    <span class="c1">// Create a render window panel to display the sphere</span>
+    <span class="kd">final</span> <span class="n">vtkRenderWindowPanel</span> <span class="n">renderWindowPanel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindowPanel</span><span class="o">();</span>
+    <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">setPreferredSize</span><span class="o">(</span><span class="k">new</span> <span class="n">Dimension</span><span class="o">(</span><span class="mi">600</span><span class="o">,</span> <span class="mi">600</span><span class="o">));</span>
+    <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">setInteractorStyle</span><span class="o">(</span><span class="k">new</span> <span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">());</span>
 
-    add(renderWindowPanel, BorderLayout.CENTER);
+    <span class="n">add</span><span class="o">(</span><span class="n">renderWindowPanel</span><span class="o">,</span> <span class="n">BorderLayout</span><span class="o">.</span><span class="na">CENTER</span><span class="o">);</span>
 
-    renderWindowPanel.GetRenderer().AddActor(sphereActor);
+    <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">GetRenderer</span><span class="o">().</span><span class="na">AddActor</span><span class="o">(</span><span class="n">sphereActor</span><span class="o">);</span>
 
-    // Create a status bar
-    JPanel statusBar = new JPanel(new BorderLayout());
-    final JLabel label = new JLabel(&quot; &quot;, SwingConstants.RIGHT);
-    statusBar.add(label, BorderLayout.EAST);
-    statusBar.setBorder(new BevelBorder(BevelBorder.LOWERED));
+    <span class="c1">// Create a status bar</span>
+    <span class="n">JPanel</span> <span class="n">statusBar</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="o">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="o">());</span>
+    <span class="kd">final</span> <span class="n">JLabel</span> <span class="n">label</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JLabel</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">,</span> <span class="n">SwingConstants</span><span class="o">.</span><span class="na">RIGHT</span><span class="o">);</span>
+    <span class="n">statusBar</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">label</span><span class="o">,</span> <span class="n">BorderLayout</span><span class="o">.</span><span class="na">EAST</span><span class="o">);</span>
+    <span class="n">statusBar</span><span class="o">.</span><span class="na">setBorder</span><span class="o">(</span><span class="k">new</span> <span class="n">BevelBorder</span><span class="o">(</span><span class="n">BevelBorder</span><span class="o">.</span><span class="na">LOWERED</span><span class="o">));</span>
 
-    add(statusBar, BorderLayout.SOUTH);
+    <span class="n">add</span><span class="o">(</span><span class="n">statusBar</span><span class="o">,</span> <span class="n">BorderLayout</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">);</span>
 
-    final vtkCellPicker cellPicker = new vtkCellPicker();
+    <span class="kd">final</span> <span class="n">vtkCellPicker</span> <span class="n">cellPicker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkCellPicker</span><span class="o">();</span>
 
-    // Show the point on the sphere the mouse is hovering over in the status bar
-    renderWindowPanel.addMouseMotionListener(new MouseMotionAdapter()
-    {
-      public void mouseMoved(MouseEvent e)
-      {
-        // The call to Pick needs to be surrounded by lock and unlock to prevent crashes.
-        renderWindowPanel.lock();
-        int pickSucceeded = cellPicker.Pick(e.getX(), renderWindowPanel.getHeight()-e.getY()-1,
-            0.0, renderWindowPanel.GetRenderer());
-        renderWindowPanel.unlock();
+    <span class="c1">// Show the point on the sphere the mouse is hovering over in the status bar</span>
+    <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">addMouseMotionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MouseMotionAdapter</span><span class="o">()</span>
+    <span class="o">{</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mouseMoved</span><span class="o">(</span><span class="n">MouseEvent</span> <span class="n">e</span><span class="o">)</span>
+      <span class="o">{</span>
+        <span class="c1">// The call to Pick needs to be surrounded by lock and unlock to prevent crashes.</span>
+        <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">pickSucceeded</span> <span class="o">=</span> <span class="n">cellPicker</span><span class="o">.</span><span class="na">Pick</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span> <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()-</span><span class="n">e</span><span class="o">.</span><span class="na">getY</span><span class="o">()-</span><span class="mi">1</span><span class="o">,</span>
+            <span class="mf">0.0</span><span class="o">,</span> <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">GetRenderer</span><span class="o">());</span>
+        <span class="n">renderWindowPanel</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
 
-        if (pickSucceeded == 1)
-        {
-          double[] p = cellPicker.GetPickPosition();
-          label.setText(&quot;Position: &quot; + p[0] + &quot;, &quot; + p[1] + &quot;, &quot; + p[2]);
-        }
-        else
-        {
-          label.setText(&quot; &quot;);
-        }
-      }
-    });
-  }
+        <span class="k">if</span> <span class="o">(</span><span class="n">pickSucceeded</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
+        <span class="o">{</span>
+          <span class="kt">double</span><span class="o">[]</span> <span class="n">p</span> <span class="o">=</span> <span class="n">cellPicker</span><span class="o">.</span><span class="na">GetPickPosition</span><span class="o">();</span>
+          <span class="n">label</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Position: &quot;</span> <span class="o">+</span> <span class="n">p</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">p</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">p</span><span class="o">[</span><span class="mi">2</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="k">else</span>
+        <span class="o">{</span>
+          <span class="n">label</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">});</span>
+  <span class="o">}</span>
 
-  public static void main(String[] args)
-  {
-    try
-    {
-      javax.swing.SwingUtilities.invokeLater(new Runnable()
-      {
-        public void run()
-        {
-          JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-          ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="k">try</span>
+    <span class="o">{</span>
+      <span class="n">javax</span><span class="o">.</span><span class="na">swing</span><span class="o">.</span><span class="na">SwingUtilities</span><span class="o">.</span><span class="na">invokeLater</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span>
+      <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+        <span class="o">{</span>
+          <span class="n">JPopupMenu</span><span class="o">.</span><span class="na">setDefaultLightWeightPopupEnabled</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+          <span class="n">ToolTipManager</span><span class="o">.</span><span class="na">sharedInstance</span><span class="o">().</span><span class="na">setLightWeightPopupEnabled</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 
-          JFrame frame = new SwingHandleMouseEvent();
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.pack();
-          frame.setVisible(true);
-        }
-      });       
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-  }
-}
-</code></pre>
+          <span class="n">JFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SwingHandleMouseEvent</span><span class="o">();</span>
+          <span class="n">frame</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>
+          <span class="n">frame</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>
+          <span class="n">frame</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">});</span>       
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span>
+    <span class="o">{</span>
+      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

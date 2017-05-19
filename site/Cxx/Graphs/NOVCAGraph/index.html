@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,100 +16018,107 @@
                   <h1>NOVCAGraph</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/NOVCAGraph</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:graphCXX.png]"></a>
 <em>This example shows how to construct a graph to visualize it in ParaView/VisIt using the VTK output file testVertex.vtu.
 </em> Contributed by Sanjaya Gajurel, Case Western Reserve University</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>NOVCAGraph.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyLine.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkXMLUnstructuredGridWriter.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyLine.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLUnstructuredGridWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-int main ( int, char *[] )
-{
-  // Create 8 Vertices.
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create 8 Vertices.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for ( unsigned int i = 0; i &lt; 2; ++i )
-     for ( unsigned int j = 0; j &lt; 4; ++j )
-          points-&gt;InsertNextPoint( i, j, 0);
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+     <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
+          <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-   //Create Edges
-    vtkSmartPointer&lt;vtkPolyLine&gt; line =
-    vtkSmartPointer&lt;vtkPolyLine&gt;::New();
-    line-&gt;GetPointIds()-&gt;SetNumberOfIds(8);
-  for ( unsigned int i = 0; i &lt; 8; ++i )
-      line-&gt;GetPointIds()-&gt;SetId(i,i);
+   <span class="c1">//Create Edges</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyLine</span><span class="o">&gt;</span> <span class="n">line</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyLine</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">line</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+      <span class="n">line</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
 
-   vtkSmartPointer&lt;vtkCellArray&gt; cellArray =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-   cellArray-&gt;InsertNextCell(line);
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">cellArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">cellArray</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
 
-  // Create a Graph with Vertices and Edges.
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; grid =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  grid-&gt;SetPoints(points);
-  grid-&gt;SetCells(VTK_POLY_LINE,cellArray);
+  <span class="c1">// Create a Graph with Vertices and Edges.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">grid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">grid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">grid</span><span class="o">-&gt;</span><span class="n">SetCells</span><span class="p">(</span><span class="n">VTK_POLY_LINE</span><span class="p">,</span><span class="n">cellArray</span><span class="p">);</span>
 
-  // Write the file
-  vtkSmartPointer&lt;vtkXMLUnstructuredGridWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLUnstructuredGridWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;testVertex.vtu&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInput(grid);
-#else
-  writer-&gt;SetInputData(grid);
-#endif
+  <span class="c1">// Write the file</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLUnstructuredGridWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLUnstructuredGridWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;testVertex.vtu&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">grid</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">grid</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  writer-&gt;Write();
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(NOVCAGraph)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">NOVCAGraph</span><span class="p">)</span>
 
-add_executable(NOVCAGraph MACOSX_BUNDLE NOVCAGraph.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(NOVCAGraph ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">NOVCAGraph</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">NOVCAGraph.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-novcagraph">Download and Build NOVCAGraph</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">NOVCAGraph</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-novcagraph">Download and Build NOVCAGraph<a class="headerlink" href="#download-and-build-novcagraph" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/NOVCAGraph.tar">here to download NOVCAGraph</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball NOVCAGraph.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd NOVCAGraph/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd NOVCAGraph/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./NOVCAGraph
-</code></pre>
+<div class="codehilite"><pre><span></span>./NOVCAGraph
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

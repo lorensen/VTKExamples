@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,7 +16019,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/BooleanOperationPolyDataFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example can be run in three ways:</p>
 <ol>
 <li>
@@ -16021,183 +16033,190 @@
 </li>
 </ol>
 <p>NOTE: This example requires version 5.9.20111206 or higher.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BooleanOperationPolyDataFilter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkBooleanOperationPolyDataFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBooleanOperationPolyDataFilter.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkPolyDataReader.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; input1;
-  vtkSmartPointer&lt;vtkPolyData&gt; input2;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">input1</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">input2</span><span class="p">;</span>
 
-  std::string operation(&quot;intersection&quot;);
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">operation</span><span class="p">(</span><span class="s">&quot;intersection&quot;</span><span class="p">);</span>
 
-  if (argc == 4)
-  {
-    vtkSmartPointer&lt;vtkPolyDataReader&gt; reader1 =
-      vtkSmartPointer&lt;vtkPolyDataReader&gt;::New();
-    reader1-&gt;SetFileName(argv[1]);
-    reader1-&gt;Update();
-    input1 = reader1-&gt;GetOutput();
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">input1</span> <span class="o">=</span> <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkPolyDataReader&gt; reader2 =
-      vtkSmartPointer&lt;vtkPolyDataReader&gt;::New();
-    reader2-&gt;SetFileName(argv[3]);
-    reader2-&gt;Update();
-    input2 = reader2-&gt;GetOutput();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+    <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">input2</span> <span class="o">=</span> <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    operation = argv[2];
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource1 =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource1-&gt;SetCenter(.25, 0, 0);
-    sphereSource1-&gt;Update();
-    input1 = sphereSource1-&gt;GetOutput();
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource1</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">input1</span> <span class="o">=</span> <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource2 =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource2-&gt;Update();
-    input2 = sphereSource2-&gt;GetOutput();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource2</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">input2</span> <span class="o">=</span> <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    if (argc == 2)
-    {
-      operation = argv[1];
-    }
-  }
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">operation</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; input1Mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  input1Mapper-&gt;SetInputConnection( input1-&gt;GetProducerPort() );
-#else
-  input1Mapper-&gt;SetInputData( input1 );
-#endif
-  input1Mapper-&gt;ScalarVisibilityOff();
-  vtkSmartPointer&lt;vtkActor&gt; input1Actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  input1Actor-&gt;SetMapper( input1Mapper );
-  input1Actor-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  input1Actor-&gt;SetPosition(
-    input1-&gt;GetBounds()[1]-input1-&gt;GetBounds()[0],
-    0, 0);
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; input2Mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  input2Mapper-&gt;SetInputConnection( input2-&gt;GetProducerPort() );
-#else
-  input2Mapper-&gt;SetInputData( input2 );
-#endif
-  input2Mapper-&gt;ScalarVisibilityOff();
-  vtkSmartPointer&lt;vtkActor&gt; input2Actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  input2Actor-&gt;SetMapper( input2Mapper );
-  input2Actor-&gt;GetProperty()-&gt;SetColor(0,1,0);
-  input2Actor-&gt;SetPosition(
-    -(input2-&gt;GetBounds()[1]-input2-&gt;GetBounds()[0]),
-    0, 0);
-  vtkSmartPointer&lt;vtkBooleanOperationPolyDataFilter&gt; booleanOperation =
-    vtkSmartPointer&lt;vtkBooleanOperationPolyDataFilter&gt;::New();
-  if (operation == &quot;union&quot;)
-  {
-      booleanOperation-&gt;SetOperationToUnion();
-  }
-  else if (operation == &quot;intersection&quot;)
-  {
-      booleanOperation-&gt;SetOperationToIntersection();
-  }
-  else if (operation == &quot;difference&quot;)
-  {
-      booleanOperation-&gt;SetOperationToDifference();
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Unknown operation: &quot; &lt;&lt; operation &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
-#if VTK_MAJOR_VERSION &lt;= 5
-  booleanOperation-&gt;SetInputConnection( 0, input1-&gt;GetProducerPort() );
-  booleanOperation-&gt;SetInputConnection( 1, input2-&gt;GetProducerPort() );
-#else
-  booleanOperation-&gt;SetInputData( 0, input1 );
-  booleanOperation-&gt;SetInputData( 1, input2 );
-#endif
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; booleanOperationMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  booleanOperationMapper-&gt;SetInputConnection( booleanOperation-&gt;GetOutputPort() );
-  booleanOperationMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">input1Mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">input1Mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">input1Mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">input1</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">input1Mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">input1Actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">input1Mapper</span> <span class="p">);</span>
+  <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span>
+    <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">input2Mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">input2Mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">input2Mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">input2</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">input2Mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">input2Actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">input2Mapper</span> <span class="p">);</span>
+  <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span>
+    <span class="o">-</span><span class="p">(</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBooleanOperationPolyDataFilter</span><span class="o">&gt;</span> <span class="n">booleanOperation</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBooleanOperationPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;union&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetOperationToUnion</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;intersection&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetOperationToIntersection</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;difference&quot;</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetOperationToDifference</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Unknown operation: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">operation</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">input1</span> <span class="p">);</span>
+  <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">input2</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">booleanOperationMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">booleanOperationMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">booleanOperationMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; booleanOperationActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  booleanOperationActor-&gt;SetMapper( booleanOperationMapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">booleanOperationActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">booleanOperationActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">booleanOperationMapper</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddViewProp(input1Actor);
-  renderer-&gt;AddViewProp(input2Actor);
-  renderer-&gt;AddViewProp(booleanOperationActor);
-  renderer-&gt;SetBackground(.1, .2, .3);
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer( renderer );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input1Actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input2Actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">booleanOperationActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renWinInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renWinInteractor-&gt;SetRenderWindow( renderWindow );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renWinInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWinInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renderWindow</span> <span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  renWinInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renWinInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BooleanOperationPolyDataFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BooleanOperationPolyDataFilter</span><span class="p">)</span>
 
-add_executable(BooleanOperationPolyDataFilter MACOSX_BUNDLE BooleanOperationPolyDataFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BooleanOperationPolyDataFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BooleanOperationPolyDataFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BooleanOperationPolyDataFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-booleanoperationpolydatafilter">Download and Build BooleanOperationPolyDataFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BooleanOperationPolyDataFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-booleanoperationpolydatafilter">Download and Build BooleanOperationPolyDataFilter<a class="headerlink" href="#download-and-build-booleanoperationpolydatafilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BooleanOperationPolyDataFilter.tar">here to download BooleanOperationPolyDataFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BooleanOperationPolyDataFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BooleanOperationPolyDataFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BooleanOperationPolyDataFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BooleanOperationPolyDataFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./BooleanOperationPolyDataFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

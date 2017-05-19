@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,259 +16019,266 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/IO/ReadDICOMSeries</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadDICOMSeries.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstates how to read a series of DICOM images and how to scroll with the mousewheel or the up/down keys through all slices.
 Sample data are available as a zipped file (977 kB, 40 slices): <a href="../[File:VTK_Examples_StandardFormats_Input_DicomTestImages.zip]">DicomTestImages</a></p>
 <p>See also: <a href="../ExportDICOMtoVTI">ExportDICOMtoVTI</a> and <a href="../ReadDICOM">ReadDICOM</a>.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadDICOMSeries.cxx</strong></p>
-<pre><code class="c++">//
-// This example demonstrates how to read a series of dicom images
-// and how to scroll with the mousewheel or the up/down keys
-// through all slices
-//
-// some standard vtk headers
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkObjectFactory.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkActor.h&gt;
-// headers needed for this example
-#include &lt;vtkImageViewer2.h&gt;
-#include &lt;vtkDICOMImageReader.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkActor2D.h&gt;
-#include &lt;vtkTextProperty.h&gt;
-#include &lt;vtkTextMapper.h&gt;
-// needed to easily convert int to std::string
-#include &lt;sstream&gt;
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">// This example demonstrates how to read a series of dicom images</span>
+<span class="c1">// and how to scroll with the mousewheel or the up/down keys</span>
+<span class="c1">// through all slices</span>
+<span class="c1">//</span>
+<span class="c1">// some standard vtk headers</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="c1">// headers needed for this example</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageViewer2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDICOMImageReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextMapper.h&gt;</span><span class="cp"></span>
+<span class="c1">// needed to easily convert int to std::string</span>
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
 
 
-// helper class to format slice status message
-class StatusMessage {
-public:
-   static std::string Format(int slice, int maxSlice) {
-      std::stringstream tmp;
-      tmp &lt;&lt; &quot;Slice Number  &quot; &lt;&lt; slice + 1 &lt;&lt; &quot;/&quot; &lt;&lt; maxSlice + 1;
-      return tmp.str();
-   }
-};
+<span class="c1">// helper class to format slice status message</span>
+<span class="k">class</span> <span class="nc">StatusMessage</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+   <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">Format</span><span class="p">(</span><span class="kt">int</span> <span class="n">slice</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxSlice</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">tmp</span><span class="p">;</span>
+      <span class="n">tmp</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Slice Number  &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">slice</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;/&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">maxSlice</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">tmp</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+   <span class="p">}</span>
+<span class="p">};</span>
 
 
-// Define own interaction style
-class myVtkInteractorStyleImage : public vtkInteractorStyleImage
-{
-public:
-   static myVtkInteractorStyleImage* New();
-   vtkTypeMacro(myVtkInteractorStyleImage, vtkInteractorStyleImage);
+<span class="c1">// Define own interaction style</span>
+<span class="k">class</span> <span class="nc">myVtkInteractorStyleImage</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleImage</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+   <span class="k">static</span> <span class="n">myVtkInteractorStyleImage</span><span class="o">*</span> <span class="n">New</span><span class="p">();</span>
+   <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">myVtkInteractorStyleImage</span><span class="p">,</span> <span class="n">vtkInteractorStyleImage</span><span class="p">);</span>
 
-protected:
-   vtkImageViewer2* _ImageViewer;
-   vtkTextMapper* _StatusMapper;
-   int _Slice;
-   int _MinSlice;
-   int _MaxSlice;
+<span class="k">protected</span><span class="o">:</span>
+   <span class="n">vtkImageViewer2</span><span class="o">*</span> <span class="n">_ImageViewer</span><span class="p">;</span>
+   <span class="n">vtkTextMapper</span><span class="o">*</span> <span class="n">_StatusMapper</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">_Slice</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">_MinSlice</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">_MaxSlice</span><span class="p">;</span>
 
-public:
-   void SetImageViewer(vtkImageViewer2* imageViewer) {
-      _ImageViewer = imageViewer;
-      _MinSlice = imageViewer-&gt;GetSliceMin();
-      _MaxSlice = imageViewer-&gt;GetSliceMax();
-      _Slice = _MinSlice;
-      cout &lt;&lt; &quot;Slicer: Min = &quot; &lt;&lt; _MinSlice &lt;&lt; &quot;, Max = &quot; &lt;&lt; _MaxSlice &lt;&lt; std::endl;
-   }
+<span class="k">public</span><span class="o">:</span>
+   <span class="kt">void</span> <span class="n">SetImageViewer</span><span class="p">(</span><span class="n">vtkImageViewer2</span><span class="o">*</span> <span class="n">imageViewer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">_ImageViewer</span> <span class="o">=</span> <span class="n">imageViewer</span><span class="p">;</span>
+      <span class="n">_MinSlice</span> <span class="o">=</span> <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetSliceMin</span><span class="p">();</span>
+      <span class="n">_MaxSlice</span> <span class="o">=</span> <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetSliceMax</span><span class="p">();</span>
+      <span class="n">_Slice</span> <span class="o">=</span> <span class="n">_MinSlice</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Slicer: Min = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_MinSlice</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, Max = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_MaxSlice</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+   <span class="p">}</span>
 
-   void SetStatusMapper(vtkTextMapper* statusMapper) {
-      _StatusMapper = statusMapper;
-   }
-
-
-protected:
-   void MoveSliceForward() {
-      if(_Slice &lt; _MaxSlice) {
-         _Slice += 1;
-         cout &lt;&lt; &quot;MoveSliceForward::Slice = &quot; &lt;&lt; _Slice &lt;&lt; std::endl;
-         _ImageViewer-&gt;SetSlice(_Slice);
-         std::string msg = StatusMessage::Format(_Slice, _MaxSlice);
-         _StatusMapper-&gt;SetInput(msg.c_str());
-         _ImageViewer-&gt;Render();
-      }
-   }
-
-   void MoveSliceBackward() {
-      if(_Slice &gt; _MinSlice) {
-         _Slice -= 1;
-         cout &lt;&lt; &quot;MoveSliceBackward::Slice = &quot; &lt;&lt; _Slice &lt;&lt; std::endl;
-         _ImageViewer-&gt;SetSlice(_Slice);
-         std::string msg = StatusMessage::Format(_Slice, _MaxSlice);
-         _StatusMapper-&gt;SetInput(msg.c_str());
-         _ImageViewer-&gt;Render();
-      }
-   }
+   <span class="kt">void</span> <span class="n">SetStatusMapper</span><span class="p">(</span><span class="n">vtkTextMapper</span><span class="o">*</span> <span class="n">statusMapper</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">_StatusMapper</span> <span class="o">=</span> <span class="n">statusMapper</span><span class="p">;</span>
+   <span class="p">}</span>
 
 
-   virtual void OnKeyDown() {
-      std::string key = this-&gt;GetInteractor()-&gt;GetKeySym();
-      if(key.compare(&quot;Up&quot;) == 0) {
-         //cout &lt;&lt; &quot;Up arrow key was pressed.&quot; &lt;&lt; endl;
-         MoveSliceForward();
-      }
-      else if(key.compare(&quot;Down&quot;) == 0) {
-         //cout &lt;&lt; &quot;Down arrow key was pressed.&quot; &lt;&lt; endl;
-         MoveSliceBackward();
-      }
-      // forward event
-      vtkInteractorStyleImage::OnKeyDown();
-   }
+<span class="k">protected</span><span class="o">:</span>
+   <span class="kt">void</span> <span class="n">MoveSliceForward</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">_Slice</span> <span class="o">&lt;</span> <span class="n">_MaxSlice</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">_Slice</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;MoveSliceForward::Slice = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_Slice</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+         <span class="n">_ImageViewer</span><span class="o">-&gt;</span><span class="n">SetSlice</span><span class="p">(</span><span class="n">_Slice</span><span class="p">);</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">StatusMessage</span><span class="o">::</span><span class="n">Format</span><span class="p">(</span><span class="n">_Slice</span><span class="p">,</span> <span class="n">_MaxSlice</span><span class="p">);</span>
+         <span class="n">_StatusMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+         <span class="n">_ImageViewer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="kt">void</span> <span class="n">MoveSliceBackward</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">_Slice</span> <span class="o">&gt;</span> <span class="n">_MinSlice</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">_Slice</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;MoveSliceBackward::Slice = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_Slice</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+         <span class="n">_ImageViewer</span><span class="o">-&gt;</span><span class="n">SetSlice</span><span class="p">(</span><span class="n">_Slice</span><span class="p">);</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">StatusMessage</span><span class="o">::</span><span class="n">Format</span><span class="p">(</span><span class="n">_Slice</span><span class="p">,</span> <span class="n">_MaxSlice</span><span class="p">);</span>
+         <span class="n">_StatusMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+         <span class="n">_ImageViewer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
 
 
-   virtual void OnMouseWheelForward() {
-      //std::cout &lt;&lt; &quot;Scrolled mouse wheel forward.&quot; &lt;&lt; std::endl;
-      MoveSliceForward();
-      // don't forward events, otherwise the image will be zoomed 
-      // in case another interactorstyle is used (e.g. trackballstyle, ...)
-      // vtkInteractorStyleImage::OnMouseWheelForward();
-   }
+   <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnKeyDown</span><span class="p">()</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">key</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetKeySym</span><span class="p">();</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">&quot;Up&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">//cout &lt;&lt; &quot;Up arrow key was pressed.&quot; &lt;&lt; endl;</span>
+         <span class="n">MoveSliceForward</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">&quot;Down&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">//cout &lt;&lt; &quot;Down arrow key was pressed.&quot; &lt;&lt; endl;</span>
+         <span class="n">MoveSliceBackward</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="c1">// forward event</span>
+      <span class="n">vtkInteractorStyleImage</span><span class="o">::</span><span class="n">OnKeyDown</span><span class="p">();</span>
+   <span class="p">}</span>
 
 
-   virtual void OnMouseWheelBackward() {
-      //std::cout &lt;&lt; &quot;Scrolled mouse wheel backward.&quot; &lt;&lt; std::endl;
-      if(_Slice &gt; _MinSlice) {
-         MoveSliceBackward();
-      }
-      // don't forward events, otherwise the image will be zoomed 
-      // in case another interactorstyle is used (e.g. trackballstyle, ...)
-      // vtkInteractorStyleImage::OnMouseWheelBackward();
-   }
-};
-
-vtkStandardNewMacro(myVtkInteractorStyleImage);
+   <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnMouseWheelForward</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">//std::cout &lt;&lt; &quot;Scrolled mouse wheel forward.&quot; &lt;&lt; std::endl;</span>
+      <span class="n">MoveSliceForward</span><span class="p">();</span>
+      <span class="c1">// don&#39;t forward events, otherwise the image will be zoomed </span>
+      <span class="c1">// in case another interactorstyle is used (e.g. trackballstyle, ...)</span>
+      <span class="c1">// vtkInteractorStyleImage::OnMouseWheelForward();</span>
+   <span class="p">}</span>
 
 
-int main(int argc, char* argv[])
-{
-   // Verify input arguments
-   if ( argc != 2 )
-   {
-      std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-      &lt;&lt; &quot; FolderName&quot; &lt;&lt; std::endl;
-      return EXIT_FAILURE;
-   }
+   <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnMouseWheelBackward</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">//std::cout &lt;&lt; &quot;Scrolled mouse wheel backward.&quot; &lt;&lt; std::endl;</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">_Slice</span> <span class="o">&gt;</span> <span class="n">_MinSlice</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">MoveSliceBackward</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="c1">// don&#39;t forward events, otherwise the image will be zoomed </span>
+      <span class="c1">// in case another interactorstyle is used (e.g. trackballstyle, ...)</span>
+      <span class="c1">// vtkInteractorStyleImage::OnMouseWheelBackward();</span>
+   <span class="p">}</span>
+<span class="p">};</span>
 
-   std::string folder = argv[1];
-   //std::string folder = &quot;C:\\VTK\\vtkdata-5.8.0\\Data\\DicomTestImages&quot;;
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">myVtkInteractorStyleImage</span><span class="p">);</span>
 
-   // Read all the DICOM files in the specified directory.
-   vtkSmartPointer&lt;vtkDICOMImageReader&gt; reader =
-      vtkSmartPointer&lt;vtkDICOMImageReader&gt;::New();
-   reader-&gt;SetDirectoryName(folder.c_str());
-   reader-&gt;Update();
 
-   // Visualize
-   vtkSmartPointer&lt;vtkImageViewer2&gt; imageViewer =
-      vtkSmartPointer&lt;vtkImageViewer2&gt;::New();
-   imageViewer-&gt;SetInputConnection(reader-&gt;GetOutputPort());
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+   <span class="c1">// Verify input arguments</span>
+   <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
+   <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; FolderName&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+   <span class="p">}</span>
 
-   // slice status message
-   vtkSmartPointer&lt;vtkTextProperty&gt; sliceTextProp = vtkSmartPointer&lt;vtkTextProperty&gt;::New();
-   sliceTextProp-&gt;SetFontFamilyToCourier();
-   sliceTextProp-&gt;SetFontSize(20);
-   sliceTextProp-&gt;SetVerticalJustificationToBottom();
-   sliceTextProp-&gt;SetJustificationToLeft();
+   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">folder</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+   <span class="c1">//std::string folder = &quot;C:\\VTK\\vtkdata-5.8.0\\Data\\DicomTestImages&quot;;</span>
 
-   vtkSmartPointer&lt;vtkTextMapper&gt; sliceTextMapper = vtkSmartPointer&lt;vtkTextMapper&gt;::New();
-   std::string msg = StatusMessage::Format(imageViewer-&gt;GetSliceMin(), imageViewer-&gt;GetSliceMax());
-   sliceTextMapper-&gt;SetInput(msg.c_str());
-   sliceTextMapper-&gt;SetTextProperty(sliceTextProp);
+   <span class="c1">// Read all the DICOM files in the specified directory.</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDICOMImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDICOMImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetDirectoryName</span><span class="p">(</span><span class="n">folder</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+   <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-   vtkSmartPointer&lt;vtkActor2D&gt; sliceTextActor = vtkSmartPointer&lt;vtkActor2D&gt;::New();
-   sliceTextActor-&gt;SetMapper(sliceTextMapper);
-   sliceTextActor-&gt;SetPosition(15, 10);
+   <span class="c1">// Visualize</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;</span> <span class="n">imageViewer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-   // usage hint message
-   vtkSmartPointer&lt;vtkTextProperty&gt; usageTextProp = vtkSmartPointer&lt;vtkTextProperty&gt;::New();
-   usageTextProp-&gt;SetFontFamilyToCourier();
-   usageTextProp-&gt;SetFontSize(14);
-   usageTextProp-&gt;SetVerticalJustificationToTop();
-   usageTextProp-&gt;SetJustificationToLeft();
+   <span class="c1">// slice status message</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">sliceTextProp</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">sliceTextProp</span><span class="o">-&gt;</span><span class="n">SetFontFamilyToCourier</span><span class="p">();</span>
+   <span class="n">sliceTextProp</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+   <span class="n">sliceTextProp</span><span class="o">-&gt;</span><span class="n">SetVerticalJustificationToBottom</span><span class="p">();</span>
+   <span class="n">sliceTextProp</span><span class="o">-&gt;</span><span class="n">SetJustificationToLeft</span><span class="p">();</span>
 
-   vtkSmartPointer&lt;vtkTextMapper&gt; usageTextMapper = vtkSmartPointer&lt;vtkTextMapper&gt;::New();
-   usageTextMapper-&gt;SetInput(&quot;- Slice with mouse wheel\n  or Up/Down-Key\n- Zoom with pressed right\n  mouse button while dragging&quot;);
-   usageTextMapper-&gt;SetTextProperty(usageTextProp);
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;</span> <span class="n">sliceTextMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">StatusMessage</span><span class="o">::</span><span class="n">Format</span><span class="p">(</span><span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetSliceMin</span><span class="p">(),</span> <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetSliceMax</span><span class="p">());</span>
+   <span class="n">sliceTextMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+   <span class="n">sliceTextMapper</span><span class="o">-&gt;</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">sliceTextProp</span><span class="p">);</span>
 
-   vtkSmartPointer&lt;vtkActor2D&gt; usageTextActor = vtkSmartPointer&lt;vtkActor2D&gt;::New();
-   usageTextActor-&gt;SetMapper(usageTextMapper);
-   usageTextActor-&gt;GetPositionCoordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-   usageTextActor-&gt;GetPositionCoordinate()-&gt;SetValue( 0.05, 0.95);
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">sliceTextActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">sliceTextActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sliceTextMapper</span><span class="p">);</span>
+   <span class="n">sliceTextActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 
-   // create an interactor with our own style (inherit from vtkInteractorStyleImage)
-   // in order to catch mousewheel and key events
-   vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+   <span class="c1">// usage hint message</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">usageTextProp</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">usageTextProp</span><span class="o">-&gt;</span><span class="n">SetFontFamilyToCourier</span><span class="p">();</span>
+   <span class="n">usageTextProp</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+   <span class="n">usageTextProp</span><span class="o">-&gt;</span><span class="n">SetVerticalJustificationToTop</span><span class="p">();</span>
+   <span class="n">usageTextProp</span><span class="o">-&gt;</span><span class="n">SetJustificationToLeft</span><span class="p">();</span>
 
-   vtkSmartPointer&lt;myVtkInteractorStyleImage&gt; myInteractorStyle =
-      vtkSmartPointer&lt;myVtkInteractorStyleImage&gt;::New();
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;</span> <span class="n">usageTextMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">usageTextMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;- Slice with mouse wheel</span><span class="se">\n</span><span class="s">  or Up/Down-Key</span><span class="se">\n</span><span class="s">- Zoom with pressed right</span><span class="se">\n</span><span class="s">  mouse button while dragging&quot;</span><span class="p">);</span>
+   <span class="n">usageTextMapper</span><span class="o">-&gt;</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">usageTextProp</span><span class="p">);</span>
 
-   // make imageviewer2 and sliceTextMapper visible to our interactorstyle
-   // to enable slice status message updates when scrolling through the slices
-   myInteractorStyle-&gt;SetImageViewer(imageViewer);
-   myInteractorStyle-&gt;SetStatusMapper(sliceTextMapper);
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">usageTextActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">usageTextActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">usageTextMapper</span><span class="p">);</span>
+   <span class="n">usageTextActor</span><span class="o">-&gt;</span><span class="n">GetPositionCoordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+   <span class="n">usageTextActor</span><span class="o">-&gt;</span><span class="n">GetPositionCoordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">);</span>
 
-   imageViewer-&gt;SetupInteractor(renderWindowInteractor);
-   // make the interactor use our own interactorstyle
-   // cause SetupInteractor() is defining it's own default interatorstyle 
-   // this must be called after SetupInteractor()
-   renderWindowInteractor-&gt;SetInteractorStyle(myInteractorStyle);
-   // add slice status message and usage hint message to the renderer
-   imageViewer-&gt;GetRenderer()-&gt;AddActor2D(sliceTextActor);
-   imageViewer-&gt;GetRenderer()-&gt;AddActor2D(usageTextActor);
+   <span class="c1">// create an interactor with our own style (inherit from vtkInteractorStyleImage)</span>
+   <span class="c1">// in order to catch mousewheel and key events</span>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-   // initialize rendering and interaction
-   //imageViewer-&gt;GetRenderWindow()-&gt;SetSize(400, 300);
-   //imageViewer-&gt;GetRenderer()-&gt;SetBackground(0.2, 0.3, 0.4);
-   imageViewer-&gt;Render();
-   imageViewer-&gt;GetRenderer()-&gt;ResetCamera();
-   imageViewer-&gt;Render();
-   renderWindowInteractor-&gt;Start();
-   return EXIT_SUCCESS;
-}
-</code></pre>
+   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">myVtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">myInteractorStyle</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">myVtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
+   <span class="c1">// make imageviewer2 and sliceTextMapper visible to our interactorstyle</span>
+   <span class="c1">// to enable slice status message updates when scrolling through the slices</span>
+   <span class="n">myInteractorStyle</span><span class="o">-&gt;</span><span class="n">SetImageViewer</span><span class="p">(</span><span class="n">imageViewer</span><span class="p">);</span>
+   <span class="n">myInteractorStyle</span><span class="o">-&gt;</span><span class="n">SetStatusMapper</span><span class="p">(</span><span class="n">sliceTextMapper</span><span class="p">);</span>
 
-PROJECT(ReadDICOMSeries)
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetupInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+   <span class="c1">// make the interactor use our own interactorstyle</span>
+   <span class="c1">// cause SetupInteractor() is defining it&#39;s own default interatorstyle </span>
+   <span class="c1">// this must be called after SetupInteractor()</span>
+   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">myInteractorStyle</span><span class="p">);</span>
+   <span class="c1">// add slice status message and usage hint message to the renderer</span>
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">sliceTextActor</span><span class="p">);</span>
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">usageTextActor</span><span class="p">);</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+   <span class="c1">// initialize rendering and interaction</span>
+   <span class="c1">//imageViewer-&gt;GetRenderWindow()-&gt;SetSize(400, 300);</span>
+   <span class="c1">//imageViewer-&gt;GetRenderer()-&gt;SetBackground(0.2, 0.3, 0.4);</span>
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+   <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-add_executable(ReadDICOMSeries MACOSX_BUNDLE ReadDICOMSeries.cxx)
 
-target_link_libraries(ReadDICOMSeries ${VTK_LIBRARIES})
-</code></pre>
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-<h3 id="download-and-build-readdicomseries">Download and Build ReadDICOMSeries</h3>
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ReadDICOMSeries</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ReadDICOMSeries</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ReadDICOMSeries.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ReadDICOMSeries</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-readdicomseries">Download and Build ReadDICOMSeries<a class="headerlink" href="#download-and-build-readdicomseries" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ReadDICOMSeries.tar">here to download ReadDICOMSeries</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ReadDICOMSeries.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ReadDICOMSeries/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ReadDICOMSeries/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ReadDICOMSeries
-</code></pre>
+<div class="codehilite"><pre><span></span>./ReadDICOMSeries
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,57 +15990,57 @@
                   <h1>MultiBlockMergeFilter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/MultiBlockMergeFilter</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MultiBlockMergeFilter.cs</strong></p>
-<pre><code class="csharp">using System;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
-      static void Main(string[] args) {
-         MultiBlockMergeFilter();
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">MultiBlockMergeFilter</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private static void MultiBlockMergeFilter() {
-         vtkSphereSource sphereSource1 = vtkSphereSource.New();
-         sphereSource1.Update();
+      <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">MultiBlockMergeFilter</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource1</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource1</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkSphereSource sphereSource2 = vtkSphereSource.New();
-         sphereSource2.SetCenter(10, 10, 10);
-         sphereSource2.Update();
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource2</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource2</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">10</span><span class="p">);</span>
+         <span class="n">sphereSource2</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkMultiBlockDataSet multiBlockDataSet1 = vtkMultiBlockDataSet.New();
-         multiBlockDataSet1.SetNumberOfBlocks(1);
-         multiBlockDataSet1.SetBlock(0, sphereSource1.GetOutput());
-#if VTK_MAJOR_VERSION_5
-         multiBlockDataSet1.Update();
-#endif
+         <span class="n">vtkMultiBlockDataSet</span> <span class="n">multiBlockDataSet1</span> <span class="p">=</span> <span class="n">vtkMultiBlockDataSet</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">multiBlockDataSet1</span><span class="p">.</span><span class="n">SetNumberOfBlocks</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">multiBlockDataSet1</span><span class="p">.</span><span class="n">SetBlock</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">sphereSource1</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">multiBlockDataSet1</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+<span class="cp">#endif</span>
 
-         vtkMultiBlockDataSet multiBlockDataSet2 = vtkMultiBlockDataSet.New();
-         multiBlockDataSet2.SetNumberOfBlocks(1);
-         multiBlockDataSet2.SetBlock(0, sphereSource2.GetOutput());
-#if VTK_MAJOR_VERSION_5
-         multiBlockDataSet2.Update();
-#endif
+         <span class="n">vtkMultiBlockDataSet</span> <span class="n">multiBlockDataSet2</span> <span class="p">=</span> <span class="n">vtkMultiBlockDataSet</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">multiBlockDataSet2</span><span class="p">.</span><span class="n">SetNumberOfBlocks</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">multiBlockDataSet2</span><span class="p">.</span><span class="n">SetBlock</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">sphereSource2</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">multiBlockDataSet2</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+<span class="cp">#endif</span>
 
-         vtkMultiBlockMergeFilter multiBlockMergeFilter = vtkMultiBlockMergeFilter.New();
-#if VTK_MAJOR_VERSION_5
-         multiBlockMergeFilter.AddInput(multiBlockDataSet1);
-         multiBlockMergeFilter.AddInput(multiBlockDataSet2);
-#else
-         multiBlockMergeFilter.AddInputData(multiBlockDataSet1);
-         multiBlockMergeFilter.AddInputData(multiBlockDataSet2);
-#endif
-         multiBlockMergeFilter.Update();
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkMultiBlockMergeFilter</span> <span class="n">multiBlockMergeFilter</span> <span class="p">=</span> <span class="n">vtkMultiBlockMergeFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">multiBlockMergeFilter</span><span class="p">.</span><span class="n">AddInput</span><span class="p">(</span><span class="n">multiBlockDataSet1</span><span class="p">);</span>
+         <span class="n">multiBlockMergeFilter</span><span class="p">.</span><span class="n">AddInput</span><span class="p">(</span><span class="n">multiBlockDataSet2</span><span class="p">);</span>
+<span class="cp">#else</span>
+         <span class="n">multiBlockMergeFilter</span><span class="p">.</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">multiBlockDataSet1</span><span class="p">);</span>
+         <span class="n">multiBlockMergeFilter</span><span class="p">.</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">multiBlockDataSet2</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">multiBlockMergeFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

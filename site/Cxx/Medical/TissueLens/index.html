@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,216 +16019,223 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Medical/TissueLens</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Medical/TestTissueLens.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example uses two clip filters to achieve a "tissue lens" affect. First, a sphere implicit function is used to clip a spherical hole in the extracted isosurface. Then a geometric sphere samples the original volume data using a probe filter. The resulting scalar point data is used to clip the sphere surface with the isosurface value.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TissueLens.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkMarchingCubes.h&gt;
-#include &lt;vtkMetaImageReader.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMarchingCubes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageReader.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkProbeFilter.h&gt;
-#include &lt;vtkSphere.h&gt;
-#include &lt;vtkClipDataSet.h&gt;
-#include &lt;vtkImplicitVolume.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkLookupTable.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProbeFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphere.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkClipDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImplicitVolume.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkProperty.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[])
-{
-  if (argc &lt; 2)
-  {
-    cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; file.mhd&quot; &lt;&lt; endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; file.mhd&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Read the volume data
-  vtkSmartPointer&lt;vtkMetaImageReader&gt; reader =
-    vtkSmartPointer&lt;vtkMetaImageReader&gt;::New();
-  reader-&gt;SetFileName (argv[1]);
-  reader-&gt;Update();
+  <span class="c1">// Read the volume data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // An isosurface, or contour value of 500 is known to correspond to the
-  // skin of the patient.
-  vtkSmartPointer&lt;vtkMarchingCubes&gt; skinExtractor =
-    vtkSmartPointer&lt;vtkMarchingCubes&gt;::New();
-  skinExtractor-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  skinExtractor-&gt;SetValue(0, 500);
+  <span class="c1">// An isosurface, or contour value of 500 is known to correspond to the</span>
+  <span class="c1">// skin of the patient.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMarchingCubes</span><span class="o">&gt;</span> <span class="n">skinExtractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMarchingCubes</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">skinExtractor</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">skinExtractor</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
 
-  // Define a spherical clip function to clip the isosurface
-  vtkSmartPointer&lt;vtkSphere&gt; clipFunction =
-    vtkSmartPointer&lt;vtkSphere&gt;::New();
-  clipFunction-&gt;SetRadius(50);
-  clipFunction-&gt;SetCenter(73, 52, 15);
+  <span class="c1">// Define a spherical clip function to clip the isosurface</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">clipFunction</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">73</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">15</span><span class="p">);</span>
 
-  // Clip the isosurface with a sphere
-  vtkSmartPointer&lt;vtkClipDataSet&gt; skinClip =
-    vtkSmartPointer&lt;vtkClipDataSet&gt;::New();
-  skinClip-&gt;SetInputConnection(skinExtractor-&gt;GetOutputPort());
-  skinClip-&gt;SetClipFunction(clipFunction);
-  skinClip-&gt;SetValue(0);
-  skinClip-&gt;GenerateClipScalarsOn();
-  skinClip-&gt;Update();
+  <span class="c1">// Clip the isosurface with a sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipDataSet</span><span class="o">&gt;</span> <span class="n">skinClip</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipDataSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">skinClip</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">skinExtractor</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">skinClip</span><span class="o">-&gt;</span><span class="n">SetClipFunction</span><span class="p">(</span><span class="n">clipFunction</span><span class="p">);</span>
+  <span class="n">skinClip</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">skinClip</span><span class="o">-&gt;</span><span class="n">GenerateClipScalarsOn</span><span class="p">();</span>
+  <span class="n">skinClip</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; skinMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  skinMapper-&gt;SetInputConnection(skinClip-&gt;GetOutputPort());
-  skinMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">skinMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">skinMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">skinClip</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">skinMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; skin =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  skin-&gt;SetMapper(skinMapper);
-  skin-&gt;GetProperty()-&gt;SetDiffuseColor(1, .49, .25);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">skin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">skin</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">skinMapper</span><span class="p">);</span>
+  <span class="n">skin</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.49</span><span class="p">,</span> <span class="mf">.25</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkProperty&gt; backProp =
-    vtkSmartPointer&lt;vtkProperty&gt;::New();
-  backProp-&gt;SetDiffuseColor(0.8900, 0.8100, 0.3400);
-  skin-&gt;SetBackfaceProperty(backProp);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backProp</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">backProp</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
+  <span class="n">skin</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backProp</span><span class="p">);</span>
 
-  // Define a model for the &quot;lens&quot;. Its geometry matches the implicit
-  // sphere used to clip the isosurface
-  vtkSmartPointer&lt;vtkSphereSource&gt; lensModel =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  lensModel-&gt;SetRadius(50);
-  lensModel-&gt;SetCenter(73, 52, 15);
-  lensModel-&gt;SetPhiResolution(201);
-  lensModel-&gt;SetThetaResolution(101);
+  <span class="c1">// Define a model for the &quot;lens&quot;. Its geometry matches the implicit</span>
+  <span class="c1">// sphere used to clip the isosurface</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">lensModel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lensModel</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">lensModel</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">73</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">15</span><span class="p">);</span>
+  <span class="n">lensModel</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">201</span><span class="p">);</span>
+  <span class="n">lensModel</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">101</span><span class="p">);</span>
 
-  // Sample the input volume with the lens model geometry
-  vtkSmartPointer&lt;vtkProbeFilter&gt; lensProbe =
-    vtkSmartPointer&lt;vtkProbeFilter&gt;::New();
-  lensProbe-&gt;SetInputConnection(lensModel-&gt;GetOutputPort());
-  lensProbe-&gt;SetSourceConnection(reader-&gt;GetOutputPort());
+  <span class="c1">// Sample the input volume with the lens model geometry</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;</span> <span class="n">lensProbe</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lensProbe</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">lensModel</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">lensProbe</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Clip the lens data with the isosurface value
-  vtkSmartPointer&lt;vtkClipDataSet&gt; lensClip =
-    vtkSmartPointer&lt;vtkClipDataSet&gt;::New();
-  lensClip-&gt;SetInputConnection(lensProbe-&gt;GetOutputPort());
-  lensClip-&gt;SetValue(500);
-  lensClip-&gt;GenerateClipScalarsOff();
-  lensClip-&gt;Update();
+  <span class="c1">// Clip the lens data with the isosurface value</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipDataSet</span><span class="o">&gt;</span> <span class="n">lensClip</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipDataSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lensClip</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">lensProbe</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">lensClip</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+  <span class="n">lensClip</span><span class="o">-&gt;</span><span class="n">GenerateClipScalarsOff</span><span class="p">();</span>
+  <span class="n">lensClip</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Define a suitable grayscale lut
-  vtkSmartPointer&lt;vtkLookupTable&gt; bwLut =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  bwLut-&gt;SetTableRange (0, 2048);
-  bwLut-&gt;SetSaturationRange (0, 0);
-  bwLut-&gt;SetHueRange (0, 0);
-  bwLut-&gt;SetValueRange (.2, 1);
-  bwLut-&gt;Build();
+  <span class="c1">// Define a suitable grayscale lut</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">bwLut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bwLut</span><span class="o">-&gt;</span><span class="n">SetTableRange</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2048</span><span class="p">);</span>
+  <span class="n">bwLut</span><span class="o">-&gt;</span><span class="n">SetSaturationRange</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">bwLut</span><span class="o">-&gt;</span><span class="n">SetHueRange</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">bwLut</span><span class="o">-&gt;</span><span class="n">SetValueRange</span> <span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">bwLut</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; lensMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  lensMapper-&gt;SetInputConnection(lensClip-&gt;GetOutputPort());
-  lensMapper-&gt;SetScalarRange(lensClip-&gt;GetOutput()-&gt;GetScalarRange());
-  lensMapper-&gt;SetLookupTable(bwLut);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">lensMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lensMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">lensClip</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">lensMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">lensClip</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">());</span>
+  <span class="n">lensMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">bwLut</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; lens =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  lens-&gt;SetMapper(lensMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">lens</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lens</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">lensMapper</span><span class="p">);</span>
 
-  // It is convenient to create an initial view of the data. The FocalPoint
-  // and Position form a vector direction. Later on (ResetCamera() method)
-  // this vector is used to position the camera to look at the data in
-  // this direction.
-  vtkSmartPointer&lt;vtkCamera&gt; aCamera =
-    vtkSmartPointer&lt;vtkCamera&gt;::New();
-  aCamera-&gt;SetViewUp (0, 0, -1);
-  aCamera-&gt;SetPosition (0, -1, 0);
-  aCamera-&gt;SetFocalPoint (0, 0, 0);
-  aCamera-&gt;ComputeViewPlaneNormal();
-  aCamera-&gt;Azimuth(30.0);
-  aCamera-&gt;Elevation(30.0);
+  <span class="c1">// It is convenient to create an initial view of the data. The FocalPoint</span>
+  <span class="c1">// and Position form a vector direction. Later on (ResetCamera() method)</span>
+  <span class="c1">// this vector is used to position the camera to look at the data in</span>
+  <span class="c1">// this direction.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">aCamera</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">SetViewUp</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">SetPosition</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">ComputeViewPlaneNormal</span><span class="p">();</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
 
-  // Create the renderer, the render window, and the interactor. The renderer
-  // draws into the render window, the interactor enables mouse- and
-  // keyboard-based interaction with the data within the render window.
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; aRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(aRenderer);
+  <span class="c1">// Create the renderer, the render window, and the interactor. The renderer</span>
+  <span class="c1">// draws into the render window, the interactor enables mouse- and</span>
+  <span class="c1">// keyboard-based interaction with the data within the render window.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">aRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">aRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Actors are added to the renderer. An initial camera view is created.
-  // The Dolly() method moves the camera towards the FocalPoint,
-  // thereby enlarging the image.
-  aRenderer-&gt;AddActor(lens);
-  aRenderer-&gt;AddActor(skin);
-  aRenderer-&gt;SetActiveCamera(aCamera);
-  aRenderer-&gt;ResetCamera ();
-  aCamera-&gt;Dolly(1.5);
+  <span class="c1">// Actors are added to the renderer. An initial camera view is created.</span>
+  <span class="c1">// The Dolly() method moves the camera towards the FocalPoint,</span>
+  <span class="c1">// thereby enlarging the image.</span>
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">lens</span><span class="p">);</span>
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">skin</span><span class="p">);</span>
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">aCamera</span><span class="p">);</span>
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span> <span class="p">();</span>
+  <span class="n">aCamera</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
 
-  // Set a background color for the renderer and set the size of the
-  // render window (expressed in pixels).
-  aRenderer-&gt;SetBackground(.2, .3, .4);
-  renWin-&gt;SetSize(640, 480);
+  <span class="c1">// Set a background color for the renderer and set the size of the</span>
+  <span class="c1">// render window (expressed in pixels).</span>
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
 
-  // Note that when camera movement occurs (as it does in the Dolly()
-  // method), the clipping planes often need adjusting. Clipping planes
-  // consist of two planes: near and far along the view direction. The
-  // near plane clips out objects in front of the plane; the far plane
-  // clips out objects behind the plane. This way only what is drawn
-  // between the planes is actually rendered.
-  aRenderer-&gt;ResetCameraClippingRange ();
+  <span class="c1">// Note that when camera movement occurs (as it does in the Dolly()</span>
+  <span class="c1">// method), the clipping planes often need adjusting. Clipping planes</span>
+  <span class="c1">// consist of two planes: near and far along the view direction. The</span>
+  <span class="c1">// near plane clips out objects in front of the plane; the far plane</span>
+  <span class="c1">// clips out objects behind the plane. This way only what is drawn</span>
+  <span class="c1">// between the planes is actually rendered.</span>
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span> <span class="p">();</span>
 
-  // Initialize the event loop and then start it.
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="c1">// Initialize the event loop and then start it.</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TissueLens)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TissueLens</span><span class="p">)</span>
 
-add_executable(TissueLens MACOSX_BUNDLE TissueLens.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TissueLens ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TissueLens</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TissueLens.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-tissuelens">Download and Build TissueLens</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TissueLens</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-tissuelens">Download and Build TissueLens<a class="headerlink" href="#download-and-build-tissuelens" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TissueLens.tar">here to download TissueLens</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TissueLens.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TissueLens/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TissueLens/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TissueLens
-</code></pre>
+<div class="codehilite"><pre><span></span>./TissueLens
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

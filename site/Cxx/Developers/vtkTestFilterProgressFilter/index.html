@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15534,6 +15534,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15927,11 +15939,11 @@
                 
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestFilterProgressFilter</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><source lang="cpp"></p>
-<h1 id="ifndef-__vtktestfilterprogressfilter_h">ifndef __vtkTestFilterProgressFilter_h</h1>
-<h1 id="define-__vtktestfilterprogressfilter_h">define __vtkTestFilterProgressFilter_h</h1>
-<h1 id="include-vtkpolydataalgorithmh">include "vtkPolyDataAlgorithm.h"</h1>
+<h1 id="ifndef-__vtktestfilterprogressfilter_h">ifndef __vtkTestFilterProgressFilter_h<a class="headerlink" href="#ifndef-__vtktestfilterprogressfilter_h" title="Permanent link">&para;</a></h1>
+<h1 id="define-__vtktestfilterprogressfilter_h">define __vtkTestFilterProgressFilter_h<a class="headerlink" href="#define-__vtktestfilterprogressfilter_h" title="Permanent link">&para;</a></h1>
+<h1 id="include-vtkpolydataalgorithmh">include "vtkPolyDataAlgorithm.h"<a class="headerlink" href="#include-vtkpolydataalgorithmh" title="Permanent link">&para;</a></h1>
 <p>class vtkTestFilterProgressFilter : public vtkPolyDataAlgorithm 
 {
 public:
@@ -15946,100 +15958,107 @@ public:
   vtkTestFilterProgressFilter(const vtkTestFilterProgressFilter&amp;) VTK_DELETE_FUNCTION;
   void operator=(const vtkTestFilterProgressFilterr&amp;) VTK_DELETE_FUNCTION;</p>
 <p>};</p>
-<h1 id="endif">endif</h1>
+<h1 id="endif">endif<a class="headerlink" href="#endif" title="Permanent link">&para;</a></h1>
 <p></source></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>vtkTestFilterProgressFilter.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkObjectFactory.h&quot;
-#include &quot;vtkStreamingDemandDrivenPipeline.h&quot;
-#include &quot;vtkInformationVector.h&quot;
-#include &quot;vtkInformation.h&quot;
-#include &quot;vtkDataObject.h&quot;
-#include &quot;vtkCallbackCommand.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCallbackCommand.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkTestFilterProgressFilter.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTestFilterProgressFilter.h&quot;</span><span class="cp"></span>
 
-vtkStandardNewMacro(vtkTestFilterProgressFilter);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestFilterProgressFilter</span><span class="p">);</span>
 
-vtkTestFilterProgressFilter::vtkTestFilterProgressFilter()
-{
-  vtkSmartPointer&lt;vtkCallbackCommand&gt; progressCallback =
-      vtkSmartPointer&lt;vtkCallbackCommand&gt;::New();
-  progressCallback-&gt;SetCallback(this-&gt;ProgressFunction);
+<span class="n">vtkTestFilterProgressFilter</span><span class="o">::</span><span class="n">vtkTestFilterProgressFilter</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">progressCallback</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">progressCallback</span><span class="o">-&gt;</span><span class="n">SetCallback</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ProgressFunction</span><span class="p">);</span>
 
-  this-&gt;AddObserver(vtkCommand::ProgressEvent, progressCallback);
-}
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">ProgressEvent</span><span class="p">,</span> <span class="n">progressCallback</span><span class="p">);</span>
+<span class="p">}</span>
 
-void vtkTestFilterProgressFilter::ProgressFunction(vtkObject* caller, long unsigned int eventId, void* clientData, void* callData)
-{
-  vtkTestFilterProgressFilterr* testFilter = static_cast&lt;vtkTestFilterProgressFilter*&gt;(caller);
-  cout &lt;&lt; &quot;Progress: &quot; &lt;&lt; testFilter-&gt;GetProgress() &lt;&lt; endl;
-}
+<span class="kt">void</span> <span class="n">vtkTestFilterProgressFilter</span><span class="o">::</span><span class="n">ProgressFunction</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkTestFilterProgressFilterr</span><span class="o">*</span> <span class="n">testFilter</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkTestFilterProgressFilter</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Progress: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">testFilter</span><span class="o">-&gt;</span><span class="n">GetProgress</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
 
-int vtkTestFilterProgressFilter::RequestData(vtkInformation *vtkNotUsed(request),
-                                             vtkInformationVector **inputVector,
-                                             vtkInformationVector *outputVector)
-{
+<span class="kt">int</span> <span class="n">vtkTestFilterProgressFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
 
-  // get the info objects
-  vtkInformation *inInfo = inputVector[0]-&gt;GetInformationObject(0);
-  vtkInformation *outInfo = outputVector-&gt;GetInformationObject(0);
+  <span class="c1">// get the info objects</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">inInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
 
-  // get the input and ouptut
-  vtkPolyData *input = vtkPolyData::SafeDownCast(
-      inInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));
+  <span class="c1">// get the input and ouptut</span>
+  <span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">input</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+      <span class="n">inInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
 
-  vtkPolyData *output = vtkPolyData::SafeDownCast(
-      outInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));
+  <span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">output</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+      <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
 
-  for(vtkIdType i = 0; i &lt; input-&gt;GetNumberOfPoints(); i++)
-  {
-    this-&gt;UpdateProgress(static_cast&lt;double&gt;(i)/input-&gt;GetNumberOfPoints());
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">UpdateProgress</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  output-&gt;ShallowCopy(input);
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
 
-  return 1;
-}
-</code></pre>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(vtkTestFilterProgressFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">vtkTestFilterProgressFilter</span><span class="p">)</span>
 
-add_executable(vtkTestFilterProgressFilter MACOSX_BUNDLE vtkTestFilterProgressFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(vtkTestFilterProgressFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">vtkTestFilterProgressFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">vtkTestFilterProgressFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-vtktestfilterprogressfilter">Download and Build vtkTestFilterProgressFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">vtkTestFilterProgressFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-vtktestfilterprogressfilter">Download and Build vtkTestFilterProgressFilter<a class="headerlink" href="#download-and-build-vtktestfilterprogressfilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/vtkTestFilterProgressFilter.tar">here to download vtkTestFilterProgressFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball vtkTestFilterProgressFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd vtkTestFilterProgressFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd vtkTestFilterProgressFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./vtkTestFilterProgressFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./vtkTestFilterProgressFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

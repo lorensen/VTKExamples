@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,162 +16005,169 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Points/NormalEstimation</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Points/TestNormalEstimation.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>NormalEstimation.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPCANormalEstimation.h&gt;
-#include &lt;vtkPointSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPCANormalEstimation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkArrowSource.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
-#include &lt;vtkMath.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkCamera.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-static void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="n">size</span><span class="p">,</span> <span class="n">vtkGlyph3D</span> <span class="o">*</span><span class="n">glyph</span><span class="p">);</span>
 
-int main (int, char *[])
-{
-  vtkMath::RandomSeed(4355412); // for test result consistency
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">RandomSeed</span><span class="p">(</span><span class="mi">4355412</span><span class="p">);</span> <span class="c1">// for test result consistency</span>
 
-  double radius = 1.0;
-  vtkSmartPointer&lt;vtkPointSource&gt; points =
-    vtkSmartPointer&lt;vtkPointSource&gt;::New();
-  points-&gt;SetNumberOfPoints(1000);
-  points-&gt;SetRadius(radius);
-  points-&gt;SetCenter(0.0, 0.0, 0.0);
-  points-&gt;SetDistributionToShell();
+  <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetDistributionToShell</span><span class="p">();</span>
 
-  int sampleSize = 10;
-  vtkSmartPointer&lt;vtkPCANormalEstimation&gt; normals =
-    vtkSmartPointer&lt;vtkPCANormalEstimation&gt;::New();
-  normals-&gt;SetInputConnection (points-&gt;GetOutputPort());
-  normals-&gt;SetSampleSize(sampleSize);
-  normals-&gt;SetNormalOrientationToGraphTraversal();
-  normals-&gt;Update();
+  <span class="kt">int</span> <span class="n">sampleSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPCANormalEstimation</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPCANormalEstimation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">points</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetSampleSize</span><span class="p">(</span><span class="n">sampleSize</span><span class="p">);</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetNormalOrientationToGraphTraversal</span><span class="p">();</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph3D =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  MakeGlyphs(normals-&gt;GetOutput(), radius * .2, glyph3D.GetPointer());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph3D</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">radius</span> <span class="o">*</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">glyph3D</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyph3DMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  glyph3DMapper-&gt;SetInputConnection(glyph3D-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyph3DMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph3D</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; glyph3DActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyph3DActor-&gt;SetMapper(glyph3DMapper);
-  glyph3DActor-&gt;GetProperty()-&gt;SetColor(0.8900, 0.8100, 0.3400);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3DMapper</span><span class="p">);</span>
+  <span class="n">glyph3DActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphere =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphere-&gt;SetRadius(1.0);
-  sphere-&gt;SetThetaResolution(41);
-  sphere-&gt;SetPhiResolution(21);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">41</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection(sphere-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphereActor-&gt;SetMapper(sphereMapper);
-  sphereActor-&gt;GetProperty()-&gt;SetColor(1.0000, 0.4900, 0.2500);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.4900</span><span class="p">,</span> <span class="mf">0.2500</span><span class="p">);</span>
 
-  // Create graphics stuff
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren1-&gt;SetBackground(.3, .4, .6);
+  <span class="c1">// Create graphics stuff</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  renWin-&gt;SetSize(512,512);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;AddActor(glyph3DActor);
-  ren1-&gt;AddActor(sphereActor);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyph3DActor</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
 
-  // Generate an interesting view
-  //
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;Azimuth(120);
-  ren1-&gt;GetActiveCamera()-&gt;Elevation(30);
-  ren1-&gt;GetActiveCamera()-&gt;Dolly(1.0);
-  ren1-&gt;ResetCameraClippingRange();
+  <span class="c1">// Generate an interesting view</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
-{
-  // Source for the glyph filter
-  vtkSmartPointer&lt;vtkArrowSource&gt; arrow =
-    vtkSmartPointer&lt;vtkArrowSource&gt;::New();
-  arrow-&gt;SetTipResolution(16);
-  arrow-&gt;SetTipLength(.3);
-  arrow-&gt;SetTipRadius(.1);
+<span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="n">size</span><span class="p">,</span> <span class="n">vtkGlyph3D</span> <span class="o">*</span><span class="n">glyph</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Source for the glyph filter</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;</span> <span class="n">arrow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipLength</span><span class="p">(</span><span class="mf">.3</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipRadius</span><span class="p">(</span><span class="mf">.1</span><span class="p">);</span>
 
-  glyph-&gt;SetSourceConnection(arrow-&gt;GetOutputPort());
-  glyph-&gt;SetInputData(src);
-  glyph-&gt;SetVectorModeToUseNormal();
-//  glyph-&gt;SetColorModeToColorByVector();
-  glyph-&gt;SetScaleModeToScaleByVector();
-  glyph-&gt;SetScaleFactor(size);
-  glyph-&gt;OrientOn();
-  glyph-&gt;Update();
-}
-</code></pre>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrow</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetVectorModeToUseNormal</span><span class="p">();</span>
+<span class="c1">//  glyph-&gt;SetColorModeToColorByVector();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">OrientOn</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(NormalEstimation)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">NormalEstimation</span><span class="p">)</span>
 
-add_executable(NormalEstimation MACOSX_BUNDLE NormalEstimation.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(NormalEstimation ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">NormalEstimation</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">NormalEstimation.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-normalestimation">Download and Build NormalEstimation</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">NormalEstimation</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-normalestimation">Download and Build NormalEstimation<a class="headerlink" href="#download-and-build-normalestimation" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/NormalEstimation.tar">here to download NormalEstimation</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball NormalEstimation.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd NormalEstimation/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd NormalEstimation/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./NormalEstimation
-</code></pre>
+<div class="codehilite"><pre><span></span>./NormalEstimation
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,531 +16019,538 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/Cell3DDemonstration</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestCell3DDemonstration.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This is a demonstration of how to construct and display geometric objects using the classes derived from vtkCell3D. For each object we specify the points and cell Ids. </p>
 <p>From this we create an unstructured grid. In some cases a vtkCellArray is used and the result is added to the unstructured grid, see: <em>MakePolyhedron()</em> and <em>MakeTetrahedron()</em>.</p>
 <p>Also demonstrated is the use of vectors to hold the unstructured grids, mappers, actors and renderers.</p>
 <p>The resultant objects are then displayed in a grid.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cell3DDemonstration.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVersion.h&gt;
-
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkTextProperty.h&gt;
-#include &lt;vtkTextMapper.h&gt;
-#include &lt;vtkActor2D.h&gt;
-
-#include &lt;vtkHexagonalPrism.h&gt;
-#include &lt;vtkHexahedron.h&gt;
-#include &lt;vtkPentagonalPrism.h&gt;
-#include &lt;vtkPolyhedron.h&gt;
-#include &lt;vtkPyramid.h&gt;
-#include &lt;vtkTetra.h&gt;
-#include &lt;vtkVoxel.h&gt;
-#include &lt;vtkWedge.h&gt;
-
-#include &lt;vector&gt;
-#include &lt;string&gt;
-#include &lt;cstdlib&gt;
-
-// These functions return a vtkUnstructured grid corresponding to the object.
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeHexagonalPrism();
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeHexahedron();
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakePentagonalPrism();
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakePolyhedron();
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakePyramid();
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeTetrahedron();
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeVoxel();
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeWedge();
-
-int main(int, char *[])
-{
-  std::vector&lt;std::string&gt; titles;
-  std::vector&lt;vtkSmartPointer&lt;vtkTextMapper&gt; &gt; textMappers;
-  std::vector&lt;vtkSmartPointer&lt;vtkActor2D&gt; &gt; textActors;
-
-  std::vector&lt;vtkSmartPointer&lt;vtkUnstructuredGrid&gt; &gt; uGrids;
-  std::vector&lt;vtkSmartPointer&lt;vtkDataSetMapper&gt; &gt; mappers;
-  std::vector&lt;vtkSmartPointer&lt;vtkActor&gt; &gt; actors;
-  std::vector&lt;vtkSmartPointer&lt;vtkRenderer&gt; &gt; renderers;
-
-  uGrids.push_back(MakeHexagonalPrism());
-  titles.push_back(&quot;Hexagonal Prism&quot;);
-  uGrids.push_back(MakeHexahedron());
-  titles.push_back(&quot;Hexahedron&quot;);
-  uGrids.push_back(MakePentagonalPrism());
-  titles.push_back(&quot;Pentagonal Prism&quot;);
-
-  uGrids.push_back(MakePolyhedron());
-  titles.push_back(&quot;Polyhedron&quot;);
-  uGrids.push_back(MakePyramid());
-  titles.push_back(&quot;Pyramid&quot;);
-  uGrids.push_back(MakeTetrahedron());
-  titles.push_back(&quot;Tetrahedron&quot;);
-
-  uGrids.push_back(MakeVoxel());
-  titles.push_back(&quot;Voxel&quot;);
-  uGrids.push_back(MakeWedge());
-  titles.push_back(&quot;Wedge&quot;);
-
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;SetSize(600, 600);
-  renWin-&gt;SetWindowName(&quot;Cell3D Demonstration&quot;);
-
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iRen =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iRen-&gt;SetRenderWindow(renWin);
-
-  // Create one text property for all
-  vtkSmartPointer&lt;vtkTextProperty&gt; textProperty =
-    vtkSmartPointer&lt;vtkTextProperty&gt;::New();
-  textProperty-&gt;SetFontSize(10);
-  textProperty-&gt;SetJustificationToCentered();
-
-  // Create and link the mappers actors and renderers together.
-  for (unsigned int i = 0; i &lt; uGrids.size(); ++i)
-  {
-    textMappers.push_back(vtkSmartPointer&lt;vtkTextMapper&gt;::New());
-    textActors.push_back(vtkSmartPointer&lt;vtkActor2D&gt;::New());
-
-    mappers.push_back(vtkSmartPointer&lt;vtkDataSetMapper&gt;::New());
-    actors.push_back(vtkSmartPointer&lt;vtkActor&gt;::New());
-    renderers.push_back(vtkSmartPointer&lt;vtkRenderer&gt;::New());
-
-#if VTK_MAJOR_VERSION &lt;= 5
-    mappers[i]-&gt;SetInputConnection(uGrids[i]-&gt;GetProducerPort());
-#else
-    mappers[i]-&gt;SetInputData(uGrids[i]);
-#endif
-    actors[i]-&gt;SetMapper(mappers[i]);
-    renderers[i]-&gt;AddViewProp(actors[i]);
-
-    textMappers[i]-&gt;SetInput(titles[i].c_str());
-    textActors[i]-&gt;SetMapper(textMappers[i]);
-    textActors[i]-&gt;SetPosition(50, 10);
-    renderers[i]-&gt;AddViewProp(textActors[i]);
-
-    renWin-&gt;AddRenderer(renderers[i]);
-  }
-
-  int gridDimensions = 3;
-  int rendererSize = 200;
-
-  renWin-&gt;SetSize(
-    rendererSize*gridDimensions, rendererSize*gridDimensions);
-
-  for(int row = 0; row &lt; gridDimensions; row++)
-  {
-    for(int col = 0; col &lt; gridDimensions; col++)
-    {
-      int index = row * gridDimensions + col;
-
-      // (xmin, ymin, xmax, ymax)
-      double viewport[4] =
-        {static_cast&lt;double&gt;(col) * rendererSize /
-                              (gridDimensions * rendererSize),
-         static_cast&lt;double&gt;(gridDimensions - (row+1)) * rendererSize /
-                              (gridDimensions * rendererSize),
-         static_cast&lt;double&gt;(col+1)*rendererSize /
-                              (gridDimensions * rendererSize),
-         static_cast&lt;double&gt;(gridDimensions - row) * rendererSize /
-                              (gridDimensions * rendererSize)};
-
-      if(index &gt; int(actors.size()) - 1)
-      {
-        // Add a renderer even if there is no actor.
-        // This makes the render window background all the same color.
-        vtkSmartPointer&lt;vtkRenderer&gt; ren = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-        ren-&gt;SetBackground(.2, .3, .4);
-        ren-&gt;SetViewport(viewport);
-        renWin-&gt;AddRenderer(ren);
-        continue;
-      }
-
-      renderers[index]-&gt;SetViewport(viewport);
-      renderers[index]-&gt;SetBackground(.2, .3, .4);
-      renderers[index]-&gt;ResetCamera();
-      renderers[index]-&gt;GetActiveCamera()-&gt;Azimuth(30);
-      renderers[index]-&gt;GetActiveCamera()-&gt;Elevation(-30);
-      renderers[index]-&gt;GetActiveCamera()-&gt;Zoom(0.85);
-      renderers[index]-&gt;ResetCameraClippingRange();
-    }
-  }
-
-  iRen-&gt;Initialize();
-
-  renWin-&gt;Render();
-
-  iRen-&gt;Start();
-
-  return EXIT_SUCCESS;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeHexagonalPrism()
-{
-  // 3D: hexagonal prism: a wedge with an hexagonal base.
-  // Be careful, the base face ordering is different from wedge.
-
-  int numberOfVertices = 12;
-
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-
-  points-&gt;InsertNextPoint(0.0, 0.0, 1.0);
-  points-&gt;InsertNextPoint(1.0, 0.0, 1.0);
-  points-&gt;InsertNextPoint(1.5, 0.5, 1.0);
-  points-&gt;InsertNextPoint(1.0, 1.0, 1.0);
-  points-&gt;InsertNextPoint(0.0, 1.0, 1.0);
-  points-&gt;InsertNextPoint(-0.5, 0.5, 1.0);
-
-  points-&gt;InsertNextPoint(0.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1.5, 0.5, 0.0);
-  points-&gt;InsertNextPoint(1.0, 1.0, 0.0);
-  points-&gt;InsertNextPoint(0.0, 1.0, 0.0);
-  points-&gt;InsertNextPoint(-0.5, 0.5, 0.0);
-
-  vtkSmartPointer&lt;vtkHexagonalPrism&gt; hexagonalPrism =
-    vtkSmartPointer&lt;vtkHexagonalPrism&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-    hexagonalPrism-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; ug =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  ug-&gt;InsertNextCell(hexagonalPrism-&gt;GetCellType(),
-                     hexagonalPrism-&gt;GetPointIds());
-  ug-&gt;SetPoints(points);
-
-  return ug;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeHexahedron()
-{
-  // A regular hexagon (cube) with all faces square and three squares around
-  // each vertex is created below.
-
-  // Setup the coordinates of eight points
-  // (the two faces must be in counter clockwise
-  // order as viewed from the outside).
-
-  // As an exercise you can modify the coordinates of the points to create
-  // seven topologically distinct convex hexahedras.
-
-  int numberOfVertices = 8;
-
-  // Create the points
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(0.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1.0, 1.0, 0.0);
-  points-&gt;InsertNextPoint(0.0, 1.0, 0.0);
-  points-&gt;InsertNextPoint(0.0, 0.0, 1.0);
-  points-&gt;InsertNextPoint(1.0, 0.0, 1.0);
-  points-&gt;InsertNextPoint(1.0, 1.0, 1.0);
-  points-&gt;InsertNextPoint(0.0, 1.0, 1.0);
-
-  // Create a hexahedron from the points
-  vtkSmartPointer&lt;vtkHexahedron&gt; hex =
-    vtkSmartPointer&lt;vtkHexahedron&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-    hex-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  // Add the points and hexahedron to an unstructured grid
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; uGrid =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  uGrid-&gt;SetPoints(points);
-  uGrid-&gt;InsertNextCell(hex-&gt;GetCellType(), hex-&gt;GetPointIds());
-
-  return uGrid;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakePentagonalPrism()
-{
-
-  int numberOfVertices = 10;
-
-  // Create the points
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(11, 10, 10);
-  points-&gt;InsertNextPoint(13, 10, 10);
-  points-&gt;InsertNextPoint(14, 12, 10);
-  points-&gt;InsertNextPoint(12, 14, 10);
-  points-&gt;InsertNextPoint(10, 12, 10);
-  points-&gt;InsertNextPoint(11, 10, 14);
-  points-&gt;InsertNextPoint(13, 10, 14);
-  points-&gt;InsertNextPoint(14, 12, 14);
-  points-&gt;InsertNextPoint(12, 14, 14);
-  points-&gt;InsertNextPoint(10, 12, 14);
-
-  // Pentagonal Prism
-  vtkSmartPointer&lt;vtkPentagonalPrism&gt; pentagonalPrism =
-    vtkSmartPointer&lt;vtkPentagonalPrism&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-    pentagonalPrism-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  // Add the points and hexahedron to an unstructured grid
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; uGrid =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  uGrid-&gt;SetPoints(points);
-  uGrid-&gt;InsertNextCell(pentagonalPrism-&gt;GetCellType(),
-                        pentagonalPrism-&gt;GetPointIds());
-
-  return uGrid;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakePolyhedron()
-{
-
-  // Make a regular dodecahedron. It consists of twelve regular pentagonal
-  // faces with three faces meeting at each vertex.
-  int numberOfVertices = 20;
-  int numberOfFaces = 12;
-  int numberOfFaceVertices = 5;
-
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint( 1.21412,   0,         1.58931);
-  points-&gt;InsertNextPoint( 0.375185,  1.1547,    1.58931);
-  points-&gt;InsertNextPoint(-0.982247,  0.713644,  1.58931);
-  points-&gt;InsertNextPoint(-0.982247, -0.713644,  1.58931);
-  points-&gt;InsertNextPoint( 0.375185, -1.1547,    1.58931);
-  points-&gt;InsertNextPoint( 1.96449,   0,         0.375185);
-  points-&gt;InsertNextPoint( 0.607062,  1.86835,   0.375185);
-  points-&gt;InsertNextPoint(-1.58931,   1.1547,    0.375185);
-  points-&gt;InsertNextPoint(-1.58931,  -1.1547,    0.375185);
-  points-&gt;InsertNextPoint( 0.607062, -1.86835,   0.375185);
-  points-&gt;InsertNextPoint( 1.58931,   1.1547,   -0.375185);
-  points-&gt;InsertNextPoint(-0.607062,  1.86835,  -0.375185);
-  points-&gt;InsertNextPoint(-1.96449,   0,        -0.375185);
-  points-&gt;InsertNextPoint(-0.607062, -1.86835,  -0.375185);
-  points-&gt;InsertNextPoint( 1.58931,  -1.1547,   -0.375185);
-  points-&gt;InsertNextPoint( 0.982247,  0.713644, -1.58931);
-  points-&gt;InsertNextPoint(-0.375185,  1.1547,   -1.58931);
-  points-&gt;InsertNextPoint(-1.21412,   0,        -1.58931);
-  points-&gt;InsertNextPoint(-0.375185, -1.1547,   -1.58931);
-  points-&gt;InsertNextPoint( 0.982247, -0.713644, -1.58931);
-
-  vtkIdType dodechedronPointsIds[20] =
-      {0,   1,  2,  3,  4,  5,  6,  7,  8,  9,
-       10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
-
-
-  vtkIdType dodechedronFace[12][5] = {
-      {0, 1, 2, 3, 4},
-      {0, 5, 10, 6, 1},
-      {1, 6, 11, 7, 2},
-      {2, 7, 12, 8, 3},
-      {3, 8, 13, 9, 4},
-      {4, 9, 14, 5, 0},
-      {15, 10, 5, 14, 19},
-      {16, 11, 6, 10, 15},
-      {17, 12, 7, 11, 16},
-      {18, 13, 8, 12, 17},
-      {19, 14, 9, 13, 18},
-      {19, 18, 17, 16, 15}
-      };
-
-  vtkSmartPointer&lt;vtkCellArray&gt; dodechedronFaces =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  for (int i = 0; i &lt; numberOfFaces; i++)
-  {
-    dodechedronFaces-&gt;InsertNextCell(numberOfFaceVertices, dodechedronFace[i]);
-  }
-
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; uGrid =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  uGrid-&gt;InsertNextCell(VTK_POLYHEDRON,
-          numberOfVertices, dodechedronPointsIds,
-        numberOfFaces, dodechedronFaces-&gt;GetPointer());
-  uGrid-&gt;SetPoints(points);
-
-  return uGrid;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakePyramid()
-{
-  // Make a regular square pyramid.
-  int numberOfVertices = 5;
-
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-      vtkSmartPointer&lt;vtkPoints&gt;::New();
-
-  float p0[3] = {1.0, 1.0, 0.0};
-  float p1[3] = {-1.0, 1.0, 0.0};
-  float p2[3] = {-1.0, -1.0, 0.0};
-  float p3[3] = {1.0, -1.0, 0.0};
-  float p4[3] = {0.0, 0.0, 1.0};
-
-  points-&gt;InsertNextPoint(p0);
-  points-&gt;InsertNextPoint(p1);
-  points-&gt;InsertNextPoint(p2);
-  points-&gt;InsertNextPoint(p3);
-  points-&gt;InsertNextPoint(p4);
-
-  vtkSmartPointer&lt;vtkPyramid&gt; pyramid =
-      vtkSmartPointer&lt;vtkPyramid&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-    pyramid-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; ug =
-      vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  ug-&gt;SetPoints(points);
-  ug-&gt;InsertNextCell(pyramid-&gt;GetCellType(),pyramid-&gt;GetPointIds());
-
-  return ug;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeTetrahedron()
-{
-  // Make a tetrahedron.
-  int numberOfVertices = 4;
-
-  vtkSmartPointer&lt; vtkPoints &gt; points =
-    vtkSmartPointer&lt; vtkPoints &gt; :: New();
-  points-&gt;InsertNextPoint(0, 0, 0);
-  points-&gt;InsertNextPoint(1, 0, 0);
-  points-&gt;InsertNextPoint(1, 1, 0);
-  points-&gt;InsertNextPoint(0, 1, 1);
-
-  vtkSmartPointer&lt;vtkTetra&gt; tetra =
-    vtkSmartPointer&lt;vtkTetra&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-      tetra-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  vtkSmartPointer&lt;vtkCellArray&gt; cellArray =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  cellArray-&gt;InsertNextCell(tetra);
-
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; unstructuredGrid =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  unstructuredGrid-&gt;SetPoints(points);
-  unstructuredGrid-&gt;SetCells(VTK_TETRA, cellArray);
-
-  return unstructuredGrid;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeVoxel()
-{
-  // A voxel is a representation of a regular grid in 3-D space.
-  int numberOfVertices = 8;
-
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(0, 0, 0);
-  points-&gt;InsertNextPoint(1, 0, 0);
-  points-&gt;InsertNextPoint(0, 1, 0);
-  points-&gt;InsertNextPoint(1, 1, 0);
-  points-&gt;InsertNextPoint(0, 0, 1);
-  points-&gt;InsertNextPoint(1, 0, 1);
-  points-&gt;InsertNextPoint(0, 1, 1);
-  points-&gt;InsertNextPoint(1, 1, 1);
-
-  vtkSmartPointer&lt;vtkVoxel&gt; voxel =
-    vtkSmartPointer&lt;vtkVoxel&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-    voxel-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; ug =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  ug-&gt;SetPoints(points);
-  ug-&gt;InsertNextCell(voxel-&gt;GetCellType(),voxel-&gt;GetPointIds());
-
-  return ug;
-}
-
-vtkSmartPointer&lt;vtkUnstructuredGrid&gt; MakeWedge()
-{
-
-  // A wedge consists of two triangular ends and three rectangular faces.
-
-  int numberOfVertices = 6;
-
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-
-  points-&gt;InsertNextPoint(0, 1, 0);
-  points-&gt;InsertNextPoint(0, 0, 0);
-  points-&gt;InsertNextPoint(0, .5, .5);
-  points-&gt;InsertNextPoint(1, 1, 0);
-  points-&gt;InsertNextPoint(1, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1, .5, .5);
-
-  vtkSmartPointer&lt;vtkWedge&gt; wedge =
-    vtkSmartPointer&lt;vtkWedge&gt;::New();
-  for (int i = 0; i &lt; numberOfVertices; ++i)
-  {
-    wedge-&gt;GetPointIds()-&gt;SetId(i, i);
-  }
-
-  vtkSmartPointer&lt;vtkUnstructuredGrid&gt; ug =
-    vtkSmartPointer&lt;vtkUnstructuredGrid&gt;::New();
-  ug-&gt;SetPoints(points);
-  ug-&gt;InsertNextCell(wedge-&gt;GetCellType(),wedge-&gt;GetPointIds());
-
-  return ug;
-}
-</code></pre>
-
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
-
-PROJECT(Cell3DDemonstration)
-
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
-
-add_executable(Cell3DDemonstration MACOSX_BUNDLE Cell3DDemonstration.cxx)
-
-target_link_libraries(Cell3DDemonstration ${VTK_LIBRARIES})
-</code></pre>
-
-<h3 id="download-and-build-cell3ddemonstration">Download and Build Cell3DDemonstration</h3>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkHexagonalPrism.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkHexahedron.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPentagonalPrism.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyhedron.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPyramid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTetra.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVoxel.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWedge.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+
+<span class="c1">// These functions return a vtkUnstructured grid corresponding to the object.</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeHexagonalPrism</span><span class="p">();</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeHexahedron</span><span class="p">();</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakePentagonalPrism</span><span class="p">();</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakePolyhedron</span><span class="p">();</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakePyramid</span><span class="p">();</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeTetrahedron</span><span class="p">();</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeVoxel</span><span class="p">();</span>
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeWedge</span><span class="p">();</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">titles</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">textMappers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">textActors</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">uGrids</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">mappers</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">actors</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">renderers</span><span class="p">;</span>
+
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakeHexagonalPrism</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Hexagonal Prism&quot;</span><span class="p">);</span>
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakeHexahedron</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Hexahedron&quot;</span><span class="p">);</span>
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakePentagonalPrism</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Pentagonal Prism&quot;</span><span class="p">);</span>
+
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakePolyhedron</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Polyhedron&quot;</span><span class="p">);</span>
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakePyramid</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Pyramid&quot;</span><span class="p">);</span>
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakeTetrahedron</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Tetrahedron&quot;</span><span class="p">);</span>
+
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakeVoxel</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Voxel&quot;</span><span class="p">);</span>
+  <span class="n">uGrids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MakeWedge</span><span class="p">());</span>
+  <span class="n">titles</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Wedge&quot;</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s">&quot;Cell3D Demonstration&quot;</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iRen</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iRen</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+
+  <span class="c1">// Create one text property for all</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">textProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetJustificationToCentered</span><span class="p">();</span>
+
+  <span class="c1">// Create and link the mappers actors and renderers together.</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">uGrids</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">textMappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">textActors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+
+    <span class="n">mappers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">actors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+    <span class="n">renderers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
+
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">uGrids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+    <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">uGrids</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="cp">#endif</span>
+    <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+    <span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+    <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">gridDimensions</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span>
+    <span class="n">rendererSize</span><span class="o">*</span><span class="n">gridDimensions</span><span class="p">,</span> <span class="n">rendererSize</span><span class="o">*</span><span class="n">gridDimensions</span><span class="p">);</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">gridDimensions</span><span class="p">;</span> <span class="n">row</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">gridDimensions</span><span class="p">;</span> <span class="n">col</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">gridDimensions</span> <span class="o">+</span> <span class="n">col</span><span class="p">;</span>
+
+      <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+      <span class="kt">double</span> <span class="n">viewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span>
+        <span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                              <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                              <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rendererSize</span> <span class="o">/</span>
+                              <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                              <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)};</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="n">index</span> <span class="o">&gt;</span> <span class="kt">int</span><span class="p">(</span><span class="n">actors</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="c1">// Add a renderer even if there is no actor.</span>
+        <span class="c1">// This makes the render window background all the same color.</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
+        <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">);</span>
+        <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
+        <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">0.85</span><span class="p">);</span>
+      <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">iRen</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+
+  <span class="n">iRen</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeHexagonalPrism</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// 3D: hexagonal prism: a wedge with an hexagonal base.</span>
+  <span class="c1">// Be careful, the base face ordering is different from wedge.</span>
+
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHexagonalPrism</span><span class="o">&gt;</span> <span class="n">hexagonalPrism</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHexagonalPrism</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">hexagonalPrism</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">ug</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hexagonalPrism</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span>
+                     <span class="n">hexagonalPrism</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="n">ug</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeHexahedron</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// A regular hexagon (cube) with all faces square and three squares around</span>
+  <span class="c1">// each vertex is created below.</span>
+
+  <span class="c1">// Setup the coordinates of eight points</span>
+  <span class="c1">// (the two faces must be in counter clockwise</span>
+  <span class="c1">// order as viewed from the outside).</span>
+
+  <span class="c1">// As an exercise you can modify the coordinates of the points to create</span>
+  <span class="c1">// seven topologically distinct convex hexahedras.</span>
+
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+
+  <span class="c1">// Create the points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+
+  <span class="c1">// Create a hexahedron from the points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHexahedron</span><span class="o">&gt;</span> <span class="n">hex</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHexahedron</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">hex</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Add the points and hexahedron to an unstructured grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">uGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">uGrid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">uGrid</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hex</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">hex</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="n">uGrid</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakePentagonalPrism</span><span class="p">()</span>
+<span class="p">{</span>
+
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+  <span class="c1">// Create the points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">);</span>
+
+  <span class="c1">// Pentagonal Prism</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPentagonalPrism</span><span class="o">&gt;</span> <span class="n">pentagonalPrism</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPentagonalPrism</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">pentagonalPrism</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Add the points and hexahedron to an unstructured grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">uGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">uGrid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">uGrid</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pentagonalPrism</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span>
+                        <span class="n">pentagonalPrism</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="n">uGrid</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakePolyhedron</span><span class="p">()</span>
+<span class="p">{</span>
+
+  <span class="c1">// Make a regular dodecahedron. It consists of twelve regular pentagonal</span>
+  <span class="c1">// faces with three faces meeting at each vertex.</span>
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">numberOfFaces</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">numberOfFaceVertices</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">1.21412</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>         <span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">0.375185</span><span class="p">,</span>  <span class="mf">1.1547</span><span class="p">,</span>    <span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.982247</span><span class="p">,</span>  <span class="mf">0.713644</span><span class="p">,</span>  <span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.982247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.713644</span><span class="p">,</span>  <span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">0.375185</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span>    <span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">1.96449</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>         <span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">0.607062</span><span class="p">,</span>  <span class="mf">1.86835</span><span class="p">,</span>   <span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.58931</span><span class="p">,</span>   <span class="mf">1.1547</span><span class="p">,</span>    <span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.58931</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span>    <span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">0.607062</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.86835</span><span class="p">,</span>   <span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">1.58931</span><span class="p">,</span>   <span class="mf">1.1547</span><span class="p">,</span>   <span class="o">-</span><span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.607062</span><span class="p">,</span>  <span class="mf">1.86835</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96449</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>        <span class="o">-</span><span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.607062</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.86835</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">1.58931</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span>   <span class="o">-</span><span class="mf">0.375185</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">0.982247</span><span class="p">,</span>  <span class="mf">0.713644</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.375185</span><span class="p">,</span>  <span class="mf">1.1547</span><span class="p">,</span>   <span class="o">-</span><span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.21412</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>        <span class="o">-</span><span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.375185</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span>   <span class="o">-</span><span class="mf">1.58931</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span> <span class="mf">0.982247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.713644</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">);</span>
+
+  <span class="n">vtkIdType</span> <span class="n">dodechedronPointsIds</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span>
+      <span class="p">{</span><span class="mi">0</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span>
+       <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">};</span>
+
+
+  <span class="n">vtkIdType</span> <span class="n">dodechedronFace</span><span class="p">[</span><span class="mi">12</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">19</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">17</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">16</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">18</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">18</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">19</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">15</span><span class="p">}</span>
+      <span class="p">};</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">dodechedronFaces</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfFaces</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">dodechedronFaces</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">numberOfFaceVertices</span><span class="p">,</span> <span class="n">dodechedronFace</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">uGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">uGrid</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">VTK_POLYHEDRON</span><span class="p">,</span>
+          <span class="n">numberOfVertices</span><span class="p">,</span> <span class="n">dodechedronPointsIds</span><span class="p">,</span>
+        <span class="n">numberOfFaces</span><span class="p">,</span> <span class="n">dodechedronFaces</span><span class="o">-&gt;</span><span class="n">GetPointer</span><span class="p">());</span>
+  <span class="n">uGrid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="n">uGrid</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakePyramid</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// Make a regular square pyramid.</span>
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="kt">float</span> <span class="n">p0</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">p2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">p3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">p4</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p3</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p4</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPyramid</span><span class="o">&gt;</span> <span class="n">pyramid</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPyramid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">pyramid</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">ug</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pyramid</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span><span class="n">pyramid</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="n">ug</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeTetrahedron</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// Make a tetrahedron.</span>
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span> <span class="n">vtkPoints</span> <span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span> <span class="n">vtkPoints</span> <span class="o">&gt;</span> <span class="o">::</span> <span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTetra</span><span class="o">&gt;</span> <span class="n">tetra</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTetra</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">tetra</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">cellArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellArray</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">tetra</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">unstructuredGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">unstructuredGrid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">unstructuredGrid</span><span class="o">-&gt;</span><span class="n">SetCells</span><span class="p">(</span><span class="n">VTK_TETRA</span><span class="p">,</span> <span class="n">cellArray</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="n">unstructuredGrid</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeVoxel</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// A voxel is a representation of a regular grid in 3-D space.</span>
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVoxel</span><span class="o">&gt;</span> <span class="n">voxel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVoxel</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">voxel</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">ug</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">voxel</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span><span class="n">voxel</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="n">ug</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">MakeWedge</span><span class="p">()</span>
+<span class="p">{</span>
+
+  <span class="c1">// A wedge consists of two triangular ends and three rectangular faces.</span>
+
+  <span class="kt">int</span> <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWedge</span><span class="o">&gt;</span> <span class="n">wedge</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWedge</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfVertices</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">wedge</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;</span> <span class="n">ug</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnstructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">ug</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">wedge</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span><span class="n">wedge</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="n">ug</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Cell3DDemonstration</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Cell3DDemonstration</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Cell3DDemonstration.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Cell3DDemonstration</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-cell3ddemonstration">Download and Build Cell3DDemonstration<a class="headerlink" href="#download-and-build-cell3ddemonstration" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Cell3DDemonstration.tar">here to download Cell3DDemonstration</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Cell3DDemonstration.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Cell3DDemonstration/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Cell3DDemonstration/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Cell3DDemonstration
-</code></pre>
+<div class="codehilite"><pre><span></span>./Cell3DDemonstration
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,102 +16019,109 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/CombineImages</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestCombineImages.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example takes two images and super imposes them. The opacity of each image can be set to control how they are combined.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CombineImages.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageViewer2.h&gt;
-#include &lt;vtkImageBlend.h&gt;
-#include &lt;string&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageViewer2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageBlend.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
-int main ( int argc, char* argv[] )
-{
-  // Parse input arguments
-  if ( argc != 3 )
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; Input1Filename Input2Filename&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Parse input arguments</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">3</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Input1Filename Input2Filename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  std::string input1Filename = argv[1];
-  std::string input2Filename = argv[2];
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">input1Filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">input2Filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-  // Read the images
-  vtkSmartPointer&lt;vtkJPEGReader&gt; jPEGReader1 =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  jPEGReader1-&gt;SetFileName ( input1Filename.c_str() );
+  <span class="c1">// Read the images</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">jPEGReader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">input1Filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkJPEGReader&gt; jPEGReader2 =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  jPEGReader2-&gt;SetFileName ( input2Filename.c_str() );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">jPEGReader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">input2Filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
 
-  // Combine the images (blend takes multiple connections on the 0th input port)
-  vtkSmartPointer&lt;vtkImageBlend&gt; blend =
-    vtkSmartPointer&lt;vtkImageBlend&gt;::New();
-  blend-&gt;AddInputConnection(jPEGReader1-&gt;GetOutputPort());
-  blend-&gt;AddInputConnection(jPEGReader2-&gt;GetOutputPort());
-  blend-&gt;SetOpacity(0,.5);
-  blend-&gt;SetOpacity(1,.5);
+  <span class="c1">// Combine the images (blend takes multiple connections on the 0th input port)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;</span> <span class="n">blend</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">jPEGReader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">jPEGReader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">.5</span><span class="p">);</span>
 
-  // Display the result
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="c1">// Display the result</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageViewer2&gt; imageViewer =
-    vtkSmartPointer&lt;vtkImageViewer2&gt;::New();
-  imageViewer-&gt;SetInputConnection(blend-&gt;GetOutputPort());
-  imageViewer-&gt;SetupInteractor(renderWindowInteractor);
-  imageViewer-&gt;GetRenderer()-&gt;ResetCamera();
-  imageViewer-&gt;GetRenderer()-&gt;SetBackground(1,0,0); //red
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;</span> <span class="n">imageViewer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">blend</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetupInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> <span class="c1">//red</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CombineImages)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CombineImages</span><span class="p">)</span>
 
-add_executable(CombineImages MACOSX_BUNDLE CombineImages.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CombineImages ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CombineImages</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CombineImages.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-combineimages">Download and Build CombineImages</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CombineImages</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-combineimages">Download and Build CombineImages<a class="headerlink" href="#download-and-build-combineimages" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CombineImages.tar">here to download CombineImages</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CombineImages.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CombineImages/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CombineImages/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CombineImages
-</code></pre>
+<div class="codehilite"><pre><span></span>./CombineImages
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

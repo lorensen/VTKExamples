@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,177 +16019,184 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/BoxClipStructuredPoints</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestBoxClipStructuredPoints.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example uses the data files: <a href="https://gitlab.kitware.com/lorensen/VTKExamples/raw/master/Testing/Data/HeadMRVolume.mhd">HeadMRVolume.mhd</a> and
 <a href="https://gitlab.kitware.com/lorensen/VTKExamples/blob/master/Testing/Data/HeadMRVolume.raw">HeadMRVolume.raw</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BoxClipStructuredPoints.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkBoxClipDataSet.h&gt;
-#include &lt;vtkLookupTable.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoxClipDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkMetaImageReader.h&gt;
-#include &lt;vtkImageData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkDataSetSurfaceFilter.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetSurfaceFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  if (argc &lt; 2)
-  {
-    std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; file.mhd&quot; &lt;&lt; endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; file.mhd&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Read the data
-  vtkSmartPointer&lt;vtkMetaImageReader&gt; reader =
-    vtkSmartPointer&lt;vtkMetaImageReader&gt;::New();
-  reader-&gt;SetFileName (argv[1]);
-  reader-&gt;Update();
+  <span class="c1">// Read the data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  double bounds[6];
-  reader-&gt;GetOutput()-&gt;GetBounds(bounds);  
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>  
 
-  double range[2];
-  reader-&gt;GetOutput()-&gt;GetScalarRange(range);  
+  <span class="kt">double</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>  
 
-  double minBoxPoint[3];
-  double maxBoxPoint[3];
-  minBoxPoint[0] = (bounds[1] - bounds[0]) / 2.0 + bounds[0];
-  minBoxPoint[1] = (bounds[3] - bounds[2]) / 2.0 + bounds[2];
-  minBoxPoint[2] = (bounds[5] - bounds[4]) / 2.0 + bounds[4];
-  maxBoxPoint[0] = bounds[1];
-  maxBoxPoint[1] = bounds[3];
-  maxBoxPoint[2] = bounds[5];
+  <span class="kt">double</span> <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+  <span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 
-  vtkSmartPointer&lt;vtkBoxClipDataSet&gt; boxClip =
-    vtkSmartPointer&lt;vtkBoxClipDataSet&gt;::New();
-  boxClip-&gt;SetInputConnection (reader-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxClipDataSet</span><span class="o">&gt;</span> <span class="n">boxClip</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoxClipDataSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxClip</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  const double minusx[] = { -1.0, -0.5, 0.0 };
-  const double minusy[] = { 0.0, -1.0, 0.0 };
-  const double minusz[] = { 0.0, 0.0, -1.0 };
-  const double plusx[] = { 1.0, 0.0, 0.0 };
-  const double plusy[] = { 0.0, 1.0, 0.0 };
-  const double plusz[] = { 0.0, 0.0, 1.0 };
-  boxClip-&gt;SetBoxClip(minusx, minBoxPoint,
-                      minusy, minBoxPoint,
-                      minusz, minBoxPoint,
-                      plusx, maxBoxPoint,
-                      plusy, maxBoxPoint,
-                      plusz, maxBoxPoint);
-  boxClip-&gt;GenerateClippedOutputOn();
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">minusx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">minusy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">minusz</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">plusx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">plusy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">};</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">plusz</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">};</span>
+  <span class="n">boxClip</span><span class="o">-&gt;</span><span class="n">SetBoxClip</span><span class="p">(</span><span class="n">minusx</span><span class="p">,</span> <span class="n">minBoxPoint</span><span class="p">,</span>
+                      <span class="n">minusy</span><span class="p">,</span> <span class="n">minBoxPoint</span><span class="p">,</span>
+                      <span class="n">minusz</span><span class="p">,</span> <span class="n">minBoxPoint</span><span class="p">,</span>
+                      <span class="n">plusx</span><span class="p">,</span> <span class="n">maxBoxPoint</span><span class="p">,</span>
+                      <span class="n">plusy</span><span class="p">,</span> <span class="n">maxBoxPoint</span><span class="p">,</span>
+                      <span class="n">plusz</span><span class="p">,</span> <span class="n">maxBoxPoint</span><span class="p">);</span>
+  <span class="n">boxClip</span><span class="o">-&gt;</span><span class="n">GenerateClippedOutputOn</span><span class="p">();</span>
 
-  // Define a lut
-  vtkSmartPointer&lt;vtkLookupTable&gt; lut1 =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  lut1-&gt;SetHueRange (0.667, 0);
+  <span class="c1">// Define a lut</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">SetHueRange</span> <span class="p">(</span><span class="mf">0.667</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDataSetSurfaceFilter&gt; surfaceIn =
-    vtkSmartPointer&lt;vtkDataSetSurfaceFilter&gt;::New();
-  surfaceIn-&gt;SetInputConnection (boxClip-&gt;GetOutputPort(0));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetSurfaceFilter</span><span class="o">&gt;</span> <span class="n">surfaceIn</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetSurfaceFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceIn</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">boxClip</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapperIn =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapperIn-&gt;SetInputConnection(surfaceIn-&gt;GetOutputPort());
-  mapperIn-&gt;SetScalarRange(reader-&gt;GetOutput()-&gt;GetScalarRange());
-  mapperIn-&gt;SetLookupTable(lut1);
-  mapperIn-&gt;SetColorModeToMapScalars();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapperIn</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapperIn</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">surfaceIn</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapperIn</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">());</span>
+  <span class="n">mapperIn</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut1</span><span class="p">);</span>
+  <span class="n">mapperIn</span><span class="o">-&gt;</span><span class="n">SetColorModeToMapScalars</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actorIn = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actorIn-&gt;SetMapper(mapperIn);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actorIn</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actorIn</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapperIn</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDataSetSurfaceFilter&gt; surfaceOut =
-    vtkSmartPointer&lt;vtkDataSetSurfaceFilter&gt;::New();
-  surfaceOut-&gt;SetInputConnection (boxClip-&gt;GetOutputPort(1));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetSurfaceFilter</span><span class="o">&gt;</span> <span class="n">surfaceOut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetSurfaceFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceOut</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">boxClip</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapperOut =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapperOut-&gt;SetInputConnection(surfaceOut-&gt;GetOutputPort());
-  mapperOut-&gt;SetScalarRange(reader-&gt;GetOutput()-&gt;GetScalarRange());
-  mapperOut-&gt;SetLookupTable(lut1);
-  mapperOut-&gt;SetColorModeToMapScalars();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapperOut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapperOut</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">surfaceOut</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapperOut</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">());</span>
+  <span class="n">mapperOut</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut1</span><span class="p">);</span>
+  <span class="n">mapperOut</span><span class="o">-&gt;</span><span class="n">SetColorModeToMapScalars</span><span class="p">();</span>
 
-  // Move the outside actor
-  vtkSmartPointer&lt;vtkActor&gt; actorOut = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actorOut-&gt;SetMapper(mapperOut);
-  actorOut-&gt;AddPosition(-.5 * (maxBoxPoint[0] - minBoxPoint[0]),
-                        -.5 * (maxBoxPoint[1] - minBoxPoint[1]),
-                        -.5 * (maxBoxPoint[2] - minBoxPoint[2]));
+  <span class="c1">// Move the outside actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actorOut</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actorOut</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapperOut</span><span class="p">);</span>
+  <span class="n">actorOut</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="o">-</span><span class="mf">.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                        <span class="o">-</span><span class="mf">.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                        <span class="o">-</span><span class="mf">.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">maxBoxPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">minBoxPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;SetBackground(.5, .5, .5);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actor to the scene
-  renderer-&gt;AddActor(actorIn);
-  renderer-&gt;AddActor(actorOut);
+  <span class="c1">// Add the actor to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actorIn</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actorOut</span><span class="p">);</span>
 
-  // Generate an interesting view
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(120);
-  renderer-&gt;GetActiveCamera()-&gt;Elevation(30);
-  renderer-&gt;GetActiveCamera()-&gt;Dolly(1.0);
-  renderer-&gt;ResetCameraClippingRange();
+  <span class="c1">// Generate an interesting view</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BoxClipStructuredPoints)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BoxClipStructuredPoints</span><span class="p">)</span>
 
-add_executable(BoxClipStructuredPoints MACOSX_BUNDLE BoxClipStructuredPoints.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BoxClipStructuredPoints ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BoxClipStructuredPoints</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BoxClipStructuredPoints.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-boxclipstructuredpoints">Download and Build BoxClipStructuredPoints</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BoxClipStructuredPoints</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-boxclipstructuredpoints">Download and Build BoxClipStructuredPoints<a class="headerlink" href="#download-and-build-boxclipstructuredpoints" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoxClipStructuredPoints.tar">here to download BoxClipStructuredPoints</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoxClipStructuredPoints.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BoxClipStructuredPoints/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BoxClipStructuredPoints/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BoxClipStructuredPoints
-</code></pre>
+<div class="codehilite"><pre><span></span>./BoxClipStructuredPoints
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,117 +15990,117 @@
                   <h1>vtkClipDataSetWithPolydata</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Meshes/vtkClipDataSetWithPolydata</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Meshes_vtkClipDataSetWithPolydata.png]"></a></p>
 <p>An example that shows how to use the vtkClipDataSet to clip a vtkRectilinearGrid with an arbitrary polydata. vtkImplicitPolyDataDistance is used to turn the polydata into an implicit function. Every point of the grid is evaluated before sending to vtkClipDataSet. This example uses a vtkConeSource to generate polydata to use, however any polydata could be used, including stl files.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>vtkClipDataSetWithPolydata.py</strong></p>
-<pre><code class="python">import vtk
-import numpy as np
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-# Create polydata to slice the grid with. In this case, use a cone. This could
-# be any polydata including a stl file.
-cone = vtk.vtkConeSource()
-cone.SetResolution(20)
-cone.Update()
+<span class="c1"># Create polydata to slice the grid with. In this case, use a cone. This could</span>
+<span class="c1"># be any polydata including a stl file.</span>
+<span class="n">cone</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">()</span>
+<span class="n">cone</span><span class="o">.</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">cone</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# implicit function that will be used to slice the mesh
-implicitPolyDataDistance = vtk.vtkImplicitPolyDataDistance()
-implicitPolyDataDistance.SetInput(cone.GetOutput())
+<span class="c1"># implicit function that will be used to slice the mesh</span>
+<span class="n">implicitPolyDataDistance</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImplicitPolyDataDistance</span><span class="p">()</span>
+<span class="n">implicitPolyDataDistance</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">cone</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-# create a grid
-xCoords = vtk.vtkFloatArray()
-for x, i in enumerate(np.linspace(-1.0, 1.0, 15)):
-    xCoords.InsertNextValue(i)
+<span class="c1"># create a grid</span>
+<span class="n">xCoords</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)):</span>
+    <span class="n">xCoords</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-yCoords = vtk.vtkFloatArray()
-for y, i in enumerate(np.linspace(-1.0, 1.0, 15)):
-    yCoords.InsertNextValue(i)
+<span class="n">yCoords</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)):</span>
+    <span class="n">yCoords</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-zCoords = vtk.vtkFloatArray()
-for z, i in enumerate(np.linspace(-1.0, 1.0, 15)):
-    zCoords.InsertNextValue(i)
+<span class="n">zCoords</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">z</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)):</span>
+    <span class="n">zCoords</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-# The coordinates are assigned to the rectilinear grid. Make sure that
-# the number of values in each of the XCoordinates, YCoordinates,
-# and ZCoordinates is equal to what is defined in SetDimensions().
-rgrid = vtk.vtkRectilinearGrid()
-rgrid.SetDimensions(x+1, y+1, z+1)
-rgrid.SetXCoordinates(xCoords)
-rgrid.SetYCoordinates(yCoords)
-rgrid.SetZCoordinates(zCoords)
+<span class="c1"># The coordinates are assigned to the rectilinear grid. Make sure that</span>
+<span class="c1"># the number of values in each of the XCoordinates, YCoordinates,</span>
+<span class="c1"># and ZCoordinates is equal to what is defined in SetDimensions().</span>
+<span class="n">rgrid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRectilinearGrid</span><span class="p">()</span>
+<span class="n">rgrid</span><span class="o">.</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rgrid</span><span class="o">.</span><span class="n">SetXCoordinates</span><span class="p">(</span><span class="n">xCoords</span><span class="p">)</span>
+<span class="n">rgrid</span><span class="o">.</span><span class="n">SetYCoordinates</span><span class="p">(</span><span class="n">yCoords</span><span class="p">)</span>
+<span class="n">rgrid</span><span class="o">.</span><span class="n">SetZCoordinates</span><span class="p">(</span><span class="n">zCoords</span><span class="p">)</span>
 
-# Create an array to hold distance information
-signedDistances = vtk.vtkFloatArray()
-signedDistances.SetNumberOfComponents(1)
-signedDistances.SetName(&quot;SignedDistances&quot;)
+<span class="c1"># Create an array to hold distance information</span>
+<span class="n">signedDistances</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">signedDistances</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">signedDistances</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;SignedDistances&quot;</span><span class="p">)</span>
 
-# Evaluate the signed distance function at all of the grid points
-for pointId in range(rgrid.GetNumberOfPoints()):
-    p = rgrid.GetPoint(pointId)
-    signedDistance = implicitPolyDataDistance.EvaluateFunction(p)
-    signedDistances.InsertNextValue(signedDistance)
+<span class="c1"># Evaluate the signed distance function at all of the grid points</span>
+<span class="k">for</span> <span class="n">pointId</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rgrid</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">rgrid</span><span class="o">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">pointId</span><span class="p">)</span>
+    <span class="n">signedDistance</span> <span class="o">=</span> <span class="n">implicitPolyDataDistance</span><span class="o">.</span><span class="n">EvaluateFunction</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">signedDistances</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">signedDistance</span><span class="p">)</span>
 
-# add the SignedDistances to the grid
-rgrid.GetPointData().SetScalars(signedDistances)
+<span class="c1"># add the SignedDistances to the grid</span>
+<span class="n">rgrid</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">signedDistances</span><span class="p">)</span>
 
-# use vtkClipDataSet to slice the grid with the polydata
-clipper = vtk.vtkClipDataSet()
-clipper.SetInputData(rgrid)
-clipper.InsideOutOn()
-clipper.SetValue(0.0)
-clipper.Update()
+<span class="c1"># use vtkClipDataSet to slice the grid with the polydata</span>
+<span class="n">clipper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkClipDataSet</span><span class="p">()</span>
+<span class="n">clipper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">rgrid</span><span class="p">)</span>
+<span class="n">clipper</span><span class="o">.</span><span class="n">InsideOutOn</span><span class="p">()</span>
+<span class="n">clipper</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">clipper</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# --- mappers, actors, render, etc. ---
-# mapper and actor to view the cone
-coneMapper = vtk.vtkPolyDataMapper()
-coneMapper.SetInputConnection(cone.GetOutputPort())
-coneActor = vtk.vtkActor()
-coneActor.SetMapper(coneMapper)
+<span class="c1"># --- mappers, actors, render, etc. ---</span>
+<span class="c1"># mapper and actor to view the cone</span>
+<span class="n">coneMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">coneMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cone</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">coneActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">coneActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">coneMapper</span><span class="p">)</span>
 
-# geometry filter to view the background grid
-geometryFilter = vtk.vtkRectilinearGridGeometryFilter()
-geometryFilter.SetInputData(rgrid)
-geometryFilter.SetExtent(0, x+1, 0, y+1, (z+1)//2, (z+1)//2)
-geometryFilter.Update()
+<span class="c1"># geometry filter to view the background grid</span>
+<span class="n">geometryFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRectilinearGridGeometryFilter</span><span class="p">()</span>
+<span class="n">geometryFilter</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">rgrid</span><span class="p">)</span>
+<span class="n">geometryFilter</span><span class="o">.</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">geometryFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-rgridMapper = vtk.vtkPolyDataMapper()
-rgridMapper.SetInputConnection(geometryFilter.GetOutputPort())
+<span class="n">rgridMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">rgridMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geometryFilter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-wireActor = vtk.vtkActor()
-wireActor.SetMapper(rgridMapper)
-wireActor.GetProperty().SetRepresentationToWireframe()
-wireActor.GetProperty().SetColor(.1, .1, .1)
+<span class="n">wireActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">wireActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">rgridMapper</span><span class="p">)</span>
+<span class="n">wireActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
+<span class="n">wireActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">)</span>
 
-# mapper and actor to view the clipped mesh
-clipperMapper = vtk.vtkDataSetMapper()
-clipperMapper.SetInputConnection(clipper.GetOutputPort())
+<span class="c1"># mapper and actor to view the clipped mesh</span>
+<span class="n">clipperMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="n">clipperMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">clipper</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-clipperActor = vtk.vtkActor()
-clipperActor.SetMapper(clipperMapper)
-clipperActor.GetProperty().SetRepresentationToWireframe()
-clipperActor.GetProperty().SetColor(.1, .1, .1)
+<span class="n">clipperActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">clipperActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">clipperMapper</span><span class="p">)</span>
+<span class="n">clipperActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
+<span class="n">clipperActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">)</span>
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(1, 1, 1)
+<span class="c1"># A renderer and render window</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-# add the actors
-#renderer.AddActor(coneActor)
-renderer.AddActor(wireActor)
-renderer.AddActor(clipperActor)
+<span class="c1"># add the actors</span>
+<span class="c1">#renderer.AddActor(coneActor)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">wireActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">clipperActor</span><span class="p">)</span>
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+<span class="n">renwin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renwin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
+<span class="c1"># An interactor</span>
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renwin</span><span class="p">)</span>
 
-# Start
-interactor.Initialize()
-interactor.Start()
-</code></pre>
+<span class="c1"># Start</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

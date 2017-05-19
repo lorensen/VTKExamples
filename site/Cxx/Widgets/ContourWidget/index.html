@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,129 +16019,136 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/ContourWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example generates a set of points which lie on a circle, and the contour through these points. This contour can be interactively warped/modified by dragging the control points.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ContourWidget.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-// To setup the ContourWidget and its representation:
-#include &lt;vtkContourWidget.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkOrientedGlyphContourRepresentation.h&gt;
-// To create the geometry:
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkMath.h&gt;
-// Usual VTK pipeline elements:
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="c1">// To setup the ContourWidget and its representation:</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOrientedGlyphContourRepresentation.h&gt;</span><span class="cp"></span>
+<span class="c1">// To create the geometry:</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="c1">// Usual VTK pipeline elements:</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
 
-int main( int argc, char *argv[] )
-{
-    // Create the contour widget
-    vtkSmartPointer&lt;vtkContourWidget&gt; contourWidget =
-        vtkSmartPointer&lt;vtkContourWidget&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Create the contour widget</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourWidget</span><span class="o">&gt;</span> <span class="n">contourWidget</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-    // Override the default representation for the contour widget to customize its look
-    vtkSmartPointer&lt;vtkOrientedGlyphContourRepresentation&gt; contourRepresentation =
-        vtkSmartPointer&lt;vtkOrientedGlyphContourRepresentation&gt;::New();
-    contourRepresentation-&gt;GetLinesProperty()-&gt;SetColor(1, 0, 0); // Set color to red
-    contourWidget-&gt;SetRepresentation(contourRepresentation);
+    <span class="c1">// Override the default representation for the contour widget to customize its look</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOrientedGlyphContourRepresentation</span><span class="o">&gt;</span> <span class="n">contourRepresentation</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOrientedGlyphContourRepresentation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">contourRepresentation</span><span class="o">-&gt;</span><span class="n">GetLinesProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// Set color to red</span>
+    <span class="n">contourWidget</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">contourRepresentation</span><span class="p">);</span>
 
-    // Generate a set of points arranged in a circle
-    int numPts = 10;
-    vtkSmartPointer&lt;vtkPoints&gt; points = vtkSmartPointer&lt;vtkPoints&gt;::New();
-    for (int i = 0; i &lt; numPts; i++)
-    {
-        // Create numPts points evenly spread around a circumference of radius 0.1
-        const double angle = 2.0*vtkMath::Pi()*i/numPts;
-        points-&gt;InsertPoint(static_cast&lt;vtkIdType&gt;(i), 0.1*cos(angle), 0.1*sin(angle), 0.0 );
-    }
+    <span class="c1">// Generate a set of points arranged in a circle</span>
+    <span class="kt">int</span> <span class="n">numPts</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numPts</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Create numPts points evenly spread around a circumference of radius 0.1</span>
+        <span class="k">const</span> <span class="kt">double</span> <span class="n">angle</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">()</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">numPts</span><span class="p">;</span>
+        <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mf">0.0</span> <span class="p">);</span>
+    <span class="p">}</span>
 
-    // Create a cell array to connect the points into meaningful geometry
-    vtkIdType* vertexIndices = new vtkIdType[numPts+1];
-    for (int i = 0; i &lt; numPts; i++) { vertexIndices[i] = static_cast&lt;vtkIdType&gt;(i); }
-    // Set the last vertex to 0; this means the last line segment will join the 19th point (vertices[19])
-    // with the first one (vertices[0]), thus closing the circle.
-    vertexIndices[numPts] = 0;
-    vtkSmartPointer&lt;vtkCellArray&gt; lines = vtkSmartPointer&lt;vtkCellArray&gt;::New();
-    lines-&gt;InsertNextCell(numPts+1, vertexIndices);
+    <span class="c1">// Create a cell array to connect the points into meaningful geometry</span>
+    <span class="n">vtkIdType</span><span class="o">*</span> <span class="n">vertexIndices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkIdType</span><span class="p">[</span><span class="n">numPts</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numPts</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="n">vertexIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="p">}</span>
+    <span class="c1">// Set the last vertex to 0; this means the last line segment will join the 19th point (vertices[19])</span>
+    <span class="c1">// with the first one (vertices[0]), thus closing the circle.</span>
+    <span class="n">vertexIndices</span><span class="p">[</span><span class="n">numPts</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">lines</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">numPts</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">vertexIndices</span><span class="p">);</span>
 
-    // Create polydata to hold the geometry just created, and populate it
-    vtkSmartPointer&lt;vtkPolyData&gt; polydata = vtkSmartPointer&lt;vtkPolyData&gt;::New();
-    polydata-&gt;SetPoints(points);
-    polydata-&gt;SetLines(lines);
+    <span class="c1">// Create polydata to hold the geometry just created, and populate it</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
 
-    // Create the renderer to visualize the scene
-    vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-        vtkSmartPointer&lt;vtkRenderer&gt;::New();
-    renderer-&gt;SetBackground(0.1, 0.2, 0.4); // Set a dark blue background (default is black)
+    <span class="c1">// Create the renderer to visualize the scene</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span> <span class="c1">// Set a dark blue background (default is black)</span>
 
-    // Create the GUI window to hold the rendered scene
-    vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-        vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-    renderWindow-&gt;AddRenderer(renderer);
+    <span class="c1">// Create the GUI window to hold the rendered scene</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-    // Create the events manager for the renderer window
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-        vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-    interactor-&gt;SetRenderWindow(renderWindow);
+    <span class="c1">// Create the events manager for the renderer window</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-    // Use the &quot;trackball camera&quot; interactor style, rather than the default &quot;joystick camera&quot;
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style =
-      vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New();
-    interactor-&gt;SetInteractorStyle(style);
+    <span class="c1">// Use the &quot;trackball camera&quot; interactor style, rather than the default &quot;joystick camera&quot;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-    // Set up the contour widget within the visualization pipeline just assembled
-    contourWidget-&gt;SetInteractor(interactor);
-    contourWidget-&gt;On(); // Turn on the interactor observer
-    contourWidget-&gt;Initialize(polydata);
-    renderer-&gt;ResetCamera(); // Reposition camera to fit the scene elements
+    <span class="c1">// Set up the contour widget within the visualization pipeline just assembled</span>
+    <span class="n">contourWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">);</span>
+    <span class="n">contourWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span> <span class="c1">// Turn on the interactor observer</span>
+    <span class="n">contourWidget</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span> <span class="c1">// Reposition camera to fit the scene elements</span>
 
-    // Start the interaction
-    interactor-&gt;Start();
+    <span class="c1">// Start the interaction</span>
+    <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-    return EXIT_SUCCESS;
-}
-</code></pre>
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ContourWidget)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ContourWidget</span><span class="p">)</span>
 
-add_executable(ContourWidget MACOSX_BUNDLE ContourWidget.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ContourWidget ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ContourWidget</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ContourWidget.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-contourwidget">Download and Build ContourWidget</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ContourWidget</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-contourwidget">Download and Build ContourWidget<a class="headerlink" href="#download-and-build-contourwidget" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ContourWidget.tar">here to download ContourWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ContourWidget.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ContourWidget/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ContourWidget/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ContourWidget
-</code></pre>
+<div class="codehilite"><pre><span></span>./ContourWidget
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,209 +16005,216 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/InfoVis/ParallelCoordinatesView</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/InfoVis/TestParallelCoordinatesView.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ParallelCoordinatesView.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkDelimitedTextReader.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDelimitedTextReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkParallelCoordinatesView.h&gt;
-#include &lt;vtkParallelCoordinatesRepresentation.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParallelCoordinatesView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParallelCoordinatesRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkStringArray.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkIntArray.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStringArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtksys/SystemTools.hxx&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtksys/SystemTools.hxx&gt;</span><span class="cp"></span>
 
-int main(int argc, char* argv[])
-{
-  vtkSmartPointer&lt;vtkTable&gt; table =
-    vtkSmartPointer&lt;vtkTable&gt;::New();
-  std::string title;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">table</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">title</span><span class="p">;</span>
 
-  if(argc &gt; 1)
-  {
-    std::string inputFilename;
-    inputFilename = argv[1];
-    vtkSmartPointer&lt;vtkDelimitedTextReader&gt; reader =
-      vtkSmartPointer&lt;vtkDelimitedTextReader&gt;::New();
-    reader-&gt;SetFileName(inputFilename.c_str());
-    reader-&gt;SetHaveHeaders(1);
-    reader-&gt;DetectNumericColumnsOn();
-    reader-&gt;SetFieldDelimiterCharacters(&quot;,&quot;);
-    reader-&gt;Update();
-    table = reader-&gt;GetOutput();
-    title = vtksys::SystemTools::GetFilenameWithoutExtension(
-      vtksys::SystemTools::GetFilenameName(inputFilename));
-  }
-  else
-  {
-    title = &quot;Generated Data&quot;;
-    vtkSmartPointer&lt;vtkIntArray&gt; array1 =
-      vtkSmartPointer&lt;vtkIntArray&gt;::New();
-    array1-&gt;SetName(&quot;Array1&quot;);
-    array1-&gt;SetNumberOfComponents(1);
-    array1-&gt;InsertNextValue(0);
-    array1-&gt;InsertNextValue(1);
-    array1-&gt;InsertNextValue(2);
-    array1-&gt;InsertNextValue(3);
-    array1-&gt;InsertNextValue(4);
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span><span class="p">;</span>
+    <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelimitedTextReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelimitedTextReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetHaveHeaders</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">DetectNumericColumnsOn</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFieldDelimiterCharacters</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">vtksys</span><span class="o">::</span><span class="n">SystemTools</span><span class="o">::</span><span class="n">GetFilenameWithoutExtension</span><span class="p">(</span>
+      <span class="n">vtksys</span><span class="o">::</span><span class="n">SystemTools</span><span class="o">::</span><span class="n">GetFilenameName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Generated Data&quot;</span><span class="p">;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">array1</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Array1&quot;</span><span class="p">);</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">array1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkFloatArray&gt; array2 =
-      vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-    array2-&gt;SetName(&quot;Array2&quot;);
-    array2-&gt;SetNumberOfComponents(1);
-    array2-&gt;InsertNextValue(-0);
-    array2-&gt;InsertNextValue(-1);
-    array2-&gt;InsertNextValue(-2);
-    array2-&gt;InsertNextValue(-3);
-    array2-&gt;InsertNextValue(-4);
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">array2</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Array2&quot;</span><span class="p">);</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="o">-</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">array2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkDoubleArray&gt; array3 =
-      vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-    array3-&gt;SetName(&quot;Array3&quot;);
-    array3-&gt;SetNumberOfComponents(1);
-    array3-&gt;InsertNextValue(0);
-    array3-&gt;InsertNextValue(1);
-    array3-&gt;InsertNextValue(4);
-    array3-&gt;InsertNextValue(9);
-    array3-&gt;InsertNextValue(16);
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">array3</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Array3&quot;</span><span class="p">);</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+    <span class="n">array3</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
 
-    table-&gt;AddColumn(array1);
-    table-&gt;AddColumn(array2);
-    table-&gt;AddColumn(array3);
-  }
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">array1</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">array2</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">array3</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for (vtkIdType i = 0; i &lt; table-&gt;GetNumberOfColumns(); ++i)
-  {
-    if (vtkStringArray::SafeDownCast(table-&gt;GetColumn(i)))
-    {
-      std::cout &lt;&lt; i &lt;&lt; &quot; is &quot;
-                &lt;&lt; &quot;StringArray named &quot;;
-    }
-    else if (vtkDoubleArray::SafeDownCast(table-&gt;GetColumn(i)))
-    {
-      std::cout &lt;&lt; i &lt;&lt; &quot; is &quot;
-                &lt;&lt; &quot;DoubleArray named &quot;;
-    }
-    else if (vtkFloatArray::SafeDownCast(table-&gt;GetColumn(i)))
-    {
-      std::cout &lt;&lt; i &lt;&lt; &quot; is &quot;
-                &lt;&lt; &quot;DoubleArray named &quot;;
-    }
-    else if (vtkIntArray::SafeDownCast(table-&gt;GetColumn(i)))
-    {
-      std::cout &lt;&lt; i &lt;&lt; &quot; is &quot;
-                &lt;&lt; &quot;IntArray named &quot;;
-    }
-    else
-    {
-      std::cout &lt;&lt; i &lt;&lt; &quot; is &quot;
-                &lt;&lt; &quot;Unknown type named &quot;;
-    }
-    std::cout &lt;&lt; &quot;\&quot;&quot; &lt;&lt; table-&gt;GetColumn(i)-&gt;GetName() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfColumns</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">vtkStringArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot;StringArray named &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot;DoubleArray named &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot;DoubleArray named &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">vtkIntArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot;IntArray named &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="s">&quot;Unknown type named &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    polydata-&gt;GetPointData()-&gt;AddArray(table-&gt;GetColumn(i));
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
 
-  }
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkParallelCoordinatesRepresentation&gt; rep =
-    vtkSmartPointer&lt;vtkParallelCoordinatesRepresentation&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParallelCoordinatesRepresentation</span><span class="o">&gt;</span> <span class="n">rep</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParallelCoordinatesRepresentation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  rep-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-  rep-&gt;SetInputData(polydata);
-#endif
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  // List all of the attribute arrays you want plotted in parallel coordinates
-  // Set up the parallel coordinates Representation to be used in the View
-  for (vtkIdType i = 0; i &lt; table-&gt;GetNumberOfColumns(); ++i)
-  {
-    if (vtkStringArray::SafeDownCast(table-&gt;GetColumn(i)))
-    {
-      continue;
-    }
-    else
-    {
-      rep-&gt;SetInputArrayToProcess(i, 0, 0, 0, table-&gt;GetColumn(i)-&gt;GetName());
-    }
-  }
-  rep-&gt;UseCurvesOn();
-  rep-&gt;SetFontSize(.5);
-  rep-&gt;SetPlotTitle(title.c_str());
-  rep-&gt;SetLineOpacity(0.5);
-  rep-&gt;SetLineColor(0.89, 0.81, 0.3);
-  rep-&gt;SetAxisColor(1.0, 0.3882, 0.2784);
-  rep-&gt;SetAxisLabelColor(1, 1, 1);
+  <span class="c1">// List all of the attribute arrays you want plotted in parallel coordinates</span>
+  <span class="c1">// Set up the parallel coordinates Representation to be used in the View</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetNumberOfColumns</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">vtkStringArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="p">{</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">UseCurvesOn</span><span class="p">();</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetPlotTitle</span><span class="p">(</span><span class="n">title</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetLineOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetLineColor</span><span class="p">(</span><span class="mf">0.89</span><span class="p">,</span> <span class="mf">0.81</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetAxisColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetAxisLabelColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  // Set up the Parallel Coordinates View and hook in the Representation
-  vtkSmartPointer&lt;vtkParallelCoordinatesView&gt; view =
-    vtkSmartPointer&lt;vtkParallelCoordinatesView&gt;::New();
-  view-&gt;SetRepresentation(rep);
-  view-&gt;SetInspectMode(1);
-  view-&gt;SetDisplayHoverText(1);
+  <span class="c1">// Set up the Parallel Coordinates View and hook in the Representation</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParallelCoordinatesView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParallelCoordinatesView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetDisplayHoverText</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  // Brush Mode determines the type of interaction you perform to select data
-  view-&gt;SetBrushModeToLasso();
-  view-&gt;SetBrushOperatorToReplace();
+  <span class="c1">// Brush Mode determines the type of interaction you perform to select data</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetBrushModeToLasso</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetBrushOperatorToReplace</span><span class="p">();</span>
 
-  // Set up render window
-  view-&gt;GetRenderWindow()-&gt;SetSize(600,300);
-  view-&gt;ResetCamera();
-  view-&gt;Render();
+  <span class="c1">// Set up render window</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Start interaction event loop
-  view-&gt;GetInteractor()-&gt;Start();
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="c1">// Start interaction event loop</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ParallelCoordinatesView)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ParallelCoordinatesView</span><span class="p">)</span>
 
-add_executable(ParallelCoordinatesView MACOSX_BUNDLE ParallelCoordinatesView.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ParallelCoordinatesView ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ParallelCoordinatesView</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ParallelCoordinatesView.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-parallelcoordinatesview">Download and Build ParallelCoordinatesView</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ParallelCoordinatesView</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-parallelcoordinatesview">Download and Build ParallelCoordinatesView<a class="headerlink" href="#download-and-build-parallelcoordinatesview" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ParallelCoordinatesView.tar">here to download ParallelCoordinatesView</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ParallelCoordinatesView.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ParallelCoordinatesView/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ParallelCoordinatesView/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ParallelCoordinatesView
-</code></pre>
+<div class="codehilite"><pre><span></span>./ParallelCoordinatesView
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

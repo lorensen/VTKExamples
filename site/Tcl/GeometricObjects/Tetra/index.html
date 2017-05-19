@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15521,6 +15521,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15964,41 +15976,41 @@
                   <h1>Tetra</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Tcl">Tcl</a>/GeometricObjects/Tetra</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Tetra.tcl</strong></p>
-<pre><code class="tcl">package require vtk
+<div class="codehilite"><pre><span></span><span class="nb">package</span> require vtk
 
-vtkUnstructuredGridWriter writer
+<span class="nv">vtkUnstructuredGridWriter</span> writer
 
-#Generate a synthetic Tetrahedron
-vtkPoints points
-points SetDataTypeToDouble
-points InsertNextPoint 0 -1 -1
-points InsertNextPoint -1 -1 1
-points InsertNextPoint 1 1 1
-points InsertNextPoint 0 1 0
+<span class="c">#Generate a synthetic Tetrahedron</span>
+<span class="nv">vtkPoints</span> points
+<span class="nv">points</span> SetDataTypeToDouble
+<span class="nv">points</span> InsertNextPoint <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
+<span class="nv">points</span> InsertNextPoint <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">1</span>
+<span class="nv">points</span> InsertNextPoint <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="nv">points</span> InsertNextPoint <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
 
-vtkTetra tetra
-[tetra GetPointIds] SetId 0 0
-[tetra GetPointIds] SetId 1 1
-[tetra GetPointIds] SetId 2 2
-[tetra GetPointIds] SetId 3 3
+<span class="nv">vtkTetra</span> tetra
+<span class="k">[</span><span class="nv">tetra</span> GetPointIds<span class="k">]</span> <span class="nv">SetId</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="k">[</span><span class="nv">tetra</span> GetPointIds<span class="k">]</span> <span class="nv">SetId</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="k">[</span><span class="nv">tetra</span> GetPointIds<span class="k">]</span> <span class="nv">SetId</span> <span class="mi">2</span> <span class="mi">2</span>
+<span class="k">[</span><span class="nv">tetra</span> GetPointIds<span class="k">]</span> <span class="nv">SetId</span> <span class="mi">3</span> <span class="mi">3</span>
 
-set cellType [tetra GetCellType]
-vtkUnstructuredGrid tetraGrid
-tetraGrid SetPoints points
-tetraGrid InsertNextCell $cellType [tetra GetPointIds]
+<span class="k">set</span> cellType <span class="k">[</span><span class="nv">tetra</span> GetCellType<span class="k">]</span>
+<span class="nv">vtkUnstructuredGrid</span> tetraGrid
+<span class="nv">tetraGrid</span> SetPoints points
+<span class="nv">tetraGrid</span> InsertNextCell <span class="nv">$cellType</span> <span class="k">[</span><span class="nv">tetra</span> GetPointIds<span class="k">]</span>
 
-vtkDelaunay3D tetraMesh
-tetraMesh SetInput tetraGrid
-tetraMesh Update
+<span class="nv">vtkDelaunay3D</span> tetraMesh
+<span class="nv">tetraMesh</span> SetInput tetraGrid
+<span class="nv">tetraMesh</span> Update
 
-#Write unstructured grid file
-set filename &quot;tetra.vtu&quot;
-writer SetInput [ tetraMesh GetOutput ]
-writer SetFileName $filename
-writer Update
-</code></pre>
+<span class="c">#Write unstructured grid file</span>
+<span class="k">set</span> filename <span class="s2">&quot;tetra.vtu&quot;</span>
+<span class="nv">writer</span> SetInput <span class="k">[</span> <span class="nv">tetraMesh</span> GetOutput <span class="k">]</span>
+<span class="nv">writer</span> SetFileName <span class="nv">$filename</span>
+<span class="nv">writer</span> Update
+</pre></div>
                 
                   
                 

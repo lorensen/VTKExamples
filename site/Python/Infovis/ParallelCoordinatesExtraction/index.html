@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,155 +15990,155 @@
                   <h1>ParallelCoordinatesExtraction</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Infovis/ParallelCoordinatesExtraction</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>[in a Parallel Coordinates View is used to define indices to extract and view in a standard 3d render window]]([Image:ParallelCoordinatesExtraction.png|Selection)</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ParallelCoordinatesExtraction.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-# Example of how to use Parallel Coordinates View to plot and compare
-# data set attributes,  and then to use selections in the parallel coordinates
-# view to extract and view data points associated with those selections
-# Use the &quot;u&quot; character to toggle between &quot;inspect modes&quot; on the parallel
-# coordinates view (i.e. between selecting data and manipulating axes)
-# Note that no points will show up inside of the 3d box outline until you
-# select some lines/curves in the parallel coordinates view
+<span class="c1"># Example of how to use Parallel Coordinates View to plot and compare</span>
+<span class="c1"># data set attributes,  and then to use selections in the parallel coordinates</span>
+<span class="c1"># view to extract and view data points associated with those selections</span>
+<span class="c1"># Use the &quot;u&quot; character to toggle between &quot;inspect modes&quot; on the parallel</span>
+<span class="c1"># coordinates view (i.e. between selecting data and manipulating axes)</span>
+<span class="c1"># Note that no points will show up inside of the 3d box outline until you</span>
+<span class="c1"># select some lines/curves in the parallel coordinates view</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Generate an image data set with multiple attribute arrays to probe and view
-rt = vtk.vtkRTAnalyticSource()
-rt.SetWholeExtent(-3, 3, -3, 3, -3, 3)
-grad = vtk.vtkImageGradient()
-grad.SetDimensionality(3)
-grad.SetInputConnection(rt.GetOutputPort())
-brown = vtk.vtkBrownianPoints()
-brown.SetMinimumSpeed(0.5)
-brown.SetMaximumSpeed(1.0)
-brown.SetInputConnection(grad.GetOutputPort())
-elev = vtk.vtkElevationFilter()
-elev.SetLowPoint(-3, -3, -3)
-elev.SetHighPoint(3, 3, 3)
-elev.SetInputConnection(brown.GetOutputPort())
+<span class="c1"># Generate an image data set with multiple attribute arrays to probe and view</span>
+<span class="n">rt</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRTAnalyticSource</span><span class="p">()</span>
+<span class="n">rt</span><span class="o">.</span><span class="n">SetWholeExtent</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">grad</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageGradient</span><span class="p">()</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">rt</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">brown</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBrownianPoints</span><span class="p">()</span>
+<span class="n">brown</span><span class="o">.</span><span class="n">SetMinimumSpeed</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">brown</span><span class="o">.</span><span class="n">SetMaximumSpeed</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">brown</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">elev</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkElevationFilter</span><span class="p">()</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">brown</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# Updating here because I will need to probe scalar ranges before
-# the render window updates the pipeline
-elev.Update()
+<span class="c1"># Updating here because I will need to probe scalar ranges before</span>
+<span class="c1"># the render window updates the pipeline</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# Set up parallel coordinates representation to be used in View
-rep = vtk.vtkParallelCoordinatesRepresentation()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    rep.SetInput(elev.GetOutput())
-else:
-    rep.SetInputConnection(elev.GetOutputPort())
-rep.SetInputArrayToProcess(0, 0, 0, 0, 'RTDataGradient')
-rep.SetInputArrayToProcess(1, 0, 0, 0, 'RTData')
-rep.SetInputArrayToProcess(2, 0, 0, 0, 'Elevation')
-rep.SetInputArrayToProcess(3, 0, 0, 0, 'BrownianVectors')
-rep.SetUseCurves(0)  # set to 1 to use smooth curves
-rep.SetLineOpacity(0.5)
+<span class="c1"># Set up parallel coordinates representation to be used in View</span>
+<span class="n">rep</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParallelCoordinatesRepresentation</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">rep</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">elev</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">rep</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">elev</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;RTDataGradient&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;RTData&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;BrownianVectors&#39;</span><span class="p">)</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetUseCurves</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># set to 1 to use smooth curves</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetLineOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-# Set up the Parallel Coordinates View and hook in representation
-view = vtk.vtkParallelCoordinatesView()
-view.SetRepresentation(rep)
-view.SetInspectMode(1)  # VTK_INSPECT_SELECT_DATA = 1
-view.SetBrushOperatorToReplace()
-view.SetBrushModeToLasso()
+<span class="c1"># Set up the Parallel Coordinates View and hook in representation</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParallelCoordinatesView</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">rep</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># VTK_INSPECT_SELECT_DATA = 1</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetBrushOperatorToReplace</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetBrushModeToLasso</span><span class="p">()</span>
 
-# Create a annotation link to access selection in parallel coordinates view
-annotationLink = vtk.vtkAnnotationLink()
-# If you don't set the FieldType explicitly it ends up as UNKNOWN
-# (as of 21 Feb 2010)
-# See vtkSelectionNode doc for field and content type enum values
-annotationLink.GetCurrentSelection().GetNode(0).SetFieldType(1)  # Point
-annotationLink.GetCurrentSelection().GetNode(0).SetContentType(4)  # Indices
-# Update before passing annotationLink to vtkExtractSelection 
-annotationLink.Update()
-# Connect the annotation link to the parallel coordinates representation
-rep.SetAnnotationLink(annotationLink)
+<span class="c1"># Create a annotation link to access selection in parallel coordinates view</span>
+<span class="n">annotationLink</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkAnnotationLink</span><span class="p">()</span>
+<span class="c1"># If you don&#39;t set the FieldType explicitly it ends up as UNKNOWN</span>
+<span class="c1"># (as of 21 Feb 2010)</span>
+<span class="c1"># See vtkSelectionNode doc for field and content type enum values</span>
+<span class="n">annotationLink</span><span class="o">.</span><span class="n">GetCurrentSelection</span><span class="p">()</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">SetFieldType</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Point</span>
+<span class="n">annotationLink</span><span class="o">.</span><span class="n">GetCurrentSelection</span><span class="p">()</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">SetContentType</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># Indices</span>
+<span class="c1"># Update before passing annotationLink to vtkExtractSelection </span>
+<span class="n">annotationLink</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="c1"># Connect the annotation link to the parallel coordinates representation</span>
+<span class="n">rep</span><span class="o">.</span><span class="n">SetAnnotationLink</span><span class="p">(</span><span class="n">annotationLink</span><span class="p">)</span>
 
-# Extract portion of data corresponding to parallel coordinates selection
-extract = vtk.vtkExtractSelection()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    extract.SetInput(0, elev.GetOutput())
-    extract.SetInput(1, annotationLink.GetOutputDataObject(2))
-else:
-    extract.SetInputConnection(0, elev.GetOutputPort())
-    extract.SetInputConnection(1, annotationLink.GetOutputPort(2))
-
-
-def UpdateRenderWindows(obj, event):
-
-    # Handle updating of RenderWindow since it's not a &quot;View&quot;
-    # and so not covered by vtkViewUpdater
-    # ren.ResetCamera()
-    renWin.Render()
-
-# Set up callback to update 3d render window when selections are changed in
-# parallel coordinates view
-annotationLink.AddObserver(&quot;AnnotationChangedEvent&quot;,  UpdateRenderWindows)
+<span class="c1"># Extract portion of data corresponding to parallel coordinates selection</span>
+<span class="n">extract</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkExtractSelection</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">extract</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">elev</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">extract</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">annotationLink</span><span class="o">.</span><span class="n">GetOutputDataObject</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">extract</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">elev</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">extract</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">annotationLink</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 
 
-def ToggleInspectors(obj, event):
+<span class="k">def</span> <span class="nf">UpdateRenderWindows</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-    if (view.GetInspectMode() == 0):
-        view.SetInspectMode(1)
-    else:
-        view.SetInspectMode(0)
+    <span class="c1"># Handle updating of RenderWindow since it&#39;s not a &quot;View&quot;</span>
+    <span class="c1"># and so not covered by vtkViewUpdater</span>
+    <span class="c1"># ren.ResetCamera()</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-# Set up callback to toggle between inspect modes (manip axes &amp; select data)
-view.GetInteractor().AddObserver(&quot;UserEvent&quot;, ToggleInspectors)
+<span class="c1"># Set up callback to update 3d render window when selections are changed in</span>
+<span class="c1"># parallel coordinates view</span>
+<span class="n">annotationLink</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;AnnotationChangedEvent&quot;</span><span class="p">,</span>  <span class="n">UpdateRenderWindows</span><span class="p">)</span>
 
-# 3D outline of image data bounds
-outline = vtk.vtkOutlineFilter()
-outline.SetInputConnection(elev.GetOutputPort())
-outlineMapper = vtk.vtkPolyDataMapper()
-outlineMapper.SetInputConnection(outline.GetOutputPort())
-outlineActor = vtk.vtkActor()
-outlineActor.SetMapper(outlineMapper)
 
-# Build the lookup table for the 3d data scalar colors (brown to white)
-lut = vtk.vtkLookupTable()
-lut.SetTableRange(0, 256)
-lut.SetHueRange(0.1, 0.1)
-lut.SetSaturationRange(1.0, 0.1)
-lut.SetValueRange(0.4, 1.0)
-lut.Build()
+<span class="k">def</span> <span class="nf">ToggleInspectors</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-# Set up the 3d rendering parameters
-# of the image data which is selected in parallel coordinates
-coloring_by = 'Elevation'
-dataMapper = vtk.vtkDataSetMapper()
-dataMapper.SetInputConnection(extract.GetOutputPort())
-dataMapper.SetScalarModeToUsePointFieldData()
-dataMapper.SetColorModeToMapScalars()
-data = elev.GetOutputDataObject(0).GetPointData()
-dataMapper.ScalarVisibilityOn()
-dataMapper.SetScalarRange(data.GetArray(coloring_by).GetRange())
-dataMapper.SetLookupTable(lut)
-dataMapper.SelectColorArray(coloring_by)
-dataActor = vtk.vtkActor()
-dataActor.SetMapper(dataMapper)
-dataActor.GetProperty().SetRepresentationToPoints()
-dataActor.GetProperty().SetPointSize(10)
+    <span class="k">if</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">GetInspectMode</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">SetInspectMode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-# Set up the 3d render window and add both actors
-ren = vtk.vtkRenderer()
-ren.AddActor(outlineActor)
-ren.AddActor(dataActor)
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-ren.ResetCamera()
-renWin.Render()
+<span class="c1"># Set up callback to toggle between inspect modes (manip axes &amp; select data)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;UserEvent&quot;</span><span class="p">,</span> <span class="n">ToggleInspectors</span><span class="p">)</span>
 
-# Finalize parallel coordinates view and start interaction event loop
-view.GetRenderWindow().SetSize(600, 300)
-view.ResetCamera()
-view.Render()
-view.GetInteractor().Start()
-</code></pre>
+<span class="c1"># 3D outline of image data bounds</span>
+<span class="n">outline</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkOutlineFilter</span><span class="p">()</span>
+<span class="n">outline</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">elev</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">outlineMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">outlineMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outline</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">outlineActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">outlineActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outlineMapper</span><span class="p">)</span>
+
+<span class="c1"># Build the lookup table for the 3d data scalar colors (brown to white)</span>
+<span class="n">lut</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+<span class="n">lut</span><span class="o">.</span><span class="n">SetTableRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="n">lut</span><span class="o">.</span><span class="n">SetHueRange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">lut</span><span class="o">.</span><span class="n">SetSaturationRange</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">lut</span><span class="o">.</span><span class="n">SetValueRange</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">lut</span><span class="o">.</span><span class="n">Build</span><span class="p">()</span>
+
+<span class="c1"># Set up the 3d rendering parameters</span>
+<span class="c1"># of the image data which is selected in parallel coordinates</span>
+<span class="n">coloring_by</span> <span class="o">=</span> <span class="s1">&#39;Elevation&#39;</span>
+<span class="n">dataMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">SetScalarModeToUsePointFieldData</span><span class="p">()</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">SetColorModeToMapScalars</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">elev</span><span class="o">.</span><span class="n">GetOutputDataObject</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">ScalarVisibilityOn</span><span class="p">()</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">GetArray</span><span class="p">(</span><span class="n">coloring_by</span><span class="p">)</span><span class="o">.</span><span class="n">GetRange</span><span class="p">())</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
+<span class="n">dataMapper</span><span class="o">.</span><span class="n">SelectColorArray</span><span class="p">(</span><span class="n">coloring_by</span><span class="p">)</span>
+<span class="n">dataActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">dataActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">dataMapper</span><span class="p">)</span>
+<span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetRepresentationToPoints</span><span class="p">()</span>
+<span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Set up the 3d render window and add both actors</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">dataActor</span><span class="p">)</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+
+<span class="c1"># Finalize parallel coordinates view and start interaction event loop</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,171 +16005,178 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/FastSplatter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestFastSplatter.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FastSplatter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &quot;vtkImageData.h&quot;
-#include &quot;vtkImageShiftScale.h&quot;
-#include &quot;vtkFastSplatter.h&quot;
-#include &quot;vtkImageViewer2.h&quot;
-#include &quot;vtkPoints.h&quot;
-#include &quot;vtkPolyData.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkSmartPointer.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkImageData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkImageShiftScale.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkFastSplatter.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkImageViewer2.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPoints.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-#include &lt;cmath&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
 
-const int SPLAT_IMAGE_SIZE = 100;
+<span class="k">const</span> <span class="kt">int</span> <span class="n">SPLAT_IMAGE_SIZE</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 
-int main(int, char *[])
-{
-  // For the purposes of this example we'll build the splat image by
-  // hand.
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// For the purposes of this example we&#39;ll build the splat image by</span>
+  <span class="c1">// hand.</span>
 
-  vtkSmartPointer&lt;vtkImageData&gt; splatImage =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  splatImage-&gt;SetDimensions(SPLAT_IMAGE_SIZE, SPLAT_IMAGE_SIZE, 1);
-#if VTK_MAJOR_VERSION &lt;= 5
-  splatImage-&gt;SetScalarTypeToFloat();
-  splatImage-&gt;SetNumberOfScalarComponents(1);
-  splatImage-&gt;AllocateScalars();
-#else
-  splatImage-&gt;AllocateScalars(VTK_FLOAT,1);
-#endif
-  for (int i = 0; i &lt; SPLAT_IMAGE_SIZE; ++i)
-  {
-    for (int j = 0; j &lt; SPLAT_IMAGE_SIZE; ++j)
-    {
-      double xCoord = 1 - fabs(  (i - SPLAT_IMAGE_SIZE/2)
-                               / (SPLAT_IMAGE_SIZE/2.0) );
-      double yCoord = 1 - fabs(  (j - SPLAT_IMAGE_SIZE/2)
-                               / (SPLAT_IMAGE_SIZE/2.0) );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">splatImage</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">splatImage</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">SPLAT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">SPLAT_IMAGE_SIZE</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">splatImage</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToFloat</span><span class="p">();</span>
+  <span class="n">splatImage</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">splatImage</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">splatImage</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_FLOAT</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SPLAT_IMAGE_SIZE</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">SPLAT_IMAGE_SIZE</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">xCoord</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fabs</span><span class="p">(</span>  <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">SPLAT_IMAGE_SIZE</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+                               <span class="o">/</span> <span class="p">(</span><span class="n">SPLAT_IMAGE_SIZE</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> <span class="p">);</span>
+      <span class="kt">double</span> <span class="n">yCoord</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fabs</span><span class="p">(</span>  <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">SPLAT_IMAGE_SIZE</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+                               <span class="o">/</span> <span class="p">(</span><span class="n">SPLAT_IMAGE_SIZE</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span> <span class="p">);</span>
 
-      splatImage-&gt;SetScalarComponentFromDouble(i, j, 0, 0,
-                                               xCoord * yCoord );
-    }
-  }
+      <span class="n">splatImage</span><span class="o">-&gt;</span><span class="n">SetScalarComponentFromDouble</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                               <span class="n">xCoord</span> <span class="o">*</span> <span class="n">yCoord</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; splatPoints =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">splatPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  points-&gt;SetNumberOfPoints( 5 );
-  double point[3];
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span> <span class="mi">5</span> <span class="p">);</span>
+  <span class="kt">double</span> <span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-  point[0] = 0;
-  point[1] = 0;
-  point[2] = 0;
-  points-&gt;SetPoint( 0, point );
+  <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">point</span> <span class="p">);</span>
 
-  point[0] = 1;
-  point[1] = 1;
-  point[2] = 0;
-  points-&gt;SetPoint( 1, point );
+  <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">point</span> <span class="p">);</span>
 
-  point[0] = -1;
-  point[1] = 1;
-  point[2] = 0;
-  points-&gt;SetPoint( 2, point );
+  <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="n">point</span> <span class="p">);</span>
 
-  point[0] = 1;
-  point[1] = -1;
-  point[2] = 0;
-  points-&gt;SetPoint( 3, point );
+  <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="n">point</span> <span class="p">);</span>
 
-  point[0] = -1;
-  point[1] = -1;
-  point[2] = 0;
-  points-&gt;SetPoint( 4, point );
+  <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span> <span class="mi">4</span><span class="p">,</span> <span class="n">point</span> <span class="p">);</span>
 
-  splatPoints-&gt;SetPoints(points);
+  <span class="n">splatPoints</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkFastSplatter&gt; splatter =
-    vtkSmartPointer&lt;vtkFastSplatter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  splatter-&gt;SetInput( splatPoints );
-  splatter-&gt;SetInput(1, splatImage );
-#else
-  splatter-&gt;SetInputData(splatPoints );
-  splatter-&gt;SetInputData(1, splatImage );
-#endif
-  splatter-&gt;SetOutputDimensions( 2*SPLAT_IMAGE_SIZE,
-                                 2*SPLAT_IMAGE_SIZE,
-                                 1 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFastSplatter</span><span class="o">&gt;</span> <span class="n">splatter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFastSplatter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">splatPoints</span> <span class="p">);</span>
+  <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">splatImage</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">splatPoints</span> <span class="p">);</span>
+  <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">splatImage</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">SetOutputDimensions</span><span class="p">(</span> <span class="mi">2</span><span class="o">*</span><span class="n">SPLAT_IMAGE_SIZE</span><span class="p">,</span>
+                                 <span class="mi">2</span><span class="o">*</span><span class="n">SPLAT_IMAGE_SIZE</span><span class="p">,</span>
+                                 <span class="mi">1</span> <span class="p">);</span>
 
-  // The image viewers and writers are only happy with unsigned char
-  // images.  This will convert the floats into that format.
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; resultScale =
-    vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  resultScale-&gt;SetOutputScalarTypeToUnsignedChar();
-  resultScale-&gt;SetShift(0);
-  resultScale-&gt;SetScale(255);
-  resultScale-&gt;SetInputConnection( splatter-&gt;GetOutputPort() );
+  <span class="c1">// The image viewers and writers are only happy with unsigned char</span>
+  <span class="c1">// images.  This will convert the floats into that format.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">resultScale</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">resultScale</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">resultScale</span><span class="o">-&gt;</span><span class="n">SetShift</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">resultScale</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+  <span class="n">resultScale</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  splatter-&gt;Update();
-  resultScale-&gt;Update();
+  <span class="n">splatter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">resultScale</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Set up a viewer for the image.  vtkImageViewer and
-  // vtkImageViewer2 are convenient wrappers around vtkActor2D,
-  // vtkImageMapper, vtkRenderer, and vtkRenderWindow.  All you need
-  // to supply is the interactor and hooray, Bob's your uncle.
-  vtkSmartPointer&lt;vtkImageViewer2&gt; imageViewer =
-    vtkSmartPointer&lt;vtkImageViewer2&gt;::New();
-  imageViewer-&gt;SetInputConnection( resultScale-&gt;GetOutputPort() );
-  imageViewer-&gt;SetColorLevel(127);
-  imageViewer-&gt;SetColorWindow(255);
+  <span class="c1">// Set up a viewer for the image.  vtkImageViewer and</span>
+  <span class="c1">// vtkImageViewer2 are convenient wrappers around vtkActor2D,</span>
+  <span class="c1">// vtkImageMapper, vtkRenderer, and vtkRenderWindow.  All you need</span>
+  <span class="c1">// to supply is the interactor and hooray, Bob&#39;s your uncle.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;</span> <span class="n">imageViewer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">resultScale</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetColorLevel</span><span class="p">(</span><span class="mi">127</span><span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetColorWindow</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  imageViewer-&gt;SetupInteractor(iren);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetupInteractor</span><span class="p">(</span><span class="n">iren</span><span class="p">);</span>
 
-  imageViewer-&gt;Render();
-  imageViewer-&gt;GetRenderer()-&gt;ResetCamera();
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  imageViewer-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(FastSplatter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">FastSplatter</span><span class="p">)</span>
 
-add_executable(FastSplatter MACOSX_BUNDLE FastSplatter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(FastSplatter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">FastSplatter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">FastSplatter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-fastsplatter">Download and Build FastSplatter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">FastSplatter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-fastsplatter">Download and Build FastSplatter<a class="headerlink" href="#download-and-build-fastsplatter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FastSplatter.tar">here to download FastSplatter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FastSplatter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd FastSplatter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd FastSplatter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./FastSplatter
-</code></pre>
+<div class="codehilite"><pre><span></span>./FastSplatter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

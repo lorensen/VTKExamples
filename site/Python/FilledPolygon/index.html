@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15551,6 +15551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15958,78 +15970,78 @@
                   <h1>FilledPolygon</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//FilledPolygon</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FilledPolygon.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
 
-#Create a cube
-cube = vtk.vtkSphereSource()
-cube.SetRadius(50)
-cube.SetThetaResolution(100)
-cube.SetPhiResolution(100)
+<span class="c1">#Create a cube</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
-cubeMapper = vtk.vtkPolyDataMapper()
-cubeMapper.SetInputConnection(cube.GetOutputPort())
+<span class="n">cubeMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">cubeMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-#create a plane to cut,here it cuts in the XZ direction (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)
-plane = vtk.vtkPlane()
-plane.SetOrigin(20, 0, 0)
-plane.SetNormal(1, 0, 0)
+<span class="c1">#create a plane to cut,here it cuts in the XZ direction (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)</span>
+<span class="n">plane</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+<span class="n">plane</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">plane</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-#create cutter
-cutter = vtk.vtkCutter()
-cutter.SetCutFunction(plane)
-cutter.SetInputConnection(cube.GetOutputPort())
-cutter.Update()
+<span class="c1">#create cutter</span>
+<span class="n">cutter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCutter</span><span class="p">()</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">SetCutFunction</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-FeatureEdges = vtk.vtkFeatureEdges()
-FeatureEdges.SetInputConnection(cutter.GetOutputPort())
-FeatureEdges.BoundaryEdgesOn()
-FeatureEdges.FeatureEdgesOff()
-FeatureEdges.NonManifoldEdgesOff()
-FeatureEdges.ManifoldEdgesOff()
-FeatureEdges.Update()
+<span class="n">FeatureEdges</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFeatureEdges</span><span class="p">()</span>
+<span class="n">FeatureEdges</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cutter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">FeatureEdges</span><span class="o">.</span><span class="n">BoundaryEdgesOn</span><span class="p">()</span>
+<span class="n">FeatureEdges</span><span class="o">.</span><span class="n">FeatureEdgesOff</span><span class="p">()</span>
+<span class="n">FeatureEdges</span><span class="o">.</span><span class="n">NonManifoldEdgesOff</span><span class="p">()</span>
+<span class="n">FeatureEdges</span><span class="o">.</span><span class="n">ManifoldEdgesOff</span><span class="p">()</span>
+<span class="n">FeatureEdges</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-cutStrips = vtk.vtkStripper() ; #Forms loops (closed polylines) from cutter
-cutStrips.SetInputConnection(cutter.GetOutputPort())
-cutStrips.Update()
-cutPoly = vtk.vtkPolyData() ; #This trick defines polygons as polyline loop
-cutPoly.SetPoints((cutStrips.GetOutput()).GetPoints())
-cutPoly.SetPolys((cutStrips.GetOutput()).GetLines())
+<span class="n">cutStrips</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkStripper</span><span class="p">()</span> <span class="p">;</span> <span class="c1">#Forms loops (closed polylines) from cutter</span>
+<span class="n">cutStrips</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cutter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">cutStrips</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="n">cutPoly</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span> <span class="p">;</span> <span class="c1">#This trick defines polygons as polyline loop</span>
+<span class="n">cutPoly</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">((</span><span class="n">cutStrips</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span><span class="o">.</span><span class="n">GetPoints</span><span class="p">())</span>
+<span class="n">cutPoly</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">((</span><span class="n">cutStrips</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span><span class="o">.</span><span class="n">GetLines</span><span class="p">())</span>
 
-cutMapper = vtk.vtkPolyDataMapper()
-#cutMapper.SetInput(FeatureEdges.GetOutput())
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    cutMapper.SetInput(cutPoly)
-else:
-    cutMapper.SetInputData(cutPoly)
+<span class="n">cutMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="c1">#cutMapper.SetInput(FeatureEdges.GetOutput())</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">cutMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">cutPoly</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">cutMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">cutPoly</span><span class="p">)</span>
 
-cutActor = vtk.vtkActor()
-cutActor.GetProperty().SetColor(1, 1, 0)
-cutActor.GetProperty().SetEdgeColor(0, 1, 0)
+<span class="n">cutActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">cutActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">cutActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetEdgeColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-cutActor.GetProperty().SetLineWidth(2)
-cutActor.GetProperty().EdgeVisibilityOn()
-##cutActor.GetProperty().SetOpacity(0.7)
-cutActor.SetMapper(cutMapper)
-
-
-#create renderers and add actors of plane and cube
-ren = vtk.vtkRenderer()
-ren.AddActor(cutActor)
+<span class="n">cutActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cutActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">EdgeVisibilityOn</span><span class="p">()</span>
+<span class="c1">##cutActor.GetProperty().SetOpacity(0.7)</span>
+<span class="n">cutActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">cutMapper</span><span class="p">)</span>
 
 
-#Add renderer to renderwindow and render
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-renWin.SetSize(600, 600)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-ren.SetBackground(0, 0, 0)
-renWin.Render()
-iren.Start()
-</code></pre>
+<span class="c1">#create renderers and add actors of plane and cube</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cutActor</span><span class="p">)</span>
+
+
+<span class="c1">#Add renderer to renderwindow and render</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

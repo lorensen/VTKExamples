@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15566,6 +15566,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15980,72 +15992,72 @@
                   <h1>Hexahedron</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Hexahedron</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates eight points and creates a hexahedron from the points.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Hexahedron.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-P0 = [0.0, 0.0, 0.0] 
-P1 = [1.0, 0.0, 0.0]
-P2 = [1.0, 1.0, 0.0]
-P3 = [0.0, 1.0, 0.0]
-P4 = [0.0, 0.0, 1.0]
-P5 = [1.0, 0.0, 1.0]
-P6 = [1.0, 1.0, 1.0]
-P7 = [0.0, 1.0, 1.0]
+<span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span> 
+<span class="n">P1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+<span class="n">P2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+<span class="n">P3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+<span class="n">P4</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">P5</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">P6</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">P7</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
 
 
-# Create the points
-points = vtk.vtkPoints()
-points.InsertNextPoint(P0)
-points.InsertNextPoint(P1)
-points.InsertNextPoint(P2)
-points.InsertNextPoint(P3)
-points.InsertNextPoint(P4)
-points.InsertNextPoint(P5)
-points.InsertNextPoint(P6)
-points.InsertNextPoint(P7)
+<span class="c1"># Create the points</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P1</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P2</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P3</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P4</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P5</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P6</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P7</span><span class="p">)</span>
 
-# Create a hexahedron from the points
-hex = vtk.vtkHexahedron() 
-hex.GetPointIds().SetId(0,0)
-hex.GetPointIds().SetId(1,1)
-hex.GetPointIds().SetId(2,2)
-hex.GetPointIds().SetId(3,3)
-hex.GetPointIds().SetId(4,4)
-hex.GetPointIds().SetId(5,5)
-hex.GetPointIds().SetId(6,6)
-hex.GetPointIds().SetId(7,7)
+<span class="c1"># Create a hexahedron from the points</span>
+<span class="nb">hex</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkHexahedron</span><span class="p">()</span> 
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
 
-# Add the hexahedron to a cell array
-hexs = vtk.vtkCellArray()
-hexs.InsertNextCell(hex)
+<span class="c1"># Add the hexahedron to a cell array</span>
+<span class="n">hexs</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+<span class="n">hexs</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="nb">hex</span><span class="p">)</span>
 
-# Add the points and hexahedron to an unstructured grid
-uGrid = vtk.vtkUnstructuredGrid()
-uGrid.SetPoints(points)
-uGrid.InsertNextCell(hex.GetCellType(), hex.GetPointIds())
+<span class="c1"># Add the points and hexahedron to an unstructured grid</span>
+<span class="n">uGrid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+<span class="n">uGrid</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">uGrid</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="nb">hex</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="nb">hex</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
 
-# Visualize
-mapper = vtk.vtkDataSetMapper()
-mapper.SetInput(uGrid)
+<span class="c1"># Visualize</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">uGrid</span><span class="p">)</span>
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-renderer.AddActor(actor)
-renderer.SetBackground(.2, .3, .4)
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">4</span><span class="p">)</span>
 
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

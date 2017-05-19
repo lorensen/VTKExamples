@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,168 +15991,168 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/ImplicitFunctions/ImplicitSphere</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/ImplicitFunctions/TestImplicitSphere.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a polygonal model of two spheres and 3 tubes, and then renders it to
 the screen. It will rotate the scene 360 degrees and then exit. The basic
 setup of source -&gt; mapper -&gt; actor -&gt; renderer -&gt; renderwindow is 
 typical of most VTK programs.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImplicitSphere.java</strong></p>
-<pre><code class="java">//
-// This example creates a polygonal model of two spheres and 3 tubes, and then renders it to
-// the screen. It will rotate the scene 360 degrees and then exit. The basic
-// setup of source -&gt; mapper -&gt; actor -&gt; renderer -&gt; renderwindow is 
-// typical of most VTK programs.
-//
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">// This example creates a polygonal model of two spheres and 3 tubes, and then renders it to</span>
+<span class="c1">// the screen. It will rotate the scene 360 degrees and then exit. The basic</span>
+<span class="c1">// setup of source -&gt; mapper -&gt; actor -&gt; renderer -&gt; renderwindow is </span>
+<span class="c1">// typical of most VTK programs.</span>
+<span class="c1">//</span>
 
-// We import the vtk wrapped classes first.
-import vtk.*;
+<span class="c1">// We import the vtk wrapped classes first.</span>
+<span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-// Then we define our class.
-public class Sphere {
+<span class="c1">// Then we define our class.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sphere</span> <span class="o">{</span>
 
-  // In the static contructor we load in the native code.
-  // The libraries must be in your path to work.
-  static { 
-      System.out.println(&quot;load vtkCommonJava&quot;);
-      System.loadLibrary(&quot;vtkCommonJava&quot;);
-      System.out.println(&quot;load vtkChartsJava&quot;);
-      System.loadLibrary(&quot;vtkChartsJava&quot;);
-      System.loadLibrary(&quot;vtkFilteringJava&quot;);
-      System.loadLibrary(&quot;vtkGenericFilteringJava&quot;);
-      System.loadLibrary(&quot;vtkGeovisJava&quot;);
-      System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-      System.loadLibrary(&quot;vtkHybridJava&quot;);
-      System.loadLibrary(&quot;vtkImagingJava&quot;);
-      System.loadLibrary(&quot;vtkInfovisJava&quot;);
-      System.loadLibrary(&quot;vtkIOJava&quot;);
-      System.loadLibrary(&quot;vtkRenderingJava&quot;);
-      System.loadLibrary(&quot;vtkViewsJava&quot;);
-      System.loadLibrary(&quot;vtkVolumeRenderingJava&quot;);
-      System.loadLibrary(&quot;vtkWidgetsJava&quot;);
-      System.out.println(&quot;LoadLibrary complete for vtkjava&quot;);
+  <span class="c1">// In the static contructor we load in the native code.</span>
+  <span class="c1">// The libraries must be in your path to work.</span>
+  <span class="kd">static</span> <span class="o">{</span> 
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;load vtkCommonJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;load vtkChartsJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkChartsJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGenericFilteringJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGeovisJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkHybridJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkInfovisJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkViewsJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkVolumeRenderingJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkWidgetsJava&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;LoadLibrary complete for vtkjava&quot;</span><span class="o">);</span>
 
-  }
+  <span class="o">}</span>
 
-  // Now the main program
-  public static void main (String []args) {
-    // 
-    // Next we create an instance of vtkSphereSource and set some of its
-    // properties. The instance of vtkSphereSource &quot;sphere&quot; is part of a
-    // visualization pipeline (it is a source process object); it produces data
-    // (output type is vtkPolyData) which other filters may process.
-    //
-    vtkSphereSource sphere = new vtkSphereSource();
-    sphere.SetRadius( 1.0 );
-    sphere.SetPhiResolution(12);
-    sphere.SetThetaResolution( 12 );
+  <span class="c1">// Now the main program</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="n">String</span> <span class="o">[]</span><span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// </span>
+    <span class="c1">// Next we create an instance of vtkSphereSource and set some of its</span>
+    <span class="c1">// properties. The instance of vtkSphereSource &quot;sphere&quot; is part of a</span>
+    <span class="c1">// visualization pipeline (it is a source process object); it produces data</span>
+    <span class="c1">// (output type is vtkPolyData) which other filters may process.</span>
+    <span class="c1">//</span>
+    <span class="n">vtkSphereSource</span> <span class="n">sphere</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSphereSource</span><span class="o">();</span>
+    <span class="n">sphere</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span> <span class="mf">1.0</span> <span class="o">);</span>
+    <span class="n">sphere</span><span class="o">.</span><span class="na">SetPhiResolution</span><span class="o">(</span><span class="mi">12</span><span class="o">);</span>
+    <span class="n">sphere</span><span class="o">.</span><span class="na">SetThetaResolution</span><span class="o">(</span> <span class="mi">12</span> <span class="o">);</span>
 
-    vtkSphereSource sph = new vtkSphereSource();
-    vtkAppendPolyData apf = new vtkAppendPolyData();
-    vtkPolyData pd = new vtkPolyData(); 
-    vtkTubeFilter tubes = new vtkTubeFilter();
-    vtkCellArray polys = new vtkCellArray(); 
-    vtkPoints points = new vtkPoints();
-    points.Allocate(10, 10);
-    polys.Allocate(10, 10);
-    pd.Allocate(10, 10);
-    sph.SetCenter(3, 0, 2);
-    sph.SetRadius(2);
-    sph.SetThetaResolution(25);
-    sph.SetPhiResolution(25);
-    sph.Update(); 
-    points.InsertNextPoint(3, 0, 2);
-    points.InsertNextPoint(3, 3, 3);
-    points.InsertNextPoint(5, 3, 3);
-    points.InsertNextPoint(2, 4, 2);
-    points.InsertNextPoint(4,4,4);
+    <span class="n">vtkSphereSource</span> <span class="n">sph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSphereSource</span><span class="o">();</span>
+    <span class="n">vtkAppendPolyData</span> <span class="n">apf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkAppendPolyData</span><span class="o">();</span>
+    <span class="n">vtkPolyData</span> <span class="n">pd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyData</span><span class="o">();</span> 
+    <span class="n">vtkTubeFilter</span> <span class="n">tubes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkTubeFilter</span><span class="o">();</span>
+    <span class="n">vtkCellArray</span> <span class="n">polys</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkCellArray</span><span class="o">();</span> 
+    <span class="n">vtkPoints</span> <span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPoints</span><span class="o">();</span>
+    <span class="n">points</span><span class="o">.</span><span class="na">Allocate</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+    <span class="n">polys</span><span class="o">.</span><span class="na">Allocate</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+    <span class="n">pd</span><span class="o">.</span><span class="na">Allocate</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+    <span class="n">sph</span><span class="o">.</span><span class="na">SetCenter</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+    <span class="n">sph</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+    <span class="n">sph</span><span class="o">.</span><span class="na">SetThetaResolution</span><span class="o">(</span><span class="mi">25</span><span class="o">);</span>
+    <span class="n">sph</span><span class="o">.</span><span class="na">SetPhiResolution</span><span class="o">(</span><span class="mi">25</span><span class="o">);</span>
+    <span class="n">sph</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span> 
+    <span class="n">points</span><span class="o">.</span><span class="na">InsertNextPoint</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+    <span class="n">points</span><span class="o">.</span><span class="na">InsertNextPoint</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+    <span class="n">points</span><span class="o">.</span><span class="na">InsertNextPoint</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+    <span class="n">points</span><span class="o">.</span><span class="na">InsertNextPoint</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+    <span class="n">points</span><span class="o">.</span><span class="na">InsertNextPoint</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="mi">4</span><span class="o">,</span><span class="mi">4</span><span class="o">);</span>
 
-    polys.InsertNextCell(2);
-     polys.InsertCellPoint(0);
-     polys.InsertCellPoint(1);
-    polys.InsertNextCell(2);
-     polys.InsertCellPoint(1);
-     polys.InsertCellPoint(2);
-    polys.InsertNextCell(2);
-     polys.InsertCellPoint(2);
-     polys.InsertCellPoint(3);
-    polys.InsertNextCell(2);
-     polys.InsertCellPoint(3);
-     polys.InsertCellPoint(1);
-    pd.SetLines(polys);
-    pd.SetPoints(points);
-    tubes.AddInput(pd);
-    tubes.SetRadius(.25);
-    tubes.SetNumberOfSides(9);
-    tubes.Update();
+    <span class="n">polys</span><span class="o">.</span><span class="na">InsertNextCell</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">polys</span><span class="o">.</span><span class="na">InsertNextCell</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+    <span class="n">polys</span><span class="o">.</span><span class="na">InsertNextCell</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+    <span class="n">polys</span><span class="o">.</span><span class="na">InsertNextCell</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+     <span class="n">polys</span><span class="o">.</span><span class="na">InsertCellPoint</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">pd</span><span class="o">.</span><span class="na">SetLines</span><span class="o">(</span><span class="n">polys</span><span class="o">);</span>
+    <span class="n">pd</span><span class="o">.</span><span class="na">SetPoints</span><span class="o">(</span><span class="n">points</span><span class="o">);</span>
+    <span class="n">tubes</span><span class="o">.</span><span class="na">AddInput</span><span class="o">(</span><span class="n">pd</span><span class="o">);</span>
+    <span class="n">tubes</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span><span class="mf">.25</span><span class="o">);</span>
+    <span class="n">tubes</span><span class="o">.</span><span class="na">SetNumberOfSides</span><span class="o">(</span><span class="mi">9</span><span class="o">);</span>
+    <span class="n">tubes</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
-    apf.AddInput(tubes.GetOutput());
-    apf.AddInput(sphere.GetOutput());
-    apf.AddInput(sph.GetOutput());
-    // 
-    // In this example we terminate the pipeline with a mapper process object.
-    // (Intermediate filters such as vtkShrinkPolyData could be inserted in
-    // between the source and the mapper.)  We create an instance of
-    // vtkPolyDataMapper to map the polygonal data into graphics primitives. We
-    // connect the output of the sphere souece to the input of this mapper.
-    //
-    vtkPolyDataMapper sphereMapper = new vtkPolyDataMapper();
-    sphereMapper.SetInput( apf.GetOutput() );
-    // 
-    // Create an actor to represent the sphere. The actor orchestrates rendering
-    // of the mapper's graphics primitives. An actor also refers to properties
-    // via a vtkProperty instance, and includes an internal transformation
-    // matrix. We set this actor's mapper to be sphereMapper which we created
-    // above.
-    //
-    vtkActor sphereActor = new vtkActor();
-    sphereActor.SetMapper( sphereMapper );
+    <span class="n">apf</span><span class="o">.</span><span class="na">AddInput</span><span class="o">(</span><span class="n">tubes</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
+    <span class="n">apf</span><span class="o">.</span><span class="na">AddInput</span><span class="o">(</span><span class="n">sphere</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
+    <span class="n">apf</span><span class="o">.</span><span class="na">AddInput</span><span class="o">(</span><span class="n">sph</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
+    <span class="c1">// </span>
+    <span class="c1">// In this example we terminate the pipeline with a mapper process object.</span>
+    <span class="c1">// (Intermediate filters such as vtkShrinkPolyData could be inserted in</span>
+    <span class="c1">// between the source and the mapper.)  We create an instance of</span>
+    <span class="c1">// vtkPolyDataMapper to map the polygonal data into graphics primitives. We</span>
+    <span class="c1">// connect the output of the sphere souece to the input of this mapper.</span>
+    <span class="c1">//</span>
+    <span class="n">vtkPolyDataMapper</span> <span class="n">sphereMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">sphereMapper</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span> <span class="n">apf</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">()</span> <span class="o">);</span>
+    <span class="c1">// </span>
+    <span class="c1">// Create an actor to represent the sphere. The actor orchestrates rendering</span>
+    <span class="c1">// of the mapper&#39;s graphics primitives. An actor also refers to properties</span>
+    <span class="c1">// via a vtkProperty instance, and includes an internal transformation</span>
+    <span class="c1">// matrix. We set this actor&#39;s mapper to be sphereMapper which we created</span>
+    <span class="c1">// above.</span>
+    <span class="c1">//</span>
+    <span class="n">vtkActor</span> <span class="n">sphereActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">sphereActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span> <span class="n">sphereMapper</span> <span class="o">);</span>
 
-    //
-    // Create the Renderer and assign actors to it. A renderer is like a
-    // viewport. It is part or all of a window on the screen and it is
-    // responsible for drawing the actors it has.  We also set the background
-    // color here
-    //
-    vtkRenderer ren1 = new vtkRenderer();
-    ren1.AddActor( sphereActor );
-    ren1.SetBackground( 0.1, 0.2, 0.4 );
+    <span class="c1">//</span>
+    <span class="c1">// Create the Renderer and assign actors to it. A renderer is like a</span>
+    <span class="c1">// viewport. It is part or all of a window on the screen and it is</span>
+    <span class="c1">// responsible for drawing the actors it has.  We also set the background</span>
+    <span class="c1">// color here</span>
+    <span class="c1">//</span>
+    <span class="n">vtkRenderer</span> <span class="n">ren1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+    <span class="n">ren1</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span> <span class="n">sphereActor</span> <span class="o">);</span>
+    <span class="n">ren1</span><span class="o">.</span><span class="na">SetBackground</span><span class="o">(</span> <span class="mf">0.1</span><span class="o">,</span> <span class="mf">0.2</span><span class="o">,</span> <span class="mf">0.4</span> <span class="o">);</span>
 
-    //
-    // Finally we create the render window which will show up on the screen
-    // We put our renderer into the render window using AddRenderer. We also
-    // set the size to be 300 pixels by 300
-    //
-    vtkRenderWindow renWin = new vtkRenderWindow();
-    renWin.AddRenderer( ren1 );
-    renWin.SetSize( 300, 300 );
+    <span class="c1">//</span>
+    <span class="c1">// Finally we create the render window which will show up on the screen</span>
+    <span class="c1">// We put our renderer into the render window using AddRenderer. We also</span>
+    <span class="c1">// set the size to be 300 pixels by 300</span>
+    <span class="c1">//</span>
+    <span class="n">vtkRenderWindow</span> <span class="n">renWin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span> <span class="n">ren1</span> <span class="o">);</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="na">SetSize</span><span class="o">(</span> <span class="mi">300</span><span class="o">,</span> <span class="mi">300</span> <span class="o">);</span>
 
-    //
-    // Now we loop over 360 degrees and render the sphere each time
-    //
-    int i;
-    for (i = 0; i &lt; 360; ++i)
-      {
-      // render the image
-      renWin.Render();
-      try {
-        Thread.sleep(100);
-    } catch (Throwable e) {
-        e.printStackTrace();
-    }
-      // rotate the active camera by one degree
-      ren1.GetActiveCamera().Azimuth( 1 );
-      }
+    <span class="c1">//</span>
+    <span class="c1">// Now we loop over 360 degrees and render the sphere each time</span>
+    <span class="c1">//</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">360</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span>
+      <span class="o">{</span>
+      <span class="c1">// render the image</span>
+      <span class="n">renWin</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+      <span class="c1">// rotate the active camera by one degree</span>
+      <span class="n">ren1</span><span class="o">.</span><span class="na">GetActiveCamera</span><span class="o">().</span><span class="na">Azimuth</span><span class="o">(</span> <span class="mi">1</span> <span class="o">);</span>
+      <span class="o">}</span>
 
-    try {
-        Thread.sleep(1000);
-    } catch (Throwable e1) {
-        e1.printStackTrace();
-    }
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e1</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
 
-    } 
-}
-</code></pre>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

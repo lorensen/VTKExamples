@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,153 +16019,160 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ImplicitPolyDataDistance</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestImplicitPolyDataDistance.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>NOTE: This example requires version 5.9.20111206 or higher. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImplicitPolyDataDistance.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkImplicitPolyDataDistance.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImplicitPolyDataDistance.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetCenter(0.0, 0.0, 0.0);
-  sphereSource-&gt;SetRadius(1.0f);
-  sphereSource-&gt;Update();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection( sphereSource-&gt;GetOutputPort() );
-  sphereMapper-&gt;ScalarVisibilityOff();
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphereActor-&gt;SetMapper( sphereMapper );
-  sphereActor-&gt;GetProperty()-&gt;SetOpacity(.3);
-  sphereActor-&gt;GetProperty()-&gt;SetColor(1,0,0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">sphereMapper</span> <span class="p">);</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">.3</span><span class="p">);</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImplicitPolyDataDistance&gt; implicitPolyDataDistance =
-    vtkSmartPointer&lt;vtkImplicitPolyDataDistance&gt;::New();
-  implicitPolyDataDistance-&gt;SetInput(sphereSource-&gt;GetOutput());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImplicitPolyDataDistance</span><span class="o">&gt;</span> <span class="n">implicitPolyDataDistance</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImplicitPolyDataDistance</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">implicitPolyDataDistance</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  // Setup a grid
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  float step = 0.1;
-  for(float x = - 2.0; x &lt;= 2.0; x += step)
-  {
-    for(float y = - 2.0; y &lt;= 2.0; y += step)
-    {
-      for(float z = - 2.0; z &lt;= 2.0; z += step)
-      {
-        points-&gt;InsertNextPoint(x,y,z);
-      }
-    }
-  }
+  <span class="c1">// Setup a grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">float</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">x</span> <span class="o">+=</span> <span class="n">step</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">y</span> <span class="o">+=</span> <span class="n">step</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">float</span> <span class="n">z</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">z</span> <span class="o">&lt;=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">z</span> <span class="o">+=</span> <span class="n">step</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Add distances to each point
-  vtkSmartPointer&lt;vtkFloatArray&gt; signedDistances =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  signedDistances-&gt;SetNumberOfComponents(1);
-  signedDistances-&gt;SetName(&quot;SignedDistances&quot;);
+  <span class="c1">// Add distances to each point</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">signedDistances</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">signedDistances</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">signedDistances</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;SignedDistances&quot;</span><span class="p">);</span>
 
-  // Evaluate the signed distance function at all of the grid points
-  for(vtkIdType pointId = 0; pointId &lt; points-&gt;GetNumberOfPoints(); ++pointId)
-  {
-    double p[3];
-    points-&gt;GetPoint(pointId, p);
-    float signedDistance = implicitPolyDataDistance-&gt;EvaluateFunction(p);
-    signedDistances-&gt;InsertNextValue(signedDistance);
-  }
+  <span class="c1">// Evaluate the signed distance function at all of the grid points</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">pointId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">pointId</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="o">++</span><span class="n">pointId</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">pointId</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">signedDistance</span> <span class="o">=</span> <span class="n">implicitPolyDataDistance</span><span class="o">-&gt;</span><span class="n">EvaluateFunction</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="n">signedDistances</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">signedDistance</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polyData-&gt;SetPoints(points);
-  polyData-&gt;GetPointData()-&gt;SetScalars(signedDistances);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">signedDistances</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVertexGlyphFilter&gt; vertexGlyphFilter =
-    vtkSmartPointer&lt;vtkVertexGlyphFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  vertexGlyphFilter-&gt;SetInputConnection(polyData-&gt;GetProducerPort());
-#else
-  vertexGlyphFilter-&gt;SetInputData(polyData);
-#endif
-  vertexGlyphFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;</span> <span class="n">vertexGlyphFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; signedDistanceMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  signedDistanceMapper-&gt;SetInputConnection(vertexGlyphFilter-&gt;GetOutputPort());
-  signedDistanceMapper-&gt;ScalarVisibilityOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">signedDistanceMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">signedDistanceMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">signedDistanceMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; signedDistanceActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  signedDistanceActor-&gt;SetMapper( signedDistanceMapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">signedDistanceActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">signedDistanceActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">signedDistanceMapper</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddViewProp(sphereActor);
-  renderer-&gt;AddViewProp(signedDistanceActor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">signedDistanceActor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer( renderer );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renWinInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renWinInteractor-&gt;SetRenderWindow( renderWindow );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renWinInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWinInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renderWindow</span> <span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  renWinInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renWinInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImplicitPolyDataDistance)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImplicitPolyDataDistance</span><span class="p">)</span>
 
-add_executable(ImplicitPolyDataDistance MACOSX_BUNDLE ImplicitPolyDataDistance.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImplicitPolyDataDistance ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImplicitPolyDataDistance</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImplicitPolyDataDistance.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-implicitpolydatadistance">Download and Build ImplicitPolyDataDistance</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImplicitPolyDataDistance</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-implicitpolydatadistance">Download and Build ImplicitPolyDataDistance<a class="headerlink" href="#download-and-build-implicitpolydatadistance" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImplicitPolyDataDistance.tar">here to download ImplicitPolyDataDistance</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImplicitPolyDataDistance.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImplicitPolyDataDistance/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImplicitPolyDataDistance/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImplicitPolyDataDistance
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImplicitPolyDataDistance
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

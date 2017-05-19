@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15534,6 +15534,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15927,13 +15939,13 @@
                 
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Qt/EventQtSlotConnect</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><source lang="cpp"></p>
-<h1 id="ifndef-eventqtslotconnect_h">ifndef EventQtSlotConnect_H</h1>
-<h1 id="define-eventqtslotconnect_h">define EventQtSlotConnect_H</h1>
-<h1 id="include-ui_eventqtslotconnecth">include "ui_EventQtSlotConnect.h"</h1>
-<h1 id="include">include <QMainWindow></h1>
-<h1 id="include_1">include <vtkSmartPointer.h></h1>
+<h1 id="ifndef-eventqtslotconnect_h">ifndef EventQtSlotConnect_H<a class="headerlink" href="#ifndef-eventqtslotconnect_h" title="Permanent link">&para;</a></h1>
+<h1 id="define-eventqtslotconnect_h">define EventQtSlotConnect_H<a class="headerlink" href="#define-eventqtslotconnect_h" title="Permanent link">&para;</a></h1>
+<h1 id="include-ui_eventqtslotconnecth">include "ui_EventQtSlotConnect.h"<a class="headerlink" href="#include-ui_eventqtslotconnecth" title="Permanent link">&para;</a></h1>
+<h1 id="include">include <QMainWindow><a class="headerlink" href="#include" title="Permanent link">&para;</a></h1>
+<h1 id="include_1">include <vtkSmartPointer.h><a class="headerlink" href="#include_1" title="Permanent link">&para;</a></h1>
 <p>class vtkEventQtSlotConnect;</p>
 <p>class EventQtSlotConnect : public QMainWindow, private Ui::EventQtSlotConnect
 {
@@ -15945,93 +15957,100 @@ public:</p>
 <p>private:</p>
 <p>vtkSmartPointer<vtkEventQtSlotConnect> Connections;
 };</p>
-<h1 id="endif">endif</h1>
+<h1 id="endif">endif<a class="headerlink" href="#endif" title="Permanent link">&para;</a></h1>
 <p></source></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>EventQtSlotConnect.cxx</strong></p>
-<pre><code class="c++">#include &quot;EventQtSlotConnect.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;EventQtSlotConnect.h&quot;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkEventQtSlotConnect.h&gt;
-#include &lt;vtkInteractorStyleTrackballActor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkEventQtSlotConnect.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballActor.h&gt;</span><span class="cp"></span>
 
-// Constructor
-EventQtSlotConnect::EventQtSlotConnect()
-{
-  this-&gt;setupUi(this);
+<span class="c1">// Constructor</span>
+<span class="n">EventQtSlotConnect</span><span class="o">::</span><span class="n">EventQtSlotConnect</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">setupUi</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-  this-&gt;Connections = vtkSmartPointer&lt;vtkEventQtSlotConnect&gt;::New();
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Connections</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkEventQtSlotConnect</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
+  <span class="c1">// Sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphereActor-&gt;SetMapper(sphereMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
 
-  // VTK Renderer
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(sphereActor);
+  <span class="c1">// VTK Renderer</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
 
-  this-&gt;qvtkWidget-&gt;GetRenderWindow()-&gt;AddRenderer(renderer);
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">qvtkWidget</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  this-&gt;Connections-&gt;Connect(this-&gt;qvtkWidget-&gt;GetRenderWindow()-&gt;GetInteractor(),
-  vtkCommand::LeftButtonPressEvent,
-  this,
-  SLOT(slot_clicked(vtkObject*, unsigned long, void*, void*)));
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Connections</span><span class="o">-&gt;</span><span class="n">Connect</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">qvtkWidget</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">(),</span>
+  <span class="n">vtkCommand</span><span class="o">::</span><span class="n">LeftButtonPressEvent</span><span class="p">,</span>
+  <span class="k">this</span><span class="p">,</span>
+  <span class="n">SLOT</span><span class="p">(</span><span class="n">slot_clicked</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)));</span>
 
-};
+<span class="p">};</span>
 
-void EventQtSlotConnect::slot_clicked(vtkObject*, unsigned long, void*, void*)
-{
-  std::cout &lt;&lt; &quot;Clicked.&quot; &lt;&lt; std::endl;
-}
-</code></pre>
+<span class="kt">void</span> <span class="n">EventQtSlotConnect</span><span class="o">::</span><span class="n">slot_clicked</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Clicked.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(EventQtSlotConnect)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">EventQtSlotConnect</span><span class="p">)</span>
 
-add_executable(EventQtSlotConnect MACOSX_BUNDLE EventQtSlotConnect.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(EventQtSlotConnect ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">EventQtSlotConnect</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">EventQtSlotConnect.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-eventqtslotconnect">Download and Build EventQtSlotConnect</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">EventQtSlotConnect</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-eventqtslotconnect">Download and Build EventQtSlotConnect<a class="headerlink" href="#download-and-build-eventqtslotconnect" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/EventQtSlotConnect.tar">here to download EventQtSlotConnect</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball EventQtSlotConnect.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd EventQtSlotConnect/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd EventQtSlotConnect/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./EventQtSlotConnect
-</code></pre>
+<div class="codehilite"><pre><span></span>./EventQtSlotConnect
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

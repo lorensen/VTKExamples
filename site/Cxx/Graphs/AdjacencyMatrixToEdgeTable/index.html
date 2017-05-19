@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,120 +16004,127 @@
                   <h1>AdjacencyMatrixToEdgeTable</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/AdjacencyMatrixToEdgeTable</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AdjacencyMatrixToEdgeTable.cxx</strong></p>
-<pre><code class="c++">/* The output is:
+<div class="codehilite"><pre><span></span><span class="cm">/* The output is:</span>
 
-10 20 30
-40 50 60
-70 80 90
+<span class="cm">10 20 30</span>
+<span class="cm">40 50 60</span>
+<span class="cm">70 80 90</span>
 
-+-----------------+------------------+
-|                 | value            |
-+-----------------+------------------+
-| 2               | 30               |
-| 1               | 20               |
-| 0               | 10               |
-| 2               | 60               |
-| 1               | 50               |
-| 0               | 40               |
-| 2               | 90               |
-| 1               | 80               |
-| 0               | 70               |
-+-----------------+------------------+
+<span class="cm">+-----------------+------------------+</span>
+<span class="cm">|                 | value            |</span>
+<span class="cm">+-----------------+------------------+</span>
+<span class="cm">| 2               | 30               |</span>
+<span class="cm">| 1               | 20               |</span>
+<span class="cm">| 0               | 10               |</span>
+<span class="cm">| 2               | 60               |</span>
+<span class="cm">| 1               | 50               |</span>
+<span class="cm">| 0               | 40               |</span>
+<span class="cm">| 2               | 90               |</span>
+<span class="cm">| 1               | 80               |</span>
+<span class="cm">| 0               | 70               |</span>
+<span class="cm">+-----------------+------------------+</span>
 
-The first column is the column index of the item in the 'value' column.
-The row index is given by the number of times we've previously seen the column index.
-For some reason, zeros in the matrix are not reported in the table.
+<span class="cm">The first column is the column index of the item in the &#39;value&#39; column.</span>
+<span class="cm">The row index is given by the number of times we&#39;ve previously seen the column index.</span>
+<span class="cm">For some reason, zeros in the matrix are not reported in the table.</span>
 
-For example, the first row says that the value '30' is in column 2 of the matrix (0-based indexing).
-Since we have not previously seen an item in column 2, it is in row 0 of the matrix.
+<span class="cm">For example, the first row says that the value &#39;30&#39; is in column 2 of the matrix (0-based indexing).</span>
+<span class="cm">Since we have not previously seen an item in column 2, it is in row 0 of the matrix.</span>
 
-The fourth row says that the value '60' is also in column 2. We infer that '60' is row 1 of the
-matrix because we have already seen one item (the '30') in column 2.
-*/
+<span class="cm">The fourth row says that the value &#39;60&#39; is also in column 2. We infer that &#39;60&#39; is row 1 of the</span>
+<span class="cm">matrix because we have already seen one item (the &#39;30&#39;) in column 2.</span>
+<span class="cm">*/</span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVersion.h&gt;
-#include &lt;vtkDenseArray.h&gt;
-#include &lt;vtkArrayToTable.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkArrayData.h&gt;
-#include &lt;vtkAdjacencyMatrixToEdgeTable.h&gt;
-#include &lt;vtkArrayPrint.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDenseArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrayToTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrayData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAdjacencyMatrixToEdgeTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrayPrint.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt; array =
-    vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  array-&gt;Resize(3,3);
+  <span class="n">array</span><span class="o">-&gt;</span><span class="n">Resize</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
 
-  unsigned int counter = 1;
-  for(vtkIdType i = 0; i &lt; array-&gt;GetExtents()[0].GetEnd(); i++)
-  {
-    for(vtkIdType j = 0; j &lt; array-&gt;GetExtents()[1].GetEnd(); j++)
-    {
-      array-&gt;SetValue(i, j, counter*10);
-      counter++;
-    }
-  }
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">-&gt;</span><span class="n">GetExtents</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">GetEnd</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">-&gt;</span><span class="n">GetExtents</span><span class="p">()[</span><span class="mi">1</span><span class="p">].</span><span class="n">GetEnd</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">array</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">counter</span><span class="o">*</span><span class="mi">10</span><span class="p">);</span>
+      <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkPrintMatrixFormat(std::cout, array.GetPointer());
+  <span class="n">vtkPrintMatrixFormat</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">array</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkArrayData&gt; arrayData =
-    vtkSmartPointer&lt;vtkArrayData&gt;::New();
-  arrayData-&gt;AddArray(array);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;</span> <span class="n">arrayData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrayData</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkAdjacencyMatrixToEdgeTable&gt; adjacencyMatrixToEdgeTable =
-    vtkSmartPointer&lt;vtkAdjacencyMatrixToEdgeTable&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  adjacencyMatrixToEdgeTable-&gt;SetInputConnection(arrayData-&gt;GetProducerPort());
-#else
-  adjacencyMatrixToEdgeTable-&gt;SetInputData(arrayData);
-#endif
-  adjacencyMatrixToEdgeTable-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAdjacencyMatrixToEdgeTable</span><span class="o">&gt;</span> <span class="n">adjacencyMatrixToEdgeTable</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAdjacencyMatrixToEdgeTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">adjacencyMatrixToEdgeTable</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">arrayData</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">adjacencyMatrixToEdgeTable</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">arrayData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">adjacencyMatrixToEdgeTable</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  adjacencyMatrixToEdgeTable-&gt;GetOutput()-&gt;Dump();
+  <span class="n">adjacencyMatrixToEdgeTable</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dump</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AdjacencyMatrixToEdgeTable)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AdjacencyMatrixToEdgeTable</span><span class="p">)</span>
 
-add_executable(AdjacencyMatrixToEdgeTable MACOSX_BUNDLE AdjacencyMatrixToEdgeTable.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AdjacencyMatrixToEdgeTable ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AdjacencyMatrixToEdgeTable</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AdjacencyMatrixToEdgeTable.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-adjacencymatrixtoedgetable">Download and Build AdjacencyMatrixToEdgeTable</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AdjacencyMatrixToEdgeTable</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-adjacencymatrixtoedgetable">Download and Build AdjacencyMatrixToEdgeTable<a class="headerlink" href="#download-and-build-adjacencymatrixtoedgetable" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AdjacencyMatrixToEdgeTable.tar">here to download AdjacencyMatrixToEdgeTable</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AdjacencyMatrixToEdgeTable.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AdjacencyMatrixToEdgeTable/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AdjacencyMatrixToEdgeTable/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AdjacencyMatrixToEdgeTable
-</code></pre>
+<div class="codehilite"><pre><span></span>./AdjacencyMatrixToEdgeTable
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

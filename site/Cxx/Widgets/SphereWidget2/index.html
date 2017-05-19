@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,141 +16019,148 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/SphereWidget2</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestSphereWidget2.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>The spherical coordinates of the widget's handle match the coordinates that it displays in the window.
 The world coordinates of the handle are also shown.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SphereWidget2.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkCommand.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphere.h&gt;
-#include &lt;vtkSphereRepresentation.h&gt;
-#include &lt;vtkSphereWidget2.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphere.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereWidget2.h&gt;</span><span class="cp"></span>
 
-// Callback that displays the sphere widget's spherical handle postion
-// in both sphercial (relative to the widget's center) and cartesian global coordinates
-class vtkSphereCallback : public vtkCommand
-{
-public:
-  static vtkSphereCallback *New()
-  {
-    return new vtkSphereCallback;
-  }
+<span class="c1">// Callback that displays the sphere widget&#39;s spherical handle postion</span>
+<span class="c1">// in both sphercial (relative to the widget&#39;s center) and cartesian global coordinates</span>
+<span class="k">class</span> <span class="nc">vtkSphereCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkSphereCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkSphereCallback</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSphereWidget2 *sphereWidget =
-      reinterpret_cast&lt;vtkSphereWidget2*&gt;(caller);
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSphereWidget2</span> <span class="o">*</span><span class="n">sphereWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSphereWidget2</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
 
-    double center[3], handlePosition[3];
-    vtkSphereRepresentation* sphereRepresentation =
-      vtkSphereRepresentation::SafeDownCast( sphereWidget-&gt;GetRepresentation() );
-    sphereRepresentation-&gt;GetHandlePosition( handlePosition );
-    sphereRepresentation-&gt;GetSphere( this-&gt;Sphere );
+    <span class="kt">double</span> <span class="n">center</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">vtkSphereRepresentation</span><span class="o">*</span> <span class="n">sphereRepresentation</span> <span class="o">=</span>
+      <span class="n">vtkSphereRepresentation</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span> <span class="n">sphereWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">sphereRepresentation</span><span class="o">-&gt;</span><span class="n">GetHandlePosition</span><span class="p">(</span> <span class="n">handlePosition</span> <span class="p">);</span>
+    <span class="n">sphereRepresentation</span><span class="o">-&gt;</span><span class="n">GetSphere</span><span class="p">(</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Sphere</span> <span class="p">);</span>
 
-    this-&gt;Sphere-&gt;GetCenter( center );
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Sphere</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">(</span> <span class="n">center</span> <span class="p">);</span>
 
-    double radius = sqrt( static_cast&lt;double&gt;(vtkMath::Distance2BetweenPoints( center, handlePosition ) ) );
-    radius = (radius &lt;= 0.0 ? 1.0 : radius );
-    double theta = vtkMath::DegreesFromRadians( atan2( ( handlePosition[1] - center[1] ), ( handlePosition[0] - center[0] ) ) );
-    double phi   = vtkMath::DegreesFromRadians( acos( ( handlePosition[2] - center[2] ) / radius ) );
+    <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Distance2BetweenPoints</span><span class="p">(</span> <span class="n">center</span><span class="p">,</span> <span class="n">handlePosition</span> <span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">radius</span> <span class="o">&lt;=</span> <span class="mf">0.0</span> <span class="o">?</span> <span class="mf">1.0</span> <span class="o">:</span> <span class="n">radius</span> <span class="p">);</span>
+    <span class="kt">double</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">DegreesFromRadians</span><span class="p">(</span> <span class="n">atan2</span><span class="p">(</span> <span class="p">(</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">),</span> <span class="p">(</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="kt">double</span> <span class="n">phi</span>   <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">DegreesFromRadians</span><span class="p">(</span> <span class="n">acos</span><span class="p">(</span> <span class="p">(</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span> <span class="o">/</span> <span class="n">radius</span> <span class="p">)</span> <span class="p">);</span>
 
-    std::cout &lt;&lt; &quot;r, theta, phi: (&quot;
-              &lt;&lt; std::setprecision(3)
-              &lt;&lt; radius &lt;&lt; &quot;, &quot; &lt;&lt; theta &lt;&lt; &quot;, &quot; &lt;&lt; phi &lt;&lt; &quot;) &quot;
-              &lt;&lt; &quot;x, y, z: (&quot;
-              &lt;&lt; handlePosition[0] &lt;&lt; &quot;, &quot;
-              &lt;&lt; handlePosition[1] &lt;&lt; &quot;, &quot;
-              &lt;&lt; handlePosition[2] &lt;&lt; &quot;) &quot;
-              &lt;&lt; std::endl;
-  }
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;r, theta, phi: (&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+              <span class="o">&lt;&lt;</span> <span class="n">radius</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">theta</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">phi</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;x, y, z: (&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">handlePosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSphereCallback(){ this-&gt;Sphere = vtkSphere::New(); }
-  ~vtkSphereCallback(){ this-&gt;Sphere-&gt;Delete(); }
+  <span class="n">vtkSphereCallback</span><span class="p">(){</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Sphere</span> <span class="o">=</span> <span class="n">vtkSphere</span><span class="o">::</span><span class="n">New</span><span class="p">();</span> <span class="p">}</span>
+  <span class="o">~</span><span class="n">vtkSphereCallback</span><span class="p">(){</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Sphere</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span> <span class="p">}</span>
 
-  vtkSphere* Sphere;
-};
+  <span class="n">vtkSphere</span><span class="o">*</span> <span class="n">Sphere</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main( int, char *[] )
-{
-  // Create a renderer and a render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create a renderer and a render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // Create an interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create an interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Create a sphere widget
-  vtkSmartPointer&lt;vtkSphereWidget2&gt; sphereWidget =
-    vtkSmartPointer&lt;vtkSphereWidget2&gt;::New();
-  sphereWidget-&gt;SetInteractor(renderWindowInteractor);
-  sphereWidget-&gt;CreateDefaultRepresentation();
+  <span class="c1">// Create a sphere widget</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereWidget2</span><span class="o">&gt;</span> <span class="n">sphereWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereWidget2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="n">sphereWidget</span><span class="o">-&gt;</span><span class="n">CreateDefaultRepresentation</span><span class="p">();</span>
 
-  vtkSphereRepresentation* sphereRepresentation =
-    vtkSphereRepresentation::SafeDownCast( sphereWidget-&gt;GetRepresentation() );
-  sphereRepresentation-&gt;HandleVisibilityOn();
+  <span class="n">vtkSphereRepresentation</span><span class="o">*</span> <span class="n">sphereRepresentation</span> <span class="o">=</span>
+    <span class="n">vtkSphereRepresentation</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span> <span class="n">sphereWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">sphereRepresentation</span><span class="o">-&gt;</span><span class="n">HandleVisibilityOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkSphereCallback&gt; sphereCallback =
-    vtkSmartPointer&lt;vtkSphereCallback&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereCallback</span><span class="o">&gt;</span> <span class="n">sphereCallback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  sphereWidget-&gt;AddObserver( vtkCommand::InteractionEvent, sphereCallback );
+  <span class="n">sphereWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span> <span class="n">sphereCallback</span> <span class="p">);</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindow-&gt;Render();
-  sphereWidget-&gt;On();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">sphereWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
 
-  // Begin mouse interaction
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Begin mouse interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(SphereWidget2)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">SphereWidget2</span><span class="p">)</span>
 
-add_executable(SphereWidget2 MACOSX_BUNDLE SphereWidget2.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(SphereWidget2 ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">SphereWidget2</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">SphereWidget2.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-spherewidget2">Download and Build SphereWidget2</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">SphereWidget2</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-spherewidget2">Download and Build SphereWidget2<a class="headerlink" href="#download-and-build-spherewidget2" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/SphereWidget2.tar">here to download SphereWidget2</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball SphereWidget2.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd SphereWidget2/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd SphereWidget2/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./SphereWidget2
-</code></pre>
+<div class="codehilite"><pre><span></span>./SphereWidget2
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

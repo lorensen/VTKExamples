@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15551,6 +15551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15958,49 +15970,49 @@
                   <h1>TriangleColoredPoints</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//TriangleColoredPoints</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TriangleColoredPoints.py</strong></p>
-<pre><code class="python">import vtk
-from vtk import *
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span> <span class="o">*</span>
 
-#setup points and vertices
-Points = vtk.vtkPoints()
-Vertices = vtk.vtkCellArray()
+<span class="c1">#setup points and vertices</span>
+<span class="n">Points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">Vertices</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
 
-id = Points.InsertNextPoint(1.0, 0.0, 0.0)
-Vertices.InsertNextCell(1)
-Vertices.InsertCellPoint(id)
-id = Points.InsertNextPoint(0.0, 0.0, 0.0)
-Vertices.InsertNextCell(1)
-Vertices.InsertCellPoint(id)
-id = Points.InsertNextPoint(0.0, 1.0, 0.0)
-Vertices.InsertNextCell(1)
-Vertices.InsertCellPoint(id)
+<span class="nb">id</span> <span class="o">=</span> <span class="n">Points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">Vertices</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Vertices</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="n">Points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">Vertices</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Vertices</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="n">Points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">Vertices</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Vertices</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 
-#setup colors
-Colors = vtk.vtkUnsignedCharArray()
-Colors.SetNumberOfComponents(3)
-Colors.SetName(&quot;Colors&quot;)
-Colors.InsertNextTuple3(255,0,0)
-Colors.InsertNextTuple3(0,255,0)
-Colors.InsertNextTuple3(0,0,255)
+<span class="c1">#setup colors</span>
+<span class="n">Colors</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedCharArray</span><span class="p">()</span>
+<span class="n">Colors</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Colors</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;Colors&quot;</span><span class="p">)</span>
+<span class="n">Colors</span><span class="o">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Colors</span><span class="o">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Colors</span><span class="o">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
 
-polydata = vtk.vtkPolyData()
-polydata.SetPoints(Points)
-polydata.SetVerts(Vertices)
-polydata.GetPointData().SetScalars(Colors)
-polydata.Modified()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    polydata.Update()
+<span class="n">polydata</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">Points</span><span class="p">)</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">SetVerts</span><span class="p">(</span><span class="n">Vertices</span><span class="p">)</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">Colors</span><span class="p">)</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-writer = vtk.vtkXMLPolyDataWriter()
-writer.SetFileName(&quot;TriangleColoredPoints.vtp&quot;)
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    writer.SetInput(polydata)
-else:
-    writer.SetInputData(polydata)
-writer.Write()
-</code></pre>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataWriter</span><span class="p">()</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s2">&quot;TriangleColoredPoints.vtp&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">)</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

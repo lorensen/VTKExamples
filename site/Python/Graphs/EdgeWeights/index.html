@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,56 +15991,56 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Graphs/EdgeWeights</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestEdgeWeights.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Graphs_EdgeWeights.png]"></a></p>
 <ul>
 <li>Contributed by Jim McCusker</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>EdgeWeights.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-g = vtk.vtkMutableDirectedGraph()
+<span class="n">g</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMutableDirectedGraph</span><span class="p">()</span>
 
-# Create 3 vertices
-v1 = g.AddVertex()
-v2 = g.AddVertex()
-v3 = g.AddVertex()
+<span class="c1"># Create 3 vertices</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">AddVertex</span><span class="p">()</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">AddVertex</span><span class="p">()</span>
+<span class="n">v3</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">AddVertex</span><span class="p">()</span>
 
-# Create a fully connected graph
-g.AddGraphEdge(v1, v2)
-g.AddGraphEdge(v2, v3)
-g.AddGraphEdge(v1, v3)
+<span class="c1"># Create a fully connected graph</span>
+<span class="n">g</span><span class="o">.</span><span class="n">AddGraphEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">AddGraphEdge</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">AddGraphEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v3</span><span class="p">)</span>
 
-# Create the edge weight array
-weights = vtk.vtkDoubleArray()
-weights.SetNumberOfComponents(1)
-weights.SetName(&quot;Weights&quot;)
+<span class="c1"># Create the edge weight array</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDoubleArray</span><span class="p">()</span>
+<span class="n">weights</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weights</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;Weights&quot;</span><span class="p">)</span>
 
-# Set the edge weights
-weights.InsertNextValue(1.0)
-weights.InsertNextValue(1.0)
-weights.InsertNextValue(2.0)
+<span class="c1"># Set the edge weights</span>
+<span class="n">weights</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">weights</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">weights</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 
-# Add the edge weight array to the graph
-g.GetEdgeData().AddArray(weights);
+<span class="c1"># Add the edge weight array to the graph</span>
+<span class="n">g</span><span class="o">.</span><span class="n">GetEdgeData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">weights</span><span class="p">);</span>
 
-graphLayoutView = vtk.vtkGraphLayoutView()
-graphLayoutView.AddRepresentationFromInput(g)
-graphLayoutView.SetLayoutStrategy(&quot;Simple 2D&quot;)
-graphLayoutView.GetLayoutStrategy().SetEdgeWeightField(&quot;Weights&quot;)
-graphLayoutView.GetLayoutStrategy().SetWeightEdges(1)
-graphLayoutView.SetEdgeLabelArrayName(&quot;Weights&quot;)
-graphLayoutView.SetEdgeLabelVisibility(1)
-graphLayoutView.ResetCamera()
-graphLayoutView.Render()
+<span class="n">graphLayoutView</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGraphLayoutView</span><span class="p">()</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">SetLayoutStrategy</span><span class="p">(</span><span class="s2">&quot;Simple 2D&quot;</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">GetLayoutStrategy</span><span class="p">()</span><span class="o">.</span><span class="n">SetEdgeWeightField</span><span class="p">(</span><span class="s2">&quot;Weights&quot;</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">GetLayoutStrategy</span><span class="p">()</span><span class="o">.</span><span class="n">SetWeightEdges</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">SetEdgeLabelArrayName</span><span class="p">(</span><span class="s2">&quot;Weights&quot;</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">SetEdgeLabelVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-graphLayoutView.GetLayoutStrategy().SetRandomSeed(0)
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">GetLayoutStrategy</span><span class="p">()</span><span class="o">.</span><span class="n">SetRandomSeed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-graphLayoutView.GetInteractor().Start()
-</code></pre>
+<span class="n">graphLayoutView</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

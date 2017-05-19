@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,71 +15990,71 @@
                   <h1>IterateOverLines</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/IterateOverLines</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IterateOverLines.cs</strong></p>
-<pre><code class="csharp">using System;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
-      static void Main(string[] args) {
-         IterateOverLines();
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">IterateOverLines</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private static void IterateOverLines() {
-         double[] origin = new double[] { 0.0, 0.0, 0.0 };
-         double[,] p = new double[,] {
-            {1.0, 0.0, 0.0},
-            {0.0, 1.0, 0.0},
-            {0.0, 1.0, 2.0},
-            {1.0, 2.0, 3.0}};
+      <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">IterateOverLines</span><span class="p">()</span> <span class="p">{</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">origin</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[,]</span> <span class="n">p</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[,]</span> <span class="p">{</span>
+            <span class="p">{</span><span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">},</span>
+            <span class="p">{</span><span class="m">1.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">,</span> <span class="m">3.0</span><span class="p">}};</span>
 
-         // Create a vtkPoints object and store the points in it
-         vtkPoints points = vtkPoints.New();
-         points.InsertNextPoint(origin[0], origin[1], origin[2]);
-         for(int i = 0; i &lt; 4; i++)
-            points.InsertNextPoint(p[i, 0], p[i, 1], p[i, 2]);
+         <span class="c1">// Create a vtkPoints object and store the points in it</span>
+         <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">origin</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">origin</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">4</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+            <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="m">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="m">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="m">2</span><span class="p">]);</span>
 
-         // Create a cell array to store the lines in and add the lines to it
-         vtkCellArray lines = vtkCellArray.New();
+         <span class="c1">// Create a cell array to store the lines in and add the lines to it</span>
+         <span class="n">vtkCellArray</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">vtkCellArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         // Create four lines
-         for(int i = 0; i &lt; 4; i++) {
-            vtkLine line = vtkLine.New();
-            line.GetPointIds().SetId(0, i);
-            line.GetPointIds().SetId(1, i + 1);
-            lines.InsertNextCell(line);
-         }
+         <span class="c1">// Create four lines</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">4</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">vtkLine</span> <span class="n">line</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+            <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+            <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+         <span class="p">}</span>
 
-         // Create a polydata to store everything in
-         vtkPolyData linesPolyData = vtkPolyData.New();
+         <span class="c1">// Create a polydata to store everything in</span>
+         <span class="n">vtkPolyData</span> <span class="n">linesPolyData</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         // Add the points to the dataset
-         linesPolyData.SetPoints(points);
+         <span class="c1">// Add the points to the dataset</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-         // Add the lines to the dataset
-         linesPolyData.SetLines(lines);
+         <span class="c1">// Add the lines to the dataset</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
 
-         Console.WriteLine(&quot;There are &quot; + linesPolyData.GetNumberOfLines() + &quot; lines.&quot;);
-         linesPolyData.GetLines().InitTraversal();
-         vtkIdList idList = vtkIdList.New();
-         while(linesPolyData.GetLines().GetNextCell(idList) != 0) {
-            Console.WriteLine(&quot;Line has &quot; + idList.GetNumberOfIds() + &quot; points.&quot;);
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;There are &quot;</span> <span class="p">+</span> <span class="n">linesPolyData</span><span class="p">.</span><span class="n">GetNumberOfLines</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; lines.&quot;</span><span class="p">);</span>
+         <span class="n">linesPolyData</span><span class="p">.</span><span class="n">GetLines</span><span class="p">().</span><span class="n">InitTraversal</span><span class="p">();</span>
+         <span class="n">vtkIdList</span> <span class="n">idList</span> <span class="p">=</span> <span class="n">vtkIdList</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="k">while</span><span class="p">(</span><span class="n">linesPolyData</span><span class="p">.</span><span class="n">GetLines</span><span class="p">().</span><span class="n">GetNextCell</span><span class="p">(</span><span class="n">idList</span><span class="p">)</span> <span class="p">!=</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Line has &quot;</span> <span class="p">+</span> <span class="n">idList</span><span class="p">.</span><span class="n">GetNumberOfIds</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; points.&quot;</span><span class="p">);</span>
 
-            for(int pointId = 0; pointId &lt; idList.GetNumberOfIds(); pointId++) {
-               Console.Write(idList.GetId(pointId) + &quot; &quot;);
-            }
-            Console.Write(Environment.NewLine);
-         }
-      }
-   }
-}
-</code></pre>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">pointId</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">pointId</span> <span class="p">&lt;</span> <span class="n">idList</span><span class="p">.</span><span class="n">GetNumberOfIds</span><span class="p">();</span> <span class="n">pointId</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">idList</span><span class="p">.</span><span class="n">GetId</span><span class="p">(</span><span class="n">pointId</span><span class="p">)</span> <span class="p">+</span> <span class="s">&quot; &quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

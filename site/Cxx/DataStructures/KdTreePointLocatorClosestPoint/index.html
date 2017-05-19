@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,88 +16018,95 @@
                   <h1>KdTreePointLocatorClosestPoint</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/DataStructures/KdTreePointLocatorClosestPoint</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a set of three points, builds a KDTree from them, then demonstrates how to find the closest point to a query point.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>KdTreePointLocatorClosestPoint.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkIdList.h&gt;
-#include &lt;vtkKdTreePointLocator.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdList.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkKdTreePointLocator.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Setup point coordinates
-  double x[3] = {1.0, 0.0, 0.0};
-  double y[3] = {0.0, 1.0, 0.0};
-  double z[3] = {0.0, 0.0, 1.0};
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Setup point coordinates</span>
+  <span class="kt">double</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">z</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; points = 
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(x);
-  points-&gt;InsertNextPoint(y);
-  points-&gt;InsertNextPoint(z);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata = 
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints(points);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  // Create the tree
-  vtkSmartPointer&lt;vtkKdTreePointLocator&gt; kDTree = 
-    vtkSmartPointer&lt;vtkKdTreePointLocator&gt;::New();
-  kDTree-&gt;SetDataSet(polydata);
-  kDTree-&gt;BuildLocator();
+  <span class="c1">// Create the tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKdTreePointLocator</span><span class="o">&gt;</span> <span class="n">kDTree</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKdTreePointLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">kDTree</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+  <span class="n">kDTree</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  double testPoint[3] = {2.0, 0.0, 0.0};
+  <span class="kt">double</span> <span class="n">testPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
 
-  // Find the closest points to TestPoint
-  vtkIdType iD = kDTree-&gt;FindClosestPoint(testPoint);
-  std::cout &lt;&lt; &quot;The closest point is point &quot; &lt;&lt; iD &lt;&lt; std::endl;
+  <span class="c1">// Find the closest points to TestPoint</span>
+  <span class="n">vtkIdType</span> <span class="n">iD</span> <span class="o">=</span> <span class="n">kDTree</span><span class="o">-&gt;</span><span class="n">FindClosestPoint</span><span class="p">(</span><span class="n">testPoint</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;The closest point is point &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">iD</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  //Get the coordinates of the closest point
-  double closestPoint[3];
-  kDTree-&gt;GetDataSet()-&gt;GetPoint(iD, closestPoint);
-  std::cout &lt;&lt; &quot;Coordinates: &quot; &lt;&lt; closestPoint[0] &lt;&lt; &quot; &quot; &lt;&lt; closestPoint[1] &lt;&lt; &quot; &quot; &lt;&lt; closestPoint[2] &lt;&lt; std::endl;
+  <span class="c1">//Get the coordinates of the closest point</span>
+  <span class="kt">double</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">kDTree</span><span class="o">-&gt;</span><span class="n">GetDataSet</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">iD</span><span class="p">,</span> <span class="n">closestPoint</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Coordinates: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">closestPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(KdTreePointLocatorClosestPoint)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">KdTreePointLocatorClosestPoint</span><span class="p">)</span>
 
-add_executable(KdTreePointLocatorClosestPoint MACOSX_BUNDLE KdTreePointLocatorClosestPoint.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(KdTreePointLocatorClosestPoint ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">KdTreePointLocatorClosestPoint</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">KdTreePointLocatorClosestPoint.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-kdtreepointlocatorclosestpoint">Download and Build KdTreePointLocatorClosestPoint</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">KdTreePointLocatorClosestPoint</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-kdtreepointlocatorclosestpoint">Download and Build KdTreePointLocatorClosestPoint<a class="headerlink" href="#download-and-build-kdtreepointlocatorclosestpoint" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/KdTreePointLocatorClosestPoint.tar">here to download KdTreePointLocatorClosestPoint</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball KdTreePointLocatorClosestPoint.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd KdTreePointLocatorClosestPoint/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd KdTreePointLocatorClosestPoint/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./KdTreePointLocatorClosestPoint
-</code></pre>
+<div class="codehilite"><pre><span></span>./KdTreePointLocatorClosestPoint
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

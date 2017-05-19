@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15557,6 +15557,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15964,98 +15976,98 @@
                   <h1>ImageTest</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Imaging/ImageTest</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageTest.java</strong></p>
-<pre><code class="java">import java.awt.FileDialog;
-import java.awt.Frame;
-import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">java.awt.FileDialog</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.Frame</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class ImageTest  {
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImageTest</span>  <span class="o">{</span>
 
-    /**
-     * ImageTest provides a means to test the ImageReader2Factory
-     * Image files understood by vtk are displayed, 
-     * all others are reported with a message. 
-     */
-    vtkRenderWindow renWin;
-    vtkRenderWindowInteractor iren;
-    vtkRenderer ren1;
-    vtkImageReader2Factory imageReaderFactory;
-    vtkImageReader2 imageReader;
-    vtkImageActor ImageActor;
-    vtkInteractorObserver imageStyle;
+    <span class="cm">/**</span>
+<span class="cm">     * ImageTest provides a means to test the ImageReader2Factory</span>
+<span class="cm">     * Image files understood by vtk are displayed, </span>
+<span class="cm">     * all others are reported with a message. </span>
+<span class="cm">     */</span>
+    <span class="n">vtkRenderWindow</span> <span class="n">renWin</span><span class="o">;</span>
+    <span class="n">vtkRenderWindowInteractor</span> <span class="n">iren</span><span class="o">;</span>
+    <span class="n">vtkRenderer</span> <span class="n">ren1</span><span class="o">;</span>
+    <span class="n">vtkImageReader2Factory</span> <span class="n">imageReaderFactory</span><span class="o">;</span>
+    <span class="n">vtkImageReader2</span> <span class="n">imageReader</span><span class="o">;</span>
+    <span class="n">vtkImageActor</span> <span class="n">ImageActor</span><span class="o">;</span>
+    <span class="n">vtkInteractorObserver</span> <span class="n">imageStyle</span><span class="o">;</span>
 
-    static {
-        System.loadLibrary(&quot;vtkCommonJava&quot;);
-        System.loadLibrary(&quot;vtkFilteringJava&quot;);
-        System.loadLibrary(&quot;vtkIOJava&quot;);
-        System.loadLibrary(&quot;vtkImagingJava&quot;);
-        System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-        System.loadLibrary(&quot;vtkRenderingJava&quot;);
-        System.loadLibrary(&quot;vtkWidgetsJava&quot;);
-    }
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkWidgetsJava&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    public static void main(String[] args) {
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
-        ImageTest me = new ImageTest();
-        me.doit();
+        <span class="n">ImageTest</span> <span class="n">me</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ImageTest</span><span class="o">();</span>
+        <span class="n">me</span><span class="o">.</span><span class="na">doit</span><span class="o">();</span>
 
-    }
+    <span class="o">}</span>
 
 
-    public void doit() {
-        /*
-         * Use a file dialog to allow selection of any file for 
-         * test of the imagereaderfactory.
-         * only does one file per exection.
-         */
-        System.out.println(&quot;init in ImageTest&quot;);
-        ren1 = new vtkRenderer();
-        renWin = new vtkRenderWindow();
-        iren = new vtkRenderWindowInteractor();
-        imageStyle = new vtkInteractorStyleImage();
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="cm">/*</span>
+<span class="cm">         * Use a file dialog to allow selection of any file for </span>
+<span class="cm">         * test of the imagereaderfactory.</span>
+<span class="cm">         * only does one file per exection.</span>
+<span class="cm">         */</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;init in ImageTest&quot;</span><span class="o">);</span>
+        <span class="n">ren1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+        <span class="n">renWin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+        <span class="n">iren</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">();</span>
+        <span class="n">imageStyle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkInteractorStyleImage</span><span class="o">();</span>
 
-        FileDialog fd = new FileDialog( new Frame(),&quot;File name to load&quot;,
-                FileDialog.LOAD);
-        fd.setFile(&quot;*.*&quot;);
-        fd.setVisible(true);
-        String selected = fd.getFile();
-        fd.setVisible(false);
-        if (selected != null) {
-            String outname = fd.getDirectory() + selected;
+        <span class="n">FileDialog</span> <span class="n">fd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileDialog</span><span class="o">(</span> <span class="k">new</span> <span class="n">Frame</span><span class="o">(),</span><span class="s">&quot;File name to load&quot;</span><span class="o">,</span>
+                <span class="n">FileDialog</span><span class="o">.</span><span class="na">LOAD</span><span class="o">);</span>
+        <span class="n">fd</span><span class="o">.</span><span class="na">setFile</span><span class="o">(</span><span class="s">&quot;*.*&quot;</span><span class="o">);</span>
+        <span class="n">fd</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">selected</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="na">getFile</span><span class="o">();</span>
+        <span class="n">fd</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">selected</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">outname</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="na">getDirectory</span><span class="o">()</span> <span class="o">+</span> <span class="n">selected</span><span class="o">;</span>
 
-            imageReaderFactory = new vtkImageReader2Factory();
-            imageReader = imageReaderFactory.CreateImageReader2(outname);
-            if (imageReader != null) {
-                imageReader.SetFileName(outname);
-                imageReader.SetDataOrigin(0, 0, 0);
-                imageReader.Update();
+            <span class="n">imageReaderFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkImageReader2Factory</span><span class="o">();</span>
+            <span class="n">imageReader</span> <span class="o">=</span> <span class="n">imageReaderFactory</span><span class="o">.</span><span class="na">CreateImageReader2</span><span class="o">(</span><span class="n">outname</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">imageReader</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">imageReader</span><span class="o">.</span><span class="na">SetFileName</span><span class="o">(</span><span class="n">outname</span><span class="o">);</span>
+                <span class="n">imageReader</span><span class="o">.</span><span class="na">SetDataOrigin</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="n">imageReader</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
-                ImageActor = new vtkImageActor();
-                ImageActor.SetInput(imageReader.GetOutput());
-                renWin.AddRenderer(ren1);
-                iren.SetRenderWindow(renWin);
+                <span class="n">ImageActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkImageActor</span><span class="o">();</span>
+                <span class="n">ImageActor</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span><span class="n">imageReader</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
+                <span class="n">renWin</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span><span class="n">ren1</span><span class="o">);</span>
+                <span class="n">iren</span><span class="o">.</span><span class="na">SetRenderWindow</span><span class="o">(</span><span class="n">renWin</span><span class="o">);</span>
 
-                iren.SetInteractorStyle(imageStyle);
+                <span class="n">iren</span><span class="o">.</span><span class="na">SetInteractorStyle</span><span class="o">(</span><span class="n">imageStyle</span><span class="o">);</span>
 
-                ren1.AddActor(ImageActor);
-                renWin.AddRenderer(ren1);
+                <span class="n">ren1</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">ImageActor</span><span class="o">);</span>
+                <span class="n">renWin</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span><span class="n">ren1</span><span class="o">);</span>
 
-                iren.Initialize();
-                iren.Start();
-                System.out.println(&quot;Return from interactor&quot;);
-                renWin.Finalize();
-            } else {
-                System.out.println(&quot;No reader found for &quot; + outname);
-            }
+                <span class="n">iren</span><span class="o">.</span><span class="na">Initialize</span><span class="o">();</span>
+                <span class="n">iren</span><span class="o">.</span><span class="na">Start</span><span class="o">();</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Return from interactor&quot;</span><span class="o">);</span>
+                <span class="n">renWin</span><span class="o">.</span><span class="na">Finalize</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;No reader found for &quot;</span> <span class="o">+</span> <span class="n">outname</span><span class="o">);</span>
+            <span class="o">}</span>
 
-        } else {
-            System.out.println(&quot;No file name selected&quot;);
-        }
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;No file name selected&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
 
-    }
-}
-</code></pre>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

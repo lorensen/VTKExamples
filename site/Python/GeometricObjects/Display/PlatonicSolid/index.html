@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15566,6 +15566,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15980,139 +15992,139 @@
                   <h1>PlatonicSolid</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/PlatonicSolid</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Display all five Platonic solids in a grid.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PlatonicSolid.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-class PlatonicSolids():
+<span class="k">class</span> <span class="nc">PlatonicSolids</span><span class="p">():</span>
 
-    def PlatonicSolids(self):
+    <span class="k">def</span> <span class="nf">PlatonicSolids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        # Each face has a different cell scalar
-        # So create a lookup table with a different colour
-        # for each face.
-        lut = vtk.vtkLookupTable()
-        lut.SetNumberOfTableValues(20)
-        lut.SetTableRange(0.0, 19.0)
-        lut.Build()
-        lut.SetTableValue(0, 0, 0, 0)
-        lut.SetTableValue(1, 0, 0, 1)
-        lut.SetTableValue(2, 0, 1, 0)
-        lut.SetTableValue(3, 0, 1, 1)
-        lut.SetTableValue(4, 1, 0, 0)
-        lut.SetTableValue(5, 1, 0, 1)
-        lut.SetTableValue(6, 1, 1, 0)
-        lut.SetTableValue(7, 1, 1, 1)
-        lut.SetTableValue(8, 0.7, 0.7, 0.7)
-        lut.SetTableValue(9, 0, 0, 0.7)
-        lut.SetTableValue(10, 0, 0.7, 0)
-        lut.SetTableValue(11, 0, 0.7, 0.7)
-        lut.SetTableValue(12, 0.7, 0, 0)
-        lut.SetTableValue(13, 0.7, 0, 0.7)
-        lut.SetTableValue(14, 0.7, 0.7, 0)
-        lut.SetTableValue(15, 0, 0, 0.4)
-        lut.SetTableValue(16, 0, 0.4, 0)
-        lut.SetTableValue(17, 0, 0.4, 0.4)
-        lut.SetTableValue(18, 0.4, 0, 0)
-        lut.SetTableValue(19, 0.4, 0, 0.4)
+        <span class="c1"># Each face has a different cell scalar</span>
+        <span class="c1"># So create a lookup table with a different colour</span>
+        <span class="c1"># for each face.</span>
+        <span class="n">lut</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">Build</span><span class="p">()</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
 
-        PlatonicSolids = list()
-        # There are five Platonic solids.
-        PlatonicSolids.append(vtk.vtkPlatonicSolidSource())
-        PlatonicSolids.append(vtk.vtkPlatonicSolidSource())
-        PlatonicSolids.append(vtk.vtkPlatonicSolidSource())
-        PlatonicSolids.append(vtk.vtkPlatonicSolidSource())
-        PlatonicSolids.append(vtk.vtkPlatonicSolidSource())
-        # Specify the Platonic Solid to create.
-        for idx, item in enumerate(PlatonicSolids):
-            PlatonicSolids[idx].SetSolidType(idx)
-            names = [&quot;Tetrahedron&quot;,&quot;Cube&quot;,&quot;Octahedron&quot;,&quot;Icosahedron&quot;, &quot;Dodecahedron&quot;]
+        <span class="n">PlatonicSolids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="c1"># There are five Platonic solids.</span>
+        <span class="n">PlatonicSolids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlatonicSolidSource</span><span class="p">())</span>
+        <span class="n">PlatonicSolids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlatonicSolidSource</span><span class="p">())</span>
+        <span class="n">PlatonicSolids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlatonicSolidSource</span><span class="p">())</span>
+        <span class="n">PlatonicSolids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlatonicSolidSource</span><span class="p">())</span>
+        <span class="n">PlatonicSolids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlatonicSolidSource</span><span class="p">())</span>
+        <span class="c1"># Specify the Platonic Solid to create.</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PlatonicSolids</span><span class="p">):</span>
+            <span class="n">PlatonicSolids</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetSolidType</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Tetrahedron&quot;</span><span class="p">,</span><span class="s2">&quot;Cube&quot;</span><span class="p">,</span><span class="s2">&quot;Octahedron&quot;</span><span class="p">,</span><span class="s2">&quot;Icosahedron&quot;</span><span class="p">,</span> <span class="s2">&quot;Dodecahedron&quot;</span><span class="p">]</span>
 
-        renderers = list()
-        mappers = list()
-        actors = list()
-        textmappers = list()
-        textactors = list()
+        <span class="n">renderers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">mappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">actors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textmappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textactors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-        # Create a common text property.
-        textProperty = vtk.vtkTextProperty()
-        textProperty.SetFontSize(10)
-        textProperty.SetJustificationToCentered()
+        <span class="c1"># Create a common text property.</span>
+        <span class="n">textProperty</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextProperty</span><span class="p">()</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetJustificationToCentered</span><span class="p">()</span>
 
-        # Create a parametric function source, renderer, mapper 
-        # and actor for each object.
-        for idx, item in enumerate(PlatonicSolids):
-            PlatonicSolids[idx].Update()
+        <span class="c1"># Create a parametric function source, renderer, mapper </span>
+        <span class="c1"># and actor for each object.</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PlatonicSolids</span><span class="p">):</span>
+            <span class="n">PlatonicSolids</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-            mappers.append(vtk.vtkPolyDataMapper())
-            mappers[idx].SetInputConnection(PlatonicSolids[idx].GetOutputPort())
-            mappers[idx].SetLookupTable(lut)
-            mappers[idx].SetScalarRange(0, 20)
+            <span class="n">mappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">())</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">PlatonicSolids</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 
-            actors.append(vtk.vtkActor())
-            actors[idx].SetMapper(mappers[idx])
+            <span class="n">actors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">())</span>
+            <span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-            textmappers.append(vtk.vtkTextMapper())
-            textmappers[idx].SetInput(names[idx])
-            textmappers[idx].SetTextProperty(textProperty)
+            <span class="n">textmappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextMapper</span><span class="p">())</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">)</span>
 
-            textactors.append(vtk.vtkActor2D())
-            textactors[idx].SetMapper(textmappers[idx])
-            textactors[idx].SetPosition(120, 16)
+            <span class="n">textactors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor2D</span><span class="p">())</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 
-            renderers.append(vtk.vtkRenderer())
+            <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">())</span>
 
-        rowDimensions = 3
-        colDimensions = 2
+        <span class="n">rowDimensions</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">colDimensions</span> <span class="o">=</span> <span class="mi">2</span>
 
-        for idx in range(rowDimensions * colDimensions):
-            if idx &gt;= len(PlatonicSolids):
-                renderers.append(vtk.vtkRenderer)
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rowDimensions</span> <span class="o">*</span> <span class="n">colDimensions</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">PlatonicSolids</span><span class="p">):</span>
+                <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">)</span>
 
-        rendererSize = 300
+        <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">300</span>
 
-        # Create the RenderWindow
-        #
-        renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * rowDimensions / colDimensions, rendererSize * colDimensions )
+        <span class="c1"># Create the RenderWindow</span>
+        <span class="c1">#</span>
+        <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span> <span class="o">*</span> <span class="n">rowDimensions</span> <span class="o">/</span> <span class="n">colDimensions</span><span class="p">,</span> <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">colDimensions</span> <span class="p">)</span>
 
-        # Add and position the renders to the render window.
-        viewport = list()
-        idx = -1
-        for row in range(rowDimensions):
-            for col in range(colDimensions):
-                idx += 1
-                viewport[:] = []
-                viewport.append(float(col) * rendererSize / (colDimensions * rendererSize))
-                viewport.append(float(rowDimensions - (row+1)) * rendererSize / (rowDimensions * rendererSize))
-                viewport.append(float(col+1)*rendererSize / (colDimensions * rendererSize))
-                viewport.append(float(rowDimensions - row) * rendererSize / (rowDimensions * rendererSize))
+        <span class="c1"># Add and position the renders to the render window.</span>
+        <span class="n">viewport</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rowDimensions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">colDimensions</span><span class="p">):</span>
+                <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">viewport</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">colDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rowDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">rowDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">colDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rowDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">rowDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
 
-                if idx &gt; (len(PlatonicSolids) - 1):
-                    continue
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">PlatonicSolids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">continue</span>
 
-                renderers[idx].SetViewport(viewport)
-                renderWindow.AddRenderer(renderers[idx])
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">)</span>
+                <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-                renderers[idx].AddActor(actors[idx])
-                renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.4,0.3,0.2)
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
 
-        interactor = vtk.vtkRenderWindowInteractor()
-        interactor.SetRenderWindow(renderWindow)
+        <span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+        <span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-        renderWindow.Render()
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-        interactor.Start()
+        <span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-if __name__ == &quot;__main__&quot;:
-    po = PlatonicSolids()
-    po.PlatonicSolids()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">po</span> <span class="o">=</span> <span class="n">PlatonicSolids</span><span class="p">()</span>
+    <span class="n">po</span><span class="o">.</span><span class="n">PlatonicSolids</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

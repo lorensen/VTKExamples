@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,62 +15990,62 @@
                   <h1>ReadExodusData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/ExodusII/ReadExodusData</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>==Brief Description==
 A simple Python script for reading and displaying ExodusII data with VTK.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadExodusData.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-#
-# This example was built using Python2.7 and VTK6.3 on OSX
-import vtk
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1">#</span>
+<span class="c1"># This example was built using Python2.7 and VTK6.3 on OSX</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Input file and variable
-filename = 'mug.e'
-nodal_var = 'convected'
+<span class="c1"># Input file and variable</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;mug.e&#39;</span>
+<span class="n">nodal_var</span> <span class="o">=</span> <span class="s1">&#39;convected&#39;</span>
 
-# Read Exodus Data
-reader = vtk.vtkExodusIIReader()
-reader.SetFileName(filename)
-reader.UpdateInformation()
-reader.SetTimeStep(10)
-reader.SetAllArrayStatus(vtk.vtkExodusIIReader.NODAL, 1) # enables all NODAL variables
-reader.Update()
-#print reader # uncomment this to show the file information
+<span class="c1"># Read Exodus Data</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkExodusIIReader</span><span class="p">()</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">UpdateInformation</span><span class="p">()</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">SetTimeStep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">SetAllArrayStatus</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkExodusIIReader</span><span class="o">.</span><span class="n">NODAL</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># enables all NODAL variables</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="c1">#print reader # uncomment this to show the file information</span>
 
-# Create Geometry
-geometry = vtk.vtkCompositeDataGeometryFilter()
-geometry.SetInputConnection(0, reader.GetOutputPort(0))
-geometry.Update()
+<span class="c1"># Create Geometry</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="p">()</span>
+<span class="n">geometry</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">reader</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">geometry</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# Mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(geometry.GetOutputPort())
-mapper.SelectColorArray(nodal_var)
-mapper.SetScalarModeToUsePointFieldData()
-mapper.InterpolateScalarsBeforeMappingOn()
+<span class="c1"># Mapper</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SelectColorArray</span><span class="p">(</span><span class="n">nodal_var</span><span class="p">)</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetScalarModeToUsePointFieldData</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">InterpolateScalarsBeforeMappingOn</span><span class="p">()</span>
 
-# Actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="c1"># Actor</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-# Renderer
-renderer = vtk.vtkRenderer()
-renderer.AddViewProp(actor)
+<span class="c1"># Renderer</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 
-# Window and Interactor
-window = vtk.vtkRenderWindow()
-window.AddRenderer(renderer)
-window.SetSize(600, 600)
+<span class="c1"># Window and Interactor</span>
+<span class="n">window</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
 
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(window)
-interactor.Initialize()
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
 
-# Show the result
-window.Render()
-interactor.Start()
-</code></pre>
+<span class="c1"># Show the result</span>
+<span class="n">window</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

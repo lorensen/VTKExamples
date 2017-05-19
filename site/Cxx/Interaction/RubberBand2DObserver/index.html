@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,119 +16005,126 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Interaction/RubberBand2DObserver</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Interaction/TestRubberBand2DObserver.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>RubberBand2DObserver.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkInteractorStyleRubberBand2D.h&gt;
-#include &lt;vtkCallbackCommand.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleRubberBand2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCallbackCommand.h&gt;</span><span class="cp"></span>
 
-void SelectionChangedCallbackFunction( vtkObject* caller, 
-  long unsigned int eventId, void* clientData, void* callData );
+<span class="kt">void</span> <span class="nf">SelectionChangedCallbackFunction</span><span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span> 
+  <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">);</span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource = 
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(1,1,1); // Background color white
-  renderWindow-&gt;Render();
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkCallbackCommand&gt; selectionChangedCallback = 
-    vtkSmartPointer&lt;vtkCallbackCommand&gt;::New();
-  selectionChangedCallback-&gt;SetCallback ( SelectionChangedCallbackFunction );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">selectionChangedCallback</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectionChangedCallback</span><span class="o">-&gt;</span><span class="n">SetCallback</span> <span class="p">(</span> <span class="n">SelectionChangedCallbackFunction</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleRubberBand2D&gt; style = 
-    vtkSmartPointer&lt;vtkInteractorStyleRubberBand2D&gt;::New();
-  style-&gt;AddObserver ( vtkCommand::SelectionChangedEvent, selectionChangedCallback );
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleRubberBand2D</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleRubberBand2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">AddObserver</span> <span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">SelectionChangedEvent</span><span class="p">,</span> <span class="n">selectionChangedCallback</span> <span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-  // Begin mouse interaction
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Begin mouse interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-void SelectionChangedCallbackFunction ( vtkObject* vtkNotUsed(caller), 
-  long unsigned int vtkNotUsed(eventId), void* vtkNotUsed(clientData), void* callData )
-{
-  std::cout &lt;&lt; &quot;SelectionChanged callback&quot; &lt;&lt; std::endl;
+<span class="kt">void</span> <span class="nf">SelectionChangedCallbackFunction</span> <span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span> 
+  <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">eventId</span><span class="p">),</span> <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">clientData</span><span class="p">),</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;SelectionChanged callback&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  unsigned int* rect = reinterpret_cast&lt;unsigned int*&gt; ( callData );
-  unsigned int pos1X = rect[0];
-  unsigned int pos1Y = rect[1];
-  unsigned int pos2X = rect[2];
-  unsigned int pos2Y = rect[3];
+  <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">rect</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*&gt;</span> <span class="p">(</span> <span class="n">callData</span> <span class="p">);</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pos1X</span> <span class="o">=</span> <span class="n">rect</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pos1Y</span> <span class="o">=</span> <span class="n">rect</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pos2X</span> <span class="o">=</span> <span class="n">rect</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">pos2Y</span> <span class="o">=</span> <span class="n">rect</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-  std::cout &lt;&lt; &quot;Start x: &quot; &lt;&lt; pos1X &lt;&lt; &quot; Start y: &quot; &lt;&lt; pos1Y 
-            &lt;&lt; &quot; End x: &quot; &lt;&lt; pos2X &lt;&lt; &quot; End y: &quot; &lt;&lt; pos2Y &lt;&lt; std::endl;
-}
-</code></pre>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Start x: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos1X</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Start y: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos1Y</span> 
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; End x: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos2X</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; End y: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos2Y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(RubberBand2DObserver)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">RubberBand2DObserver</span><span class="p">)</span>
 
-add_executable(RubberBand2DObserver MACOSX_BUNDLE RubberBand2DObserver.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(RubberBand2DObserver ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">RubberBand2DObserver</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">RubberBand2DObserver.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-rubberband2dobserver">Download and Build RubberBand2DObserver</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">RubberBand2DObserver</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-rubberband2dobserver">Download and Build RubberBand2DObserver<a class="headerlink" href="#download-and-build-rubberband2dobserver" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/RubberBand2DObserver.tar">here to download RubberBand2DObserver</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball RubberBand2DObserver.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd RubberBand2DObserver/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd RubberBand2DObserver/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./RubberBand2DObserver
-</code></pre>
+<div class="codehilite"><pre><span></span>./RubberBand2DObserver
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

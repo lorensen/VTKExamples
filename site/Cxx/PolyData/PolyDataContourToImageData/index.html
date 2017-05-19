@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,7 +16018,7 @@
                   <h1>PolyDataContourToImageData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PolyDataContourToImageData</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Contributed by: Lars Friedrich</li>
 </ul>
@@ -16017,189 +16029,196 @@ Both the circular poly data (circle.vtp) and the resultant image (labelImage.mhd
 whether or not the image origin needs to be adjusted as the
 sphere-image-overlay shows some offset in paraview visualization (at
 least I think ...). Maybe someone could verify that. Thanks!</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolyDataContourToImageData.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkMetaImageWriter.h&gt;
-#include &lt;vtkPolyDataToImageStencil.h&gt;
-#include &lt;vtkImageStencil.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkCutter.h&gt;
-#include &lt;vtkPlane.h&gt;
-#include &lt;vtkStripper.h&gt;
-#include &lt;vtkLinearExtrusionFilter.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataToImageStencil.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageStencil.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCutter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlane.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStripper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLinearExtrusionFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
 
-/**
- * This example generates a sphere, cuts it with a plane and, therefore, generates a circlular contour (vtkPolyData).
- * Subsequently a binary image representation (vtkImageData) is extracted from it. Internally vtkPolyDataToImageStencil and
- * vtkLinearExtrusionFilter are utilized. Both the circular poly data (circle.vtp) and the resultant image (labelImage.mhd)
- * are saved to disk.
- */
-int main(int, char *[])
-{
-  // 3D source sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetPhiResolution(30);
-  sphereSource-&gt;SetThetaResolution(30);
-  sphereSource-&gt;SetCenter(40, 40, 0);
-  sphereSource-&gt;SetRadius(20);
-  // generate circle by cutting the sphere with an implicit plane
-  // (through its center, axis-aligned)
-  vtkSmartPointer&lt;vtkCutter&gt; circleCutter = vtkSmartPointer&lt;vtkCutter&gt;::New();
-  circleCutter-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkPlane&gt; cutPlane = vtkSmartPointer&lt;vtkPlane&gt;::New();
-  cutPlane-&gt;SetOrigin(sphereSource-&gt;GetCenter());
-  cutPlane-&gt;SetNormal(0, 0, 1);
-  circleCutter-&gt;SetCutFunction(cutPlane);
-  vtkSmartPointer&lt;vtkStripper&gt; stripper = vtkSmartPointer&lt;vtkStripper&gt;::New();
-  stripper-&gt;SetInputConnection(circleCutter-&gt;GetOutputPort()); // valid circle
-  stripper-&gt;Update();
-  // that's our circle
-  vtkSmartPointer&lt;vtkPolyData&gt; circle = stripper-&gt;GetOutput();
+<span class="cm">/**</span>
+<span class="cm"> * This example generates a sphere, cuts it with a plane and, therefore, generates a circlular contour (vtkPolyData).</span>
+<span class="cm"> * Subsequently a binary image representation (vtkImageData) is extracted from it. Internally vtkPolyDataToImageStencil and</span>
+<span class="cm"> * vtkLinearExtrusionFilter are utilized. Both the circular poly data (circle.vtp) and the resultant image (labelImage.mhd)</span>
+<span class="cm"> * are saved to disk.</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// 3D source sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="c1">// generate circle by cutting the sphere with an implicit plane</span>
+  <span class="c1">// (through its center, axis-aligned)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;</span> <span class="n">circleCutter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">circleCutter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">cutPlane</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cutPlane</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">());</span>
+  <span class="n">cutPlane</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">circleCutter</span><span class="o">-&gt;</span><span class="n">SetCutFunction</span><span class="p">(</span><span class="n">cutPlane</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;</span> <span class="n">stripper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">stripper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">circleCutter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span> <span class="c1">// valid circle</span>
+  <span class="n">stripper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="c1">// that&#39;s our circle</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">circle</span> <span class="o">=</span> <span class="n">stripper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // write circle out
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; polyDataWriter =
-      vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  polyDataWriter-&gt;SetInput(circle);
-#else
-  polyDataWriter-&gt;SetInputData(circle);
-#endif
-  polyDataWriter-&gt;SetFileName(&quot;circle.vtp&quot;);
-  polyDataWriter-&gt;SetCompressorTypeToNone();
-  polyDataWriter-&gt;SetDataModeToAscii();
-  polyDataWriter-&gt;Write();
+  <span class="c1">// write circle out</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">polyDataWriter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">polyDataWriter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">circle</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">polyDataWriter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">circle</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">polyDataWriter</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;circle.vtp&quot;</span><span class="p">);</span>
+  <span class="n">polyDataWriter</span><span class="o">-&gt;</span><span class="n">SetCompressorTypeToNone</span><span class="p">();</span>
+  <span class="n">polyDataWriter</span><span class="o">-&gt;</span><span class="n">SetDataModeToAscii</span><span class="p">();</span>
+  <span class="n">polyDataWriter</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  // prepare the binary image's voxel grid
-  vtkSmartPointer&lt;vtkImageData&gt; whiteImage =
-      vtkSmartPointer&lt;vtkImageData&gt;::New();
-  double bounds[6];
-  circle-&gt;GetBounds(bounds);
-  double spacing[3]; // desired volume spacing
-  spacing[0] = 0.5;
-  spacing[1] = 0.5;
-  spacing[2] = 0.5;
-  whiteImage-&gt;SetSpacing(spacing);
+  <span class="c1">// prepare the binary image&#39;s voxel grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">whiteImage</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">circle</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// desired volume spacing</span>
+  <span class="n">spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+  <span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+  <span class="n">spacing</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing</span><span class="p">);</span>
 
-  // compute dimensions
-  int dim[3];
-  for (int i = 0; i &lt; 3; i++)
-  {
-    dim[i] = static_cast&lt;int&gt;(ceil((bounds[i * 2 + 1] - bounds[i * 2]) /
-        spacing[i])) + 1;
-    if (dim[i] &lt; 1)
-      dim[i] = 1;
-  }
-  whiteImage-&gt;SetDimensions(dim);
-  whiteImage-&gt;SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1);
-  double origin[3];
-  // NOTE: I am not sure whether or not we had to add some offset!
-  origin[0] = bounds[0];// + spacing[0] / 2;
-  origin[1] = bounds[2];// + spacing[1] / 2;
-  origin[2] = bounds[4];// + spacing[2] / 2;
-  whiteImage-&gt;SetOrigin(origin);
-#if VTK_MAJOR_VERSION &lt;= 5
-  whiteImage-&gt;SetScalarTypeToUnsignedChar();
-  whiteImage-&gt;AllocateScalars();
-#else
-  whiteImage-&gt;AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
-  // fill the image with foreground voxels:
-  unsigned char inval = 255;
-  unsigned char outval = 0;
-  vtkIdType count = whiteImage-&gt;GetNumberOfPoints();
-  for (vtkIdType i = 0; i &lt; count; ++i)
-  {
-    whiteImage-&gt;GetPointData()-&gt;GetScalars()-&gt;SetTuple1(i, inval);
-  }
+  <span class="c1">// compute dimensions</span>
+  <span class="kt">int</span> <span class="n">dim</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ceil</span><span class="p">((</span><span class="n">bounds</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span> <span class="o">/</span>
+        <span class="n">spacing</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">);</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="c1">// NOTE: I am not sure whether or not we had to add some offset!</span>
+  <span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="c1">// + spacing[0] / 2;</span>
+  <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="c1">// + spacing[1] / 2;</span>
+  <span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="c1">// + spacing[2] / 2;</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="c1">// fill the image with foreground voxels:</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">inval</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">outval</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">vtkIdType</span> <span class="n">count</span> <span class="o">=</span> <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">inval</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // sweep polygonal data (this is the important thing with contours!)
-  vtkSmartPointer&lt;vtkLinearExtrusionFilter&gt; extruder =
-      vtkSmartPointer&lt;vtkLinearExtrusionFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  extruder-&gt;SetInput(circle);
-#else
-  extruder-&gt;SetInputData(circle);
-#endif
-  extruder-&gt;SetScaleFactor(1.);
-  extruder-&gt;SetExtrusionTypeToNormalExtrusion();
-  extruder-&gt;SetVector(0, 0, 1);
-  extruder-&gt;Update();
+  <span class="c1">// sweep polygonal data (this is the important thing with contours!)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLinearExtrusionFilter</span><span class="o">&gt;</span> <span class="n">extruder</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLinearExtrusionFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">extruder</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">circle</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">extruder</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">circle</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">extruder</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mf">1.</span><span class="p">);</span>
+  <span class="n">extruder</span><span class="o">-&gt;</span><span class="n">SetExtrusionTypeToNormalExtrusion</span><span class="p">();</span>
+  <span class="n">extruder</span><span class="o">-&gt;</span><span class="n">SetVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">extruder</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // polygonal data --&gt; image stencil:
-  vtkSmartPointer&lt;vtkPolyDataToImageStencil&gt; pol2stenc =
-    vtkSmartPointer&lt;vtkPolyDataToImageStencil&gt;::New();
-  pol2stenc-&gt;SetTolerance(0); // important if extruder-&gt;SetVector(0, 0, 1) !!!
-  pol2stenc-&gt;SetInputConnection(extruder-&gt;GetOutputPort());
-  pol2stenc-&gt;SetOutputOrigin(origin);
-  pol2stenc-&gt;SetOutputSpacing(spacing);
-  pol2stenc-&gt;SetOutputWholeExtent(whiteImage-&gt;GetExtent());
-  pol2stenc-&gt;Update();
+  <span class="c1">// polygonal data --&gt; image stencil:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataToImageStencil</span><span class="o">&gt;</span> <span class="n">pol2stenc</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataToImageStencil</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">SetTolerance</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// important if extruder-&gt;SetVector(0, 0, 1) !!!</span>
+  <span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extruder</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">SetOutputOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
+  <span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">SetOutputSpacing</span><span class="p">(</span><span class="n">spacing</span><span class="p">);</span>
+  <span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">SetOutputWholeExtent</span><span class="p">(</span><span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">());</span>
+  <span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // cut the corresponding white image and set the background:
-  vtkSmartPointer&lt;vtkImageStencil&gt; imgstenc =
-    vtkSmartPointer&lt;vtkImageStencil&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  imgstenc-&gt;SetInput(whiteImage);
-  imgstenc-&gt;SetStencil(pol2stenc-&gt;GetOutput());
-#else
-  imgstenc-&gt;SetInputData(whiteImage);
-  imgstenc-&gt;SetStencilConnection(pol2stenc-&gt;GetOutputPort());
-#endif
-  imgstenc-&gt;ReverseStencilOff();
-  imgstenc-&gt;SetBackgroundValue(outval);
-  imgstenc-&gt;Update();
+  <span class="c1">// cut the corresponding white image and set the background:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageStencil</span><span class="o">&gt;</span> <span class="n">imgstenc</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageStencil</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">whiteImage</span><span class="p">);</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">SetStencil</span><span class="p">(</span><span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">whiteImage</span><span class="p">);</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">SetStencilConnection</span><span class="p">(</span><span class="n">pol2stenc</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">ReverseStencilOff</span><span class="p">();</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">SetBackgroundValue</span><span class="p">(</span><span class="n">outval</span><span class="p">);</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkMetaImageWriter&gt; imageWriter =
-    vtkSmartPointer&lt;vtkMetaImageWriter&gt;::New();
-  imageWriter-&gt;SetFileName(&quot;labelImage.mhd&quot;);
-  imageWriter-&gt;SetInputConnection(imgstenc-&gt;GetOutputPort());
-  imageWriter-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageWriter</span><span class="o">&gt;</span> <span class="n">imageWriter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageWriter</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;labelImage.mhd&quot;</span><span class="p">);</span>
+  <span class="n">imageWriter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imageWriter</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PolyDataContourToImageData)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PolyDataContourToImageData</span><span class="p">)</span>
 
-add_executable(PolyDataContourToImageData MACOSX_BUNDLE PolyDataContourToImageData.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PolyDataContourToImageData ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PolyDataContourToImageData</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PolyDataContourToImageData.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-polydatacontourtoimagedata">Download and Build PolyDataContourToImageData</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PolyDataContourToImageData</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-polydatacontourtoimagedata">Download and Build PolyDataContourToImageData<a class="headerlink" href="#download-and-build-polydatacontourtoimagedata" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataContourToImageData.tar">here to download PolyDataContourToImageData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataContourToImageData.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PolyDataContourToImageData/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PolyDataContourToImageData/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PolyDataContourToImageData
-</code></pre>
+<div class="codehilite"><pre><span></span>./PolyDataContourToImageData
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

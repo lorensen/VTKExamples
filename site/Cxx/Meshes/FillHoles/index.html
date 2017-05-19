@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,240 +16019,247 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/FillHoles</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestFillHoles.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This filter finds holes in a mesh and closes them. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FillHoles.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSelectionNode.h&gt;
-#include &lt;vtkInformation.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPolyDataNormals.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkSelection.h&gt;
-#include &lt;vtkSelectionNode.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkIdTypeArray.h&gt;
-#include &lt;vtkExtractSelection.h&gt;
-#include &lt;vtkDataSetSurfaceFilter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelectionNode.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataNormals.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelectionNode.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdTypeArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkExtractSelection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetSurfaceFilter.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkFillHolesFilter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFillHolesFilter.h&gt;</span><span class="cp"></span>
 
-static void GenerateData(vtkPolyData*);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">GenerateData</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span><span class="p">);</span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; input =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  if(argc == 1)
-  {
-    GenerateData(input);
-  }
-  else
-  {
-    std::string inputFilename = argv[1];
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">input</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">GenerateData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(inputFilename.c_str());
-    reader-&gt;Update();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    input-&gt;ShallowCopy(reader-&gt;GetOutput());
-  }
+    <span class="n">input</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkFillHolesFilter&gt; fillHolesFilter =
-    vtkSmartPointer&lt;vtkFillHolesFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  fillHolesFilter-&gt;SetInputConnection(input-&gt;GetProducerPort());
-#else
-  fillHolesFilter-&gt;SetInputData(input);
-#endif
-  fillHolesFilter-&gt;SetHoleSize(1000.0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFillHolesFilter</span><span class="o">&gt;</span> <span class="n">fillHolesFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFillHolesFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">fillHolesFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">fillHolesFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">fillHolesFilter</span><span class="o">-&gt;</span><span class="n">SetHoleSize</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">);</span>
 
-  // Make the triangle windong order consistent
-  vtkSmartPointer&lt;vtkPolyDataNormals&gt; normals =
-    vtkSmartPointer&lt;vtkPolyDataNormals&gt;::New();
-  normals-&gt;SetInputConnection(fillHolesFilter-&gt;GetOutputPort());
-  normals-&gt;ConsistencyOn();
-  normals-&gt;SplittingOff();
-  normals-&gt;Update();
+  <span class="c1">// Make the triangle windong order consistent</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">fillHolesFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">ConsistencyOn</span><span class="p">();</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SplittingOff</span><span class="p">();</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Restore the original normals
-  normals-&gt;GetOutput()-&gt;GetPointData()-&gt;
-    SetNormals(input-&gt;GetPointData()-&gt;GetNormals());
+  <span class="c1">// Restore the original normals</span>
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span>
+    <span class="n">SetNormals</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
 
-  // Visualize
-  // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double leftViewport[4] = {0.0, 0.0, 0.5, 1.0};
-  double rightViewport[4] = {0.5, 0.0, 1.0, 1.0};
+  <span class="c1">// Visualize</span>
+  <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">leftViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">rightViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; originalMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  originalMapper-&gt;SetInputConnection(input-&gt;GetProducerPort());
-#else
-  originalMapper-&gt;SetInputData(input);
-#endif
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">originalMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkProperty&gt; backfaceProp =
-    vtkSmartPointer&lt;vtkProperty&gt;::New();
-  backfaceProp-&gt;SetDiffuseColor(0.89,0.81,0.34);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backfaceProp</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">backfaceProp</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.89</span><span class="p">,</span><span class="mf">0.81</span><span class="p">,</span><span class="mf">0.34</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; originalActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  originalActor-&gt;SetMapper(originalMapper);
-  originalActor-&gt;SetBackfaceProperty(backfaceProp);
-  originalActor-&gt;GetProperty()-&gt;SetDiffuseColor(1.0, 0.3882, 0.2784);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalMapper</span><span class="p">);</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backfaceProp</span><span class="p">);</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; filledMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  filledMapper-&gt;SetInputConnection(normals-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">filledMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">filledMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; filledActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  filledActor-&gt;SetMapper(filledMapper);
-  filledActor-&gt;GetProperty()-&gt;SetDiffuseColor(1.0, 0.3882, 0.2784);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">filledActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">filledActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">filledMapper</span><span class="p">);</span>
+  <span class="n">filledActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; leftRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  leftRenderer-&gt;SetViewport(leftViewport);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">leftRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; rightRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  rightRenderer-&gt;SetViewport(rightViewport);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">rightRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(600,300);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
 
-  renderWindow-&gt;AddRenderer(leftRenderer);
-  renderWindow-&gt;AddRenderer(rightRenderer);
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actor to the scene
-  leftRenderer-&gt;AddActor(originalActor);
-  rightRenderer-&gt;AddActor(filledActor);
-  leftRenderer-&gt;SetBackground(.3, .6, .3); // Background color green
+  <span class="c1">// Add the actor to the scene</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">filledActor</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color green</span>
 
-  leftRenderer-&gt;GetActiveCamera()-&gt;SetPosition(0, -1, 0);
-  leftRenderer-&gt;GetActiveCamera()-&gt;SetFocalPoint(0, 0, 0);
-  leftRenderer-&gt;GetActiveCamera()-&gt;SetViewUp(0, 0, 1);
-  leftRenderer-&gt;GetActiveCamera()-&gt;Azimuth(30);
-  leftRenderer-&gt;GetActiveCamera()-&gt;Elevation(30);
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetViewUp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
 
-  leftRenderer-&gt;ResetCamera();
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  rightRenderer-&gt;SetBackground(.5, .6, .1); // Background color green
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.1</span><span class="p">);</span> <span class="c1">// Background color green</span>
 
-  // Share the camera
+  <span class="c1">// Share the camera</span>
 
-  rightRenderer-&gt;SetActiveCamera(leftRenderer-&gt;GetActiveCamera());
-  // Render and interact
-  renderWindow-&gt;Render();
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void GenerateData(vtkPolyData* input)
-{
-  // Create a sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
+<span class="kt">void</span> <span class="nf">GenerateData</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create a sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Remove some cells
-  vtkSmartPointer&lt;vtkIdTypeArray&gt; ids =
-    vtkSmartPointer&lt;vtkIdTypeArray&gt;::New();
-  ids-&gt;SetNumberOfComponents(1);
+  <span class="c1">// Remove some cells</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdTypeArray</span><span class="o">&gt;</span> <span class="n">ids</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdTypeArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  // Set values
-  ids-&gt;InsertNextValue(2);
-  ids-&gt;InsertNextValue(10);
+  <span class="c1">// Set values</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSelectionNode&gt; selectionNode =
-    vtkSmartPointer&lt;vtkSelectionNode&gt;::New();
-  selectionNode-&gt;SetFieldType(vtkSelectionNode::CELL);
-  selectionNode-&gt;SetContentType(vtkSelectionNode::INDICES);
-  selectionNode-&gt;SetSelectionList(ids);
-  selectionNode-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectionNode</span><span class="o">&gt;</span> <span class="n">selectionNode</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectionNode</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectionNode</span><span class="o">-&gt;</span><span class="n">SetFieldType</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">CELL</span><span class="p">);</span>
+  <span class="n">selectionNode</span><span class="o">-&gt;</span><span class="n">SetContentType</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">INDICES</span><span class="p">);</span>
+  <span class="n">selectionNode</span><span class="o">-&gt;</span><span class="n">SetSelectionList</span><span class="p">(</span><span class="n">ids</span><span class="p">);</span>
+  <span class="n">selectionNode</span><span class="o">-&gt;</span><span class="n">GetProperties</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">INVERSE</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">//invert the selection</span>
 
-  vtkSmartPointer&lt;vtkSelection&gt; selection =
-      vtkSmartPointer&lt;vtkSelection&gt;::New();
-  selection-&gt;AddNode(selectionNode);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;</span> <span class="n">selection</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selection</span><span class="o">-&gt;</span><span class="n">AddNode</span><span class="p">(</span><span class="n">selectionNode</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkExtractSelection&gt; extractSelection =
-      vtkSmartPointer&lt;vtkExtractSelection&gt;::New();
-  extractSelection-&gt;SetInputConnection(0, sphereSource-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  extractSelection-&gt;SetInput(1, selection);
-#else
-  extractSelection-&gt;SetInputData(1, selection);
-#endif
-  extractSelection-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;</span> <span class="n">extractSelection</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractSelection</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">extractSelection</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">extractSelection</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">extractSelection</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // In selection
-  vtkSmartPointer&lt;vtkDataSetSurfaceFilter&gt; surfaceFilter =
-    vtkSmartPointer&lt;vtkDataSetSurfaceFilter&gt;::New();
-  surfaceFilter-&gt;SetInputConnection(extractSelection-&gt;GetOutputPort());
-  surfaceFilter-&gt;Update();
+  <span class="c1">// In selection</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetSurfaceFilter</span><span class="o">&gt;</span> <span class="n">surfaceFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetSurfaceFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractSelection</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">surfaceFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  input-&gt;ShallowCopy(surfaceFilter-&gt;GetOutput());
-}
-</code></pre>
+  <span class="n">input</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">surfaceFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(FillHoles)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">FillHoles</span><span class="p">)</span>
 
-add_executable(FillHoles MACOSX_BUNDLE FillHoles.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(FillHoles ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">FillHoles</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">FillHoles.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-fillholes">Download and Build FillHoles</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">FillHoles</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-fillholes">Download and Build FillHoles<a class="headerlink" href="#download-and-build-fillholes" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FillHoles.tar">here to download FillHoles</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FillHoles.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd FillHoles/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd FillHoles/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./FillHoles
-</code></pre>
+<div class="codehilite"><pre><span></span>./FillHoles
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

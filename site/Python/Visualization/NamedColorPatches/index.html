@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,9 +15990,8 @@
                   <h1>NamedColorPatches</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/NamedColorPatches</p>
-<h3 id="description">Description</h3>
-<p>==Description==
-This example shows how to produce a HTML page called <a href="../VTKNamedColorPatches.html">VTKNamedColorPatches.html</a> showing the available
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>This example shows how to produce a HTML page called <a href="../VTKNamedColorPatches.html">VTKNamedColorPatches.html</a> showing the available
 colors in <a href="http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html">vtkNamedColors</a>.</p>
 <p>It also shows how to select the text color based on luminance.
 In this case Digital CCIR601 is used which gives less weight to the
@@ -15992,477 +16003,473 @@ red and blue components of a color.</p>
 <li>MakeSynonymColorPage() -- Makes a page of color names and their synonyms.</li>
 <li>MakeCombinedColorPage() -- Makes an indexed page with all the colors and names in the class <a href="http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html">vtkNamedColors</a>.</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>NamedColorPatches.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
-'''
-=========================================================================
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">=========================================================================</span>
 
-  Program:   Visualization Toolkit
-  Module:    NamedColorPatches.py
+<span class="sd">  Program:   Visualization Toolkit</span>
+<span class="sd">  Module:    NamedColorPatches.py</span>
 
-  Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen
-  All rights reserved.
-  See Copyright.txt or http://www.kitware.com/Copyright.htm for details.
+<span class="sd">  Copyright (c) Ken Martin, Will Schroeder, Bill Lorensen</span>
+<span class="sd">  All rights reserved.</span>
+<span class="sd">  See Copyright.txt or http://www.kitware.com/Copyright.htm for details.</span>
 
-     This software is distributed WITHOUT ANY WARRANTY; without even
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-     PURPOSE.  See the above copyright notice for more information.
+<span class="sd">     This software is distributed WITHOUT ANY WARRANTY; without even</span>
+<span class="sd">     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR</span>
+<span class="sd">     PURPOSE.  See the above copyright notice for more information.</span>
 
-=========================================================================
+<span class="sd">=========================================================================</span>
 
-Produce a HTML page called VTKNamedColorPatches.html showing the available
- colors in vtkNamedColors.
+<span class="sd">Produce a HTML page called VTKNamedColorPatches.html showing the available</span>
+<span class="sd"> colors in vtkNamedColors.</span>
 
-It also shows how to select the text color based on luminance.
-In this case Digital CCIR601 is used which gives less weight to the
- red and blue components of a color.
+<span class="sd">It also shows how to select the text color based on luminance.</span>
+<span class="sd">In this case Digital CCIR601 is used which gives less weight to the</span>
+<span class="sd"> red and blue components of a color.</span>
 
-'''
+<span class="sd">&quot;&quot;&quot;</span>
 
-from __future__ import print_function
-import vtk
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-def RGBToHTMLColor(rgb):
-    '''
-    Convert an [R, G, B] list to #RRGGBB.
-    :param: rgb - The elements of the array rgb are unsigned chars (0..255).
-    :return: The html color.
-    '''
-    hexcolor = &quot;#&quot;+ ''.join(['{:02x}'.format(x) for x in rgb])
-    return hexcolor
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-def HTMLColorToRGB(colorString):
-    '''
-    Convert #RRGGBB to a [R, G, B] list.
-    :param: colorString a string in the form: #RRGGBB where RR, GG, BB are hexadecimal.
-    The elements of the array rgb are unsigned chars (0..255).
-    :return: The red, green and blue components as a list.
-    '''
-    colorString = colorString.strip()
-    if colorString[0] == '#': colorString = colorString[1:]
-    if len(colorString) != 6:
-        raise ValueError(&quot;Input #%s is not in #RRGGBB format&quot; % colorString)
-    r, g, b = colorString[:2], colorString[2:4], colorString[4:]
-    r, g, b = [int(n, 16) for n in (r, g, b)]
-    return [r, g, b]
 
-def RGBToLumaCCIR601(rgb):
-    '''
-    RGB -&gt; Luma conversion
-    Digital CCIR601 (gives less weight to the R and B components)
-    :param: rgb - The elements of the array rgb are unsigned chars (0..255).
-    :return: The luminance.
-    '''
-    Y = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
-    return Y
+<span class="k">def</span> <span class="nf">RGBToHTMLColor</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an [R, G, B] list to #RRGGBB.</span>
+<span class="sd">    :param: rgb - The elements of the array rgb are unsigned chars (0..255).</span>
+<span class="sd">    :return: The html color.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hexcolor</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;{:02x}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rgb</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">hexcolor</span>
 
-def FormatRGBForHTML(rgb):
-    '''
-    Format the rgb colors for display on a html table.
-    :param: rgb - The elements of the array rgb are unsigned chars (0..255).
-    :return: A formatted string for the html table.
-    '''
-    s = ','.join(['{:3d}'.format(x) for x in rgb])
-    s = s.replace(' ','&amp;#160;')
-    s = s.replace(',','&amp;#160;&amp;#160;')
-    return s
 
-class HTMLTableMaker(object):
-    '''
-      This class creates HTML Tables displaying all the colors in
-      the class vtkNamedColors grouped by various categories.
-    '''
-    def __init__(self):
-        self.cn = {
-            'Red':['IndianRed', 'LightCoral', 'Salmon', 'DarkSalmon',\
-                   'LightSalmon', 'Red', 'Crimson', 'FireBrick', 'DarkRed'],
-            'Pink':['Pink', 'LightPink', 'HotPink', 'DeepPink',\
-                    'MediumVioletRed', 'PaleVioletRed'],
-            'Orange':['LightSalmon', 'Coral', 'Tomato', 'OrangeRed',\
-                      'DarkOrange', 'Orange'],
-            'Yellow':['Gold', 'Yellow', 'LightYellow', 'LemonChiffon',\
-                      'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin',\
-                      'PeachPuff', 'PaleGoldenrod', 'Khaki', 'DarkKhaki'],
-            'Purple':['Lavender', 'Thistle', 'Plum', 'Violet', 'Orchid',\
-                      'Fuchsia', 'Magenta', 'MediumOrchid', 'MediumPurple',\
-                      'BlueViolet', 'DarkViolet', 'DarkOrchid', 'DarkMagenta',\
-                      'Purple', 'Indigo', 'DarkSlateBlue', 'SlateBlue',\
-                      'MediumSlateBlue'],
-            'Green':['GreenYellow', 'Chartreuse', 'LawnGreen', 'Lime',\
-                     'LimeGreen', 'PaleGreen', 'LightGreen',\
-                     'MediumSpringGreen', 'SpringGreen', 'MediumSeaGreen',\
-                     'SeaGreen', 'ForestGreen', 'Green', 'DarkGreen',\
-                     'YellowGreen', 'OliveDrab', 'Olive', 'DarkOliveGreen',\
-                     'MediumAquamarine', 'DarkSeaGreen', 'LightSeaGreen',\
-                     'DarkCyan', 'Teal'],
-            'Blue/Cyan':['Aqua', 'Cyan', 'LightCyan', 'PaleTurquoise',\
-                         'Aquamarine', 'Turquoise', 'MediumTurquoise',\
-                         'DarkTurquoise', 'CadetBlue', 'SteelBlue',\
-                         'LightSteelBlue', 'PowderBlue', 'LightBlue',\
-                         'SkyBlue', 'LightSkyBlue', 'DeepSkyBlue',\
-                         'DodgerBlue', 'CornflowerBlue', 'RoyalBlue', 'Blue',\
-                         'MediumBlue', 'DarkBlue', 'Navy', 'MidnightBlue'],
-            'Brown':['Cornsilk', 'BlanchedAlmond', 'Bisque', 'NavajoWhite',\
-                     'Wheat', 'BurlyWood', 'Tan', 'RosyBrown', 'SandyBrown',\
-                     'Goldenrod', 'DarkGoldenrod', 'Peru', 'Chocolate',\
-                     'SaddleBrown', 'Sienna', 'Brown', 'Maroon'],
-            'White':['White', 'Snow', 'Honeydew', 'MintCream', 'Azure',\
-                     'AliceBlue', 'GhostWhite', 'WhiteSmoke', 'Seashell',\
-                     'Beige', 'OldLace', 'FloralWhite', 'Ivory',\
-                     'AntiqueWhite', 'Linen',\
-                     'LavenderBlush', 'MistyRose'],
-            'Gray':['Gainsboro', 'LightGrey', 'Silver', 'DarkGray', 'Gray',\
-                    'DimGray', 'LightSlateGray', 'SlateGray', 'DarkSlateGray',\
-                    'Black']
-            }
-        # Ordering of the tables and when to start and end a column of tables
-        # in the layout.
-        self.cnOrder = ['Red', 'Pink', 'Orange', 'Yellow', 'Purple', 'Green',\
-                        'Blue/Cyan', 'Brown', 'White', 'Gray']
-        self.cnStartTable = ['Red', 'Green', 'Brown']
-        self.cnEndTable = ['Purple', 'Blue/Cyan', 'Gray']
+<span class="k">def</span> <span class="nf">HTMLColorToRGB</span><span class="p">(</span><span class="n">colorString</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert #RRGGBB to a [R, G, B] list.</span>
+<span class="sd">    :param: colorString a string in the form: #RRGGBB where RR, GG, BB are hexadecimal.</span>
+<span class="sd">    The elements of the array rgb are unsigned chars (0..255).</span>
+<span class="sd">    :return: The red, green and blue components as a list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">colorString</span> <span class="o">=</span> <span class="n">colorString</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">colorString</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span> <span class="n">colorString</span> <span class="o">=</span> <span class="n">colorString</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colorString</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input #</span><span class="si">%s</span><span class="s2"> is not in #RRGGBB format&quot;</span> <span class="o">%</span> <span class="n">colorString</span><span class="p">)</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">colorString</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">colorString</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">colorString</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
 
-        self.vtkcn = {
-            'Whites':['antique_white', 'azure', 'bisque', 'blanched_almond',\
-                      'cornsilk', 'eggshell', 'floral_white', 'gainsboro',\
-                      'ghost_white', 'honeydew', 'ivory', 'lavender',\
-                      'lavender_blush', 'lemon_chiffon', 'linen', 'mint_cream',\
-                      'misty_rose', 'moccasin', 'navajo_white', 'old_lace',\
-                      'papaya_whip',  'peach_puff', 'seashell', 'snow',\
-                      'thistle', 'titanium_white', 'wheat', 'white',\
-                      'white_smoke', 'zinc_white'],
-            'Greys':['cold_grey', 'dim_grey', 'grey', 'light_grey',\
-                     'slate_grey', 'slate_grey_dark', 'slate_grey_light',\
-                     'warm_grey'],
-            'Blacks':['black', 'ivory_black', 'lamp_black'],
-            'Reds':['alizarin_crimson', 'brick', 'cadmium_red_deep', 'coral',\
-                    'coral_light', 'deep_pink', 'english_red', 'firebrick',\
-                    'geranium_lake', 'hot_pink', 'indian_red', 'light_salmon',\
-                    'madder_lake_deep', 'maroon', 'pink', 'pink_light',\
-                    'raspberry', 'red', 'rose_madder', 'salmon', 'tomato',\
-                    'venetian_red'],
-            'Browns':['beige', 'brown', 'brown_madder', 'brown_ochre',\
-                      'burlywood', 'burnt_sienna', 'burnt_umber', 'chocolate',\
-                      'deep_ochre', 'flesh', 'flesh_ochre', 'gold_ochre',\
-                      'greenish_umber', 'khaki', 'khaki_dark', 'light_beige',\
-                      'peru', 'rosy_brown', 'raw_sienna', 'raw_umber', 'sepia',\
-                      'sienna', 'saddle_brown', 'sandy_brown', 'tan',\
-                      'van_dyke_brown'],
-            'Oranges':['cadmium_orange', 'cadmium_red_light', 'carrot',\
-                       'dark_orange', 'mars_orange', 'mars_yellow', 'orange',\
-                       'orange_red', 'yellow_ochre'],
-            'Yellows':['aureoline_yellow', 'banana', 'cadmium_lemon',\
-                       'cadmium_yellow', 'cadmium_yellow_light', 'gold',\
-                       'goldenrod', 'goldenrod_dark', 'goldenrod_light',\
-                       'goldenrod_pale', 'light_goldenrod', 'melon',\
-                       'naples_yellow_deep', 'yellow', 'yellow_light'],
-            'Greens':['chartreuse', 'chrome_oxide_green', 'cinnabar_green',\
-                      'cobalt_green', 'emerald_green', 'forest_green', 'green',\
-                      'green_dark', 'green_pale', 'green_yellow', 'lawn_green',\
-                      'lime_green', 'mint', 'olive', 'olive_drab',\
-                      'olive_green_dark', 'permanent_green', 'sap_green',\
-                      'sea_green', 'sea_green_dark', 'sea_green_medium',\
-                      'sea_green_light', 'spring_green', 'spring_green_medium',\
-                      'terre_verte', 'viridian_light', 'yellow_green'],
-            'Cyans':['aquamarine', 'aquamarine_medium', 'cyan', 'cyan_white',\
-                     'turquoise', 'turquoise_dark', 'turquoise_medium',\
-                     'turquoise_pale'],
-            'Blues':['alice_blue', 'blue', 'blue_light', 'blue_medium',\
-                     'cadet', 'cobalt', 'cornflower', 'cerulean', 'dodger_blue',\
-                     'indigo', 'manganese_blue', 'midnight_blue', 'navy',\
-                     'peacock',  'powder_blue', 'royal_blue', 'slate_blue',\
-                     'slate_blue_dark', 'slate_blue_light',\
-                     'slate_blue_medium', 'sky_blue', 'sky_blue_deep',\
-                     'sky_blue_light', 'steel_blue', 'steel_blue_light',\
-                     'turquoise_blue', 'ultramarine'],
-            'Magentas':['blue_violet', 'cobalt_violet_deep', 'magenta',\
-                        'orchid', 'orchid_dark', 'orchid_medium',\
-                        'permanent_red_violet', 'plum', 'purple',\
-                        'purple_medium', 'ultramarine_violet', 'violet',\
-                        'violet_dark', 'violet_red', 'violet_red_medium',\
-                        'violet_red_pale']
-            }
-        # Ordering of the tables and when to start and end a column of tables
-        # in the layout.
-        self.vtkcnOrder = ['Whites', 'Greys', 'Blacks', 'Reds', 'Oranges',\
-                           'Browns', 'Yellows', 'Greens', 'Cyans', 'Blues',\
-                           'Magentas']
-        self.vtkcnStartTable = ['Whites', 'Browns', 'Cyans']
-        self.vtkcnEndTable = ['Oranges', 'Greens', 'Magentas']
-        # The vtkNamedColors class.
-        self.nc = vtk.vtkNamedColors()
 
-    def MakeHTMLHeader(self):
-        s = '&lt;!DOCTYPE html&gt;\n'
-        s += '&lt;html lang=&quot;en&quot; dir=&quot;ltr&quot; class=&quot;client-nojs&quot;&gt;\n'
-        s += '&lt;head&gt;\n'
-        s += '&lt;title&gt;vtkNamedColors&lt;/title&gt;\n'
-        s += '&lt;meta charset=&quot;UTF-8&quot; /&gt;\n'
-        s += '&lt;/head&gt;\n'
-        return s
+<span class="k">def</span> <span class="nf">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    RGB -&gt; Luma conversion</span>
+<span class="sd">    Digital CCIR601 (gives less weight to the R and B components)</span>
+<span class="sd">    :param: rgb - The elements of the array rgb are unsigned chars (0..255).</span>
+<span class="sd">    :return: The luminance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="mf">0.299</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.587</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.114</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Y</span>
 
-    def MakeHTMLIndex(self):
-        s = '&lt;h2&gt;Index&lt;/h2&gt;\n'
-        s += '&lt;ul&gt;\n'
-        s += '\t&lt;li&gt;&lt;a href=&quot;#WebColorNames&quot;&gt;Web color Names&lt;/li&gt;\n'
-        s += '\t&lt;li&gt;&lt;a href=&quot;#VTKColorNames&quot;&gt;VTK color Names&lt;/li&gt;\n'
-        s += '\t&lt;li&gt;&lt;a href=&quot;#Synonyms&quot;&gt;Synonyms&lt;/li&gt;\n'
-        s += '&lt;/ul&gt;\n'
-        return s
 
-    def MakeTableHeader(self):
-        s = '&lt;tr&gt;\n'
-        s += '&lt;th style=&quot;background:lightgrey&quot;&gt;HTML name&lt;/th&gt;\n'
-        s += '&lt;th style=&quot;background:lightgrey&quot;&gt;Decimal code&lt;br /&gt;\n'
-        s += '&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;'
-        s += 'G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;\n'
-        s += '&lt;/tr&gt;\n'
-        return s
+<span class="k">def</span> <span class="nf">FormatRGBForHTML</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format the rgb colors for display on a html table.</span>
+<span class="sd">    :param: rgb - The elements of the array rgb are unsigned chars (0..255).</span>
+<span class="sd">    :return: A formatted string for the html table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;{:3d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rgb</span><span class="p">])</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;#160;&#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;#160;&amp;#160;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
 
-    def MakeSynonymTableHeader(self):
-        s = '&lt;tr&gt;\n'
-        s += '&lt;th style=&quot;background:lightgrey&quot;&gt;Synonyms&lt;/th&gt;\n'
-        s += '&lt;th style=&quot;background:lightgrey&quot;&gt;Decimal code&lt;br /&gt;\n'
-        s += '&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;'
-        s += 'G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;\n'
-        s += '&lt;/tr&gt;\n'
-        return s
 
-    def MakeTD(self, name):
-        s = '&lt;tr&gt;\n'
-        s += '&lt;td colspan=&quot;2&quot; style=&quot;background:whitesmoke;'
-        s += 'color:slategray;text-align:left&quot;&gt;&lt;big&gt;&lt;b&gt;' + name
-        s += '&lt;/b&gt;&lt;/big&gt;&lt;/td&gt;\n'
-        s += '&lt;/tr&gt;\n'
-        return s
+<span class="k">class</span> <span class="nc">HTMLTableMaker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      This class creates HTML Tables displaying all the colors in</span>
+<span class="sd">      the class vtkNamedColors grouped by various categories.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    def MakeTR(self, name, rgb, textColor):
-        '''
-          Use when the name is a color name known to the web browser.
-        '''
-        s = '&lt;tr&gt;\n'
-        s += '&lt;td style=&quot;background:' + name + ';color:' + textColor
-        s += '&quot;&gt;' + name + '&lt;/td&gt;\n'
-        s += '&lt;td style=&quot;background:' + name + ';color:' + textColor
-        s += '&quot;&gt;&lt;tt&gt;' + FormatRGBForHTML(rgb) + '&lt;/tt&gt;&lt;/td&gt;\n'
-        s += '&lt;/tr&gt;\n'
-        return s
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cn</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Red&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;IndianRed&#39;</span><span class="p">,</span> <span class="s1">&#39;LightCoral&#39;</span><span class="p">,</span> <span class="s1">&#39;Salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkSalmon&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;LightSalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;Red&#39;</span><span class="p">,</span> <span class="s1">&#39;Crimson&#39;</span><span class="p">,</span> <span class="s1">&#39;FireBrick&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkRed&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Pink&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Pink&#39;</span><span class="p">,</span> <span class="s1">&#39;LightPink&#39;</span><span class="p">,</span> <span class="s1">&#39;HotPink&#39;</span><span class="p">,</span> <span class="s1">&#39;DeepPink&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;MediumVioletRed&#39;</span><span class="p">,</span> <span class="s1">&#39;PaleVioletRed&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Orange&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;LightSalmon&#39;</span><span class="p">,</span> <span class="s1">&#39;Coral&#39;</span><span class="p">,</span> <span class="s1">&#39;Tomato&#39;</span><span class="p">,</span> <span class="s1">&#39;OrangeRed&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;DarkOrange&#39;</span><span class="p">,</span> <span class="s1">&#39;Orange&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Yellow&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;LightYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;LemonChiffon&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;LightGoldenrodYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;PapayaWhip&#39;</span><span class="p">,</span> <span class="s1">&#39;Moccasin&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;PeachPuff&#39;</span><span class="p">,</span> <span class="s1">&#39;PaleGoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;Khaki&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkKhaki&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Purple&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Lavender&#39;</span><span class="p">,</span> <span class="s1">&#39;Thistle&#39;</span><span class="p">,</span> <span class="s1">&#39;Plum&#39;</span><span class="p">,</span> <span class="s1">&#39;Violet&#39;</span><span class="p">,</span> <span class="s1">&#39;Orchid&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Fuchsia&#39;</span><span class="p">,</span> <span class="s1">&#39;Magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;MediumOrchid&#39;</span><span class="p">,</span> <span class="s1">&#39;MediumPurple&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;BlueViolet&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkViolet&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkOrchid&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkMagenta&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Purple&#39;</span><span class="p">,</span> <span class="s1">&#39;Indigo&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkSlateBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;SlateBlue&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;MediumSlateBlue&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Green&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;GreenYellow&#39;</span><span class="p">,</span> <span class="s1">&#39;Chartreuse&#39;</span><span class="p">,</span> <span class="s1">&#39;LawnGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;Lime&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;LimeGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;PaleGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;LightGreen&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;MediumSpringGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;SpringGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;MediumSeaGreen&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;SeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;ForestGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkGreen&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;YellowGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;OliveDrab&#39;</span><span class="p">,</span> <span class="s1">&#39;Olive&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkOliveGreen&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;MediumAquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkSeaGreen&#39;</span><span class="p">,</span> <span class="s1">&#39;LightSeaGreen&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;DarkCyan&#39;</span><span class="p">,</span> <span class="s1">&#39;Teal&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Blue/Cyan&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Aqua&#39;</span><span class="p">,</span> <span class="s1">&#39;Cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;LightCyan&#39;</span><span class="p">,</span> <span class="s1">&#39;PaleTurquoise&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Aquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;Turquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;MediumTurquoise&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;DarkTurquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;CadetBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;SteelBlue&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;LightSteelBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;PowderBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;LightBlue&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;SkyBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;LightSkyBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;DeepSkyBlue&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;DodgerBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;CornflowerBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;RoyalBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;MediumBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;Navy&#39;</span><span class="p">,</span> <span class="s1">&#39;MidnightBlue&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Brown&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Cornsilk&#39;</span><span class="p">,</span> <span class="s1">&#39;BlanchedAlmond&#39;</span><span class="p">,</span> <span class="s1">&#39;Bisque&#39;</span><span class="p">,</span> <span class="s1">&#39;NavajoWhite&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Wheat&#39;</span><span class="p">,</span> <span class="s1">&#39;BurlyWood&#39;</span><span class="p">,</span> <span class="s1">&#39;Tan&#39;</span><span class="p">,</span> <span class="s1">&#39;RosyBrown&#39;</span><span class="p">,</span> <span class="s1">&#39;SandyBrown&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Goldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkGoldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;Peru&#39;</span><span class="p">,</span> <span class="s1">&#39;Chocolate&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;SaddleBrown&#39;</span><span class="p">,</span> <span class="s1">&#39;Sienna&#39;</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">,</span> <span class="s1">&#39;Maroon&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;White&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Snow&#39;</span><span class="p">,</span> <span class="s1">&#39;Honeydew&#39;</span><span class="p">,</span> <span class="s1">&#39;MintCream&#39;</span><span class="p">,</span> <span class="s1">&#39;Azure&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;AliceBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;GhostWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;WhiteSmoke&#39;</span><span class="p">,</span> <span class="s1">&#39;Seashell&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Beige&#39;</span><span class="p">,</span> <span class="s1">&#39;OldLace&#39;</span><span class="p">,</span> <span class="s1">&#39;FloralWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;Ivory&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;AntiqueWhite&#39;</span><span class="p">,</span> <span class="s1">&#39;Linen&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;LavenderBlush&#39;</span><span class="p">,</span> <span class="s1">&#39;MistyRose&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Gray&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Gainsboro&#39;</span><span class="p">,</span> <span class="s1">&#39;LightGrey&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkGray&#39;</span><span class="p">,</span> <span class="s1">&#39;Gray&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;DimGray&#39;</span><span class="p">,</span> <span class="s1">&#39;LightSlateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;SlateGray&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkSlateGray&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Black&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="c1"># Ordering of the tables and when to start and end a column of tables</span>
+        <span class="c1"># in the layout.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnOrder</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Red&#39;</span><span class="p">,</span> <span class="s1">&#39;Pink&#39;</span><span class="p">,</span> <span class="s1">&#39;Orange&#39;</span><span class="p">,</span> <span class="s1">&#39;Yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;Purple&#39;</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Blue/Cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">,</span> <span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Gray&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnStartTable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Red&#39;</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnEndTable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Purple&#39;</span><span class="p">,</span> <span class="s1">&#39;Blue/Cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;Gray&#39;</span><span class="p">]</span>
 
-    def MakeVTKTR(self, name, nameColor, rgb, textColor):
-        '''
-          Use when the name is not a color name known to the web browser.
-        '''
-        s = '&lt;tr&gt;\n'
-        s += '&lt;td style=&quot;background:' + nameColor + ';color:'
-        s += textColor + '&quot;&gt;' + name + '&lt;/td&gt;\n'
-        s += '&lt;td style=&quot;background:' + nameColor + ';color:'
-        s += textColor + '&quot;&gt;&lt;tt&gt;' + FormatRGBForHTML(rgb) + '&lt;/tt&gt;&lt;/td&gt;\n'
-        s += '&lt;/tr&gt;\n'
-        return s
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtkcn</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Whites&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;antique_white&#39;</span><span class="p">,</span> <span class="s1">&#39;azure&#39;</span><span class="p">,</span> <span class="s1">&#39;bisque&#39;</span><span class="p">,</span> <span class="s1">&#39;blanched_almond&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;cornsilk&#39;</span><span class="p">,</span> <span class="s1">&#39;eggshell&#39;</span><span class="p">,</span> <span class="s1">&#39;floral_white&#39;</span><span class="p">,</span> <span class="s1">&#39;gainsboro&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ghost_white&#39;</span><span class="p">,</span> <span class="s1">&#39;honeydew&#39;</span><span class="p">,</span> <span class="s1">&#39;ivory&#39;</span><span class="p">,</span> <span class="s1">&#39;lavender&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lavender_blush&#39;</span><span class="p">,</span> <span class="s1">&#39;lemon_chiffon&#39;</span><span class="p">,</span> <span class="s1">&#39;linen&#39;</span><span class="p">,</span> <span class="s1">&#39;mint_cream&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;misty_rose&#39;</span><span class="p">,</span> <span class="s1">&#39;moccasin&#39;</span><span class="p">,</span> <span class="s1">&#39;navajo_white&#39;</span><span class="p">,</span> <span class="s1">&#39;old_lace&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;papaya_whip&#39;</span><span class="p">,</span> <span class="s1">&#39;peach_puff&#39;</span><span class="p">,</span> <span class="s1">&#39;seashell&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;thistle&#39;</span><span class="p">,</span> <span class="s1">&#39;titanium_white&#39;</span><span class="p">,</span> <span class="s1">&#39;wheat&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;white_smoke&#39;</span><span class="p">,</span> <span class="s1">&#39;zinc_white&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Greys&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cold_grey&#39;</span><span class="p">,</span> <span class="s1">&#39;dim_grey&#39;</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="s1">&#39;light_grey&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;slate_grey&#39;</span><span class="p">,</span> <span class="s1">&#39;slate_grey_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;slate_grey_light&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;warm_grey&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Blacks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;ivory_black&#39;</span><span class="p">,</span> <span class="s1">&#39;lamp_black&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Reds&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;alizarin_crimson&#39;</span><span class="p">,</span> <span class="s1">&#39;brick&#39;</span><span class="p">,</span> <span class="s1">&#39;cadmium_red_deep&#39;</span><span class="p">,</span> <span class="s1">&#39;coral&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;coral_light&#39;</span><span class="p">,</span> <span class="s1">&#39;deep_pink&#39;</span><span class="p">,</span> <span class="s1">&#39;english_red&#39;</span><span class="p">,</span> <span class="s1">&#39;firebrick&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;geranium_lake&#39;</span><span class="p">,</span> <span class="s1">&#39;hot_pink&#39;</span><span class="p">,</span> <span class="s1">&#39;indian_red&#39;</span><span class="p">,</span> <span class="s1">&#39;light_salmon&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;madder_lake_deep&#39;</span><span class="p">,</span> <span class="s1">&#39;maroon&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;pink_light&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;raspberry&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;rose_madder&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;tomato&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;venetian_red&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Browns&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;beige&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;brown_madder&#39;</span><span class="p">,</span> <span class="s1">&#39;brown_ochre&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;burlywood&#39;</span><span class="p">,</span> <span class="s1">&#39;burnt_sienna&#39;</span><span class="p">,</span> <span class="s1">&#39;burnt_umber&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;deep_ochre&#39;</span><span class="p">,</span> <span class="s1">&#39;flesh&#39;</span><span class="p">,</span> <span class="s1">&#39;flesh_ochre&#39;</span><span class="p">,</span> <span class="s1">&#39;gold_ochre&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;greenish_umber&#39;</span><span class="p">,</span> <span class="s1">&#39;khaki&#39;</span><span class="p">,</span> <span class="s1">&#39;khaki_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;light_beige&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;peru&#39;</span><span class="p">,</span> <span class="s1">&#39;rosy_brown&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_sienna&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_umber&#39;</span><span class="p">,</span> <span class="s1">&#39;sepia&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;sienna&#39;</span><span class="p">,</span> <span class="s1">&#39;saddle_brown&#39;</span><span class="p">,</span> <span class="s1">&#39;sandy_brown&#39;</span><span class="p">,</span> <span class="s1">&#39;tan&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;van_dyke_brown&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Oranges&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cadmium_orange&#39;</span><span class="p">,</span> <span class="s1">&#39;cadmium_red_light&#39;</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;dark_orange&#39;</span><span class="p">,</span> <span class="s1">&#39;mars_orange&#39;</span><span class="p">,</span> <span class="s1">&#39;mars_yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;orange_red&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow_ochre&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Yellows&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;aureoline_yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;cadmium_lemon&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;cadmium_yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;cadmium_yellow_light&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;goldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;goldenrod_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;goldenrod_light&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;goldenrod_pale&#39;</span><span class="p">,</span> <span class="s1">&#39;light_goldenrod&#39;</span><span class="p">,</span> <span class="s1">&#39;melon&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;naples_yellow_deep&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow_light&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Greens&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;chartreuse&#39;</span><span class="p">,</span> <span class="s1">&#39;chrome_oxide_green&#39;</span><span class="p">,</span> <span class="s1">&#39;cinnabar_green&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;cobalt_green&#39;</span><span class="p">,</span> <span class="s1">&#39;emerald_green&#39;</span><span class="p">,</span> <span class="s1">&#39;forest_green&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;green_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;green_pale&#39;</span><span class="p">,</span> <span class="s1">&#39;green_yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;lawn_green&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;lime_green&#39;</span><span class="p">,</span> <span class="s1">&#39;mint&#39;</span><span class="p">,</span> <span class="s1">&#39;olive&#39;</span><span class="p">,</span> <span class="s1">&#39;olive_drab&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;olive_green_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;permanent_green&#39;</span><span class="p">,</span> <span class="s1">&#39;sap_green&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;sea_green&#39;</span><span class="p">,</span> <span class="s1">&#39;sea_green_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;sea_green_medium&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;sea_green_light&#39;</span><span class="p">,</span> <span class="s1">&#39;spring_green&#39;</span><span class="p">,</span> <span class="s1">&#39;spring_green_medium&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;terre_verte&#39;</span><span class="p">,</span> <span class="s1">&#39;viridian_light&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow_green&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Cyans&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;aquamarine&#39;</span><span class="p">,</span> <span class="s1">&#39;aquamarine_medium&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan_white&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;turquoise&#39;</span><span class="p">,</span> <span class="s1">&#39;turquoise_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;turquoise_medium&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;turquoise_pale&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Blues&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;alice_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;blue_light&#39;</span><span class="p">,</span> <span class="s1">&#39;blue_medium&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;cadet&#39;</span><span class="p">,</span> <span class="s1">&#39;cobalt&#39;</span><span class="p">,</span> <span class="s1">&#39;cornflower&#39;</span><span class="p">,</span> <span class="s1">&#39;cerulean&#39;</span><span class="p">,</span> <span class="s1">&#39;dodger_blue&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;indigo&#39;</span><span class="p">,</span> <span class="s1">&#39;manganese_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;midnight_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;navy&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;peacock&#39;</span><span class="p">,</span> <span class="s1">&#39;powder_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;royal_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;slate_blue&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;slate_blue_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;slate_blue_light&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;slate_blue_medium&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;sky_blue_deep&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;sky_blue_light&#39;</span><span class="p">,</span> <span class="s1">&#39;steel_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;steel_blue_light&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;turquoise_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;ultramarine&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Magentas&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;blue_violet&#39;</span><span class="p">,</span> <span class="s1">&#39;cobalt_violet_deep&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;orchid&#39;</span><span class="p">,</span> <span class="s1">&#39;orchid_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;orchid_medium&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;permanent_red_violet&#39;</span><span class="p">,</span> <span class="s1">&#39;plum&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;purple_medium&#39;</span><span class="p">,</span> <span class="s1">&#39;ultramarine_violet&#39;</span><span class="p">,</span> <span class="s1">&#39;violet&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;violet_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;violet_red&#39;</span><span class="p">,</span> <span class="s1">&#39;violet_red_medium&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;violet_red_pale&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="c1"># Ordering of the tables and when to start and end a column of tables</span>
+        <span class="c1"># in the layout.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtkcnOrder</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Whites&#39;</span><span class="p">,</span> <span class="s1">&#39;Greys&#39;</span><span class="p">,</span> <span class="s1">&#39;Blacks&#39;</span><span class="p">,</span> <span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="s1">&#39;Oranges&#39;</span><span class="p">,</span> <span class="s1">&#39;Browns&#39;</span><span class="p">,</span> <span class="s1">&#39;Yellows&#39;</span><span class="p">,</span> <span class="s1">&#39;Greens&#39;</span><span class="p">,</span> <span class="s1">&#39;Cyans&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Magentas&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtkcnStartTable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Whites&#39;</span><span class="p">,</span> <span class="s1">&#39;Browns&#39;</span><span class="p">,</span> <span class="s1">&#39;Cyans&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vtkcnEndTable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Oranges&#39;</span><span class="p">,</span> <span class="s1">&#39;Greens&#39;</span><span class="p">,</span> <span class="s1">&#39;Magentas&#39;</span><span class="p">]</span>
+        <span class="c1"># The vtkNamedColors class.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nc</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkNamedColors</span><span class="p">()</span>
 
-    def FindLongestColorName(self):
-        ''' Find the longest color name. '''
-        maxLength = -1;
-        for key, value in self.cn.items():
-            for val in value:
-                if len(val) &gt; maxLength:
-                    maxLength = len(val)
-        for key, value in self.vtkcn.items():
-            for val in value:
-                if len(val) &gt; maxLength:
-                    maxLength = len(val)
-        return maxLength
+    <span class="k">def</span> <span class="nf">MakeHTMLHeader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;!DOCTYPE html&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;html lang=&quot;en&quot; dir=&quot;ltr&quot; class=&quot;client-nojs&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;head&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;title&gt;vtkNamedColors&lt;/title&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;meta charset=&quot;UTF-8&quot; /&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/head&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeWebColorTables(self):
-        res = ''
-        for key in self.cnOrder:
-            if key in self.cnStartTable:
-                res += '&lt;td&gt;\n'
-                res += '&lt;table&gt;\n'
-                res += self.MakeTableHeader()
-            # Add in the name of the group in the color table.
-            res += self.MakeTD(key + ' colors')
-            values = self.cn[key]
-            for name in values:
-                rgb = self.nc.GetColor3ub(name)
-                Y = RGBToLumaCCIR601(rgb)
-                textColor = '#000000' # Black
-                if Y &lt; 255 / 2.0:
-                    textColor = '#ffffff' # White
-                # Make the row for each color in the group.
-                # Here we use the name to set the background color
-                #  as it is known to the web browser.
-                res += self.MakeTR(name, rgb, textColor)
-            if key in self.cnEndTable:
-                res += '&lt;/table&gt;\n'
-                res += '&lt;/td&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">MakeHTMLIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;h2&gt;Index&lt;/h2&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;ul&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&lt;li&gt;&lt;a href=&quot;#WebColorNames&quot;&gt;Web color Names&lt;/li&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&lt;li&gt;&lt;a href=&quot;#VTKColorNames&quot;&gt;VTK color Names&lt;/li&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&lt;li&gt;&lt;a href=&quot;#Synonyms&quot;&gt;Synonyms&lt;/li&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/ul&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeVTKColorTables(self):
-        res = ''
-        for key in self.vtkcnOrder:
-            if key in self.vtkcnStartTable:
-                res += '&lt;td&gt;\n'
-                res += '&lt;table&gt;\n'
-                res += self.MakeTableHeader()
-            # Add in the name of the group in the color table.
-            res += self.MakeTD(key)
-            values = self.vtkcn[key]
-            for name in values:
-                rgb = self.nc.GetColor3ub(name)
-                Y = RGBToLumaCCIR601(rgb)
-                textColor = '#000000' # Black
-                if Y &lt; 255 / 2.0:
-                    textColor = '#ffffff' # White
-                # We must set the background color to a specific
-                # HTML color as the color name may not be a standard
-                # name known to the web browser.
-                nameColor = RGBToHTMLColor(rgb)
-                # Make the row for each color in the group.
-                res += self.MakeVTKTR(name, nameColor, rgb, textColor)
-            if key in self.vtkcnEndTable:
-                res += '&lt;/table&gt;\n'
-                res += '&lt;/td&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">MakeTableHeader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;th style=&quot;background:lightgrey&quot;&gt;HTML name&lt;/th&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;th style=&quot;background:lightgrey&quot;&gt;Decimal code&lt;br /&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeSynonymColorTable(self):
-        syn = self.nc.GetSynonyms()
-        # Convert to a list where each element is a list of the
-        #  color and its synonyms.
-        syn = syn.split('\n\n')
-        synonyms = []
-        for ele in syn:
-            synonyms.append(ele.split('\n'))
-        cn = list()
-        for key, value in self.cn.items():
-           cn = cn + value
-        # Create a dictionary where the key is the lowercase name.
-        d = dict()
-        for n in cn:
-            d.update({n.lower():n})
-        res = '&lt;td&gt;\n'
-        res += '&lt;table&gt;\n'
-        res += self.MakeSynonymTableHeader()
-        for colorNames in synonyms: #colors.GetSynonyms():
-            for idx, name in enumerate(colorNames):
-                if name in d:
-                    colorNames[idx] = d[name]
-            colorNames.sort()
-            name = &quot;, &quot;.join(colorNames)
-            rgb = self.nc.GetColor3ub(colorNames[0])
-            Y = RGBToLumaCCIR601(rgb)
-            textColor = '#000000' # Black
-            if Y &lt; 255 / 2.0:
-                textColor = '#ffffff' # White
-            # We must set the background color to a specific
-            # HTML color  names is just a list of
-            # synonyms for that particular color.
-            nameColor = RGBToHTMLColor(rgb)
-            # Make the row for each color in the group.
-            res += self.MakeVTKTR(name, nameColor, rgb, textColor)
-        res += '&lt;/table&gt;\n'
-        res += '&lt;/td&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">MakeSynonymTableHeader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;th style=&quot;background:lightgrey&quot;&gt;Synonyms&lt;/th&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;th style=&quot;background:lightgrey&quot;&gt;Decimal code&lt;br /&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeWebColorPage(self):
-        res = self.MakeHTMLHeader()
-        res += '&lt;body&gt;\n'
-        res += '&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;\n'
-        res += '&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;\n'
-        res += '&lt;caption style=&quot;background:lightgrey&quot;&gt;Web Color Names'
-        res += '&lt;/caption&gt;\n'
-        res += '&lt;tr valign=&quot;top&quot;&gt;\n'
-        res += self.MakeWebColorTables()
-        res += '&lt;/table&gt;\n'
-        res += '&lt;/body&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">MakeTD</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td colspan=&quot;2&quot; style=&quot;background:whitesmoke;&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;color:slategray;text-align:left&quot;&gt;&lt;big&gt;&lt;b&gt;&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/b&gt;&lt;/big&gt;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeVTKColorPage(self):
-        res = self.MakeHTMLHeader()
-        res += '&lt;body&gt;\n'
-        res += '&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;\n'
-        res += '&lt;p&gt;The web colors take precedence over colors of the same'
-        res += ' name in VTK Color Names.&lt;/p&gt;\n'
-        res += '&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;\n'
-        res += '&lt;caption style=&quot;background:lightgrey&quot;&gt;VTK Color Names&lt;/caption&gt;\n'
-        res += '&lt;tr valign=&quot;top&quot;&gt;\n'
-        res += self.MakeVTKColorTables()
-        res += '&lt;/table&gt;\n'
-        res += '&lt;/body&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">MakeTR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Use when the name is a color name known to the web browser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td style=&quot;background:&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;;color:&#39;</span> <span class="o">+</span> <span class="n">textColor</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td style=&quot;background:&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;;color:&#39;</span> <span class="o">+</span> <span class="n">textColor</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&quot;&gt;&lt;tt&gt;&#39;</span> <span class="o">+</span> <span class="n">FormatRGBForHTML</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&lt;/tt&gt;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeSynonymColorPage(self):
-        res = self.MakeHTMLHeader()
-        res += '&lt;body&gt;\n'
-        res += '&lt;h1&gt;Synonyms in vtkNamedColors&lt;/h1&gt;\n'
-        res += '&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;\n'
-        res += '&lt;caption style=&quot;background:lightgrey&quot;&gt;&lt;/caption&gt;\n'
-        res += '&lt;tr valign=&quot;top&quot;&gt;\n'
-        res += self.MakeSynonymColorTable()
-        res += '&lt;/table&gt;\n'
-        res += '&lt;/body&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">MakeVTKTR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">nameColor</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Use when the name is not a color name known to the web browser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td style=&quot;background:&#39;</span> <span class="o">+</span> <span class="n">nameColor</span> <span class="o">+</span> <span class="s1">&#39;;color:&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">textColor</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td style=&quot;background:&#39;</span> <span class="o">+</span> <span class="n">nameColor</span> <span class="o">+</span> <span class="s1">&#39;;color:&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">textColor</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&lt;tt&gt;&#39;</span> <span class="o">+</span> <span class="n">FormatRGBForHTML</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&lt;/tt&gt;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/tr&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">s</span>
 
-    def MakeCombinedColorPage(self):
-        res = self.MakeHTMLHeader()
-        res += '&lt;body&gt;\n'
-        res += '&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;\n'
-        res += '&lt;p&gt;The class vtkNamedColors provides color names and their'
-        res += ' values for the convenience of the user.&lt;/p&gt;\n'
-        res += '&lt;p&gt;The following tables show the available colors along with'
-        res += ' their red, green and blue values.&lt;/p&gt;\n'
-        res += self.MakeHTMLIndex()
-        res += '&lt;h2&gt;&lt;a id=&quot;WebColorNames&quot;&gt;Web color Names&lt;/h2&gt;'
-        res += 'These colors correspond to those in'
-        res += ' &lt;a href=&quot;http://en.wikipedia.org/wiki/Web_colors&quot;'
-        res += ' title=&quot;Web Colors&quot;&gt;Web Colors&lt;/a&gt;.\n'
-        res += '&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;\n'
-        res += '&lt;tr valign=&quot;top&quot;&gt;\n'
-        res += self.MakeWebColorTables()
-        res += '&lt;/table&gt;\n'
-        res += '&lt;h2&gt;&lt;a id=&quot;VTKColorNames&quot;&gt;VTK color Names&lt;/h2&gt;'
-        res += '&lt;p&gt;The colors mainly correspond to those in vtkColors.txt.\n&lt;/p&gt;\n'
-        res += '&lt;p&gt;The web colors (above) take precedence over colors of the'
-        res += ' same name in vtkColors.txt.&lt;/p&gt;\n'
-        res += '&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;\n'
-        res += '&lt;tr valign=&quot;top&quot;&gt;\n'
-        res += self.MakeVTKColorTables()
-        res += '&lt;/table&gt;\n'
-        res += '&lt;h2&gt;&lt;a id=&quot;Synonyms&quot;&gt;Synonyms&lt;/h2&gt;'
-        res += '&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;\n'
-        res += '&lt;tr valign=&quot;top&quot;&gt;\n'
-        res += self.MakeSynonymColorTable()
-        res += '&lt;/table&gt;\n'
-        res += '&lt;/body&gt;\n'
-        return res
+    <span class="k">def</span> <span class="nf">FindLongestColorName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Find the longest color name. &quot;&quot;&quot;</span>
+        <span class="n">maxLength</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">maxLength</span><span class="p">:</span>
+                    <span class="n">maxLength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtkcn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">maxLength</span><span class="p">:</span>
+                    <span class="n">maxLength</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">maxLength</span>
 
-def CheckVTKVersion(requiredMajorVersion):
-    '''
-    Check the VTK version.
-    :param: requiredMajorVersion e.g. 6
-    '''
-    version = vtk.vtkVersion()
-    if version.GetVTKMajorVersion() &gt; requiredMajorVersion:
-        raise
-    else:
-        return
+    <span class="k">def</span> <span class="nf">MakeWebColorTables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnOrder</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnStartTable</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeTableHeader</span><span class="p">()</span>
+            <span class="c1"># Add in the name of the group in the color table.</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeTD</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39; colors&#39;</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cn</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="n">rgb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="o">.</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">Y</span> <span class="o">=</span> <span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+                <span class="n">textColor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>  <span class="c1"># Black</span>
+                <span class="k">if</span> <span class="n">Y</span> <span class="o">&lt;</span> <span class="mi">255</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">:</span>
+                    <span class="n">textColor</span> <span class="o">=</span> <span class="s1">&#39;#ffffff&#39;</span>  <span class="c1"># White</span>
+                <span class="c1"># Make the row for each color in the group.</span>
+                <span class="c1"># Here we use the name to set the background color</span>
+                <span class="c1">#  as it is known to the web browser.</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeTR</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnEndTable</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
 
-if __name__ == &quot;__main__&quot;:
-    try:
-        CheckVTKVersion(6)
-    except:
-        print(&quot;You need VTK Version 6 or greater.&quot;)
-        print(&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;)
-        exit(0)
-    ncp = HTMLTableMaker()
-    res = ncp.MakeCombinedColorPage()
-    f = open(&quot;VTKNamedColorPatches.html&quot;, &quot;wt&quot;)
-    f.write(res)
-    f.close()
-</code></pre>
+    <span class="k">def</span> <span class="nf">MakeVTKColorTables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtkcnOrder</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtkcnStartTable</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeTableHeader</span><span class="p">()</span>
+            <span class="c1"># Add in the name of the group in the color table.</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeTD</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtkcn</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="n">rgb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="o">.</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">Y</span> <span class="o">=</span> <span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+                <span class="n">textColor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>  <span class="c1"># Black</span>
+                <span class="k">if</span> <span class="n">Y</span> <span class="o">&lt;</span> <span class="mi">255</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">:</span>
+                    <span class="n">textColor</span> <span class="o">=</span> <span class="s1">&#39;#ffffff&#39;</span>  <span class="c1"># White</span>
+                <span class="c1"># We must set the background color to a specific</span>
+                <span class="c1"># HTML color as the color name may not be a standard</span>
+                <span class="c1"># name known to the web browser.</span>
+                <span class="n">nameColor</span> <span class="o">=</span> <span class="n">RGBToHTMLColor</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+                <span class="c1"># Make the row for each color in the group.</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeVTKTR</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nameColor</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtkcnEndTable</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">MakeSynonymColorTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">syn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="o">.</span><span class="n">GetSynonyms</span><span class="p">()</span>
+        <span class="c1"># Convert to a list where each element is a list of the</span>
+        <span class="c1">#  color and its synonyms.</span>
+        <span class="n">syn</span> <span class="o">=</span> <span class="n">syn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">synonyms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">syn</span><span class="p">:</span>
+            <span class="n">synonyms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+        <span class="n">cn</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">cn</span> <span class="o">=</span> <span class="n">cn</span> <span class="o">+</span> <span class="n">value</span>
+        <span class="c1"># Create a dictionary where the key is the lowercase name.</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">cn</span><span class="p">:</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">n</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">n</span><span class="p">})</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="s1">&#39;&lt;td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeSynonymTableHeader</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">colorNames</span> <span class="ow">in</span> <span class="n">synonyms</span><span class="p">:</span>  <span class="c1"># colors.GetSynonyms():</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colorNames</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="n">colorNames</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">colorNames</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">colorNames</span><span class="p">)</span>
+            <span class="n">rgb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="o">.</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="n">colorNames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+            <span class="n">textColor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>  <span class="c1"># Black</span>
+            <span class="k">if</span> <span class="n">Y</span> <span class="o">&lt;</span> <span class="mi">255</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">:</span>
+                <span class="n">textColor</span> <span class="o">=</span> <span class="s1">&#39;#ffffff&#39;</span>  <span class="c1"># White</span>
+            <span class="c1"># We must set the background color to a specific</span>
+            <span class="c1"># HTML color  names is just a list of</span>
+            <span class="c1"># synonyms for that particular color.</span>
+            <span class="n">nameColor</span> <span class="o">=</span> <span class="n">RGBToHTMLColor</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+            <span class="c1"># Make the row for each color in the group.</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeVTKTR</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nameColor</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/td&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">MakeWebColorPage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeHTMLHeader</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;caption style=&quot;background:lightgrey&quot;&gt;Web Color Names&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/caption&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeWebColorTables</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">MakeVTKColorPage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeHTMLHeader</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;p&gt;The web colors take precedence over colors of the same&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; name in VTK Color Names.&lt;/p&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;caption style=&quot;background:lightgrey&quot;&gt;VTK Color Names&lt;/caption&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeVTKColorTables</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">MakeSynonymColorPage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeHTMLHeader</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h1&gt;Synonyms in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;caption style=&quot;background:lightgrey&quot;&gt;&lt;/caption&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeSynonymColorTable</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">MakeCombinedColorPage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeHTMLHeader</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;p&gt;The class vtkNamedColors provides color names and their&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; values for the convenience of the user.&lt;/p&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;p&gt;The following tables show the available colors along with&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; their red, green and blue values.&lt;/p&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeHTMLIndex</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h2&gt;&lt;a id=&quot;WebColorNames&quot;&gt;Web color Names&lt;/h2&gt;&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;These colors correspond to those in&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; &lt;a href=&quot;http://en.wikipedia.org/wiki/Web_colors&quot;&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; title=&quot;Web Colors&quot;&gt;Web Colors&lt;/a&gt;.</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeWebColorTables</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h2&gt;&lt;a id=&quot;VTKColorNames&quot;&gt;VTK color Names&lt;/h2&gt;&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;p&gt;The colors mainly correspond to those in vtkColors.txt.</span><span class="se">\n</span><span class="s1">&lt;/p&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;p&gt;The web colors (above) take precedence over colors of the&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; same name in vtkColors.txt.&lt;/p&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeVTKColorTables</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h2&gt;&lt;a id=&quot;Synonyms&quot;&gt;Synonyms&lt;/h2&gt;&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;table style=&quot;font-size:90%&quot; cellpadding=&quot;4&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr valign=&quot;top&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MakeSynonymColorTable</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">requiredMajorVersion</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVersion</span><span class="p">()</span><span class="o">.</span><span class="n">GetVTKMajorVersion</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">requiredMajorVersion</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;You need VTK Version 6 or greater.&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ncp</span> <span class="o">=</span> <span class="n">HTMLTableMaker</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">ncp</span><span class="o">.</span><span class="n">MakeCombinedColorPage</span><span class="p">()</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;VTKNamedColorPatches.html&quot;</span><span class="p">,</span> <span class="s2">&quot;wt&quot;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

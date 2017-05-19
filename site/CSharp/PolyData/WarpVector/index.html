@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,110 +15991,110 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/WarpVector</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestWarpVector.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>WarpVector.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            WarpVector();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void WarpVector() {
-         vtkPoints points = vtkPoints.New();
-         points.InsertNextPoint(0.0, 0.0, 0.0);
-         points.InsertNextPoint(1.0, 0.0, 0.0);
-         points.InsertNextPoint(2.0, 0.0, 0.0);
-         points.InsertNextPoint(3.0, 0.0, 0.0);
-         points.InsertNextPoint(4.0, 0.0, 0.0);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">WarpVector</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkCellArray lines = vtkCellArray.New();
-         vtkLine line = vtkLine.New();
-         line.GetPointIds().SetId(0, 0);
-         line.GetPointIds().SetId(1, 1);
-         lines.InsertNextCell(line);
-         line.GetPointIds().SetId(0, 1);
-         line.GetPointIds().SetId(1, 2);
-         lines.InsertNextCell(line);
-         line.GetPointIds().SetId(0, 2);
-         line.GetPointIds().SetId(1, 3);
-         lines.InsertNextCell(line);
-         line.GetPointIds().SetId(0, 3);
-         line.GetPointIds().SetId(1, 4);
-         lines.InsertNextCell(line);
 
-         vtkDoubleArray warpData = vtkDoubleArray.New();
-         warpData.SetNumberOfComponents(3);
-         warpData.SetName(&quot;warpData&quot;);
-         double[] warp = new double[] { 0.0, 0.0, 0.0 };
-         warp[1] = 0.0;
-         warpData.InsertNextTuple3(warp[0], warp[1], warp[2]);
-         warp[1] = 0.1;
-         warpData.InsertNextTuple3(warp[0], warp[1], warp[2]);
-         warp[1] = 0.3;
-         warpData.InsertNextTuple3(warp[0], warp[1], warp[2]);
-         warp[1] = 0.0;
-         warpData.InsertNextTuple3(warp[0], warp[1], warp[2]);
-         warp[1] = 0.1;
-         warpData.InsertNextTuple3(warp[0], warp[1], warp[2]);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">WarpVector</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">2.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">3.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">4.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
 
-         vtkPolyData polydata = vtkPolyData.New();
-         polydata.SetPoints(points);
-         polydata.SetLines(lines);
-         polydata.GetPointData().AddArray(warpData);
-         polydata.GetPointData().SetActiveVectors(warpData.GetName());
+         <span class="n">vtkCellArray</span> <span class="n">lines</span> <span class="p">=</span> <span class="n">vtkCellArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">vtkLine</span> <span class="n">line</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">line</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+         <span class="n">lines</span><span class="p">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
 
-         //WarpVector will use the array marked as active vector in polydata
-         //it has to be a 3 component array
-         //with the same number of tuples as points in polydata
-         vtkWarpVector warpVector = vtkWarpVector.New();
-#if VTK_MAJOR_VERSION_5
-         warpVector.SetInput(polydata);
-#else
-         warpVector.SetInputData(polydata);
-#endif
-         warpVector.Update();
+         <span class="n">vtkDoubleArray</span> <span class="n">warpData</span> <span class="p">=</span> <span class="n">vtkDoubleArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;warpData&quot;</span><span class="p">);</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">warp</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+         <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="m">0.0</span><span class="p">;</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="n">warp</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="m">0.1</span><span class="p">;</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="n">warp</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="m">0.3</span><span class="p">;</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="n">warp</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="m">0.0</span><span class="p">;</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="n">warp</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="m">0.1</span><span class="p">;</span>
+         <span class="n">warpData</span><span class="p">.</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="n">warp</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">warp</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         mapper.SetInput(warpVector.GetPolyDataOutput());
-#else
-         mapper.SetInputData(warpVector.GetPolyDataOutput());
-#endif
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(.2, .6, .3);
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">);</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">AddArray</span><span class="p">(</span><span class="n">warpData</span><span class="p">);</span>
+         <span class="n">polydata</span><span class="p">.</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="n">warpData</span><span class="p">.</span><span class="n">GetName</span><span class="p">());</span>
+
+         <span class="c1">//WarpVector will use the array marked as active vector in polydata</span>
+         <span class="c1">//it has to be a 3 component array</span>
+         <span class="c1">//with the same number of tuples as points in polydata</span>
+         <span class="n">vtkWarpVector</span> <span class="n">warpVector</span> <span class="p">=</span> <span class="n">vtkWarpVector</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">warpVector</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+         <span class="n">warpVector</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">warpVector</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">warpVector</span><span class="p">.</span><span class="n">GetPolyDataOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">warpVector</span><span class="p">.</span><span class="n">GetPolyDataOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">6</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,103 +16004,110 @@
                   <h1>GetMiscCellData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/GetMiscCellData</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GetMiscCellData.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // Parse command line arguments
-  if(argc != 3)
-  {
-    std::cout &lt;&lt; &quot;Required arguments: Filename ArrayName&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Parse command line arguments</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: Filename ArrayName&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Get filename from command line
-  std::string filename = argv[1]; //first command line argument
+  <span class="c1">// Get filename from command line</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//first command line argument</span>
 
-  // Get array name
-  std::string arrayName = argv[2]; //second command line argument
+  <span class="c1">// Get array name</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">arrayName</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">//second command line argument</span>
 
-  //read the file
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader-&gt;SetFileName(filename.c_str());
-  reader-&gt;Update();
+  <span class="c1">//read the file</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkPolyData* polydata = reader-&gt;GetOutput();
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Get the number of cells in the polydata
-  vtkIdType idNumCellsInFile = polydata-&gt;GetNumberOfCells();
+  <span class="c1">// Get the number of cells in the polydata</span>
+  <span class="n">vtkIdType</span> <span class="n">idNumCellsInFile</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; array =
-    vtkFloatArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetArray(arrayName.c_str()));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="n">arrayName</span><span class="p">.</span><span class="n">c_str</span><span class="p">()));</span>
 
-  if(array)
-  {
-    std::cout &lt;&lt; &quot;Got array &quot; &lt;&lt; arrayName
-              &lt;&lt; &quot; with &quot; &lt;&lt; idNumCellsInFile &lt;&lt; &quot; values&quot;
-              &lt;&lt; std::endl;
-    for(int i = 0; i &lt; idNumCellsInFile; i++)
-    {
-      double value;
-      value = array-&gt;GetValue(i);
-      std::cout &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; value &lt;&lt; std::endl;
-    }
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;The file &quot; &lt;&lt; filename
-              &lt;&lt; &quot; does not have a CellData array named &quot; &lt;&lt; arrayName
-              &lt;&lt; std::endl;
-  }
+  <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Got array &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">arrayName</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; with &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">idNumCellsInFile</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; values&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idNumCellsInFile</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">value</span><span class="p">;</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;The file &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">filename</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; does not have a CellData array named &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">arrayName</span>
+              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GetMiscCellData)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GetMiscCellData</span><span class="p">)</span>
 
-add_executable(GetMiscCellData MACOSX_BUNDLE GetMiscCellData.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GetMiscCellData ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GetMiscCellData</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GetMiscCellData.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-getmisccelldata">Download and Build GetMiscCellData</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GetMiscCellData</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-getmisccelldata">Download and Build GetMiscCellData<a class="headerlink" href="#download-and-build-getmisccelldata" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GetMiscCellData.tar">here to download GetMiscCellData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GetMiscCellData.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GetMiscCellData/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GetMiscCellData/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GetMiscCellData
-</code></pre>
+<div class="codehilite"><pre><span></span>./GetMiscCellData
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

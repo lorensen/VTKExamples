@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,90 +16004,97 @@
                   <h1>ReverseSense</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ReverseSense</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReverseSense.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkReverseSense.h&gt;
-#include &lt;vtkFloatArray.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkReverseSense.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; pointNormals =
-    vtkFloatArray::SafeDownCast(sphereSource-&gt;GetOutput()-&gt;GetPointData()-&gt;GetNormals());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">pointNormals</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
 
-  std::cout &lt;&lt; std::endl &lt;&lt; &quot;Normals: &quot; &lt;&lt; std::endl;
-  // Display the first few normals
-  for(unsigned int i = 0; i &lt; 5; i++)
-  {
-    double pN[3];
-    pointNormals-&gt;GetTuple(i, pN);
-    std::cout &lt;&lt; &quot;Point normal &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; pN[0] &lt;&lt; &quot; &quot; &lt;&lt; pN[1] &lt;&lt; &quot; &quot; &lt;&lt; pN[2] &lt;&lt; std::endl;
-  }
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Normals: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="c1">// Display the first few normals</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">pN</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">pointNormals</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pN</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Point normal &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pN</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pN</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pN</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkReverseSense&gt; reverseSense =
-    vtkSmartPointer&lt;vtkReverseSense&gt;::New();
-  reverseSense-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  reverseSense-&gt;ReverseNormalsOn();
-  reverseSense-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkReverseSense</span><span class="o">&gt;</span> <span class="n">reverseSense</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkReverseSense</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reverseSense</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">reverseSense</span><span class="o">-&gt;</span><span class="n">ReverseNormalsOn</span><span class="p">();</span>
+  <span class="n">reverseSense</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; reversedNormals =
-    vtkFloatArray::SafeDownCast(reverseSense-&gt;GetOutput()-&gt;GetPointData()-&gt;GetNormals());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">reversedNormals</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">reverseSense</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
 
-  std::cout &lt;&lt; std::endl &lt;&lt; &quot;Reversed: &quot; &lt;&lt; std::endl;
-  // Display the first few normals to verify that they are flipped
-  for(unsigned int i = 0; i &lt; 5; i++)
-  {
-    double pN[3];
-    reversedNormals-&gt;GetTuple(i, pN);
-    std::cout &lt;&lt; &quot;Reversed normal &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; pN[0] &lt;&lt; &quot; &quot; &lt;&lt; pN[1] &lt;&lt; &quot; &quot; &lt;&lt; pN[2] &lt;&lt; std::endl;
-  }
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reversed: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="c1">// Display the first few normals to verify that they are flipped</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">pN</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">reversedNormals</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pN</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reversed normal &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pN</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pN</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pN</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ReverseSense)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ReverseSense</span><span class="p">)</span>
 
-add_executable(ReverseSense MACOSX_BUNDLE ReverseSense.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ReverseSense ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ReverseSense</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ReverseSense.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-reversesense">Download and Build ReverseSense</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ReverseSense</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-reversesense">Download and Build ReverseSense<a class="headerlink" href="#download-and-build-reversesense" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ReverseSense.tar">here to download ReverseSense</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ReverseSense.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ReverseSense/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ReverseSense/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ReverseSense
-</code></pre>
+<div class="codehilite"><pre><span></span>./ReverseSense
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

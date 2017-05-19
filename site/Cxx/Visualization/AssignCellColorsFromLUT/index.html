@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,17 +16019,11 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/AssignCellColorsFromLUT</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestAssignCellColorsFromLUT.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Demonstrates how to assign colors to cells in a vtkPolyData structure using lookup tables.
-Two techniques are demonstrated:</p>
-<ol>
-<li>
-<p>Using a lookup table of predefined colors.</p>
-</li>
-<li>
-<p>Using a lookup table generated from a color transfer function.</p>
-</li>
-</ol>
+Two techniques are demonstrated:
+ 1. Using a lookup table of predefined colors.
+ 2. Using a lookup table generated from a color transfer function.</p>
 <p>The resultant display shows in the left-hand column, the cells in a plane
 colored by the two lookup tables and in the right-hand column, the same
 polydata that has been read in from a file demonstrating that the structures
@@ -16026,335 +16032,330 @@ are identical.</p>
 green to tan transition in a diverging color space.
 Note that the central square is white indicating the midpoint.</p>
 <p>The bottom row of the display uses a lookup table of predefined colors.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AssignCellColorsFromLUT.cxx</strong></p>
-<pre><code class="c++">/*
-Demonstrates how to assign colors to cells in a vtkPolyData structure using
- lookup tables.
-Two techniques are demonstrated:
-1) Using a lookup table of predefined colors.
-2) Using a lookup table generated from a color transfer function.
+<div class="codehilite"><pre><span></span><span class="cm">/*</span>
+<span class="cm">Demonstrates how to assign colors to cells in a vtkPolyData structure using</span>
+<span class="cm"> lookup tables.</span>
+<span class="cm">Two techniques are demonstrated:</span>
+<span class="cm">1) Using a lookup table of predefined colors.</span>
+<span class="cm">2) Using a lookup table generated from a color transfer function.</span>
 
-The resultant display shows in the left-hand column, the cells in a plane
-colored by the two lookup tables and in the right-hand column, the same
-polydata that has been read in from a file demonstrating that the structures
-are identical.
+<span class="cm">The resultant display shows in the left-hand column, the cells in a plane</span>
+<span class="cm">colored by the two lookup tables and in the right-hand column, the same</span>
+<span class="cm">polydata that has been read in from a file demonstrating that the structures</span>
+<span class="cm">are identical.</span>
 
-The top row of the display uses the color transfer function to create a
-green to tan transition in a diverging color space.
-Note that the central square is white indicating the midpoint.
+<span class="cm">The top row of the display uses the color transfer function to create a</span>
+<span class="cm">green to tan transition in a diverging color space.</span>
+<span class="cm">Note that the central square is white indicating the midpoint.</span>
 
-The bottom row of the display uses a lookup table of predefined colors.
-*/
+<span class="cm">The bottom row of the display uses a lookup table of predefined colors.</span>
+<span class="cm">*/</span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkNamedColors.h&gt;
-#include &lt;vtkPlaneSource.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
-#include &lt;vtkUnsignedCharArray.h&gt;
-#include &lt;vtkCellData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnsignedCharArray.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 
-#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-#include &lt;algorithm&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iomanip&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
-template &lt;typename T&gt;
-void PrintColour(T &amp;rgb)
-{
-  // Don't do this in real code! Range checking etc. is needed.
-  for (size_t i = 0; i &lt; 3; ++i)
-  {
-      if (i &lt; 2)
-      {
-        std::cout &lt;&lt; static_cast&lt;double&gt;(rgb[i]) &lt;&lt; &quot; &quot;;
-      }
-      else
-      {
-        std::cout &lt;&lt; static_cast&lt;double&gt;(rgb[i]);
-      }
-  }
-}
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">PrintColour</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">rgb</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Don&#39;t do this in real code! Range checking etc. is needed.</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgb</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-//! Make a lookup table from a set of named colors.
-/*
- * See: http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html
- */
-void MakeLUT(size_t const &amp; tableSize, vtkLookupTable *lut)
-{
-  vtkSmartPointer&lt;vtkNamedColors&gt; nc =
-    vtkSmartPointer&lt;vtkNamedColors&gt;::New();
+<span class="c1">//! Make a lookup table from a set of named colors.</span>
+<span class="cm">/*</span>
+<span class="cm"> * See: http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html</span>
+<span class="cm"> */</span>
+<span class="kt">void</span> <span class="n">MakeLUT</span><span class="p">(</span><span class="kt">size_t</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">tableSize</span><span class="p">,</span> <span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  lut-&gt;SetNumberOfTableValues(tableSize);
-  lut-&gt;Build();
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">tableSize</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  // Fill in a few known colors, the rest will be generated if needed
-  lut-&gt;SetTableValue(0, nc-&gt;GetColor4d(&quot;Black&quot;).GetData());
-  lut-&gt;SetTableValue(1, nc-&gt;GetColor4d(&quot;Banana&quot;).GetData());
-  lut-&gt;SetTableValue(2, nc-&gt;GetColor4d(&quot;Tomato&quot;).GetData());
-  lut-&gt;SetTableValue(3, nc-&gt;GetColor4d(&quot;Wheat&quot;).GetData());
-  lut-&gt;SetTableValue(4, nc-&gt;GetColor4d(&quot;Lavender&quot;).GetData());
-  lut-&gt;SetTableValue(5, nc-&gt;GetColor4d(&quot;Flesh&quot;).GetData());
-  lut-&gt;SetTableValue(6, nc-&gt;GetColor4d(&quot;Raspberry&quot;).GetData());
-  lut-&gt;SetTableValue(7, nc-&gt;GetColor4d(&quot;Salmon&quot;).GetData());
-  lut-&gt;SetTableValue(8, nc-&gt;GetColor4d(&quot;Mint&quot;).GetData());
-  lut-&gt;SetTableValue(9, nc-&gt;GetColor4d(&quot;Peacock&quot;).GetData());
-}
+  <span class="c1">// Fill in a few known colors, the rest will be generated if needed</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Black&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Lavender&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Flesh&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Raspberry&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Salmon&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Mint&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor4d</span><span class="p">(</span><span class="s">&quot;Peacock&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+<span class="p">}</span>
 
-//! Use a color transfer Function to generate the colors in the lookup table.
-void MakeLUTFromCTF(size_t const &amp; tableSize, vtkLookupTable *lut)
-{
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt; ctf =
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  ctf-&gt;SetColorSpaceToDiverging();
-  // Green to tan.
-  ctf-&gt;AddRGBPoint(0.0, 0.085, 0.532, 0.201);
-  ctf-&gt;AddRGBPoint(0.5, 0.865, 0.865, 0.865);
-  ctf-&gt;AddRGBPoint(1.0, 0.677, 0.492, 0.093);
+<span class="c1">//! Use a color transfer Function to generate the colors in the lookup table.</span>
+<span class="kt">void</span> <span class="n">MakeLUTFromCTF</span><span class="p">(</span><span class="kt">size_t</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">tableSize</span><span class="p">,</span> <span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span> <span class="n">ctf</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ctf</span><span class="o">-&gt;</span><span class="n">SetColorSpaceToDiverging</span><span class="p">();</span>
+  <span class="c1">// Green to tan.</span>
+  <span class="n">ctf</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.085</span><span class="p">,</span> <span class="mf">0.532</span><span class="p">,</span> <span class="mf">0.201</span><span class="p">);</span>
+  <span class="n">ctf</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.865</span><span class="p">,</span> <span class="mf">0.865</span><span class="p">,</span> <span class="mf">0.865</span><span class="p">);</span>
+  <span class="n">ctf</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.677</span><span class="p">,</span> <span class="mf">0.492</span><span class="p">,</span> <span class="mf">0.093</span><span class="p">);</span>
 
-  lut-&gt;SetNumberOfTableValues(tableSize);
-  lut-&gt;Build();
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">tableSize</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  for(size_t i = 0; i &lt; tableSize; ++i)
-  {
-    double *rgb;
-    rgb = ctf-&gt;GetColor(static_cast&lt;double&gt;(i)/tableSize);
-    lut-&gt;SetTableValue(i,rgb);
-  }
-}
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tableSize</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span><span class="o">*</span> <span class="n">rgb</span><span class="p">;</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">ctf</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">tableSize</span><span class="p">);</span>
+    <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rgb</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-//! Create the cell data using the colors from the lookup table.
-void MakeCellData(size_t const &amp; tableSize, vtkLookupTable *lut,
-                   vtkUnsignedCharArray *colors)
-{
-  for (size_t i = 1; i &lt; tableSize; i++)
-  {
-    double rgb[3];
-    unsigned char ucrgb[3];
-    // Get the interpolated color.
-    // Of course you can use any function whose range is [0...1]
-    // to get the required color and assign it to a cell Id.
-    // In this case we are just using the cell (Id + 1)/(tableSize - 1)
-    // to get the interpolated color.
-    lut-&gt;GetColor(static_cast&lt;double&gt;(i) / (tableSize - 1), rgb);
-    for (size_t j = 0; j &lt; 3; ++j)
-    {
-      ucrgb[j] = static_cast&lt;unsigned char&gt;(rgb[j] * 255);
-    }
-    colors-&gt;InsertNextTuple3(ucrgb[0], ucrgb[1], ucrgb[2]);
-    // Print out what we have.
-    std::cout &lt;&lt; &quot;(&quot;;
-    PrintColour&lt;double[3]&gt;(rgb);
-    std::cout &lt;&lt; &quot;) (&quot;;
-    PrintColour&lt;unsigned char[3]&gt;(ucrgb);
-    std::cout &lt;&lt; &quot;)&quot; &lt;&lt; std::endl;
-  }
-}
+<span class="c1">//! Create the cell data using the colors from the lookup table.</span>
+<span class="kt">void</span> <span class="n">MakeCellData</span><span class="p">(</span>
+  <span class="kt">size_t</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">tableSize</span><span class="p">,</span> <span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">,</span> <span class="n">vtkUnsignedCharArray</span><span class="o">*</span> <span class="n">colors</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tableSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">rgb</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">ucrgb</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="c1">// Get the interpolated color.</span>
+    <span class="c1">// Of course you can use any function whose range is [0...1]</span>
+    <span class="c1">// to get the required color and assign it to a cell Id.</span>
+    <span class="c1">// In this case we are just using the cell (Id + 1)/(tableSize - 1)</span>
+    <span class="c1">// to get the interpolated color.</span>
+    <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tableSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rgb</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">ucrgb</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgb</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">colors</span><span class="o">-&gt;</span><span class="n">InsertNextTuple3</span><span class="p">(</span><span class="n">ucrgb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ucrgb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ucrgb</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="c1">// Print out what we have.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span><span class="p">;</span>
+    <span class="n">PrintColour</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) (&quot;</span><span class="p">;</span>
+    <span class="n">PrintColour</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ucrgb</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-int main(int , char *[])
-{
-  vtkSmartPointer&lt;vtkNamedColors&gt; nc =
-    vtkSmartPointer&lt;vtkNamedColors&gt;::New();
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Provide some geometry
-  int resolution = 3;
-  vtkSmartPointer&lt;vtkPlaneSource&gt; plane11 =
-    vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-  plane11-&gt;SetXResolution(resolution);
-  plane11-&gt;SetYResolution(resolution);
+  <span class="c1">// Provide some geometry</span>
+  <span class="kt">int</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">plane11</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">plane11</span><span class="o">-&gt;</span><span class="n">SetXResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
+  <span class="n">plane11</span><span class="o">-&gt;</span><span class="n">SetYResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPlaneSource&gt; plane12 =
-    vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-  plane12-&gt;SetXResolution(resolution);
-  plane12-&gt;SetYResolution(resolution);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">plane12</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">plane12</span><span class="o">-&gt;</span><span class="n">SetXResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
+  <span class="n">plane12</span><span class="o">-&gt;</span><span class="n">SetYResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
 
-  // Create a lookup table to map cell data to colors
-  vtkSmartPointer&lt;vtkLookupTable&gt; lut1 =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  vtkSmartPointer&lt;vtkLookupTable&gt; lut2 =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  int tableSize = std::max(resolution*resolution + 1, 10);
+  <span class="c1">// Create a lookup table to map cell data to colors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">tableSize</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">resolution</span> <span class="o">*</span> <span class="n">resolution</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 
-  // Force an update so we can set cell data
-  plane11-&gt;Update();
-  plane12-&gt;Update();
+  <span class="c1">// Force an update so we can set cell data</span>
+  <span class="n">plane11</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">plane12</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  MakeLUT(tableSize, lut1);
-  MakeLUTFromCTF(tableSize, lut2);
+  <span class="n">MakeLUT</span><span class="p">(</span><span class="n">tableSize</span><span class="p">,</span> <span class="n">lut1</span><span class="p">);</span>
+  <span class="n">MakeLUTFromCTF</span><span class="p">(</span><span class="n">tableSize</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkUnsignedCharArray&gt; colorData1 =
-    vtkSmartPointer&lt;vtkUnsignedCharArray&gt;::New();
-  colorData1-&gt;SetName(&quot;colors&quot;); // Any name will work here.
-  colorData1-&gt;SetNumberOfComponents(3);
-  std::cout &lt;&lt; &quot;Using a lookup table from a set of named colors.&quot; &lt;&lt; std::endl;
-  MakeCellData(tableSize, lut1, colorData1);
-  // Then use SetScalars() to add it to the vtkPolyData structure,
-  // this will then be interpreted as a color table.
-  plane11-&gt;GetOutput()-&gt;GetCellData()-&gt;SetScalars(colorData1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;</span> <span class="n">colorData1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorData1</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;colors&quot;</span><span class="p">);</span> <span class="c1">// Any name will work here.</span>
+  <span class="n">colorData1</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Using a lookup table from a set of named colors.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">MakeCellData</span><span class="p">(</span><span class="n">tableSize</span><span class="p">,</span> <span class="n">lut1</span><span class="p">,</span> <span class="n">colorData1</span><span class="p">);</span>
+  <span class="c1">// Then use SetScalars() to add it to the vtkPolyData structure,</span>
+  <span class="c1">// this will then be interpreted as a color table.</span>
+  <span class="n">plane11</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">colorData1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkUnsignedCharArray&gt; colorData2 =
-    vtkSmartPointer&lt;vtkUnsignedCharArray&gt;::New();
-  colorData2-&gt;SetName(&quot;colors&quot;);
-  colorData2-&gt;SetNumberOfComponents(3);
-  std::cout &lt;&lt; &quot;Using a lookup table created from a color transfer function.&quot;
-            &lt;&lt; std::endl;
-  MakeCellData(tableSize, lut2, colorData2);
-  plane12-&gt;GetOutput()-&gt;GetCellData()-&gt;SetScalars(colorData2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;</span> <span class="n">colorData2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorData2</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;colors&quot;</span><span class="p">);</span>
+  <span class="n">colorData2</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Using a lookup table created from a color transfer function.&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">MakeCellData</span><span class="p">(</span><span class="n">tableSize</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="n">colorData2</span><span class="p">);</span>
+  <span class="n">plane12</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">colorData2</span><span class="p">);</span>
 
-  // Setup actor and mapper
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper11 =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper11-&gt;SetInputConnection(plane11-&gt;GetOutputPort());
-  // Now, instead of doing this:
-  // mapper11-&gt;SetScalarRange(0, tableSize - 1);
-  // mapper11-&gt;SetLookupTable(lut1);
-  // We can just use the color data that we created from the lookup table and
-  // assigned to the cells:
-  mapper11-&gt;SetScalarModeToUseCellData();
-  mapper11-&gt;Update();
+  <span class="c1">// Setup actor and mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper11</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper11</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">plane11</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="c1">// Now, instead of doing this:</span>
+  <span class="c1">// mapper11-&gt;SetScalarRange(0, tableSize - 1);</span>
+  <span class="c1">// mapper11-&gt;SetLookupTable(lut1);</span>
+  <span class="c1">// We can just use the color data that we created from the lookup table and</span>
+  <span class="c1">// assigned to the cells:</span>
+  <span class="n">mapper11</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+  <span class="n">mapper11</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper12 =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper12-&gt;SetInputConnection(plane12-&gt;GetOutputPort());
-  mapper12-&gt;SetScalarModeToUseCellData();
-  mapper12-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper12</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper12</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">plane12</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper12</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+  <span class="n">mapper12</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-   vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;pdlut.vtp&quot;);
-  writer-&gt;SetInputData(mapper11-&gt;GetInput());
-  // This is set so we can see the data in a text editor.
-  writer-&gt;SetDataModeToAscii();
-  writer-&gt;Write();
-  writer-&gt;SetFileName(&quot;pdctf.vtp&quot;);
-  writer-&gt;SetInputData(mapper12-&gt;GetInput());
-  writer-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;pdlut.vtp&quot;</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">mapper11</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">());</span>
+  <span class="c1">// This is set so we can see the data in a text editor.</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetDataModeToAscii</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;pdctf.vtp&quot;</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">mapper12</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">());</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor11 =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor11-&gt;SetMapper(mapper11);
-  vtkSmartPointer&lt;vtkActor&gt; actor12 =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor12-&gt;SetMapper(mapper12);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor11</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor11</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper11</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor12</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor12</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper12</span><span class="p">);</span>
 
-  // Let's read in the data we wrote out.
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader1 =
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader1-&gt;SetFileName(&quot;pdlut.vtp&quot;);
+  <span class="c1">// Let&#39;s read in the data we wrote out.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;pdlut.vtp&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader2 =
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader2-&gt;SetFileName(&quot;pdctf.vtp&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;pdctf.vtp&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper21 =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper21-&gt;SetInputConnection(reader1-&gt;GetOutputPort());
-  mapper21-&gt;SetScalarModeToUseCellData();
-  mapper21-&gt;Update();
-  vtkSmartPointer&lt;vtkActor&gt; actor21 =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor21-&gt;SetMapper(mapper11);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper21</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper21</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper21</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+  <span class="n">mapper21</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor21</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor21</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper11</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper22 =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper22-&gt;SetInputConnection(reader2-&gt;GetOutputPort());
-  mapper22-&gt;SetScalarModeToUseCellData();
-  mapper22-&gt;Update();
-  vtkSmartPointer&lt;vtkActor&gt; actor22 =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor22-&gt;SetMapper(mapper22);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper22</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper22</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper22</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+  <span class="n">mapper22</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor22</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor22</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper22</span><span class="p">);</span>
 
-  // Define viewport ranges.
-  // (xmin, ymin, xmax, ymax)
-  double viewport11[4] = { 0.0, 0.0, 0.5, 0.5 };
-  double viewport12[4] = { 0.0, 0.5, 0.5, 1.0 };
-  double viewport21[4] = { 0.5, 0.0, 1.0, 0.5 };
-  double viewport22[4] = { 0.5, 0.5, 1.0, 1.0 };
+  <span class="c1">// Define viewport ranges.</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">viewport11</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">viewport12</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">viewport21</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">viewport22</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Set up the renderers.
-  vtkSmartPointer&lt;vtkRenderer&gt; ren11 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; ren12 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; ren21 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; ren22 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
+  <span class="c1">// Set up the renderers.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren11</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren12</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren21</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren22</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Setup the render windows
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;SetSize(600,600);
-  renWin-&gt;AddRenderer(ren11);
-  renWin-&gt;AddRenderer(ren12);
-  renWin-&gt;AddRenderer(ren21);
-  renWin-&gt;AddRenderer(ren22);
-  ren11-&gt;SetViewport(viewport11);
-  ren12-&gt;SetViewport(viewport12);
-  ren21-&gt;SetViewport(viewport21);
-  ren22-&gt;SetViewport(viewport22);
-  ren11-&gt;SetBackground(nc-&gt;GetColor3d(&quot;MidnightBlue&quot;).GetData());
-  ren12-&gt;SetBackground(nc-&gt;GetColor3d(&quot;MidnightBlue&quot;).GetData());
-  ren21-&gt;SetBackground(nc-&gt;GetColor3d(&quot;MidnightBlue&quot;).GetData());
-  ren22-&gt;SetBackground(nc-&gt;GetColor3d(&quot;MidnightBlue&quot;).GetData());
-  ren11-&gt;AddActor(actor11);
-  ren12-&gt;AddActor(actor12);
-  ren21-&gt;AddActor(actor21);
-  ren22-&gt;AddActor(actor22);
+  <span class="c1">// Setup the render windows</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren11</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren12</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren21</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren22</span><span class="p">);</span>
+  <span class="n">ren11</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport11</span><span class="p">);</span>
+  <span class="n">ren12</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport12</span><span class="p">);</span>
+  <span class="n">ren21</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport21</span><span class="p">);</span>
+  <span class="n">ren22</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport22</span><span class="p">);</span>
+  <span class="n">ren11</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;MidnightBlue&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">ren12</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;MidnightBlue&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">ren21</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;MidnightBlue&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">ren22</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;MidnightBlue&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">ren11</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor11</span><span class="p">);</span>
+  <span class="n">ren12</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor12</span><span class="p">);</span>
+  <span class="n">ren21</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor21</span><span class="p">);</span>
+  <span class="n">ren22</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor22</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
-  renWin-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AssignCellColorsFromLUT)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AssignCellColorsFromLUT</span><span class="p">)</span>
 
-add_executable(AssignCellColorsFromLUT MACOSX_BUNDLE AssignCellColorsFromLUT.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AssignCellColorsFromLUT ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AssignCellColorsFromLUT</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AssignCellColorsFromLUT.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-assigncellcolorsfromlut">Download and Build AssignCellColorsFromLUT</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AssignCellColorsFromLUT</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-assigncellcolorsfromlut">Download and Build AssignCellColorsFromLUT<a class="headerlink" href="#download-and-build-assigncellcolorsfromlut" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AssignCellColorsFromLUT.tar">here to download AssignCellColorsFromLUT</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AssignCellColorsFromLUT.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AssignCellColorsFromLUT/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AssignCellColorsFromLUT/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AssignCellColorsFromLUT
-</code></pre>
+<div class="codehilite"><pre><span></span>./AssignCellColorsFromLUT
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

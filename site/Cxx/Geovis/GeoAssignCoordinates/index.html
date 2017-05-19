@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,120 +16005,127 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Geovis/GeoAssignCoordinates</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GeoAssignCoordinates.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkDataSetAttributes.h&gt;
-#include &lt;vtkGeoAssignCoordinates.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkGraphMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkMutableDirectedGraph.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetAttributes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGeoAssignCoordinates.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableDirectedGraph.h&gt;</span><span class="cp"></span>
 
-int main(int, char* [])
-{
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
+<span class="p">{</span>
 
-  vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; g =
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; latitude =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  latitude-&gt;SetName(&quot;latitude&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">latitude</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">latitude</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;latitude&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; longitude =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  longitude-&gt;SetName(&quot;longitude&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">longitude</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">longitude</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;longitude&quot;</span><span class="p">);</span>
 
-  for(int lat = -90; lat &lt;= 90; lat += 10)
-  {
-    for(int lon = -180; lon &lt;= 180; lon += 20)
-    {
-      g-&gt;AddVertex();
-      latitude-&gt;InsertNextValue(lat);
-      longitude-&gt;InsertNextValue(lon);
-    }
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">lat</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span><span class="p">;</span> <span class="n">lat</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">;</span> <span class="n">lat</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">lon</span> <span class="o">=</span> <span class="o">-</span><span class="mi">180</span><span class="p">;</span> <span class="n">lon</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">;</span> <span class="n">lon</span> <span class="o">+=</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+      <span class="n">latitude</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">lat</span><span class="p">);</span>
+      <span class="n">longitude</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">lon</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  g-&gt;GetVertexData()-&gt;AddArray(latitude);
-  g-&gt;GetVertexData()-&gt;AddArray(longitude);
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">latitude</span><span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">longitude</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGeoAssignCoordinates&gt; assign =
-    vtkSmartPointer&lt;vtkGeoAssignCoordinates&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  assign-&gt;SetInput(g);
-#else
-  assign-&gt;SetInputData(g);
-#endif
-  assign-&gt;SetLatitudeArrayName(&quot;latitude&quot;);
-  assign-&gt;SetLongitudeArrayName(&quot;longitude&quot;);
-  assign-&gt;SetGlobeRadius(1.0);
-  assign-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeoAssignCoordinates</span><span class="o">&gt;</span> <span class="n">assign</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeoAssignCoordinates</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">assign</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">assign</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">assign</span><span class="o">-&gt;</span><span class="n">SetLatitudeArrayName</span><span class="p">(</span><span class="s">&quot;latitude&quot;</span><span class="p">);</span>
+  <span class="n">assign</span><span class="o">-&gt;</span><span class="n">SetLongitudeArrayName</span><span class="p">(</span><span class="s">&quot;longitude&quot;</span><span class="p">);</span>
+  <span class="n">assign</span><span class="o">-&gt;</span><span class="n">SetGlobeRadius</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">assign</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkGraphMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkGraphMapper&gt;::New();
-  mapper-&gt;SetInputConnection(assign-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">assign</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; ren =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren-&gt;AddActor(actor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; win =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  win-&gt;AddRenderer(ren);
-  win-&gt;SetInteractor(iren);
-  ren-&gt;ResetCamera();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">win</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">win</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
+  <span class="n">win</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">iren</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GeoAssignCoordinates)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GeoAssignCoordinates</span><span class="p">)</span>
 
-add_executable(GeoAssignCoordinates MACOSX_BUNDLE GeoAssignCoordinates.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GeoAssignCoordinates ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GeoAssignCoordinates</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GeoAssignCoordinates.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-geoassigncoordinates">Download and Build GeoAssignCoordinates</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GeoAssignCoordinates</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-geoassigncoordinates">Download and Build GeoAssignCoordinates<a class="headerlink" href="#download-and-build-geoassigncoordinates" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GeoAssignCoordinates.tar">here to download GeoAssignCoordinates</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GeoAssignCoordinates.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GeoAssignCoordinates/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GeoAssignCoordinates/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GeoAssignCoordinates
-</code></pre>
+<div class="codehilite"><pre><span></span>./GeoAssignCoordinates
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,94 +16018,101 @@
                   <h1>ImageText</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageText</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to draw text onto an image ({{class|vtkImageData}}). It uses {{class|vtkImageBlend}} to blend the text and the image. For another example using vtkImageBlend, see <a href="../[../CombineImages]"></a>.</p>
 <p>See also <a href="../[../../Visualization/DrawText]"></a> for an example of drawing text, also in 2D, but into the render window rather than into a vtkImageData object.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageText.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkImageBlend.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPNGWriter.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkFreeTypeUtilities.h&gt;
-#include &lt;vtkTextProperty.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageBlend.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPNGWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFreeTypeUtilities.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
 
-// must build VTK with VTK_USE_SYSTEM_FREETYPE=ON
+<span class="c1">// must build VTK with VTK_USE_SYSTEM_FREETYPE=ON</span>
 
-int main(int argc, char* argv[])
-{
-  // Create a black image with a red circle of radius 50 centered at (60, 60)
-  vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; drawing =
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-  drawing-&gt;SetScalarTypeToUnsignedChar(); // PNGWriter requires unsigned char (or unsigned short)
-  drawing-&gt;SetNumberOfScalarComponents(3);
-  drawing-&gt;SetExtent(0, 150, 0, 120, 0, 0); // xmin, xmax, ymin, ymax, zmin, zmax
-  drawing-&gt;SetDrawColor(255, 0, 0); // red
-  drawing-&gt;DrawCircle(60, 60, 50); // parameters: x, y, radius
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a black image with a red circle of radius 50 centered at (60, 60)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">drawing</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span> <span class="c1">// PNGWriter requires unsigned char (or unsigned short)</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// xmin, xmax, ymin, ymax, zmin, zmax</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// red</span>
+  <span class="n">drawing</span><span class="o">-&gt;</span><span class="n">DrawCircle</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span> <span class="c1">// parameters: x, y, radius</span>
 
-  // Create an image of text
-  vtkSmartPointer&lt;vtkFreeTypeUtilities&gt; freeType = vtkSmartPointer&lt;vtkFreeTypeUtilities&gt;::New();
-  vtkSmartPointer&lt;vtkTextProperty&gt; textProperty = vtkSmartPointer&lt;vtkTextProperty&gt;::New();
-  textProperty-&gt;SetColor(1.0, 1.0, 0.0); // yellow
-  textProperty-&gt;SetFontSize(24);
-  vtkSmartPointer&lt;vtkImageData&gt; textImage = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  freeType-&gt;RenderString(textProperty, &quot;Test String&quot;, textImage);
+  <span class="c1">// Create an image of text</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFreeTypeUtilities</span><span class="o">&gt;</span> <span class="n">freeType</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFreeTypeUtilities</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">textProperty</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span> <span class="c1">// yellow</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">textImage</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">freeType</span><span class="o">-&gt;</span><span class="n">RenderString</span><span class="p">(</span><span class="n">textProperty</span><span class="p">,</span> <span class="s">&quot;Test String&quot;</span><span class="p">,</span> <span class="n">textImage</span><span class="p">);</span>
 
-  // Combine the images
-  vtkSmartPointer&lt;vtkImageBlend&gt; blend =
-    vtkSmartPointer&lt;vtkImageBlend&gt;::New();
-  blend-&gt;AddInputConnection(drawing-&gt;GetOutputPort());
-  blend-&gt;AddInputData(textImage);
-  blend-&gt;SetOpacity(0, 0.5); // background image: 50% opaque
-  blend-&gt;SetOpacity(1, 1.0); // text: 100% opaque
-  blend-&gt;Update();
+  <span class="c1">// Combine the images</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;</span> <span class="n">blend</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">drawing</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">textImage</span><span class="p">);</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span> <span class="c1">// background image: 50% opaque</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span> <span class="c1">// text: 100% opaque</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPNGWriter&gt; writer =
-    vtkSmartPointer&lt;vtkPNGWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;output.png&quot;);
-  writer-&gt;SetInputConnection(blend-&gt;GetOutputPort());
-  writer-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPNGWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPNGWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;output.png&quot;</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">blend</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageText)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageText</span><span class="p">)</span>
 
-add_executable(ImageText MACOSX_BUNDLE ImageText.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageText ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageText</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageText.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imagetext">Download and Build ImageText</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageText</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imagetext">Download and Build ImageText<a class="headerlink" href="#download-and-build-imagetext" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageText.tar">here to download ImageText</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageText.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageText/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageText/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageText
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageText
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

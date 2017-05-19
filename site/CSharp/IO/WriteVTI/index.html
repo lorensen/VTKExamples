@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,122 +15991,122 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/IO/WriteVTI</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestWriteVTI.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>WriteVTI.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            WriteVTI();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void WriteVTI() {
-         // Path to vtk data must be set as an environment variable
-         // VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;
-         vtkTesting test = vtkTesting.New();
-         string root = test.GetDataRoot();
-         string filePath = System.IO.Path.Combine(root, @&quot;Data\test_vti.vti&quot;);
-         vtkImageData imageData = vtkImageData.New();
-         imageData.SetDimensions(3, 4, 5);
-         imageData.SetNumberOfScalarComponents(1);
-         imageData.SetScalarTypeToDouble();
-         int[] dims = imageData.GetDimensions();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">WriteVTI</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // Fill every entry of the image data with &quot;2.0&quot;
-         /* we can do this in unsafe mode which looks pretty similar to the c++ version 
-           but then you must declare at the very top of your file the &quot;preprocessor&quot; directive 
 
-          #define UNSAFE
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">WriteVTI</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Path to vtk data must be set as an environment variable</span>
+         <span class="c1">// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+         <span class="n">vtkTesting</span> <span class="n">test</span> <span class="p">=</span> <span class="n">vtkTesting</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">root</span> <span class="p">=</span> <span class="n">test</span><span class="p">.</span><span class="n">GetDataRoot</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">filePath</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\test_vti.vti&quot;</span><span class="p">);</span>
+         <span class="n">vtkImageData</span> <span class="n">imageData</span> <span class="p">=</span> <span class="n">vtkImageData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">imageData</span><span class="p">.</span><span class="n">SetDimensions</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+         <span class="n">imageData</span><span class="p">.</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">imageData</span><span class="p">.</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+         <span class="kt">int</span><span class="p">[]</span> <span class="n">dims</span> <span class="p">=</span> <span class="n">imageData</span><span class="p">.</span><span class="n">GetDimensions</span><span class="p">();</span>
 
-          * or whatever name you choose for the following preprocessor #if statement
-          */
-#if UNSAFE
-         unsafe {
-            for(int z = 0; z &lt; dims[2]; z++) {
-               for(int y = 0; y &lt; dims[1]; y++) {
-                  for(int x = 0; x &lt; dims[0]; x++) {
-                     double* pixel = (double*)imageData.GetScalarPointer(x, y, z).ToPointer();
-                     // c++ version:
-                     // double* pixel = static_cast&lt;double*&gt;(imageData-&gt;GetScalarPointer(x,y,z));
-                     pixel[0] = 2.0;
-                  }
-               }
-            }
-         }
-#else
-         /* or we can do it in managed mode */
-         int size = imageData.GetScalarSize();
-         IntPtr ptr = Marshal.AllocHGlobal(size);
+         <span class="c1">// Fill every entry of the image data with &quot;2.0&quot;</span>
+         <span class="cm">/* we can do this in unsafe mode which looks pretty similar to the c++ version </span>
+<span class="cm">           but then you must declare at the very top of your file the &quot;preprocessor&quot; directive </span>
 
-         for(int z = 0; z &lt; dims[2]; z++) {
-            for(int y = 0; y &lt; dims[1]; y++) {
-               for(int x = 0; x &lt; dims[0]; x++) {
-                  ptr = imageData.GetScalarPointer(x, y, z);
-                  Marshal.Copy(new double[] { 2.0 }, 0, ptr, 1);
-               }
-            }
-         }
-         Marshal.FreeHGlobal(ptr);
-#endif
+<span class="cm">          #define UNSAFE</span>
 
-         vtkXMLImageDataWriter writer = vtkXMLImageDataWriter.New();
-         writer.SetFileName(filePath);
-         writer.SetInputConnection(imageData.GetProducerPort());
-         writer.Write();
+<span class="cm">          * or whatever name you choose for the following preprocessor #if statement</span>
+<span class="cm">          */</span>
+<span class="cp">#if UNSAFE</span>
+         <span class="k">unsafe</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">z</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">z</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">2</span><span class="p">];</span> <span class="n">z</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">y</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">1</span><span class="p">];</span> <span class="n">y</span><span class="p">++)</span> <span class="p">{</span>
+                  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">x</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">0</span><span class="p">];</span> <span class="n">x</span><span class="p">++)</span> <span class="p">{</span>
+                     <span class="kt">double</span><span class="p">*</span> <span class="n">pixel</span> <span class="p">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">*)</span><span class="n">imageData</span><span class="p">.</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">).</span><span class="n">ToPointer</span><span class="p">();</span>
+                     <span class="c1">// c++ version:</span>
+                     <span class="c1">// double* pixel = static_cast&lt;double*&gt;(imageData-&gt;GetScalarPointer(x,y,z));</span>
+                     <span class="n">pixel</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="m">2.0</span><span class="p">;</span>
+                  <span class="p">}</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+<span class="cp">#else</span>
+         <span class="cm">/* or we can do it in managed mode */</span>
+         <span class="kt">int</span> <span class="n">size</span> <span class="p">=</span> <span class="n">imageData</span><span class="p">.</span><span class="n">GetScalarSize</span><span class="p">();</span>
+         <span class="n">IntPtr</span> <span class="n">ptr</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 
-         // Read and display file for verification that it was written correctly
-         vtkXMLImageDataReader reader = vtkXMLImageDataReader.New();
-         if(reader.CanReadFile(filePath) == 0) {
-            MessageBox.Show(&quot;Cannot read file \&quot;&quot; + filePath + &quot;\&quot;&quot;, &quot;Error&quot;, MessageBoxButtons.OK);
-            return;
-         }
-         reader.SetFileName(filePath);
-         reader.Update();
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">z</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">z</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">2</span><span class="p">];</span> <span class="n">z</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">y</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">1</span><span class="p">];</span> <span class="n">y</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">x</span> <span class="p">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="m">0</span><span class="p">];</span> <span class="n">x</span><span class="p">++)</span> <span class="p">{</span>
+                  <span class="n">ptr</span> <span class="p">=</span> <span class="n">imageData</span><span class="p">.</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+                  <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">2.0</span> <span class="p">},</span> <span class="m">0</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-         // Convert the image to a polydata
-         vtkImageDataGeometryFilter imageDataGeometryFilter = vtkImageDataGeometryFilter.New();
-         imageDataGeometryFilter.SetInputConnection(reader.GetOutputPort());
-         imageDataGeometryFilter.Update();
+         <span class="n">vtkXMLImageDataWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkXMLImageDataWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageData</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">();</span>
 
-         vtkDataSetMapper mapper = vtkDataSetMapper.New();
-         mapper.SetInputConnection(imageDataGeometryFilter.GetOutputPort());
-         // actor
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
-         actor.GetProperty().SetPointSize(4);
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         // add our actor to the renderer
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Read and display file for verification that it was written correctly</span>
+         <span class="n">vtkXMLImageDataReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkXMLImageDataReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">CanReadFile</span><span class="p">(</span><span class="n">filePath</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="s">&quot;Cannot read file \&quot;&quot;</span> <span class="p">+</span> <span class="n">filePath</span> <span class="p">+</span> <span class="s">&quot;\&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Error&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="c1">// Convert the image to a polydata</span>
+         <span class="n">vtkImageDataGeometryFilter</span> <span class="n">imageDataGeometryFilter</span> <span class="p">=</span> <span class="n">vtkImageDataGeometryFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">imageDataGeometryFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">imageDataGeometryFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="n">vtkDataSetMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkDataSetMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageDataGeometryFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="c1">// actor</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetPointSize</span><span class="p">(</span><span class="m">4</span><span class="p">);</span>
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

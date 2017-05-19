@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,113 +16004,120 @@
                   <h1>ShareCameraQt</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Qt/ShareCameraQt</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ShareCameraQt.cxx</strong></p>
-<pre><code class="c++">#include &quot;ShareCameraQt.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;ShareCameraQt.h&quot;</span><span class="cp"></span>
 
-#include &lt;vtkDataObjectToTable.h&gt;
-#include &lt;vtkElevationFilter.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkQtTableView.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkCubeSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataObjectToTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkElevationFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkQtTableView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCubeSource.h&gt;</span><span class="cp"></span>
 
-#include &quot;vtkSmartPointer.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-// Constructor
-ShareCameraQt::ShareCameraQt() 
-{
-  this-&gt;setupUi(this);
+<span class="c1">// Constructor</span>
+<span class="n">ShareCameraQt</span><span class="o">::</span><span class="n">ShareCameraQt</span><span class="p">()</span> 
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">setupUi</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-  // Sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource = vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphereActor-&gt;SetMapper(sphereMapper);
+  <span class="c1">// Sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
 
-  // Cube
-  vtkSmartPointer&lt;vtkCubeSource&gt; cubeSource = vtkSmartPointer&lt;vtkCubeSource&gt;::New();
-  cubeSource-&gt;Update();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; cubeMapper = vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  cubeMapper-&gt;SetInputConnection(cubeSource-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; cubeActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  cubeActor-&gt;SetMapper(cubeMapper);
+  <span class="c1">// Cube</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;</span> <span class="n">cubeSource</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cubeSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">cubeMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cubeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cubeSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">cubeActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cubeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">cubeMapper</span><span class="p">);</span>
 
-  // VTK Renderer
-  vtkSmartPointer&lt;vtkRenderer&gt; leftRenderer = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  leftRenderer-&gt;AddActor(sphereActor);
+  <span class="c1">// VTK Renderer</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">leftRenderer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; rightRenderer = vtkSmartPointer&lt;vtkRenderer&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">rightRenderer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Add Actor to renderer
-  rightRenderer-&gt;AddActor(cubeActor);
+  <span class="c1">// Add Actor to renderer</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cubeActor</span><span class="p">);</span>
 
-  // VTK/Qt wedded
-  this-&gt;qvtkWidgetLeft-&gt;GetRenderWindow()-&gt;AddRenderer(leftRenderer);
-  this-&gt;qvtkWidgetRight-&gt;GetRenderWindow()-&gt;AddRenderer(rightRenderer);
+  <span class="c1">// VTK/Qt wedded</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">qvtkWidgetLeft</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">qvtkWidgetRight</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
 
-  rightRenderer-&gt;ResetCamera();
-  leftRenderer-&gt;ResetCamera();
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  rightRenderer-&gt;SetActiveCamera(leftRenderer-&gt;GetActiveCamera());
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
 
-  // Set up action signals and slots
-  connect(this-&gt;actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
+  <span class="c1">// Set up action signals and slots</span>
+  <span class="n">connect</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">actionExit</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">triggered</span><span class="p">()),</span> <span class="k">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">slotExit</span><span class="p">()));</span>
 
-  //this-&gt;qvtkWidgetLeft-&gt;GetRenderWindow()-&gt;AddObserver(vtkCommand::ModifiedEvent, this, &amp;ShareCameraQt::ModifiedHandler);
-  this-&gt;qvtkWidgetLeft-&gt;GetRenderWindow()-&gt;AddObserver(vtkCommand::AnyEvent, this, &amp;ShareCameraQt::ModifiedHandler);
+  <span class="c1">//this-&gt;qvtkWidgetLeft-&gt;GetRenderWindow()-&gt;AddObserver(vtkCommand::ModifiedEvent, this, &amp;ShareCameraQt::ModifiedHandler);</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">qvtkWidgetLeft</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">AnyEvent</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ShareCameraQt</span><span class="o">::</span><span class="n">ModifiedHandler</span><span class="p">);</span>
 
-}
+<span class="p">}</span>
 
-void ShareCameraQt::ModifiedHandler() 
-{
-  this-&gt;qvtkWidgetRight-&gt;GetRenderWindow()-&gt;Render();
-}
+<span class="kt">void</span> <span class="n">ShareCameraQt</span><span class="o">::</span><span class="n">ModifiedHandler</span><span class="p">()</span> 
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">qvtkWidgetRight</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+<span class="p">}</span>
 
-void ShareCameraQt::slotExit() 
-{
-  qApp-&gt;exit();
-}
-</code></pre>
+<span class="kt">void</span> <span class="n">ShareCameraQt</span><span class="o">::</span><span class="n">slotExit</span><span class="p">()</span> 
+<span class="p">{</span>
+  <span class="n">qApp</span><span class="o">-&gt;</span><span class="n">exit</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ShareCameraQt)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ShareCameraQt</span><span class="p">)</span>
 
-add_executable(ShareCameraQt MACOSX_BUNDLE ShareCameraQt.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ShareCameraQt ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ShareCameraQt</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ShareCameraQt.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-sharecameraqt">Download and Build ShareCameraQt</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ShareCameraQt</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-sharecameraqt">Download and Build ShareCameraQt<a class="headerlink" href="#download-and-build-sharecameraqt" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ShareCameraQt.tar">here to download ShareCameraQt</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ShareCameraQt.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ShareCameraQt/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ShareCameraQt/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ShareCameraQt
-</code></pre>
+<div class="codehilite"><pre><span></span>./ShareCameraQt
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

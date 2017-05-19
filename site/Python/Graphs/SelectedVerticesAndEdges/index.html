@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,72 +15991,72 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Graphs/SelectedVerticesAndEdges</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestSelectedVerticesAndEdges.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Graphs_SelectedVerticesAndEdges.png]"></a></p>
 <p>*Contributed by Eric Monson</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SelectedVerticesAndEdges.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-from __future__ import print_function
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-source = vtk.vtkRandomGraphSource()
-source.Update()
+<span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRandomGraphSource</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-view = vtk.vtkGraphLayoutView()
-view.AddRepresentationFromInputConnection(source.GetOutputPort())
+<span class="n">view</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGraphLayoutView</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">AddRepresentationFromInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-def selectionCallback(caller, event):
+<span class="k">def</span> <span class="nf">selectionCallback</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-    # In C++ there is some extra data passed to the callback, but in Python
-    # the callback data is lost...
+    <span class="c1"># In C++ there is some extra data passed to the callback, but in Python</span>
+    <span class="c1"># the callback data is lost...</span>
 
-    # There should be two selection nodes, but which one is vertices and which
-    # is edges does not seem to be guaranteed...
-    sel = caller.GetCurrentSelection()
-    node0 = sel.GetNode(0)
-    node0_field_type = node0.GetFieldType()
-    sel_list0 = caller.GetCurrentSelection().GetNode(0).GetSelectionList()
-    node1 = sel.GetNode(1)
-    node1_field_type = node1.GetFieldType()
-    sel_list1 = caller.GetCurrentSelection().GetNode(1).GetSelectionList()
+    <span class="c1"># There should be two selection nodes, but which one is vertices and which</span>
+    <span class="c1"># is edges does not seem to be guaranteed...</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">caller</span><span class="o">.</span><span class="n">GetCurrentSelection</span><span class="p">()</span>
+    <span class="n">node0</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">node0_field_type</span> <span class="o">=</span> <span class="n">node0</span><span class="o">.</span><span class="n">GetFieldType</span><span class="p">()</span>
+    <span class="n">sel_list0</span> <span class="o">=</span> <span class="n">caller</span><span class="o">.</span><span class="n">GetCurrentSelection</span><span class="p">()</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">GetSelectionList</span><span class="p">()</span>
+    <span class="n">node1</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">node1_field_type</span> <span class="o">=</span> <span class="n">node1</span><span class="o">.</span><span class="n">GetFieldType</span><span class="p">()</span>
+    <span class="n">sel_list1</span> <span class="o">=</span> <span class="n">caller</span><span class="o">.</span><span class="n">GetCurrentSelection</span><span class="p">()</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">GetSelectionList</span><span class="p">()</span>
 
-    if (sel_list0.GetNumberOfTuples() &gt; 0):
-        printFieldType(node0_field_type)
-        for ii in range(sel_list0.GetNumberOfTuples()):
-            print(&quot;\t&quot;, sel_list0.GetValue(ii))
+    <span class="k">if</span> <span class="p">(</span><span class="n">sel_list0</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">printFieldType</span><span class="p">(</span><span class="n">node0_field_type</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sel_list0</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">sel_list0</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span>
 
-    if (sel_list1.GetNumberOfTuples() &gt; 0):
-        printFieldType(node1_field_type)
-        for ii in range(sel_list1.GetNumberOfTuples()):
-            print(&quot;\t&quot;, sel_list1.GetValue(ii))
+    <span class="k">if</span> <span class="p">(</span><span class="n">sel_list1</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">printFieldType</span><span class="p">(</span><span class="n">node1_field_type</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sel_list1</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">sel_list1</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span>
 
-        print(&quot;- - -&quot;)
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;- - -&quot;</span><span class="p">)</span>
 
 
-def printFieldType(field_type):
+<span class="k">def</span> <span class="nf">printFieldType</span><span class="p">(</span><span class="n">field_type</span><span class="p">):</span>
 
-    if field_type == 3:
-           print(&quot;Vertices Selected:&quot;)
-    elif field_type == 4:
-           print(&quot;Edges Selected:&quot;)
-    else:
-           print(&quot;Unknown type:&quot;)
+    <span class="k">if</span> <span class="n">field_type</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+           <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Vertices Selected:&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">field_type</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+           <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Edges Selected:&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+           <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Unknown type:&quot;</span><span class="p">)</span>
 
-rep = view.GetRepresentation(0)
+<span class="n">rep</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">GetRepresentation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-# The vtkRenderedGraphRepresentation should already have a vtkAnnotationLink,
-# so we just want to grab it and add an observer with our callback function
-# attached
-link = rep.GetAnnotationLink()
-link.AddObserver(&quot;AnnotationChangedEvent&quot;, selectionCallback)
+<span class="c1"># The vtkRenderedGraphRepresentation should already have a vtkAnnotationLink,</span>
+<span class="c1"># so we just want to grab it and add an observer with our callback function</span>
+<span class="c1"># attached</span>
+<span class="n">link</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">GetAnnotationLink</span><span class="p">()</span>
+<span class="n">link</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;AnnotationChangedEvent&quot;</span><span class="p">,</span> <span class="n">selectionCallback</span><span class="p">)</span>
 
-view.GetRenderWindow().SetSize(600, 600)
-view.ResetCamera()
-view.Render()
-view.GetInteractor().Start()
-</code></pre>
+<span class="n">view</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

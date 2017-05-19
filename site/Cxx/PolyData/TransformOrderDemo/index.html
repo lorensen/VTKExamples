@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,163 +16019,170 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/TransformOrderDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestTransformOrderDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates an image. In the left viewport, it translates the image, then translates and rotates the image. In the right viewport, it rotates the image, then rotates and translates the image. One can see that the result is clearly not the same!</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TransformOrderDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkAxesActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkImageMandelbrotSource.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageCast.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAxesActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMandelbrotSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCast.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create an image
-  vtkSmartPointer&lt;vtkImageMandelbrotSource&gt; source =
-    vtkSmartPointer&lt;vtkImageMandelbrotSource&gt;::New();
-  source-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMandelbrotSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMandelbrotSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageCast&gt; castFilter =
-    vtkSmartPointer&lt;vtkImageCast&gt;::New();
-  castFilter-&gt;SetInputConnection(source-&gt;GetOutputPort());
-  castFilter-&gt;SetOutputScalarTypeToUnsignedChar();
-  castFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">castFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create an actor
-  vtkSmartPointer&lt;vtkImageActor&gt; actor1a =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  actor1a-&gt;GetMapper()-&gt;SetInputConnection(castFilter-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkImageActor&gt; actor1b =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  actor1b-&gt;GetMapper()-&gt;SetInputConnection(castFilter-&gt;GetOutputPort());
+  <span class="c1">// Create an actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor1a</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor1a</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor1b</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor1b</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; actor2a =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  actor2a-&gt;GetMapper()-&gt;SetInputConnection(castFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor2a</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor2a</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; actor2b =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  actor2b-&gt;GetMapper()-&gt;SetInputConnection(castFilter-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor2b</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor2b</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">castFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Create the transformation
-  vtkSmartPointer&lt;vtkTransform&gt; transform1a =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform1a-&gt;PostMultiply();
-  transform1a-&gt;Translate(10.0, 0.0, 0.0);
-  actor1a-&gt;SetUserTransform(transform1a);
+  <span class="c1">// Create the transformation</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform1a</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform1a</span><span class="o">-&gt;</span><span class="n">PostMultiply</span><span class="p">();</span>
+  <span class="n">transform1a</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">actor1a</span><span class="o">-&gt;</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">transform1a</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; transform1b =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform1b-&gt;PostMultiply();
-  transform1b-&gt;Translate(10.0, 0.0, 0.0);
-  transform1b-&gt;RotateZ(40.0);
-  actor1b-&gt;SetUserTransform(transform1b);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform1b</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform1b</span><span class="o">-&gt;</span><span class="n">PostMultiply</span><span class="p">();</span>
+  <span class="n">transform1b</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">transform1b</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mf">40.0</span><span class="p">);</span>
+  <span class="n">actor1b</span><span class="o">-&gt;</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">transform1b</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; transform2a =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform2a-&gt;PostMultiply();
-  transform2a-&gt;RotateZ(40.0);
-  actor2a-&gt;SetUserTransform(transform2a);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform2a</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform2a</span><span class="o">-&gt;</span><span class="n">PostMultiply</span><span class="p">();</span>
+  <span class="n">transform2a</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mf">40.0</span><span class="p">);</span>
+  <span class="n">actor2a</span><span class="o">-&gt;</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">transform2a</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; transform2b =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform2b-&gt;PostMultiply();
-  transform2b-&gt;RotateZ(40.0);
-  transform2b-&gt;Translate(10.0, 0.0, 0.0);
-  actor2b-&gt;SetUserTransform(transform2b);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform2b</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform2b</span><span class="o">-&gt;</span><span class="n">PostMultiply</span><span class="p">();</span>
+  <span class="n">transform2b</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mf">40.0</span><span class="p">);</span>
+  <span class="n">transform2b</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">actor2b</span><span class="o">-&gt;</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">transform2b</span><span class="p">);</span>
 
-  // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double leftViewport[4] = {0.0, 0.0, 0.5, 1.0};
-  double rightViewport[4] = {0.5, 0.0, 1.0, 1.0};
+  <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">leftViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">rightViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Cetup render window
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
+  <span class="c1">// Cetup render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Setup both renderers
-  vtkSmartPointer&lt;vtkRenderer&gt; leftRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(leftRenderer);
-  leftRenderer-&gt;SetViewport(leftViewport);
-  leftRenderer-&gt;SetBackground(.6, .5, .4);
+  <span class="c1">// Setup both renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">leftRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.6</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; rightRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(rightRenderer);
-  rightRenderer-&gt;SetViewport(rightViewport);
-  rightRenderer-&gt;SetBackground(.4, .5, .6);  
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">rightRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>  
 
-  // an interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="c1">// an interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkAxesActor&gt; axes =
-    vtkSmartPointer&lt;vtkAxesActor&gt;::New();
-  axes-&gt;AxisLabelsOff();
-  axes-&gt;SetTotalLength(5,5,5);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAxesActor</span><span class="o">&gt;</span> <span class="n">axes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAxesActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">AxisLabelsOff</span><span class="p">();</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">SetTotalLength</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
 
-  leftRenderer-&gt;AddActor(axes);
-  leftRenderer-&gt;AddActor(actor1a);
-  leftRenderer-&gt;AddActor(actor1b);
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">axes</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor1a</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor1b</span><span class="p">);</span>
 
-  rightRenderer-&gt;AddActor(axes);
-  rightRenderer-&gt;AddActor(actor2a);
-  rightRenderer-&gt;AddActor(actor2b);
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">axes</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor2a</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor2b</span><span class="p">);</span>
 
-  leftRenderer-&gt;ResetCamera();
-  rightRenderer-&gt;ResetCamera();
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TransformOrderDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TransformOrderDemo</span><span class="p">)</span>
 
-add_executable(TransformOrderDemo MACOSX_BUNDLE TransformOrderDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TransformOrderDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TransformOrderDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TransformOrderDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-transformorderdemo">Download and Build TransformOrderDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TransformOrderDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-transformorderdemo">Download and Build TransformOrderDemo<a class="headerlink" href="#download-and-build-transformorderdemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TransformOrderDemo.tar">here to download TransformOrderDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TransformOrderDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TransformOrderDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TransformOrderDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TransformOrderDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./TransformOrderDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,164 +16019,171 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PointsProjectedHull</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestPointsProjectedHull.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to find the 2D convex hull of a point set projected onto any of the coordinate planes (in this case, we choose the YZ plane (projection along the x axis) ).</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PointsProjectedHull.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPointsProjectedHull.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkPolyLine.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointsProjectedHull.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyLine.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPointSource&gt; pointSource =
-    vtkSmartPointer&lt;vtkPointSource&gt;::New();
-  pointSource-&gt;SetNumberOfPoints(40);
-  pointSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">pointSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  //setup actor and mapper
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; pointMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  pointMapper-&gt;SetInputConnection(pointSource-&gt;GetOutputPort());
+  <span class="c1">//setup actor and mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">pointMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; pointActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  pointActor-&gt;SetMapper(pointMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">pointActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">pointMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPointsProjectedHull&gt; points =
-    vtkSmartPointer&lt;vtkPointsProjectedHull&gt;::New();
-  points-&gt;DeepCopy(pointSource-&gt;GetOutput()-&gt;GetPoints());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointsProjectedHull</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointsProjectedHull</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">());</span>
 
-  int xSize = points-&gt;GetSizeCCWHullX();
-  std::cout &lt;&lt; &quot;xSize: &quot; &lt;&lt; xSize &lt;&lt; std::endl;
+  <span class="kt">int</span> <span class="n">xSize</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetSizeCCWHullX</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;xSize: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">xSize</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  double* pts = new double[xSize*2];
+  <span class="kt">double</span><span class="o">*</span> <span class="n">pts</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">xSize</span><span class="o">*</span><span class="mi">2</span><span class="p">];</span>
 
-  points-&gt;GetCCWHullX(pts,xSize);
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetCCWHullX</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span><span class="n">xSize</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; xHullPoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  for(int i = 0; i &lt; xSize; i++)
-  {
-    double yval = pts[2*i];
-    double zval = pts[2*i + 1];
-    std::cout &lt;&lt; &quot;(y,z) value of point &quot; &lt;&lt; i &lt;&lt; &quot; : (&quot;
-              &lt;&lt; yval &lt;&lt; &quot; , &quot; &lt;&lt; zval &lt;&lt; &quot;)&quot; &lt;&lt; std::endl;
-    xHullPoints-&gt;InsertNextPoint(0.0, yval, zval);
-  }
-  // Insert the first point again to close the loop
-  xHullPoints-&gt;InsertNextPoint(0.0, pts[0], pts[1]);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">xHullPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">xSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">yval</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">zval</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(y,z) value of point &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; : (&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">yval</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; , &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">zval</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">xHullPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">yval</span><span class="p">,</span> <span class="n">zval</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// Insert the first point again to close the loop</span>
+  <span class="n">xHullPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  // Display the x hull
-  vtkSmartPointer&lt;vtkPolyLine&gt; xPolyLine =
-    vtkSmartPointer&lt;vtkPolyLine&gt;::New();
-  xPolyLine-&gt;GetPointIds()-&gt;SetNumberOfIds(xHullPoints-&gt;GetNumberOfPoints());
+  <span class="c1">// Display the x hull</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyLine</span><span class="o">&gt;</span> <span class="n">xPolyLine</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyLine</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xPolyLine</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="n">xHullPoints</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
 
-  for(vtkIdType i = 0; i &lt; xHullPoints-&gt;GetNumberOfPoints(); i++)
-  {
-    xPolyLine-&gt;GetPointIds()-&gt;SetId(i,i);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">xHullPoints</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">xPolyLine</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Create a cell array to store the lines in and add the lines to it
-  vtkSmartPointer&lt;vtkCellArray&gt; cells =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  cells-&gt;InsertNextCell(xPolyLine);
+  <span class="c1">// Create a cell array to store the lines in and add the lines to it</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">cells</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cells</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">xPolyLine</span><span class="p">);</span>
 
-  // Create a polydata to store everything in
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+  <span class="c1">// Create a polydata to store everything in</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Add the points to the dataset
-  polyData-&gt;SetPoints(xHullPoints);
+  <span class="c1">// Add the points to the dataset</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">xHullPoints</span><span class="p">);</span>
 
-  // Add the lines to the dataset
-  polyData-&gt;SetLines(cells);
+  <span class="c1">// Add the lines to the dataset</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">SetLines</span><span class="p">(</span><span class="n">cells</span><span class="p">);</span>
 
-  // Setup actor and mapper
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; xHullMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  xHullMapper-&gt;SetInput(polyData);
-#else
-  xHullMapper-&gt;SetInputData(polyData);
-#endif
+  <span class="c1">// Setup actor and mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">xHullMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">xHullMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">xHullMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; xHullActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  xHullActor-&gt;SetMapper(xHullMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">xHullActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xHullActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">xHullMapper</span><span class="p">);</span>
 
-  // Setup render window, renderer, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// Setup render window, renderer, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(xHullActor);
-  renderer-&gt;AddActor(pointActor);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">xHullActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">pointActor</span><span class="p">);</span>
 
-  // Rotate camera
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(90);
-  renderer-&gt;ResetCamera();
+  <span class="c1">// Rotate camera</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PointsProjectedHull)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PointsProjectedHull</span><span class="p">)</span>
 
-add_executable(PointsProjectedHull MACOSX_BUNDLE PointsProjectedHull.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PointsProjectedHull ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PointsProjectedHull</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PointsProjectedHull.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-pointsprojectedhull">Download and Build PointsProjectedHull</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PointsProjectedHull</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-pointsprojectedhull">Download and Build PointsProjectedHull<a class="headerlink" href="#download-and-build-pointsprojectedhull" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PointsProjectedHull.tar">here to download PointsProjectedHull</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PointsProjectedHull.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PointsProjectedHull/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PointsProjectedHull/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PointsProjectedHull
-</code></pre>
+<div class="codehilite"><pre><span></span>./PointsProjectedHull
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

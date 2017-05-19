@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,137 +16019,144 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/CheckerboardWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestCheckerboardWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Compare two images with a checkerboard. The widget permits interactive
 control of the number of checkers in the x/y directions. Checkerboards
 are often used to compare the results of image registration. For an
 alternative image comparison widget try the
 <a href="../[Cxx/Widgets/RectilinearWipeWidget">RectilinearWipeWidget</a>.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CheckerboardWidget.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCheckerboardWidget.h&gt;
-#include &lt;vtkCheckerboardRepresentation.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkImageCheckerboard.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkProperty2D.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkObjectFactory.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCheckerboardWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCheckerboardRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCheckerboard.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
 
-int main( int argc, char *argv[] )
-{
-  if ( argc &lt; 3 )
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; Input1Filename Input2Filename&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Input1Filename Input2Filename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  //Read the images
-  vtkSmartPointer&lt;vtkJPEGReader&gt; reader1 =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  reader1-&gt;SetFileName ( argv[1] );
+  <span class="c1">//Read the images</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkJPEGReader&gt; reader2 =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  reader2-&gt;SetFileName ( argv[2] );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">);</span>
 
-  // Create a checker pipeline
-  vtkSmartPointer&lt;vtkImageCheckerboard&gt; checker =
-    vtkSmartPointer&lt;vtkImageCheckerboard&gt;::New();
-  checker-&gt;SetInputConnection(0,reader1-&gt;GetOutputPort());
-  checker-&gt;SetInputConnection(1,reader2-&gt;GetOutputPort());
-  checker-&gt;SetNumberOfDivisions(3,3,1);
+  <span class="c1">// Create a checker pipeline</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCheckerboard</span><span class="o">&gt;</span> <span class="n">checker</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCheckerboard</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">checker</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">reader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">checker</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">checker</span><span class="o">-&gt;</span><span class="n">SetNumberOfDivisions</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  // Create the RenderWindow, Renderer and both Actors
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
+  <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; checkerActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  checkerActor-&gt;GetMapper()-&gt;SetInputConnection(checker-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">checkerActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">checkerActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">checker</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // VTK widgets consist of two parts: the widget part that handles
-  // event processing; and the widget representation that defines how
-  // the widget appears in the scene
-  // (i.e., matters pertaining to geometry).
-  vtkSmartPointer&lt;vtkCheckerboardWidget&gt; checkerWidget =
-    vtkSmartPointer&lt;vtkCheckerboardWidget&gt;::New();
-  checkerWidget-&gt;SetInteractor(iren);
+  <span class="c1">// VTK widgets consist of two parts: the widget part that handles</span>
+  <span class="c1">// event processing; and the widget representation that defines how</span>
+  <span class="c1">// the widget appears in the scene</span>
+  <span class="c1">// (i.e., matters pertaining to geometry).</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCheckerboardWidget</span><span class="o">&gt;</span> <span class="n">checkerWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCheckerboardWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">checkerWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">iren</span><span class="p">);</span>
 
-  vtkCheckerboardRepresentation *checkerWidgetRep=
-    static_cast&lt;vtkCheckerboardRepresentation *&gt;
-    (checkerWidget-&gt;GetRepresentation());
+  <span class="n">vtkCheckerboardRepresentation</span> <span class="o">*</span><span class="n">checkerWidgetRep</span><span class="o">=</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkCheckerboardRepresentation</span> <span class="o">*&gt;</span>
+    <span class="p">(</span><span class="n">checkerWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">());</span>
 
-  checkerWidgetRep-&gt;SetImageActor(checkerActor);
-  checkerWidgetRep-&gt;SetCheckerboard(checker);
+  <span class="n">checkerWidgetRep</span><span class="o">-&gt;</span><span class="n">SetImageActor</span><span class="p">(</span><span class="n">checkerActor</span><span class="p">);</span>
+  <span class="n">checkerWidgetRep</span><span class="o">-&gt;</span><span class="n">SetCheckerboard</span><span class="p">(</span><span class="n">checker</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;AddActor(checkerActor);
-  ren1-&gt;SetBackground(0.1, 0.2, 0.4);
-  renWin-&gt;SetSize(300, 300);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">checkerActor</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
-  // render the image
-  //
-  iren-&gt;Initialize();
-  renWin-&gt;Render();
-  checkerWidget-&gt;On();
-  iren-&gt;Start();
+  <span class="c1">// render the image</span>
+  <span class="c1">//</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">checkerWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CheckerboardWidget)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CheckerboardWidget</span><span class="p">)</span>
 
-add_executable(CheckerboardWidget MACOSX_BUNDLE CheckerboardWidget.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CheckerboardWidget ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CheckerboardWidget</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CheckerboardWidget.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-checkerboardwidget">Download and Build CheckerboardWidget</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CheckerboardWidget</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-checkerboardwidget">Download and Build CheckerboardWidget<a class="headerlink" href="#download-and-build-checkerboardwidget" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CheckerboardWidget.tar">here to download CheckerboardWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CheckerboardWidget.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CheckerboardWidget/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CheckerboardWidget/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CheckerboardWidget
-</code></pre>
+<div class="codehilite"><pre><span></span>./CheckerboardWidget
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

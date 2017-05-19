@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,99 +15991,99 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/SelectPolyData</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestSelectPolyData.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SelectPolyData.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            SelectPolyData();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void SelectPolyData() {
-         vtkSphereSource sphereSource = vtkSphereSource.New();
-         sphereSource.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">SelectPolyData</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkPoints selectionPoints = vtkPoints.New();
 
-         selectionPoints.InsertPoint(0, -0.16553, 0.135971, 0.451972);
-         selectionPoints.InsertPoint(1, -0.0880123, -0.134952, 0.4747);
-         selectionPoints.InsertPoint(2, 0.00292618, -0.134604, 0.482459);
-         selectionPoints.InsertPoint(3, 0.0641941, 0.067112, 0.490947);
-         selectionPoints.InsertPoint(4, 0.15577, 0.0734765, 0.469245);
-         selectionPoints.InsertPoint(5, 0.166667, -0.129217, 0.454622);
-         selectionPoints.InsertPoint(6, 0.241259, -0.123363, 0.420581);
-         selectionPoints.InsertPoint(7, 0.240334, 0.0727106, 0.432555);
-         selectionPoints.InsertPoint(8, 0.308529, 0.0844311, 0.384357);
-         selectionPoints.InsertPoint(9, 0.32672, -0.121674, 0.359187);
-         selectionPoints.InsertPoint(10, 0.380721, -0.117342, 0.302527);
-         selectionPoints.InsertPoint(11, 0.387804, 0.0455074, 0.312375);
-         selectionPoints.InsertPoint(12, 0.43943, -0.111673, 0.211707);
-         selectionPoints.InsertPoint(13, 0.470984, -0.0801913, 0.147919);
-         selectionPoints.InsertPoint(14, 0.436777, 0.0688872, 0.233021);
-         selectionPoints.InsertPoint(15, 0.44874, 0.188852, 0.109882);
-         selectionPoints.InsertPoint(16, 0.391352, 0.254285, 0.176943);
-         selectionPoints.InsertPoint(17, 0.373274, 0.154162, 0.294296);
-         selectionPoints.InsertPoint(18, 0.274659, 0.311654, 0.276609);
-         selectionPoints.InsertPoint(19, 0.206068, 0.31396, 0.329702);
-         selectionPoints.InsertPoint(20, 0.263789, 0.174982, 0.387308);
-         selectionPoints.InsertPoint(21, 0.213034, 0.175485, 0.417142);
-         selectionPoints.InsertPoint(22, 0.169113, 0.261974, 0.390286);
-         selectionPoints.InsertPoint(23, 0.102552, 0.25997, 0.414814);
-         selectionPoints.InsertPoint(24, 0.131512, 0.161254, 0.454705);
-         selectionPoints.InsertPoint(25, 0.000192443, 0.156264, 0.475307);
-         selectionPoints.InsertPoint(26, -0.0392091, 0.000251724, 0.499943);
-         selectionPoints.InsertPoint(27, -0.096161, 0.159646, 0.46438);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">SelectPolyData</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkSelectPolyData loop = vtkSelectPolyData.New();
-         loop.SetInputConnection(sphereSource.GetOutputPort());
-         loop.SetLoop(selectionPoints);
-         loop.GenerateSelectionScalarsOn();
-         loop.SetSelectionModeToSmallestRegion(); //negative scalars inside
+         <span class="n">vtkPoints</span> <span class="n">selectionPoints</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         vtkClipPolyData clip = //clips out positive region
-         vtkClipPolyData.New();
-         clip.SetInputConnection(loop.GetOutputPort());
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="p">-</span><span class="m">0.16553</span><span class="p">,</span> <span class="m">0.135971</span><span class="p">,</span> <span class="m">0.451972</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="p">-</span><span class="m">0.0880123</span><span class="p">,</span> <span class="p">-</span><span class="m">0.134952</span><span class="p">,</span> <span class="m">0.4747</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">0.00292618</span><span class="p">,</span> <span class="p">-</span><span class="m">0.134604</span><span class="p">,</span> <span class="m">0.482459</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">0.0641941</span><span class="p">,</span> <span class="m">0.067112</span><span class="p">,</span> <span class="m">0.490947</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="m">0.15577</span><span class="p">,</span> <span class="m">0.0734765</span><span class="p">,</span> <span class="m">0.469245</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">0.166667</span><span class="p">,</span> <span class="p">-</span><span class="m">0.129217</span><span class="p">,</span> <span class="m">0.454622</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">0.241259</span><span class="p">,</span> <span class="p">-</span><span class="m">0.123363</span><span class="p">,</span> <span class="m">0.420581</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="m">0.240334</span><span class="p">,</span> <span class="m">0.0727106</span><span class="p">,</span> <span class="m">0.432555</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="m">0.308529</span><span class="p">,</span> <span class="m">0.0844311</span><span class="p">,</span> <span class="m">0.384357</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="m">0.32672</span><span class="p">,</span> <span class="p">-</span><span class="m">0.121674</span><span class="p">,</span> <span class="m">0.359187</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">0.380721</span><span class="p">,</span> <span class="p">-</span><span class="m">0.117342</span><span class="p">,</span> <span class="m">0.302527</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="m">0.387804</span><span class="p">,</span> <span class="m">0.0455074</span><span class="p">,</span> <span class="m">0.312375</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="m">0.43943</span><span class="p">,</span> <span class="p">-</span><span class="m">0.111673</span><span class="p">,</span> <span class="m">0.211707</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="m">0.470984</span><span class="p">,</span> <span class="p">-</span><span class="m">0.0801913</span><span class="p">,</span> <span class="m">0.147919</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">14</span><span class="p">,</span> <span class="m">0.436777</span><span class="p">,</span> <span class="m">0.0688872</span><span class="p">,</span> <span class="m">0.233021</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">15</span><span class="p">,</span> <span class="m">0.44874</span><span class="p">,</span> <span class="m">0.188852</span><span class="p">,</span> <span class="m">0.109882</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">16</span><span class="p">,</span> <span class="m">0.391352</span><span class="p">,</span> <span class="m">0.254285</span><span class="p">,</span> <span class="m">0.176943</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">17</span><span class="p">,</span> <span class="m">0.373274</span><span class="p">,</span> <span class="m">0.154162</span><span class="p">,</span> <span class="m">0.294296</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">18</span><span class="p">,</span> <span class="m">0.274659</span><span class="p">,</span> <span class="m">0.311654</span><span class="p">,</span> <span class="m">0.276609</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">19</span><span class="p">,</span> <span class="m">0.206068</span><span class="p">,</span> <span class="m">0.31396</span><span class="p">,</span> <span class="m">0.329702</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">0.263789</span><span class="p">,</span> <span class="m">0.174982</span><span class="p">,</span> <span class="m">0.387308</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">0.213034</span><span class="p">,</span> <span class="m">0.175485</span><span class="p">,</span> <span class="m">0.417142</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">22</span><span class="p">,</span> <span class="m">0.169113</span><span class="p">,</span> <span class="m">0.261974</span><span class="p">,</span> <span class="m">0.390286</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">23</span><span class="p">,</span> <span class="m">0.102552</span><span class="p">,</span> <span class="m">0.25997</span><span class="p">,</span> <span class="m">0.414814</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">24</span><span class="p">,</span> <span class="m">0.131512</span><span class="p">,</span> <span class="m">0.161254</span><span class="p">,</span> <span class="m">0.454705</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">25</span><span class="p">,</span> <span class="m">0.000192443</span><span class="p">,</span> <span class="m">0.156264</span><span class="p">,</span> <span class="m">0.475307</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">26</span><span class="p">,</span> <span class="p">-</span><span class="m">0.0392091</span><span class="p">,</span> <span class="m">0.000251724</span><span class="p">,</span> <span class="m">0.499943</span><span class="p">);</span>
+         <span class="n">selectionPoints</span><span class="p">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="m">27</span><span class="p">,</span> <span class="p">-</span><span class="m">0.096161</span><span class="p">,</span> <span class="m">0.159646</span><span class="p">,</span> <span class="m">0.46438</span><span class="p">);</span>
 
-         vtkPolyDataMapper clipMapper = vtkPolyDataMapper.New();
-         clipMapper.SetInputConnection(clip.GetOutputPort());
+         <span class="n">vtkSelectPolyData</span> <span class="n">loop</span> <span class="p">=</span> <span class="n">vtkSelectPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">loop</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">loop</span><span class="p">.</span><span class="n">SetLoop</span><span class="p">(</span><span class="n">selectionPoints</span><span class="p">);</span>
+         <span class="n">loop</span><span class="p">.</span><span class="n">GenerateSelectionScalarsOn</span><span class="p">();</span>
+         <span class="n">loop</span><span class="p">.</span><span class="n">SetSelectionModeToSmallestRegion</span><span class="p">();</span> <span class="c1">//negative scalars inside</span>
 
-         vtkLODActor clipActor = vtkLODActor.New();
-         clipActor.SetMapper(clipMapper);
+         <span class="n">vtkClipPolyData</span> <span class="n">clip</span> <span class="p">=</span> <span class="c1">//clips out positive region</span>
+         <span class="n">vtkClipPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">clip</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">loop</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(.1, .2, .4);
-         renderWindow.SetSize(500, 250);
-         // add our actor to the renderer
-         renderer.AddActor(clipActor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">clipMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">clipMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">clip</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+
+         <span class="n">vtkLODActor</span> <span class="n">clipActor</span> <span class="p">=</span> <span class="n">vtkLODActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">clipActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">clipMapper</span><span class="p">);</span>
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">1</span><span class="p">,</span> <span class="p">.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">);</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">SetSize</span><span class="p">(</span><span class="m">500</span><span class="p">,</span> <span class="m">250</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">clipActor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

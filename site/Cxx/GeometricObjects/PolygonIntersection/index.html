@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,83 +16004,90 @@
                   <h1>PolygonIntersection</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/PolygonIntersection</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolygonIntersection.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolygon.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolygon.h&gt;</span><span class="cp"></span>
 
-int main(int, char*[])
-{
-  // Create a square in the XY plane
-  vtkSmartPointer&lt;vtkPoints&gt; points = vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(0.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(1.0, 1.0, 0.0);
-  points-&gt;InsertNextPoint(0.0, 1.0, 0.0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a square in the XY plane</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  // Create the polygon
-  vtkSmartPointer&lt;vtkPolygon&gt; polygon = vtkSmartPointer&lt;vtkPolygon&gt;::New();
-  polygon-&gt;GetPoints()-&gt;DeepCopy(points);
-  polygon-&gt;GetPointIds()-&gt;SetNumberOfIds(4); // 4 corners of the square
-  polygon-&gt;GetPointIds()-&gt;SetId(0, 0);
-  polygon-&gt;GetPointIds()-&gt;SetId(1, 1);
-  polygon-&gt;GetPointIds()-&gt;SetId(2, 2);
-  polygon-&gt;GetPointIds()-&gt;SetId(3, 3);
+  <span class="c1">// Create the polygon</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolygon</span><span class="o">&gt;</span> <span class="n">polygon</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolygon</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="c1">// 4 corners of the square</span>
+  <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 
-  // Inputs
-  double p1[3] = {0.1, 0, -1.0};
-  double p2[3] = {0.1, 0, 1.0};
-  double tolerance = 0.001;
-  // Outputs
-  double t; // Parametric coordinate of intersection (0 (corresponding to p1) to 1 (corresponding to p2))
-  double x[3]; // The coordinate of the intersection
-  double pcoords[3];
-  int subId;
+  <span class="c1">// Inputs</span>
+  <span class="kt">double</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">p2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">tolerance</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">;</span>
+  <span class="c1">// Outputs</span>
+  <span class="kt">double</span> <span class="n">t</span><span class="p">;</span> <span class="c1">// Parametric coordinate of intersection (0 (corresponding to p1) to 1 (corresponding to p2))</span>
+  <span class="kt">double</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// The coordinate of the intersection</span>
+  <span class="kt">double</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span>
 
-  vtkIdType iD = polygon-&gt;IntersectWithLine(p1, p2, tolerance, t, x, pcoords, subId);
+  <span class="n">vtkIdType</span> <span class="n">iD</span> <span class="o">=</span> <span class="n">polygon</span><span class="o">-&gt;</span><span class="n">IntersectWithLine</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">pcoords</span><span class="p">,</span> <span class="n">subId</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;intersected? &quot; &lt;&lt; iD &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;intersection: &quot; &lt;&lt; x[0] &lt;&lt; &quot; &quot; &lt;&lt; x[1] &lt;&lt; &quot; &quot; &lt;&lt; x[2] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;intersected? &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">iD</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;intersection: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PolygonIntersection)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PolygonIntersection</span><span class="p">)</span>
 
-add_executable(PolygonIntersection MACOSX_BUNDLE PolygonIntersection.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PolygonIntersection ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PolygonIntersection</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PolygonIntersection.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-polygonintersection">Download and Build PolygonIntersection</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PolygonIntersection</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-polygonintersection">Download and Build PolygonIntersection<a class="headerlink" href="#download-and-build-polygonintersection" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolygonIntersection.tar">here to download PolygonIntersection</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolygonIntersection.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PolygonIntersection/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PolygonIntersection/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PolygonIntersection
-</code></pre>
+<div class="codehilite"><pre><span></span>./PolygonIntersection
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

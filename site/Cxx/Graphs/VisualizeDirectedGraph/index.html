@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,132 +16005,139 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/VisualizeDirectedGraph</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestVisualizeDirectedGraph.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VisualizeDirectedGraph.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
-#include &lt;vtkGlyphSource2D.h&gt;
-#include &lt;vtkGraphLayout.h&gt;
-#include &lt;vtkGraphLayoutView.h&gt;
-#include &lt;vtkGraphToPolyData.h&gt;
-#include &lt;vtkMutableDirectedGraph.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkSimple2DLayoutStrategy.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyphSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayout.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayoutView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphToPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableDirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSimple2DLayoutStrategy.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; g = 
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkIdType v1 = g-&gt;AddVertex();
-  vtkIdType v2 = g-&gt;AddVertex();
-  vtkIdType v3 = g-&gt;AddVertex();
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
 
-  g-&gt;AddEdge ( v1, v2 );
-  g-&gt;AddEdge ( v2, v3 );
-  g-&gt;AddEdge ( v3, v1 );
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span> <span class="p">(</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span> <span class="p">(</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span> <span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span> <span class="p">(</span> <span class="n">v3</span><span class="p">,</span> <span class="n">v1</span> <span class="p">);</span>
 
-  // Do layout manually before handing graph to the view.
-  // This allows us to know the positions of edge arrows.
-  vtkSmartPointer&lt;vtkGraphLayoutView&gt; graphLayoutView = 
-    vtkSmartPointer&lt;vtkGraphLayoutView&gt;::New();
+  <span class="c1">// Do layout manually before handing graph to the view.</span>
+  <span class="c1">// This allows us to know the positions of edge arrows.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;</span> <span class="n">graphLayoutView</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkGraphLayout&gt; layout = 
-    vtkSmartPointer&lt;vtkGraphLayout&gt;::New();
-  vtkSmartPointer&lt;vtkSimple2DLayoutStrategy&gt; strategy = 
-    vtkSmartPointer&lt;vtkSimple2DLayoutStrategy&gt;::New();
-  layout-&gt;SetInput(g);
-  layout-&gt;SetLayoutStrategy(strategy);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayout</span><span class="o">&gt;</span> <span class="n">layout</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayout</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSimple2DLayoutStrategy</span><span class="o">&gt;</span> <span class="n">strategy</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSimple2DLayoutStrategy</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">layout</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+  <span class="n">layout</span><span class="o">-&gt;</span><span class="n">SetLayoutStrategy</span><span class="p">(</span><span class="n">strategy</span><span class="p">);</span>
 
-  // Tell the view to use the vertex layout we provide
-  graphLayoutView-&gt;SetLayoutStrategyToPassThrough();
-  // The arrows will be positioned on a straight line between two
-  // vertices so tell the view not to draw arcs for parallel edges
-  graphLayoutView-&gt;SetEdgeLayoutStrategyToPassThrough();
+  <span class="c1">// Tell the view to use the vertex layout we provide</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">SetLayoutStrategyToPassThrough</span><span class="p">();</span>
+  <span class="c1">// The arrows will be positioned on a straight line between two</span>
+  <span class="c1">// vertices so tell the view not to draw arcs for parallel edges</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">SetEdgeLayoutStrategyToPassThrough</span><span class="p">();</span>
 
-  // Add the graph to the view. This will render vertices and edges,
-  // but not edge arrows.
-  graphLayoutView-&gt;AddRepresentationFromInputConnection(
-    layout-&gt;GetOutputPort());
+  <span class="c1">// Add the graph to the view. This will render vertices and edges,</span>
+  <span class="c1">// but not edge arrows.</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">AddRepresentationFromInputConnection</span><span class="p">(</span>
+    <span class="n">layout</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Manually create an actor containing the glyphed arrows.
-  vtkSmartPointer&lt;vtkGraphToPolyData&gt; graphToPoly = 
-    vtkSmartPointer&lt;vtkGraphToPolyData&gt;::New();
-  graphToPoly-&gt;SetInputConnection(layout-&gt;GetOutputPort());
-  graphToPoly-&gt;EdgeGlyphOutputOn();
+  <span class="c1">// Manually create an actor containing the glyphed arrows.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphToPolyData</span><span class="o">&gt;</span> <span class="n">graphToPoly</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphToPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">graphToPoly</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">layout</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">graphToPoly</span><span class="o">-&gt;</span><span class="n">EdgeGlyphOutputOn</span><span class="p">();</span>
 
-  // Set the position (0: edge start, 1: edge end) where
-  // the edge arrows should go.
-  graphToPoly-&gt;SetEdgeGlyphPosition(0.98);
+  <span class="c1">// Set the position (0: edge start, 1: edge end) where</span>
+  <span class="c1">// the edge arrows should go.</span>
+  <span class="n">graphToPoly</span><span class="o">-&gt;</span><span class="n">SetEdgeGlyphPosition</span><span class="p">(</span><span class="mf">0.98</span><span class="p">);</span>
 
-  // Make a simple edge arrow for glyphing.
-  vtkSmartPointer&lt;vtkGlyphSource2D&gt; arrowSource = 
-    vtkSmartPointer&lt;vtkGlyphSource2D&gt;::New();
-  arrowSource-&gt;SetGlyphTypeToEdgeArrow();
-  arrowSource-&gt;SetScale(0.1);
-  arrowSource-&gt;Update();
+  <span class="c1">// Make a simple edge arrow for glyphing.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyphSource2D</span><span class="o">&gt;</span> <span class="n">arrowSource</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyphSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrowSource</span><span class="o">-&gt;</span><span class="n">SetGlyphTypeToEdgeArrow</span><span class="p">();</span>
+  <span class="n">arrowSource</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
+  <span class="n">arrowSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Use Glyph3D to repeat the glyph on all edges.
-  vtkSmartPointer&lt;vtkGlyph3D&gt; arrowGlyph = 
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  arrowGlyph-&gt;SetInputConnection(0, graphToPoly-&gt;GetOutputPort(1));
-  arrowGlyph-&gt;SetInputConnection(1, arrowSource-&gt;GetOutputPort());
+  <span class="c1">// Use Glyph3D to repeat the glyph on all edges.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">arrowGlyph</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrowGlyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">graphToPoly</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+  <span class="n">arrowGlyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">arrowSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Add the edge arrow actor to the view.
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; arrowMapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  arrowMapper-&gt;SetInputConnection(arrowGlyph-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; arrowActor = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  arrowActor-&gt;SetMapper(arrowMapper);
-  graphLayoutView-&gt;GetRenderer()-&gt;AddActor(arrowActor);
+  <span class="c1">// Add the edge arrow actor to the view.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">arrowMapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrowMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">arrowGlyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">arrowActor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrowActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">arrowMapper</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">arrowActor</span><span class="p">);</span>
 
-  graphLayoutView-&gt;ResetCamera();
-  graphLayoutView-&gt;Render();
-  graphLayoutView-&gt;GetInteractor()-&gt;Start();
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(VisualizeDirectedGraph)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">VisualizeDirectedGraph</span><span class="p">)</span>
 
-add_executable(VisualizeDirectedGraph MACOSX_BUNDLE VisualizeDirectedGraph.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(VisualizeDirectedGraph ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">VisualizeDirectedGraph</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">VisualizeDirectedGraph.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-visualizedirectedgraph">Download and Build VisualizeDirectedGraph</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">VisualizeDirectedGraph</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-visualizedirectedgraph">Download and Build VisualizeDirectedGraph<a class="headerlink" href="#download-and-build-visualizedirectedgraph" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/VisualizeDirectedGraph.tar">here to download VisualizeDirectedGraph</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball VisualizeDirectedGraph.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd VisualizeDirectedGraph/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd VisualizeDirectedGraph/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./VisualizeDirectedGraph
-</code></pre>
+<div class="codehilite"><pre><span></span>./VisualizeDirectedGraph
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

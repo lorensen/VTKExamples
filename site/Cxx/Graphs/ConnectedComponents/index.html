@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,86 +16018,93 @@
                   <h1>ConnectedComponents</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/ConnectedComponents</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example constructs a graph with 4 vertices and 2 edges. V1 and V2 are not connected to V3 or V4. We wish to obtain all of the connected components of the graph. The output of the example is a list of component IDs. All vertices with the same ID can be reached from any vertex with the same ID.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConnectedComponents.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkBoostConnectedComponents.h&gt;
-#include &lt;vtkDataArray.h&gt;
-#include &lt;vtkDataSetAttributes.h&gt;
-#include &lt;vtkGraph.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkMutableUndirectedGraph.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoostConnectedComponents.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetAttributes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableUndirectedGraph.h&gt;</span><span class="cp"></span>
 
-int main ( int, char *[] )
-{
-  vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt; g =
-    vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkIdType v1 = g-&gt;AddVertex();
-  vtkIdType v2 = g-&gt;AddVertex();
-  vtkIdType v3 = g-&gt;AddVertex();
-  vtkIdType v4 = g-&gt;AddVertex();
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
 
-  g-&gt;AddEdge ( v1, v2 );
-  g-&gt;AddEdge ( v3, v4 );
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span> <span class="p">(</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span> <span class="p">(</span> <span class="n">v3</span><span class="p">,</span> <span class="n">v4</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkBoostConnectedComponents&gt; connectedComponents =
-    vtkSmartPointer&lt;vtkBoostConnectedComponents&gt;::New();
-  connectedComponents-&gt;SetInput(g);
-  connectedComponents-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoostConnectedComponents</span><span class="o">&gt;</span> <span class="n">connectedComponents</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoostConnectedComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">connectedComponents</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+  <span class="n">connectedComponents</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkGraph* outputGraph = connectedComponents-&gt;GetOutput();
+  <span class="n">vtkGraph</span><span class="o">*</span> <span class="n">outputGraph</span> <span class="o">=</span> <span class="n">connectedComponents</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  vtkIntArray* components = vtkIntArray::SafeDownCast(
-    outputGraph-&gt;GetVertexData()-&gt;GetArray(&quot;component&quot;));
+  <span class="n">vtkIntArray</span><span class="o">*</span> <span class="n">components</span> <span class="o">=</span> <span class="n">vtkIntArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+    <span class="n">outputGraph</span><span class="o">-&gt;</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;component&quot;</span><span class="p">));</span>
 
-  for(vtkIdType i = 0; i &lt; components-&gt;GetNumberOfTuples(); i++)
-  {
-    int val = components-&gt;GetValue(i);
-    std::cout &lt;&lt; val &lt;&lt; std::endl;
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">components</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">components</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ConnectedComponents)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ConnectedComponents</span><span class="p">)</span>
 
-add_executable(ConnectedComponents MACOSX_BUNDLE ConnectedComponents.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ConnectedComponents ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ConnectedComponents</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ConnectedComponents.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-connectedcomponents">Download and Build ConnectedComponents</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ConnectedComponents</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-connectedcomponents">Download and Build ConnectedComponents<a class="headerlink" href="#download-and-build-connectedcomponents" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConnectedComponents.tar">here to download ConnectedComponents</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConnectedComponents.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ConnectedComponents/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ConnectedComponents/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ConnectedComponents
-</code></pre>
+<div class="codehilite"><pre><span></span>./ConnectedComponents
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

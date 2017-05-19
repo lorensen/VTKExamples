@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,71 +15991,71 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Filtering/Delaunay2D</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestDelaunay2D.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Filtering_Delaunay2D.png]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Delaunay2D.py</strong></p>
-<pre><code class="python">#!/usr/bin/python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/python</span>
 
-import vtk, random
+<span class="kn">import</span> <span class="nn">vtk</span><span class="o">,</span> <span class="nn">random</span>
 
-points = vtk.vtkPoints()
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
 
-for x in range(10):
-    for y in range(10):
-        points.InsertNextPoint(x + random.uniform(-.25, .25), 
-                               y + random.uniform(-.25, .25), 0)
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> 
+                               <span class="n">y</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 
-aPolyData = vtk.vtkPolyData()
-aPolyData.SetPoints(points)
+<span class="n">aPolyData</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">aPolyData</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 
-aCellArray = vtk.vtkCellArray()
+<span class="n">aCellArray</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
 
-boundary = vtk.vtkPolyData()
-boundary.SetPoints(aPolyData.GetPoints())
-boundary.SetPolys(aCellArray)
-delaunay = vtk.vtkDelaunay2D()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    delaunay.SetInput(aPolyData.GetOutput())
-    delaunay.SetSource(boundary)
-else:
-    delaunay.SetInputData(aPolyData)
-    delaunay.SetSourceData(boundary)
+<span class="n">boundary</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">boundary</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">aPolyData</span><span class="o">.</span><span class="n">GetPoints</span><span class="p">())</span>
+<span class="n">boundary</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">aCellArray</span><span class="p">)</span>
+<span class="n">delaunay</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDelaunay2D</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">delaunay</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">aPolyData</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">delaunay</span><span class="o">.</span><span class="n">SetSource</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">delaunay</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">aPolyData</span><span class="p">)</span>
+    <span class="n">delaunay</span><span class="o">.</span><span class="n">SetSourceData</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span>
 
-delaunay.Update()
+<span class="n">delaunay</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-meshMapper = vtk.vtkPolyDataMapper()
-meshMapper.SetInputConnection(delaunay.GetOutputPort())
+<span class="n">meshMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">meshMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">delaunay</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-meshActor = vtk.vtkActor()
-meshActor.SetMapper(meshMapper)
-meshActor.GetProperty().SetEdgeColor(0, 0, 1)
-meshActor.GetProperty().SetInterpolationToFlat()
-meshActor.GetProperty().SetRepresentationToWireframe()
+<span class="n">meshActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">meshActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">meshMapper</span><span class="p">)</span>
+<span class="n">meshActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetEdgeColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">meshActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetInterpolationToFlat</span><span class="p">()</span>
+<span class="n">meshActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
 
-boundaryMapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    boundaryMapper.SetInputConnection(boundary.GetProducerPort())
-else:
-    boundaryMapper.SetInputData(boundary)
+<span class="n">boundaryMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">boundaryMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">boundary</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">boundaryMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span>
 
-boundaryActor = vtk.vtkActor()
-boundaryActor.SetMapper(boundaryMapper)
-boundaryActor.GetProperty().SetColor(1, 0, 0)
+<span class="n">boundaryActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">boundaryActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">boundaryMapper</span><span class="p">)</span>
+<span class="n">boundaryActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
-renderer.AddActor(meshActor)
-renderer.AddActor(boundaryActor)
-renderer.SetBackground(.3, .6, .3)
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">meshActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">boundaryActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">)</span>
 
-renderWindowInteractor.Initialize()
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

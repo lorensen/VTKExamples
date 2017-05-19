@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,28 +15990,28 @@
                   <h1>RenameArray</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Arrays/RenameArray</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Works, but segfaults at the end?</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>RenameArray.py</strong></p>
-<pre><code class="python">import vtk
-from vtk import *
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span> <span class="o">*</span>
 
-#setup sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.Update()
+<span class="c1">#setup sphere</span>
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-polydata = vtk.vtkPolyData()
-polydata.ShallowCopy(sphereSource.GetOutput())
+<span class="n">polydata</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">polydata</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-normals = polydata.GetPointData().GetNormals();
-normals.SetName(&quot;TestN&quot;)
+<span class="n">normals</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetNormals</span><span class="p">();</span>
+<span class="n">normals</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;TestN&quot;</span><span class="p">)</span>
 
-writer = vtk.vtkXMLPolyDataWriter();
-writer.SetFileName(&quot;Test.vtp&quot;);
-writer.SetInput(polydata);
-writer.Write();
-</code></pre>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataWriter</span><span class="p">();</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s2">&quot;Test.vtp&quot;</span><span class="p">);</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">Write</span><span class="p">();</span>
+</pre></div>
                 
                   
                 

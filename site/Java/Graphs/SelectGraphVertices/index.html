@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15557,6 +15557,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15964,128 +15976,128 @@
                   <h1>SelectGraphVertices</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Graphs/SelectGraphVertices</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SelectGraphVertices.java</strong></p>
-<pre><code class="java">import vtk.*;
-/*
- * Java language example to select edges and vertices from a generated Graph.
- */
-public class SelectGraphVertices {
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
+<span class="cm">/*</span>
+<span class="cm"> * Java language example to select edges and vertices from a generated Graph.</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SelectGraphVertices</span> <span class="o">{</span>
 
-    /**
-     * All Java programs require a host class. in addition, 
-     * these two instance variables provide access to the 
-     * callback data used in this example. 
-     */
-    vtkGraphLayoutView view;
-    vtkAnnotationLink link; 
-    /*
-     * The following static calls will load the respective 
-     * vtkJava interface libraries on first reference to this
-     * class. 
-     */
-    static {
-        System.loadLibrary(&quot;vtkCommonJava&quot;);
-        System.loadLibrary(&quot;vtkFilteringJava&quot;);
-        System.loadLibrary(&quot;vtkViewsJava&quot;);
-        System.loadLibrary(&quot;vtkImagingJava&quot;);
-        System.loadLibrary(&quot;vtkInfovisJava&quot;);
-        System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-        System.loadLibrary(&quot;vtkRenderingJava&quot;);
+    <span class="cm">/**</span>
+<span class="cm">     * All Java programs require a host class. in addition, </span>
+<span class="cm">     * these two instance variables provide access to the </span>
+<span class="cm">     * callback data used in this example. </span>
+<span class="cm">     */</span>
+    <span class="n">vtkGraphLayoutView</span> <span class="n">view</span><span class="o">;</span>
+    <span class="n">vtkAnnotationLink</span> <span class="n">link</span><span class="o">;</span> 
+    <span class="cm">/*</span>
+<span class="cm">     * The following static calls will load the respective </span>
+<span class="cm">     * vtkJava interface libraries on first reference to this</span>
+<span class="cm">     * class. </span>
+<span class="cm">     */</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkViewsJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkInfovisJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
 
-    }
-    /*
-     * primary test driver, creates an instance of this class 
-     * and then runs the example function. 
-     */
-    public static void main(String[] args) {
+    <span class="o">}</span>
+    <span class="cm">/*</span>
+<span class="cm">     * primary test driver, creates an instance of this class </span>
+<span class="cm">     * and then runs the example function. </span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
-        SelectGraphVertices me = new SelectGraphVertices();
-        me.doit();
-    }
-    /*
-     * doit creates local objects and instantiates instance variables
-     */
-    public void doit() {
-        vtkRandomGraphSource source = new vtkRandomGraphSource();
-        source.Update();
+        <span class="n">SelectGraphVertices</span> <span class="n">me</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SelectGraphVertices</span><span class="o">();</span>
+        <span class="n">me</span><span class="o">.</span><span class="na">doit</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="cm">/*</span>
+<span class="cm">     * doit creates local objects and instantiates instance variables</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">vtkRandomGraphSource</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRandomGraphSource</span><span class="o">();</span>
+        <span class="n">source</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
-        view =  new vtkGraphLayoutView();
-        view.AddRepresentationFromInputConnection(source.GetOutputPort());
-        /*
-         * This was described as vtkRenderedGraphRepresentation in the python example, 
-         * but the java type returns it as vtkDataRepresentation. 
-         */
-        vtkDataRepresentation rep = view.GetRepresentation(0);
+        <span class="n">view</span> <span class="o">=</span>  <span class="k">new</span> <span class="n">vtkGraphLayoutView</span><span class="o">();</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">AddRepresentationFromInputConnection</span><span class="o">(</span><span class="n">source</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
+        <span class="cm">/*</span>
+<span class="cm">         * This was described as vtkRenderedGraphRepresentation in the python example, </span>
+<span class="cm">         * but the java type returns it as vtkDataRepresentation. </span>
+<span class="cm">         */</span>
+        <span class="n">vtkDataRepresentation</span> <span class="n">rep</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="na">GetRepresentation</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
 
-        /*
-        * The vtkDataRepresentation should already have a vtkAnnotationLink,
-        * so we just want to grab it and add an observer with our callback function attached
-        * Note that Java callbacks use the this &quot;pointer&quot; to anchor vtk objects used by the callback 
-        * to establish references to required vtkobjects. 
-        */
-        link = rep.GetAnnotationLink();
-        link.AddObserver(&quot;AnnotationChangedEvent&quot;, this,  &quot;selectionCallback&quot;);
+        <span class="cm">/*</span>
+<span class="cm">        * The vtkDataRepresentation should already have a vtkAnnotationLink,</span>
+<span class="cm">        * so we just want to grab it and add an observer with our callback function attached</span>
+<span class="cm">        * Note that Java callbacks use the this &quot;pointer&quot; to anchor vtk objects used by the callback </span>
+<span class="cm">        * to establish references to required vtkobjects. </span>
+<span class="cm">        */</span>
+        <span class="n">link</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="na">GetAnnotationLink</span><span class="o">();</span>
+        <span class="n">link</span><span class="o">.</span><span class="na">AddObserver</span><span class="o">(</span><span class="s">&quot;AnnotationChangedEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span>  <span class="s">&quot;selectionCallback&quot;</span><span class="o">);</span>
 
-        view.GetRenderWindow().SetSize(600, 600);
-        view.ResetCamera();
-        view.Render();
-        view.GetInteractor().Start();
+        <span class="n">view</span><span class="o">.</span><span class="na">GetRenderWindow</span><span class="o">().</span><span class="na">SetSize</span><span class="o">(</span><span class="mi">600</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">ResetCamera</span><span class="o">();</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
+        <span class="n">view</span><span class="o">.</span><span class="na">GetInteractor</span><span class="o">().</span><span class="na">Start</span><span class="o">();</span>
 
-    }
-    /*
-     * The Java callback signature has no parameters. This complicates some
-     * vtk processes by eliminating the eventid and user data normally available
-     * to C++ logic.
-     */
-    public void  selectionCallback() {
-        // In C++ there is some extra data passed to the callback, but in Python
-        // the callback data is lost...
+    <span class="o">}</span>
+    <span class="cm">/*</span>
+<span class="cm">     * The Java callback signature has no parameters. This complicates some</span>
+<span class="cm">     * vtk processes by eliminating the eventid and user data normally available</span>
+<span class="cm">     * to C++ logic.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span>  <span class="nf">selectionCallback</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// In C++ there is some extra data passed to the callback, but in Python</span>
+        <span class="c1">// the callback data is lost...</span>
 
-        // There can be two selection nodes, but which one is vertices and which is edges
-        // does not seem to be guaranteed...
-        System.out.println(&quot;in selection callback&quot;);
+        <span class="c1">// There can be two selection nodes, but which one is vertices and which is edges</span>
+        <span class="c1">// does not seem to be guaranteed...</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;in selection callback&quot;</span><span class="o">);</span>
 
-        vtkSelection sel = link.GetCurrentSelection();
-        vtkSelectionNode node0 = sel.GetNode(0);
-        int node0_field_type = node0.GetFieldType();
+        <span class="n">vtkSelection</span> <span class="n">sel</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="na">GetCurrentSelection</span><span class="o">();</span>
+        <span class="n">vtkSelectionNode</span> <span class="n">node0</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="na">GetNode</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">node0_field_type</span> <span class="o">=</span> <span class="n">node0</span><span class="o">.</span><span class="na">GetFieldType</span><span class="o">();</span>
 
-        vtkIdTypeArray sel_list0 = (vtkIdTypeArray)(link.GetCurrentSelection().GetNode(0).GetSelectionList());
+        <span class="n">vtkIdTypeArray</span> <span class="n">sel_list0</span> <span class="o">=</span> <span class="o">(</span><span class="n">vtkIdTypeArray</span><span class="o">)(</span><span class="n">link</span><span class="o">.</span><span class="na">GetCurrentSelection</span><span class="o">().</span><span class="na">GetNode</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">GetSelectionList</span><span class="o">());</span>
 
-        vtkSelectionNode node1 = sel.GetNode(1);
-        int node1_field_type = node1.GetFieldType();
+        <span class="n">vtkSelectionNode</span> <span class="n">node1</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="na">GetNode</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">node1_field_type</span> <span class="o">=</span> <span class="n">node1</span><span class="o">.</span><span class="na">GetFieldType</span><span class="o">();</span>
 
-        vtkIdTypeArray sel_list1 = (vtkIdTypeArray)(link.GetCurrentSelection().GetNode(1).GetSelectionList());
+        <span class="n">vtkIdTypeArray</span> <span class="n">sel_list1</span> <span class="o">=</span> <span class="o">(</span><span class="n">vtkIdTypeArray</span><span class="o">)(</span><span class="n">link</span><span class="o">.</span><span class="na">GetCurrentSelection</span><span class="o">().</span><span class="na">GetNode</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">GetSelectionList</span><span class="o">());</span>
 
-        if (sel_list0.GetNumberOfTuples() &gt; 0) {
-            printFieldType(node0_field_type);
-            for (int ii = 0; ii &lt; sel_list0.GetNumberOfTuples(); ii++){
-                System.out.print( &quot;\t&quot; + sel_list0.GetValue(ii));
-            }
-            System.out.println(&quot; - on list 0.&quot; );
-        }
-        if (sel_list1.GetNumberOfTuples() &gt; 0) {
-            printFieldType(node1_field_type);
-            for (int ii = 0; ii &lt; sel_list1.GetNumberOfTuples(); ii++){
-                System.out.print( &quot;\t&quot; + sel_list1.GetValue(ii));
-                    }
-            System.out.println(&quot; - on list 1.&quot; );
-        }
-        System.out.println( &quot;- - -&quot;);
+        <span class="k">if</span> <span class="o">(</span><span class="n">sel_list0</span><span class="o">.</span><span class="na">GetNumberOfTuples</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">printFieldType</span><span class="o">(</span><span class="n">node0_field_type</span><span class="o">);</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sel_list0</span><span class="o">.</span><span class="na">GetNumberOfTuples</span><span class="o">();</span> <span class="n">ii</span><span class="o">++){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span> <span class="s">&quot;\t&quot;</span> <span class="o">+</span> <span class="n">sel_list0</span><span class="o">.</span><span class="na">GetValue</span><span class="o">(</span><span class="n">ii</span><span class="o">));</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; - on list 0.&quot;</span> <span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">sel_list1</span><span class="o">.</span><span class="na">GetNumberOfTuples</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">printFieldType</span><span class="o">(</span><span class="n">node1_field_type</span><span class="o">);</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sel_list1</span><span class="o">.</span><span class="na">GetNumberOfTuples</span><span class="o">();</span> <span class="n">ii</span><span class="o">++){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span> <span class="s">&quot;\t&quot;</span> <span class="o">+</span> <span class="n">sel_list1</span><span class="o">.</span><span class="na">GetValue</span><span class="o">(</span><span class="n">ii</span><span class="o">));</span>
+                    <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; - on list 1.&quot;</span> <span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="s">&quot;- - -&quot;</span><span class="o">);</span>
 
-}
+<span class="o">}</span>
 
-    public void printFieldType(int field_type) {
-        if (field_type == 3) 
-            System.out.print(&quot;Vertices Selected:&quot;);
-        else if (field_type == 4)
-            System.out.print (&quot;Edges Selected:&quot;);
-        else
-            System.out.print (&quot;Unknown type:&quot;);
-            }
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printFieldType</span><span class="o">(</span><span class="kt">int</span> <span class="n">field_type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">field_type</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span> 
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;Vertices Selected:&quot;</span><span class="o">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">field_type</span> <span class="o">==</span> <span class="mi">4</span><span class="o">)</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span> <span class="o">(</span><span class="s">&quot;Edges Selected:&quot;</span><span class="o">);</span>
+        <span class="k">else</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span> <span class="o">(</span><span class="s">&quot;Unknown type:&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
 
-}
-</code></pre>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

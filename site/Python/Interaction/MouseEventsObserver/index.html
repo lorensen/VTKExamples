@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,56 +15991,56 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Interaction/MouseEventsObserver</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Interaction/TestMouseEventsObserver.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example directly changes the observers of the vtkInteractor, which is an easy way to disable events or to add some simple callback functions. For a more general framework using vtkInteractorStyle see <a href="../[VTK/Examples/Python/Interaction/MouseEvents]"></a>. This specific example just disables the left mouse button of the vtkInteractorStyleTrackballCamera and prints a simple message instead.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MouseEventsObserver.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-from __future__ import print_function
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-source = vtk.vtkSphereSource()
-source.SetCenter(0, 0, 0)
-source.SetRadius(1)
-source.Update()
+<span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(source.GetOutputPort())
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(1, 1, 1)
-renderer.AddActor(actor)
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+<span class="n">renwin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renwin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetInteractorStyle(vtk.vtkInteractorStyleTrackballCamera())
-interactor.SetRenderWindow(renwin)
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="p">())</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renwin</span><span class="p">)</span>
 
-def DummyFunc1(obj, ev):
-    print(&quot;Before Event&quot;)
+<span class="k">def</span> <span class="nf">DummyFunc1</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ev</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Before Event&quot;</span><span class="p">)</span>
 
-def DummyFunc2(obj, ev):
-    print(&quot;After Event&quot;)
+<span class="k">def</span> <span class="nf">DummyFunc2</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ev</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;After Event&quot;</span><span class="p">)</span>
 
-# Print interator gives you a list of registered observers of the current
-# interactor style
-#print(interactor)
+<span class="c1"># Print interator gives you a list of registered observers of the current</span>
+<span class="c1"># interactor style</span>
+<span class="c1">#print(interactor)</span>
 
 
-## adding priorities allow to control the order of observer execution
-## (highest value first! if equal the first added observer is called first)
-interactor.RemoveObservers('LeftButtonPressEvent')
-interactor.AddObserver('LeftButtonPressEvent', DummyFunc1, 1.0)
-interactor.AddObserver('LeftButtonPressEvent', DummyFunc2, -1.0)
-interactor.Initialize()
-interactor.Start()
-</code></pre>
+<span class="c1">## adding priorities allow to control the order of observer execution</span>
+<span class="c1">## (highest value first! if equal the first added observer is called first)</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">RemoveObservers</span><span class="p">(</span><span class="s1">&#39;LeftButtonPressEvent&#39;</span><span class="p">)</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s1">&#39;LeftButtonPressEvent&#39;</span><span class="p">,</span> <span class="n">DummyFunc1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s1">&#39;LeftButtonPressEvent&#39;</span><span class="p">,</span> <span class="n">DummyFunc2</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

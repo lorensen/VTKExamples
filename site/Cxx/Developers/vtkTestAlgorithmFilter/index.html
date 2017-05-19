@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,269 +16004,276 @@
                   <h1>vtkTestAlgorithmFilter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Developers/vtkTestAlgorithmFilter</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>vtkTestAlgorithmFilter.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkTestAlgorithmFilter.h&quot;
-#include &quot;vtkTest.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTestAlgorithmFilter.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTest.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkCommand.h&quot;
-#include &quot;vtkInformation.h&quot;
-#include &quot;vtkInformationVector.h&quot;
-#include &quot;vtkObjectFactory.h&quot;
-#include &quot;vtkStreamingDemandDrivenPipeline.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCommand.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
 
-vtkStandardNewMacro(vtkTestAlgorithmFilter);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">);</span>
 
-//----------------------------------------------------------------------------
-vtkTestAlgorithmFilter::vtkTestAlgorithmFilter()
-{
-  this-&gt;SetNumberOfInputPorts( 1 );
-  this-&gt;SetNumberOfOutputPorts( 1 );
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputPorts</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfOutputPorts</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-vtkTestAlgorithmFilter::~vtkTestAlgorithmFilter()
-{
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTestAlgorithmFilter</span><span class="o">::~</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-void vtkTestAlgorithmFilter::PrintSelf(ostream&amp; os, vtkIndent indent)
-{
-  this-&gt;Superclass::PrintSelf(os, indent);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="n">indent</span><span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-vtkTest* vtkTestAlgorithmFilter::GetOutput()
-{
-  return this-&gt;GetOutput(0);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTest</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetOutput</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-vtkTest* vtkTestAlgorithmFilter::GetOutput(int port)
-{
-  return vtkTest::SafeDownCast(this-&gt;GetOutputDataObject(port));
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTest</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetOutput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetOutputDataObject</span><span class="p">(</span><span class="n">port</span><span class="p">));</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-void vtkTestAlgorithmFilter::SetOutput(vtkDataObject* d)
-{
-  this-&gt;GetExecutive()-&gt;SetOutputData(0, d);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">SetOutput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetExecutive</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOutputData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-vtkDataObject* vtkTestAlgorithmFilter::GetInput()
-{
-  return this-&gt;GetInput(0);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetInput</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-vtkDataObject* vtkTestAlgorithmFilter::GetInput(int port)
-{
-  return this-&gt;GetExecutive()-&gt;GetInputData(port, 0);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetExecutive</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetInputData</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-vtkTest* vtkTestAlgorithmFilter::GetLabelHierarchyInput(int port)
-{
-  return vtkTest::SafeDownCast(this-&gt;GetInput(port));
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTest</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetLabelHierarchyInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">(</span><span class="n">port</span><span class="p">));</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-int vtkTestAlgorithmFilter::ProcessRequest(vtkInformation* request,
-                                     vtkInformationVector** inputVector,
-                                     vtkInformationVector* outputVector)
-{
-  // Create an output object of the correct type.
-  if(request-&gt;Has(vtkDemandDrivenPipeline::REQUEST_DATA_OBJECT()))
-  {
-    return this-&gt;RequestDataObject(request, inputVector, outputVector);
-  }
-  // generate the data
-  if(request-&gt;Has(vtkDemandDrivenPipeline::REQUEST_DATA()))
-  {
-    return this-&gt;RequestData(request, inputVector, outputVector);
-  }
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">ProcessRequest</span><span class="p">(</span><span class="n">vtkInformation</span><span class="o">*</span> <span class="n">request</span><span class="p">,</span>
+                                     <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+                                     <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create an output object of the correct type.</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_DATA_OBJECT</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestDataObject</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// generate the data</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_DATA</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  if(request-&gt;Has(vtkStreamingDemandDrivenPipeline::REQUEST_UPDATE_EXTENT()))
-  {
-    return this-&gt;RequestUpdateExtent(request, inputVector, outputVector);
-  }
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkStreamingDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_UPDATE_EXTENT</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestUpdateExtent</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // execute information
-  if(request-&gt;Has(vtkDemandDrivenPipeline::REQUEST_INFORMATION()))
-  {
-    return this-&gt;RequestInformation(request, inputVector, outputVector);
-  }
+  <span class="c1">// execute information</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_INFORMATION</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestInformation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  return this-&gt;Superclass::ProcessRequest(request, inputVector, outputVector);
-}
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">ProcessRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-int vtkTestAlgorithmFilter::FillOutputPortInformation(
-    int vtkNotUsed(port), vtkInformation* info)
-{
-  // now add our info
-  info-&gt;Set(vtkDataObject::DATA_TYPE_NAME(), &quot;vtkTest&quot;);
-  return 1;
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">FillOutputPortInformation</span><span class="p">(</span>
+    <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">port</span><span class="p">),</span> <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// now add our info</span>
+  <span class="n">info</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_TYPE_NAME</span><span class="p">(),</span> <span class="s">&quot;vtkTest&quot;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-int vtkTestAlgorithmFilter::FillInputPortInformation(
-                                               int vtkNotUsed(port), vtkInformation* info)
-{
-  info-&gt;Set(vtkAlgorithm::INPUT_REQUIRED_DATA_TYPE(), &quot;vtkTest&quot;);
-  return 1;
-}
-
-
-    int vtkTestAlgorithmFilter::RequestDataObject(vtkInformation* vtkNotUsed(request),
-                                         vtkInformationVector** vtkNotUsed(inputVector),
-         vtkInformationVector* outputVector )
-    {
-//RequestDataObject (RDO) is an earlier pipeline pass.
-//During RDO, each filter is supposed to produce an empty data object of the proper type
-
-  vtkInformation* outInfo = outputVector-&gt;GetInformationObject(0);
-  vtkTest* output = vtkTest::SafeDownCast(
-    outInfo-&gt;Get( vtkDataObject::DATA_OBJECT() ) );
-
-  if ( ! output )
-  {
-    output = vtkTest::New();
-    outInfo-&gt;Set( vtkDataObject::DATA_OBJECT(), output );
-    output-&gt;FastDelete();
-
-    this-&gt;GetOutputPortInformation(0)-&gt;Set(
-      vtkDataObject::DATA_EXTENT_TYPE(), output-&gt;GetExtentType() );
-  }
-
-  return 1;
-    }
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">FillInputPortInformation</span><span class="p">(</span>
+                                               <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">port</span><span class="p">),</span> <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">info</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkAlgorithm</span><span class="o">::</span><span class="n">INPUT_REQUIRED_DATA_TYPE</span><span class="p">(),</span> <span class="s">&quot;vtkTest&quot;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-//----------------------------------------------------------------------------
-int vtkTestAlgorithmFilter::RequestInformation(
-                                         vtkInformation* vtkNotUsed(request),
-    vtkInformationVector** vtkNotUsed(inputVector),
-                                      vtkInformationVector* vtkNotUsed(outputVector))
-{
-  // do nothing let subclasses handle it
-  return 1;
-}
+    <span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestDataObject</span><span class="p">(</span><span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                                         <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">inputVector</span><span class="p">),</span>
+         <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">)</span>
+    <span class="p">{</span>
+<span class="c1">//RequestDataObject (RDO) is an earlier pipeline pass.</span>
+<span class="c1">//During RDO, each filter is supposed to produce an empty data object of the proper type</span>
 
-//----------------------------------------------------------------------------
-int vtkTestAlgorithmFilter::RequestUpdateExtent(
-                                          vtkInformation* vtkNotUsed(request),
-    vtkInformationVector** inputVector,
-    vtkInformationVector* vtkNotUsed(outputVector))
-{
-  int numInputPorts = this-&gt;GetNumberOfInputPorts();
-  for (int i=0; i&lt;numInputPorts; i++)
-  {
-    int numInputConnections = this-&gt;GetNumberOfInputConnections(i);
-    for (int j=0; j&lt;numInputConnections; j++)
-    {
-      vtkInformation* inputInfo = inputVector[i]-&gt;GetInformationObject(j);
-      inputInfo-&gt;Set(vtkStreamingDemandDrivenPipeline::EXACT_EXTENT(), 1);
-    }
-  }
-  return 1;
-}
+  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkTest</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
 
-//----------------------------------------------------------------------------
-// This is the superclasses style of Execute method.  Convert it into
-// an imaging style Execute method.
-int vtkTestAlgorithmFilter::RequestData(
-                                  vtkInformation* vtkNotUsed(request),
-    vtkInformationVector **inputVector,
-    vtkInformationVector* outputVector )
-{
-//Later on RequestData (RD) happens.
-//During RD each filter examines any inputs it has, then fills in that empty data object with real data.
+  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="n">output</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">(),</span> <span class="n">output</span> <span class="p">);</span>
+    <span class="n">output</span><span class="o">-&gt;</span><span class="n">FastDelete</span><span class="p">();</span>
 
-  vtkInformation* outInfo = outputVector-&gt;GetInformationObject(0);
-  vtkTest* output = vtkTest::SafeDownCast(
-                                          outInfo-&gt;Get( vtkDataObject::DATA_OBJECT() ) );
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetOutputPortInformation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span>
+      <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_EXTENT_TYPE</span><span class="p">(),</span> <span class="n">output</span><span class="o">-&gt;</span><span class="n">GetExtentType</span><span class="p">()</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkInformation *inInfo = inputVector[0]-&gt;GetInformationObject(0);
-  vtkTest *input = vtkTest::SafeDownCast(
-                                         inInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));
-  output-&gt;ShallowCopy(input);
-  output-&gt;SetValue(output-&gt;GetValue() + 1.0);
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
 
-  return 1;
-}
 
-//----------------------------------------------------------------------------
-void vtkTestAlgorithmFilter::SetInput(vtkDataObject* input)
-{
-  this-&gt;SetInput(0, input);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestInformation</span><span class="p">(</span>
+                                         <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+    <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">inputVector</span><span class="p">),</span>
+                                      <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">outputVector</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="c1">// do nothing let subclasses handle it</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-void vtkTestAlgorithmFilter::SetInput(int index, vtkDataObject* input)
-{
-  if(input)
-  {
-    this-&gt;SetInputDataObject(index, input);
-  }
-  else
-  {
-    // Setting a NULL input removes the connection.
-    this-&gt;SetInputDataObject(index, 0);
-  }
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestUpdateExtent</span><span class="p">(</span>
+                                          <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+    <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+    <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">outputVector</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">numInputPorts</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetNumberOfInputPorts</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">numInputPorts</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">numInputConnections</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetNumberOfInputConnections</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">numInputConnections</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">inputInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+      <span class="n">inputInfo</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkStreamingDemandDrivenPipeline</span><span class="o">::</span><span class="n">EXACT_EXTENT</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-//----------------------------------------------------------------------------
-void vtkTestAlgorithmFilter::AddInput(vtkDataObject* input)
-{
-  this-&gt;AddInput(0, input);
-}
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="c1">// This is the superclasses style of Execute method.  Convert it into</span>
+<span class="c1">// an imaging style Execute method.</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span>
+                                  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+    <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+    <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">)</span>
+<span class="p">{</span>
+<span class="c1">//Later on RequestData (RD) happens.</span>
+<span class="c1">//During RD each filter examines any inputs it has, then fills in that empty data object with real data.</span>
 
-//----------------------------------------------------------------------------
-void vtkTestAlgorithmFilter::AddInput(int index, vtkDataObject* input)
-{
-  if(input)
-  {
-    this-&gt;AddInputDataObject(index, input);
-  }
-}
-</code></pre>
+  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkTest</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+                                          <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">inInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkTest</span> <span class="o">*</span><span class="n">input</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+                                         <span class="n">inInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">output</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">);</span>
 
-PROJECT(vtkTestAlgorithmFilter)
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">SetInput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+<span class="p">}</span>
 
-add_executable(vtkTestAlgorithmFilter MACOSX_BUNDLE vtkTestAlgorithmFilter.cxx)
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">SetInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetInputDataObject</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// Setting a NULL input removes the connection.</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetInputDataObject</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-target_link_libraries(vtkTestAlgorithmFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">AddInput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">AddInput</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+<span class="p">}</span>
 
-<h3 id="download-and-build-vtktestalgorithmfilter">Download and Build vtkTestAlgorithmFilter</h3>
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">AddInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">AddInputDataObject</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">vtkTestAlgorithmFilter</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">vtkTestAlgorithmFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">vtkTestAlgorithmFilter.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">vtkTestAlgorithmFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-vtktestalgorithmfilter">Download and Build vtkTestAlgorithmFilter<a class="headerlink" href="#download-and-build-vtktestalgorithmfilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/vtkTestAlgorithmFilter.tar">here to download vtkTestAlgorithmFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball vtkTestAlgorithmFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd vtkTestAlgorithmFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd vtkTestAlgorithmFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./vtkTestAlgorithmFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./vtkTestAlgorithmFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

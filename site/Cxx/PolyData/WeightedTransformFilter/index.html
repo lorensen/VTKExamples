@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,179 +16005,186 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/WeightedTransformFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestWeightedTransformFilter.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>WeightedTransformFilter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkTransformFilter.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkWeightedTransformFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransformFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWeightedTransformFilter.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Use a sphere as a basis of the shape
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphere =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphere-&gt;SetPhiResolution(40);
-  sphere-&gt;SetThetaResolution(40);
-  sphere-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Use a sphere as a basis of the shape</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkPolyData* sphereData = sphere-&gt;GetOutput();
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">sphereData</span> <span class="o">=</span> <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Create a data array to hold the weighting coefficients
-  vtkSmartPointer&lt;vtkFloatArray&gt; tfarray =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  vtkIdType npoints = sphereData-&gt;GetNumberOfPoints();
-  tfarray-&gt;SetNumberOfComponents(2);
-  tfarray-&gt;SetNumberOfTuples(npoints);
+  <span class="c1">// Create a data array to hold the weighting coefficients</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">tfarray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">npoints</span> <span class="o">=</span> <span class="n">sphereData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span>
+  <span class="n">tfarray</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">tfarray</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">npoints</span><span class="p">);</span>
 
-  // Parameterize the sphere along the z axis, and fill the weights
-  // with (1.0-a, a) to linearly interpolate across the shape
-  for(int i = 0; i &lt; npoints; i++)
-  {
-    double pt[3];
-    sphereData-&gt;GetPoint(i, pt);
-//    double x = pt[0];
-//    double y = pt[1];
-    double z = pt[2];
+  <span class="c1">// Parameterize the sphere along the z axis, and fill the weights</span>
+  <span class="c1">// with (1.0-a, a) to linearly interpolate across the shape</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">npoints</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">pt</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">sphereData</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pt</span><span class="p">);</span>
+<span class="c1">//    double x = pt[0];</span>
+<span class="c1">//    double y = pt[1];</span>
+    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">pt</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-    double zn = z + 0.5;
-    double zn1 = 1.0 - zn;
-    if(zn &gt; 1.0)
-    {
-      zn = 1.0;
-    }
-    if(zn1 &lt; 0.0)
-    {
-      zn1 = 0.0;
-    }
+    <span class="kt">double</span> <span class="n">zn</span> <span class="o">=</span> <span class="n">z</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">zn1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">zn</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">zn</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">zn</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">zn1</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">zn1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    tfarray-&gt;SetComponent(i, 0, zn1);
-    tfarray-&gt;SetComponent(i, 1, zn);
-  }
+    <span class="n">tfarray</span><span class="o">-&gt;</span><span class="n">SetComponent</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zn1</span><span class="p">);</span>
+    <span class="n">tfarray</span><span class="o">-&gt;</span><span class="n">SetComponent</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">zn</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Create field data to hold the array, and bind it to the sphere
-//  vtkSmartPointer&lt;vtkFieldData&gt; fd =
-//    vtkSmartPointer&lt;vtkFieldData&gt;::New();
-  tfarray-&gt;SetName(&quot;weights&quot;);
-  sphereData-&gt;GetPointData()-&gt;AddArray(tfarray);
+  <span class="c1">// Create field data to hold the array, and bind it to the sphere</span>
+<span class="c1">//  vtkSmartPointer&lt;vtkFieldData&gt; fd =</span>
+<span class="c1">//    vtkSmartPointer&lt;vtkFieldData&gt;::New();</span>
+  <span class="n">tfarray</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;weights&quot;</span><span class="p">);</span>
+  <span class="n">sphereData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">tfarray</span><span class="p">);</span>
 
-  // Use an ordinary transform to stretch the shape
-  vtkSmartPointer&lt;vtkTransform&gt; stretch =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  stretch-&gt;Scale(1, 1, 3.2);
+  <span class="c1">// Use an ordinary transform to stretch the shape</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">stretch</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">stretch</span><span class="o">-&gt;</span><span class="n">Scale</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransformFilter&gt; stretchFilter =
-    vtkSmartPointer&lt;vtkTransformFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  stretchFilter-&gt;SetInput(sphereData);
-#else
-  stretchFilter-&gt;SetInputData(sphereData);
-#endif
-  stretchFilter-&gt;SetTransform(stretch);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformFilter</span><span class="o">&gt;</span> <span class="n">stretchFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">stretchFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sphereData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">stretchFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">sphereData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">stretchFilter</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">stretch</span><span class="p">);</span>
 
-  // Now, for the weighted transform stuff
-  vtkSmartPointer&lt;vtkWeightedTransformFilter&gt; weightedTrans =
-    vtkSmartPointer&lt;vtkWeightedTransformFilter&gt;::New();
+  <span class="c1">// Now, for the weighted transform stuff</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWeightedTransformFilter</span><span class="o">&gt;</span> <span class="n">weightedTrans</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWeightedTransformFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create two transforms to interpolate between
-  vtkSmartPointer&lt;vtkTransform&gt; identity =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  identity-&gt;Identity();
+  <span class="c1">// Create two transforms to interpolate between</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">identity</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">identity</span><span class="o">-&gt;</span><span class="n">Identity</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; rotated =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  double rotatedAngle = 45;
-  rotated-&gt;RotateX(rotatedAngle);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">rotated</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">rotatedAngle</span> <span class="o">=</span> <span class="mi">45</span><span class="p">;</span>
+  <span class="n">rotated</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="n">rotatedAngle</span><span class="p">);</span>
 
-  weightedTrans-&gt;SetNumberOfTransforms(2);
-  weightedTrans-&gt;SetTransform(identity, 0);
-  weightedTrans-&gt;SetTransform(rotated, 1);
-  // which data array should the filter use ?
-  weightedTrans-&gt;SetWeightArray(&quot;weights&quot;);
+  <span class="n">weightedTrans</span><span class="o">-&gt;</span><span class="n">SetNumberOfTransforms</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">weightedTrans</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">weightedTrans</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">rotated</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="c1">// which data array should the filter use ?</span>
+  <span class="n">weightedTrans</span><span class="o">-&gt;</span><span class="n">SetWeightArray</span><span class="p">(</span><span class="s">&quot;weights&quot;</span><span class="p">);</span>
 
-  weightedTrans-&gt;SetInputConnection(stretchFilter-&gt;GetOutputPort());
+  <span class="n">weightedTrans</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">stretchFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; weightedTransMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  weightedTransMapper-&gt;SetInputConnection(weightedTrans-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; weightedTransActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  weightedTransActor-&gt;SetMapper(weightedTransMapper);
-  weightedTransActor-&gt;GetProperty()-&gt;SetDiffuseColor(0.8, 0.8, 0.1);
-  weightedTransActor-&gt;GetProperty()-&gt;SetRepresentationToSurface();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">weightedTransMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">weightedTransMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">weightedTrans</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">weightedTransActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">weightedTransActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">weightedTransMapper</span><span class="p">);</span>
+  <span class="n">weightedTransActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+  <span class="n">weightedTransActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToSurface</span><span class="p">();</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(weightedTransActor);
-  renderer-&gt;SetBackground(0.1, 0.2, 0.5);
-  renderWindow-&gt;SetSize(300, 300);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">weightedTransActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(90);
-  renderer-&gt;GetActiveCamera()-&gt;Dolly(1);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(WeightedTransformFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">WeightedTransformFilter</span><span class="p">)</span>
 
-add_executable(WeightedTransformFilter MACOSX_BUNDLE WeightedTransformFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(WeightedTransformFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">WeightedTransformFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">WeightedTransformFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-weightedtransformfilter">Download and Build WeightedTransformFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">WeightedTransformFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-weightedtransformfilter">Download and Build WeightedTransformFilter<a class="headerlink" href="#download-and-build-weightedtransformfilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/WeightedTransformFilter.tar">here to download WeightedTransformFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball WeightedTransformFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd WeightedTransformFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd WeightedTransformFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./WeightedTransformFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./WeightedTransformFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

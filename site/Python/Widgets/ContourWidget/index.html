@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15523,6 +15523,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,80 +15991,80 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Widgets/ContourWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestContourWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Widgets_ContourWidget.png]"></a></p>
 <p>Click on the white dots to select them and to deform the red line.</p>
 <ul>
 <li>Contributed by Jim McCusker</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ContourWidget.py</strong></p>
-<pre><code class="python">#!/usr/bin/python 
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/python </span>
 
-import vtk
-import random
-import sys
-import math
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-# Create the RenderWindow, Renderer and both Actors
+<span class="c1"># Create the RenderWindow, Renderer and both Actors</span>
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renderWindow)
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-renderer.SetBackground(0.1, 0.2, 0.4)
-renderWindow.SetSize(600, 600)
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
 
-contourRep = vtk.vtkOrientedGlyphContourRepresentation()
-contourRep.GetLinesProperty().SetColor(1, 0, 0) # set color to red
+<span class="n">contourRep</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkOrientedGlyphContourRepresentation</span><span class="p">()</span>
+<span class="n">contourRep</span><span class="o">.</span><span class="n">GetLinesProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># set color to red</span>
 
-contourWidget = vtk.vtkContourWidget()
-contourWidget.SetInteractor(interactor)
-contourWidget.SetRepresentation(contourRep)
-contourWidget.On()
+<span class="n">contourWidget</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkContourWidget</span><span class="p">()</span>
+<span class="n">contourWidget</span><span class="o">.</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">)</span>
+<span class="n">contourWidget</span><span class="o">.</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">contourRep</span><span class="p">)</span>
+<span class="n">contourWidget</span><span class="o">.</span><span class="n">On</span><span class="p">()</span>
 
-for arg in sys.argv:
-    if &quot;-Shift&quot; == arg:
-        contourWidget.GetEventTranslator().RemoveTranslation(
-            vtk.vtkCommand.LeftButtonPressEvent)
-        contourWidget.GetEventTranslator().SetTranslation(
-            vtk.vtkCommand.LeftButtonPressEvent,
-            vtk.vtkWidgetEvent.Translate )
-    elif &quot;-Scale&quot; == arg:
-        contourWidget.GetEventTranslator().RemoveTranslation( 
-            vtk.vtkCommand.LeftButtonPressEvent )
-        contourWidget.GetEventTranslator().SetTranslation( 
-            vtk.vtkCommand.LeftButtonPressEvent,
-            vtk.vtkWidgetEvent.Scale )
+<span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">&quot;-Shift&quot;</span> <span class="o">==</span> <span class="n">arg</span><span class="p">:</span>
+        <span class="n">contourWidget</span><span class="o">.</span><span class="n">GetEventTranslator</span><span class="p">()</span><span class="o">.</span><span class="n">RemoveTranslation</span><span class="p">(</span>
+            <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCommand</span><span class="o">.</span><span class="n">LeftButtonPressEvent</span><span class="p">)</span>
+        <span class="n">contourWidget</span><span class="o">.</span><span class="n">GetEventTranslator</span><span class="p">()</span><span class="o">.</span><span class="n">SetTranslation</span><span class="p">(</span>
+            <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCommand</span><span class="o">.</span><span class="n">LeftButtonPressEvent</span><span class="p">,</span>
+            <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWidgetEvent</span><span class="o">.</span><span class="n">Translate</span> <span class="p">)</span>
+    <span class="k">elif</span> <span class="s2">&quot;-Scale&quot;</span> <span class="o">==</span> <span class="n">arg</span><span class="p">:</span>
+        <span class="n">contourWidget</span><span class="o">.</span><span class="n">GetEventTranslator</span><span class="p">()</span><span class="o">.</span><span class="n">RemoveTranslation</span><span class="p">(</span> 
+            <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCommand</span><span class="o">.</span><span class="n">LeftButtonPressEvent</span> <span class="p">)</span>
+        <span class="n">contourWidget</span><span class="o">.</span><span class="n">GetEventTranslator</span><span class="p">()</span><span class="o">.</span><span class="n">SetTranslation</span><span class="p">(</span> 
+            <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCommand</span><span class="o">.</span><span class="n">LeftButtonPressEvent</span><span class="p">,</span>
+            <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWidgetEvent</span><span class="o">.</span><span class="n">Scale</span> <span class="p">)</span>
 
 
-pd = vtk.vtkPolyData()
+<span class="n">pd</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
 
-points = vtk.vtkPoints()
-lines = vtk.vtkCellArray()
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
 
-for i in range(0,21):
-    angle = 2.0 * math.pi * i / 20.0
-    points.InsertPoint(i, 0.1 * math.cos(angle),
-                        0.1 * math.sin(angle), 0.0 )
-    lines.InsertNextCell(i)
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="mf">20.0</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span>
+                        <span class="mf">0.1</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mf">0.0</span> <span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-pd.SetPoints(points)
-pd.SetLines(lines)
+<span class="n">pd</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
 
-contourWidget.Initialize(pd, 1)
-contourWidget.Render()
-renderer.ResetCamera()
-renderWindow.Render()
+<span class="n">contourWidget</span><span class="o">.</span><span class="n">Initialize</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">contourWidget</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-interactor.Initialize()
-interactor.Start()
+<span class="n">interactor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-contourWidget.Off()
-</code></pre>
+<span class="n">contourWidget</span><span class="o">.</span><span class="n">Off</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

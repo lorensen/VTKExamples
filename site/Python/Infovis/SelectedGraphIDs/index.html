@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,103 +15990,103 @@
                   <h1>SelectedGraphIDs</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Infovis/SelectedGraphIDs</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Infovis_SelectedGraphIDs.png]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SelectedGraphIDs.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-# This is a variation on VTK/Examples/Infovis/Python/selection.py
-# which shows how to use a vtkAnnotationLink to view the contents
-# of a selection from a vtkGraphLayoutView
+<span class="c1"># This is a variation on VTK/Examples/Infovis/Python/selection.py</span>
+<span class="c1"># which shows how to use a vtkAnnotationLink to view the contents</span>
+<span class="c1"># of a selection from a vtkGraphLayoutView</span>
 
-from __future__ import print_function
-import vtk
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-source = vtk.vtkRandomGraphSource()
-source.DirectedOff()
-source.SetNumberOfVertices(100)
-source.SetEdgeProbability(0) # Basically generates a tree
-source.SetUseEdgeProbability(True)
-source.SetStartWithTree(True)
-source.IncludeEdgeWeightsOn()
+<span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRandomGraphSource</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">DirectedOff</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetNumberOfVertices</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetEdgeProbability</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Basically generates a tree</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetUseEdgeProbability</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetStartWithTree</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">source</span><span class="o">.</span><span class="n">IncludeEdgeWeightsOn</span><span class="p">()</span>
 
-# Create force directed layout
-strategy = vtk.vtkSimple2DLayoutStrategy()
-strategy.SetInitialTemperature(5)
+<span class="c1"># Create force directed layout</span>
+<span class="n">strategy</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSimple2DLayoutStrategy</span><span class="p">()</span>
+<span class="n">strategy</span><span class="o">.</span><span class="n">SetInitialTemperature</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-# Create a graph layout view
-view = vtk.vtkGraphLayoutView()
-view.AddRepresentationFromInputConnection(source.GetOutputPort())
-view.SetVertexLabelArrayName(&quot;vertex id&quot;)
-view.SetVertexLabelVisibility(True)
-view.SetVertexColorArrayName(&quot;vertex id&quot;)
-view.SetColorVertices(True)
-view.SetEdgeColorArrayName(&quot;edge weight&quot;)
-view.SetColorEdges(True)
-view.SetLayoutStrategy(strategy)
+<span class="c1"># Create a graph layout view</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGraphLayoutView</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">AddRepresentationFromInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetVertexLabelArrayName</span><span class="p">(</span><span class="s2">&quot;vertex id&quot;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetVertexLabelVisibility</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetVertexColorArrayName</span><span class="p">(</span><span class="s2">&quot;vertex id&quot;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetColorVertices</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetEdgeColorArrayName</span><span class="p">(</span><span class="s2">&quot;edge weight&quot;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetColorEdges</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">SetLayoutStrategy</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
 
-# Make sure the views are using a pedigree id selection
-view.GetRepresentation(0).SetSelectionType(2)
+<span class="c1"># Make sure the views are using a pedigree id selection</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetRepresentation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">SetSelectionType</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-# Create a selection link and set both view to use it
-annotationLink = vtk.vtkAnnotationLink()
-view.GetRepresentation(0).SetAnnotationLink(annotationLink)
+<span class="c1"># Create a selection link and set both view to use it</span>
+<span class="n">annotationLink</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkAnnotationLink</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">GetRepresentation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">SetAnnotationLink</span><span class="p">(</span><span class="n">annotationLink</span><span class="p">)</span>
 
 
-def select_callback(caller,event):
-    # In this particular data representation the current selection in the
-    # annotation link should always contain two nodes: one for the edges and
-    # one for the vertices. Which is which is not consistent, so you need to
-    # check the FieldType of each SelectionNode
+<span class="k">def</span> <span class="nf">select_callback</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span><span class="n">event</span><span class="p">):</span>
+    <span class="c1"># In this particular data representation the current selection in the</span>
+    <span class="c1"># annotation link should always contain two nodes: one for the edges and</span>
+    <span class="c1"># one for the vertices. Which is which is not consistent, so you need to</span>
+    <span class="c1"># check the FieldType of each SelectionNode</span>
 
-    sel = caller.GetCurrentSelection()
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">caller</span><span class="o">.</span><span class="n">GetCurrentSelection</span><span class="p">()</span>
 
-    for nn in range(sel.GetNumberOfNodes()):
-        sel_ids = sel.GetNode(nn).GetSelectionList()
-        field_type = sel.GetNode(nn).GetFieldType()
-        if field_type == 3:
-            print(&quot;Vertex selection Pedigree IDs&quot;)
-        if field_type == 4:
-            print(&quot;Edge selection Pedigree IDs&quot;)
-        if sel_ids.GetNumberOfTuples() &gt; 0:
-            for ii in range(sel_ids.GetNumberOfTuples()):
-                print(int(sel_ids.GetTuple1(ii)))
-        else:
-            print(&quot;-- empty&quot;)
+    <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">GetNumberOfNodes</span><span class="p">()):</span>
+        <span class="n">sel_ids</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span><span class="o">.</span><span class="n">GetSelectionList</span><span class="p">()</span>
+        <span class="n">field_type</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">GetNode</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span><span class="o">.</span><span class="n">GetFieldType</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">field_type</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Vertex selection Pedigree IDs&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">field_type</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Edge selection Pedigree IDs&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sel_ids</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sel_ids</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+                <span class="k">print</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sel_ids</span><span class="o">.</span><span class="n">GetTuple1</span><span class="p">(</span><span class="n">ii</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-- empty&quot;</span><span class="p">)</span>
 
-    print(&quot;&quot;)
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-# AnnotationChangedEvent will fire when the selection is changed
-annotationLink.AddObserver(&quot;AnnotationChangedEvent&quot;, select_callback)
+<span class="c1"># AnnotationChangedEvent will fire when the selection is changed</span>
+<span class="n">annotationLink</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;AnnotationChangedEvent&quot;</span><span class="p">,</span> <span class="n">select_callback</span><span class="p">)</span>
 
-# Set the theme on the view
-theme = vtk.vtkViewTheme.CreateMellowTheme()
-theme.SetLineWidth(5)
-theme.SetPointSize(10)
-theme.SetCellOpacity(0.99)
-theme.SetOutlineColor(0.6, 0.6, 0.6)
-# Vertices
-theme.SetSelectedPointColor(0, 0.5, 1)
-theme.SetPointHueRange(1.0, 1.0)
-theme.SetPointSaturationRange(1.0, 1.0)
-theme.SetPointValueRange(0.0, 1.0)
-# theme.SetPointAlphaRange(0.2, 0.8)
-# Edges
-theme.SetSelectedCellColor(1.0, 0.95, 0.75)
-theme.SetCellHueRange(0.1, 0.1)
-theme.SetCellSaturationRange(0.2, 1.0)
-theme.SetCellValueRange(0.5, 1.0)
-# theme.SetPointAlphaRange(0.2, 0.8)
-view.ApplyViewTheme(theme)
-theme.FastDelete()
+<span class="c1"># Set the theme on the view</span>
+<span class="n">theme</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkViewTheme</span><span class="o">.</span><span class="n">CreateMellowTheme</span><span class="p">()</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetCellOpacity</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetOutlineColor</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+<span class="c1"># Vertices</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetSelectedPointColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetPointHueRange</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetPointSaturationRange</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetPointValueRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="c1"># theme.SetPointAlphaRange(0.2, 0.8)</span>
+<span class="c1"># Edges</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetSelectedCellColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetCellHueRange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetCellSaturationRange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">SetCellValueRange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="c1"># theme.SetPointAlphaRange(0.2, 0.8)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">ApplyViewTheme</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+<span class="n">theme</span><span class="o">.</span><span class="n">FastDelete</span><span class="p">()</span>
 
-view.GetRenderWindow().SetSize(600, 600)
-view.ResetCamera()
-view.Render()
+<span class="n">view</span><span class="o">.</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-view.GetInteractor().Start()
-</code></pre>
+<span class="n">view</span><span class="o">.</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

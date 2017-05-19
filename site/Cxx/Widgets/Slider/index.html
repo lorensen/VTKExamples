@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,162 +16019,169 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/Slider</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestSlider.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to use a 3D slider widget. Here, the slider controls the resolution of the sphere. The slider is positioned in world coordinates - so if you rotate/translate/scale the scene, the slider will change orientation/position/size. Contrast this with <a href="../Widgets/Cxx/Slider2D">Slider2D</a> that remains at a fixed location in the window.</p>
 <p>If the callback is connected to InteractionEvent, the scene will update whenever the mouse is moved on the slider. This is not ideal if the re-rendering takes significant time as it will make the interaction very choppy. If you want to move the slider and have the scene update when the mouse button is released, connect the callback to EndInteractionEvent instead.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Slider.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSliderWidget.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkWidgetEvent.h&gt;
-#include &lt;vtkCallbackCommand.h&gt;
-#include &lt;vtkWidgetEventTranslator.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
-#include &lt;vtkSliderWidget.h&gt;
-#include &lt;vtkSliderRepresentation3D.h&gt;
-#include &lt;vtkProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWidgetEvent.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCallbackCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWidgetEventTranslator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderRepresentation3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-// The callback does the work.
-// The callback keeps a pointer to the sphere whose resolution is
-// controlled. After constructing the callback, the program sets the
-// SphereSource of the callback to
-// the object to be controlled.
-class vtkSliderCallback : public vtkCommand
-{
-public:
-  static vtkSliderCallback *New()
-  {
-    return new vtkSliderCallback;
-  }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast&lt;vtkSliderWidget*&gt;(caller);
-    this-&gt;SphereSource-&gt;SetPhiResolution(static_cast&lt;vtkSliderRepresentation *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue()/2);
-    this-&gt;SphereSource-&gt;SetThetaResolution(static_cast&lt;vtkSliderRepresentation *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue());
-  }
-  vtkSliderCallback():SphereSource(0) {}
-  vtkSphereSource *SphereSource;
-};
+<span class="c1">// The callback does the work.</span>
+<span class="c1">// The callback keeps a pointer to the sphere whose resolution is</span>
+<span class="c1">// controlled. After constructing the callback, the program sets the</span>
+<span class="c1">// SphereSource of the callback to</span>
+<span class="c1">// the object to be controlled.</span>
+<span class="k">class</span> <span class="nc">vtkSliderCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkSliderCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkSliderCallback</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSliderWidget</span> <span class="o">*</span><span class="n">sliderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">vtkSliderCallback</span><span class="p">()</span><span class="o">:</span><span class="n">SphereSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">vtkSphereSource</span> <span class="o">*</span><span class="n">SphereSource</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main (int, char *[])
-{
-  // A sphere
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetCenter(0.0, 0.0, 0.0);
-  sphereSource-&gt;SetRadius(4.0);
-  sphereSource-&gt;SetPhiResolution(4);
-  sphereSource-&gt;SetThetaResolution(8);
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// A sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">4.0</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
-  actor-&gt;GetProperty()-&gt;SetInterpolationToFlat();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor(actor);
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
-  // Render an image (lights and cameras are created automatically)
-  renderWindow-&gt;Render();
+  <span class="c1">// Render an image (lights and cameras are created automatically)</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkSliderRepresentation3D&gt; sliderRep =
-    vtkSmartPointer&lt;vtkSliderRepresentation3D&gt;::New();
-  sliderRep-&gt;SetMinimumValue(3.0);
-  sliderRep-&gt;SetMaximumValue(50.0);
-  sliderRep-&gt;SetValue(sphereSource-&gt;GetThetaResolution());
-  sliderRep-&gt;SetTitleText(&quot;Sphere Resolution&quot;);
-  sliderRep-&gt;GetPoint1Coordinate()-&gt;SetCoordinateSystemToWorld();
-  sliderRep-&gt;GetPoint1Coordinate()-&gt;SetValue(-4,6,0);
-  sliderRep-&gt;GetPoint2Coordinate()-&gt;SetCoordinateSystemToWorld();
-  sliderRep-&gt;GetPoint2Coordinate()-&gt;SetValue(4,6,0);
-  sliderRep-&gt;SetSliderLength(0.075);
-  sliderRep-&gt;SetSliderWidth(0.05);
-  sliderRep-&gt;SetEndCapLength(0.05);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation3D</span><span class="o">&gt;</span> <span class="n">sliderRep</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetMinimumValue</span><span class="p">(</span><span class="mf">3.0</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetMaximumValue</span><span class="p">(</span><span class="mf">50.0</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetThetaResolution</span><span class="p">());</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetTitleText</span><span class="p">(</span><span class="s">&quot;Sphere Resolution&quot;</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToWorld</span><span class="p">();</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToWorld</span><span class="p">();</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetSliderLength</span><span class="p">(</span><span class="mf">0.075</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetSliderWidth</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetEndCapLength</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderWidget&gt; sliderWidget =
-    vtkSmartPointer&lt;vtkSliderWidget&gt;::New();
-  sliderWidget-&gt;SetInteractor(renderWindowInteractor);
-  sliderWidget-&gt;SetRepresentation(sliderRep);
-  sliderWidget-&gt;SetAnimationModeToAnimate();
-  sliderWidget-&gt;EnabledOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;</span> <span class="n">sliderWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">sliderRep</span><span class="p">);</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">SetAnimationModeToAnimate</span><span class="p">();</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">EnabledOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkSliderCallback&gt; callback =
-    vtkSmartPointer&lt;vtkSliderCallback&gt;::New();
-  callback-&gt;SphereSource = sphereSource;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderCallback</span><span class="o">&gt;</span> <span class="n">callback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">SphereSource</span> <span class="o">=</span> <span class="n">sphereSource</span><span class="p">;</span>
 
-  sliderWidget-&gt;AddObserver(vtkCommand::InteractionEvent,callback);
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">callback</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindow-&gt;Render();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Slider)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Slider</span><span class="p">)</span>
 
-add_executable(Slider MACOSX_BUNDLE Slider.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Slider ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Slider</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Slider.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-slider">Download and Build Slider</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Slider</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-slider">Download and Build Slider<a class="headerlink" href="#download-and-build-slider" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Slider.tar">here to download Slider</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Slider.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Slider/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Slider/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Slider
-</code></pre>
+<div class="codehilite"><pre><span></span>./Slider
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

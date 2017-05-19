@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,173 +16019,180 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/IO/ReadPDB</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadPDB.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example reads <a href="http://www.pdb.org/pdb/home/home.do">Protein Data Bank</a> files. The example expects a file in .pdb format.</p>
 <p><a href="http://gitorious.org/vtkwikiexamples/wikiexamples/blobs/raw/master/Testing/Data/lys.pdb">Here</a> is a sample file.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadPDB.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;cmath&gt;
-#include &lt;vtkGlyph3D.h&gt;
-#include &lt;vtkLODActor.h&gt;
-#include &lt;vtkLODActor.h&gt;
-#include &lt;vtkPDBReader.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkTubeFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLODActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLODActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPDBReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTubeFilter.h&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[])
-{
-  if (argc &lt; 2)
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; Filename(.pdb)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;SetBackground(.1, .2, .3);
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  renderWindow-&gt;SetSize(300, 300);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename(.pdb)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPDBReader&gt; pdb =
-    vtkSmartPointer&lt;vtkPDBReader&gt;::New();
-  pdb-&gt;SetFileName(argv[1]);
-  pdb-&gt;SetHBScale(1.0);
-  pdb-&gt;SetBScale(1.0);
-  pdb-&gt;Update();
-  std::cout &lt;&lt;&quot;# of atoms is: &quot; &lt;&lt; pdb-&gt;GetNumberOfAtoms() &lt;&lt; std::endl;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPDBReader</span><span class="o">&gt;</span> <span class="n">pdb</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPDBReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pdb</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">pdb</span><span class="o">-&gt;</span><span class="n">SetHBScale</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">pdb</span><span class="o">-&gt;</span><span class="n">SetBScale</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">pdb</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span><span class="s">&quot;# of atoms is: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pdb</span><span class="o">-&gt;</span><span class="n">GetNumberOfAtoms</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  double resolution = std::sqrt(300000.0 / pdb-&gt;GetNumberOfAtoms());
-  if (resolution &gt; 20)
-  {
-    resolution = 20;
-  }
-  if (resolution &lt; 4)
-  {
-    resolution = 4;
-  }
-  std::cout &lt;&lt;&quot;Resolution is: &quot; &lt;&lt; resolution &lt;&lt; std::endl;
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphere =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphere-&gt;SetCenter(0, 0, 0);
-  sphere-&gt;SetRadius(1);
-  sphere-&gt;SetThetaResolution(static_cast&lt;int&gt;(resolution));
-  sphere-&gt;SetPhiResolution(static_cast&lt;int&gt;(resolution));
+  <span class="kt">double</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">300000.0</span> <span class="o">/</span> <span class="n">pdb</span><span class="o">-&gt;</span><span class="n">GetNumberOfAtoms</span><span class="p">());</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">resolution</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">resolution</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span><span class="s">&quot;Resolution is: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">resolution</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">resolution</span><span class="p">));</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">resolution</span><span class="p">));</span>
 
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  glyph-&gt;SetInputConnection(pdb-&gt;GetOutputPort());
-  glyph-&gt;SetOrient(1);
-  glyph-&gt;SetColorMode(1);
-  // glyph-&gt;ScalingOn();
-  glyph-&gt;SetScaleMode(2);
-  glyph-&gt;SetScaleFactor(.25);
-  glyph-&gt;SetSourceConnection(sphere-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pdb</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetOrient</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetColorMode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="c1">// glyph-&gt;ScalingOn();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleMode</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mf">.25</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; atomMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  atomMapper-&gt;SetInputConnection(glyph-&gt;GetOutputPort());
-  atomMapper-&gt;ImmediateModeRenderingOn();
-  atomMapper-&gt;UseLookupTableScalarRangeOff();
-  atomMapper-&gt;ScalarVisibilityOn();
-  atomMapper-&gt;SetScalarModeToDefault();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">atomMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">atomMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">atomMapper</span><span class="o">-&gt;</span><span class="n">ImmediateModeRenderingOn</span><span class="p">();</span>
+  <span class="n">atomMapper</span><span class="o">-&gt;</span><span class="n">UseLookupTableScalarRangeOff</span><span class="p">();</span>
+  <span class="n">atomMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOn</span><span class="p">();</span>
+  <span class="n">atomMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToDefault</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkLODActor&gt; atom =
-    vtkSmartPointer&lt;vtkLODActor&gt;::New();
-  atom-&gt;SetMapper(atomMapper);
-  atom-&gt;GetProperty()-&gt;SetRepresentationToSurface();
-  atom-&gt;GetProperty()-&gt;SetInterpolationToGouraud();
-  atom-&gt;GetProperty()-&gt;SetAmbient(0.15);
-  atom-&gt;GetProperty()-&gt;SetDiffuse(0.85);
-  atom-&gt;GetProperty()-&gt;SetSpecular(0.1);
-  atom-&gt;GetProperty()-&gt;SetSpecularPower(30);
-  atom-&gt;GetProperty()-&gt;SetSpecularColor(1, 1, 1);
-  atom-&gt;SetNumberOfCloudPoints(30000);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLODActor</span><span class="o">&gt;</span> <span class="n">atom</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLODActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">atomMapper</span><span class="p">);</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToSurface</span><span class="p">();</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToGouraud</span><span class="p">();</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.15</span><span class="p">);</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.85</span><span class="p">);</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">atom</span><span class="o">-&gt;</span><span class="n">SetNumberOfCloudPoints</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(atom);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">atom</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTubeFilter&gt; tube =
-    vtkSmartPointer&lt;vtkTubeFilter&gt;::New();
-  tube-&gt;SetInputConnection(pdb-&gt;GetOutputPort());
-  tube-&gt;SetNumberOfSides(static_cast&lt;int&gt;(resolution));
-  tube-&gt;CappingOff();
-  tube-&gt;SetRadius(0.2);
-  tube-&gt;SetVaryRadius(0);
-  tube-&gt;SetRadiusFactor(10);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTubeFilter</span><span class="o">&gt;</span> <span class="n">tube</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTubeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tube</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pdb</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">tube</span><span class="o">-&gt;</span><span class="n">SetNumberOfSides</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">resolution</span><span class="p">));</span>
+  <span class="n">tube</span><span class="o">-&gt;</span><span class="n">CappingOff</span><span class="p">();</span>
+  <span class="n">tube</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.2</span><span class="p">);</span>
+  <span class="n">tube</span><span class="o">-&gt;</span><span class="n">SetVaryRadius</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">tube</span><span class="o">-&gt;</span><span class="n">SetRadiusFactor</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; bondMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  bondMapper-&gt;SetInputConnection(tube-&gt;GetOutputPort());
-  bondMapper-&gt;ImmediateModeRenderingOn();
-  bondMapper-&gt;UseLookupTableScalarRangeOff();
-  bondMapper-&gt;ScalarVisibilityOff();
-  bondMapper-&gt;SetScalarModeToDefault();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">bondMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bondMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tube</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">bondMapper</span><span class="o">-&gt;</span><span class="n">ImmediateModeRenderingOn</span><span class="p">();</span>
+  <span class="n">bondMapper</span><span class="o">-&gt;</span><span class="n">UseLookupTableScalarRangeOff</span><span class="p">();</span>
+  <span class="n">bondMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+  <span class="n">bondMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToDefault</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkLODActor&gt; bond =
-    vtkSmartPointer&lt;vtkLODActor&gt;::New();
-  bond-&gt;SetMapper(bondMapper);
-  bond-&gt;GetProperty()-&gt;SetRepresentationToSurface();
-  bond-&gt;GetProperty()-&gt;SetInterpolationToGouraud();
-  bond-&gt;GetProperty()-&gt;SetAmbient(0.15);
-  bond-&gt;GetProperty()-&gt;SetDiffuse(0.85);
-  bond-&gt;GetProperty()-&gt;SetSpecular(0.1);
-  bond-&gt;GetProperty()-&gt;SetSpecularPower(30);
-  bond-&gt;GetProperty()-&gt;SetSpecularColor(1, 1, 1);
-  bond-&gt;GetProperty()-&gt;SetDiffuseColor(1.0000, 0.8941, 0.70981);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLODActor</span><span class="o">&gt;</span> <span class="n">bond</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLODActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">bondMapper</span><span class="p">);</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToSurface</span><span class="p">();</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToGouraud</span><span class="p">();</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.15</span><span class="p">);</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.85</span><span class="p">);</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">bond</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.8941</span><span class="p">,</span> <span class="mf">0.70981</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(bond);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">bond</span><span class="p">);</span>
 
-  interactor-&gt;Initialize();
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ReadPDB)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ReadPDB</span><span class="p">)</span>
 
-add_executable(ReadPDB MACOSX_BUNDLE ReadPDB.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ReadPDB ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ReadPDB</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ReadPDB.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-readpdb">Download and Build ReadPDB</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ReadPDB</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-readpdb">Download and Build ReadPDB<a class="headerlink" href="#download-and-build-readpdb" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ReadPDB.tar">here to download ReadPDB</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ReadPDB.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ReadPDB/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ReadPDB/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ReadPDB
-</code></pre>
+<div class="codehilite"><pre><span></span>./ReadPDB
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,104 +15978,104 @@
                   <h1>GeometricObjectsDemo</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/GeometricObjectsDemo</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GeometricObjectsDemo.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-class GeometricObjects():
+<span class="k">class</span> <span class="nc">GeometricObjects</span><span class="p">():</span>
 
-    def GeometricObjects(self):
+    <span class="k">def</span> <span class="nf">GeometricObjects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        GeometricObjects = list()
-        GeometricObjects.append(vtk.vtkArrowSource())
-        GeometricObjects.append(vtk.vtkConeSource())
-        GeometricObjects.append(vtk.vtkCubeSource())
-        GeometricObjects.append(vtk.vtkCylinderSource())
-        GeometricObjects.append(vtk.vtkDiskSource())
-        GeometricObjects.append(vtk.vtkLineSource())
-        GeometricObjects.append(vtk.vtkRegularPolygonSource())
-        GeometricObjects.append(vtk.vtkSphereSource())
+        <span class="n">GeometricObjects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkArrowSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkCubeSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkCylinderSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkDiskSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkLineSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRegularPolygonSource</span><span class="p">())</span>
+        <span class="n">GeometricObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">())</span>
 
-        renderers = list()
-        mappers = list()
-        actors = list()
-        textmappers = list()
-        textactors = list()
+        <span class="n">renderers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">mappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">actors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textmappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textactors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-        # Create a common text property.
-        textProperty = vtk.vtkTextProperty()
-        textProperty.SetFontSize(10)
-        textProperty.SetJustificationToCentered()
+        <span class="c1"># Create a common text property.</span>
+        <span class="n">textProperty</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextProperty</span><span class="p">()</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetJustificationToCentered</span><span class="p">()</span>
 
-        # Create a parametric function source, renderer, mapper 
-        # and actor for each object.
-        for idx, item in enumerate(GeometricObjects):
-            GeometricObjects[idx].Update()
+        <span class="c1"># Create a parametric function source, renderer, mapper </span>
+        <span class="c1"># and actor for each object.</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">GeometricObjects</span><span class="p">):</span>
+            <span class="n">GeometricObjects</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-            mappers.append(vtk.vtkPolyDataMapper())
-            mappers[idx].SetInputConnection(GeometricObjects[idx].GetOutputPort())
+            <span class="n">mappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">())</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">GeometricObjects</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-            actors.append(vtk.vtkActor())
-            actors[idx].SetMapper(mappers[idx])
+            <span class="n">actors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">())</span>
+            <span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-            textmappers.append(vtk.vtkTextMapper())
-            textmappers[idx].SetInput(item.GetClassName())
-            textmappers[idx].SetTextProperty(textProperty)
+            <span class="n">textmappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextMapper</span><span class="p">())</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">GetClassName</span><span class="p">())</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">)</span>
 
-            textactors.append(vtk.vtkActor2D())
-            textactors[idx].SetMapper(textmappers[idx])
-            textactors[idx].SetPosition(150, 16)
+            <span class="n">textactors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor2D</span><span class="p">())</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 
-            renderers.append(vtk.vtkRenderer())
+            <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">())</span>
 
-        gridDimensions = 3
+        <span class="n">gridDimensions</span> <span class="o">=</span> <span class="mi">3</span>
 
-        for idx in range(len(GeometricObjects)):
-            if idx &lt; gridDimensions * gridDimensions:
-                renderers.append(vtk.vtkRenderer)
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">GeometricObjects</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">:</span>
+                <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">)</span>
 
-        rendererSize = 300
+        <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">300</span>
 
-        # Create the RenderWindow
-        #
-        renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
+        <span class="c1"># Create the RenderWindow</span>
+        <span class="c1">#</span>
+        <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">,</span> <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">)</span>
 
-        # Add and position the renders to the render window.
-        viewport = list()
-        for row in range(gridDimensions):
-            for col in range(gridDimensions):
-                idx = row * gridDimensions + col
+        <span class="c1"># Add and position the renders to the render window.</span>
+        <span class="n">viewport</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">):</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">gridDimensions</span> <span class="o">+</span> <span class="n">col</span>
 
-                viewport[:] = []
-                viewport.append(float(col) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - (row+1)) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(col+1)*rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize))
+                <span class="n">viewport</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
 
-                if idx &gt; (len(GeometricObjects) - 1):
-                    continue
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">GeometricObjects</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">continue</span>
 
-                renderers[idx].SetViewport(viewport)
-                renderWindow.AddRenderer(renderers[idx])
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">)</span>
+                <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-                renderers[idx].AddActor(actors[idx])
-                renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.4,0.3,0.2)
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
 
-        interactor = vtk.vtkRenderWindowInteractor()
-        interactor.SetRenderWindow(renderWindow)
+        <span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+        <span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-        renderWindow.Render()
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-        interactor.Start()
+        <span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-if __name__ == &quot;__main__&quot;:
-    po = GeometricObjects()
-    po.GeometricObjects()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">po</span> <span class="o">=</span> <span class="n">GeometricObjects</span><span class="p">()</span>
+    <span class="n">po</span><span class="o">.</span><span class="n">GeometricObjects</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

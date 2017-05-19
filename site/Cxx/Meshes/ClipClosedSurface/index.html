@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,168 +16005,175 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/ClipClosedSurface</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestClipClosedSurface.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ClipClosedSurface.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkClipClosedSurface.h&gt;
-#include &lt;vtkPlane.h&gt;
-#include &lt;vtkPlaneCollection.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkClipClosedSurface.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlane.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSphereSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-//
-// Demonstrate the use of clipping of polygonal data
-//
+<span class="c1">//</span>
+<span class="c1">// Demonstrate the use of clipping of polygonal data</span>
+<span class="c1">//</span>
 
-int main (int argc, char *argv[])
-{
-  // PolyData to process
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData;
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// PolyData to process</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span><span class="p">;</span>
 
-  if (argc &gt; 1)
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
-    reader-&gt;Update();
-    polyData = reader-&gt;GetOutput();
-  }
-  else
-  {
-    // Create a sphere
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource-&gt;SetThetaResolution(20);
-    sphereSource-&gt;SetPhiResolution(11);
-    sphereSource-&gt;Update();
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// Create a sphere</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    polyData = sphereSource-&gt;GetOutput();
-  }
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  double *center = polyData-&gt;GetCenter();
-  vtkSmartPointer&lt;vtkPlane&gt; plane1 =
-    vtkSmartPointer&lt;vtkPlane&gt;::New();
-  plane1-&gt;SetOrigin(center[0], center[1], center[2]);
-  plane1-&gt;SetNormal(0.0, -1.0, 0.0);
-  vtkSmartPointer&lt;vtkPlane&gt; plane2 =
-    vtkSmartPointer&lt;vtkPlane&gt;::New();
-  plane2-&gt;SetOrigin(center[0], center[1], center[2]);
-  plane2-&gt;SetNormal(0.0, 0.0, 1.0);
-  vtkSmartPointer&lt;vtkPlane&gt; plane3 =
-    vtkSmartPointer&lt;vtkPlane&gt;::New();
-  plane3-&gt;SetOrigin(center[0], center[1], center[2]);
-  plane3-&gt;SetNormal(-1.0, 0.0, 0.0);
+  <span class="kt">double</span> <span class="o">*</span><span class="n">center</span> <span class="o">=</span> <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">plane1</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">plane1</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">plane2</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">plane2</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane3</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">plane3</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">plane3</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPlaneCollection&gt; planes =
-    vtkSmartPointer&lt;vtkPlaneCollection&gt;::New();
-  planes-&gt;AddItem(plane1);
-  planes-&gt;AddItem(plane2);
-  planes-&gt;AddItem(plane3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneCollection</span><span class="o">&gt;</span> <span class="n">planes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneCollection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">planes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">plane1</span><span class="p">);</span>
+  <span class="n">planes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">plane2</span><span class="p">);</span>
+  <span class="n">planes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">plane3</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkClipClosedSurface&gt; clipper =
-    vtkSmartPointer&lt;vtkClipClosedSurface&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  clipper-&gt;SetInput(polyData);
-#else
-  clipper-&gt;SetInputData(polyData);
-#endif
-  clipper-&gt;SetClippingPlanes(planes);
-  clipper-&gt;SetActivePlaneId(2);
-  clipper-&gt;SetScalarModeToColors();
-  clipper-&gt;SetClipColor(0.8900, 0.8100, 0.3400); // banana
-  clipper-&gt;SetBaseColor(1.0000, 0.3882, 0.2784); // tomato
-  clipper-&gt;SetActivePlaneColor(0.6400, 0.5800, 0.5000); // beige
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipClosedSurface</span><span class="o">&gt;</span> <span class="n">clipper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipClosedSurface</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetClippingPlanes</span><span class="p">(</span><span class="n">planes</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetActivePlaneId</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToColors</span><span class="p">();</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetClipColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span> <span class="c1">// banana</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetBaseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span> <span class="c1">// tomato</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetActivePlaneColor</span><span class="p">(</span><span class="mf">0.6400</span><span class="p">,</span> <span class="mf">0.5800</span><span class="p">,</span> <span class="mf">0.5000</span><span class="p">);</span> <span class="c1">// beige</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; clipMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  clipMapper-&gt;SetInputConnection(clipper-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">clipMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clipMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; clipActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  clipActor-&gt;SetMapper(clipMapper);
-  clipActor-&gt;GetProperty()-&gt;SetColor(1.0000,0.3882,0.2784);
-  clipActor-&gt;GetProperty()-&gt;SetInterpolationToFlat();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">clipActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clipActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">clipMapper</span><span class="p">);</span>
+  <span class="n">clipActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span><span class="mf">0.3882</span><span class="p">,</span><span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">clipActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
 
-  // Create graphics stuff
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren1-&gt;SetBackground(.3, .4, .6);
+  <span class="c1">// Create graphics stuff</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  renWin-&gt;SetSize(512,512);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;AddActor(clipActor);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">clipActor</span><span class="p">);</span>
 
-  // Generate an interesting view
-  //
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;Azimuth(120);
-  ren1-&gt;GetActiveCamera()-&gt;Elevation(30);
-  ren1-&gt;GetActiveCamera()-&gt;Dolly(1.0);
-  ren1-&gt;ResetCameraClippingRange();
+  <span class="c1">// Generate an interesting view</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ClipClosedSurface)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ClipClosedSurface</span><span class="p">)</span>
 
-add_executable(ClipClosedSurface MACOSX_BUNDLE ClipClosedSurface.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ClipClosedSurface ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ClipClosedSurface</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ClipClosedSurface.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-clipclosedsurface">Download and Build ClipClosedSurface</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ClipClosedSurface</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-clipclosedsurface">Download and Build ClipClosedSurface<a class="headerlink" href="#download-and-build-clipclosedsurface" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ClipClosedSurface.tar">here to download ClipClosedSurface</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ClipClosedSurface.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ClipClosedSurface/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ClipClosedSurface/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ClipClosedSurface
-</code></pre>
+<div class="codehilite"><pre><span></span>./ClipClosedSurface
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

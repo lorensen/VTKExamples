@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,56 +15990,56 @@
                   <h1>PerspectiveTransform</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/SimpleOperations/PerspectiveTransform</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>The perspective transform automatically appends the "homogeneous 1" to the point before it is multiplied by the matrix. It then divides the first 3 coordinates of the result by the 4th coordinate of the result. For comparison, the standard projection (vtkTransform) is also performed with the same matrix and the same point. Note that the results are much different. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PerspectiveTransform.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void PerspectiveTransform() {
-   vtkMatrix4x4 m = vtkMatrix4x4.New();
-   m.SetElement(0, 0, 1);
-   m.SetElement(0, 1, 2);
-   m.SetElement(0, 2, 3);
-   m.SetElement(0, 3, 4);
-   m.SetElement(1, 0, 2);
-   m.SetElement(1, 1, 2);
-   m.SetElement(1, 2, 3);
-   m.SetElement(1, 3, 4);
-   m.SetElement(2, 0, 3);
-   m.SetElement(2, 1, 2);
-   m.SetElement(2, 2, 3);
-   m.SetElement(2, 3, 4);
-   m.SetElement(3, 0, 4);
-   m.SetElement(3, 1, 2);
-   m.SetElement(3, 2, 3);
-   m.SetElement(3, 3, 4);
+<span class="k">void</span> <span class="nf">PerspectiveTransform</span><span class="p">()</span> <span class="p">{</span>
+   <span class="n">vtkMatrix4x4</span> <span class="n">m</span> <span class="p">=</span> <span class="n">vtkMatrix4x4</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">m</span><span class="p">.</span><span class="n">SetElement</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">);</span>
 
-   vtkPerspectiveTransform perspectiveTransform = vtkPerspectiveTransform.New();
-   perspectiveTransform.SetMatrix(m);
+   <span class="n">vtkPerspectiveTransform</span> <span class="n">perspectiveTransform</span> <span class="p">=</span> <span class="n">vtkPerspectiveTransform</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">perspectiveTransform</span><span class="p">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
 
-   vtkTransform transform = vtkTransform.New();
-   transform.SetMatrix(m);
+   <span class="n">vtkTransform</span> <span class="n">transform</span> <span class="p">=</span> <span class="n">vtkTransform</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+   <span class="n">transform</span><span class="p">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
 
-   double[] p = new double[]{1.0, 2.0, 3.0};
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">p</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]{</span><span class="m">1.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">,</span> <span class="m">3.0</span><span class="p">};</span>
 
-   double[] normalProjection = transform.TransformPoint(p[0], p[1], p[2]);
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">normalProjection</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-   Console.WriteLine(&quot;Standard projection: &quot;
-      + normalProjection[0] + &quot; &quot;
-      + normalProjection[1] + &quot; &quot;
-      + normalProjection[2]);
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Standard projection: &quot;</span>
+      <span class="p">+</span> <span class="n">normalProjection</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span>
+      <span class="p">+</span> <span class="n">normalProjection</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span>
+      <span class="p">+</span> <span class="n">normalProjection</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-   double[] perspectiveProjection = perspectiveTransform.TransformPoint(p[0], p[1], p[2]);
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">perspectiveProjection</span> <span class="p">=</span> <span class="n">perspectiveTransform</span><span class="p">.</span><span class="n">TransformPoint</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-   Console.WriteLine(&quot;Perspective  projection: &quot;
-      + perspectiveProjection[0] + &quot; &quot;
-      + perspectiveProjection[1] + &quot; &quot;
-      + perspectiveProjection[2]);
-}
-</code></pre>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Perspective  projection: &quot;</span>
+      <span class="p">+</span> <span class="n">perspectiveProjection</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span>
+      <span class="p">+</span> <span class="n">perspectiveProjection</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span>
+      <span class="p">+</span> <span class="n">perspectiveProjection</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

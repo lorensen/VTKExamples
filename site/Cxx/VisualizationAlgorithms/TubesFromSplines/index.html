@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,172 +16019,182 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/VisualizationAlgorithms/TubesFromSplines</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/VisualizationAlgorithms/TestTubesFromSplines.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to interpolate a set of points and generate tubes around the resulting polyline. Scalars associated with the points are also interpolated and used to vary the radius of the tube.</p>
-<p>'''NOTE:''' This example was inspired by a question asked by ''Adam Sankowski''.</p>
-<h3 id="code">Code</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example was inspired by a question asked by ''Adam Sankowski''.</p>
+</div>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TubesFromSplines.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkParametricFunctionSource.h&gt;
-#include &lt;vtkTupleInterpolator.h&gt;
-#include &lt;vtkTubeFilter.h&gt;
-#include &lt;vtkParametricSpline.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricFunctionSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTupleInterpolator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTubeFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricSpline.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertPoint(0,1,0,0);
-  points-&gt;InsertPoint(1,2,0,0);
-  points-&gt;InsertPoint(2,3,1,0);
-  points-&gt;InsertPoint(3,4,1,0);
-  points-&gt;InsertPoint(4,5,0,0);
-  points-&gt;InsertPoint(5,6,0,0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  // Fit a spline to the points
-  vtkSmartPointer&lt;vtkParametricSpline&gt; spline =
-    vtkSmartPointer&lt;vtkParametricSpline&gt;::New();
-  spline-&gt;SetPoints(points);
-  vtkSmartPointer&lt;vtkParametricFunctionSource&gt; functionSource =
-    vtkSmartPointer&lt;vtkParametricFunctionSource&gt;::New();
-  functionSource-&gt;SetParametricFunction(spline);
-  functionSource-&gt;SetUResolution(10 * points-&gt;GetNumberOfPoints());
-  functionSource-&gt;Update();
+  <span class="c1">// Fit a spline to the points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricSpline</span><span class="o">&gt;</span> <span class="n">spline</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricSpline</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">spline</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;</span> <span class="n">functionSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">functionSource</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">spline</span><span class="p">);</span>
+  <span class="n">functionSource</span><span class="o">-&gt;</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
+  <span class="n">functionSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Interpolate the scalars
-  double rad;
-  vtkSmartPointer&lt;vtkTupleInterpolator&gt; interpolatedRadius =
-    vtkSmartPointer&lt;vtkTupleInterpolator&gt; ::New();
-  interpolatedRadius-&gt;SetInterpolationTypeToLinear();
-  interpolatedRadius-&gt;SetNumberOfComponents(1);
-  rad = .2; interpolatedRadius-&gt;AddTuple(0,&amp;rad);
-  rad = .2; interpolatedRadius-&gt;AddTuple(1,&amp;rad);
-  rad = .2; interpolatedRadius-&gt;AddTuple(2,&amp;rad);
-  rad = .1; interpolatedRadius-&gt;AddTuple(3,&amp;rad);
-  rad = .1; interpolatedRadius-&gt;AddTuple(4,&amp;rad);
-  rad = .1; interpolatedRadius-&gt;AddTuple(5,&amp;rad);
+  <span class="c1">// Interpolate the scalars</span>
+  <span class="kt">double</span> <span class="n">rad</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTupleInterpolator</span><span class="o">&gt;</span> <span class="n">interpolatedRadius</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTupleInterpolator</span><span class="o">&gt;</span> <span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">();</span>
+  <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">rad</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">;</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rad</span><span class="p">);</span>
+  <span class="n">rad</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">;</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rad</span><span class="p">);</span>
+  <span class="n">rad</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">;</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rad</span><span class="p">);</span>
+  <span class="n">rad</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rad</span><span class="p">);</span>
+  <span class="n">rad</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rad</span><span class="p">);</span>
+  <span class="n">rad</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="o">&amp;</span><span class="n">rad</span><span class="p">);</span>
 
-  // Generate the radius scalars
-  vtkSmartPointer&lt;vtkDoubleArray&gt; tubeRadius =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  unsigned int n = functionSource-&gt;GetOutput()-&gt;GetNumberOfPoints();
-  tubeRadius-&gt;SetNumberOfTuples(n);
-  tubeRadius-&gt;SetName(&quot;TubeRadius&quot;);
-  double tMin = interpolatedRadius-&gt;GetMinimumT();
-  double tMax = interpolatedRadius-&gt;GetMaximumT();
-  double r;
-  for (unsigned int i = 0; i &lt; n; ++i)
-  {
-    double t = (tMax - tMin) / (n - 1) * i + tMin;
-    interpolatedRadius-&gt;InterpolateTuple(t, &amp;r);
-    tubeRadius-&gt;SetTuple1(i, r);
-  }
+  <span class="c1">// Generate the radius scalars</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">tubeRadius</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">functionSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span>
+  <span class="n">tubeRadius</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+  <span class="n">tubeRadius</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;TubeRadius&quot;</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">tMin</span> <span class="o">=</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">GetMinimumT</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">tMax</span> <span class="o">=</span> <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">GetMaximumT</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">r</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">tMax</span> <span class="o">-</span> <span class="n">tMin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">tMin</span><span class="p">;</span>
+    <span class="n">interpolatedRadius</span><span class="o">-&gt;</span><span class="n">InterpolateTuple</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">);</span>
+    <span class="n">tubeRadius</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Add the scalars to the polydata
-  vtkSmartPointer&lt;vtkPolyData&gt; tubePolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  tubePolyData = functionSource-&gt;GetOutput();
-  tubePolyData-&gt;GetPointData()-&gt;AddArray(tubeRadius);
-  tubePolyData-&gt;GetPointData()-&gt;SetActiveScalars(&quot;TubeRadius&quot;);
+  <span class="c1">// Add the scalars to the polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">tubePolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tubePolyData</span> <span class="o">=</span> <span class="n">functionSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="n">tubePolyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">tubeRadius</span><span class="p">);</span>
+  <span class="n">tubePolyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s">&quot;TubeRadius&quot;</span><span class="p">);</span>
 
-  // Create the tubes
-  vtkSmartPointer&lt;vtkTubeFilter&gt; tuber =
-    vtkSmartPointer&lt;vtkTubeFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  tuber-&gt;SetInput(tubePolyData);
-#else
-  tuber-&gt;SetInputData(tubePolyData);
-#endif
-  tuber-&gt;SetNumberOfSides(20);
-  tuber-&gt;SetVaryRadiusToVaryRadiusByAbsoluteScalar();
+  <span class="c1">// Create the tubes</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTubeFilter</span><span class="o">&gt;</span> <span class="n">tuber</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTubeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">tuber</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">tubePolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">tuber</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">tubePolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">tuber</span><span class="o">-&gt;</span><span class="n">SetNumberOfSides</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">tuber</span><span class="o">-&gt;</span><span class="n">SetVaryRadiusToVaryRadiusByAbsoluteScalar</span><span class="p">();</span>
 
-  //--------------
-  // Setup actors and mappers
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; lineMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  lineMapper-&gt;SetInput(tubePolyData);
-#else
-  lineMapper-&gt;SetInputData(tubePolyData);
-#endif
-  lineMapper-&gt;SetScalarRange(tubePolyData-&gt;GetScalarRange());
+  <span class="c1">//--------------</span>
+  <span class="c1">// Setup actors and mappers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">lineMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">lineMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">tubePolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">lineMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">tubePolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">lineMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">tubePolyData</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; tubeMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  tubeMapper-&gt;SetInputConnection(tuber-&gt;GetOutputPort());
-  tubeMapper-&gt;SetScalarRange(tubePolyData-&gt;GetScalarRange());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">tubeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tubeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tuber</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">tubeMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">tubePolyData</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; lineActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  lineActor-&gt;SetMapper(lineMapper);
-  vtkSmartPointer&lt;vtkActor&gt; tubeActor = vtkSmartPointer&lt;vtkActor&gt;::New();
-  tubeActor-&gt;SetMapper(tubeMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">lineActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lineActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">lineMapper</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">tubeActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tubeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">tubeMapper</span><span class="p">);</span>
 
-  // Setup render window, renderer, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderer-&gt;AddActor(lineActor);
-  renderer-&gt;AddActor(tubeActor);
-  renderer-&gt;SetBackground(.4, .5, .6);
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Setup render window, renderer, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">lineActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">tubeActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TubesFromSplines)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TubesFromSplines</span><span class="p">)</span>
 
-add_executable(TubesFromSplines MACOSX_BUNDLE TubesFromSplines.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TubesFromSplines ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TubesFromSplines</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TubesFromSplines.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-tubesfromsplines">Download and Build TubesFromSplines</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TubesFromSplines</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-tubesfromsplines">Download and Build TubesFromSplines<a class="headerlink" href="#download-and-build-tubesfromsplines" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TubesFromSplines.tar">here to download TubesFromSplines</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TubesFromSplines.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TubesFromSplines/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TubesFromSplines/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TubesFromSplines
-</code></pre>
+<div class="codehilite"><pre><span></span>./TubesFromSplines
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

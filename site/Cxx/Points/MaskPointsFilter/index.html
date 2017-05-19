@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,201 +16019,208 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Points/MaskPointsFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Points/TestMaskPointsFilter.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>'''NOTE: The classes used in this example require vtk 7.1 or later.'''</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MaskPointsFilter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkMaskPointsFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskPointsFilter.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkBoundedPointSource.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkCone.h&gt;
-#include &lt;vtkSampleImplicitFunctionFilter.h&gt;
-#include &lt;vtkImageThreshold.h&gt;
-#include &lt;vtkBoundedPointSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoundedPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCone.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSampleImplicitFunctionFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageThreshold.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoundedPointSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkMetaImageReader.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageReader.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkCamera.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-static vtkSmartPointer&lt;vtkImageData&gt; CreatePoints();
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">CreatePoints</span><span class="p">();</span>
 
-int main (int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkImageData&gt; imageMask;
-  if (argc &lt; 2)
-  {
-    imageMask = CreatePoints();
-  }
-  else
-  {
-    int upper = 1100;
-    if (argc &gt; 2)
-    {
-      upper = atoi(argv[2]);
-    }
-    // Read the volume data
-    vtkSmartPointer&lt;vtkMetaImageReader&gt; reader =
-      vtkSmartPointer&lt;vtkMetaImageReader&gt;::New();
-    reader-&gt;SetFileName (argv[1]);
-    reader-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageMask</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">imageMask</span> <span class="o">=</span> <span class="n">CreatePoints</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">upper</span> <span class="o">=</span> <span class="mi">1100</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">upper</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="c1">// Read the volume data</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkImageThreshold&gt; threshold =
-      vtkSmartPointer&lt;vtkImageThreshold&gt;::New();
-    threshold-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-    threshold-&gt;ThresholdByUpper(upper);
-    threshold-&gt;SetOutputScalarTypeToUnsignedChar();
-    threshold-&gt;ReplaceInOn();
-    threshold-&gt;SetInValue(255);
-    threshold-&gt;SetOutValue(0);
-    threshold-&gt;ReplaceOutOn();
-    threshold-&gt;Update();
-    imageMask = vtkImageData::SafeDownCast(threshold-&gt;GetOutput());
-  }
-  vtkSmartPointer&lt;vtkBoundedPointSource&gt; pointSource =
-    vtkSmartPointer&lt;vtkBoundedPointSource&gt;::New();
-  pointSource-&gt;SetNumberOfPoints(100000);
-  pointSource-&gt;SetBounds(imageMask-&gt;GetBounds());
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageThreshold</span><span class="o">&gt;</span> <span class="n">threshold</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="n">upper</span><span class="p">);</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ReplaceInOn</span><span class="p">();</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInValue</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetOutValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ReplaceOutOn</span><span class="p">();</span>
+    <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">imageMask</span> <span class="o">=</span> <span class="n">vtkImageData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">threshold</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoundedPointSource</span><span class="o">&gt;</span> <span class="n">pointSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoundedPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetBounds</span><span class="p">(</span><span class="n">imageMask</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkMaskPointsFilter&gt; maskPoints =
-    vtkSmartPointer&lt;vtkMaskPointsFilter&gt;::New();
-  maskPoints-&gt;SetInputConnection(pointSource-&gt;GetOutputPort());
-  maskPoints-&gt;SetMaskData(imageMask);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPointsFilter</span><span class="o">&gt;</span> <span class="n">maskPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPointsFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">SetMaskData</span><span class="p">(</span><span class="n">imageMask</span><span class="p">);</span>
 
-  double radius = imageMask-&gt;GetSpacing()[0] * 4.0;
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetRadius(radius);
+  <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">imageMask</span><span class="o">-&gt;</span><span class="n">GetSpacing</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">4.0</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  glyph-&gt;SetInputConnection(maskPoints-&gt;GetOutputPort());
-  glyph-&gt;SetSourceConnection(sphereSource-&gt;GetOutputPort());
-  glyph-&gt;ScalingOff();
-  glyph-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">ScalingOff</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyphMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  glyphMapper-&gt;SetInputConnection(glyph-&gt;GetOutputPort());
-  glyphMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyphMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; glyphActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyphActor-&gt;SetMapper(glyphMapper);
-  glyphActor-&gt;GetProperty()-&gt;SetColor(0.8900, 0.8100, 0.3400);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyphActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">);</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
 
-  // Create graphics stuff
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren1-&gt;SetBackground(.3, .4, .6);
+  <span class="c1">// Create graphics stuff</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  renWin-&gt;SetSize(512,512);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;AddActor(glyphActor);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyphActor</span><span class="p">);</span>
 
-  // Generate an interesting view
-  //
-  ren1-&gt;GetActiveCamera()-&gt;SetPosition (1, 0, 0);
-  ren1-&gt;GetActiveCamera()-&gt;SetFocalPoint (0, 1, 0);
-  ren1-&gt;GetActiveCamera()-&gt;SetViewUp (0, 0, -1);
-  ren1-&gt;GetActiveCamera()-&gt;Azimuth(30);
-  ren1-&gt;GetActiveCamera()-&gt;Elevation(30);
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;Dolly(1.0);
-  ren1-&gt;ResetCameraClippingRange();
+  <span class="c1">// Generate an interesting view</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetViewUp</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-static vtkSmartPointer&lt;vtkImageData&gt; CreatePoints()
-{
-  vtkSmartPointer&lt;vtkImageData&gt; imageMask =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">CreatePoints</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageMask</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageData&gt; image =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  image-&gt;SetDimensions(256,256,256);
-  image-&gt;AllocateScalars(VTK_DOUBLE,1);
-  image-&gt;SetSpacing(5.0/255.0, 5.0/255.0, 5.0/255.0);
-  image-&gt;SetOrigin(-2.5, -2.5, -2.5);
-  vtkSmartPointer&lt;vtkCone&gt; implicitFunction =
-    vtkSmartPointer&lt;vtkCone&gt;::New();
-  vtkSmartPointer&lt;vtkSampleImplicitFunctionFilter&gt; sample = 
-    vtkSmartPointer&lt;vtkSampleImplicitFunctionFilter&gt;::New();
-  sample-&gt;SetImplicitFunction(implicitFunction);
-  sample-&gt;SetInputData(image);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="mf">5.0</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="o">/</span><span class="mf">255.0</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCone</span><span class="o">&gt;</span> <span class="n">implicitFunction</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCone</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleImplicitFunctionFilter</span><span class="o">&gt;</span> <span class="n">sample</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleImplicitFunctionFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">implicitFunction</span><span class="p">);</span>
+  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageThreshold&gt; threshold =
-    vtkSmartPointer&lt;vtkImageThreshold&gt;::New();
-  threshold-&gt;SetInputConnection(sample-&gt;GetOutputPort());
-  threshold-&gt;ThresholdByLower(.5);
-  threshold-&gt;SetOutputScalarTypeToUnsignedChar();
-  threshold-&gt;ReplaceInOn();
-  threshold-&gt;SetInValue(255);
-  threshold-&gt;SetOutValue(0);
-  threshold-&gt;ReplaceOutOn();
-  threshold-&gt;Update();
-  imageMask = vtkImageData::SafeDownCast(threshold-&gt;GetOutput());
-  return imageMask;
-}
-</code></pre>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageThreshold</span><span class="o">&gt;</span> <span class="n">threshold</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sample</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ThresholdByLower</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ReplaceInOn</span><span class="p">();</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInValue</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetOutValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ReplaceOutOn</span><span class="p">();</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">imageMask</span> <span class="o">=</span> <span class="n">vtkImageData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">threshold</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="k">return</span> <span class="n">imageMask</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MaskPointsFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MaskPointsFilter</span><span class="p">)</span>
 
-add_executable(MaskPointsFilter MACOSX_BUNDLE MaskPointsFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MaskPointsFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MaskPointsFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MaskPointsFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-maskpointsfilter">Download and Build MaskPointsFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MaskPointsFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-maskpointsfilter">Download and Build MaskPointsFilter<a class="headerlink" href="#download-and-build-maskpointsfilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MaskPointsFilter.tar">here to download MaskPointsFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MaskPointsFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MaskPointsFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MaskPointsFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MaskPointsFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./MaskPointsFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

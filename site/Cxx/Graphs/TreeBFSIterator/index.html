@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,83 +16004,90 @@
                   <h1>TreeBFSIterator</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/TreeBFSIterator</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TreeBFSIterator.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkMutableDirectedGraph.h&gt;
-#include &lt;vtkTree.h&gt;
-#include &lt;vtkTreeBFSIterator.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableDirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTree.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTreeBFSIterator.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  //create a tree
-  vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; g =
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">//create a tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkIdType v1 = g-&gt;AddVertex();
-  vtkIdType v2 = g-&gt;AddVertex();
-  vtkIdType v3 = g-&gt;AddVertex();
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
 
-  g-&gt;AddEdge(v1, v2);
-  g-&gt;AddEdge(v1, v3);
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTree&gt; tree =
-    vtkSmartPointer&lt;vtkTree&gt;::New();
-  tree-&gt;CheckedShallowCopy(g);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTree</span><span class="o">&gt;</span> <span class="n">tree</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTree</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tree</span><span class="o">-&gt;</span><span class="n">CheckedShallowCopy</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
 
-  //setup the iterator
-  vtkIdType root = 0;
+  <span class="c1">//setup the iterator</span>
+  <span class="n">vtkIdType</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkTreeBFSIterator&gt; bfsIterator =
-      vtkSmartPointer&lt;vtkTreeBFSIterator&gt;::New();
-  bfsIterator-&gt;SetStartVertex(root);
-  bfsIterator-&gt;SetTree(tree);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeBFSIterator</span><span class="o">&gt;</span> <span class="n">bfsIterator</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeBFSIterator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bfsIterator</span><span class="o">-&gt;</span><span class="n">SetStartVertex</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+  <span class="n">bfsIterator</span><span class="o">-&gt;</span><span class="n">SetTree</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
 
-  //traverse the tree in a breadth first fashion
-  while(bfsIterator-&gt;HasNext())
-  {
-    vtkIdType nextVertex = bfsIterator-&gt;Next();
-    std::cout &lt;&lt; &quot;Next vertex: &quot; &lt;&lt; nextVertex &lt;&lt; std::endl;
-  }
+  <span class="c1">//traverse the tree in a breadth first fashion</span>
+  <span class="k">while</span><span class="p">(</span><span class="n">bfsIterator</span><span class="o">-&gt;</span><span class="n">HasNext</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">vtkIdType</span> <span class="n">nextVertex</span> <span class="o">=</span> <span class="n">bfsIterator</span><span class="o">-&gt;</span><span class="n">Next</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Next vertex: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nextVertex</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TreeBFSIterator)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TreeBFSIterator</span><span class="p">)</span>
 
-add_executable(TreeBFSIterator MACOSX_BUNDLE TreeBFSIterator.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TreeBFSIterator ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TreeBFSIterator</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TreeBFSIterator.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-treebfsiterator">Download and Build TreeBFSIterator</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TreeBFSIterator</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-treebfsiterator">Download and Build TreeBFSIterator<a class="headerlink" href="#download-and-build-treebfsiterator" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TreeBFSIterator.tar">here to download TreeBFSIterator</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TreeBFSIterator.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TreeBFSIterator/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TreeBFSIterator/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TreeBFSIterator
-</code></pre>
+<div class="codehilite"><pre><span></span>./TreeBFSIterator
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,7 +16019,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/CurvatureBandsWithGlyphs</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestCurvatureBandsWithGlyphs.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>In this example we are coloring the surface by partitioning the gaussian curvature into bands and using arrows to display the normals on the surface.</p>
 <p>Rather beautiful surfaces are generated.</p>
 <p>The banded contour filter and an indexed lookup table are used along with 
@@ -16022,959 +16034,952 @@ function. This allows us to specify multiple surface types and, in this code,
 to use an enum to pick the one we want.</p>
 <p>The surface selected is the parametric random hills surface. The problem with
 the random hills surface is that most of the gaussian curvatures will lie in the range -1 to 0.2 (say) with a few large values say 20 to 40 at the peaks of the hills. Thus we need to manually allocate the color banding, this is done in the function MakeCustomBands(). The ranges selected in this function were determined by generating a frequency table for 20 bands and seeing where the values lie in the table. Then from this the distribution of the bands was made to best show the nature of the surface. The edges of the random hills surface have large irregular values so these are clipped.</p>
-<p>The process is as follows:</p>
-<ol>
-<li>
-<p>Use an enum to select your surface generating elevations and curvatures and clipping is needed.</p>
-</li>
-<li>
-<p>Use vtkColorSeries to make an indexed lookup table.</p>
-</li>
-<li>
-<p>Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands. If need be we generate manual bands.</p>
-</li>
-<li>
-<p>This list is then used to define the labels for the scalar bar using the midpoints of the ranges in the bands as the labels.</p>
-</li>
-<li>
-<p>Once this is done, we annotate the lookup table and then create a reversed lookup table. This will be used by the scalar bar actor.</p>
-</li>
-</ol>
-<p>6.The maximum values in the ranges in the bands are used to set the bands in the banded contour filter.</p>
-<ol>
-<li>
-<p>Glyphs are then created for the normals.</p>
-</li>
-<li>
-<p>Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.</p>
-</li>
-<li>
-<p>The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.</p>
-</li>
-</ol>
+<p>The process is as follows:
+ 1. Use an enum to select your surface generating elevations and curvatures and clipping as needed.
+ 2. Use vtkColorSeries to make an indexed lookup table.
+ 3. Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands. If need be we generate manual bands.
+ 4. This list is then used to define the labels for the scalar bar using the midpoints of the ranges in the bands as the labels.
+ 5. Once this is done, we annotate the lookup table and then create a reversed lookup table. This will be used by the scalar bar actor.
+ 6. The maximum values in the ranges in the bands are used to set the bands in the banded contour filter.
+ 7. Glyphs are then created for the normals.
+ 8. Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.
+ 9. The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.</p>
 <p>Feel free to experiment with different color schemes and/or the other
 sources from the parametric function group or the torus etc.</p>
-<p>Note that in the function MakeParametricHills() we use ClockwiseOrderingOff() when using vtkParametricRandomHills as a source, this ensures that the normals face in the expected direction, the default is ClockwiseOrderingOn(). As an alternative, in MakeGlyphs(), you can set reverseNormals to true thereby invoking vtkReverseSense to achieve the same effect.</p>
+<p>For versions of VTK older than VTK 8.0:</p>
+<div class="codehilite"><pre><span></span>In the function `MakeParametricHills()` you may have to set `ClockwiseOrderingOff()` when using vtkParametricRandomHills as a source,
+this ensures that the normals face in the expected direction, the default is `ClockwiseOrderingOn()`.
+As an alternative, in `MakeGlyphs()`, you can set reverseNormals to True thereby invoking vtkReverseSense to achieve the same effect.
+</pre></div>
+
+
 <p>You will usually need to adjust the parameters for maskPts,
 arrow and glyph for a nice appearance.
 Do this in the function MakeGlyphs().</p>
 <p>PrintBands() and PrintFrequencies() allow you to inspect the bands and
 the number of scalars in each band. These are useful if you want to
 get an idea of the distribution of the scalars in each band.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CurvatureBandsWithGlyphs.cxx</strong></p>
-<pre><code class="c++">// The source
-#include &lt;vtkSuperquadricSource.h&gt;
-#include &lt;vtkParametricTorus.h&gt;
-#include &lt;vtkParametricRandomHills.h&gt;
-#include &lt;vtkParametricFunctionSource.h&gt;
-#include &lt;vtkTriangleFilter.h&gt;
-#include &lt;vtkCleanPolyData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPlaneSource.h&gt;
-#include &lt;vtkElevationFilter.h&gt;
-// Curvatures
-#include &lt;vtkClipPolyData.h&gt;
-#include &lt;vtkCurvatures.h&gt;
-#include &lt;vtkPlane.h&gt;
-#include &lt;vtkImplicitBoolean.h&gt;
-// For annotating
-#include &lt;vtkVariantArray.h&gt;
-// Lookup table
-#include &lt;vtkColorSeries.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-// For glyphing
-#include &lt;vtkReverseSense.h&gt;
-#include &lt;vtkMaskPoints.h&gt;
-#include &lt;vtkArrowSource.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
-// For contouring
-#include &lt;vtkBandedPolyDataContourFilter.h&gt;
-// Mappers, actors, renderers etc.
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkScalarBarActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-
-#include &lt;vtkSmartPointer.h&gt;
-#define VTK_SP(type, name)\
-  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()
-
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-#include &lt;sstream&gt;
-#include &lt;algorithm&gt;
-#include &lt;functional&gt;
-#include &lt;iterator&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cctype&gt;
-#include &lt;cmath&gt;
-#include &lt;cstring&gt;
-
-enum SURFACE_TYPE { TORUS = 0, PARAMETRIC_HILLS, PARAMETRIC_TORUS };
-
-namespace {
-  //! Some STL Utilities.
-  class STLHelpers
-  {
-  public:
-    //---------------------------------------------------------------------------
-    STLHelpers(){}
-
-    //---------------------------------------------------------------------------
-    virtual ~STLHelpers(){}
-
-    //-----------------------------------------------------------------------------
-    // Convert a string to lowercase.
-    std::string ToLowercase(const std::string &amp; str)
-    {
-      std::string s;
-      std::transform(str.begin(), str.end(), std::back_inserter(s),
-        (int(*)(int))std::tolower);
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    // Replace all occurrences of old_value in a string with new_value.
-    std::string ReplaceAll(std::string &amp; str,
-      const std::string &amp; old_value, const std::string &amp; new_value)
-    {
-      size_t start_pos = 0;
-      while ((start_pos = str.find(old_value, start_pos)) != std::string::npos)
-      {
-        str.replace(start_pos, old_value.length(), new_value);
-        // It could be that 'new_value' is a substring of 'old_value'.
-        start_pos += new_value.length();
-      }
-      return str;
-    }
-
-    //-----------------------------------------------------------------------------
-    // An implementation of the C++11 next(iter,n) found in the header &lt;iterator&gt;.
-    // ForwardIt must meet the requirements of ForwardIterator.
-    // Return the nth successor of iterator it.
-    template &lt;typename ForwardIt&gt;
-    ForwardIt Next(ForwardIt iter,
-      typename std::iterator_traits&lt;ForwardIt&gt;::difference_type n = 1)
-    {
-      std::advance(iter, n);
-      return iter;
-    }
-
-    //-----------------------------------------------------------------------------
-    // Return true if the iterator points to the last element.
-    template &lt;typename Iter, typename Cont&gt;
-    bool IsLast(Iter iter, const Cont &amp; cont)
-    {
-      return (iter != cont.end()) &amp;&amp; (Next(iter) == cont.end());
-    }
-
-  };
-
-  //-----------------------------------------------------------------------------
-  // Function declarations.
-
-  //! Divide a range into bands
-  /*!
-  @param dR - [min, max] the range that is to be covered by the bands.
-  @param numberOfBands - the number of bands, a positive integer.
-  @param nearestInteger - if True then [floor(min), ceil(max)] is used.
-  @return A List consisting of [min, midpoint, max] for each band.
-  */
-  std::vector&lt;std::vector&lt;double&gt; &gt; MakeBands(double const dR[2],
-    int const &amp; numberOfBands, bool const &amp; nearestInteger);
-
-  //! Divide a range into custom bands
-  /*!
-  You need to specify each band as a list [r1, r2] where r1 &lt; r2 and
-  append these to a list (called x in the implementation).
-  The list should ultimately look
-  like this: x = [[r1, r2], [r2, r3], [r3, r4]...]
-
-  @param dR - [min, max] the range that is to be covered by the bands.
-  @param numberOfBands - the number of bands, a positive integer.
-  @return A List consisting of [min, midpoint, max] for each band.
-  */
-  std::vector&lt;std::vector&lt;double&gt; &gt; MakeCustomBands(double const dR[2],
-    int const &amp; numberOfBands);
-
-  //! Divide a range into integral bands
-  /*!
-  Divide a range into bands
-  @param dR - [min, max] the range that is to be covered by the bands.
-  @return A List consisting of [min, midpoint, max] for each band.
-  */
-  std::vector&lt;std::vector&lt;double&gt; &gt; MakeIntegralBands(double const dR[2]);
-
-  //! Print the bands.
-  /*!
-  @param bands - the bands.
-  */
-  void PrintBands(std::vector&lt;std::vector&lt;double&gt; &gt; const &amp; bands);
-
-  //! Generate elevations over the surface.
-  /*!
-  @param src - the vtkPolyData source.
-  @param elev - the vtkPolyData source with elevations.
-  */
-  void MakeElevations(vtkPolyData *src, vtkPolyData *elev);
-
-  //! Make a torus as the source.
-  /*!
-  @param The vtkPolyData source with normal and scalar data.
-  */
-  void MakeTorus(vtkPolyData *src);
-
-  //! Make a parametric torus as the source.
-  /*!
-  @param The vtkPolyData source with normal and scalar data.
-  */
-  void MakeParametricTorus(vtkPolyData *src);
-
-  //! Make a parametric hills surface as the source.
-  /*!
-  @param The vtkPolyData source with normal and scalar data.
-  */
-  void MakeParametricHills(vtkPolyData *src);
-
-  //! Calculate curvatures.
-  /*!
-  Clip a vtkPolyData source.
-  A cube is made whose size corresponds the the bounds of the source.
-  Then each side is shrunk by the appropriate dx, dy or dz. After
-  this operation the source is clipped by the cube.
-  @param src - the vtkPolyData source
-  @param dx - the amount to clip in the x-direction
-  @param dy - the amount to clip in the y-direction
-  @param dz - the amount to clip in the z-direction
-  @param clipped - clipped vtkPolyData.
-  */
-  void Clipper(vtkPolyData *src,
-    double const &amp; dx, double const &amp; dy,
-    double const &amp; dz, vtkPolyData *clipped);
-
-  //! Calculate curvatures.
-  /*!
-  The source must be triangulated.
-  @param src - the source.
-  @param curv - vtkPolyData with normals and scalar data representing curvatures.
-  */
-  void CalculateCurvatures(vtkPolyData *src, vtkPolyData *curv);
-
-  /*!
-  @param lut - An indexed lookup table.
-  */
-  void MakeLUT(vtkLookupTable *lut);
-
-  //! Create a lookup table with the colors reversed.
-  /*!
-  @param lut - An indexed lookup table.
-  @param lutr - The reversed indexed lookup table.
-  */
-  void ReverseLUT(vtkLookupTable *lut, vtkLookupTable *lutr);
-
-  //! Count the number of scalars in each band.
-  /*!
-  @param bands - the bands.
-  @param src - the vtkPolyData source.
-  @return The frequencies of the scalars in each band.
-  */
-  std::vector&lt;int&gt; Frequencies(
-    std::vector&lt;std::vector&lt;double&gt; &gt; const &amp; bands,
-    vtkPolyData * src);
-
-  //! Print the frequency table.
-  /*!
-  @param freq - the frequencies.
-  */
-  void PrintFrequencies(std::vector&lt;int&gt; &amp; freq);
-
-  //!  Glyph the normals on the surface.
-  /*!
-  @param src - the vtkPolyData source.
-  @param reverseNormals - if True the normals on the surface are reversed.
-  @param glyph - The glyphs.
-  */
-  void MakeGlyphs(vtkPolyData *src, bool const &amp; reverseNormals,
-    vtkGlyph3D *glyph);
-
-  //! Assemble the surface for display.
-  /*!
-  @param st - the surface to display.
-  @param iren - the interactor.
-  */
-  void Display(SURFACE_TYPE st, vtkRenderWindowInteractor *iren);
-
-  //-----------------------------------------------------------------------------
-  std::vector&lt;std::vector&lt;double&gt; &gt; MakeBands(double const dR[2],
-    int const &amp; numberOfBands, bool const &amp; nearestInteger)
-  {
-    std::vector&lt;std::vector&lt;double&gt; &gt; bands;
-    if ((dR[1] &lt; dR[0]) || (numberOfBands &lt;= 0))
-    {
-      return bands;
-    }
-    double x[2];
-    for (int i = 0; i &lt; 2; ++i)
-    {
-      x[i] = dR[i];
-    }
-    if (nearestInteger)
-    {
-      x[0] = std::floor(x[0]);
-      x[1] = std::ceil(x[1]);
-    }
-    double dx = (x[1] - x[0]) / static_cast&lt;double&gt;(numberOfBands);
-    std::vector&lt;double&gt; b;
-    b.push_back(x[0]);
-    b.push_back(x[0] + dx / 2.0);
-    b.push_back(x[0] + dx);
-    for (int i = 0; i &lt; numberOfBands; ++i)
-    {
-      bands.push_back(b);
-      for (std::vector&lt;double&gt;::iterator p = b.begin(); p != b.end(); ++p)
-      {
-        *p = *p + dx;
-      }
-    }
-    return bands;
-  }
-
-  //-----------------------------------------------------------------------------
-  std::vector&lt;std::vector&lt;double&gt; &gt; MakeCustomBands(double const dR[2],
-    int const &amp; numberOfBands)
-  {
-    std::vector&lt;std::vector&lt;double&gt; &gt; bands;
-    if ((dR[1] &lt; dR[0]) || (numberOfBands &lt;= 0))
-    {
-      return bands;
-    }
-    // We can do this much better in c++11!
-    double myBands[][2] = {
-        { -0.7, -0.05 }, { -0.05, 0 },
-        { 0, 0.13 }, { 0.13, 1.07 },
-        { 1.07, 35.4 }, { 35.4, 37.1 }
-      };
-    std::vector&lt;std::vector&lt;double&gt; &gt; x;
-    for (int i = 0; i &lt; 6; ++i)
-    {
-      std::vector&lt;double&gt; tmp(2);
-      tmp[0] = myBands[i][0]; tmp[1] = myBands[i][1];
-      x.push_back(tmp);
-    }
-    // Set the minimum to match the range minimum.
-    x[0][0] = dR[0];
-    size_t sz = (static_cast&lt;size_t&gt;(numberOfBands) &lt; x.size()) ?
-      static_cast&lt;size_t&gt;(numberOfBands) : x.size();
-    // Adjust the last band.
-    std::vector&lt;double&gt; t = x[sz - 1];
-    if (x[sz - 1][0] &gt; dR[1])
-    {
-      x[sz - 1][0] = dR[0];
-    }
-    x[sz - 1][1] = dR[1];
-    for (size_t i = 0; i &lt; sz; ++i)
-    {
-      std::vector&lt;double&gt; b(3);
-      b[0] = x[i][0];
-      b[1] = x[i][0] + (x[i][1] - x[i][0]) / 2.0;
-      b[2] = x[i][1];
-      bands.push_back(b);
-    }
-    return bands;
-  }
-
-  //-----------------------------------------------------------------------------
-  std::vector&lt;std::vector&lt;double&gt; &gt; MakeIntegralBands(double const dR[2])
-  {
-    std::vector&lt;std::vector&lt;double&gt; &gt; bands;
-    if (dR[1] &lt; dR[0])
-    {
-      return bands;
-    }
-    double x[2];
-    for (int i = 0; i &lt; 2; ++i)
-    {
-      x[i] = dR[i];
-    }
-    x[0] = std::floor(x[0]);
-    x[1] = std::ceil(x[1]);
-    int numberOfBands = static_cast&lt;int&gt;(std::abs(x[1]) + std::abs(x[0]));
-    return MakeBands(x, numberOfBands, false);
-  }
-
-  //-----------------------------------------------------------------------------
-  void PrintBands(std::vector&lt;std::vector&lt;double&gt; &gt; const &amp; bands)
-  {
-    STLHelpers stlHelpers = STLHelpers();
-    for (std::vector&lt;std::vector&lt;double&gt; &gt;::const_iterator p = bands.begin();
-      p != bands.end(); ++p)
-    {
-      if (p == bands.begin())
-      {
-        std::cout &lt;&lt; &quot;[&quot;;
-      }
-      for (std::vector&lt;double&gt;::const_iterator q = p-&gt;begin(); q != p-&gt;end(); ++q)
-      {
-        if (q == p-&gt;begin())
-        {
-          std::cout &lt;&lt; &quot;[&quot;;
-        }
-        if (!stlHelpers.IsLast(q, *p))
-        {
-          std::cout &lt;&lt; *q &lt;&lt; &quot;, &quot;;
-        }
-        else
-        {
-          std::cout &lt;&lt; *q &lt;&lt; &quot;]&quot;;
-        }
-      }
-      if (!stlHelpers.IsLast(p, bands))
-      {
-        std::cout &lt;&lt; &quot;, &quot;;
-      }
-      else
-      {
-        std::cout &lt;&lt; &quot;]&quot;;
-      }
-    }
-    std::cout &lt;&lt; std::endl;
-  }
-
-  //-----------------------------------------------------------------------------
-  void MakeElevations(vtkPolyData *src, vtkPolyData *elev)
-  {
-    double bounds[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    src-&gt;GetBounds(bounds);
-    VTK_SP(vtkElevationFilter, elevFilter);
-    elevFilter-&gt;SetInputData(src);
-    elevFilter-&gt;SetLowPoint(0, bounds[2], 0);
-    elevFilter-&gt;SetHighPoint(0, bounds[3], 0);
-    elevFilter-&gt;SetScalarRange(bounds[2], bounds[3]);
-    elevFilter-&gt;Update();
-    elev-&gt;DeepCopy(elevFilter-&gt;GetPolyDataOutput());
-  }
-
-  //-----------------------------------------------------------------------------
-  void MakeTorus(vtkPolyData *src)
-  {
-    VTK_SP(vtkSuperquadricSource, source);
-    source-&gt;SetCenter(0.0, 0.0, 0.0);
-    source-&gt;SetCenter(1.0, 1.0, 1.0);
-    source-&gt;SetPhiResolution(64);
-    source-&gt;SetThetaResolution(64);
-    source-&gt;SetThetaRoundness(1);
-    source-&gt;SetThickness(0.5);
-    source-&gt;SetSize(10);
-    source-&gt;SetToroidal(1);
-    source-&gt;Update();
-
-    // The quadric is made of strips, so pass it through a triangle filter as
-    // the curvature filter only operates on polys
-    VTK_SP(vtkTriangleFilter, tri);
-    tri-&gt;SetInputConnection(source-&gt;GetOutputPort());
-
-    // The quadric has nasty discontinuities from the way the edges are generated
-    // so let's pass it though a CleanPolyDataFilter and merge any points which
-    // are coincident, or very close
-    VTK_SP(vtkCleanPolyData, cleaner);
-    cleaner-&gt;SetInputConnection(tri-&gt;GetOutputPort());
-    cleaner-&gt;SetTolerance(0.005);
-    cleaner-&gt;Update();
-
-    VTK_SP(vtkPolyData, elev);
-    MakeElevations(cleaner-&gt;GetOutput(), elev);
-    CalculateCurvatures(elev, src);
-  }
-
-  //-----------------------------------------------------------------------------
-  void MakeParametricTorus(vtkPolyData *src)
-  {
-    VTK_SP(vtkParametricTorus, fn);
-    fn-&gt;SetRingRadius(5);
-    fn-&gt;SetCrossSectionRadius(2);
-
-    VTK_SP(vtkParametricFunctionSource, source);
-    source-&gt;SetParametricFunction(fn);
-    source-&gt;SetUResolution(50);
-    source-&gt;SetVResolution(50);
-    source-&gt;SetScalarModeToZ();
-    source-&gt;Update();
-    // Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)
-    source-&gt;GetOutput()-&gt;GetPointData()-&gt;GetNormals()-&gt;SetName(&quot;Normals&quot;);
-    // We have calculated the elevation, just rename the scalars.
-    source-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;SetName(&quot;Elevation&quot;);
-    CalculateCurvatures(source-&gt;GetOutput(), src);
-  }
-
-  //-----------------------------------------------------------------------------
-  void MakeParametricHills(vtkPolyData *src)
-  {
-    VTK_SP(vtkParametricRandomHills, fn);
-    fn-&gt;AllowRandomGenerationOn();
-    fn-&gt;SetRandomSeed(1);
-    fn-&gt;SetNumberOfHills(30);
-    if (strcmp(fn-&gt;GetClassName(), &quot;vtkParametricRandomHills&quot;) == 0)
-    {
-      // Make the normals face out of the surface.
-      fn-&gt;ClockwiseOrderingOff();
-    }
-
-    VTK_SP(vtkParametricFunctionSource, source);
-    source-&gt;SetParametricFunction(fn);
-    source-&gt;SetUResolution(50);
-    source-&gt;SetVResolution(50);
-    source-&gt;SetScalarModeToZ();
-    source-&gt;Update();
-    // Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)
-    source-&gt;GetOutput()-&gt;GetPointData()-&gt;GetNormals()-&gt;SetName(&quot;Normals&quot;);
-    // We have calculated the elevation, just rename the scalars.
-    source-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;SetName(&quot;Elevation&quot;);
-    CalculateCurvatures(source-&gt;GetOutput(), src);
-  }
-
-  //-----------------------------------------------------------------------------
-  void Clipper(vtkPolyData *src,
-    double const &amp; dx, double const &amp; dy,
-    double const &amp; dz, vtkPolyData *clipped)
-  {
-    double bounds[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    src-&gt;GetBounds(bounds);
-
-    VTK_SP(vtkPlane, plane1);
-    plane1-&gt;SetOrigin(bounds[0] + dx, 0, 0);
-    plane1-&gt;SetNormal(1, 0, 0);
-
-    VTK_SP(vtkPlane, plane2);
-    plane2-&gt;SetOrigin(bounds[1] - dx, 0, 0);
-    plane2-&gt;SetNormal(-1, 0, 0);
-
-    VTK_SP(vtkPlane, plane3);
-    plane3-&gt;SetOrigin(0, bounds[2] + dy, 0);
-    plane3-&gt;SetNormal(0, 1, 0);
-
-    VTK_SP(vtkPlane, plane4);
-    plane4-&gt;SetOrigin(0, bounds[3] - dy, 0);
-    plane4-&gt;SetNormal(0, -1, 0);
-
-    VTK_SP(vtkPlane, plane5);
-    plane5-&gt;SetOrigin(0, 0, bounds[4] + dz);
-    plane5-&gt;SetNormal(0, 0, 1);
-
-    VTK_SP(vtkPlane, plane6);
-    plane6-&gt;SetOrigin(0, 0, bounds[5] - dz);
-    plane6-&gt;SetNormal(0, 0, -1);
-
-    VTK_SP(vtkImplicitBoolean, clipFunction);
-    clipFunction-&gt;SetOperationTypeToUnion();
-    clipFunction-&gt;AddFunction(plane1);
-    clipFunction-&gt;AddFunction(plane2);
-    clipFunction-&gt;AddFunction(plane3);
-    clipFunction-&gt;AddFunction(plane4);
-    clipFunction-&gt;AddFunction(plane5);
-    clipFunction-&gt;AddFunction(plane6);
-
-    // Create clipper for the random hills
-    VTK_SP(vtkClipPolyData, clipper);
-    clipper-&gt;SetClipFunction(clipFunction);
-    clipper-&gt;SetInputData(src);
-    clipper-&gt;GenerateClipScalarsOff();
-    clipper-&gt;GenerateClippedOutputOff();
-    //clipper-&gt;GenerateClippedOutputOn();
-    clipper-&gt;Update();
-    clipped-&gt;DeepCopy(clipper-&gt;GetOutput());
-  }
-
-  //-----------------------------------------------------------------------------
-  void CalculateCurvatures(vtkPolyData *src, vtkPolyData *curv)
-  {
-    // Calculate the curvature.
-    VTK_SP(vtkCurvatures, curvature);
-    curvature-&gt;SetCurvatureTypeToGaussian();
-    curvature-&gt;SetInputData(src);
-    curvature-&gt;Update();
-    curv-&gt;DeepCopy(curvature-&gt;GetOutput());
-  }
-
-  //-----------------------------------------------------------------------------
-  void MakeLUT(vtkLookupTable *lut)
-  {
-    // Make the lookup table.
-    VTK_SP(vtkColorSeries, colorSeries);
-    // Select a color scheme.
-    int colorSeriesEnum;
-    //colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_BROWN_BLUE_GREEN_9;
-    //colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_SPECTRAL_10;
-    //colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_SPECTRAL_3;
-    //colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_PURPLE_ORANGE_9;
-    //colorSeriesEnum = colorSeries-&gt;BREWER_SEQUENTIAL_BLUE_PURPLE_9;
-    //colorSeriesEnum = colorSeries-&gt;BREWER_SEQUENTIAL_BLUE_GREEN_9;
-    colorSeriesEnum = colorSeries-&gt;BREWER_QUALITATIVE_SET3;
-    //colorSeriesEnum = colorSeries-&gt;CITRUS;
-    colorSeries-&gt;SetColorScheme(colorSeriesEnum);
-    colorSeries-&gt;BuildLookupTable(lut);
-    lut-&gt;SetNanColor(0, 0, 0, 1);
-  }
-
-  //! Create a lookup table with the colors reversed.
-  /*!
-  @param lut - An indexed lookup table.
-  @param lutr - The reversed indexed lookup table.
-  */
-  //-----------------------------------------------------------------------------
-  void ReverseLUT(vtkLookupTable *lut, vtkLookupTable *lutr)
-  {
-    // First do a deep copy just to get the whole structure
-    // and then reverse the colors and annotations.
-    lutr-&gt;DeepCopy(lut);
-    vtkIdType t = lut-&gt;GetNumberOfTableValues() - 1;
-    for (vtkIdType i = t; i &gt;= 0; --i)
-    {
-      double rgba[4] = { 0.0, 0.0, 0.0, 0.0 };
-      lut-&gt;GetColor(i, rgba);
-      rgba[3] = lut-&gt;GetOpacity(i);
-      lutr-&gt;SetTableValue(t - i, rgba);
-    }
-    t = lut-&gt;GetNumberOfAnnotatedValues() - 1;
-    for (vtkIdType i = t; i &gt;= 0; --i)
-    {
-      lutr-&gt;SetAnnotation(t - i, lut-&gt;GetAnnotation(i));
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  std::vector&lt;int&gt; Frequencies(
-    std::vector&lt;std::vector&lt;double&gt; &gt; const &amp; bands,
-    vtkPolyData * src)
-  {
-    std::vector&lt;int&gt; freq(bands.size(), 0);
-    vtkIdType tuples =
-      src-&gt;GetPointData()-&gt;GetScalars()-&gt;GetNumberOfTuples();
-    for (int i = 0; i &lt; tuples; ++i)
-    {
-      double *x = src-&gt;GetPointData()-&gt;GetScalars()-&gt;GetTuple(i);
-      for (size_t j = 0; j &lt; bands.size(); ++j)
-      {
-        if (*x &lt;= bands[j][2])
-        {
-          freq[j] = freq[j] + 1;
-          break;
-        }
-      }
-    }
-    return freq;
-  }
-
-  //-----------------------------------------------------------------------------
-  void PrintFrequencies(std::vector&lt;int&gt; &amp; freq)
-  {
-    STLHelpers stlHelpers = STLHelpers();
-    int i = 0;
-    for (std::vector&lt;int&gt;::const_iterator p = freq.begin(); p != freq.end(); ++p)
-    {
-      if (p == freq.begin())
-      {
-        std::cout &lt;&lt; &quot;[&quot;;
-      }
-      if (stlHelpers.IsLast(p, freq))
-      {
-        std::cout &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; *p &lt;&lt; &quot;]&quot;;
-      }
-      else
-      {
-        std::cout &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; *p &lt;&lt; &quot;, &quot;;
-      }
-      ++i;
-    }
-    std::cout &lt;&lt; endl;
-  }
-
-  //-----------------------------------------------------------------------------
-  void MakeGlyphs(vtkPolyData *src, bool const &amp; reverseNormals, vtkGlyph3D *glyph)
-  {
-    // Sometimes the contouring algorithm can create a volume whose gradient
-    // vector and ordering of polygon(using the right hand rule) are
-    // inconsistent. vtkReverseSense cures this problem.
-    VTK_SP(vtkReverseSense, reverse);
-    VTK_SP(vtkMaskPoints, maskPts);
-    maskPts-&gt;SetOnRatio(5);
-    maskPts-&gt;RandomModeOn();
-    if (reverseNormals)
-    {
-      reverse-&gt;SetInputData(src);
-      reverse-&gt;ReverseCellsOn();
-      reverse-&gt;ReverseNormalsOn();
-      maskPts-&gt;SetInputConnection(reverse-&gt;GetOutputPort());
-    }
-    else
-    {
-      maskPts-&gt;SetInputData(src);
-    }
-
-    // Source for the glyph filter
-    VTK_SP(vtkArrowSource, arrow);
-    arrow-&gt;SetTipResolution(16);
-    arrow-&gt;SetTipLength(0.3);
-    arrow-&gt;SetTipRadius(0.1);
-
-    glyph-&gt;SetSourceConnection(arrow-&gt;GetOutputPort());
-    glyph-&gt;SetInputConnection(maskPts-&gt;GetOutputPort());
-    glyph-&gt;SetVectorModeToUseNormal();
-    glyph-&gt;SetScaleFactor(1);
-    glyph-&gt;SetColorModeToColorByVector();
-    glyph-&gt;SetScaleModeToScaleByVector();
-    glyph-&gt;OrientOn();
-    glyph-&gt;Update();
-  }
-
-  //-----------------------------------------------------------------------------
-  void Display(SURFACE_TYPE st, vtkRenderWindowInteractor *iren)
-  {
-    // ------------------------------------------------------------
-    // Create the surface, lookup tables, contour filter etc.
-    // ------------------------------------------------------------
-    VTK_SP(vtkPolyData, src);
-    switch (st)
-    {
-      case TORUS:
-      {
-        MakeTorus(src);
-        break;
-      }
-      case PARAMETRIC_TORUS:
-      {
-        MakeParametricTorus(src);
-        break;
-      }
-      case PARAMETRIC_HILLS:
-      {
-        VTK_SP(vtkPolyData, hills);
-        MakeParametricHills(hills);
-        Clipper(hills, 0.5, 0.5, 0.0, src);
-        break;
-      }
-      default:
-      {
-        std::cout &lt;&lt; &quot;No surface specified.&quot; &lt;&lt; std::endl;
-        return;
-      }
-    }
-    //  Here we are assuming that the active scalars are the curvatures.
-    // in the parametric surfaces, so change the name.
-    char * curvatureName = src-&gt;GetPointData()-&gt;GetScalars()-&gt;GetName();
-    //  Use this range to color the glyphs for the normals by elevation.
-    src-&gt;GetPointData()-&gt;SetActiveScalars(&quot;Elevation&quot;);
-    double scalarRangeElevation[2];
-    src-&gt;GetScalarRange(scalarRangeElevation);
-    src-&gt;GetPointData()-&gt;SetActiveScalars(curvatureName);
-    double scalarRangeCurvatures[2];
-    src-&gt;GetScalarRange(scalarRangeCurvatures);
-    double scalarRange[2];
-    scalarRange[0] = scalarRangeCurvatures[0];
-    scalarRange[1] = scalarRangeCurvatures[1];
-
-    VTK_SP(vtkLookupTable, lut);
-    MakeLUT(lut);
-    vtkIdType numberOfBands = lut-&gt;GetNumberOfTableValues();
-    std::vector&lt;std::vector&lt;double&gt; &gt; bands;
-    if (st == PARAMETRIC_HILLS)
-    {
-      // Comment this out if you want to see how allocating
-      // equally spaced bands works.
-      bands = MakeCustomBands(scalarRange, numberOfBands);
-      // Adjust the number of table values
-      numberOfBands = bands.size();
-      lut-&gt;SetNumberOfTableValues(numberOfBands);
-    }
-    else
-    {
-      bands = MakeBands(scalarRange, numberOfBands, false);
-    }
-    lut-&gt;SetTableRange(scalarRange);
-
-    //PrintBands(bands);
-
-    // Let's do a frequency table.
-    // The number of scalars in each band.
-    //std::vector&lt;int&gt; freq = Frequencies(bands, src);
-    //PrintFrequencies(freq);
-
-    // We will use the midpoint of the band as the label.
-    std::vector&lt;std::string&gt; labels;
-    for (std::vector&lt;std::vector&lt;double&gt; &gt;::const_iterator p = bands.begin();
-      p != bands.end(); ++p)
-    {
-      std::ostringstream os;
-      os &lt;&lt; std::fixed &lt;&lt; std::setw(6) &lt;&lt; std::setprecision(2) &lt;&lt; (*p)[1];
-      labels.push_back(os.str());
-    }
-
-    // Annotate
-    VTK_SP(vtkVariantArray, values);
-    for (size_t i = 0; i &lt; labels.size(); ++i)
-    {
-      values-&gt;InsertNextValue(vtkVariant(labels[i]));
-    }
-    for (vtkIdType i = 0; i &lt; values-&gt;GetNumberOfTuples(); ++i)
-    {
-      lut-&gt;SetAnnotation(i, values-&gt;GetValue(i).ToString());
-    }
-
-    // Create a lookup table with the colors reversed.
-    VTK_SP(vtkLookupTable, lutr);
-    ReverseLUT(lut, lutr);
-
-    // Create the contour bands.
-    VTK_SP(vtkBandedPolyDataContourFilter, bcf);
-    bcf-&gt;SetInputData(src);
-    // Use either the minimum or maximum value for each band.
-    int i = 0;
-    for (std::vector&lt;std::vector&lt;double&gt; &gt;::const_iterator p = bands.begin();
-      p != bands.end(); ++p)
-    {
-      bcf-&gt;SetValue(i, (*p)[2]);
-      ++i;
-    }
-    // We will use an indexed lookup table.
-    bcf-&gt;SetScalarModeToIndex();
-    bcf-&gt;GenerateContourEdgesOn();
-
-    // Generate the glyphs on the original surface.
-    VTK_SP(vtkGlyph3D, glyph);
-    MakeGlyphs(src, false, glyph);
-
-    // ------------------------------------------------------------
-    // Create the mappers and actors
-    // ------------------------------------------------------------
-
-    VTK_SP(vtkPolyDataMapper, srcMapper);
-    srcMapper-&gt;SetInputConnection(bcf-&gt;GetOutputPort());
-    srcMapper-&gt;SetScalarRange(scalarRange);
-    srcMapper-&gt;SetLookupTable(lut);
-    srcMapper-&gt;SetScalarModeToUseCellData();
-
-    VTK_SP(vtkActor, srcActor);
-    srcActor-&gt;SetMapper(srcMapper);
-    srcActor-&gt;RotateX(-45);
-    srcActor-&gt;RotateZ(45);
-
-    // Create contour edges
-    VTK_SP(vtkPolyDataMapper, edgeMapper);
-    edgeMapper-&gt;SetInputData(bcf-&gt;GetContourEdgesOutput());
-    edgeMapper-&gt;SetResolveCoincidentTopologyToPolygonOffset();
-
-    VTK_SP(vtkActor, edgeActor);
-    edgeActor-&gt;SetMapper(edgeMapper);
-    edgeActor-&gt;GetProperty()-&gt;SetColor(0, 0, 0);
-    edgeActor-&gt;RotateX(-45);
-    edgeActor-&gt;RotateZ(45);
-
-    VTK_SP(vtkPolyDataMapper, glyphMapper);
-    glyphMapper-&gt;SetInputConnection(glyph-&gt;GetOutputPort());
-    glyphMapper-&gt;SetScalarModeToUsePointFieldData();
-    glyphMapper-&gt;SetColorModeToMapScalars();
-    glyphMapper-&gt;ScalarVisibilityOn();
-    glyphMapper-&gt;SelectColorArray(&quot;Elevation&quot;);
-    // Colour by scalars.
-    // The default lookup table is used but you can
-    // use whatever lookup table you like.
-    glyphMapper-&gt;SetScalarRange(scalarRangeElevation);
-
-    VTK_SP(vtkActor, glyphActor);
-    glyphActor-&gt;SetMapper(glyphMapper);
-    glyphActor-&gt;RotateX(-45);
-    glyphActor-&gt;RotateZ(45);
-
-    // Add a scalar bar-&gt;
-    VTK_SP(vtkScalarBarActor, scalarBar);
-    // This LUT puts the lowest value at the top of the scalar bar.
-    //scalarBar-&gt;SetLookupTable(lut);
-    // Use this LUT if you want the highest value at the top.
-    scalarBar-&gt;SetLookupTable(lutr);
-    scalarBar-&gt;SetTitle(&quot;Gaussian\nCurvature&quot;);
-
-    // ------------------------------------------------------------
-    // Create the RenderWindow, Renderer and Interactor
-    // ------------------------------------------------------------
-    VTK_SP(vtkRenderer, ren);
-    VTK_SP(vtkRenderWindow, renWin);
-
-    renWin-&gt;AddRenderer(ren);
-    iren-&gt;SetRenderWindow(renWin);
-
-    // add actors
-    ren-&gt;AddViewProp(srcActor);
-    ren-&gt;AddViewProp(edgeActor);
-    ren-&gt;AddViewProp(glyphActor);
-    ren-&gt;AddActor2D(scalarBar);
-
-    ren-&gt;SetBackground(0.7, 0.8, 1.0);
-    renWin-&gt;SetSize(800, 800);
-    renWin-&gt;Render();
-
-    ren-&gt;GetActiveCamera()-&gt;Zoom(1.5);
-  }
-
-} // end of unnamed namespace
-
-//-----------------------------------------------------------------------------
-//! Make and display the surface.
-int main(int, char *[])
-{
-  VTK_SP(vtkRenderWindowInteractor, iren);
-  // Select the surface you want displayed.
-  //Display(TORUS, iren);
-  //Display(PARAMETRIC_TORUS, iren);
-  Display(PARAMETRIC_HILLS, iren);
-  iren-&gt;Render();
-  iren-&gt;Start();
-
-  return EXIT_SUCCESS;
-}
-</code></pre>
-
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
-
-PROJECT(CurvatureBandsWithGlyphs)
-
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
-
-add_executable(CurvatureBandsWithGlyphs MACOSX_BUNDLE CurvatureBandsWithGlyphs.cxx)
-
-target_link_libraries(CurvatureBandsWithGlyphs ${VTK_LIBRARIES})
-</code></pre>
-
-<h3 id="download-and-build-curvaturebandswithglyphs">Download and Build CurvatureBandsWithGlyphs</h3>
+<div class="codehilite"><pre><span></span><span class="c1">// The source</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCleanPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkElevationFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricFunctionSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricRandomHills.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricTorus.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSuperquadricSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangleFilter.h&gt;</span><span class="cp"></span>
+<span class="c1">// Curvatures</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkClipPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCurvatures.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImplicitBoolean.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlane.h&gt;</span><span class="cp"></span>
+<span class="c1">// For annotating</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVariantArray.h&gt;</span><span class="cp"></span>
+<span class="c1">// Lookup table</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorSeries.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="c1">// For glyphing</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkReverseSense.h&gt;</span><span class="cp"></span>
+<span class="c1">// For contouring</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBandedPolyDataContourFilter.h&gt;</span><span class="cp"></span>
+<span class="c1">// Mappers, actors, renderers etc.</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkScalarBarActor.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#define VTK_SP(type, name)                                                     \</span>
+<span class="cp">  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cctype&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iomanip&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+
+<span class="k">enum</span> <span class="n">SURFACE_TYPE</span>
+<span class="p">{</span>
+  <span class="n">TORUS</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="n">PARAMETRIC_HILLS</span><span class="p">,</span>
+  <span class="n">PARAMETRIC_TORUS</span>
+<span class="p">};</span>
+
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="c1">//! Some STL Utilities.</span>
+<span class="k">class</span> <span class="nc">STLHelpers</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="n">STLHelpers</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">STLHelpers</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// Convert a string to lowercase.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ToLowercase</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+      <span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">))</span><span class="n">std</span><span class="o">::</span><span class="n">tolower</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// Replace all occurrences of old_value in a string with new_value.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ReplaceAll</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">old_value</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">new_value</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">start_pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">start_pos</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="n">start_pos</span><span class="p">))</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">start_pos</span><span class="p">,</span> <span class="n">old_value</span><span class="p">.</span><span class="n">length</span><span class="p">(),</span> <span class="n">new_value</span><span class="p">);</span>
+      <span class="c1">// It could be that &#39;new_value&#39; is a substring of &#39;old_value&#39;.</span>
+      <span class="n">start_pos</span> <span class="o">+=</span> <span class="n">new_value</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// An implementation of the C++11 next(iter,n) found in the header &lt;iterator&gt;.</span>
+  <span class="c1">// ForwardIt must meet the requirements of ForwardIterator.</span>
+  <span class="c1">// Return the nth successor of iterator it.</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">ForwardIt</span><span class="o">&gt;</span>
+  <span class="n">ForwardIt</span> <span class="n">Next</span><span class="p">(</span><span class="n">ForwardIt</span> <span class="n">iter</span><span class="p">,</span>
+    <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">ForwardIt</span><span class="o">&gt;::</span><span class="n">difference_type</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">advance</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">iter</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// Return true if the iterator points to the last element.</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Iter</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Cont</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="n">IsLast</span><span class="p">(</span><span class="n">Iter</span> <span class="n">iter</span><span class="p">,</span> <span class="k">const</span> <span class="n">Cont</span><span class="o">&amp;</span> <span class="n">cont</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">iter</span> <span class="o">!=</span> <span class="n">cont</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Next</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span> <span class="o">==</span> <span class="n">cont</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">// Function declarations.</span>
+
+<span class="c1">//! Divide a range into bands</span>
+<span class="cm">/*!</span>
+<span class="cm">@param dR - [min, max] the range that is to be covered by the bands.</span>
+<span class="cm">@param numberOfBands - the number of bands, a positive integer.</span>
+<span class="cm">@param nearestInteger - if True then [floor(min), ceil(max)] is used.</span>
+<span class="cm">@return A List consisting of [min, midpoint, max] for each band.</span>
+<span class="cm">*/</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">MakeBands</span><span class="p">(</span>
+  <span class="kt">double</span> <span class="k">const</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">numberOfBands</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">nearestInteger</span><span class="p">);</span>
+
+<span class="c1">//! Divide a range into custom bands</span>
+<span class="cm">/*!</span>
+<span class="cm">You need to specify each band as a list [r1, r2] where r1 &lt; r2 and</span>
+<span class="cm">append these to a list (called x in the implementation).</span>
+<span class="cm">The list should ultimately look</span>
+<span class="cm">like this: x = [[r1, r2], [r2, r3], [r3, r4]...]</span>
+
+<span class="cm">@param dR - [min, max] the range that is to be covered by the bands.</span>
+<span class="cm">@param numberOfBands - the number of bands, a positive integer.</span>
+<span class="cm">@return A List consisting of [min, midpoint, max] for each band.</span>
+<span class="cm">*/</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">MakeCustomBands</span><span class="p">(</span>
+  <span class="kt">double</span> <span class="k">const</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">numberOfBands</span><span class="p">);</span>
+
+<span class="c1">//! Divide a range into integral bands</span>
+<span class="cm">/*!</span>
+<span class="cm">Divide a range into bands</span>
+<span class="cm">@param dR - [min, max] the range that is to be covered by the bands.</span>
+<span class="cm">@return A List consisting of [min, midpoint, max] for each band.</span>
+<span class="cm">*/</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">MakeIntegralBands</span><span class="p">(</span><span class="kt">double</span> <span class="k">const</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+<span class="c1">//! Print the bands.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param bands - the bands.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">PrintBands</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">bands</span><span class="p">);</span>
+
+<span class="c1">//! Generate elevations over the surface.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param src - the vtkPolyData source.</span>
+<span class="cm">@param elev - the vtkPolyData source with elevations.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">MakeElevations</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">elev</span><span class="p">);</span>
+
+<span class="c1">//! Make a torus as the source.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param The vtkPolyData source with normal and scalar data.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">MakeTorus</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">);</span>
+
+<span class="c1">//! Make a parametric torus as the source.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param The vtkPolyData source with normal and scalar data.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">MakeParametricTorus</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">);</span>
+
+<span class="c1">//! Make a parametric hills surface as the source.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param The vtkPolyData source with normal and scalar data.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">MakeParametricHills</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">);</span>
+
+<span class="c1">//! Calculate curvatures.</span>
+<span class="cm">/*!</span>
+<span class="cm">Clip a vtkPolyData source.</span>
+<span class="cm">A cube is made whose size corresponds the the bounds of the source.</span>
+<span class="cm">Then each side is shrunk by the appropriate dx, dy or dz. After</span>
+<span class="cm">this operation the source is clipped by the cube.</span>
+<span class="cm">@param src - the vtkPolyData source</span>
+<span class="cm">@param dx - the amount to clip in the x-direction</span>
+<span class="cm">@param dy - the amount to clip in the y-direction</span>
+<span class="cm">@param dz - the amount to clip in the z-direction</span>
+<span class="cm">@param clipped - clipped vtkPolyData.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">Clipper</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">dx</span><span class="p">,</span> <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">dy</span><span class="p">,</span>
+  <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">dz</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">clipped</span><span class="p">);</span>
+
+<span class="c1">//! Calculate curvatures.</span>
+<span class="cm">/*!</span>
+<span class="cm">The source must be triangulated.</span>
+<span class="cm">@param src - the source.</span>
+<span class="cm">@param curv - vtkPolyData with normals and scalar data representing curvatures.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">CalculateCurvatures</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">curv</span><span class="p">);</span>
+
+<span class="cm">/*!</span>
+<span class="cm">@param lut - An indexed lookup table.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">MakeLUT</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">);</span>
+
+<span class="c1">//! Create a lookup table with the colors reversed.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param lut - An indexed lookup table.</span>
+<span class="cm">@param lutr - The reversed indexed lookup table.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">ReverseLUT</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">,</span> <span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lutr</span><span class="p">);</span>
+
+<span class="c1">//! Count the number of scalars in each band.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param bands - the bands.</span>
+<span class="cm">@param src - the vtkPolyData source.</span>
+<span class="cm">@return The frequencies of the scalars in each band.</span>
+<span class="cm">*/</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Frequencies</span><span class="p">(</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">bands</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">);</span>
+
+<span class="c1">//! Print the frequency table.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param freq - the frequencies.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">PrintFrequencies</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">freq</span><span class="p">);</span>
+
+<span class="c1">//!  Glyph the normals on the surface.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param src - the vtkPolyData source.</span>
+<span class="cm">@param reverseNormals - if True the normals on the surface are reversed.</span>
+<span class="cm">@param glyph - The glyphs.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span>
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">reverseNormals</span><span class="p">,</span> <span class="n">vtkGlyph3D</span><span class="o">*</span> <span class="n">glyph</span><span class="p">);</span>
+
+<span class="c1">//! Assemble the surface for display.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param st - the surface to display.</span>
+<span class="cm">@param iren - the interactor.</span>
+<span class="cm">*/</span>
+<span class="kt">void</span> <span class="nf">Display</span><span class="p">(</span><span class="n">SURFACE_TYPE</span> <span class="n">st</span><span class="p">,</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">*</span> <span class="n">iren</span><span class="p">);</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">MakeBands</span><span class="p">(</span>
+  <span class="kt">double</span> <span class="k">const</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">numberOfBands</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">nearestInteger</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">||</span> <span class="p">(</span><span class="n">numberOfBands</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">double</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">nearestInteger</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="kt">double</span> <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfBands</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">bands</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">dx</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">bands</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">MakeCustomBands</span><span class="p">(</span>
+  <span class="kt">double</span> <span class="k">const</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">numberOfBands</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">||</span> <span class="p">(</span><span class="n">numberOfBands</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// We can do this much better in c++11!</span>
+  <span class="kt">double</span> <span class="n">myBands</span><span class="p">[][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">},</span> <span class="p">{</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">},</span> <span class="p">{</span><span class="mf">0.13</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">},</span>
+    <span class="p">{</span><span class="mf">1.07</span><span class="p">,</span> <span class="mf">35.4</span><span class="p">},</span> <span class="p">{</span><span class="mf">35.4</span><span class="p">,</span> <span class="mf">37.1</span><span class="p">}};</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">tmp</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">myBands</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">myBands</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">x</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// Set the minimum to match the range minimum.</span>
+  <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kt">size_t</span> <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+                <span class="o">?</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">)</span>
+                <span class="o">:</span> <span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="c1">// Adjust the last band.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">sz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">sz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">sz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="n">x</span><span class="p">[</span><span class="n">sz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sz</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+    <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">bands</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">bands</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">MakeIntegralBands</span><span class="p">(</span><span class="kt">double</span> <span class="k">const</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">double</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="kt">int</span> <span class="n">numberOfBands</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+  <span class="k">return</span> <span class="nf">MakeBands</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">PrintBands</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">bands</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">STLHelpers</span> <span class="n">stlHelpers</span> <span class="o">=</span> <span class="n">STLHelpers</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">bands</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+       <span class="n">p</span> <span class="o">!=</span> <span class="n">bands</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">bands</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">();</span> <span class="n">q</span> <span class="o">!=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">q</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">q</span> <span class="o">==</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stlHelpers</span><span class="p">.</span><span class="n">IsLast</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">))</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">q</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">q</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stlHelpers</span><span class="p">.</span><span class="n">IsLast</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bands</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">MakeElevations</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">elev</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkElevationFilter</span><span class="p">,</span> <span class="n">elevFilter</span><span class="p">);</span>
+  <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">elev</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">GetPolyDataOutput</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">MakeTorus</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkSuperquadricSource</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetThickness</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetToroidal</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+
+  <span class="c1">// The quadric is made of strips, so pass it through a triangle filter as</span>
+  <span class="c1">// the curvature filter only operates on polys</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkTriangleFilter</span><span class="p">,</span> <span class="n">tri</span><span class="p">);</span>
+  <span class="n">tri</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+
+  <span class="c1">// The quadric has nasty discontinuities from the way the edges are generated</span>
+  <span class="c1">// so let&#39;s pass it though a CleanPolyDataFilter and merge any points which</span>
+  <span class="c1">// are coincident, or very close</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkCleanPolyData</span><span class="p">,</span> <span class="n">cleaner</span><span class="p">);</span>
+  <span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tri</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">SetTolerance</span><span class="p">(</span><span class="mf">0.005</span><span class="p">);</span>
+  <span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">elev</span><span class="p">);</span>
+  <span class="n">MakeElevations</span><span class="p">(</span><span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">elev</span><span class="p">);</span>
+  <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">MakeParametricTorus</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricTorus</span><span class="p">,</span> <span class="n">fn</span><span class="p">);</span>
+  <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetRingRadius</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetCrossSectionRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricFunctionSource</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetScalarModeToZ</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="c1">// Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Normals&quot;</span><span class="p">);</span>
+  <span class="c1">// We have calculated the elevation, just rename the scalars.</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Elevation&quot;</span><span class="p">);</span>
+  <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">src</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">MakeParametricHills</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricRandomHills</span><span class="p">,</span> <span class="n">fn</span><span class="p">);</span>
+  <span class="n">fn</span><span class="o">-&gt;</span><span class="n">AllowRandomGenerationOn</span><span class="p">();</span>
+  <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetRandomSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetNumberOfHills</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="c1">// Make the normals face out of the surface.</span>
+  <span class="c1">// Not needed with VTK 8.0 or later.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">fn</span><span class="o">-&gt;</span><span class="n">GetClassName</span><span class="p">(),</span> <span class="s">&quot;vtkParametricRandomHills&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">fn</span><span class="o">-&gt;</span><span class="n">ClockwiseOrderingOff</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricFunctionSource</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetScalarModeToZ</span><span class="p">();</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="c1">// Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Normals&quot;</span><span class="p">);</span>
+  <span class="c1">// We have calculated the elevation, just rename the scalars.</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Elevation&quot;</span><span class="p">);</span>
+  <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">src</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">Clipper</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">dx</span><span class="p">,</span> <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">dy</span><span class="p">,</span>
+  <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">dz</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">clipped</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane1</span><span class="p">);</span>
+  <span class="n">plane1</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">plane1</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane2</span><span class="p">);</span>
+  <span class="n">plane2</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">plane2</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane3</span><span class="p">);</span>
+  <span class="n">plane3</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">plane3</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane4</span><span class="p">);</span>
+  <span class="n">plane4</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">plane4</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane5</span><span class="p">);</span>
+  <span class="n">plane5</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">dz</span><span class="p">);</span>
+  <span class="n">plane5</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane6</span><span class="p">);</span>
+  <span class="n">plane6</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">dz</span><span class="p">);</span>
+  <span class="n">plane6</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkImplicitBoolean</span><span class="p">,</span> <span class="n">clipFunction</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">SetOperationTypeToUnion</span><span class="p">();</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane1</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane2</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane3</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane4</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane5</span><span class="p">);</span>
+  <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane6</span><span class="p">);</span>
+
+  <span class="c1">// Create clipper for the random hills</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkClipPolyData</span><span class="p">,</span> <span class="n">clipper</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetClipFunction</span><span class="p">(</span><span class="n">clipFunction</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GenerateClipScalarsOff</span><span class="p">();</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GenerateClippedOutputOff</span><span class="p">();</span>
+  <span class="c1">// clipper-&gt;GenerateClippedOutputOn();</span>
+  <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">clipped</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">curv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Calculate the curvature.</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkCurvatures</span><span class="p">,</span> <span class="n">curvature</span><span class="p">);</span>
+  <span class="n">curvature</span><span class="o">-&gt;</span><span class="n">SetCurvatureTypeToGaussian</span><span class="p">();</span>
+  <span class="n">curvature</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="n">curvature</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">curv</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">curvature</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">MakeLUT</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Make the lookup table.</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkColorSeries</span><span class="p">,</span> <span class="n">colorSeries</span><span class="p">);</span>
+  <span class="c1">// Select a color scheme.</span>
+  <span class="kt">int</span> <span class="n">colorSeriesEnum</span><span class="p">;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_BROWN_BLUE_GREEN_9;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_SPECTRAL_10;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_SPECTRAL_3;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_PURPLE_ORANGE_9;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_SEQUENTIAL_BLUE_PURPLE_9;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_SEQUENTIAL_BLUE_GREEN_9;</span>
+  <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">BREWER_QUALITATIVE_SET3</span><span class="p">;</span>
+  <span class="c1">// colorSeriesEnum = colorSeries-&gt;CITRUS;</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">);</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetNanColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//! Create a lookup table with the colors reversed.</span>
+<span class="cm">/*!</span>
+<span class="cm">@param lut - An indexed lookup table.</span>
+<span class="cm">@param lutr - The reversed indexed lookup table.</span>
+<span class="cm">*/</span>
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">ReverseLUT</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">,</span> <span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lutr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// First do a deep copy just to get the whole structure</span>
+  <span class="c1">// and then reverse the colors and annotations.</span>
+  <span class="n">lutr</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
+  <span class="n">vtkIdType</span> <span class="n">t</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">rgba</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+    <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rgba</span><span class="p">);</span>
+    <span class="n">rgba</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetOpacity</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">lutr</span><span class="o">-&gt;</span><span class="n">SetTableValue</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="n">rgba</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">lutr</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Frequencies</span><span class="p">(</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">bands</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">freq</span><span class="p">(</span><span class="n">bands</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkIdType</span> <span class="n">tuples</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tuples</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">bands</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">bands</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+      <span class="p">{</span>
+        <span class="n">freq</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">freq</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">PrintFrequencies</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">freq</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">STLHelpers</span> <span class="n">stlHelpers</span> <span class="o">=</span> <span class="n">STLHelpers</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">freq</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">freq</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">freq</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">stlHelpers</span><span class="p">.</span><span class="n">IsLast</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">freq</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">reverseNormals</span><span class="p">,</span> <span class="n">vtkGlyph3D</span><span class="o">*</span> <span class="n">glyph</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Sometimes the contouring algorithm can create a volume whose gradient</span>
+  <span class="c1">// vector and ordering of polygon(using the right hand rule) are</span>
+  <span class="c1">// inconsistent. vtkReverseSense cures this problem.</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkReverseSense</span><span class="p">,</span> <span class="n">reverse</span><span class="p">);</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkMaskPoints</span><span class="p">,</span> <span class="n">maskPts</span><span class="p">);</span>
+  <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">SetOnRatio</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">RandomModeOn</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">reverseNormals</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+    <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">ReverseCellsOn</span><span class="p">();</span>
+    <span class="n">reverse</span><span class="o">-&gt;</span><span class="n">ReverseNormalsOn</span><span class="p">();</span>
+    <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reverse</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Source for the glyph filter</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkArrowSource</span><span class="p">,</span> <span class="n">arrow</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipLength</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipRadius</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
+
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrow</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetVectorModeToUseNormal</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetColorModeToColorByVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">OrientOn</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">Display</span><span class="p">(</span><span class="n">SURFACE_TYPE</span> <span class="n">st</span><span class="p">,</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">*</span> <span class="n">iren</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// ------------------------------------------------------------</span>
+  <span class="c1">// Create the surface, lookup tables, contour filter etc.</span>
+  <span class="c1">// ------------------------------------------------------------</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">st</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">TORUS</span><span class="p">:</span>
+    <span class="p">{</span>
+      <span class="n">MakeTorus</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="nl">PARAMETRIC_TORUS</span><span class="p">:</span>
+    <span class="p">{</span>
+      <span class="n">MakeParametricTorus</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="nl">PARAMETRIC_HILLS</span><span class="p">:</span>
+    <span class="p">{</span>
+      <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">hills</span><span class="p">);</span>
+      <span class="n">MakeParametricHills</span><span class="p">(</span><span class="n">hills</span><span class="p">);</span>
+      <span class="n">Clipper</span><span class="p">(</span><span class="n">hills</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">default</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;No surface specified.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">//  Here we are assuming that the active scalars are the curvatures.</span>
+  <span class="c1">// in the parametric surfaces, so change the name.</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">curvatureName</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">();</span>
+  <span class="c1">//  Use this range to color the glyphs for the normals by elevation.</span>
+  <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s">&quot;Elevation&quot;</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">scalarRangeElevation</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">(</span><span class="n">scalarRangeElevation</span><span class="p">);</span>
+  <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="n">curvatureName</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">scalarRangeCurvatures</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">(</span><span class="n">scalarRangeCurvatures</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">scalarRange</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">scalarRange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalarRangeCurvatures</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="n">scalarRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalarRangeCurvatures</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="p">,</span> <span class="n">lut</span><span class="p">);</span>
+  <span class="n">MakeLUT</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
+  <span class="n">vtkIdType</span> <span class="n">numberOfBands</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">bands</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">st</span> <span class="o">==</span> <span class="n">PARAMETRIC_HILLS</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Comment this out if you want to see how allocating</span>
+    <span class="c1">// equally spaced bands works.</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="n">MakeCustomBands</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">);</span>
+    <span class="c1">// Adjust the number of table values</span>
+    <span class="n">numberOfBands</span> <span class="o">=</span> <span class="n">bands</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="n">MakeBands</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetTableRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">);</span>
+
+  <span class="c1">// PrintBands(bands);</span>
+
+  <span class="c1">// Let&#39;s do a frequency table.</span>
+  <span class="c1">// The number of scalars in each band.</span>
+  <span class="c1">// std::vector&lt;int&gt; freq = Frequencies(bands, src);</span>
+  <span class="c1">// PrintFrequencies(freq);</span>
+
+  <span class="c1">// We will use the midpoint of the band as the label.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">labels</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">bands</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+       <span class="n">p</span> <span class="o">!=</span> <span class="n">bands</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">labels</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">());</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Annotate</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkVariantArray</span><span class="p">,</span> <span class="n">values</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">labels</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">values</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+  <span class="p">}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">values</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Create a lookup table with the colors reversed.</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="p">,</span> <span class="n">lutr</span><span class="p">);</span>
+  <span class="n">ReverseLUT</span><span class="p">(</span><span class="n">lut</span><span class="p">,</span> <span class="n">lutr</span><span class="p">);</span>
+
+  <span class="c1">// Create the contour bands.</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="p">,</span> <span class="n">bcf</span><span class="p">);</span>
+  <span class="n">bcf</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="c1">// Use either the minimum or maximum value for each band.</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">bands</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+       <span class="n">p</span> <span class="o">!=</span> <span class="n">bands</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">bcf</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// We will use an indexed lookup table.</span>
+  <span class="n">bcf</span><span class="o">-&gt;</span><span class="n">SetScalarModeToIndex</span><span class="p">();</span>
+  <span class="n">bcf</span><span class="o">-&gt;</span><span class="n">GenerateContourEdgesOn</span><span class="p">();</span>
+
+  <span class="c1">// Generate the glyphs on the original surface.</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkGlyph3D</span><span class="p">,</span> <span class="n">glyph</span><span class="p">);</span>
+  <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">glyph</span><span class="p">);</span>
+
+  <span class="c1">// ------------------------------------------------------------</span>
+  <span class="c1">// Create the mappers and actors</span>
+  <span class="c1">// ------------------------------------------------------------</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">srcMapper</span><span class="p">);</span>
+  <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bcf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">);</span>
+  <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
+  <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">srcActor</span><span class="p">);</span>
+  <span class="n">srcActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">srcMapper</span><span class="p">);</span>
+  <span class="n">srcActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">);</span>
+  <span class="n">srcActor</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
+
+  <span class="c1">// Create contour edges</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">edgeMapper</span><span class="p">);</span>
+  <span class="n">edgeMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">bcf</span><span class="o">-&gt;</span><span class="n">GetContourEdgesOutput</span><span class="p">());</span>
+  <span class="n">edgeMapper</span><span class="o">-&gt;</span><span class="n">SetResolveCoincidentTopologyToPolygonOffset</span><span class="p">();</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">edgeActor</span><span class="p">);</span>
+  <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">edgeMapper</span><span class="p">);</span>
+  <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">);</span>
+  <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">glyphMapper</span><span class="p">);</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUsePointFieldData</span><span class="p">();</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetColorModeToMapScalars</span><span class="p">();</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOn</span><span class="p">();</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SelectColorArray</span><span class="p">(</span><span class="s">&quot;Elevation&quot;</span><span class="p">);</span>
+  <span class="c1">// Colour by scalars.</span>
+  <span class="c1">// The default lookup table is used but you can</span>
+  <span class="c1">// use whatever lookup table you like.</span>
+  <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRangeElevation</span><span class="p">);</span>
+
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">glyphActor</span><span class="p">);</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">);</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">);</span>
+  <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
+
+  <span class="c1">// Add a scalar bar-&gt;</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkScalarBarActor</span><span class="p">,</span> <span class="n">scalarBar</span><span class="p">);</span>
+  <span class="c1">// This LUT puts the lowest value at the top of the scalar bar.</span>
+  <span class="c1">// scalarBar-&gt;SetLookupTable(lut);</span>
+  <span class="c1">// Use this LUT if you want the highest value at the top.</span>
+  <span class="n">scalarBar</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lutr</span><span class="p">);</span>
+  <span class="n">scalarBar</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Gaussian</span><span class="se">\n</span><span class="s">Curvature&quot;</span><span class="p">);</span>
+
+  <span class="c1">// ------------------------------------------------------------</span>
+  <span class="c1">// Create the RenderWindow, Renderer and Interactor</span>
+  <span class="c1">// ------------------------------------------------------------</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">ren</span><span class="p">);</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkRenderWindow</span><span class="p">,</span> <span class="n">renWin</span><span class="p">);</span>
+
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+
+  <span class="c1">// add actors</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">srcActor</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">edgeActor</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">glyphActor</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">scalarBar</span><span class="p">);</span>
+
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">}</span> <span class="c1">// end of unnamed namespace</span>
+
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! Make and display the surface.</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkRenderWindowInteractor</span><span class="p">,</span> <span class="n">iren</span><span class="p">);</span>
+  <span class="c1">// Select the surface you want displayed.</span>
+  <span class="c1">// Display(TORUS, iren);</span>
+  <span class="c1">// Display(PARAMETRIC_TORUS, iren);</span>
+  <span class="n">Display</span><span class="p">(</span><span class="n">PARAMETRIC_HILLS</span><span class="p">,</span> <span class="n">iren</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CurvatureBandsWithGlyphs</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CurvatureBandsWithGlyphs</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CurvatureBandsWithGlyphs.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CurvatureBandsWithGlyphs</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-curvaturebandswithglyphs">Download and Build CurvatureBandsWithGlyphs<a class="headerlink" href="#download-and-build-curvaturebandswithglyphs" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CurvatureBandsWithGlyphs.tar">here to download CurvatureBandsWithGlyphs</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CurvatureBandsWithGlyphs.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CurvatureBandsWithGlyphs/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CurvatureBandsWithGlyphs/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CurvatureBandsWithGlyphs
-</code></pre>
+<div class="codehilite"><pre><span></span>./CurvatureBandsWithGlyphs
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

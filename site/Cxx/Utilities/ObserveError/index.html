@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,133 +16018,140 @@
                   <h1>ObserveError</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/ObserveError</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>When vtk encounters an error or warning, by default the message is written to standard output. This example shows how to catch the error or warning. The example prints to standard output, but an application may wish to present the error or warning in a different manner, e.g. write to a log file or present the message in a window.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ObserveError.cxx</strong></p>
-<pre><code class="c++">#include &lt;string&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkCommand.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
 
-class ErrorObserver : public vtkCommand
-{
-public:
-  ErrorObserver():
-    Error(false),
-    Warning(false),
-    ErrorMessage(&quot;&quot;),
-    WarningMessage(&quot;&quot;) {}
-  static ErrorObserver *New()
-  {
-  return new ErrorObserver;
-  }
-  bool GetError() const
-  {
-  return this-&gt;Error;
-  }
-  bool GetWarning() const
-  {
-  return this-&gt;Warning;
-  }
-  void Clear()
-  {
-  this-&gt;Error = false;
-  this-&gt;Warning = false;
-  this-&gt;ErrorMessage = &quot;&quot;;
-  this-&gt;WarningMessage = &quot;&quot;;
-  }
-  virtual void Execute(vtkObject *vtkNotUsed(caller),
-                       unsigned long event,
-                       void *calldata)
-  {
-  switch(event)
-  {
-    case vtkCommand::ErrorEvent:
-      ErrorMessage = static_cast&lt;char *&gt;(calldata);
-      this-&gt;Error = true;
-      break;
-    case vtkCommand::WarningEvent:
-      WarningMessage = static_cast&lt;char *&gt;(calldata);
-      this-&gt;Warning = true;
-      break;
-  }
-  }
-  std::string GetErrorMessage()
-  {
-  return ErrorMessage;
-  }
-std::string GetWarningMessage()
-{
-  return WarningMessage;
-}
-private:
-  bool        Error;
-  bool        Warning;
-  std::string ErrorMessage;
-  std::string WarningMessage;
-};
+<span class="k">class</span> <span class="nc">ErrorObserver</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">ErrorObserver</span><span class="p">()</span><span class="o">:</span>
+    <span class="n">Error</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span>
+    <span class="n">Warning</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span>
+    <span class="n">ErrorMessage</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">WarningMessage</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="k">static</span> <span class="n">ErrorObserver</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorObserver</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">bool</span> <span class="n">GetError</span><span class="p">()</span> <span class="k">const</span>
+  <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Error</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">bool</span> <span class="n">GetWarning</span><span class="p">()</span> <span class="k">const</span>
+  <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Warning</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">Clear</span><span class="p">()</span>
+  <span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Error</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Warning</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">ErrorMessage</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">WarningMessage</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+                       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">event</span><span class="p">,</span>
+                       <span class="kt">void</span> <span class="o">*</span><span class="n">calldata</span><span class="p">)</span>
+  <span class="p">{</span>
+  <span class="k">switch</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">ErrorEvent</span><span class="p">:</span>
+      <span class="n">ErrorMessage</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">calldata</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Error</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">WarningEvent</span><span class="p">:</span>
+      <span class="n">WarningMessage</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">calldata</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Warning</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetErrorMessage</span><span class="p">()</span>
+  <span class="p">{</span>
+  <span class="k">return</span> <span class="n">ErrorMessage</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetWarningMessage</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">WarningMessage</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+  <span class="kt">bool</span>        <span class="n">Error</span><span class="p">;</span>
+  <span class="kt">bool</span>        <span class="n">Warning</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ErrorMessage</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">WarningMessage</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main (int, char *[])
-{
-  vtkSmartPointer&lt;ErrorObserver&gt;  errorObserver =
-    vtkSmartPointer&lt;ErrorObserver&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">ErrorObserver</span><span class="o">&gt;</span>  <span class="n">errorObserver</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">ErrorObserver</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkImageData&gt; image =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  image-&gt;AddObserver(vtkCommand::ErrorEvent,errorObserver);
-  image-&gt;AddObserver(vtkCommand::WarningEvent,errorObserver);
-  image-&gt;GetCell(1);
-  if (errorObserver-&gt;GetError())
-  {
-    std::cout &lt;&lt; &quot;Caught error! &quot; &lt;&lt; errorObserver-&gt;GetErrorMessage();
-  }
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">ErrorEvent</span><span class="p">,</span><span class="n">errorObserver</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">WarningEvent</span><span class="p">,</span><span class="n">errorObserver</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetCell</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">errorObserver</span><span class="o">-&gt;</span><span class="n">GetError</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Caught error! &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">errorObserver</span><span class="o">-&gt;</span><span class="n">GetErrorMessage</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  image-&gt;ShallowCopy(NULL);
-  if (errorObserver-&gt;GetWarning())
-  {
-    std::cout &lt;&lt; &quot;Caught warning! &quot; &lt;&lt; errorObserver-&gt;GetWarningMessage();
-  }
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">errorObserver</span><span class="o">-&gt;</span><span class="n">GetWarning</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Caught warning! &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">errorObserver</span><span class="o">-&gt;</span><span class="n">GetWarningMessage</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ObserveError)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ObserveError</span><span class="p">)</span>
 
-add_executable(ObserveError MACOSX_BUNDLE ObserveError.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ObserveError ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ObserveError</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ObserveError.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-observeerror">Download and Build ObserveError</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ObserveError</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-observeerror">Download and Build ObserveError<a class="headerlink" href="#download-and-build-observeerror" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ObserveError.tar">here to download ObserveError</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ObserveError.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ObserveError/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ObserveError/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ObserveError
-</code></pre>
+<div class="codehilite"><pre><span></span>./ObserveError
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

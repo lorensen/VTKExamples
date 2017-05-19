@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,48 +15990,48 @@
                   <h1>CellEdges</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Meshes/CellEdges</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CellEdges.cs</strong></p>
-<pre><code class="csharp">using System;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
-      static void Main(string[] args) {
-         CellEdges();
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">CellEdges</span><span class="p">();</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private static void CellEdges() {
-         vtkTriangle triangle = vtkTriangle.New();
-         triangle.GetPoints().SetPoint(0, 1.0, 0.0, 0.0);
-         triangle.GetPoints().SetPoint(1, 0.0, 0.0, 0.0);
-         triangle.GetPoints().SetPoint(2, 0.0, 1.0, 0.0);
-         triangle.GetPointIds().SetId(0, 0);
-         triangle.GetPointIds().SetId(1, 1);
-         triangle.GetPointIds().SetId(2, 2);
+      <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">CellEdges</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkTriangle</span> <span class="n">triangle</span> <span class="p">=</span> <span class="n">vtkTriangle</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">triangle</span><span class="p">.</span><span class="n">GetPoints</span><span class="p">().</span><span class="n">SetPoint</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">triangle</span><span class="p">.</span><span class="n">GetPoints</span><span class="p">().</span><span class="n">SetPoint</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">triangle</span><span class="p">.</span><span class="n">GetPoints</span><span class="p">().</span><span class="n">SetPoint</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">triangle</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">triangle</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">triangle</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-         Console.WriteLine(&quot;The cell has &quot; + triangle.GetNumberOfEdges() + &quot; edges.&quot;);
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;The cell has &quot;</span> <span class="p">+</span> <span class="n">triangle</span><span class="p">.</span><span class="n">GetNumberOfEdges</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; edges.&quot;</span><span class="p">);</span>
 
-         for(int i = 0; i &lt; triangle.GetNumberOfEdges(); i++) {
-            vtkCell edge = triangle.GetEdge(i);
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">triangle</span><span class="p">.</span><span class="n">GetNumberOfEdges</span><span class="p">();</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="n">vtkCell</span> <span class="n">edge</span> <span class="p">=</span> <span class="n">triangle</span><span class="p">.</span><span class="n">GetEdge</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 
-            vtkIdList pointIdList = edge.GetPointIds();
-            Console.WriteLine(&quot;Edge &quot; + i + &quot; has &quot; + pointIdList.GetNumberOfIds() + &quot; points.&quot;);
+            <span class="n">vtkIdList</span> <span class="n">pointIdList</span> <span class="p">=</span> <span class="n">edge</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">();</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Edge &quot;</span> <span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot; has &quot;</span> <span class="p">+</span> <span class="n">pointIdList</span><span class="p">.</span><span class="n">GetNumberOfIds</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; points.&quot;</span><span class="p">);</span>
 
-            for(int p = 0; p &lt; pointIdList.GetNumberOfIds(); p++) {
-               Console.WriteLine(&quot;Edge &quot; + i + &quot; uses point &quot; + pointIdList.GetId(p));
-            }
-         }
-      }
-   }
-}
-</code></pre>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">p</span> <span class="p">&lt;</span> <span class="n">pointIdList</span><span class="p">.</span><span class="n">GetNumberOfIds</span><span class="p">();</span> <span class="n">p</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Edge &quot;</span> <span class="p">+</span> <span class="n">i</span> <span class="p">+</span> <span class="s">&quot; uses point &quot;</span> <span class="p">+</span> <span class="n">pointIdList</span><span class="p">.</span><span class="n">GetId</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

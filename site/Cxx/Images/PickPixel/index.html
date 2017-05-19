@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,311 +16019,318 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/PickPixel</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestPickPixel.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to continuously retrieve pixel values using the mouse.</p>
 <ul>
 <li>Contributed by: Dean Inglis</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PickPixel.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkAssemblyPath.h&gt;
-#include &lt;vtkCell.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkCornerAnnotation.h&gt;
-#include &lt;vtkDataArray.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageViewer2.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPropPicker.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTextProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAssemblyPath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCell.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCornerAnnotation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageViewer2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPropPicker.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
 
-// The mouse motion callback, to pick the image and recover pixel values
-class vtkImageInteractionCallback1 : public vtkCommand
-{
-public:
+<span class="c1">// The mouse motion callback, to pick the image and recover pixel values</span>
+<span class="k">class</span> <span class="nc">vtkImageInteractionCallback1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
 
-  static vtkImageInteractionCallback1 *New()
-  {
-    return new vtkImageInteractionCallback1;
-  }
+  <span class="k">static</span> <span class="n">vtkImageInteractionCallback1</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkImageInteractionCallback1</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkImageInteractionCallback1()
-  {
-    this-&gt;Viewer = 0;
-    this-&gt;Picker = 0;
-    this-&gt;Annotation = 0;
-    this-&gt;PointData = vtkPointData::New();
-  }
+  <span class="n">vtkImageInteractionCallback1</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Annotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">PointData</span> <span class="o">=</span> <span class="n">vtkPointData</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  ~vtkImageInteractionCallback1()
-  {
-     this-&gt;Viewer = 0;
-     this-&gt;Picker = 0;
-     this-&gt;Annotation = 0;
-     this-&gt;PointData-&gt;Delete();
-  }
+  <span class="o">~</span><span class="n">vtkImageInteractionCallback1</span><span class="p">()</span>
+  <span class="p">{</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">Annotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="k">this</span><span class="o">-&gt;</span><span class="n">PointData</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  void SetPicker(vtkPropPicker *picker)
-  {
-    this-&gt;Picker = picker;
-  }
+  <span class="kt">void</span> <span class="n">SetPicker</span><span class="p">(</span><span class="n">vtkPropPicker</span> <span class="o">*</span><span class="n">picker</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span> <span class="o">=</span> <span class="n">picker</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  void SetAnnotation(vtkCornerAnnotation *annotation)
-  {
-    this-&gt;Annotation = annotation;
-  }
+  <span class="kt">void</span> <span class="n">SetAnnotation</span><span class="p">(</span><span class="n">vtkCornerAnnotation</span> <span class="o">*</span><span class="n">annotation</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Annotation</span> <span class="o">=</span> <span class="n">annotation</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  void SetViewer(vtkImageViewer2 *viewer)
-  {
-    this-&gt;Viewer = viewer;
-  }
+  <span class="kt">void</span> <span class="n">SetViewer</span><span class="p">(</span><span class="n">vtkImageViewer2</span> <span class="o">*</span><span class="n">viewer</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span> <span class="o">=</span> <span class="n">viewer</span><span class="p">;</span>
+  <span class="p">}</span>
 
-    virtual void Execute(vtkObject *, unsigned long vtkNotUsed(event), void *)
-    {
-      //this-&gt;Viewer;
-      vtkRenderWindowInteractor *interactor =
-        this-&gt;Viewer-&gt;GetRenderWindow()-&gt;GetInteractor();
-      vtkRenderer* renderer = this-&gt;Viewer-&gt;GetRenderer();
-      vtkImageActor* actor = this-&gt;Viewer-&gt;GetImageActor();
-      vtkImageData* image = this-&gt;Viewer-&gt;GetInput();
-      vtkInteractorStyle *style = vtkInteractorStyle::SafeDownCast(
-          interactor-&gt;GetInteractorStyle());
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">event</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="c1">//this-&gt;Viewer;</span>
+      <span class="n">vtkRenderWindowInteractor</span> <span class="o">*</span><span class="n">interactor</span> <span class="o">=</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">();</span>
+      <span class="n">vtkRenderer</span><span class="o">*</span> <span class="n">renderer</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">();</span>
+      <span class="n">vtkImageActor</span><span class="o">*</span> <span class="n">actor</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span><span class="o">-&gt;</span><span class="n">GetImageActor</span><span class="p">();</span>
+      <span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">();</span>
+      <span class="n">vtkInteractorStyle</span> <span class="o">*</span><span class="n">style</span> <span class="o">=</span> <span class="n">vtkInteractorStyle</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+          <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">GetInteractorStyle</span><span class="p">());</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-      image-&gt;Update();
-#endif
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+      <span class="n">image</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+<span class="cp">#endif</span>
 
-      // Pick at the mouse location provided by the interactor
-      this-&gt;Picker-&gt;Pick( interactor-&gt;GetEventPosition()[0],
-                          interactor-&gt;GetEventPosition()[1],
-                          0.0, renderer );
+      <span class="c1">// Pick at the mouse location provided by the interactor</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span><span class="o">-&gt;</span><span class="n">Pick</span><span class="p">(</span> <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">GetEventPosition</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
+                          <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">GetEventPosition</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+                          <span class="mf">0.0</span><span class="p">,</span> <span class="n">renderer</span> <span class="p">);</span>
 
-      // There could be other props assigned to this picker, so
-      // make sure we picked the image actor
-      vtkAssemblyPath* path = this-&gt;Picker-&gt;GetPath();
-      bool validPick = false;
+      <span class="c1">// There could be other props assigned to this picker, so</span>
+      <span class="c1">// make sure we picked the image actor</span>
+      <span class="n">vtkAssemblyPath</span><span class="o">*</span> <span class="n">path</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span><span class="o">-&gt;</span><span class="n">GetPath</span><span class="p">();</span>
+      <span class="kt">bool</span> <span class="n">validPick</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 
-      if( path )
-      {
-        vtkCollectionSimpleIterator sit;
-        path-&gt;InitTraversal( sit );
-        vtkAssemblyNode *node;
-        for( int i = 0; i &lt; path-&gt;GetNumberOfItems() &amp;&amp; !validPick; ++i )
-        {
-          node = path-&gt;GetNextNode( sit );
-          if( actor == vtkImageActor::SafeDownCast( node-&gt;GetViewProp() ) )
-          {
-            validPick = true;
-          }
-        }
-      }
+      <span class="k">if</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vtkCollectionSimpleIterator</span> <span class="n">sit</span><span class="p">;</span>
+        <span class="n">path</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">(</span> <span class="n">sit</span> <span class="p">);</span>
+        <span class="n">vtkAssemblyNode</span> <span class="o">*</span><span class="n">node</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">path</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">validPick</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">node</span> <span class="o">=</span> <span class="n">path</span><span class="o">-&gt;</span><span class="n">GetNextNode</span><span class="p">(</span> <span class="n">sit</span> <span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span> <span class="n">actor</span> <span class="o">==</span> <span class="n">vtkImageActor</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">GetViewProp</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
+          <span class="p">{</span>
+            <span class="n">validPick</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
 
-      if( !validPick )
-      {
-        this-&gt;Annotation-&gt;SetText( 0, &quot;Off Image&quot; );
-        interactor-&gt;Render();
-        // Pass the event further on
-        style-&gt;OnMouseMove();
-        return;
-      }
+      <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">validPick</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Annotation</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Off Image&quot;</span> <span class="p">);</span>
+        <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+        <span class="c1">// Pass the event further on</span>
+        <span class="n">style</span><span class="o">-&gt;</span><span class="n">OnMouseMove</span><span class="p">();</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
 
-      // Get the world coordinates of the pick
-      double pos[3];
-      this-&gt;Picker-&gt;GetPickPosition( pos );
-      // Fixes some numerical problems with the picking
-      double *bounds = actor-&gt;GetDisplayBounds();
-      int axis = this-&gt;Viewer-&gt;GetSliceOrientation();
-      pos[axis] = bounds[2*axis];
+      <span class="c1">// Get the world coordinates of the pick</span>
+      <span class="kt">double</span> <span class="n">pos</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span><span class="o">-&gt;</span><span class="n">GetPickPosition</span><span class="p">(</span> <span class="n">pos</span> <span class="p">);</span>
+      <span class="c1">// Fixes some numerical problems with the picking</span>
+      <span class="kt">double</span> <span class="o">*</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetDisplayBounds</span><span class="p">();</span>
+      <span class="kt">int</span> <span class="n">axis</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span><span class="o">-&gt;</span><span class="n">GetSliceOrientation</span><span class="p">();</span>
+      <span class="n">pos</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">axis</span><span class="p">];</span>
 
-      vtkPointData* pd = image-&gt;GetPointData();
-      if( !pd )
-      {
-        return;
-      }
+      <span class="n">vtkPointData</span><span class="o">*</span> <span class="n">pd</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">();</span>
+      <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">pd</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
 
-      this-&gt;PointData-&gt;InterpolateAllocate( pd, 1, 1 );
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">PointData</span><span class="o">-&gt;</span><span class="n">InterpolateAllocate</span><span class="p">(</span> <span class="n">pd</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
 
-      // Use tolerance as a function of size of source data
-      double tol2 = image-&gt;GetLength();
-      tol2 = tol2 ? tol2*tol2 / 1000.0 : 0.001;
+      <span class="c1">// Use tolerance as a function of size of source data</span>
+      <span class="kt">double</span> <span class="n">tol2</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetLength</span><span class="p">();</span>
+      <span class="n">tol2</span> <span class="o">=</span> <span class="n">tol2</span> <span class="o">?</span> <span class="n">tol2</span><span class="o">*</span><span class="n">tol2</span> <span class="o">/</span> <span class="mf">1000.0</span> <span class="o">:</span> <span class="mf">0.001</span><span class="p">;</span>
 
-      // Find the cell that contains pos
-      int subId;
-      double pcoords[3], weights[8];
-      vtkCell* cell = image-&gt;FindAndGetCell(
-          pos, NULL, -1, tol2, subId, pcoords, weights );
-      if( cell )
-      {
-        // Interpolate the point data
-        this-&gt;PointData-&gt;InterpolatePoint( pd, 0, cell-&gt;PointIds, weights );
-        int components =
-          this-&gt;PointData-&gt;GetScalars()-&gt;GetNumberOfComponents();
-        double* tuple = this-&gt;PointData-&gt;GetScalars()-&gt;GetTuple( 0 );
+      <span class="c1">// Find the cell that contains pos</span>
+      <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">weights</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+      <span class="n">vtkCell</span><span class="o">*</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">FindAndGetCell</span><span class="p">(</span>
+          <span class="n">pos</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol2</span><span class="p">,</span> <span class="n">subId</span><span class="p">,</span> <span class="n">pcoords</span><span class="p">,</span> <span class="n">weights</span> <span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">cell</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="c1">// Interpolate the point data</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">PointData</span><span class="o">-&gt;</span><span class="n">InterpolatePoint</span><span class="p">(</span> <span class="n">pd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cell</span><span class="o">-&gt;</span><span class="n">PointIds</span><span class="p">,</span> <span class="n">weights</span> <span class="p">);</span>
+        <span class="kt">int</span> <span class="n">components</span> <span class="o">=</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">PointData</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfComponents</span><span class="p">();</span>
+        <span class="kt">double</span><span class="o">*</span> <span class="n">tuple</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">PointData</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span> <span class="mi">0</span> <span class="p">);</span>
 
-        std::string message = &quot;Location: ( &quot;;
-        message += vtkVariant( pos[0] ).ToString();
-        message += &quot;, &quot;;
-        message += vtkVariant( pos[1] ).ToString();
-        message += &quot;, &quot;;
-        message += vtkVariant( pos[2] ).ToString();
-        message += &quot; )\nValue: ( &quot;;
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Location: ( &quot;</span><span class="p">;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="n">vtkVariant</span><span class="p">(</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">).</span><span class="n">ToString</span><span class="p">();</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="n">vtkVariant</span><span class="p">(</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">).</span><span class="n">ToString</span><span class="p">();</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="n">vtkVariant</span><span class="p">(</span> <span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">).</span><span class="n">ToString</span><span class="p">();</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s">&quot; )</span><span class="se">\n</span><span class="s">Value: ( &quot;</span><span class="p">;</span>
 
-        for( int c = 0; c &lt; components; ++c )
-        {
-          message += vtkVariant( tuple[ c ] ).ToString();
-          if( c != components - 1 )
-          {
-            message += &quot;, &quot;;
-          }
-        }
-        message += &quot; )&quot;;
-        this-&gt;Annotation-&gt;SetText( 0, message.c_str() );
-        interactor-&gt;Render();
-        style-&gt;OnMouseMove();
-      }
-    }
+        <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">components</span><span class="p">;</span> <span class="o">++</span><span class="n">c</span> <span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">message</span> <span class="o">+=</span> <span class="n">vtkVariant</span><span class="p">(</span> <span class="n">tuple</span><span class="p">[</span> <span class="n">c</span> <span class="p">]</span> <span class="p">).</span><span class="n">ToString</span><span class="p">();</span>
+          <span class="k">if</span><span class="p">(</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">components</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span>
+          <span class="p">{</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s">&quot; )&quot;</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Annotation</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">message</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+        <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+        <span class="n">style</span><span class="o">-&gt;</span><span class="n">OnMouseMove</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-private:
+<span class="k">private</span><span class="o">:</span>
 
-  // Pointer to the viewer
-  vtkImageViewer2 *Viewer;
+  <span class="c1">// Pointer to the viewer</span>
+  <span class="n">vtkImageViewer2</span> <span class="o">*</span><span class="n">Viewer</span><span class="p">;</span>
 
-  // Pointer to the picker
-  vtkPropPicker *Picker;
+  <span class="c1">// Pointer to the picker</span>
+  <span class="n">vtkPropPicker</span> <span class="o">*</span><span class="n">Picker</span><span class="p">;</span>
 
-  // Pointer to the annotation
-  vtkCornerAnnotation *Annotation;
+  <span class="c1">// Pointer to the annotation</span>
+  <span class="n">vtkCornerAnnotation</span> <span class="o">*</span><span class="n">Annotation</span><span class="p">;</span>
 
-  // Interpolator
-  vtkPointData* PointData;
-};
+  <span class="c1">// Interpolator</span>
+  <span class="n">vtkPointData</span><span class="o">*</span> <span class="n">PointData</span><span class="p">;</span>
+<span class="p">};</span>
 
 
-int main ( int argc, char* argv[] )
-{
-//Verify input arguments
-  if ( argc != 2 )
-  {
-    std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; Filename(jpeg)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+<span class="c1">//Verify input arguments</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename(jpeg)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  //Parse input argument
-  std::string inputFilename = argv[1];
+  <span class="c1">//Parse input argument</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-  //Read the image
-  vtkSmartPointer&lt;vtkJPEGReader&gt; jpegReader =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  if( !jpegReader-&gt;CanReadFile( inputFilename.c_str() ) )
-  {
-    std::cout &lt;&lt; argv[0] &lt;&lt; &quot;: Error reading file &quot;
-              &lt;&lt; inputFilename &lt;&lt; endl &lt;&lt; &quot;Exiting...&quot; &lt;&lt; endl;
-    return EXIT_FAILURE;
-  }
-  jpegReader-&gt;SetFileName ( inputFilename.c_str() );
+  <span class="c1">//Read the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jpegReader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">CanReadFile</span><span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: Error reading file &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">inputFilename</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
 
-  // Picker to pick pixels
-  vtkSmartPointer&lt;vtkPropPicker&gt; propPicker =
-    vtkSmartPointer&lt;vtkPropPicker&gt;::New();
-  propPicker-&gt;PickFromListOn();
+  <span class="c1">// Picker to pick pixels</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;</span> <span class="n">propPicker</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">propPicker</span><span class="o">-&gt;</span><span class="n">PickFromListOn</span><span class="p">();</span>
 
-  // Give the picker a prop to pick
-  vtkSmartPointer&lt;vtkImageViewer2&gt; imageViewer =
-    vtkSmartPointer&lt;vtkImageViewer2&gt;::New();
-  propPicker-&gt;AddPickList( imageViewer-&gt;GetImageActor() );
+  <span class="c1">// Give the picker a prop to pick</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;</span> <span class="n">imageViewer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageViewer2</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">propPicker</span><span class="o">-&gt;</span><span class="n">AddPickList</span><span class="p">(</span> <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetImageActor</span><span class="p">()</span> <span class="p">);</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  imageViewer-&gt;SetInputConnection( jpegReader-&gt;GetOutputPort() );
-  imageViewer-&gt;SetupInteractor( renderWindowInteractor );
-  imageViewer-&gt;SetSize( 600, 600 );
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetupInteractor</span><span class="p">(</span> <span class="n">renderWindowInteractor</span> <span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">600</span> <span class="p">);</span>
 
-  vtkRenderer* renderer = imageViewer-&gt;GetRenderer();
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GradientBackgroundOn();
-  renderer-&gt;SetBackground(0,0,0);
-  renderer-&gt;SetBackground2(1,1,1);
+  <span class="n">vtkRenderer</span><span class="o">*</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GradientBackgroundOn</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  // Annotate the image with window/level and mouse over pixel information
-  vtkSmartPointer&lt;vtkCornerAnnotation&gt; cornerAnnotation =
-    vtkSmartPointer&lt;vtkCornerAnnotation&gt;::New();
-  cornerAnnotation-&gt;SetLinearFontScaleFactor( 2 );
-  cornerAnnotation-&gt;SetNonlinearFontScaleFactor( 1 );
-  cornerAnnotation-&gt;SetMaximumFontSize( 20 );
-  cornerAnnotation-&gt;SetText( 0, &quot;Off Image&quot; );
-  cornerAnnotation-&gt;SetText( 3, &quot;&lt;window&gt;\n&lt;level&gt;&quot; );
-  cornerAnnotation-&gt;GetTextProperty()-&gt;SetColor( 1,0,0);
+  <span class="c1">// Annotate the image with window/level and mouse over pixel information</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCornerAnnotation</span><span class="o">&gt;</span> <span class="n">cornerAnnotation</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCornerAnnotation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cornerAnnotation</span><span class="o">-&gt;</span><span class="n">SetLinearFontScaleFactor</span><span class="p">(</span> <span class="mi">2</span> <span class="p">);</span>
+  <span class="n">cornerAnnotation</span><span class="o">-&gt;</span><span class="n">SetNonlinearFontScaleFactor</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">cornerAnnotation</span><span class="o">-&gt;</span><span class="n">SetMaximumFontSize</span><span class="p">(</span> <span class="mi">20</span> <span class="p">);</span>
+  <span class="n">cornerAnnotation</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Off Image&quot;</span> <span class="p">);</span>
+  <span class="n">cornerAnnotation</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;&lt;window&gt;</span><span class="se">\n</span><span class="s">&lt;level&gt;&quot;</span> <span class="p">);</span>
+  <span class="n">cornerAnnotation</span><span class="o">-&gt;</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  imageViewer-&gt;GetRenderer()-&gt;AddViewProp( cornerAnnotation );
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span> <span class="n">cornerAnnotation</span> <span class="p">);</span>
 
-  // Callback listens to MouseMoveEvents invoked by the interactor's style
-  vtkSmartPointer&lt;vtkImageInteractionCallback1&gt; callback =
-    vtkSmartPointer&lt;vtkImageInteractionCallback1&gt;::New();
-  callback-&gt;SetViewer( imageViewer );
-  callback-&gt;SetAnnotation( cornerAnnotation );
-  callback-&gt;SetPicker( propPicker );
+  <span class="c1">// Callback listens to MouseMoveEvents invoked by the interactor&#39;s style</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageInteractionCallback1</span><span class="o">&gt;</span> <span class="n">callback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageInteractionCallback1</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">SetViewer</span><span class="p">(</span> <span class="n">imageViewer</span> <span class="p">);</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span> <span class="n">cornerAnnotation</span> <span class="p">);</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">SetPicker</span><span class="p">(</span> <span class="n">propPicker</span> <span class="p">);</span>
 
-  // InteractorStyleImage allows for the following controls:
-  // 1) middle mouse + move = camera pan
-  // 2) left mouse + move = window/level
-  // 3) right mouse + move = camera zoom
-  // 4) middle mouse wheel scroll = zoom
-  // 5) 'r' = reset window/level
-  // 6) shift + 'r' = reset camera
-  vtkInteractorStyleImage* imageStyle = imageViewer-&gt;GetInteractorStyle();
-  imageStyle-&gt;AddObserver( vtkCommand::MouseMoveEvent, callback );
+  <span class="c1">// InteractorStyleImage allows for the following controls:</span>
+  <span class="c1">// 1) middle mouse + move = camera pan</span>
+  <span class="c1">// 2) left mouse + move = window/level</span>
+  <span class="c1">// 3) right mouse + move = camera zoom</span>
+  <span class="c1">// 4) middle mouse wheel scroll = zoom</span>
+  <span class="c1">// 5) &#39;r&#39; = reset window/level</span>
+  <span class="c1">// 6) shift + &#39;r&#39; = reset camera</span>
+  <span class="n">vtkInteractorStyleImage</span><span class="o">*</span> <span class="n">imageStyle</span> <span class="o">=</span> <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">GetInteractorStyle</span><span class="p">();</span>
+  <span class="n">imageStyle</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">MouseMoveEvent</span><span class="p">,</span> <span class="n">callback</span> <span class="p">);</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PickPixel)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PickPixel</span><span class="p">)</span>
 
-add_executable(PickPixel MACOSX_BUNDLE PickPixel.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PickPixel ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PickPixel</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PickPixel.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-pickpixel">Download and Build PickPixel</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PickPixel</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-pickpixel">Download and Build PickPixel<a class="headerlink" href="#download-and-build-pickpixel" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PickPixel.tar">here to download PickPixel</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PickPixel.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PickPixel/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PickPixel/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PickPixel
-</code></pre>
+<div class="codehilite"><pre><span></span>./PickPixel
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

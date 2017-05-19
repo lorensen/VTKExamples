@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,213 +16018,220 @@
                   <h1>DumpXMLFile</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/IO/DumpXMLFile</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example reports the cell, cell data and point data contained within a VTK XML or legacy file.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DumpXMLFile.cxx</strong></p>
-<pre><code class="c++">//
-// DumpXMLFile - report on the contents of an XML or legacy vtk file
-//  Usage: DumpXMLFile XMLFile1 XMLFile2 ...
-//         where
-//         XMLFile is a vtk XML file of type .vtu, .vtp, .vts, .vtr,
-//         .vti, .vto
-//
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkXMLReader.h&gt;
-#include &lt;vtkXMLUnstructuredGridReader.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkXMLStructuredGridReader.h&gt;
-#include &lt;vtkXMLRectilinearGridReader.h&gt;
-#include &lt;vtkXMLHyperOctreeReader.h&gt;
-#include &lt;vtkXMLCompositeDataReader.h&gt;
-#include &lt;vtkXMLStructuredGridReader.h&gt;
-#include &lt;vtkXMLImageDataReader.h&gt;
-#include &lt;vtkDataSetReader.h&gt;
-#include &lt;vtkDataSet.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkRectilinearGrid.h&gt;
-#include &lt;vtkHyperOctree.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkStructuredGrid.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkFieldData.h&gt;
-#include &lt;vtkCellTypes.h&gt;
-#include &lt;vtksys/SystemTools.hxx&gt;
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">// DumpXMLFile - report on the contents of an XML or legacy vtk file</span>
+<span class="c1">//  Usage: DumpXMLFile XMLFile1 XMLFile2 ...</span>
+<span class="c1">//         where</span>
+<span class="c1">//         XMLFile is a vtk XML file of type .vtu, .vtp, .vts, .vtr,</span>
+<span class="c1">//         .vti, .vto</span>
+<span class="c1">//</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLUnstructuredGridReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLStructuredGridReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLRectilinearGridReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLHyperOctreeReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLCompositeDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLStructuredGridReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLImageDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRectilinearGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkHyperOctree.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFieldData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellTypes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtksys/SystemTools.hxx&gt;</span><span class="cp"></span>
 
-#include &lt;map&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp"></span>
 
-template&lt;class TReader&gt; vtkDataSet *ReadAnXMLFile(const char*fileName)
-{
-  vtkSmartPointer&lt;TReader&gt; reader =
-    vtkSmartPointer&lt;TReader&gt;::New();
-  reader-&gt;SetFileName(fileName);
-  reader-&gt;Update();
-  reader-&gt;GetOutput()-&gt;Register(reader);
-  return vtkDataSet::SafeDownCast(reader-&gt;GetOutput());
-}
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">TReader</span><span class="o">&gt;</span> <span class="n">vtkDataSet</span> <span class="o">*</span><span class="n">ReadAnXMLFile</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">fileName</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">TReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">TReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Register</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
 
-int main (int argc, char *argv[])
-{
-  if (argc &lt; 2)
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; XMLFile1 XMLFile2 ...&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="n">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; XMLFile1 XMLFile2 ...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Process each file on the command line
-  int f = 1;
-  while (f &lt; argc)
-  {
-    vtkDataSet *dataSet;
-    std::string extension =
-      vtksys::SystemTools::GetFilenameLastExtension(argv[f]);
-    // Dispatch based on the file extension
-    if (extension == &quot;.vtu&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkXMLUnstructuredGridReader&gt; (argv[f]);
-    }
-    else if (extension == &quot;.vtp&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkXMLPolyDataReader&gt; (argv[f]);
-    }
-    else if (extension == &quot;.vts&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkXMLStructuredGridReader&gt; (argv[f]);
-    }
-    else if (extension == &quot;.vtr&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkXMLRectilinearGridReader&gt; (argv[f]);
-    }
-    else if (extension == &quot;.vti&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkXMLImageDataReader&gt; (argv[f]);
-    }
-    else if (extension == &quot;.vto&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkXMLHyperOctreeReader&gt; (argv[f]);
-    }
-    else if (extension == &quot;.vtk&quot;)
-    {
-      dataSet = ReadAnXMLFile&lt;vtkDataSetReader&gt; (argv[f]);
-    }
-    else
-    {
-      std::cerr &lt;&lt; argv[0] &lt;&lt; &quot; Unknown extension: &quot; &lt;&lt; extension &lt;&lt; std::endl;
-      return EXIT_FAILURE;
-    }
+  <span class="c1">// Process each file on the command line</span>
+  <span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">f</span> <span class="o">&lt;</span> <span class="n">argc</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkDataSet</span> <span class="o">*</span><span class="n">dataSet</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">extension</span> <span class="o">=</span>
+      <span class="n">vtksys</span><span class="o">::</span><span class="n">SystemTools</span><span class="o">::</span><span class="n">GetFilenameLastExtension</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="c1">// Dispatch based on the file extension</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vtu&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkXMLUnstructuredGridReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vtp&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vts&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkXMLStructuredGridReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vtr&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkXMLRectilinearGridReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vti&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vto&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkXMLHyperOctreeReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">extension</span> <span class="o">==</span> <span class="s">&quot;.vtk&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">dataSet</span> <span class="o">=</span> <span class="n">ReadAnXMLFile</span><span class="o">&lt;</span><span class="n">vtkDataSetReader</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Unknown extension: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extension</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    int numberOfCells = dataSet-&gt;GetNumberOfCells();
-    int numberOfPoints = dataSet-&gt;GetNumberOfPoints();
+    <span class="kt">int</span> <span class="n">numberOfCells</span> <span class="o">=</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">numberOfPoints</span> <span class="o">=</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span>
 
-    // Generate a report
-    std::cout &lt;&lt; &quot;------------------------&quot; &lt;&lt; std::endl;
-    std::cout &lt;&lt; argv[f] &lt;&lt; std::endl
-         &lt;&lt; &quot; contains a &quot; &lt;&lt; std::endl
-         &lt;&lt; dataSet-&gt;GetClassName()
-         &lt;&lt;  &quot; that has &quot; &lt;&lt; numberOfCells &lt;&lt; &quot; cells&quot;
-         &lt;&lt; &quot; and &quot; &lt;&lt; numberOfPoints &lt;&lt; &quot; points.&quot; &lt;&lt; std::endl;
-    typedef std::map&lt;int,int&gt; CellContainer;
-    CellContainer cellMap;
-    for (int i = 0; i &lt; numberOfCells; i++)
-    {
-      cellMap[dataSet-&gt;GetCellType(i)]++;
-    }
+    <span class="c1">// Generate a report</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;------------------------&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot; contains a &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+         <span class="o">&lt;&lt;</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetClassName</span><span class="p">()</span>
+         <span class="o">&lt;&lt;</span>  <span class="s">&quot; that has &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numberOfCells</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; cells&quot;</span>
+         <span class="o">&lt;&lt;</span> <span class="s">&quot; and &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numberOfPoints</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">CellContainer</span><span class="p">;</span>
+    <span class="n">CellContainer</span> <span class="n">cellMap</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfCells</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">cellMap</span><span class="p">[</span><span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    CellContainer::const_iterator it = cellMap.begin();
-    while (it != cellMap.end())
-    {
-      std::cout &lt;&lt; &quot;\tCell type &quot;
-           &lt;&lt; vtkCellTypes::GetClassNameFromTypeId(it-&gt;first)
-           &lt;&lt; &quot; occurs &quot; &lt;&lt; it-&gt;second &lt;&lt; &quot; times.&quot; &lt;&lt; std::endl;
-      ++it;
-    }
+    <span class="n">CellContainer</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">cellMap</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">cellMap</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Cell type &quot;</span>
+           <span class="o">&lt;&lt;</span> <span class="n">vtkCellTypes</span><span class="o">::</span><span class="n">GetClassNameFromTypeId</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">)</span>
+           <span class="o">&lt;&lt;</span> <span class="s">&quot; occurs &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; times.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="o">++</span><span class="n">it</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    // Now check for point data
-    vtkPointData *pd = dataSet-&gt;GetPointData();
-    if (pd)
-    {
-      std::cout &lt;&lt; &quot; contains point data with &quot;
-           &lt;&lt; pd-&gt;GetNumberOfArrays()
-           &lt;&lt; &quot; arrays.&quot; &lt;&lt; std::endl;
-      for (int i = 0; i &lt; pd-&gt;GetNumberOfArrays(); i++)
-      {
-        std::cout &lt;&lt; &quot;\tArray &quot; &lt;&lt; i
-             &lt;&lt; &quot; is named &quot;
-             &lt;&lt; (pd-&gt;GetArrayName(i) ? pd-&gt;GetArrayName(i) : &quot;NULL&quot;)
-             &lt;&lt; std::endl;
-      }
-    }
-    // Now check for cell data
-    vtkCellData *cd = dataSet-&gt;GetCellData();
-    if (cd)
-    {
-      std::cout &lt;&lt; &quot; contains cell data with &quot;
-           &lt;&lt; cd-&gt;GetNumberOfArrays()
-           &lt;&lt; &quot; arrays.&quot; &lt;&lt; std::endl;
-      for (int i = 0; i &lt; cd-&gt;GetNumberOfArrays(); i++)
-      {
-        std::cout &lt;&lt; &quot;\tArray &quot; &lt;&lt; i
-             &lt;&lt; &quot; is named &quot;
-             &lt;&lt; (cd-&gt;GetArrayName(i) ? cd-&gt;GetArrayName(i) : &quot;NULL&quot;)
-             &lt;&lt; std::endl;
-      }
-    }
-    // Now check for field data
-    if (dataSet-&gt;GetFieldData())
-    {
-      std::cout &lt;&lt; &quot; contains field data with &quot;
-           &lt;&lt; dataSet-&gt;GetFieldData()-&gt;GetNumberOfArrays()
-           &lt;&lt; &quot; arrays.&quot; &lt;&lt; std::endl;
-      for (int i = 0; i &lt; dataSet-&gt;GetFieldData()-&gt;GetNumberOfArrays(); i++)
-      {
-        std::cout &lt;&lt; &quot;\tArray &quot; &lt;&lt; i
-             &lt;&lt; &quot; is named &quot; &lt;&lt; dataSet-&gt;GetFieldData()-&gt;GetArray(i)-&gt;GetName()
-             &lt;&lt; std::endl;
-      }
-    }
-    dataSet-&gt;Delete();
-    f++;
-  }
-  return EXIT_SUCCESS;
-}
-</code></pre>
+    <span class="c1">// Now check for point data</span>
+    <span class="n">vtkPointData</span> <span class="o">*</span><span class="n">pd</span> <span class="o">=</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pd</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; contains point data with &quot;</span>
+           <span class="o">&lt;&lt;</span> <span class="n">pd</span><span class="o">-&gt;</span><span class="n">GetNumberOfArrays</span><span class="p">()</span>
+           <span class="o">&lt;&lt;</span> <span class="s">&quot; arrays.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">-&gt;</span><span class="n">GetNumberOfArrays</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Array &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot; is named &quot;</span>
+             <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">pd</span><span class="o">-&gt;</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">?</span> <span class="n">pd</span><span class="o">-&gt;</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="s">&quot;NULL&quot;</span><span class="p">)</span>
+             <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Now check for cell data</span>
+    <span class="n">vtkCellData</span> <span class="o">*</span><span class="n">cd</span> <span class="o">=</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cd</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; contains cell data with &quot;</span>
+           <span class="o">&lt;&lt;</span> <span class="n">cd</span><span class="o">-&gt;</span><span class="n">GetNumberOfArrays</span><span class="p">()</span>
+           <span class="o">&lt;&lt;</span> <span class="s">&quot; arrays.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cd</span><span class="o">-&gt;</span><span class="n">GetNumberOfArrays</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Array &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot; is named &quot;</span>
+             <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">cd</span><span class="o">-&gt;</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">?</span> <span class="n">cd</span><span class="o">-&gt;</span><span class="n">GetArrayName</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="s">&quot;NULL&quot;</span><span class="p">)</span>
+             <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Now check for field data</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; contains field data with &quot;</span>
+           <span class="o">&lt;&lt;</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfArrays</span><span class="p">()</span>
+           <span class="o">&lt;&lt;</span> <span class="s">&quot; arrays.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfArrays</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Array &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
+             <span class="o">&lt;&lt;</span> <span class="s">&quot; is named &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">()</span>
+             <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+    <span class="n">f</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DumpXMLFile)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DumpXMLFile</span><span class="p">)</span>
 
-add_executable(DumpXMLFile MACOSX_BUNDLE DumpXMLFile.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DumpXMLFile ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DumpXMLFile</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DumpXMLFile.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-dumpxmlfile">Download and Build DumpXMLFile</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DumpXMLFile</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-dumpxmlfile">Download and Build DumpXMLFile<a class="headerlink" href="#download-and-build-dumpxmlfile" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DumpXMLFile.tar">here to download DumpXMLFile</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DumpXMLFile.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DumpXMLFile/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DumpXMLFile/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DumpXMLFile
-</code></pre>
+<div class="codehilite"><pre><span></span>./DumpXMLFile
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

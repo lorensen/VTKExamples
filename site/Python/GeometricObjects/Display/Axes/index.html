@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15566,6 +15566,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15980,60 +15992,60 @@
                   <h1>Axes</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Axes</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to position an AxesActor in 3D. Notice that position and orientation of the AxesActor is done with a user transform.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Axes.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-#create a Sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(0.0, 0.0, 0.0)
-sphereSource.SetRadius(0.5)
+<span class="c1">#create a Sphere</span>
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-#create a mapper
-sphereMapper = vtk.vtkPolyDataMapper()
-sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
+<span class="c1">#create a mapper</span>
+<span class="n">sphereMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">sphereMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-#create an actor
-sphereActor = vtk.vtkActor()
-sphereActor.SetMapper(sphereMapper)
+<span class="c1">#create an actor</span>
+<span class="n">sphereActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">sphereActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">)</span>
 
-#a renderer and render window
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+<span class="c1">#a renderer and render window</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-#an interactor
-renderWindowInteractor = vtk.vtkRenderWindowInteractor() 
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1">#an interactor</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span> 
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-#add the actors to the scene
-renderer.AddActor(sphereActor)
-renderer.SetBackground(.1,.2,.3) # Background dark blue
+<span class="c1">#add the actors to the scene</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Background dark blue</span>
 
-transform = vtk.vtkTransform()
-transform.Translate(1.0, 0.0, 0.0)
+<span class="n">transform</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
+<span class="n">transform</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-axes = vtk.vtkAxesActor()
-#  The axes are positioned with a user transform
-axes.SetUserTransform(transform)
+<span class="n">axes</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkAxesActor</span><span class="p">()</span>
+<span class="c1">#  The axes are positioned with a user transform</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">SetUserTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
 
-# properties of the axes labels can be set as follows
-# this sets the x axis label to red
-# axes-&gt;GetXAxisCaptionActor2D()-&gt;GetCaptionTextProperty()-&gt;SetColor(1,0,0);
+<span class="c1"># properties of the axes labels can be set as follows</span>
+<span class="c1"># this sets the x axis label to red</span>
+<span class="c1"># axes-&gt;GetXAxisCaptionActor2D()-&gt;GetCaptionTextProperty()-&gt;SetColor(1,0,0);</span>
 
-# the actual text of the axis label can be changed:
-# axes-&gt;SetXAxisLabelText(&quot;test&quot;);
+<span class="c1"># the actual text of the axis label can be changed:</span>
+<span class="c1"># axes-&gt;SetXAxisLabelText(&quot;test&quot;);</span>
 
-renderer.AddActor(axes)
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
 
-renderer.ResetCamera()
-renderWindow.Render()
+<span class="n">renderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-# begin mouse interaction
-renderWindowInteractor.Start()
-</code></pre>
+<span class="c1"># begin mouse interaction</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

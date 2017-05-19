@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15557,6 +15557,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15964,196 +15976,196 @@
                   <h1>AnimDataCone</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Visualization/AnimDataCone</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AnimDataCone.java</strong></p>
-<pre><code class="java">// First we import the VTK package that will make available all
-// of the VTK commands to Java.
-import vtk.*;
+<div class="codehilite"><pre><span></span><span class="c1">// First we import the VTK package that will make available all</span>
+<span class="c1">// of the VTK commands to Java.</span>
+<span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class animDataCone {
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">animDataCone</span> <span class="o">{</span>
 
-    /**
-     * @param args
-     */
-    // load the necessary interface libraries on first reference to the
-    // class.
-    static {
-        System.loadLibrary(&quot;vtkCommonJava&quot;);
-        System.loadLibrary(&quot;vtkFilteringJava&quot;);
-        System.loadLibrary(&quot;vtkIOJava&quot;);
-        System.loadLibrary(&quot;vtkGeovisJava&quot;);
-        System.loadLibrary(&quot;vtkImagingJava&quot;);
-        System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-        System.loadLibrary(&quot;vtkRenderingJava&quot;);
-        System.loadLibrary(&quot;vtkWidgetsJava&quot;);
-    }
-    // declare the interactor as an instance variable so we can refer to it
-    // in the timer callback. we will pass the instance pointer to this
-    // class for the callback to be invoked on.
-    vtkRenderWindowInteractor iren = null;
-    // create an instance polydata object to hold the animated polydata
-    vtkAppendPolyData pd = null;
-    // create the Transform as an instance variable so we can interact
-    // with it from the interaction call back.
-    vtkTransform Transform = null;
-    // animState is how we manage the transform choices.
-    // each animState is a frame of animation. in this case
-    // a selected scale transform in the array of scale settings
-    // in the moves array.
-    int animState = 0;
+    <span class="cm">/**</span>
+<span class="cm">     * @param args</span>
+<span class="cm">     */</span>
+    <span class="c1">// load the necessary interface libraries on first reference to the</span>
+    <span class="c1">// class.</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGeovisJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkWidgetsJava&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// declare the interactor as an instance variable so we can refer to it</span>
+    <span class="c1">// in the timer callback. we will pass the instance pointer to this</span>
+    <span class="c1">// class for the callback to be invoked on.</span>
+    <span class="n">vtkRenderWindowInteractor</span> <span class="n">iren</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">// create an instance polydata object to hold the animated polydata</span>
+    <span class="n">vtkAppendPolyData</span> <span class="n">pd</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">// create the Transform as an instance variable so we can interact</span>
+    <span class="c1">// with it from the interaction call back.</span>
+    <span class="n">vtkTransform</span> <span class="n">Transform</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">// animState is how we manage the transform choices.</span>
+    <span class="c1">// each animState is a frame of animation. in this case</span>
+    <span class="c1">// a selected scale transform in the array of scale settings</span>
+    <span class="c1">// in the moves array.</span>
+    <span class="kt">int</span> <span class="n">animState</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 
-    // this is an array of transforms to apply to the vtkPolyData.
-    static double moves[][] = { { 1.11, 1., 1. }, // expand on x
-            { 1.11, 1., 1. }, // expand on x
-            { 1.11, 1., 1. }, // expand on x
-            { .9009, 1., 1. }, // contract on x
-            { .9009, 1., 1. }, // contract on x
-            { .9009, 1., 1. }, // contract on x
-            { 1., 1.11, 1. }, // expand on y
-            { 1., 1.11, 1. }, // expand on y
-            { 1., 1.11, 1. }, // expand on y
-            { 1., .9009, 1. }, // contract on y
-            { 1., .9009, 1. }, // contract on y
-            { 1., .9009, 1. }, // contract on y
-            { 1., 1., 1.11 }, // expand on z
-            { 1., 1., 1.11 }, // expand on z
-            { 1., 1., 1.11 }, // expand on z
-            { 1., 1., .9009 }, // contract on z
-            { 1., 1., .9009 }, // contract on z
-            { 1., 1., .9009 } // contract on z
-    };
+    <span class="c1">// this is an array of transforms to apply to the vtkPolyData.</span>
+    <span class="kd">static</span> <span class="kt">double</span> <span class="n">moves</span><span class="o">[][]</span> <span class="o">=</span> <span class="o">{</span> <span class="o">{</span> <span class="mf">1.11</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// expand on x</span>
+            <span class="o">{</span> <span class="mf">1.11</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// expand on x</span>
+            <span class="o">{</span> <span class="mf">1.11</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// expand on x</span>
+            <span class="o">{</span> <span class="mf">.9009</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// contract on x</span>
+            <span class="o">{</span> <span class="mf">.9009</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// contract on x</span>
+            <span class="o">{</span> <span class="mf">.9009</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// contract on x</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.11</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// expand on y</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.11</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// expand on y</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.11</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// expand on y</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">.9009</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// contract on y</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">.9009</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// contract on y</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">.9009</span><span class="o">,</span> <span class="mf">1.</span> <span class="o">},</span> <span class="c1">// contract on y</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.11</span> <span class="o">},</span> <span class="c1">// expand on z</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.11</span> <span class="o">},</span> <span class="c1">// expand on z</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.11</span> <span class="o">},</span> <span class="c1">// expand on z</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">.9009</span> <span class="o">},</span> <span class="c1">// contract on z</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">.9009</span> <span class="o">},</span> <span class="c1">// contract on z</span>
+            <span class="o">{</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">1.</span><span class="o">,</span> <span class="mf">.9009</span> <span class="o">}</span> <span class="c1">// contract on z</span>
+    <span class="o">};</span>
 
-    public static void main(String[] args) {
-        // We will start by creating an instance of our animDataCone example
-        // This example uses callbacks, and for Java that requires an instance
-        // object to own the callback logic.
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// We will start by creating an instance of our animDataCone example</span>
+        <span class="c1">// This example uses callbacks, and for Java that requires an instance</span>
+        <span class="c1">// object to own the callback logic.</span>
 
-        animDataCone myCone = new animDataCone();
-        myCone.doit();
-    }
-/*
- * The TimerEvent is specified as the TimerEvent callback 
- * to the RenderWindowInteractor. The polydata modification 
- * is done here as well as the call to the renderWindow to 
- * render the updated scene. 
- */
-    void StartRender() {
+        <span class="n">animDataCone</span> <span class="n">myCone</span> <span class="o">=</span> <span class="k">new</span> <span class="n">animDataCone</span><span class="o">();</span>
+        <span class="n">myCone</span><span class="o">.</span><span class="na">doit</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="cm">/*</span>
+<span class="cm"> * The TimerEvent is specified as the TimerEvent callback </span>
+<span class="cm"> * to the RenderWindowInteractor. The polydata modification </span>
+<span class="cm"> * is done here as well as the call to the renderWindow to </span>
+<span class="cm"> * render the updated scene. </span>
+<span class="cm"> */</span>
+    <span class="kt">void</span> <span class="nf">StartRender</span><span class="o">()</span> <span class="o">{</span>
 
-        vtkPolyData mpd = pd.GetPolyDataInput(0);
-        vtkPoints pts = mpd.GetPoints();
-        int ptct = pts.GetNumberOfPoints();
-        Transform.Identity();
-        Transform.Scale(animDataCone.moves[animState]);
-        // this would probably be better done with a property or assembly,
-        // but this clearly illustrates the modification of point data
-        for (int i = 0; i &lt; ptct; i++) {
-            double[] xpt = pts.GetPoint(i);
-            xpt = Transform.TransformDoublePoint(xpt);
-            pts.SetPoint(i, xpt);
-        }
-        // cycle through the animation frames
-        animState = (++animState) % 18;
-        // Actually, marking the polydata as modified
-        // is the key to the animation.
-        // Comment the following pd.modified() and nothing
-        // will appear to happen, inspite of all the preceding.
-        // the pipeline UpdateExtent() only processes data that
-        // a modification time stamp more recent than the last render.
-        pd.Modified();
-        // Uncomment the following to get a log of time in milliseconds 
-        // for each rendered frame. 
-//      System.out.println(&quot;Render:&quot; + System.currentTimeMillis());
-    }
+        <span class="n">vtkPolyData</span> <span class="n">mpd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="na">GetPolyDataInput</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="n">vtkPoints</span> <span class="n">pts</span> <span class="o">=</span> <span class="n">mpd</span><span class="o">.</span><span class="na">GetPoints</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">ptct</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="na">GetNumberOfPoints</span><span class="o">();</span>
+        <span class="n">Transform</span><span class="o">.</span><span class="na">Identity</span><span class="o">();</span>
+        <span class="n">Transform</span><span class="o">.</span><span class="na">Scale</span><span class="o">(</span><span class="n">animDataCone</span><span class="o">.</span><span class="na">moves</span><span class="o">[</span><span class="n">animState</span><span class="o">]);</span>
+        <span class="c1">// this would probably be better done with a property or assembly,</span>
+        <span class="c1">// but this clearly illustrates the modification of point data</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ptct</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">double</span><span class="o">[]</span> <span class="n">xpt</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="na">GetPoint</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="n">xpt</span> <span class="o">=</span> <span class="n">Transform</span><span class="o">.</span><span class="na">TransformDoublePoint</span><span class="o">(</span><span class="n">xpt</span><span class="o">);</span>
+            <span class="n">pts</span><span class="o">.</span><span class="na">SetPoint</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">xpt</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">// cycle through the animation frames</span>
+        <span class="n">animState</span> <span class="o">=</span> <span class="o">(++</span><span class="n">animState</span><span class="o">)</span> <span class="o">%</span> <span class="mi">18</span><span class="o">;</span>
+        <span class="c1">// Actually, marking the polydata as modified</span>
+        <span class="c1">// is the key to the animation.</span>
+        <span class="c1">// Comment the following pd.modified() and nothing</span>
+        <span class="c1">// will appear to happen, inspite of all the preceding.</span>
+        <span class="c1">// the pipeline UpdateExtent() only processes data that</span>
+        <span class="c1">// a modification time stamp more recent than the last render.</span>
+        <span class="n">pd</span><span class="o">.</span><span class="na">Modified</span><span class="o">();</span>
+        <span class="c1">// Uncomment the following to get a log of time in milliseconds </span>
+        <span class="c1">// for each rendered frame. </span>
+<span class="c1">//      System.out.println(&quot;Render:&quot; + System.currentTimeMillis());</span>
+    <span class="o">}</span>
 
-    /*
-     * The doit() function is simply the instance function to perform the
-     * construction of the vtk pipeline for this example.
-     */
-    void doit() {
+    <span class="cm">/*</span>
+<span class="cm">     * The doit() function is simply the instance function to perform the</span>
+<span class="cm">     * construction of the vtk pipeline for this example.</span>
+<span class="cm">     */</span>
+    <span class="kt">void</span> <span class="nf">doit</span><span class="o">()</span> <span class="o">{</span>
 
-        // This example illustrates animation via the startrender callback/
-        //
-        Transform = new vtkTransform();
-        // Next we create an instance of vtkConeSource and set some of its
-        // properties. The instance of vtkConeSource &quot;cone&quot; is part of a
-        // visualization pipeline (it is a source process object); it produces
-        // data (output type is vtkPolyData) which other filters may process.
-        vtkConeSource cone = new vtkConeSource();
-        cone.SetHeight(3.0);
-        cone.SetRadius(1.0);
-        cone.SetResolution(10);
+        <span class="c1">// This example illustrates animation via the startrender callback/</span>
+        <span class="c1">//</span>
+        <span class="n">Transform</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkTransform</span><span class="o">();</span>
+        <span class="c1">// Next we create an instance of vtkConeSource and set some of its</span>
+        <span class="c1">// properties. The instance of vtkConeSource &quot;cone&quot; is part of a</span>
+        <span class="c1">// visualization pipeline (it is a source process object); it produces</span>
+        <span class="c1">// data (output type is vtkPolyData) which other filters may process.</span>
+        <span class="n">vtkConeSource</span> <span class="n">cone</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkConeSource</span><span class="o">();</span>
+        <span class="n">cone</span><span class="o">.</span><span class="na">SetHeight</span><span class="o">(</span><span class="mf">3.0</span><span class="o">);</span>
+        <span class="n">cone</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span><span class="mf">1.0</span><span class="o">);</span>
+        <span class="n">cone</span><span class="o">.</span><span class="na">SetResolution</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
 
-        pd = new vtkAppendPolyData();
+        <span class="n">pd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkAppendPolyData</span><span class="o">();</span>
 
-        pd.SetInput(cone.GetOutput());
-        // In this example we terminate the pipeline with a mapper process
-        // object.
-        // (Intermediate filters such as vtkShrinkPolyData could be inserted in
-        // between the source and the mapper.) We create an instance of
-        // vtkPolyDataMapper to map the polygonal data into graphics primitives.
-        // We connect the output of the cone source to the input of this mapper.
-        vtkPolyDataMapper coneMapper = new vtkPolyDataMapper();
-        coneMapper.SetInput(pd.GetOutput());
+        <span class="n">pd</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span><span class="n">cone</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
+        <span class="c1">// In this example we terminate the pipeline with a mapper process</span>
+        <span class="c1">// object.</span>
+        <span class="c1">// (Intermediate filters such as vtkShrinkPolyData could be inserted in</span>
+        <span class="c1">// between the source and the mapper.) We create an instance of</span>
+        <span class="c1">// vtkPolyDataMapper to map the polygonal data into graphics primitives.</span>
+        <span class="c1">// We connect the output of the cone source to the input of this mapper.</span>
+        <span class="n">vtkPolyDataMapper</span> <span class="n">coneMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+        <span class="n">coneMapper</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span><span class="n">pd</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
 
-        // Create an actor to represent the cone. The actor orchestrates
-        // rendering of
-        // the mapper's graphics primitives. An actor also refers to properties
-        // via a
-        // vtkProperty instance, and includes an internal transformation matrix.
-        // We
-        // set this actor's mapper to be coneMapper which we created above.
-        vtkActor coneActor = new vtkActor();
-        coneActor.SetMapper(coneMapper);
+        <span class="c1">// Create an actor to represent the cone. The actor orchestrates</span>
+        <span class="c1">// rendering of</span>
+        <span class="c1">// the mapper&#39;s graphics primitives. An actor also refers to properties</span>
+        <span class="c1">// via a</span>
+        <span class="c1">// vtkProperty instance, and includes an internal transformation matrix.</span>
+        <span class="c1">// We</span>
+        <span class="c1">// set this actor&#39;s mapper to be coneMapper which we created above.</span>
+        <span class="n">vtkActor</span> <span class="n">coneActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+        <span class="n">coneActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">coneMapper</span><span class="o">);</span>
 
-        // Create the Renderer and assign actors to it. A renderer is like a
-        // viewport. It is part or all of a window on the screen and it is
-        // responsible for drawing the actors it has. We also set the
-        // background color here.
-        vtkRenderer ren1 = new vtkRenderer();
-        ren1.AddActor(coneActor);
-        ren1.SetBackground(0.1, 0.2, 0.4);
+        <span class="c1">// Create the Renderer and assign actors to it. A renderer is like a</span>
+        <span class="c1">// viewport. It is part or all of a window on the screen and it is</span>
+        <span class="c1">// responsible for drawing the actors it has. We also set the</span>
+        <span class="c1">// background color here.</span>
+        <span class="n">vtkRenderer</span> <span class="n">ren1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+        <span class="n">ren1</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">coneActor</span><span class="o">);</span>
+        <span class="n">ren1</span><span class="o">.</span><span class="na">SetBackground</span><span class="o">(</span><span class="mf">0.1</span><span class="o">,</span> <span class="mf">0.2</span><span class="o">,</span> <span class="mf">0.4</span><span class="o">);</span>
 
-        // Finally we create the render window which will show up on the screen
-        // We put our renderer into the render window using AddRenderer. We
-        // also set the size to be 300 pixels by 300.
-        vtkRenderWindow renWin = new vtkRenderWindow();
-        renWin.AddRenderer(ren1);
-        renWin.SetSize(600, 600);
+        <span class="c1">// Finally we create the render window which will show up on the screen</span>
+        <span class="c1">// We put our renderer into the render window using AddRenderer. We</span>
+        <span class="c1">// also set the size to be 300 pixels by 300.</span>
+        <span class="n">vtkRenderWindow</span> <span class="n">renWin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+        <span class="n">renWin</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span><span class="n">ren1</span><span class="o">);</span>
+        <span class="n">renWin</span><span class="o">.</span><span class="na">SetSize</span><span class="o">(</span><span class="mi">600</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
 
-        // The vtkRenderWindowInteractor class watches for events (e.g.,
-        // keypress,
-        // mouse) in the vtkRenderWindow. These events are translated into
-        // event invocations that VTK understands (see VTK/Common/vtkCommand.h
-        // for all events that VTK processes). Then observers of these VTK
-        // events can process them as appropriate.
-        iren = new vtkRenderWindowInteractor();
-        iren.SetRenderWindow(renWin);
+        <span class="c1">// The vtkRenderWindowInteractor class watches for events (e.g.,</span>
+        <span class="c1">// keypress,</span>
+        <span class="c1">// mouse) in the vtkRenderWindow. These events are translated into</span>
+        <span class="c1">// event invocations that VTK understands (see VTK/Common/vtkCommand.h</span>
+        <span class="c1">// for all events that VTK processes). Then observers of these VTK</span>
+        <span class="c1">// events can process them as appropriate.</span>
+        <span class="n">iren</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">();</span>
+        <span class="n">iren</span><span class="o">.</span><span class="na">SetRenderWindow</span><span class="o">(</span><span class="n">renWin</span><span class="o">);</span>
 
-        // By default the vtkRenderWindowInteractor instantiates an instance
-        // of vtkInteractorStyle. vtkInteractorStyle translates a set of events
-        // it observes into operations on the camera, actors, and/or properties
-        // in the vtkRenderWindow associated with the vtkRenderWinodwInteractor.
-        // Here we specify a particular interactor style.
-        vtkInteractorStyleTrackballCamera style = new vtkInteractorStyleTrackballCamera();
-        iren.SetInteractorStyle(style);
+        <span class="c1">// By default the vtkRenderWindowInteractor instantiates an instance</span>
+        <span class="c1">// of vtkInteractorStyle. vtkInteractorStyle translates a set of events</span>
+        <span class="c1">// it observes into operations on the camera, actors, and/or properties</span>
+        <span class="c1">// in the vtkRenderWindow associated with the vtkRenderWinodwInteractor.</span>
+        <span class="c1">// Here we specify a particular interactor style.</span>
+        <span class="n">vtkInteractorStyleTrackballCamera</span> <span class="n">style</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">();</span>
+        <span class="n">iren</span><span class="o">.</span><span class="na">SetInteractorStyle</span><span class="o">(</span><span class="n">style</span><span class="o">);</span>
 
-        // Start the event loop.
-        iren.Initialize();
-        // Now for every window render we call our callback function to update
-        // the model
-        // resulting in another render.
-        ren1.AddObserver(&quot;StartEvent&quot;, this, &quot;StartRender&quot;);
-        iren.CreateRepeatingTimer(50);
+        <span class="c1">// Start the event loop.</span>
+        <span class="n">iren</span><span class="o">.</span><span class="na">Initialize</span><span class="o">();</span>
+        <span class="c1">// Now for every window render we call our callback function to update</span>
+        <span class="c1">// the model</span>
+        <span class="c1">// resulting in another render.</span>
+        <span class="n">ren1</span><span class="o">.</span><span class="na">AddObserver</span><span class="o">(</span><span class="s">&quot;StartEvent&quot;</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="s">&quot;StartRender&quot;</span><span class="o">);</span>
+        <span class="n">iren</span><span class="o">.</span><span class="na">CreateRepeatingTimer</span><span class="o">(</span><span class="mi">50</span><span class="o">);</span>
 
-        iren.Start();
+        <span class="n">iren</span><span class="o">.</span><span class="na">Start</span><span class="o">();</span>
 
-        // There is no explicit need to free any objects at this point.
-        // Once Python exits, memory is automatically freed.
+        <span class="c1">// There is no explicit need to free any objects at this point.</span>
+        <span class="c1">// Once Python exits, memory is automatically freed.</span>
 
-    }
+    <span class="o">}</span>
 
-}
-</code></pre>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

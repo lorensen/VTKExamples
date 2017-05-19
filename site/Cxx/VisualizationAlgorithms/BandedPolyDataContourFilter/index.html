@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,177 +16005,184 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/VisualizationAlgorithms/BandedPolyDataContourFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/VisualizationAlgorithms/TestBandedPolyDataContourFilter.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BandedPolyDataContourFilter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkBandedPolyDataContourFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBandedPolyDataContourFilter.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPoints&gt; pts = 
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  pts-&gt;InsertPoint( 0,  0, 0, 0);
-  pts-&gt;InsertPoint( 1,  0, 1, 0);
-  pts-&gt;InsertPoint( 2,  0, 2, 0);
-  pts-&gt;InsertPoint( 3,  1, 0, 0);
-  pts-&gt;InsertPoint( 4,  1, 1, 0);
-  pts-&gt;InsertPoint( 5,  1, 2, 0);
-  pts-&gt;InsertPoint( 6,  2, 0, 0);
-  pts-&gt;InsertPoint( 7,  2, 2, 0);
-  pts-&gt;InsertPoint( 8,  3, 0, 0);
-  pts-&gt;InsertPoint( 9,  3, 1, 0);
-  pts-&gt;InsertPoint( 10, 3, 2, 0 );
-  pts-&gt;InsertPoint( 11, 4, 0, 0);
-  pts-&gt;InsertPoint( 12, 6, 0, 0 );
-  pts-&gt;InsertPoint( 13, 5, 2, 0 );
-  pts-&gt;InsertPoint( 14, 7, 0, 0);
-  pts-&gt;InsertPoint( 15, 9, 0, 0 );
-  pts-&gt;InsertPoint( 16, 7, 2, 0 );
-  pts-&gt;InsertPoint( 17, 9, 2, 0 );
-  pts-&gt;InsertPoint( 18, 10, 0, 0);
-  pts-&gt;InsertPoint( 19, 12, 0, 0 );
-  pts-&gt;InsertPoint( 20, 10, 1, 0 );
-  pts-&gt;InsertPoint( 21, 12, 1, 0 );
-  pts-&gt;InsertPoint( 22, 10, 2, 0 );
-  pts-&gt;InsertPoint( 23, 12, 2, 0 );
-  pts-&gt;InsertPoint( 24, 10, 3, 0 );
-  pts-&gt;InsertPoint( 25, 12, 3, 0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">pts</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">6</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">7</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">9</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCellArray&gt; polys = 
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  polys-&gt;InsertNextCell( 4);
-  polys-&gt;InsertCellPoint( 14);
-  polys-&gt;InsertCellPoint( 15);
-  polys-&gt;InsertCellPoint( 17);
-  polys-&gt;InsertCellPoint( 16);
-  polys-&gt;InsertNextCell( 3);
-  polys-&gt;InsertCellPoint( 11);
-  polys-&gt;InsertCellPoint( 12);
-  polys-&gt;InsertCellPoint( 13);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">polys</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">14</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">15</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">17</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span> <span class="mi">3</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">11</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">12</span><span class="p">);</span>
+  <span class="n">polys</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">13</span><span class="p">);</span>
 
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; scalars = 
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  scalars-&gt;SetNumberOfTuples (26);
-  scalars-&gt;SetTuple1( 0, 0);
-  scalars-&gt;SetTuple1( 1, 50);
-  scalars-&gt;SetTuple1( 2, 100);
-  scalars-&gt;SetTuple1( 3, 0);
-  scalars-&gt;SetTuple1( 4, 50);
-  scalars-&gt;SetTuple1( 5, 100);
-  scalars-&gt;SetTuple1( 6, 10);
-  scalars-&gt;SetTuple1( 7, 90);
-  scalars-&gt;SetTuple1( 8, 10);
-  scalars-&gt;SetTuple1( 9, 50);
-  scalars-&gt;SetTuple1( 10, 90);
-  scalars-&gt;SetTuple1( 11, 10);
-  scalars-&gt;SetTuple1( 12, 40);
-  scalars-&gt;SetTuple1( 13, 100);
-  scalars-&gt;SetTuple1( 14, 0);
-  scalars-&gt;SetTuple1( 15, 60);
-  scalars-&gt;SetTuple1( 16, 40);
-  scalars-&gt;SetTuple1( 17, 100);
-  scalars-&gt;SetTuple1( 18, 0);
-  scalars-&gt;SetTuple1( 19, 25);
-  scalars-&gt;SetTuple1( 20, 25);
-  scalars-&gt;SetTuple1( 21, 50);
-  scalars-&gt;SetTuple1( 22, 50);
-  scalars-&gt;SetTuple1( 23, 75);
-  scalars-&gt;SetTuple1( 24, 75);
-  scalars-&gt;SetTuple1( 25, 100);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">scalars</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span> <span class="p">(</span><span class="mi">26</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">60</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+  <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData = 
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polyData-&gt;SetPoints(pts);
-  polyData-&gt;SetPolys(polys);
-  polyData-&gt;GetPointData()-&gt;SetScalars(scalars);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">);</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">polys</span><span class="p">);</span>
+  <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">scalars</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkBandedPolyDataContourFilter&gt; bf = 
-    vtkSmartPointer&lt;vtkBandedPolyDataContourFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  bf-&gt;SetInput (polyData);
-#else
-  bf-&gt;SetInputData (polyData);
-#endif
-  bf-&gt;GenerateValues(3, 25, 75 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="o">&gt;</span> <span class="n">bf</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">SetInput</span> <span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">SetInputData</span> <span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">75</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(bf-&gt;GetOutputPort());
-  mapper-&gt;SetScalarModeToUseCellData();
-  mapper-&gt;SetScalarRange (0, 4);
-  vtkSmartPointer&lt;vtkActor&gt; actor = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // Create the RenderWindow, Renderer and both Actors
+  <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  ren1-&gt;AddActor(actor);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
-  renWin-&gt;SetSize (300 ,80);
-  renWin-&gt;Render();
-  ren1-&gt;GetActiveCamera()-&gt;Zoom(3);
-  renWin-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span> <span class="p">(</span><span class="mi">300</span> <span class="p">,</span><span class="mi">80</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BandedPolyDataContourFilter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BandedPolyDataContourFilter</span><span class="p">)</span>
 
-add_executable(BandedPolyDataContourFilter MACOSX_BUNDLE BandedPolyDataContourFilter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BandedPolyDataContourFilter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BandedPolyDataContourFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BandedPolyDataContourFilter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-bandedpolydatacontourfilter">Download and Build BandedPolyDataContourFilter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BandedPolyDataContourFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-bandedpolydatacontourfilter">Download and Build BandedPolyDataContourFilter<a class="headerlink" href="#download-and-build-bandedpolydatacontourfilter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BandedPolyDataContourFilter.tar">here to download BandedPolyDataContourFilter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BandedPolyDataContourFilter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BandedPolyDataContourFilter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BandedPolyDataContourFilter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BandedPolyDataContourFilter
-</code></pre>
+<div class="codehilite"><pre><span></span>./BandedPolyDataContourFilter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

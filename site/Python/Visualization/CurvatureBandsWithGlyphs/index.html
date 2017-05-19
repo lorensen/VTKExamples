@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,7 +15991,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/CurvatureBandsWithGlyphs</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestCurvatureBandsWithGlyphs.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>In this example we are coloring the surface by partitioning the gaussian curvature into bands and using arrows to display the normals on the surface.</p>
 <p>Rather beautiful surfaces are generated.</p>
 <p>The banded contour filter and an indexed lookup table are used along with 
@@ -15995,572 +16007,596 @@ to use an enum to pick the one we want.</p>
 <p>The surface selected is the parametric random hills surface. The problem with
 the random hills surface is that most of the gaussian curvatures will lie in the range -1 to 0.2 (say) with a few large values say 20 to 40 at the peaks of the hills. Thus we need to manually allocate the color banding, this is done in the function MakeCustomBands(). The ranges selected in this function were determined by generating a frequency table for 20 bands and seeing where the values lie in the table. Then from this the distribution of the bands was made to best show the nature of the surface. The edges of the random hills surface have large irregular values so these are clipped.</p>
 <p>The process is as follows:
-1  Use an enum to select your surface generating elevations and curvatures and clipping is needed.
-2. Use vtkColorSeries to make an indexed lookup table.
-3. Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands. If need be we generate manual bands.
-4. This list is then used to define the labels for the scalar bar using the midpoints of the ranges in the bands as the labels.
-5. Once this is done, we annotate the lookup table and then create a reversed lookup table. This will be used by the scalar bar actor.
-6. The maximum values in the ranges in the bands are used to set the bands in the banded contour filter.
-7. Glyphs are then created for the normals.
-8. Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.
-9. The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.</p>
+ 1  Use an enum to select your surface generating elevations and curvatures and clipping is needed.
+ 2. Use vtkColorSeries to make an indexed lookup table.
+ 3. Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands. If need be we generate manual bands.
+ 4. This list is then used to define the labels for the scalar bar using the midpoints of the ranges in the bands as the labels.
+ 5. Once this is done, we annotate the lookup table and then create a reversed lookup table. This will be used by the scalar bar actor.
+ 6. The maximum values in the ranges in the bands are used to set the bands in the banded contour filter.
+ 7. Glyphs are then created for the normals.
+ 8. Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.
+ 9. The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.</p>
 <p>Feel free to experiment with different color schemes and/or the other
 sources from the parametric function group or the torus etc.</p>
-<p>Note that in the function <code>MakeParametricHills()</code> we use <code>ClockwiseOrderingOff()</code> when using vtkParametricRandomHills as a source,
-this ensures that the normals face in the expected direction, the default is <code>ClockwiseOrderingOn()</code>.
-As an alternative, in <code>MakeGlyphs()</code>, you can set reverseNormals to True thereby invoking vtkReverseSense to achieve the same effect.</p>
+<p>or versions of VTK older than VTK 8.0:</p>
+<div class="codehilite"><pre><span></span>In the function `MakeParametricHills()` you may have to set `ClockwiseOrderingOff()` when using vtkParametricRandomHills as a source,
+this ensures that the normals face in the expected direction, the default is `ClockwiseOrderingOn()`.
+As an alternative, in `MakeGlyphs()`, you can set reverseNormals to True thereby invoking vtkReverseSense to achieve the same effect.
+</pre></div>
+
+
 <p>You will usually need to adjust the parameters for maskPts,
 arrow and glyph for a nice appearance.
 Do this in the function <code>MakeGlyphs()</code>.</p>
 <p><code>PrintBands()</code> and <code>PrintFrequencies()</code> allow you to inspect the bands and
 the number of scalars in each band. These are useful if you want to
 get an idea of the distribution of the scalars in each band.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CurvatureBandsWithGlyphs.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-from __future__ import print_function
-import math
-import vtk
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-# Available surfaces are:
-SURFACE_TYPE = set([&quot;TORUS&quot;, &quot;PARAMETRIC_HILLS&quot;, &quot;PARAMETRIC_TORUS&quot;])
+<span class="kn">import</span> <span class="nn">math</span>
 
-def WritePNG(ren, fn, magnification = 1):
-    '''
-    Save the image as a PNG
-    :param: ren - the renderer.
-    :param: fn - the file name.
-    :param: magnification - the magnification, usually 1.
-    '''
-    renLgeIm = vtk.vtkRenderLargeImage()
-    imgWriter = vtk.vtkPNGWriter()
-    renLgeIm.SetInput(ren)
-    renLgeIm.SetMagnification(magnification)
-    imgWriter.SetInputConnection(renLgeIm.GetOutputPort())
-    imgWriter.SetFileName(fn)
-    imgWriter.Write()
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-def MakeBands(dR, numberOfBands, nearestInteger):
-    '''
-    Divide a range into bands
-    :param: dR - [min, max] the range that is to be covered by the bands.
-    :param: numberOfBands - the number of bands, a positive integer.
-    :param: nearestInteger - if True then [floor(min), ceil(max)] is used.
-    :return: A List consisting of [min, midpoint, max] for each band.
-    '''
-    bands = list()
-    if (dR[1] &lt; dR[0]) or (numberOfBands &lt;= 0):
-        return bands
-    x = list(dR)
-    if nearestInteger:
-        x[0] = math.floor(x[0])
-        x[1] = math.ceil(x[1])
-    dx = (x[1] - x[0])/float(numberOfBands)
-    b = [x[0], x[0] + dx / 2.0, x[0] + dx]
-    i = 0
-    while i &lt; numberOfBands:
-        bands.append(b)
-        b = [b[0] + dx, b[1] + dx, b[2] + dx]
-        i += 1
-    return bands
+<span class="c1"># Available surfaces are:</span>
+<span class="n">SURFACE_TYPE</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;TORUS&quot;</span><span class="p">,</span> <span class="s2">&quot;PARAMETRIC_HILLS&quot;</span><span class="p">,</span> <span class="s2">&quot;PARAMETRIC_TORUS&quot;</span><span class="p">}</span>
 
-def MakeCustomBands(dR, numberOfBands):
-    '''
-    Divide a range into custom bands.
 
-    You need to specify each band as a list [r1, r2] where r1 &lt; r2 and
-    append these to a list (called x in the implementation).
-    The list should ultimately look
-    like this: x = [[r1, r2], [r2, r3], [r3, r4]...]
+<span class="k">def</span> <span class="nf">WritePNG</span><span class="p">(</span><span class="n">ren</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">magnification</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save the image as a PNG</span>
+<span class="sd">    :param: ren - the renderer.</span>
+<span class="sd">    :param: fn - the file name.</span>
+<span class="sd">    :param: magnification - the magnification, usually 1.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">renLgeIm</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderLargeImage</span><span class="p">()</span>
+    <span class="n">imgWriter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">()</span>
+    <span class="n">renLgeIm</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+    <span class="n">renLgeIm</span><span class="o">.</span><span class="n">SetMagnification</span><span class="p">(</span><span class="n">magnification</span><span class="p">)</span>
+    <span class="n">imgWriter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">renLgeIm</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">imgWriter</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">imgWriter</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
 
-    :param: dR - [min, max] the range that is to be covered by the bands.
-    :param: numberOfBands - the number of bands, a positive integer.
-    :return: A List consisting of [min, midpoint, max] for each band.
-    '''
-    bands = list()
-    if (dR[1] &lt; dR[0]) or (numberOfBands &lt;= 0):
-        return bands
-    x = list()
-    x.append([-0.7, -0.05])
-    x.append([-0.05, 0])
-    x.append([0, 0.13])
-    x.append([0.13, 1.07])
-    x.append([1.07, 35.4])
-    x.append([35.4, 37.1])
-    # Set the minimum to match the range minimum.
-    x[0][0] = dR[0]
-    if len(x) &gt;= numberOfBands:
-        x = x[:numberOfBands]
-    # Adjust the last band.
-    t = (x[len(x) - 1])
-    if t[0] &gt; dR[1]:
-        t[0] = dR[1]
-    t[1] = dR[1]
-    x[len(x) - 1] = t
-    for e in x:
-        bands.append([e[0], e[0] + (e[1] - e[0])/2, e[1]])
-    return bands
 
-def Frequencies(bands, src):
-    '''
-    Count the number of scalars in each band.
-    :param: bands - the bands.
-    :param: src - the vtkPolyData source.
-    :return: The frequencies of the scalars in each band.
-    '''
-    freq = dict()
-    for i in range(len(bands)):
-        freq[i] = 0;
-    tuples = src.GetPointData().GetScalars().GetNumberOfTuples()
-    for i in range(tuples):
-        x = src.GetPointData().GetScalars().GetTuple1(i)
-        for j in range(len(bands)):
-            if x &lt;= bands[j][2]:
-                freq[j] = freq[j] + 1
-                break
-    return freq
+<span class="k">def</span> <span class="nf">MakeBands</span><span class="p">(</span><span class="n">dR</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">,</span> <span class="n">nearestInteger</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Divide a range into bands</span>
+<span class="sd">    :param: dR - [min, max] the range that is to be covered by the bands.</span>
+<span class="sd">    :param: numberOfBands - the number of bands, a positive integer.</span>
+<span class="sd">    :param: nearestInteger - if True then [floor(min), ceil(max)] is used.</span>
+<span class="sd">    :return: A List consisting of [min, midpoint, max] for each band.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">numberOfBands</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bands</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dR</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nearestInteger</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfBands</span><span class="p">:</span>
+        <span class="n">bands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">bands</span>
 
-def MakeElevations(src):
-    '''
-    Generate elevations over the surface.
-    :param: src - the vtkPolyData source.
-    :return: - vtkPolyData source with elevations.
-    '''
-    bounds = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
-    src.GetBounds(bounds)
-    elevFilter = vtk.vtkElevationFilter()
-    elevFilter.SetInputData(src)
-    elevFilter.SetLowPoint(0, bounds[2], 0)
-    elevFilter.SetHighPoint(0, bounds[3], 0)
-    elevFilter.SetScalarRange(bounds[2], bounds[3])
-    elevFilter.Update()
-    return elevFilter.GetPolyDataOutput()
 
-def MakeTorus():
-    '''
-    Make a torus as the source.
-    :return: vtkPolyData with normal and scalar data.
-    '''
-    source = vtk.vtkSuperquadricSource();
-    source.SetCenter(0.0, 0.0, 0.0)
-    source.SetScale(1.0, 1.0, 1.0)
-    source.SetPhiResolution(64)
-    source.SetThetaResolution(64)
-    source.SetThetaRoundness(1)
-    source.SetThickness(0.5)
-    source.SetSize(10)
-    source.SetToroidal(1)
+<span class="k">def</span> <span class="nf">MakeCustomBands</span><span class="p">(</span><span class="n">dR</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Divide a range into custom bands.</span>
 
-    # The quadric is made of strips, so pass it through a triangle filter as
-    # the curvature filter only operates on polys
-    tri = vtk.vtkTriangleFilter()
-    tri.SetInputConnection(source.GetOutputPort())
+<span class="sd">    You need to specify each band as a list [r1, r2] where r1 &lt; r2 and</span>
+<span class="sd">    append these to a list (called x in the implementation).</span>
+<span class="sd">    The list should ultimately look</span>
+<span class="sd">    like this: x = [[r1, r2], [r2, r3], [r3, r4]...]</span>
 
-    # The quadric has nasty discontinuities from the way the edges are generated
-    # so let's pass it though a CleanPolyDataFilter and merge any points which
-    # are coincident, or very close
-    cleaner = vtk.vtkCleanPolyData()
-    cleaner.SetInputConnection(tri.GetOutputPort())
-    cleaner.SetTolerance(0.005)
-    cleaner.Update()
-    return CalculateCurvatures(MakeElevations(cleaner.GetOutput()))
+<span class="sd">    :param: dR - [min, max] the range that is to be covered by the bands.</span>
+<span class="sd">    :param: numberOfBands - the number of bands, a positive integer.</span>
+<span class="sd">    :return: A List consisting of [min, midpoint, max] for each band.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">numberOfBands</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bands</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.13</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">1.07</span><span class="p">,</span> <span class="mf">35.4</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">35.4</span><span class="p">,</span> <span class="mf">37.1</span><span class="p">])</span>
+    <span class="c1"># Set the minimum to match the range minimum.</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">numberOfBands</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="n">numberOfBands</span><span class="p">]</span>
+    <span class="c1"># Adjust the last band.</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">bands</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">bands</span>
 
-def MakeParametricTorus():
-    '''
-    Make a parametric torus as the source.
-    :return: vtkPolyData with normal and scalar data.
-    '''
-    fn = vtk.vtkParametricTorus()
-    fn.SetRingRadius(5)
-    fn.SetCrossSectionRadius(2)
 
-    source = vtk.vtkParametricFunctionSource()
-    source.SetParametricFunction(fn)
-    source.SetUResolution(50)
-    source.SetVResolution(50)
-    source.SetScalarModeToZ()
-    source.Update()
-    # Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)
-    source.GetOutput().GetPointData().GetNormals().SetName('Normals')
-    # We have calculated the elevation, just rename the scalars.
-    source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
-    return CalculateCurvatures(source.GetOutput())
+<span class="k">def</span> <span class="nf">Frequencies</span><span class="p">(</span><span class="n">bands</span><span class="p">,</span> <span class="n">src</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count the number of scalars in each band.</span>
+<span class="sd">    :param: bands - the bands.</span>
+<span class="sd">    :param: src - the vtkPolyData source.</span>
+<span class="sd">    :return: The frequencies of the scalars in each band.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bands</span><span class="p">)):</span>
+        <span class="n">freq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tuples</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tuples</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">GetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bands</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">bands</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span>
+                <span class="n">freq</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">freq</span>
 
-def MakeParametricHills():
-    '''
-    Make a parametric hills surface as the source.
-    :return: vtkPolyData with normal and scalar data.
-    '''
-    fn = vtk.vtkParametricRandomHills()
-    fn.AllowRandomGenerationOn()
-    fn.SetRandomSeed(1)
-    fn.SetNumberOfHills(30)
-    if fn.GetClassName() == 'vtkParametricRandomHills':
-        # Make the normals face out of the surface.
-        fn.ClockwiseOrderingOff()
 
-    source = vtk.vtkParametricFunctionSource()
-    source.SetParametricFunction(fn)
-    source.SetUResolution(50)
-    source.SetVResolution(50)
-    source.SetScalarModeToZ()
-    source.Update()
-    # Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)
-    source.GetOutput().GetPointData().GetNormals().SetName('Normals')
-    # We have calculated the elevation, just rename the scalars.
-    source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
-    return CalculateCurvatures(source.GetOutput())
+<span class="k">def</span> <span class="nf">MakeElevations</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate elevations over the surface.</span>
+<span class="sd">    :param: src - the vtkPolyData source.</span>
+<span class="sd">    :return: - vtkPolyData source with elevations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+    <span class="n">src</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
+    <span class="n">elevFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkElevationFilter</span><span class="p">()</span>
+    <span class="n">elevFilter</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">elevFilter</span><span class="o">.</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">elevFilter</span><span class="o">.</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">elevFilter</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">elevFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">elevFilter</span><span class="o">.</span><span class="n">GetPolyDataOutput</span><span class="p">()</span>
 
-def Clipper(src, dx, dy, dz):
-    '''
-    Clip a vtkPolyData source.
-    A cube is made whose size corresponds the the bounds of the source.
-    Then each side is shrunk by the appropriate dx, dy or dz. After
-    this operation the source is clipped by the cube.
-    :param: src - the vtkPolyData source
-    :param: dx - the amount to clip in the x-direction
-    :param: dy - the amount to clip in the y-direction
-    :param: dz - the amount to clip in the z-direction
-    :return: vtkPolyData.
-    '''
-    bounds = [0,0,0,0,0,0]
-    src.GetBounds(bounds)
 
-    plane1 = vtk.vtkPlane()
-    plane1.SetOrigin(bounds[0] + dx, 0, 0)
-    plane1.SetNormal(1, 0, 0)
+<span class="k">def</span> <span class="nf">MakeTorus</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a torus as the source.</span>
+<span class="sd">    :return: vtkPolyData with normal and scalar data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSuperquadricSource</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetThickness</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetToroidal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    plane2 = vtk.vtkPlane()
-    plane2.SetOrigin(bounds[1] - dx, 0, 0)
-    plane2.SetNormal(-1, 0, 0)
+    <span class="c1"># The quadric is made of strips, so pass it through a triangle filter as</span>
+    <span class="c1"># the curvature filter only operates on polys</span>
+    <span class="n">tri</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangleFilter</span><span class="p">()</span>
+    <span class="n">tri</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-    plane3 = vtk.vtkPlane()
-    plane3.SetOrigin(0, bounds[2] + dy, 0)
-    plane3.SetNormal(0, 1, 0)
+    <span class="c1"># The quadric has nasty discontinuities from the way the edges are generated</span>
+    <span class="c1"># so let&#39;s pass it though a CleanPolyDataFilter and merge any points which</span>
+    <span class="c1"># are coincident, or very close</span>
+    <span class="n">cleaner</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCleanPolyData</span><span class="p">()</span>
+    <span class="n">cleaner</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tri</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">cleaner</span><span class="o">.</span><span class="n">SetTolerance</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+    <span class="n">cleaner</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">MakeElevations</span><span class="p">(</span><span class="n">cleaner</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()))</span>
 
-    plane4 = vtk.vtkPlane()
-    plane4.SetOrigin(0, bounds[3] - dy, 0)
-    plane4.SetNormal(0, -1, 0)
 
-    plane5 = vtk.vtkPlane()
-    plane5.SetOrigin(0, 0, bounds[4] + dz)
-    plane5.SetNormal(0, 0, 1)
+<span class="k">def</span> <span class="nf">MakeParametricTorus</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a parametric torus as the source.</span>
+<span class="sd">    :return: vtkPolyData with normal and scalar data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricTorus</span><span class="p">()</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">SetRingRadius</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">SetCrossSectionRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-    plane6 = vtk.vtkPlane()
-    plane6.SetOrigin(0, 0, bounds[5] - dz)
-    plane6.SetNormal(0, 0, -1)
+    <span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFunctionSource</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetScalarModeToZ</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="c1"># Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetNormals</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Normals&#39;</span><span class="p">)</span>
+    <span class="c1"># We have calculated the elevation, just rename the scalars.</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    clipFunction = vtk.vtkImplicitBoolean()
-    clipFunction.SetOperationTypeToUnion()
-    clipFunction.AddFunction(plane1)
-    clipFunction.AddFunction(plane2)
-    clipFunction.AddFunction(plane3)
-    clipFunction.AddFunction(plane4)
-    clipFunction.AddFunction(plane5)
-    clipFunction.AddFunction(plane6)
 
-    # Clip it.
-    clipper =vtk.vtkClipPolyData()
-    clipper.SetClipFunction(clipFunction)
-    clipper.SetInputData(src)
-    clipper.GenerateClipScalarsOff()
-    clipper.GenerateClippedOutputOff()
-    #clipper.GenerateClippedOutputOn()
-    clipper.Update()
-    return clipper.GetOutput()
+<span class="k">def</span> <span class="nf">MakeParametricHills</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a parametric hills surface as the source.</span>
+<span class="sd">    :return: vtkPolyData with normal and scalar data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricRandomHills</span><span class="p">()</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">AllowRandomGenerationOn</span><span class="p">()</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">SetRandomSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">fn</span><span class="o">.</span><span class="n">SetNumberOfHills</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="c1"># Make the normals face out of the surface.</span>
+    <span class="c1"># Not needed with VTK 8.0 or later.</span>
+    <span class="c1"># if fn.GetClassName() == &#39;vtkParametricRandomHills&#39;:</span>
+    <span class="c1">#    fn.ClockwiseOrderingOff()</span>
 
-def CalculateCurvatures(src):
-    '''
-    The source must be triangulated.
-    :param: src - the source.
-    :return: vtkPolyData with normal and scalar data representing curvatures.
-    '''
-    curvature = vtk.vtkCurvatures()
-    curvature.SetCurvatureTypeToGaussian()
-    curvature.SetInputData(src)
-    curvature.Update()
-    return curvature.GetOutput()
+    <span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFunctionSource</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetScalarModeToZ</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="c1"># Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetNormals</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Normals&#39;</span><span class="p">)</span>
+    <span class="c1"># We have calculated the elevation, just rename the scalars.</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-def MakeEnneper():
-    '''
-    Make a parametric surface as the source.
-    :return: vtkPolyData with normal and scalar data.
-    '''
-    fn = vtk.vtkParametricEnneper()
 
-    source = vtk.vtkParametricFunctionSource()
-    source.SetParametricFunction(fn)
-    source.SetUResolution(50)
-    source.SetVResolution(50)
-    source.SetScalarModeToZ()
-    source.Update()
-    # Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)
-    source.GetOutput().GetPointData().GetNormals().SetName('Normals')
-    # We have calculated the elevation, just rename the scalars.
-    source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
-    return CalculateCurvatures(source.GetOutput())
+<span class="k">def</span> <span class="nf">Clipper</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clip a vtkPolyData source.</span>
+<span class="sd">    A cube is made whose size corresponds the the bounds of the source.</span>
+<span class="sd">    Then each side is shrunk by the appropriate dx, dy or dz. After</span>
+<span class="sd">    this operation the source is clipped by the cube.</span>
+<span class="sd">    :param: src - the vtkPolyData source</span>
+<span class="sd">    :param: dx - the amount to clip in the x-direction</span>
+<span class="sd">    :param: dy - the amount to clip in the y-direction</span>
+<span class="sd">    :param: dz - the amount to clip in the z-direction</span>
+<span class="sd">    :return: vtkPolyData.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">src</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
 
-def MakeBoys():
-    '''
-    Make a parametric surface as the source.
-    :return: vtkPolyData with normal and scalar data.
-    '''
-    fn = vtk.vtkParametricBoy()
+    <span class="n">plane1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+    <span class="n">plane1</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">plane1</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    source = vtk.vtkParametricFunctionSource()
-    source.SetParametricFunction(fn)
-    source.SetUResolution(50)
-    source.SetVResolution(50)
-    source.SetScalarModeToZ()
-    source.Update()
-    # Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)
-    source.GetOutput().GetPointData().GetNormals().SetName('Normals')
-    # We have calculated the elevation, just rename the scalars.
-    source.GetOutput().GetPointData().GetScalars().SetName('Elevation')
-    return CalculateCurvatures(source.GetOutput())
+    <span class="n">plane2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+    <span class="n">plane2</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">plane2</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-def MakeLUT():
-    '''
-    Make a lookup table using vtkColorSeries.
-    :return: An indexed lookup table.
-    '''
-    # Make the lookup table.
-    colorSeries = vtk.vtkColorSeries()
-    # Select a color scheme.
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3
-    #colorSeriesEnum = colorSeries.BREWER_DIVERGING_PURPLE_ORANGE_9
-    #colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_PURPLE_9
-    #colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_GREEN_9
-    colorSeriesEnum = colorSeries.BREWER_QUALITATIVE_SET3
-    #colorSeriesEnum = colorSeries.CITRUS
-    colorSeries.SetColorScheme(colorSeriesEnum)
-    lut = vtk.vtkLookupTable()
-    colorSeries.BuildLookupTable(lut)
-    lut.SetNanColor(0,0,0,1)
-    return lut
+    <span class="n">plane3</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+    <span class="n">plane3</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">plane3</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-def ReverseLUT(lut):
-    '''
-    Create a lookup table with the colors reversed.
-    :param: lut - An indexed lookup table.
-    :return: The reversed indexed lookup table.
-    '''
-    lutr = vtk.vtkLookupTable()
-    lutr.DeepCopy(lut)
-    t = lut.GetNumberOfTableValues() - 1
-    revRange = reversed(list(range(t + 1)))
-    for i in revRange:
-        rgba = [0,0,0]
-        v = float(i)
-        lut.GetColor(v,rgba)
-        rgba.append(lut.GetOpacity(v))
-        lutr.SetTableValue(t - i,rgba)
-    t = lut.GetNumberOfAnnotatedValues() - 1
-    for i in revRange:
-        lutr.SetAnnotation(t - i, lut.GetAnnotation(i))
-    return lutr
+    <span class="n">plane4</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+    <span class="n">plane4</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">plane4</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-def MakeGlyphs(src, reverseNormals):
-    '''
-    Glyph the normals on the surface.
+    <span class="n">plane5</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+    <span class="n">plane5</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="n">plane5</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    You may need to adjust the parameters for maskPts, arrow and glyph for a
-    nice appearance.
+    <span class="n">plane6</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+    <span class="n">plane6</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="n">plane6</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-    :param: src - the surface to glyph.
-    :param: reverseNormals - if True the normals on the surface are reversed.
-    :return: The glyph object.
+    <span class="n">clipFunction</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImplicitBoolean</span><span class="p">()</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">SetOperationTypeToUnion</span><span class="p">()</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane1</span><span class="p">)</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane2</span><span class="p">)</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane3</span><span class="p">)</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane4</span><span class="p">)</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane5</span><span class="p">)</span>
+    <span class="n">clipFunction</span><span class="o">.</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane6</span><span class="p">)</span>
 
-    '''
-    # Sometimes the contouring algorithm can create a volume whose gradient
-    # vector and ordering of polygon (using the right hand rule) are
-    # inconsistent. vtkReverseSense cures this problem.
-    reverse = vtk.vtkReverseSense()
+    <span class="c1"># Clip it.</span>
+    <span class="n">clipper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkClipPolyData</span><span class="p">()</span>
+    <span class="n">clipper</span><span class="o">.</span><span class="n">SetClipFunction</span><span class="p">(</span><span class="n">clipFunction</span><span class="p">)</span>
+    <span class="n">clipper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">clipper</span><span class="o">.</span><span class="n">GenerateClipScalarsOff</span><span class="p">()</span>
+    <span class="n">clipper</span><span class="o">.</span><span class="n">GenerateClippedOutputOff</span><span class="p">()</span>
+    <span class="c1"># clipper.GenerateClippedOutputOn()</span>
+    <span class="n">clipper</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">clipper</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
 
-    # Choose a random subset of points.
-    maskPts = vtk.vtkMaskPoints()
-    maskPts.SetOnRatio(5)
-    maskPts.RandomModeOn()
-    if reverseNormals:
-        reverse.SetInputData(src)
-        reverse.ReverseCellsOn()
-        reverse.ReverseNormalsOn()
-        maskPts.SetInputConnection(reverse.GetOutputPort())
-    else:
-        maskPts.SetInputData(src)
 
-    # Source for the glyph filter
-    arrow = vtk.vtkArrowSource()
-    arrow.SetTipResolution(16)
-    arrow.SetTipLength(0.3)
-    arrow.SetTipRadius(0.1)
+<span class="k">def</span> <span class="nf">CalculateCurvatures</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The source must be triangulated.</span>
+<span class="sd">    :param: src - the source.</span>
+<span class="sd">    :return: vtkPolyData with normal and scalar data representing curvatures.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">curvature</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCurvatures</span><span class="p">()</span>
+    <span class="n">curvature</span><span class="o">.</span><span class="n">SetCurvatureTypeToGaussian</span><span class="p">()</span>
+    <span class="n">curvature</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">curvature</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">curvature</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
 
-    glyph = vtk.vtkGlyph3D()
-    glyph.SetSourceConnection(arrow.GetOutputPort())
-    glyph.SetInputConnection(maskPts.GetOutputPort())
-    glyph.SetVectorModeToUseNormal()
-    glyph.SetScaleFactor(1)
-    glyph.SetColorModeToColorByVector()
-    glyph.SetScaleModeToScaleByVector()
-    glyph.OrientOn()
-    glyph.Update()
-    return glyph
 
-def DisplaySurface(st):
-    '''
-    Make and display the surface.
-    :param: st - the surface to display.
-    :return The vtkRenderWindowInteractor.
-    '''
-    surface = st.upper()
-    if  (not(surface in SURFACE_TYPE) ):
-        print(st, &quot;is not a surface.&quot;)
-        iren = vtk.vtkRenderWindowInteractor()
-        return iren
-    # ------------------------------------------------------------
-    # Create the surface, lookup tables, contour filter etc.
-    # ------------------------------------------------------------
-    src = vtk.vtkPolyData()
-    if (surface == &quot;TORUS&quot;):
-        src = MakeTorus()
-    elif (surface == &quot;PARAMETRIC_TORUS&quot;):
-        src = MakeParametricTorus()
-    elif (surface == &quot;PARAMETRIC_HILLS&quot;):
-        src = Clipper(MakeParametricHills(),0.5,0.5,0.0)
-    # Here we are assuming that the active scalars are the curvatures.
-    curvatureName = src.GetPointData().GetScalars().GetName()
-    # Use this range to color the glyphs for the normals by elevation.
-    src.GetPointData().SetActiveScalars('Elevation')
-    scalarRangeElevation = src.GetScalarRange()
-    src.GetPointData().SetActiveScalars(curvatureName)
-    scalarRangeCurvatures = src.GetScalarRange()
-    scalarRange = scalarRangeCurvatures
+<span class="k">def</span> <span class="nf">MakeEnneper</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a parametric surface as the source.</span>
+<span class="sd">    :return: vtkPolyData with normal and scalar data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricEnneper</span><span class="p">()</span>
 
-    lut = MakeLUT()
-    numberOfBands = lut.GetNumberOfTableValues()
-    bands = MakeBands(scalarRange, numberOfBands, False)
-    if surface == &quot;PARAMETRIC_HILLS&quot;:
-        # Comment this out if you want to see how allocating
-        # equally spaced bands works.
-        bands = MakeCustomBands(scalarRange, numberOfBands)
-        # Adjust the number of table values
-        numberOfBands = len(bands)
-        lut.SetNumberOfTableValues(numberOfBands)
+    <span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFunctionSource</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetScalarModeToZ</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="c1"># Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetNormals</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Normals&#39;</span><span class="p">)</span>
+    <span class="c1"># We have calculated the elevation, just rename the scalars.</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    lut.SetTableRange(scalarRange)
 
-    # We will use the midpoint of the band as the label.
-    labels = []
-    for i in range(numberOfBands):
-        labels.append('{:4.2f}'.format(bands[i][1]))
+<span class="k">def</span> <span class="nf">MakeBoys</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a parametric surface as the source.</span>
+<span class="sd">    :return: vtkPolyData with normal and scalar data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricBoy</span><span class="p">()</span>
 
-    # Annotate
-    values = vtk.vtkVariantArray()
-    for i in range(len(labels)):
-        values.InsertNextValue(vtk.vtkVariant(labels[i]))
-    for i in range(values.GetNumberOfTuples()):
-        lut.SetAnnotation(i, values.GetValue(i).ToString());
+    <span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFunctionSource</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">SetScalarModeToZ</span><span class="p">()</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="c1"># Name the arrays (not needed in VTK 6.2+ for vtkParametricFunctionSource)</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetNormals</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Normals&#39;</span><span class="p">)</span>
+    <span class="c1"># We have calculated the elevation, just rename the scalars.</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-    # Create a lookup table with the colors reversed.
-    lutr = ReverseLUT(lut)
 
-    # Create the contour bands.
-    bcf = vtk.vtkBandedPolyDataContourFilter()
-    bcf.SetInputData(src)
-    # Use either the minimum or maximum value for each band.
-    for i in range(0, numberOfBands):
-        bcf.SetValue(i, bands[i][2])
-    # We will use an indexed lookup table.
-    bcf.SetScalarModeToIndex()
-    bcf.GenerateContourEdgesOn()
+<span class="k">def</span> <span class="nf">MakeLUT</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a lookup table using vtkColorSeries.</span>
+<span class="sd">    :return: An indexed lookup table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Make the lookup table.</span>
+    <span class="n">colorSeries</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkColorSeries</span><span class="p">()</span>
+    <span class="c1"># Select a color scheme.</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.BREWER_DIVERGING_BROWN_BLUE_GREEN_9</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_10</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.BREWER_DIVERGING_SPECTRAL_3</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.BREWER_DIVERGING_PURPLE_ORANGE_9</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_PURPLE_9</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.BREWER_SEQUENTIAL_BLUE_GREEN_9</span>
+    <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">.</span><span class="n">BREWER_QUALITATIVE_SET3</span>
+    <span class="c1"># colorSeriesEnum = colorSeries.CITRUS</span>
+    <span class="n">colorSeries</span><span class="o">.</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">)</span>
+    <span class="n">lut</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+    <span class="n">colorSeries</span><span class="o">.</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
+    <span class="n">lut</span><span class="o">.</span><span class="n">SetNanColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lut</span>
 
-    # Generate the glyphs on the original surface.
-    glyph = MakeGlyphs(src,False)
 
-    # ------------------------------------------------------------
-    # Create the mappers and actors
-    # ------------------------------------------------------------
-    srcMapper = vtk.vtkPolyDataMapper()
-    srcMapper.SetInputConnection(bcf.GetOutputPort())
-    srcMapper.SetScalarRange(scalarRange)
-    srcMapper.SetLookupTable(lut)
-    srcMapper.SetScalarModeToUseCellData()
+<span class="k">def</span> <span class="nf">ReverseLUT</span><span class="p">(</span><span class="n">lut</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a lookup table with the colors reversed.</span>
+<span class="sd">    :param: lut - An indexed lookup table.</span>
+<span class="sd">    :return: The reversed indexed lookup table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lutr</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+    <span class="n">lutr</span><span class="o">.</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">revRange</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">revRange</span><span class="p">:</span>
+        <span class="n">rgba</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">GetColor</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">rgba</span><span class="p">)</span>
+        <span class="n">rgba</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lut</span><span class="o">.</span><span class="n">GetOpacity</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="n">lutr</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="n">rgba</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">revRange</span><span class="p">:</span>
+        <span class="n">lutr</span><span class="o">.</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">lutr</span>
 
-    srcActor = vtk.vtkActor()
-    srcActor.SetMapper(srcMapper)
-    srcActor.RotateX(-45)
-    srcActor.RotateZ(45)
 
-    # Create contour edges
-    edgeMapper = vtk.vtkPolyDataMapper()
-    edgeMapper.SetInputData(bcf.GetContourEdgesOutput())
-    edgeMapper.SetResolveCoincidentTopologyToPolygonOffset()
+<span class="k">def</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">reverseNormals</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Glyph the normals on the surface.</span>
 
-    edgeActor = vtk.vtkActor()
-    edgeActor.SetMapper(edgeMapper)
-    edgeActor.GetProperty().SetColor(0, 0, 0)
-    edgeActor.RotateX(-45)
-    edgeActor.RotateZ(45)
+<span class="sd">    You may need to adjust the parameters for maskPts, arrow and glyph for a</span>
+<span class="sd">    nice appearance.</span>
 
-    glyphMapper = vtk.vtkPolyDataMapper()
-    glyphMapper.SetInputConnection(glyph.GetOutputPort())
-    glyphMapper.SetScalarModeToUsePointFieldData()
-    glyphMapper.SetColorModeToMapScalars()
-    glyphMapper.ScalarVisibilityOn()
-    glyphMapper.SelectColorArray('Elevation')
-    # Colour by scalars.
-    glyphMapper.SetScalarRange(scalarRangeElevation)
+<span class="sd">    :param: src - the surface to glyph.</span>
+<span class="sd">    :param: reverseNormals - if True the normals on the surface are reversed.</span>
+<span class="sd">    :return: The glyph object.</span>
 
-    glyphActor = vtk.vtkActor()
-    glyphActor.SetMapper(glyphMapper)
-    glyphActor.RotateX(-45)
-    glyphActor.RotateZ(45)
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Sometimes the contouring algorithm can create a volume whose gradient</span>
+    <span class="c1"># vector and ordering of polygon (using the right hand rule) are</span>
+    <span class="c1"># inconsistent. vtkReverseSense cures this problem.</span>
+    <span class="n">reverse</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkReverseSense</span><span class="p">()</span>
 
-    # Add a scalar bar.
-    scalarBar = vtk.vtkScalarBarActor()
-    # This LUT puts the lowest value at the top of the scalar bar.
-    # scalarBar-&gt;SetLookupTable(lut);
-    # Use this LUT if you want the highest value at the top.
-    scalarBar.SetLookupTable(lutr)
-    scalarBar.SetTitle('Gaussian\nCurvature')
+    <span class="c1"># Choose a random subset of points.</span>
+    <span class="n">maskPts</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMaskPoints</span><span class="p">()</span>
+    <span class="n">maskPts</span><span class="o">.</span><span class="n">SetOnRatio</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">maskPts</span><span class="o">.</span><span class="n">RandomModeOn</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">reverseNormals</span><span class="p">:</span>
+        <span class="n">reverse</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">reverse</span><span class="o">.</span><span class="n">ReverseCellsOn</span><span class="p">()</span>
+        <span class="n">reverse</span><span class="o">.</span><span class="n">ReverseNormalsOn</span><span class="p">()</span>
+        <span class="n">maskPts</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reverse</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">maskPts</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
-    # ------------------------------------------------------------
-    # Create the RenderWindow, Renderer and Interactor
-    # ------------------------------------------------------------
-    ren = vtk.vtkRenderer()
-    renWin = vtk.vtkRenderWindow()
-    iren = vtk.vtkRenderWindowInteractor()
+    <span class="c1"># Source for the glyph filter</span>
+    <span class="n">arrow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkArrowSource</span><span class="p">()</span>
+    <span class="n">arrow</span><span class="o">.</span><span class="n">SetTipResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">arrow</span><span class="o">.</span><span class="n">SetTipLength</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">arrow</span><span class="o">.</span><span class="n">SetTipRadius</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 
-    renWin.AddRenderer(ren)
-    iren.SetRenderWindow(renWin)
+    <span class="n">glyph</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGlyph3D</span><span class="p">()</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrow</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">maskPts</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">SetVectorModeToUseNormal</span><span class="p">()</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">SetColorModeToColorByVector</span><span class="p">()</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">()</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">OrientOn</span><span class="p">()</span>
+    <span class="n">glyph</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">glyph</span>
 
-    # add actors
-    ren.AddViewProp(srcActor)
-    ren.AddViewProp(edgeActor)
-    ren.AddViewProp(glyphActor)
-    ren.AddActor2D(scalarBar)
 
-    ren.SetBackground(0.7, 0.8, 1.0)
-    renWin.SetSize(800, 800)
-    renWin.Render()
+<span class="k">def</span> <span class="nf">DisplaySurface</span><span class="p">(</span><span class="n">st</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make and display the surface.</span>
+<span class="sd">    :param: st - the surface to display.</span>
+<span class="sd">    :return The vtkRenderWindowInteractor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">surface</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">surface</span> <span class="ow">in</span> <span class="n">SURFACE_TYPE</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="s2">&quot;is not a surface.&quot;</span><span class="p">)</span>
+        <span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iren</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Create the surface, lookup tables, contour filter etc.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">surface</span> <span class="o">==</span> <span class="s2">&quot;TORUS&quot;</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">MakeTorus</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">surface</span> <span class="o">==</span> <span class="s2">&quot;PARAMETRIC_TORUS&quot;</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">MakeParametricTorus</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">surface</span> <span class="o">==</span> <span class="s2">&quot;PARAMETRIC_HILLS&quot;</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">Clipper</span><span class="p">(</span><span class="n">MakeParametricHills</span><span class="p">(),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="c1"># Here we are assuming that the active scalars are the curvatures.</span>
+    <span class="n">curvatureName</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">GetName</span><span class="p">()</span>
+    <span class="c1"># Use this range to color the glyphs for the normals by elevation.</span>
+    <span class="n">src</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+    <span class="n">scalarRangeElevation</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">GetScalarRange</span><span class="p">()</span>
+    <span class="n">src</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="n">curvatureName</span><span class="p">)</span>
+    <span class="n">scalarRangeCurvatures</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">GetScalarRange</span><span class="p">()</span>
+    <span class="n">scalarRange</span> <span class="o">=</span> <span class="n">scalarRangeCurvatures</span>
 
-    ren.GetActiveCamera().Zoom(1.5)
+    <span class="n">lut</span> <span class="o">=</span> <span class="n">MakeLUT</span><span class="p">()</span>
+    <span class="n">numberOfBands</span> <span class="o">=</span> <span class="n">lut</span><span class="o">.</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="n">MakeBands</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">surface</span> <span class="o">==</span> <span class="s2">&quot;PARAMETRIC_HILLS&quot;</span><span class="p">:</span>
+        <span class="c1"># Comment this out if you want to see how allocating</span>
+        <span class="c1"># equally spaced bands works.</span>
+        <span class="n">bands</span> <span class="o">=</span> <span class="n">MakeCustomBands</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">)</span>
+        <span class="c1"># Adjust the number of table values</span>
+        <span class="n">numberOfBands</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bands</span><span class="p">)</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">)</span>
 
-    return iren
+    <span class="n">lut</span><span class="o">.</span><span class="n">SetTableRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    #iren = vtk.vtkRenderWindowInteractor()
-    #iren = DisplaySurface(&quot;TORUS&quot;)
-    #iren = DisplaySurface(&quot;PARAMETRIC_TORUS&quot;)
-    iren = DisplaySurface(&quot;PARAMETRIC_HILLS&quot;)
-    iren.Render()
-    iren.Start()
-#     WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
-#               &quot;CurvatureBandsWithGlyphs.png&quot;)
-</code></pre>
+    <span class="c1"># We will use the midpoint of the band as the label.</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfBands</span><span class="p">):</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;{:4.2f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bands</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># Annotate</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariantArray</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)):</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">GetNumberOfTuples</span><span class="p">()):</span>
+        <span class="n">lut</span><span class="o">.</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">ToString</span><span class="p">())</span>
+
+    <span class="c1"># Create a lookup table with the colors reversed.</span>
+    <span class="n">lutr</span> <span class="o">=</span> <span class="n">ReverseLUT</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
+
+    <span class="c1"># Create the contour bands.</span>
+    <span class="n">bcf</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="p">()</span>
+    <span class="n">bcf</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="c1"># Use either the minimum or maximum value for each band.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfBands</span><span class="p">):</span>
+        <span class="n">bcf</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bands</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+    <span class="c1"># We will use an indexed lookup table.</span>
+    <span class="n">bcf</span><span class="o">.</span><span class="n">SetScalarModeToIndex</span><span class="p">()</span>
+    <span class="n">bcf</span><span class="o">.</span><span class="n">GenerateContourEdgesOn</span><span class="p">()</span>
+
+    <span class="c1"># Generate the glyphs on the original surface.</span>
+    <span class="n">glyph</span> <span class="o">=</span> <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Create the mappers and actors</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">srcMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+    <span class="n">srcMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bcf</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">srcMapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">)</span>
+    <span class="n">srcMapper</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
+    <span class="n">srcMapper</span><span class="o">.</span><span class="n">SetScalarModeToUseCellData</span><span class="p">()</span>
+
+    <span class="n">srcActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">srcActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">srcMapper</span><span class="p">)</span>
+    <span class="n">srcActor</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">srcActor</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+
+    <span class="c1"># Create contour edges</span>
+    <span class="n">edgeMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+    <span class="n">edgeMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">bcf</span><span class="o">.</span><span class="n">GetContourEdgesOutput</span><span class="p">())</span>
+    <span class="n">edgeMapper</span><span class="o">.</span><span class="n">SetResolveCoincidentTopologyToPolygonOffset</span><span class="p">()</span>
+
+    <span class="n">edgeActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">edgeActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">edgeMapper</span><span class="p">)</span>
+    <span class="n">edgeActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">edgeActor</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">edgeActor</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+
+    <span class="n">glyphMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+    <span class="n">glyphMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">glyphMapper</span><span class="o">.</span><span class="n">SetScalarModeToUsePointFieldData</span><span class="p">()</span>
+    <span class="n">glyphMapper</span><span class="o">.</span><span class="n">SetColorModeToMapScalars</span><span class="p">()</span>
+    <span class="n">glyphMapper</span><span class="o">.</span><span class="n">ScalarVisibilityOn</span><span class="p">()</span>
+    <span class="n">glyphMapper</span><span class="o">.</span><span class="n">SelectColorArray</span><span class="p">(</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+    <span class="c1"># Colour by scalars.</span>
+    <span class="n">glyphMapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRangeElevation</span><span class="p">)</span>
+
+    <span class="n">glyphActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+    <span class="n">glyphActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">)</span>
+    <span class="n">glyphActor</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">glyphActor</span><span class="o">.</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+
+    <span class="c1"># Add a scalar bar.</span>
+    <span class="n">scalarBar</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkScalarBarActor</span><span class="p">()</span>
+    <span class="c1"># This LUT puts the lowest value at the top of the scalar bar.</span>
+    <span class="c1"># scalarBar-&gt;SetLookupTable(lut);</span>
+    <span class="c1"># Use this LUT if you want the highest value at the top.</span>
+    <span class="n">scalarBar</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lutr</span><span class="p">)</span>
+    <span class="n">scalarBar</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s1">&#39;Gaussian</span><span class="se">\n</span><span class="s1">Curvature&#39;</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Create the RenderWindow, Renderer and Interactor</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+    <span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+    <span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+
+    <span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+
+    <span class="c1"># add actors</span>
+    <span class="n">ren</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">srcActor</span><span class="p">)</span>
+    <span class="n">ren</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">edgeActor</span><span class="p">)</span>
+    <span class="n">ren</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">glyphActor</span><span class="p">)</span>
+    <span class="n">ren</span><span class="o">.</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">scalarBar</span><span class="p">)</span>
+
+    <span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+
+    <span class="n">ren</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">iren</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># iren = vtk.vtkRenderWindowInteractor()</span>
+    <span class="c1"># iren = DisplaySurface(&quot;TORUS&quot;)</span>
+    <span class="c1"># iren = DisplaySurface(&quot;PARAMETRIC_TORUS&quot;)</span>
+    <span class="n">iren</span> <span class="o">=</span> <span class="n">DisplaySurface</span><span class="p">(</span><span class="s2">&quot;PARAMETRIC_HILLS&quot;</span><span class="p">)</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+<span class="c1"># WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),</span>
+<span class="c1">#               &quot;CurvatureBandsWithGlyphs.png&quot;)</span>
+</pre></div>
                 
                   
                 

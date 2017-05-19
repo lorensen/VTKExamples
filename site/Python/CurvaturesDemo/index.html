@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15558,6 +15558,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,7 +15984,7 @@
                   <h1>CurvaturesDemo</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//CurvaturesDemo</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>'''How to get the Gaussian and Mean curvatures of a surface.'''</p>
 <p>Two different surfaces are used in this demonstration with each surface coloured according to its Gaussian and Mean curvatures.</p>
 <ul>
@@ -15987,206 +15999,206 @@
 Because of the symmetry of the ranges selected for the lookup tables, the white colouration represents a midpoint value whilst the blue represents values less than the midopoint value and red represents colours greater than the midpoint value.</p>
 <p>In the case of the Random Hills Gaussian curvature surface, this colouration shows the nature of the surface quite nicely. The blue areas are saddle points (negative Gaussian curvature) and the red areas have a positive Gaussian curvature. In the case of the mean curvature the blue colouration is representing negative curvature perpendicular to one of the principal axes.</p>
 <p>This example also demonstrates the use of lists and the linking of the elements of the lists together to form a pipeline. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CurvaturesDemo.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-'''
-The purpose of this is to demonstrate how to get the Gaussian and Mean curvatures of a surface.
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">The purpose of this is to demonstrate how to get the Gaussian and Mean curvatures of a surface.</span>
 
-Two different surfaces are used in this demonstration with each surface coloured according
- to its Gaussian and Mean curvatures.
+<span class="sd">Two different surfaces are used in this demonstration with each surface coloured according</span>
+<span class="sd"> to its Gaussian and Mean curvatures.</span>
 
-The first surface is a superquadric surface, this demonstrates the use of extra filters
- that are needed to get a nice smooth surface.
+<span class="sd">The first surface is a superquadric surface, this demonstrates the use of extra filters</span>
+<span class="sd"> that are needed to get a nice smooth surface.</span>
 
-The second surface is a parametric surface, in this case the surface has already been triangulated
-so no extra processing is necessary.
+<span class="sd">The second surface is a parametric surface, in this case the surface has already been triangulated</span>
+<span class="sd">so no extra processing is necessary.</span>
 
-In order to get a nice coloured image, a vtkColorTransferFunction has been used to generate
- a set of colours for the vtkLookUp tables. We have used a diverging colour space similar 
- to that in ParaView.
-Because of the symmetry of the ranges selected for the lookup tables, the white colouration
- represents a midpoint value whilst the blue represents values less than the midopoint value
- and red represents colours greater than the midpoint value.
+<span class="sd">In order to get a nice coloured image, a vtkColorTransferFunction has been used to generate</span>
+<span class="sd"> a set of colours for the vtkLookUp tables. We have used a diverging colour space similar </span>
+<span class="sd"> to that in ParaView.</span>
+<span class="sd">Because of the symmetry of the ranges selected for the lookup tables, the white colouration</span>
+<span class="sd"> represents a midpoint value whilst the blue represents values less than the midopoint value</span>
+<span class="sd"> and red represents colours greater than the midpoint value.</span>
 
-In the case of the Random Hills Gaussian Curvature surface, this colouration shows the nature 
- of the surface quite nicely. The blue areas are saddle points (negative Gaussian curvature) 
- and the red areas have a positive Gaussian curvature.  In the case of the mean curvature the 
- blue colouration is representing negative curvature perpendicular to one of the principal axes.
+<span class="sd">In the case of the Random Hills Gaussian Curvature surface, this colouration shows the nature </span>
+<span class="sd"> of the surface quite nicely. The blue areas are saddle points (negative Gaussian curvature) </span>
+<span class="sd"> and the red areas have a positive Gaussian curvature.  In the case of the mean curvature the </span>
+<span class="sd"> blue colouration is representing negative curvature perpendicular to one of the principal axes.</span>
 
-This example also demonstrates the use of lists and the linking of the elements of the 
- lists together to form a pipeline. 
+<span class="sd">This example also demonstrates the use of lists and the linking of the elements of the </span>
+<span class="sd"> lists together to form a pipeline. </span>
 
-'''
-import vtk
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-class CurvaturesDemo():
+<span class="k">class</span> <span class="nc">CurvaturesDemo</span><span class="p">():</span>
 
-    def CurvaturesDemo(self):
+    <span class="k">def</span> <span class="nf">CurvaturesDemo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        # We are going to handle two different sources.
-        # The first source is a superquadric source.
-        torus = vtk.vtkSuperquadricSource();
-        torus.SetCenter(0.0, 0.0, 0.0)
-        torus.SetScale(1.0, 1.0, 1.0)
-        torus.SetPhiResolution (64)
-        torus.SetThetaResolution(64)
-        torus.SetThetaRoundness (1)
-        torus.SetThickness (0.5)
-        torus.SetSize(0.5)
-        torus.SetToroidal(1) 
+        <span class="c1"># We are going to handle two different sources.</span>
+        <span class="c1"># The first source is a superquadric source.</span>
+        <span class="n">torus</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSuperquadricSource</span><span class="p">();</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetScale</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetPhiResolution</span> <span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetThetaRoundness</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetThickness</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">torus</span><span class="o">.</span><span class="n">SetToroidal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
 
-        # Rotate the torus towards the observer (around the x-axis)
-        torusT = vtk.vtkTransform()
-        torusT.RotateX(55)
+        <span class="c1"># Rotate the torus towards the observer (around the x-axis)</span>
+        <span class="n">torusT</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransform</span><span class="p">()</span>
+        <span class="n">torusT</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mi">55</span><span class="p">)</span>
 
-        torusTF = vtk.vtkTransformFilter()
-        torusTF.SetInputConnection(torus.GetOutputPort())
-        torusTF.SetTransform(torusT)
+        <span class="n">torusTF</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTransformFilter</span><span class="p">()</span>
+        <span class="n">torusTF</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">torus</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+        <span class="n">torusTF</span><span class="o">.</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">torusT</span><span class="p">)</span>
 
-        # The quadric is made of strips, so pass it through a triangle filter as
-        # the curvature filter only operates on polys
-        tri = vtk.vtkTriangleFilter()
-        tri.SetInputConnection(torusTF.GetOutputPort())
+        <span class="c1"># The quadric is made of strips, so pass it through a triangle filter as</span>
+        <span class="c1"># the curvature filter only operates on polys</span>
+        <span class="n">tri</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangleFilter</span><span class="p">()</span>
+        <span class="n">tri</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">torusTF</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-        # The quadric has nasty discontinuities from the way the edges are generated
-        # so let's pass it though a CleanPolyDataFilter and merge any points which
-        # are coincident, or very close
+        <span class="c1"># The quadric has nasty discontinuities from the way the edges are generated</span>
+        <span class="c1"># so let&#39;s pass it though a CleanPolyDataFilter and merge any points which</span>
+        <span class="c1"># are coincident, or very close</span>
 
-        cleaner = vtk.vtkCleanPolyData()
-        cleaner.SetInputConnection(tri.GetOutputPort())
-        cleaner.SetTolerance(0.005)
+        <span class="n">cleaner</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCleanPolyData</span><span class="p">()</span>
+        <span class="n">cleaner</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tri</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+        <span class="n">cleaner</span><span class="o">.</span><span class="n">SetTolerance</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
 
-        # The next source will be a parametric function
-        rh = vtk.vtkParametricRandomHills()
-        rhFnSrc = vtk.vtkParametricFunctionSource()
-        rhFnSrc.SetParametricFunction(rh)
+        <span class="c1"># The next source will be a parametric function</span>
+        <span class="n">rh</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricRandomHills</span><span class="p">()</span>
+        <span class="n">rhFnSrc</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkParametricFunctionSource</span><span class="p">()</span>
+        <span class="n">rhFnSrc</span><span class="o">.</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">rh</span><span class="p">)</span>
 
-        # Now we have the sources, lets put them into a list.
-        sources = list()
-        sources.append(cleaner)
-        sources.append(cleaner)
-        sources.append(rhFnSrc)
-        sources.append(rhFnSrc)
+        <span class="c1"># Now we have the sources, lets put them into a list.</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cleaner</span><span class="p">)</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cleaner</span><span class="p">)</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rhFnSrc</span><span class="p">)</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rhFnSrc</span><span class="p">)</span>
 
-        # Colour transfer function.
-        ctf = vtk.vtkColorTransferFunction()
-        ctf.SetColorSpaceToDiverging()
-        ctf.AddRGBPoint(0.0, 0.230, 0.299, 0.754)
-        ctf.AddRGBPoint(1.0, 0.706, 0.016, 0.150)
-        cc = list()
-        for i in range(256):
-            cc.append(ctf.GetColor(float(i) / 255.0)) 
+        <span class="c1"># Colour transfer function.</span>
+        <span class="n">ctf</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkColorTransferFunction</span><span class="p">()</span>
+        <span class="n">ctf</span><span class="o">.</span><span class="n">SetColorSpaceToDiverging</span><span class="p">()</span>
+        <span class="n">ctf</span><span class="o">.</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.230</span><span class="p">,</span> <span class="mf">0.299</span><span class="p">,</span> <span class="mf">0.754</span><span class="p">)</span>
+        <span class="n">ctf</span><span class="o">.</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.706</span><span class="p">,</span> <span class="mf">0.016</span><span class="p">,</span> <span class="mf">0.150</span><span class="p">)</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
+            <span class="n">cc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctf</span><span class="o">.</span><span class="n">GetColor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">))</span> 
 
-        # Lookup table.
-        lut = list()
-        for idx in range(len(sources)):
-            lut.append(vtk.vtkLookupTable())
-            lut[idx].SetNumberOfColors(256)
-            for i, item in enumerate(cc):
-                lut[idx].SetTableValue(i, item[0], item[1], item[2], 1.0)
-            if idx == 0:
-                lut[idx].SetRange(-10, 10)
-            if idx == 1:
-                lut[idx].SetRange(0, 4)
-            if idx == 2:
-                lut[idx].SetRange(-1, 1)
-            if idx == 3:
-                lut[idx].SetRange(-1, 1)
-            lut[idx].Build()
+        <span class="c1"># Lookup table.</span>
+        <span class="n">lut</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)):</span>
+            <span class="n">lut</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">())</span>
+            <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetNumberOfColors</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cc</span><span class="p">):</span>
+                <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">Build</span><span class="p">()</span>
 
-        curvatures = list()        
-        for idx in range(len(sources)):
-            curvatures.append(vtk.vtkCurvatures())
-            if idx % 2 == 0:
-                curvatures[idx].SetCurvatureTypeToGaussian()
-            else:
-                curvatures[idx].SetCurvatureTypeToMean()
+        <span class="n">curvatures</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>        
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)):</span>
+            <span class="n">curvatures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkCurvatures</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">curvatures</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetCurvatureTypeToGaussian</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">curvatures</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetCurvatureTypeToMean</span><span class="p">()</span>
 
-        renderers = list()
-        mappers = list()
-        actors = list()
-        textmappers = list()
-        textactors = list()
+        <span class="n">renderers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">mappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">actors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textmappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">textactors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-        # Create a common text property.
-        textProperty = vtk.vtkTextProperty()
-        textProperty.SetFontSize(10)
-        textProperty.SetJustificationToCentered()
+        <span class="c1"># Create a common text property.</span>
+        <span class="n">textProperty</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextProperty</span><span class="p">()</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">textProperty</span><span class="o">.</span><span class="n">SetJustificationToCentered</span><span class="p">()</span>
 
-        names = ['Torus - Gaussian Curvature', 'Torus - Mean Curvature', 'Random Hills - Gaussian Curvature', 'Random Hills - Mean Curvature']
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Torus - Gaussian Curvature&#39;</span><span class="p">,</span> <span class="s1">&#39;Torus - Mean Curvature&#39;</span><span class="p">,</span> <span class="s1">&#39;Random Hills - Gaussian Curvature&#39;</span><span class="p">,</span> <span class="s1">&#39;Random Hills - Mean Curvature&#39;</span><span class="p">]</span>
 
-        # Link the pipeline together. 
-        for idx, item in enumerate(sources):
-            sources[idx].Update()
+        <span class="c1"># Link the pipeline together. </span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sources</span><span class="p">):</span>
+            <span class="n">sources</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-            curvatures[idx].SetInputConnection(sources[idx].GetOutputPort())
+            <span class="n">curvatures</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-            mappers.append(vtk.vtkPolyDataMapper())
-            mappers[idx].SetInputConnection(curvatures[idx].GetOutputPort())
-            mappers[idx].SetLookupTable(lut[idx])
-            mappers[idx].SetUseLookupTableScalarRange(1)
+            <span class="n">mappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">())</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">curvatures</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetUseLookupTableScalarRange</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-            actors.append(vtk.vtkActor())
-            actors[idx].SetMapper(mappers[idx])
+            <span class="n">actors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">())</span>
+            <span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-            textmappers.append(vtk.vtkTextMapper())
-            textmappers[idx].SetInput(names[idx])
-            textmappers[idx].SetTextProperty(textProperty)
+            <span class="n">textmappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextMapper</span><span class="p">())</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">)</span>
 
-            textactors.append(vtk.vtkActor2D())
-            textactors[idx].SetMapper(textmappers[idx])
-            textactors[idx].SetPosition(150, 16)
+            <span class="n">textactors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor2D</span><span class="p">())</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textmappers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 
-            renderers.append(vtk.vtkRenderer())
+            <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">())</span>
 
-        gridDimensions = 2
+        <span class="n">gridDimensions</span> <span class="o">=</span> <span class="mi">2</span>
 
-        for idx in range(len(sources)):
-            if idx &lt; gridDimensions * gridDimensions:
-                renderers.append(vtk.vtkRenderer)
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">:</span>
+                <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">)</span>
 
-        rendererSize = 300
+        <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">300</span>
 
-        # Create the RenderWindow
-        #
-        renderWindow = vtk.vtkRenderWindow()
-        renderWindow.SetSize(rendererSize * gridDimensions, rendererSize * gridDimensions)
+        <span class="c1"># Create the RenderWindow</span>
+        <span class="c1">#</span>
+        <span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">,</span> <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">)</span>
 
-        # Add and position the renders to the render window.
-        viewport = list()
-        for row in range(gridDimensions):
-            for col in range(gridDimensions):
-                idx = row * gridDimensions + col
+        <span class="c1"># Add and position the renders to the render window.</span>
+        <span class="n">viewport</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gridDimensions</span><span class="p">):</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">gridDimensions</span> <span class="o">+</span> <span class="n">col</span>
 
-                viewport[:] = []
-                viewport.append(float(col) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - (row+1)) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(col+1)*rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize))
+                <span class="n">viewport</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
+                <span class="n">viewport</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span> <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">))</span>
 
-                if idx &gt; (len(sources) - 1):
-                    continue
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">continue</span>
 
-                renderers[idx].SetViewport(viewport)
-                renderWindow.AddRenderer(renderers[idx])
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">)</span>
+                <span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
-                renderers[idx].AddActor(actors[idx])
-                renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.4,0.3,0.2)
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">textactors</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">renderers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
 
-        interactor = vtk.vtkRenderWindowInteractor()
-        interactor.SetRenderWindow(renderWindow)
+        <span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+        <span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-        renderWindow.Render()
+        <span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-        interactor.Start()
+        <span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-if __name__ == &quot;__main__&quot;:
-    po = CurvaturesDemo()
-    po.CurvaturesDemo()
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">po</span> <span class="o">=</span> <span class="n">CurvaturesDemo</span><span class="p">()</span>
+    <span class="n">po</span><span class="o">.</span><span class="n">CurvaturesDemo</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

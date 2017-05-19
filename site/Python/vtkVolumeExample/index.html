@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15558,6 +15558,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,149 +15984,149 @@
                   <h1>vtkVolumeExample</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//vtkVolumeExample</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Volume render unstructured transient data.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>vtkVolumeExample.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-from __future__ import print_function
-from vtk import *
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span> <span class="o">*</span>
 
-tse = vtkTimeSourceExample()
-ex = tse.GetExecutive()
-tse.UpdateInformation()
+<span class="n">tse</span> <span class="o">=</span> <span class="n">vtkTimeSourceExample</span><span class="p">()</span>
+<span class="n">ex</span> <span class="o">=</span> <span class="n">tse</span><span class="o">.</span><span class="n">GetExecutive</span><span class="p">()</span>
+<span class="n">tse</span><span class="o">.</span><span class="n">UpdateInformation</span><span class="p">()</span>
 
-#inspect available time range and time steps
-print(ex.GetOutputInformation())
+<span class="c1">#inspect available time range and time steps</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">GetOutputInformation</span><span class="p">())</span>
 
-#make it grow because bounds are easy to inspect
-# tse.SetGrowing(1)
+<span class="c1">#make it grow because bounds are easy to inspect</span>
+<span class="c1"># tse.SetGrowing(1)</span>
 
-ex.SetUpdateTimeStep(0,0.0)
-tse.Update()
-print(tse.GetOutput().GetBounds())
+<span class="n">ex</span><span class="o">.</span><span class="n">SetUpdateTimeStep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">tse</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tse</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">())</span>
 
-#pick some other time inside the time range
-ex.SetUpdateTimeStep(0,0.5)
-tse.Update()
-print(tse.GetOutput().GetBounds())
+<span class="c1">#pick some other time inside the time range</span>
+<span class="n">ex</span><span class="o">.</span><span class="n">SetUpdateTimeStep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">tse</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tse</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">())</span>
 
-grid = tse.GetOutput()
-print(grid)
+<span class="n">grid</span> <span class="o">=</span> <span class="n">tse</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
 
-tri = vtkDataSetTriangleFilter()
-tri.SetInputData(grid)
-tri.SetTetrahedraOnly(1)
-tri.Update()
-output = tri.GetOutput()
+<span class="n">tri</span> <span class="o">=</span> <span class="n">vtkDataSetTriangleFilter</span><span class="p">()</span>
+<span class="n">tri</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+<span class="n">tri</span><span class="o">.</span><span class="n">SetTetrahedraOnly</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tri</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">tri</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
 
-iss = output.GetPointData().SetActiveScalars(&quot;Point Label&quot;)
-# iss = gridMapper.GetInput().GetCellData().SetActiveScalars(options.scalarName)
-assert(iss&gt;-1)
+<span class="n">iss</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s2">&quot;Point Label&quot;</span><span class="p">)</span>
+<span class="c1"># iss = gridMapper.GetInput().GetCellData().SetActiveScalars(options.scalarName)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">iss</span><span class="o">&gt;-</span><span class="mi">1</span><span class="p">)</span>
 
-drange = [0, 1]
+<span class="n">drange</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
-# Create transfer mapping scalar value to opacity.
-opacityFunction = vtkPiecewiseFunction()
-opacityFunction.AddPoint(drange[0], 0.0)
-opacityFunction.AddPoint(drange[1], 1.0)
+<span class="c1"># Create transfer mapping scalar value to opacity.</span>
+<span class="n">opacityFunction</span> <span class="o">=</span> <span class="n">vtkPiecewiseFunction</span><span class="p">()</span>
+<span class="n">opacityFunction</span><span class="o">.</span><span class="n">AddPoint</span><span class="p">(</span><span class="n">drange</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">opacityFunction</span><span class="o">.</span><span class="n">AddPoint</span><span class="p">(</span><span class="n">drange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
 
-# Create transfer mapping scalar value to color.
-colorFunction = vtkColorTransferFunction()
-colorFunction.SetColorSpaceToHSV()
-colorFunction.HSVWrapOff()
-colorFunction.AddRGBPoint(drange[0], 0.0, 0.0, 1.0)
-colorFunction.AddRGBPoint(drange[1], 1.0, 0.0, 0.0)
+<span class="c1"># Create transfer mapping scalar value to color.</span>
+<span class="n">colorFunction</span> <span class="o">=</span> <span class="n">vtkColorTransferFunction</span><span class="p">()</span>
+<span class="n">colorFunction</span><span class="o">.</span><span class="n">SetColorSpaceToHSV</span><span class="p">()</span>
+<span class="n">colorFunction</span><span class="o">.</span><span class="n">HSVWrapOff</span><span class="p">()</span>
+<span class="n">colorFunction</span><span class="o">.</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="n">drange</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">colorFunction</span><span class="o">.</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="n">drange</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-volumeProperty = vtkVolumeProperty()
-volumeProperty.SetScalarOpacity(opacityFunction)
-volumeProperty.SetColor(colorFunction)
-volumeProperty.ShadeOff()
-volumeProperty.SetInterpolationTypeToLinear()
-# volumeProperty.SetScalarOpacityUnitDistance(options.unit)
+<span class="n">volumeProperty</span> <span class="o">=</span> <span class="n">vtkVolumeProperty</span><span class="p">()</span>
+<span class="n">volumeProperty</span><span class="o">.</span><span class="n">SetScalarOpacity</span><span class="p">(</span><span class="n">opacityFunction</span><span class="p">)</span>
+<span class="n">volumeProperty</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colorFunction</span><span class="p">)</span>
+<span class="n">volumeProperty</span><span class="o">.</span><span class="n">ShadeOff</span><span class="p">()</span>
+<span class="n">volumeProperty</span><span class="o">.</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">()</span>
+<span class="c1"># volumeProperty.SetScalarOpacityUnitDistance(options.unit)</span>
 
-volumeMapper = vtkUnstructuredGridVolumeRayCastMapper()
-# volumeMapper = vtkUnstructuredGridVolumeZSweepMapper()
-# volumeMapper = vtkProjectedTetrahedraMapper()
-# volumeMapper.SetBlendModeToMaximumIntensity()
-volumeMapper.SetInputData(output)
+<span class="n">volumeMapper</span> <span class="o">=</span> <span class="n">vtkUnstructuredGridVolumeRayCastMapper</span><span class="p">()</span>
+<span class="c1"># volumeMapper = vtkUnstructuredGridVolumeZSweepMapper()</span>
+<span class="c1"># volumeMapper = vtkProjectedTetrahedraMapper()</span>
+<span class="c1"># volumeMapper.SetBlendModeToMaximumIntensity()</span>
+<span class="n">volumeMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
-volume = vtkVolume()
-volume.SetMapper(volumeMapper)
-volume.SetProperty(volumeProperty)
+<span class="n">volume</span> <span class="o">=</span> <span class="n">vtkVolume</span><span class="p">()</span>
+<span class="n">volume</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">volumeMapper</span><span class="p">)</span>
+<span class="n">volume</span><span class="o">.</span><span class="n">SetProperty</span><span class="p">(</span><span class="n">volumeProperty</span><span class="p">)</span>
 
-# create a rendering window and renderer
-renderer = vtkRenderer()
-renderer.SetBackground(0,0,0)
+<span class="c1"># create a rendering window and renderer</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-window = vtkRenderWindow()
-window.SetSize(512,512)
-window.AddRenderer(renderer)
+<span class="n">window</span> <span class="o">=</span> <span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-interactor = vtkRenderWindowInteractor()
-interactor.SetRenderWindow(window)
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
 
-style = vtkInteractorStyleTrackballCamera();
-interactor.SetInteractorStyle(style);
+<span class="n">style</span> <span class="o">=</span> <span class="n">vtkInteractorStyleTrackballCamera</span><span class="p">();</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-renderer.AddVolume(volume)
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddVolume</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span>
 
-scalarBar = vtkScalarBarActor()
-scalarBar.SetLookupTable(colorFunction);
-scalarBar.SetOrientationToVertical();
-scalarBar.SetPosition( 0.85, 0.7 );
-scalarBar.SetPosition2( 0.1, 0.3 );
-propT = vtkTextProperty()
-propL = vtkTextProperty()
-propT.SetFontFamilyToArial()
-propT.ItalicOff()
-propT.BoldOn()
-propL.BoldOff()
-scalarBar.SetTitleTextProperty(propT);
-scalarBar.SetLabelTextProperty(propL);
-scalarBar.SetLabelFormat(&quot;%5.2f&quot;)
-renderer.AddActor(scalarBar)
+<span class="n">scalarBar</span> <span class="o">=</span> <span class="n">vtkScalarBarActor</span><span class="p">()</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">colorFunction</span><span class="p">);</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetOrientationToVertical</span><span class="p">();</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.7</span> <span class="p">);</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetPosition2</span><span class="p">(</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span> <span class="p">);</span>
+<span class="n">propT</span> <span class="o">=</span> <span class="n">vtkTextProperty</span><span class="p">()</span>
+<span class="n">propL</span> <span class="o">=</span> <span class="n">vtkTextProperty</span><span class="p">()</span>
+<span class="n">propT</span><span class="o">.</span><span class="n">SetFontFamilyToArial</span><span class="p">()</span>
+<span class="n">propT</span><span class="o">.</span><span class="n">ItalicOff</span><span class="p">()</span>
+<span class="n">propT</span><span class="o">.</span><span class="n">BoldOn</span><span class="p">()</span>
+<span class="n">propL</span><span class="o">.</span><span class="n">BoldOff</span><span class="p">()</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetTitleTextProperty</span><span class="p">(</span><span class="n">propT</span><span class="p">);</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetLabelTextProperty</span><span class="p">(</span><span class="n">propL</span><span class="p">);</span>
+<span class="n">scalarBar</span><span class="o">.</span><span class="n">SetLabelFormat</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%5.2f</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">scalarBar</span><span class="p">)</span>
 
-# setup the text and add it to the window
-textActor = vtkTextActor()
-textActor.GetTextProperty().SetFontSize(12)
-textActor.SetPosition2(10, 40)
-renderer.AddActor2D(textActor)
-textActor.SetInput(&quot;time = &quot;)
-textActor.GetTextProperty().SetColor(1.0,1.0,1.0)
+<span class="c1"># setup the text and add it to the window</span>
+<span class="n">textActor</span> <span class="o">=</span> <span class="n">vtkTextActor</span><span class="p">()</span>
+<span class="n">textActor</span><span class="o">.</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">textActor</span><span class="o">.</span><span class="n">SetPosition2</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">textActor</span><span class="p">)</span>
+<span class="n">textActor</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="s2">&quot;time = &quot;</span><span class="p">)</span>
+<span class="n">textActor</span><span class="o">.</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
 
-renderer.ResetCameraClippingRange()
-renderer.ResetCamera()
+<span class="n">renderer</span><span class="o">.</span><span class="n">ResetCameraClippingRange</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
 
-counter = 1
-time = 0
-while time&lt;=1:
-    print(&quot;time = &quot;, time)
-    textActor.SetInput(&quot;time = %g&quot; % time)
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">time</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;time = &quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+    <span class="n">textActor</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="s2">&quot;time = </span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">time</span><span class="p">)</span>
 
-    window.Render()
+    <span class="n">window</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-    # TODO FIXME if this block is not here than the volume renders wrongly
-    #renderer.RemoveVolume(volume)
-    # del volume
-    volume = vtkVolume()
-    volume.SetMapper(volumeMapper)
-    volume.SetProperty(volumeProperty)
-    renderer.AddVolume(volume)
+    <span class="c1"># TODO FIXME if this block is not here than the volume renders wrongly</span>
+    <span class="c1">#renderer.RemoveVolume(volume)</span>
+    <span class="c1"># del volume</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">vtkVolume</span><span class="p">()</span>
+    <span class="n">volume</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">volumeMapper</span><span class="p">)</span>
+    <span class="n">volume</span><span class="o">.</span><span class="n">SetProperty</span><span class="p">(</span><span class="n">volumeProperty</span><span class="p">)</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="n">AddVolume</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span>
 
-    counter = counter + 1
-    time = time + 1./10
-    ex.SetUpdateTimeStep(0,time)
-    tse.Modified()
-    if output.GetPointData().GetScalars():
-        print(output.GetPointData().GetScalars().GetRange())
-    # if grid.GetPointData().GetScalars():
-    #   print(grid.GetPointData().GetScalars().GetRange())
-    # print(grid.GetPointData().GetScalars())
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">10</span>
+    <span class="n">ex</span><span class="o">.</span><span class="n">SetUpdateTimeStep</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">tse</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">output</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">GetRange</span><span class="p">())</span>
+    <span class="c1"># if grid.GetPointData().GetScalars():</span>
+    <span class="c1">#   print(grid.GetPointData().GetScalars().GetRange())</span>
+    <span class="c1"># print(grid.GetPointData().GetScalars())</span>
 
-# while True:
-    # window.Render()
-</code></pre>
+<span class="c1"># while True:</span>
+    <span class="c1"># window.Render()</span>
+</pre></div>
                 
                   
                 

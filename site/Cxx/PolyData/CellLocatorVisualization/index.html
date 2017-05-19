@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,193 +16019,200 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/CellLocatorVisualization</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestCellLocatorVisualization.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>The idea of this example is to navigate levels of a uniform spatial tree (vtkCellLocator) using a slider.</p>
 <p><strong>Note:</strong> it is not desirable to have CellsPerBucket set "too small". This is because at some point, refining a bucket will result in each cell in that bucket to also be in the bucket's children.  This only wastes memory and computation.  The value that is "too small" is dependent on the grid but in general a value between 10 and 100 should work well (the default value is 25).</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CellLocatorVisualization.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkCellLocator.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSliderWidget.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkWidgetEvent.h&gt;
-#include &lt;vtkCallbackCommand.h&gt;
-#include &lt;vtkWidgetEventTranslator.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
-#include &lt;vtkSliderWidget.h&gt;
-#include &lt;vtkSliderRepresentation2D.h&gt;
-#include &lt;vtkProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellLocator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWidgetEvent.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCallbackCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWidgetEventTranslator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderRepresentation2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkMath.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 
-class vtkSliderCallback : public vtkCommand
-{
-public:
-  static vtkSliderCallback *New()
-  {
-    return new vtkSliderCallback;
-  }
-  vtkSliderCallback():CellLocator(0), Level(0), PolyData(0), Renderer(0){}
+<span class="k">class</span> <span class="nc">vtkSliderCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkSliderCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkSliderCallback</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">vtkSliderCallback</span><span class="p">()</span><span class="o">:</span><span class="n">CellLocator</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">Level</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">PolyData</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">Renderer</span><span class="p">(</span><span class="mi">0</span><span class="p">){}</span>
 
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast&lt;vtkSliderWidget*&gt;(caller);
-    this-&gt;Level = vtkMath::Round(static_cast&lt;vtkSliderRepresentation *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue());
-    this-&gt;CellLocator-&gt;GenerateRepresentation(this-&gt;Level, this-&gt;PolyData);
-    this-&gt;Renderer-&gt;Render();
-  }
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSliderWidget</span> <span class="o">*</span><span class="n">sliderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Round</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">());</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">CellLocator</span><span class="o">-&gt;</span><span class="n">GenerateRepresentation</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Level</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">PolyData</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  vtkCellLocator* CellLocator;
-  int Level;
-  vtkPolyData* PolyData;
-  vtkRenderer* Renderer;
-};
+  <span class="n">vtkCellLocator</span><span class="o">*</span> <span class="n">CellLocator</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">Level</span><span class="p">;</span>
+  <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">PolyData</span><span class="p">;</span>
+  <span class="n">vtkRenderer</span><span class="o">*</span> <span class="n">Renderer</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main (int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; inputSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  inputSource-&gt;SetPhiResolution(10);
-  inputSource-&gt;SetThetaResolution(10);
-  inputSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">inputSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">inputSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">inputSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">inputSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; pointsMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  pointsMapper-&gt;SetInputConnection(inputSource-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">pointsMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointsMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">inputSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; pointsActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  pointsActor-&gt;SetMapper(pointsMapper);
-  pointsActor-&gt;GetProperty()-&gt;SetInterpolationToFlat();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">pointsActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointsActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">pointsMapper</span><span class="p">);</span>
+  <span class="n">pointsActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
 
-  // Create the tree
-  vtkSmartPointer&lt;vtkCellLocator&gt; cellLocator =
-    vtkSmartPointer&lt;vtkCellLocator&gt;::New();
-  cellLocator-&gt;SetDataSet(inputSource-&gt;GetOutput());
-  cellLocator-&gt;BuildLocator();
+  <span class="c1">// Create the tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;</span> <span class="n">cellLocator</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">inputSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  // Initialize the representation
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  cellLocator-&gt;GenerateRepresentation(0, polydata);
+  <span class="c1">// Initialize the representation</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">GenerateRepresentation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">polydata</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; locatorTreeMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  locatorTreeMapper-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-  locatorTreeMapper-&gt;SetInputData(polydata);
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">locatorTreeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">locatorTreeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">locatorTreeMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; locatorTreeActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  locatorTreeActor-&gt;SetMapper(locatorTreeMapper);
-  locatorTreeActor-&gt;GetProperty()-&gt;SetInterpolationToFlat();
-  locatorTreeActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">locatorTreeActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">locatorTreeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">locatorTreeMapper</span><span class="p">);</span>
+  <span class="n">locatorTreeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
+  <span class="n">locatorTreeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor(pointsActor);
-  renderer-&gt;AddActor(locatorTreeActor);
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">pointsActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">locatorTreeActor</span><span class="p">);</span>
 
-  // Render an image (lights and cameras are created automatically)
-  renderWindow-&gt;Render();
+  <span class="c1">// Render an image (lights and cameras are created automatically)</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkSliderRepresentation2D&gt; sliderRep =
-    vtkSmartPointer&lt;vtkSliderRepresentation2D&gt;::New();
-  sliderRep-&gt;SetMinimumValue(0);
-  sliderRep-&gt;SetMaximumValue(cellLocator-&gt;GetLevel());
-  sliderRep-&gt;SetValue(0);
-  sliderRep-&gt;SetTitleText(&quot;MaxPointsPerRegion&quot;);
-  sliderRep-&gt;GetPoint1Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRep-&gt;GetPoint1Coordinate()-&gt;SetValue(.2, .2);
-  sliderRep-&gt;GetPoint2Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRep-&gt;GetPoint2Coordinate()-&gt;SetValue(.8, .2);
-  sliderRep-&gt;SetSliderLength(0.075);
-  sliderRep-&gt;SetSliderWidth(0.05);
-  sliderRep-&gt;SetEndCapLength(0.05);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;</span> <span class="n">sliderRep</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetMinimumValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetMaximumValue</span><span class="p">(</span><span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">GetLevel</span><span class="p">());</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetTitleText</span><span class="p">(</span><span class="s">&quot;MaxPointsPerRegion&quot;</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.2</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.8</span><span class="p">,</span> <span class="mf">.2</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetSliderLength</span><span class="p">(</span><span class="mf">0.075</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetSliderWidth</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
+  <span class="n">sliderRep</span><span class="o">-&gt;</span><span class="n">SetEndCapLength</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderWidget&gt; sliderWidget =
-    vtkSmartPointer&lt;vtkSliderWidget&gt;::New();
-  sliderWidget-&gt;SetInteractor(renderWindowInteractor);
-  sliderWidget-&gt;SetRepresentation(sliderRep);
-  sliderWidget-&gt;SetAnimationModeToAnimate();
-  sliderWidget-&gt;EnabledOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;</span> <span class="n">sliderWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">sliderRep</span><span class="p">);</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">SetAnimationModeToAnimate</span><span class="p">();</span>
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">EnabledOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkSliderCallback&gt; callback =
-    vtkSmartPointer&lt;vtkSliderCallback&gt;::New();
-  callback-&gt;CellLocator = cellLocator;
-  callback-&gt;PolyData = polydata;
-  callback-&gt;Renderer = renderer;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderCallback</span><span class="o">&gt;</span> <span class="n">callback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">CellLocator</span> <span class="o">=</span> <span class="n">cellLocator</span><span class="p">;</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">PolyData</span> <span class="o">=</span> <span class="n">polydata</span><span class="p">;</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">Renderer</span> <span class="o">=</span> <span class="n">renderer</span><span class="p">;</span>
 
-  sliderWidget-&gt;AddObserver(vtkCommand::InteractionEvent,callback);
+  <span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">callback</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindow-&gt;Render();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CellLocatorVisualization)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CellLocatorVisualization</span><span class="p">)</span>
 
-add_executable(CellLocatorVisualization MACOSX_BUNDLE CellLocatorVisualization.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CellLocatorVisualization ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CellLocatorVisualization</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CellLocatorVisualization.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-celllocatorvisualization">Download and Build CellLocatorVisualization</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CellLocatorVisualization</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-celllocatorvisualization">Download and Build CellLocatorVisualization<a class="headerlink" href="#download-and-build-celllocatorvisualization" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CellLocatorVisualization.tar">here to download CellLocatorVisualization</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CellLocatorVisualization.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CellLocatorVisualization/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CellLocatorVisualization/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CellLocatorVisualization
-</code></pre>
+<div class="codehilite"><pre><span></span>./CellLocatorVisualization
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

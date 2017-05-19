@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -9710,12 +9710,56 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        FrenetSerretFrameDemo
+      </label>
     
     <a href="./" title="FrenetSerretFrameDemo" class="md-nav__link md-nav__link--active">
       FrenetSerretFrameDemo
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-frenetserretframedemo" title="Download and Build FrenetSerretFrameDemo" class="md-nav__link">
+    Download and Build FrenetSerretFrameDemo
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15534,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15912,8 +15968,41 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-frenetserretframedemo" title="Download and Build FrenetSerretFrameDemo" class="md-nav__link">
+    Download and Build FrenetSerretFrameDemo
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
   
 </nav>
                   </div>
@@ -15926,248 +16015,269 @@
               
                 
                 
+                  <h1>FrenetSerretFrameDemo</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Remote/FrenetSerretFrameDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Remote/TestFrenetSerretFrameDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
-<p>This example requires the remote module ''SplineDrivenImageSampler.'' Check to see if the file ''SplineDrivenImageSlicer.remote.cmake'' exists in VTK/Remote. If it does not, copy <a href="https://gitlab.kitware.com/vtk/vtk/raw/master/Remote/SplineDrivenImageSlicer.remote.cmake">this file</a> to ''VTK/Remote/SplineDrivenImageSlicer.remote.cmake''.</p>
-<p>Next</p>
-<h1 id="reconfigure-with-cmake">reconfigure with cmake.</h1>
-<h1 id="then-enable-the-module-setting-module_splinedrivenimageslicerboolon">Then enable the module setting ''Module_SplineDrivenImageSlicer:BOOL=ON''</h1>
-<h1 id="make">make</h1>
-<p>The classes used in this example are described in <a href="http://www.vtkjournal.org/browse/publication/838">A Spline-Driven Image Slicer</a>. In the example, the normal vectors are yellow, the tangent vectors are red and the binormal vectors are green.</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example illustrates how to control a pipeline inside a callback.</p>
-<h3 id="code">Code</h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This example requires the remote module ''SplineDrivenImageSampler.''</p>
+</div>
+<p>Check to see if the file ''SplineDrivenImageSlicer.remote.cmake'' exists in VTK/Remote. If it does not, copy <a href="https://gitlab.kitware.com/vtk/vtk/raw/master/Remote/SplineDrivenImageSlicer.remote.cmake">this file</a> to ''VTK/Remote/SplineDrivenImageSlicer.remote.cmake''.</p>
+<p>Next</p>
+<ol>
+<li>
+<p>reconfigure with cmake.</p>
+</li>
+<li>
+<p>Then enable the module setting ''Module_SplineDrivenImageSlicer:BOOL=ON''</p>
+</li>
+<li>
+<p>make</p>
+</li>
+</ol>
+<p>The classes used in this example are described in <a href="http://www.vtkjournal.org/browse/publication/838">A Spline-Driven Image Slicer</a>. In the example, the normal vectors are yellow, the tangent vectors are red and the binormal vectors are green.</p>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FrenetSerretFrameDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSplineWidget.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSplineWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkGlyph3D.h&gt;
-#include &lt;vtkArrowSource.h&gt;
-#include &lt;vtkMaskPoints.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkArrowSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskPoints.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkFrenetSerretFrame.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFrenetSerretFrame.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkCallbackCommand.h&gt;
-#include &lt;vtkCommand.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCallbackCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
 
-static void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="n">size</span><span class="p">,</span> <span class="n">vtkGlyph3D</span> <span class="o">*</span><span class="n">glyph</span><span class="p">);</span>
 
-struct Pipeline {
-  vtkFrenetSerretFrame *frame;
+<span class="k">struct</span> <span class="n">Pipeline</span> <span class="p">{</span>
+  <span class="n">vtkFrenetSerretFrame</span> <span class="o">*</span><span class="n">frame</span><span class="p">;</span>
 
-  vtkGlyph3D           *glyph3DNormals;
-  vtkGlyph3D           *glyph3DTangents;
-  vtkGlyph3D           *glyph3DBinormals;
+  <span class="n">vtkGlyph3D</span>           <span class="o">*</span><span class="n">glyph3DNormals</span><span class="p">;</span>
+  <span class="n">vtkGlyph3D</span>           <span class="o">*</span><span class="n">glyph3DTangents</span><span class="p">;</span>
+  <span class="n">vtkGlyph3D</span>           <span class="o">*</span><span class="n">glyph3DBinormals</span><span class="p">;</span>
 
-  vtkPolyDataMapper    *glyph3DNormalsMapper;
-  vtkPolyDataMapper    *glyph3DTangentsMapper;
-  vtkPolyDataMapper    *glyph3DBinormalsMapper;
-};
+  <span class="n">vtkPolyDataMapper</span>    <span class="o">*</span><span class="n">glyph3DNormalsMapper</span><span class="p">;</span>
+  <span class="n">vtkPolyDataMapper</span>    <span class="o">*</span><span class="n">glyph3DTangentsMapper</span><span class="p">;</span>
+  <span class="n">vtkPolyDataMapper</span>    <span class="o">*</span><span class="n">glyph3DBinormalsMapper</span><span class="p">;</span>
+<span class="p">};</span>
 
-static void SplineCallback(vtkObject *caller,
-                           long unsigned int vtkNotUsed(eventId),
-                           void *clientData,
-                           void *vtkNotUsed(callData))
-{
-  vtkSplineWidget *splineWidget =
-    static_cast&lt;vtkSplineWidget *&gt;(caller);
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  splineWidget-&gt;GetPolyData(polyData.GetPointer());
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">SplineCallback</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span>
+                           <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">eventId</span><span class="p">),</span>
+                           <span class="kt">void</span> <span class="o">*</span><span class="n">clientData</span><span class="p">,</span>
+                           <span class="kt">void</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="n">vtkSplineWidget</span> <span class="o">*</span><span class="n">splineWidget</span> <span class="o">=</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSplineWidget</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">GetPolyData</span><span class="p">(</span><span class="n">polyData</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">());</span>
 
-  Pipeline *pipeline =
-    static_cast&lt;Pipeline *&gt;(clientData);
+  <span class="n">Pipeline</span> <span class="o">*</span><span class="n">pipeline</span> <span class="o">=</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Pipeline</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">clientData</span><span class="p">);</span>
 
-  pipeline-&gt;frame-&gt;SetInputData(polyData);
+  <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">frame</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkMaskPoints&gt; maskPoints =
-    vtkSmartPointer&lt;vtkMaskPoints&gt;::New();
-  maskPoints-&gt;SetInputConnection(pipeline-&gt;frame-&gt;GetOutputPort());
-  maskPoints-&gt;SetOnRatio(10);
-  maskPoints-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;</span> <span class="n">maskPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">SetOnRatio</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // for each vector, create a Glyph3D and DeepCopy the output
-  double radius = .1;
-  maskPoints-&gt;GetOutput()-&gt;GetPointData()-&gt;SetActiveVectors(&quot;FSNormals&quot;);
-  MakeGlyphs(maskPoints-&gt;GetOutput(), radius, pipeline-&gt;glyph3DNormals);
-  vtkSmartPointer&lt;vtkPolyData&gt; normalsPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  normalsPolyData-&gt;DeepCopy(pipeline-&gt;glyph3DNormals-&gt;GetOutput());
+  <span class="c1">// for each vector, create a Glyph3D and DeepCopy the output</span>
+  <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">;</span>
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="s">&quot;FSNormals&quot;</span><span class="p">);</span>
+  <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">radius</span><span class="p">,</span> <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DNormals</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">normalsPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">normalsPolyData</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DNormals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  maskPoints-&gt;GetOutput()-&gt;GetPointData()-&gt;SetActiveVectors(&quot;FSTangents&quot;);
-  MakeGlyphs(maskPoints-&gt;GetOutput(), radius, pipeline-&gt;glyph3DTangents);
-  vtkSmartPointer&lt;vtkPolyData&gt; tangentsPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  tangentsPolyData-&gt;DeepCopy(pipeline-&gt;glyph3DTangents-&gt;GetOutput());
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="s">&quot;FSTangents&quot;</span><span class="p">);</span>
+  <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">radius</span><span class="p">,</span> <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DTangents</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">tangentsPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tangentsPolyData</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DTangents</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  maskPoints-&gt;GetOutput()-&gt;GetPointData()-&gt;SetActiveVectors(&quot;FSBinormals&quot;);
-  MakeGlyphs(maskPoints-&gt;GetOutput(), radius, pipeline-&gt;glyph3DBinormals);
-  vtkSmartPointer&lt;vtkPolyData&gt; binormalsPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  binormalsPolyData-&gt;DeepCopy(pipeline-&gt;glyph3DBinormals-&gt;GetOutput());
+  <span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="s">&quot;FSBinormals&quot;</span><span class="p">);</span>
+  <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">maskPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">radius</span><span class="p">,</span> <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DBinormals</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">binormalsPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">binormalsPolyData</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DBinormals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  pipeline-&gt;glyph3DNormalsMapper-&gt;SetInputData(normalsPolyData);
-  pipeline-&gt;glyph3DTangentsMapper-&gt;SetInputData(tangentsPolyData);
-  pipeline-&gt;glyph3DBinormalsMapper-&gt;SetInputData(binormalsPolyData);
-}
+  <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DNormalsMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">normalsPolyData</span><span class="p">);</span>
+  <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DTangentsMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">tangentsPolyData</span><span class="p">);</span>
+  <span class="n">pipeline</span><span class="o">-&gt;</span><span class="n">glyph3DBinormalsMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">binormalsPolyData</span><span class="p">);</span>
+<span class="p">}</span>
 
-int main(int, char *[])
-{
-  // Create the frame
-  vtkSmartPointer&lt;vtkFrenetSerretFrame&gt; frame =
-    vtkSmartPointer&lt;vtkFrenetSerretFrame&gt;::New();
-  frame-&gt;ConsistentNormalsOn();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create the frame</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFrenetSerretFrame</span><span class="o">&gt;</span> <span class="n">frame</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFrenetSerretFrame</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">frame</span><span class="o">-&gt;</span><span class="n">ConsistentNormalsOn</span><span class="p">();</span>
 
-  // Define the glyph3D's
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph3DNormals =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph3DTangents =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
-  vtkSmartPointer&lt;vtkGlyph3D&gt; glyph3DBinormals =
-    vtkSmartPointer&lt;vtkGlyph3D&gt;::New();
+  <span class="c1">// Define the glyph3D&#39;s</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph3DNormals</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph3DTangents</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph3DBinormals</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyph3DNormalsMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyph3DTangentsMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; glyph3DBinormalsMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyph3DNormalsMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyph3DTangentsMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyph3DBinormalsMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Populate the pipeline object
-  Pipeline pipeline;
-  pipeline.glyph3DNormals = glyph3DNormals.GetPointer();
-  pipeline.glyph3DTangents = glyph3DTangents.GetPointer();
-  pipeline.glyph3DBinormals = glyph3DBinormals.GetPointer();
-  pipeline.frame = frame.GetPointer();
-  pipeline.glyph3DNormalsMapper = glyph3DNormalsMapper.GetPointer();
-  pipeline.glyph3DTangentsMapper = glyph3DTangentsMapper.GetPointer();
-  pipeline.glyph3DBinormalsMapper = glyph3DBinormalsMapper.GetPointer();
+  <span class="c1">// Populate the pipeline object</span>
+  <span class="n">Pipeline</span> <span class="n">pipeline</span><span class="p">;</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">glyph3DNormals</span> <span class="o">=</span> <span class="n">glyph3DNormals</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">glyph3DTangents</span> <span class="o">=</span> <span class="n">glyph3DTangents</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">glyph3DBinormals</span> <span class="o">=</span> <span class="n">glyph3DBinormals</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">glyph3DNormalsMapper</span> <span class="o">=</span> <span class="n">glyph3DNormalsMapper</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">glyph3DTangentsMapper</span> <span class="o">=</span> <span class="n">glyph3DTangentsMapper</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
+  <span class="n">pipeline</span><span class="p">.</span><span class="n">glyph3DBinormalsMapper</span> <span class="o">=</span> <span class="n">glyph3DBinormalsMapper</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">();</span>
 
-  // Define the actors
-  vtkSmartPointer&lt;vtkActor&gt; glyph3DNormalsActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyph3DNormalsActor-&gt;SetMapper(glyph3DNormalsMapper);
-  glyph3DNormalsActor-&gt;GetProperty()-&gt;SetColor(0.8900, 0.8100, 0.3400);
+  <span class="c1">// Define the actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DNormalsActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DNormalsActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3DNormalsMapper</span><span class="p">);</span>
+  <span class="n">glyph3DNormalsActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; glyph3DTangentsActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyph3DTangentsActor-&gt;SetMapper(glyph3DTangentsMapper);
-  glyph3DTangentsActor-&gt;GetProperty()-&gt;SetColor(1.0000, 0.3882, 0.2784);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DTangentsActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DTangentsActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3DTangentsMapper</span><span class="p">);</span>
+  <span class="n">glyph3DTangentsActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; glyph3DBinormalsActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  glyph3DBinormalsActor-&gt;SetMapper(glyph3DBinormalsMapper);
-  glyph3DBinormalsActor-&gt;GetProperty()-&gt;SetColor(0.1804,0.5451,0.3412);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DBinormalsActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DBinormalsActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3DBinormalsMapper</span><span class="p">);</span>
+  <span class="n">glyph3DBinormalsActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.1804</span><span class="p">,</span><span class="mf">0.5451</span><span class="p">,</span><span class="mf">0.3412</span><span class="p">);</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // The spline widget
-  vtkSmartPointer&lt;vtkSplineWidget&gt; splineWidget = 
-    vtkSmartPointer&lt;vtkSplineWidget&gt;::New();
-  splineWidget-&gt;SetInteractor(renderWindowInteractor);
+  <span class="c1">// The spline widget</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSplineWidget</span><span class="o">&gt;</span> <span class="n">splineWidget</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSplineWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
 
-  // The callback does the work
-  vtkSmartPointer&lt;vtkCallbackCommand&gt; splineCallback =
-      vtkSmartPointer&lt;vtkCallbackCommand&gt;::New();
-    splineCallback-&gt;SetCallback (SplineCallback);
-    splineCallback-&gt;SetClientData(&amp;pipeline);
-    splineWidget-&gt;AddObserver(vtkCommand::StartInteractionEvent,splineCallback);
-    splineWidget-&gt;AddObserver(vtkCommand::InteractionEvent,splineCallback);
-    splineWidget-&gt;AddObserver(vtkCommand::EndInteractionEvent,splineCallback);
+  <span class="c1">// The callback does the work</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">splineCallback</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">splineCallback</span><span class="o">-&gt;</span><span class="n">SetCallback</span> <span class="p">(</span><span class="n">SplineCallback</span><span class="p">);</span>
+    <span class="n">splineCallback</span><span class="o">-&gt;</span><span class="n">SetClientData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pipeline</span><span class="p">);</span>
+    <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">StartInteractionEvent</span><span class="p">,</span><span class="n">splineCallback</span><span class="p">);</span>
+    <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">splineCallback</span><span class="p">);</span>
+    <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">EndInteractionEvent</span><span class="p">,</span><span class="n">splineCallback</span><span class="p">);</span>
 
-    // Add the actors
-  renderer-&gt;AddActor(glyph3DNormalsActor);
-  renderer-&gt;AddActor(glyph3DTangentsActor);
-  renderer-&gt;AddActor(glyph3DBinormalsActor);
+    <span class="c1">// Add the actors</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyph3DNormalsActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyph3DTangentsActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyph3DBinormalsActor</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;Initialize();
-  renderWindow-&gt;Render();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Prime the pipeline
-  splineWidget-&gt;SetHandlePosition(2, 0, .5, 0);
-  splineWidget-&gt;On();
-  SplineCallback(splineWidget, 0, &amp;pipeline, 0);
+  <span class="c1">// Prime the pipeline</span>
+  <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">SetHandlePosition</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">splineWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="n">SplineCallback</span><span class="p">(</span><span class="n">splineWidget</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pipeline</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  renderer-&gt;ResetCamera();
-  renderer-&gt;SetBackground(.4, .5, .7);
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void MakeGlyphs(vtkPolyData *src, double size, vtkGlyph3D *glyph)
-{
-  // Source for the glyph filter
-  vtkSmartPointer&lt;vtkArrowSource&gt; arrow =
-    vtkSmartPointer&lt;vtkArrowSource&gt;::New();
-  arrow-&gt;SetTipResolution(16);
-  arrow-&gt;SetTipLength(.3);
-  arrow-&gt;SetTipRadius(.1);
+<span class="kt">void</span> <span class="nf">MakeGlyphs</span><span class="p">(</span><span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">double</span> <span class="n">size</span><span class="p">,</span> <span class="n">vtkGlyph3D</span> <span class="o">*</span><span class="n">glyph</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Source for the glyph filter</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;</span> <span class="n">arrow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipLength</span><span class="p">(</span><span class="mf">.3</span><span class="p">);</span>
+  <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipRadius</span><span class="p">(</span><span class="mf">.1</span><span class="p">);</span>
 
-  glyph-&gt;SetSourceConnection(arrow-&gt;GetOutputPort());
-  glyph-&gt;SetInputData(src);
-  glyph-&gt;SetVectorModeToUseVector();
-  glyph-&gt;SetScaleModeToScaleByVector();
-  glyph-&gt;SetScaleFactor(size);
-  glyph-&gt;OrientOn();
-  glyph-&gt;Update();
-}
-</code></pre>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">arrow</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetVectorModeToUseVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleModeToScaleByVector</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">OrientOn</span><span class="p">();</span>
+  <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(FrenetSerretFrameDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">FrenetSerretFrameDemo</span><span class="p">)</span>
 
-add_executable(FrenetSerretFrameDemo MACOSX_BUNDLE FrenetSerretFrameDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(FrenetSerretFrameDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">FrenetSerretFrameDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">FrenetSerretFrameDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-frenetserretframedemo">Download and Build FrenetSerretFrameDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">FrenetSerretFrameDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-frenetserretframedemo">Download and Build FrenetSerretFrameDemo<a class="headerlink" href="#download-and-build-frenetserretframedemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/FrenetSerretFrameDemo.tar">here to download FrenetSerretFrameDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball FrenetSerretFrameDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd FrenetSerretFrameDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd FrenetSerretFrameDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./FrenetSerretFrameDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./FrenetSerretFrameDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

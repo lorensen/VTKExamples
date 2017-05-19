@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,170 +16019,177 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/Subdivision</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestSubdivision.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>In this example a mesh is read from a file and then subdivided using linear subdivision.  The SetNumberOfSubdivisions(n) function controls how many times the mesh is subdivided. For each n, the number of triangles will increase by approximately a factor of 4. For example, if n=2, the number of triangles in the resulting mesh will be 16x the number of triangles in the original mesh. </p>
 <p>Different types of subdivisions can be obtained by replacing vtkLinearSubdivisionFilter with either vtkLoopSubdivisionFilter or vtkButterflySubdivisionFilter.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Subdivision.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkTriangleFilter.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangleFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;string&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 
-#include &lt;vtkButterflySubdivisionFilter.h&gt;
-#include &lt;vtkLoopSubdivisionFilter.h&gt;
-#include &lt;vtkLinearSubdivisionFilter.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkButterflySubdivisionFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLoopSubdivisionFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLinearSubdivisionFilter.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; originalMesh;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">originalMesh</span><span class="p">;</span>
 
-  if(argc &gt; 1) //If a file name is specified, open and use the file.
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">//If a file name is specified, open and use the file.</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-    // Subdivision filters only work on triangles
-    vtkSmartPointer&lt;vtkTriangleFilter&gt; triangles =
-      vtkSmartPointer&lt;vtkTriangleFilter&gt;::New();
-    triangles-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-    triangles-&gt;Update();
-    originalMesh = triangles-&gt;GetOutput();
-  }
-  else //If a file name is not specified, create a sphere
-  {
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource-&gt;Update();
-    originalMesh = sphereSource-&gt;GetOutput();
-  }
+    <span class="c1">// Subdivision filters only work on triangles</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangleFilter</span><span class="o">&gt;</span> <span class="n">triangles</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangleFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">originalMesh</span> <span class="o">=</span> <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="c1">//If a file name is not specified, create a sphere</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">originalMesh</span> <span class="o">=</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  std::cout &lt;&lt; &quot;Before subdivision&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;    There are &quot; &lt;&lt; originalMesh-&gt;GetNumberOfPoints()
-            &lt;&lt; &quot; points.&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;    There are &quot; &lt;&lt; originalMesh-&gt;GetNumberOfPolys()
-            &lt;&lt; &quot; triangles.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Before subdivision&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">originalMesh</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;    There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">originalMesh</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; triangles.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  double numberOfViewports = 3.;
+  <span class="kt">double</span> <span class="n">numberOfViewports</span> <span class="o">=</span> <span class="mf">3.</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(200* numberOfViewports,200); //(width, height)
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">200</span><span class="o">*</span> <span class="n">numberOfViewports</span><span class="p">,</span><span class="mi">200</span><span class="p">);</span> <span class="c1">//(width, height)</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
 
-  int numberOfSubdivisions = 2;
-  for(unsigned i = 0; i &lt; numberOfViewports; i++)
-  {
-    // Note: Here we create a superclass pointer (vtkPolyDataAlgorithm) so that we can easily instantiate different
-    // types of subdivision filters. Typically you would not want to do this, but rather create the pointer to be the type
-    // filter you will actually use, e.g.
-    // vtkSmartPointer&lt;vtkLinearSubdivisionFilter&gt;  subdivisionFilter = vtkSmartPointer&lt;vtkLinearSubdivisionFilter&gt;::New();
-    vtkSmartPointer&lt;vtkPolyDataAlgorithm&gt; subdivisionFilter;
-    switch(i)
-    {
-      case 0:
-        subdivisionFilter = vtkSmartPointer&lt;vtkLinearSubdivisionFilter&gt;::New();
-        dynamic_cast&lt;vtkLinearSubdivisionFilter *&gt; (subdivisionFilter.GetPointer())-&gt;SetNumberOfSubdivisions(numberOfSubdivisions);
-        break;
-      case 1:
-        subdivisionFilter =  vtkSmartPointer&lt;vtkLoopSubdivisionFilter&gt;::New();
-        dynamic_cast&lt;vtkLoopSubdivisionFilter *&gt; (subdivisionFilter.GetPointer())-&gt;SetNumberOfSubdivisions(numberOfSubdivisions);
-        break;
-      case 2:
-        subdivisionFilter = vtkSmartPointer&lt;vtkButterflySubdivisionFilter&gt;::New();
-        dynamic_cast&lt;vtkButterflySubdivisionFilter *&gt; (subdivisionFilter.GetPointer())-&gt;SetNumberOfSubdivisions(numberOfSubdivisions);
-        break;
-      default:
-        break;
-    }
-#if VTK_MAJOR_VERSION &lt;= 5
-    subdivisionFilter-&gt;SetInputConnection(originalMesh-&gt;GetProducerPort());
-#else
-    subdivisionFilter-&gt;SetInputData(originalMesh);
-#endif
-    subdivisionFilter-&gt;Update();
+  <span class="kt">int</span> <span class="n">numberOfSubdivisions</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfViewports</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Note: Here we create a superclass pointer (vtkPolyDataAlgorithm) so that we can easily instantiate different</span>
+    <span class="c1">// types of subdivision filters. Typically you would not want to do this, but rather create the pointer to be the type</span>
+    <span class="c1">// filter you will actually use, e.g.</span>
+    <span class="c1">// vtkSmartPointer&lt;vtkLinearSubdivisionFilter&gt;  subdivisionFilter = vtkSmartPointer&lt;vtkLinearSubdivisionFilter&gt;::New();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataAlgorithm</span><span class="o">&gt;</span> <span class="n">subdivisionFilter</span><span class="p">;</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="n">subdivisionFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLinearSubdivisionFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+        <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">vtkLinearSubdivisionFilter</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="n">subdivisionFilter</span> <span class="o">=</span>  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLoopSubdivisionFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+        <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">vtkLoopSubdivisionFilter</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="n">subdivisionFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkButterflySubdivisionFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+        <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">vtkButterflySubdivisionFilter</span> <span class="o">*&gt;</span> <span class="p">(</span><span class="n">subdivisionFilter</span><span class="p">.</span><span class="n">GetPointer</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetNumberOfSubdivisions</span><span class="p">(</span><span class="n">numberOfSubdivisions</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">subdivisionFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">originalMesh</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+    <span class="n">subdivisionFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">originalMesh</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">subdivisionFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-    renderWindow-&gt;AddRenderer(renderer);
-    renderer-&gt;SetViewport(static_cast&lt;double&gt;(i)/numberOfViewports,0,static_cast&lt;double&gt;(i+1)/numberOfViewports,1);
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="n">numberOfViewports</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">numberOfViewports</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-    //Create a mapper and actor
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-        vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-    mapper-&gt;SetInputConnection(subdivisionFilter-&gt;GetOutputPort());
-    vtkSmartPointer&lt;vtkActor&gt; actor = vtkSmartPointer&lt;vtkActor&gt;::New();
-    actor-&gt;SetMapper(mapper);
-    renderer-&gt;AddActor(actor);
-    renderer-&gt;ResetCamera();
+    <span class="c1">//Create a mapper and actor</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">subdivisionFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-    renderWindow-&gt;Render();
-    renderWindow-&gt;SetWindowName(&quot;Multiple ViewPorts&quot;);
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s">&quot;Multiple ViewPorts&quot;</span><span class="p">);</span>
 
-  }
+  <span class="p">}</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Subdivision)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Subdivision</span><span class="p">)</span>
 
-add_executable(Subdivision MACOSX_BUNDLE Subdivision.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Subdivision ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Subdivision</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Subdivision.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-subdivision">Download and Build Subdivision</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Subdivision</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-subdivision">Download and Build Subdivision<a class="headerlink" href="#download-and-build-subdivision" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Subdivision.tar">here to download Subdivision</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Subdivision.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Subdivision/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Subdivision/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Subdivision
-</code></pre>
+<div class="codehilite"><pre><span></span>./Subdivision
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

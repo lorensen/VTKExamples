@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,230 +16019,237 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/MovableAxes</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestMovableAxes.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>With vtkAxesActor, a hybrid object with 3D axes and 2D label props, it is not possible to move the labels along with the axes with vtkInteractorStyleTrackballActor. Here we create new axes labels using a different 3D prop: vtkFollower, and update their positions with a custom callback command. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MovableAxes.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkActor.h&gt;
-#include &lt;vtkAssembly.h&gt;
-#include &lt;vtkAssemblyPath.h&gt;
-#include &lt;vtkAxesActor.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkConeSource.h&gt;
-#include &lt;vtkFollower.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProp3DCollection.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleTrackballActor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTextActor.h&gt;
-#include &lt;vtkVectorText.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAssembly.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAssemblyPath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAxesActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkConeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFollower.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProp3DCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVectorText.h&gt;</span><span class="cp"></span>
 
-//----------------------------------------------------------------------------
-class vtkPositionCallback : public vtkCommand
-{
-public:
-  static vtkPositionCallback *New()
-  { return new vtkPositionCallback; }
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="k">class</span> <span class="nc">vtkPositionCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkPositionCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span> <span class="k">return</span> <span class="k">new</span> <span class="n">vtkPositionCallback</span><span class="p">;</span> <span class="p">}</span>
 
-  void Execute( vtkObject* vtkNotUsed(caller), unsigned long vtkNotUsed(event),
-                void *vtkNotUsed( callData ) )
-  {
-    this-&gt;Axes-&gt;InitPathTraversal();
-    vtkAssemblyPath *path = 0;
-    int count = 0;
-    vtkFollower* followers[3] = { this-&gt;XLabel, this-&gt;YLabel, this-&gt;ZLabel };
-    int followerId = 0;
-    while( (path = this-&gt;Axes-&gt;GetNextPath()) != NULL )
-    {
-      if( count++ &gt; 2 )
-      {
-        vtkProp3D *prop3D = static_cast&lt;vtkProp3D *&gt;(path-&gt;GetLastNode()-&gt;GetViewProp());
-        if ( prop3D )
-        {
-          prop3D-&gt;PokeMatrix(path-&gt;GetLastNode()-&gt;GetMatrix());
-          followers[followerId]-&gt;SetPosition(prop3D-&gt;GetCenter());
-          followerId++;
-          prop3D-&gt;PokeMatrix(NULL);
-        }
-      }
-    }
-  }
+  <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">event</span><span class="p">),</span>
+                <span class="kt">void</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span> <span class="n">callData</span> <span class="p">)</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Axes</span><span class="o">-&gt;</span><span class="n">InitPathTraversal</span><span class="p">();</span>
+    <span class="n">vtkAssemblyPath</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">vtkFollower</span><span class="o">*</span> <span class="n">followers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">XLabel</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">YLabel</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ZLabel</span> <span class="p">};</span>
+    <span class="kt">int</span> <span class="n">followerId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span> <span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Axes</span><span class="o">-&gt;</span><span class="n">GetNextPath</span><span class="p">())</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">count</span><span class="o">++</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vtkProp3D</span> <span class="o">*</span><span class="n">prop3D</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkProp3D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">path</span><span class="o">-&gt;</span><span class="n">GetLastNode</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetViewProp</span><span class="p">());</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">prop3D</span> <span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">prop3D</span><span class="o">-&gt;</span><span class="n">PokeMatrix</span><span class="p">(</span><span class="n">path</span><span class="o">-&gt;</span><span class="n">GetLastNode</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetMatrix</span><span class="p">());</span>
+          <span class="n">followers</span><span class="p">[</span><span class="n">followerId</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">prop3D</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">());</span>
+          <span class="n">followerId</span><span class="o">++</span><span class="p">;</span>
+          <span class="n">prop3D</span><span class="o">-&gt;</span><span class="n">PokeMatrix</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkPositionCallback(): XLabel( 0 ), YLabel( 0 ),ZLabel( 0 ),Axes(0){}
+  <span class="n">vtkPositionCallback</span><span class="p">()</span><span class="o">:</span> <span class="n">XLabel</span><span class="p">(</span> <span class="mi">0</span> <span class="p">),</span> <span class="n">YLabel</span><span class="p">(</span> <span class="mi">0</span> <span class="p">),</span><span class="n">ZLabel</span><span class="p">(</span> <span class="mi">0</span> <span class="p">),</span><span class="n">Axes</span><span class="p">(</span><span class="mi">0</span><span class="p">){}</span>
 
-  vtkFollower *XLabel;
-  vtkFollower *YLabel;
-  vtkFollower *ZLabel;
-  vtkAssembly* Axes;
-};
+  <span class="n">vtkFollower</span> <span class="o">*</span><span class="n">XLabel</span><span class="p">;</span>
+  <span class="n">vtkFollower</span> <span class="o">*</span><span class="n">YLabel</span><span class="p">;</span>
+  <span class="n">vtkFollower</span> <span class="o">*</span><span class="n">ZLabel</span><span class="p">;</span>
+  <span class="n">vtkAssembly</span><span class="o">*</span> <span class="n">Axes</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main (int, char *[])
-{
-  vtkSmartPointer&lt;vtkConeSource&gt; coneSource =
-    vtkSmartPointer&lt;vtkConeSource&gt;::New();
-  coneSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;</span> <span class="n">coneSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-//  vtkPolyData* cone = coneSource-&gt;GetOutput();
+<span class="c1">//  vtkPolyData* cone = coneSource-&gt;GetOutput();</span>
 
-  //create a mapper
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; coneMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  coneMapper-&gt;SetInputConnection(coneSource-&gt;GetOutputPort());
+  <span class="c1">//create a mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">coneMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // create an actor
-  vtkSmartPointer&lt;vtkActor&gt; coneActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  coneActor-&gt;SetMapper(coneMapper);
-  coneActor-&gt;GetProperty()-&gt;SetColor(1,1,0);
+  <span class="c1">// create an actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">coneActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">coneMapper</span><span class="p">);</span>
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  // a renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// a renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // an interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// an interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // add the actors to the scene
-  renderer-&gt;AddActor(coneActor);
-  renderer-&gt;SetBackground(0.5,0.5,0.5);
+  <span class="c1">// add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">coneActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
 
-  // vtkAxesActor is currently not designed to work with vtkInteractorStyleTrackballActor
-  // since it is a hybrid object containing both vtkProp3D's and vtkActor2D's, the latter
-  // of which does not have a 3D position that can be manipulated
-  vtkSmartPointer&lt;vtkAxesActor&gt; axes =
-    vtkSmartPointer&lt;vtkAxesActor&gt;::New();
+  <span class="c1">// vtkAxesActor is currently not designed to work with vtkInteractorStyleTrackballActor</span>
+  <span class="c1">// since it is a hybrid object containing both vtkProp3D&#39;s and vtkActor2D&#39;s, the latter</span>
+  <span class="c1">// of which does not have a 3D position that can be manipulated</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAxesActor</span><span class="o">&gt;</span> <span class="n">axes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAxesActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // get a copy of the axes' constituent 3D actors and put them into a vtkAssembly
-  // so they can be manipulated as one prop
-  vtkSmartPointer&lt;vtkPropCollection&gt; collection =
-    vtkSmartPointer&lt;vtkPropCollection&gt;::New();
-  axes-&gt;GetActors(collection);
+  <span class="c1">// get a copy of the axes&#39; constituent 3D actors and put them into a vtkAssembly</span>
+  <span class="c1">// so they can be manipulated as one prop</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropCollection</span><span class="o">&gt;</span> <span class="n">collection</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropCollection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">axes</span><span class="o">-&gt;</span><span class="n">GetActors</span><span class="p">(</span><span class="n">collection</span><span class="p">);</span>
 
-  collection-&gt;InitTraversal();
+  <span class="n">collection</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkAssembly&gt; movableAxes =
-    vtkSmartPointer&lt;vtkAssembly&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAssembly</span><span class="o">&gt;</span> <span class="n">movableAxes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAssembly</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for( int i = 0; i &lt; collection-&gt;GetNumberOfItems(); ++i )
-  {
-    movableAxes-&gt;AddPart((vtkProp3D*)collection-&gt;GetNextProp());
-  }
+  <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">collection</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">movableAxes</span><span class="o">-&gt;</span><span class="n">AddPart</span><span class="p">((</span><span class="n">vtkProp3D</span><span class="o">*</span><span class="p">)</span><span class="n">collection</span><span class="o">-&gt;</span><span class="n">GetNextProp</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  renderer-&gt;AddActor(movableAxes);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">movableAxes</span><span class="p">);</span>
 
-  // create our own labels that will follow and face the camera
-  vtkSmartPointer&lt;vtkFollower&gt; xLabel =
-    vtkSmartPointer&lt;vtkFollower&gt;::New();
-  vtkSmartPointer&lt;vtkVectorText&gt; xText =
-    vtkSmartPointer&lt;vtkVectorText&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; xTextMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  xText-&gt;SetText( &quot;X&quot; );
-  xTextMapper-&gt;SetInputConnection( xText-&gt;GetOutputPort() );
-  xLabel-&gt;SetMapper( xTextMapper );
-  xLabel-&gt;SetScale( 0.3 );
-  xLabel-&gt;SetCamera(renderer-&gt;GetActiveCamera());
-  xLabel-&gt;SetPosition(((vtkProp3D*)collection-&gt;GetItemAsObject( 3 ))-&gt;GetCenter()); // XAxisTip
-  xLabel-&gt;PickableOff();
-  renderer-&gt;AddActor( xLabel );
+  <span class="c1">// create our own labels that will follow and face the camera</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFollower</span><span class="o">&gt;</span> <span class="n">xLabel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFollower</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVectorText</span><span class="o">&gt;</span> <span class="n">xText</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVectorText</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">xTextMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xText</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="s">&quot;X&quot;</span> <span class="p">);</span>
+  <span class="n">xTextMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">xText</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">xLabel</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">xTextMapper</span> <span class="p">);</span>
+  <span class="n">xLabel</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span> <span class="mf">0.3</span> <span class="p">);</span>
+  <span class="n">xLabel</span><span class="o">-&gt;</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="n">xLabel</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(((</span><span class="n">vtkProp3D</span><span class="o">*</span><span class="p">)</span><span class="n">collection</span><span class="o">-&gt;</span><span class="n">GetItemAsObject</span><span class="p">(</span> <span class="mi">3</span> <span class="p">))</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">());</span> <span class="c1">// XAxisTip</span>
+  <span class="n">xLabel</span><span class="o">-&gt;</span><span class="n">PickableOff</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">xLabel</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkFollower&gt; yLabel =
-    vtkSmartPointer&lt;vtkFollower&gt;::New();
-  vtkSmartPointer&lt;vtkVectorText&gt; yText =
-    vtkSmartPointer&lt;vtkVectorText&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; yTextMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  yText-&gt;SetText( &quot;Y&quot; );
-  yTextMapper-&gt;SetInputConnection( yText-&gt;GetOutputPort() );
-  yLabel-&gt;SetMapper( yTextMapper );
-  yLabel-&gt;SetScale( 0.3 );
-  yLabel-&gt;SetCamera(renderer-&gt;GetActiveCamera());
-  yLabel-&gt;SetPosition(((vtkProp3D*)collection-&gt;GetItemAsObject( 4 ))-&gt;GetCenter()); // YAxisTip
-  yLabel-&gt;PickableOff();
-  renderer-&gt;AddActor( yLabel );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFollower</span><span class="o">&gt;</span> <span class="n">yLabel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFollower</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVectorText</span><span class="o">&gt;</span> <span class="n">yText</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVectorText</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">yTextMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yText</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="s">&quot;Y&quot;</span> <span class="p">);</span>
+  <span class="n">yTextMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">yText</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">yLabel</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">yTextMapper</span> <span class="p">);</span>
+  <span class="n">yLabel</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span> <span class="mf">0.3</span> <span class="p">);</span>
+  <span class="n">yLabel</span><span class="o">-&gt;</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="n">yLabel</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(((</span><span class="n">vtkProp3D</span><span class="o">*</span><span class="p">)</span><span class="n">collection</span><span class="o">-&gt;</span><span class="n">GetItemAsObject</span><span class="p">(</span> <span class="mi">4</span> <span class="p">))</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">());</span> <span class="c1">// YAxisTip</span>
+  <span class="n">yLabel</span><span class="o">-&gt;</span><span class="n">PickableOff</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">yLabel</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkFollower&gt; zLabel =
-    vtkSmartPointer&lt;vtkFollower&gt;::New();
-  vtkSmartPointer&lt;vtkVectorText&gt; zText =
-    vtkSmartPointer&lt;vtkVectorText&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; zTextMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  zText-&gt;SetText( &quot;Z&quot; );
-  zTextMapper-&gt;SetInputConnection( zText-&gt;GetOutputPort() );
-  zLabel-&gt;SetMapper( zTextMapper );
-  zLabel-&gt;SetScale( 0.3 );
-  zLabel-&gt;SetCamera(renderer-&gt;GetActiveCamera());
-  zLabel-&gt;SetPosition(((vtkProp3D*)collection-&gt;GetItemAsObject( 5 ))-&gt;GetCenter()); // ZAxisTip
-  zLabel-&gt;PickableOff();
-  renderer-&gt;AddActor( zLabel );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFollower</span><span class="o">&gt;</span> <span class="n">zLabel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFollower</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVectorText</span><span class="o">&gt;</span> <span class="n">zText</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVectorText</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">zTextMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">zText</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span> <span class="s">&quot;Z&quot;</span> <span class="p">);</span>
+  <span class="n">zTextMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">zText</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">zLabel</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">zTextMapper</span> <span class="p">);</span>
+  <span class="n">zLabel</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span> <span class="mf">0.3</span> <span class="p">);</span>
+  <span class="n">zLabel</span><span class="o">-&gt;</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">());</span>
+  <span class="n">zLabel</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(((</span><span class="n">vtkProp3D</span><span class="o">*</span><span class="p">)</span><span class="n">collection</span><span class="o">-&gt;</span><span class="n">GetItemAsObject</span><span class="p">(</span> <span class="mi">5</span> <span class="p">))</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">());</span> <span class="c1">// ZAxisTip</span>
+  <span class="n">zLabel</span><span class="o">-&gt;</span><span class="n">PickableOff</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">zLabel</span> <span class="p">);</span>
 
-  // custom callback to set the positions of the labels
-  vtkPositionCallback* callback = vtkPositionCallback::New();
-  callback-&gt;XLabel = xLabel;
-  callback-&gt;YLabel = yLabel;
-  callback-&gt;ZLabel = zLabel;
-  callback-&gt;Axes = movableAxes;
+  <span class="c1">// custom callback to set the positions of the labels</span>
+  <span class="n">vtkPositionCallback</span><span class="o">*</span> <span class="n">callback</span> <span class="o">=</span> <span class="n">vtkPositionCallback</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">XLabel</span> <span class="o">=</span> <span class="n">xLabel</span><span class="p">;</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">YLabel</span> <span class="o">=</span> <span class="n">yLabel</span><span class="p">;</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">ZLabel</span> <span class="o">=</span> <span class="n">zLabel</span><span class="p">;</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">Axes</span> <span class="o">=</span> <span class="n">movableAxes</span><span class="p">;</span>
 
-  renderer-&gt;ResetCamera();
-  renderWindow-&gt;Render();
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballActor&gt; style =
-      vtkSmartPointer&lt;vtkInteractorStyleTrackballActor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballActor</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
-  style-&gt;AddObserver( vtkCommand::InteractionEvent, callback );
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span> <span class="n">callback</span> <span class="p">);</span>
 
-  // begin mouse interaction
-  renderWindowInteractor-&gt;Start();
-  callback-&gt;Delete();
+  <span class="c1">// begin mouse interaction</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MovableAxes)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MovableAxes</span><span class="p">)</span>
 
-add_executable(MovableAxes MACOSX_BUNDLE MovableAxes.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MovableAxes ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MovableAxes</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MovableAxes.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-movableaxes">Download and Build MovableAxes</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MovableAxes</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-movableaxes">Download and Build MovableAxes<a class="headerlink" href="#download-and-build-movableaxes" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MovableAxes.tar">here to download MovableAxes</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MovableAxes.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MovableAxes/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MovableAxes/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MovableAxes
-</code></pre>
+<div class="codehilite"><pre><span></span>./MovableAxes
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

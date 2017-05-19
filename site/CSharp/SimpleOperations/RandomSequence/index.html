@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,35 +15990,35 @@
                   <h1>RandomSequence</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/SimpleOperations/RandomSequence</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This is the "new" (December, 2009) VTK way to produce random numbers. It is actually a random sequence generator.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>RandomSequence.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void RandomSequence() {
-   //Create a random sequence generator.
-   vtkMinimalStandardRandomSequence sequence = 
-      vtkMinimalStandardRandomSequence.New();
+<span class="k">void</span> <span class="nf">RandomSequence</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">//Create a random sequence generator.</span>
+   <span class="n">vtkMinimalStandardRandomSequence</span> <span class="n">sequence</span> <span class="p">=</span> 
+      <span class="n">vtkMinimalStandardRandomSequence</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-   // initialize the sequence
-   sequence.SetSeed((int)(DateTime.Now.Ticks &amp; 0x0000FFFF));
-   //Get 3 random numbers.
-   double x = sequence.GetValue();
-   sequence.Next();
-   double y = sequence.GetValue();
-   sequence.Next();
-   double z = sequence.GetValue();
+   <span class="c1">// initialize the sequence</span>
+   <span class="n">sequence</span><span class="p">.</span><span class="n">SetSeed</span><span class="p">((</span><span class="kt">int</span><span class="p">)(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">Ticks</span> <span class="p">&amp;</span> <span class="m">0</span><span class="n">x0000FFFF</span><span class="p">));</span>
+   <span class="c1">//Get 3 random numbers.</span>
+   <span class="kt">double</span> <span class="n">x</span> <span class="p">=</span> <span class="n">sequence</span><span class="p">.</span><span class="n">GetValue</span><span class="p">();</span>
+   <span class="n">sequence</span><span class="p">.</span><span class="n">Next</span><span class="p">();</span>
+   <span class="kt">double</span> <span class="n">y</span> <span class="p">=</span> <span class="n">sequence</span><span class="p">.</span><span class="n">GetValue</span><span class="p">();</span>
+   <span class="n">sequence</span><span class="p">.</span><span class="n">Next</span><span class="p">();</span>
+   <span class="kt">double</span> <span class="n">z</span> <span class="p">=</span> <span class="n">sequence</span><span class="p">.</span><span class="n">GetValue</span><span class="p">();</span>
 
-   // You can also use sequence.GetRangeValue(-1.0, 1.0); 
-   // to set a range on the random values.
+   <span class="c1">// You can also use sequence.GetRangeValue(-1.0, 1.0); </span>
+   <span class="c1">// to set a range on the random values.</span>
 
-   // Output the resulting random numbers
-   Console.WriteLine(&quot;x: &quot; + x + &quot; y: &quot; + y + &quot; z: &quot; + z);
-}
-</code></pre>
+   <span class="c1">// Output the resulting random numbers</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;x: &quot;</span> <span class="p">+</span> <span class="n">x</span> <span class="p">+</span> <span class="s">&quot; y: &quot;</span> <span class="p">+</span> <span class="n">y</span> <span class="p">+</span> <span class="s">&quot; z: &quot;</span> <span class="p">+</span> <span class="n">z</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,79 +15991,79 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Meshes/MatrixMathFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestMatrixMathFilter.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MatrixMathFilter.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            MatrixMathFilter();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void MatrixMathFilter() {
-         // Path to vtk data must be set as an environment variable
-         // VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;
-         vtkTesting test = vtkTesting.New();
-         string root = test.GetDataRoot();
-         string filePath = System.IO.Path.Combine(root, @&quot;Data\tensors.vtk&quot;);
-         vtkUnstructuredGridReader reader = vtkUnstructuredGridReader.New();
-         reader.SetFileName(filePath);
-         reader.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">MatrixMathFilter</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkDataSetSurfaceFilter surfaceFilter = vtkDataSetSurfaceFilter.New();
-         surfaceFilter.SetInputConnection(reader.GetOutputPort());
-         surfaceFilter.Update();
 
-         vtkMatrixMathFilter matrixMathFilter = vtkMatrixMathFilter.New();
-         //matrixMathFilter.SetOperationToDeterminant();
-         matrixMathFilter.SetOperationToEigenvalue();
-         matrixMathFilter.SetInputConnection(surfaceFilter.GetOutputPort());
-         matrixMathFilter.Update();
-         matrixMathFilter.GetOutput().GetPointData().SetActiveScalars(&quot;Eigenvalue&quot;);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">MatrixMathFilter</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Path to vtk data must be set as an environment variable</span>
+         <span class="c1">// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+         <span class="n">vtkTesting</span> <span class="n">test</span> <span class="p">=</span> <span class="n">vtkTesting</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">root</span> <span class="p">=</span> <span class="n">test</span><span class="p">.</span><span class="n">GetDataRoot</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">filePath</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\tensors.vtk&quot;</span><span class="p">);</span>
+         <span class="n">vtkUnstructuredGridReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkUnstructuredGridReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkXMLPolyDataWriter writer = vtkXMLPolyDataWriter.New();
-         writer.SetInputConnection(matrixMathFilter.GetOutputPort());
-         writer.SetFileName(System.IO.Path.Combine(root, @&quot;Data\output.vtp&quot;));
-         writer.Write();
+         <span class="n">vtkDataSetSurfaceFilter</span> <span class="n">surfaceFilter</span> <span class="p">=</span> <span class="n">vtkDataSetSurfaceFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">surfaceFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">surfaceFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         mapper.SetInputConnection(matrixMathFilter.GetOutputPort());
+         <span class="n">vtkMatrixMathFilter</span> <span class="n">matrixMathFilter</span> <span class="p">=</span> <span class="n">vtkMatrixMathFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="c1">//matrixMathFilter.SetOperationToDeterminant();</span>
+         <span class="n">matrixMathFilter</span><span class="p">.</span><span class="n">SetOperationToEigenvalue</span><span class="p">();</span>
+         <span class="n">matrixMathFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">surfaceFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">matrixMathFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+         <span class="n">matrixMathFilter</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">().</span><span class="n">GetPointData</span><span class="p">().</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s">&quot;Eigenvalue&quot;</span><span class="p">);</span>
 
-         // actor
-         vtkActor actor = vtkActor.New();
-         actor.SetMapper(mapper);
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         // add our actor to the renderer
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkXMLPolyDataWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">matrixMathFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\output.vtp&quot;</span><span class="p">));</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">();</span>
+
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">matrixMathFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+
+         <span class="c1">// actor</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

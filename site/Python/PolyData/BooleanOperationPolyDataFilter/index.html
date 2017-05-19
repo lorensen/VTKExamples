@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,86 +15991,86 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/PolyData/BooleanOperationPolyDataFilter</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestBooleanOperationPolyDataFilter.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Computes the intersection of two spheres</p>
 <p>NOTE: This example requires version 5.9.20111206 or higher.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BooleanOperationPolyDataFilter.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-sphereSource1 = vtk.vtkSphereSource()
-sphereSource1.SetCenter(0.25, 0, 0)
-sphereSource1.Update()
-input1 = sphereSource1.GetOutput()
-sphere1Tri = vtk.vtkTriangleFilter()
-sphere1Tri.SetInput(input1)
+<span class="n">sphereSource1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource1</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sphereSource1</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="n">input1</span> <span class="o">=</span> <span class="n">sphereSource1</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+<span class="n">sphere1Tri</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangleFilter</span><span class="p">()</span>
+<span class="n">sphere1Tri</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">input1</span><span class="p">)</span>
 
-sphereSource2 = vtk.vtkSphereSource()
-sphereSource2.Update()
-input2 = sphereSource2.GetOutput()
-sphere2Tri = vtk.vtkTriangleFilter()
-sphere2Tri.SetInput(input2)
+<span class="n">sphereSource2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource2</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="n">input2</span> <span class="o">=</span> <span class="n">sphereSource2</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
+<span class="n">sphere2Tri</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangleFilter</span><span class="p">()</span>
+<span class="n">sphere2Tri</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">input2</span><span class="p">)</span>
 
-input1Mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    input1Mapper.SetInputConnection(input1.GetProducerPort())
-else:
-    input1Mapper.SetInputData(input1)
+<span class="n">input1Mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">input1Mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input1</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">input1Mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input1</span><span class="p">)</span>
 
-input1Mapper.ScalarVisibilityOff()
-input1Actor = vtk.vtkActor()
-input1Actor.SetMapper(input1Mapper)
-input1Actor.GetProperty().SetColor(1,0,0)
-input1Actor.SetPosition(input1.GetBounds()[1]-input1.GetBounds()[0],0 ,0)
-input2Mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    input2Mapper.SetInputConnection(input2.GetProducerPort())
-else:
-    input2Mapper.SetInputData(input2)
+<span class="n">input1Mapper</span><span class="o">.</span><span class="n">ScalarVisibilityOff</span><span class="p">()</span>
+<span class="n">input1Actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">input1Actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">input1Mapper</span><span class="p">)</span>
+<span class="n">input1Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">input1Actor</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">input1</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input1</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span> <span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">input2Mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">input2Mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input2</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">input2Mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input2</span><span class="p">)</span>
 
-input2Mapper.ScalarVisibilityOff()
-input2Actor = vtk.vtkActor()
-input2Actor.SetMapper(input2Mapper)
-input2Actor.GetProperty().SetColor(0,1,0)
-input2Actor.SetPosition(-(input2.GetBounds()[1]-input2.GetBounds()[0]), 0, 0)
+<span class="n">input2Mapper</span><span class="o">.</span><span class="n">ScalarVisibilityOff</span><span class="p">()</span>
+<span class="n">input2Actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">input2Actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">input2Mapper</span><span class="p">)</span>
+<span class="n">input2Actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">input2Actor</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">input2</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input2</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-booleanOperation = vtk.vtkBooleanOperationPolyDataFilter()
-#booleanOperation.SetOperationToUnion()
-booleanOperation.SetOperationToIntersection()
-#booleanOperation.SetOperationToDifference()
+<span class="n">booleanOperation</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBooleanOperationPolyDataFilter</span><span class="p">()</span>
+<span class="c1">#booleanOperation.SetOperationToUnion()</span>
+<span class="n">booleanOperation</span><span class="o">.</span><span class="n">SetOperationToIntersection</span><span class="p">()</span>
+<span class="c1">#booleanOperation.SetOperationToDifference()</span>
 
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    booleanOperation.SetInputConnection(0, sphere1Tri.GetOutputPort())
-    booleanOperation.SetInputConnection(1, sphere2Tri.GetOutputPort())
-else:
-    booleanOperation.SetInputData(0, sphere1Tri)
-    booleanOperation.SetInputData(1, sphere2Tri)
-booleanOperation.Update()
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">booleanOperation</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sphere1Tri</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">booleanOperation</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sphere2Tri</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">booleanOperation</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sphere1Tri</span><span class="p">)</span>
+    <span class="n">booleanOperation</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sphere2Tri</span><span class="p">)</span>
+<span class="n">booleanOperation</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-booleanOperationMapper = vtk.vtkPolyDataMapper()
-booleanOperationMapper.SetInputConnection(booleanOperation.GetOutputPort())
-booleanOperationMapper.ScalarVisibilityOff()
+<span class="n">booleanOperationMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">booleanOperationMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">booleanOperation</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">booleanOperationMapper</span><span class="o">.</span><span class="n">ScalarVisibilityOff</span><span class="p">()</span>
 
-booleanOperationActor = vtk.vtkActor()
-booleanOperationActor.SetMapper(booleanOperationMapper)
+<span class="n">booleanOperationActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">booleanOperationActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">booleanOperationMapper</span><span class="p">)</span>
 
-renderer = vtk.vtkRenderer()
-renderer.AddViewProp(input1Actor)
-renderer.AddViewProp(input2Actor)
-renderer.AddViewProp(booleanOperationActor)
-renderer.SetBackground(.1, .2, .3)
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer( renderer )
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input1Actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input2Actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">booleanOperationActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">)</span>
 
-renWinInteractor = vtk.vtkRenderWindowInteractor()
-renWinInteractor.SetRenderWindow( renderWindow )
+<span class="n">renWinInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renWinInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renderWindow</span> <span class="p">)</span>
 
 
-renderWindow.Render()
-renWinInteractor.Start()
-</code></pre>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renWinInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

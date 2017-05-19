@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15573,6 +15573,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15994,85 +16006,92 @@
                   <h1>ClosestNPoints</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Cxx">Cxx</a>/DataStructures/KdTreePointLocator/ClosestNPoints</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ClosestNPoints.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkIdList.h&gt;
-#include &lt;vtkKdTreePointLocator.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdList.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkKdTreePointLocator.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  //Create some random points
-  vtkSmartPointer&lt;vtkPointSource&gt; pointSource =
-      vtkSmartPointer&lt;vtkPointSource&gt;::New();
-  pointSource-&gt;SetNumberOfPoints(10);
-  pointSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">//Create some random points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">pointSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  //Create the tree
-  vtkSmartPointer&lt;vtkKdTreePointLocator&gt; pointTree =
-      vtkSmartPointer&lt;vtkKdTreePointLocator&gt;::New();
-  pointTree-&gt;SetDataSet(pointSource-&gt;GetOutput());
-  pointTree-&gt;BuildLocator();
+  <span class="c1">//Create the tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKdTreePointLocator</span><span class="o">&gt;</span> <span class="n">pointTree</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKdTreePointLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointTree</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">pointTree</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  // Find the k closest points to (0,0,0)
-  unsigned int k = 1;
-  double testPoint[3] = {0.0, 0.0, 0.0};
-  vtkSmartPointer&lt;vtkIdList&gt; result =
-      vtkSmartPointer&lt;vtkIdList&gt;::New();
+  <span class="c1">// Find the k closest points to (0,0,0)</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">testPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdList</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdList</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  pointTree-&gt;FindClosestNPoints(k, testPoint, result);
+  <span class="n">pointTree</span><span class="o">-&gt;</span><span class="n">FindClosestNPoints</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">testPoint</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
 
-  for(vtkIdType i = 0; i &lt; k; i++)
-  {
-    vtkIdType point_ind = result-&gt;GetId(i);
-    double p[3];
-    pointSource-&gt;GetOutput()-&gt;GetPoint(point_ind, p);
-    std::cout &lt;&lt; &quot;Closest point &quot; &lt;&lt; i &lt;&lt; &quot;: Point &quot;
-      &lt;&lt; point_ind &lt;&lt; &quot;: (&quot; &lt;&lt; p[0] &lt;&lt; &quot;, &quot; &lt;&lt; p[1] &lt;&lt; &quot;, &quot; &lt;&lt; p[2] &lt;&lt; &quot;)&quot; &lt;&lt; std::endl;
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkIdType</span> <span class="n">point_ind</span> <span class="o">=</span> <span class="n">result</span><span class="o">-&gt;</span><span class="n">GetId</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">point_ind</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Closest point &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: Point &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">point_ind</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ClosestNPoints)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ClosestNPoints</span><span class="p">)</span>
 
-add_executable(ClosestNPoints MACOSX_BUNDLE ClosestNPoints.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ClosestNPoints ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ClosestNPoints</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ClosestNPoints.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-closestnpoints">Download and Build ClosestNPoints</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ClosestNPoints</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-closestnpoints">Download and Build ClosestNPoints<a class="headerlink" href="#download-and-build-closestnpoints" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ClosestNPoints.tar">here to download ClosestNPoints</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ClosestNPoints.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ClosestNPoints/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ClosestNPoints/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ClosestNPoints
-</code></pre>
+<div class="codehilite"><pre><span></span>./ClosestNPoints
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

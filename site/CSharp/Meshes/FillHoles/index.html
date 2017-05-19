@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,147 +15991,147 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Meshes/FillHoles</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestFillHoles.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><p>This filter finds holes in a mesh and closes them.</p>
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FillHoles.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            FillHoles(null);
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void FillHoles(string filePath) {
-         vtkPolyData input = vtkPolyData.New();
-         if(filePath == null) {
-            GenerateData(ref input);
-         }
-         else {
-         vtkXMLPolyDataReader reader = vtkXMLPolyDataReader.New();
-         reader.SetFileName(filePath);
-         reader.Update();
-
-         input.ShallowCopy(reader.GetOutput());
-         }
-
-         vtkFillHolesFilter fillHolesFilter = vtkFillHolesFilter.New();
-#if VTK_MAJOR_VERSION_5
-         fillHolesFilter.SetInputConnection(input.GetProducerPort());
-#else
-         fillHolesFilter.SetInputData(input);
-#endif
-
-         fillHolesFilter.Update();
-
-         // Create a mapper and actor
-         vtkPolyDataMapper originalMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         originalMapper.SetInputConnection(input.GetProducerPort());
-#else
-         originalMapper.SetInputData(input);
-#endif
-
-         vtkActor originalActor = vtkActor.New();
-         originalActor.SetMapper(originalMapper);
-
-         vtkPolyDataMapper filledMapper = vtkPolyDataMapper.New();
-         filledMapper.SetInputConnection(fillHolesFilter.GetOutputPort());
-
-         vtkActor filledActor = vtkActor.New();
-         filledActor.SetMapper(filledMapper);
-
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         this.Size = new System.Drawing.Size(612, 352);
-
-         // Define viewport ranges
-         // (xmin, ymin, xmax, ymax)
-         double[] leftViewport = new double[] { 0.0, 0.0, 0.5, 1.0 };
-         double[] rightViewport = new double[] { 0.5, 0.0, 1.0, 1.0 };
-
-         // Setup both renderers
-         vtkRenderer leftRenderer = vtkRenderer.New();
-         renderWindow.AddRenderer(leftRenderer);
-         leftRenderer.SetViewport(leftViewport[0], leftViewport[1], leftViewport[2], leftViewport[3]);
-         leftRenderer.SetBackground(.6, .5, .4);
-
-         vtkRenderer rightRenderer = vtkRenderer.New();
-         renderWindow.AddRenderer(rightRenderer);
-         rightRenderer.SetViewport(rightViewport[0], rightViewport[1], rightViewport[2], rightViewport[3]);
-         rightRenderer.SetBackground(.4, .5, .6);
-
-         // Add the sphere to the left and the cube to the right
-         leftRenderer.AddActor(originalActor);
-         rightRenderer.AddActor(filledActor);
-         leftRenderer.ResetCamera();
-         rightRenderer.ResetCamera();
-         renderWindow.Render();
-      }
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">FillHoles</span><span class="p">(</span><span class="k">null</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-      void GenerateData(ref vtkPolyData input)
-      {
-        // Create a sphere
-        vtkSphereSource sphereSource = vtkSphereSource.New();
-        sphereSource.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">FillHoles</span><span class="p">(</span><span class="kt">string</span> <span class="n">filePath</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">vtkPolyData</span> <span class="n">input</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">filePath</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">GenerateData</span><span class="p">(</span><span class="k">ref</span> <span class="n">input</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+         <span class="n">vtkXMLPolyDataReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-        // Remove some cells
-        vtkIdTypeArray ids = vtkIdTypeArray.New();
-        ids.SetNumberOfComponents(1);
+         <span class="n">input</span><span class="p">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
+         <span class="p">}</span>
 
-        // Set values
-        ids.InsertNextValue(2);
-        ids.InsertNextValue(10);
+         <span class="n">vtkFillHolesFilter</span> <span class="n">fillHolesFilter</span> <span class="p">=</span> <span class="n">vtkFillHolesFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">fillHolesFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">fillHolesFilter</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-        vtkSelectionNode selectionNode = vtkSelectionNode.New();
+         <span class="n">fillHolesFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-        selectionNode.SetFieldType((int)vtkSelectionNode.SelectionField.CELL);
-        selectionNode.SetContentType((int)vtkSelectionNode.SelectionContent.INDICES);
-        selectionNode.SetSelectionList(ids);
-        selectionNode.GetProperties().Set(vtkSelectionNode.INVERSE(), 1); //invert the selection
+         <span class="c1">// Create a mapper and actor</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">originalMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">originalMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">originalMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-        vtkSelection selection = vtkSelection.New();
-        selection.AddNode(selectionNode);
+         <span class="n">vtkActor</span> <span class="n">originalActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">originalActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalMapper</span><span class="p">);</span>
 
-        vtkExtractSelection extractSelection = vtkExtractSelection.New();
-        extractSelection.SetInputConnection(0, sphereSource.GetOutputPort());
-#if VTK_MAJOR_VERSION_5
-        extractSelection.SetInput(1, selection);
-#else
-        extractSelection.SetInputData(1, selection);
-#endif
-        extractSelection.Update();
+         <span class="n">vtkPolyDataMapper</span> <span class="n">filledMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">filledMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">fillHolesFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-        // In selection
-        vtkDataSetSurfaceFilter surfaceFilter = vtkDataSetSurfaceFilter.New();
-        surfaceFilter.SetInputConnection(extractSelection.GetOutputPort());
-        surfaceFilter.Update();
+         <span class="n">vtkActor</span> <span class="n">filledActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">filledActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">filledMapper</span><span class="p">);</span>
 
-        input.ShallowCopy(surfaceFilter.GetOutput());
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">612</span><span class="p">,</span> <span class="m">352</span><span class="p">);</span>
+
+         <span class="c1">// Define viewport ranges</span>
+         <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">leftViewport</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">1.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">rightViewport</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span> <span class="p">};</span>
+
+         <span class="c1">// Setup both renderers</span>
+         <span class="n">vtkRenderer</span> <span class="n">leftRenderer</span> <span class="p">=</span> <span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">leftViewport</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">leftViewport</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="n">leftViewport</span><span class="p">[</span><span class="m">3</span><span class="p">]);</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">6</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">);</span>
+
+         <span class="n">vtkRenderer</span> <span class="n">rightRenderer</span> <span class="p">=</span> <span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">rightViewport</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">rightViewport</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="n">rightViewport</span><span class="p">[</span><span class="m">3</span><span class="p">]);</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">4</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">,</span> <span class="p">.</span><span class="m">6</span><span class="p">);</span>
+
+         <span class="c1">// Add the sphere to the left and the cube to the right</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">filledActor</span><span class="p">);</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
+
+
+      <span class="k">void</span> <span class="nf">GenerateData</span><span class="p">(</span><span class="k">ref</span> <span class="n">vtkPolyData</span> <span class="n">input</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="c1">// Create a sphere</span>
+        <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">sphereSource</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+        <span class="c1">// Remove some cells</span>
+        <span class="n">vtkIdTypeArray</span> <span class="n">ids</span> <span class="p">=</span> <span class="n">vtkIdTypeArray</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">ids</span><span class="p">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+
+        <span class="c1">// Set values</span>
+        <span class="n">ids</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+        <span class="n">ids</span><span class="p">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="m">10</span><span class="p">);</span>
+
+        <span class="n">vtkSelectionNode</span> <span class="n">selectionNode</span> <span class="p">=</span> <span class="n">vtkSelectionNode</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+
+        <span class="n">selectionNode</span><span class="p">.</span><span class="n">SetFieldType</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">vtkSelectionNode</span><span class="p">.</span><span class="n">SelectionField</span><span class="p">.</span><span class="n">CELL</span><span class="p">);</span>
+        <span class="n">selectionNode</span><span class="p">.</span><span class="n">SetContentType</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">vtkSelectionNode</span><span class="p">.</span><span class="n">SelectionContent</span><span class="p">.</span><span class="n">INDICES</span><span class="p">);</span>
+        <span class="n">selectionNode</span><span class="p">.</span><span class="n">SetSelectionList</span><span class="p">(</span><span class="n">ids</span><span class="p">);</span>
+        <span class="n">selectionNode</span><span class="p">.</span><span class="n">GetProperties</span><span class="p">().</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="p">.</span><span class="n">INVERSE</span><span class="p">(),</span> <span class="m">1</span><span class="p">);</span> <span class="c1">//invert the selection</span>
+
+        <span class="n">vtkSelection</span> <span class="n">selection</span> <span class="p">=</span> <span class="n">vtkSelection</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">selection</span><span class="p">.</span><span class="n">AddNode</span><span class="p">(</span><span class="n">selectionNode</span><span class="p">);</span>
+
+        <span class="n">vtkExtractSelection</span> <span class="n">extractSelection</span> <span class="p">=</span> <span class="n">vtkExtractSelection</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">extractSelection</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+        <span class="n">extractSelection</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">selection</span><span class="p">);</span>
+<span class="cp">#else</span>
+        <span class="n">extractSelection</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">selection</span><span class="p">);</span>
+<span class="cp">#endif</span>
+        <span class="n">extractSelection</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+        <span class="c1">// In selection</span>
+        <span class="n">vtkDataSetSurfaceFilter</span> <span class="n">surfaceFilter</span> <span class="p">=</span> <span class="n">vtkDataSetSurfaceFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">surfaceFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractSelection</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+        <span class="n">surfaceFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+        <span class="n">input</span><span class="p">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">surfaceFilter</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

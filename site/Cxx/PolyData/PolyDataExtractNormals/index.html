@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,382 +16018,389 @@
                   <h1>PolyDataExtractNormals</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PolyDataExtractNormals</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This demo looks for multiple types of normals in a polydata and generates them if they do not exist.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolyDataExtractNormals.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPolyDataNormals.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-
-void TestPointNormals(vtkPolyData* polydata);
-void TestCellNormals(vtkPolyData* polydata);
-
-bool GetPointNormals(vtkPolyData* polydata);
-bool GetCellNormals(vtkPolyData* polydata);
-
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata = vtkSmartPointer&lt;vtkPolyData&gt;::New();
-
-  // If a file is provided, read it. Else, create a sphere.
-  if(argc == 2)
-  {
-
-    // Read File
-    std::string filename = argv[1]; //first command line argument
-    std::cout &lt;&lt; &quot;Reading file &quot; &lt;&lt; filename &lt;&lt; &quot;...&quot; &lt;&lt; std::endl;
-
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader = vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    std::cout &lt;&lt; &quot;Reading &quot; &lt;&lt; filename &lt;&lt; std::endl;
-    reader-&gt;SetFileName(filename.c_str());
-    reader-&gt;Update();
-    polydata-&gt;DeepCopy(reader-&gt;GetOutput());
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Creating a sphere...&quot; &lt;&lt; std::endl;
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource = vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphereSource-&gt;Update();
-    std::cout &lt;&lt; &quot;In main: &quot; &lt;&lt; sphereSource-&gt;GetOutput()-&gt;GetNumberOfPoints() &lt;&lt; std::endl;
-    polydata-&gt;DeepCopy(sphereSource-&gt;GetOutput());
-  }
-
-  std::cout &lt;&lt; &quot;PolyData address: &quot; &lt;&lt; polydata &lt;&lt; std::endl;
-
-  TestPointNormals(polydata);
-
-  TestCellNormals(polydata);
-
-  return EXIT_SUCCESS;
-}
-
-void TestPointNormals(vtkPolyData* polydata)
-{
-  std::cout &lt;&lt; &quot;In TestPointNormals: &quot; &lt;&lt; polydata-&gt;GetNumberOfPoints() &lt;&lt; std::endl;
-  // Try to read normals directly
-  bool hasPointNormals = GetPointNormals(polydata);
-
-  if(!hasPointNormals)
-  {
-    std::cout &lt;&lt; &quot;No point normals were found. Computing normals...&quot; &lt;&lt; std::endl;
-
-    // Generate normals
-    vtkSmartPointer&lt;vtkPolyDataNormals&gt; normalGenerator = vtkSmartPointer&lt;vtkPolyDataNormals&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-    normalGenerator-&gt;SetInput(polydata);
-#else
-    normalGenerator-&gt;SetInputData(polydata);
-#endif
-    normalGenerator-&gt;ComputePointNormalsOn();
-    normalGenerator-&gt;ComputeCellNormalsOff();
-    normalGenerator-&gt;Update();
-    /*
-    // Optional settings
-    normalGenerator-&gt;SetFeatureAngle(0.1);
-    normalGenerator-&gt;SetSplitting(1);
-    normalGenerator-&gt;SetConsistency(0);
-    normalGenerator-&gt;SetAutoOrientNormals(0);
-    normalGenerator-&gt;SetComputePointNormals(1);
-    normalGenerator-&gt;SetComputeCellNormals(0);
-    normalGenerator-&gt;SetFlipNormals(0);
-    normalGenerator-&gt;SetNonManifoldTraversal(1);
-    */
-
-    polydata = normalGenerator-&gt;GetOutput();
-
-    // Try to read normals again
-    hasPointNormals = GetPointNormals(polydata);
-
-    std::cout &lt;&lt; &quot;On the second try, has point normals? &quot; &lt;&lt; hasPointNormals &lt;&lt; std::endl;
-
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Point normals were found!&quot; &lt;&lt; std::endl;
-  }
-}
-
-void TestCellNormals(vtkPolyData* polydata)
-{
-  // Try to read normals directly
-  bool hasCellNormals = GetCellNormals(polydata);
-
-  if(!hasCellNormals)
-  {
-    std::cout &lt;&lt; &quot;No cell normals were found. Computing normals...&quot; &lt;&lt; std::endl;
-
-    // Generate normals
-    vtkSmartPointer&lt;vtkPolyDataNormals&gt; normalGenerator = vtkSmartPointer&lt;vtkPolyDataNormals&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-    normalGenerator-&gt;SetInput(polydata);
-#else
-    normalGenerator-&gt;SetInputData(polydata);
-#endif
-    normalGenerator-&gt;ComputePointNormalsOff();
-    normalGenerator-&gt;ComputeCellNormalsOn();
-    normalGenerator-&gt;Update();
-    /*
-    // Optional settings
-    normalGenerator-&gt;SetFeatureAngle(0.1);
-    normalGenerator-&gt;SetSplitting(1);
-    normalGenerator-&gt;SetConsistency(0);
-    normalGenerator-&gt;SetAutoOrientNormals(0);
-    normalGenerator-&gt;SetComputePointNormals(1);
-    normalGenerator-&gt;SetComputeCellNormals(0);
-    normalGenerator-&gt;SetFlipNormals(0);
-    normalGenerator-&gt;SetNonManifoldTraversal(1);
-    */
-
-    polydata = normalGenerator-&gt;GetOutput();
-
-    // Try to read normals again
-    hasCellNormals = GetCellNormals(polydata);
-
-    std::cout &lt;&lt; &quot;On the second try, has cell normals? &quot; &lt;&lt; hasCellNormals &lt;&lt; std::endl;
-
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Cell normals were found!&quot; &lt;&lt; std::endl;
-  }
-}
-
-
-
-bool GetPointNormals(vtkPolyData* polydata)
-{
-  std::cout &lt;&lt; &quot;In GetPointNormals: &quot; &lt;&lt; polydata-&gt;GetNumberOfPoints() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Looking for point normals...&quot; &lt;&lt; std::endl;
-
-  // Count points
-  vtkIdType numPoints = polydata-&gt;GetNumberOfPoints();
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; numPoints &lt;&lt; &quot; points.&quot; &lt;&lt; std::endl;
-
-  // Count triangles
-  vtkIdType numPolys = polydata-&gt;GetNumberOfPolys();
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; numPolys &lt;&lt; &quot; polys.&quot; &lt;&lt; std::endl;
-
-  ////////////////////////////////////////////////////////////////
-  // Double normals in an array
-  vtkDoubleArray* normalDataDouble =
-    vtkDoubleArray::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetArray(&quot;Normals&quot;));
-
-  if(normalDataDouble)
-  {
-    int nc = normalDataDouble-&gt;GetNumberOfTuples();
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; nc
-            &lt;&lt; &quot; components in normalDataDouble&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  ////////////////////////////////////////////////////////////////
-  // Double normals in an array
-  vtkFloatArray* normalDataFloat =
-    vtkFloatArray::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetArray(&quot;Normals&quot;));
-
-  if(normalDataFloat)
-  {
-    int nc = normalDataFloat-&gt;GetNumberOfTuples();
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; nc
-            &lt;&lt; &quot; components in normalDataFloat&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  ////////////////////////////////////////////////////////////////
-  // Point normals
-  vtkDoubleArray* normalsDouble =
-    vtkDoubleArray::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetNormals());
-
-  if(normalsDouble)
-  {
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; normalsDouble-&gt;GetNumberOfComponents()
-              &lt;&lt; &quot; components in normalsDouble&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  ////////////////////////////////////////////////////////////////
-  // Point normals
-  vtkFloatArray* normalsFloat =
-    vtkFloatArray::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetNormals());
-
-  if(normalsFloat)
-  {
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; normalsFloat-&gt;GetNumberOfComponents()
-              &lt;&lt; &quot; components in normalsFloat&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  /////////////////////////////////////////////////////////////////////
-  // Generic type point normals
-  vtkDataArray* normalsGeneric = polydata-&gt;GetPointData()-&gt;GetNormals(); //works
-  if(normalsGeneric)
-  {
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; normalsGeneric-&gt;GetNumberOfTuples()
-              &lt;&lt; &quot; normals in normalsGeneric&quot; &lt;&lt; std::endl;
-
-    double testDouble[3];
-    normalsGeneric-&gt;GetTuple(0, testDouble);
-
-    std::cout &lt;&lt; &quot;Double: &quot; &lt;&lt; testDouble[0] &lt;&lt; &quot; &quot;
-              &lt;&lt; testDouble[1] &lt;&lt; &quot; &quot; &lt;&lt; testDouble[2] &lt;&lt; std::endl;
-
-    // Can't do this:
-    /*
-    float testFloat[3];
-    normalsGeneric-&gt;GetTuple(0, testFloat);
-
-    std::cout &lt;&lt; &quot;Float: &quot; &lt;&lt; testFloat[0] &lt;&lt; &quot; &quot;
-              &lt;&lt; testFloat[1] &lt;&lt; &quot; &quot; &lt;&lt; testFloat[2] &lt;&lt; std::endl;
-    */
-    return true;
-  }
-
-
-  // If the function has not yet quit, there were none of these types of normals
-  std::cout &lt;&lt; &quot;Normals not found!&quot; &lt;&lt; std::endl;
-  return false;
-
-}
-
-
-bool GetCellNormals(vtkPolyData* polydata)
-{
-  std::cout &lt;&lt; &quot;Looking for cell normals...&quot; &lt;&lt; std::endl;
-
-  // Count points
-  vtkIdType numCells = polydata-&gt;GetNumberOfCells();
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; numCells &lt;&lt; &quot; cells.&quot; &lt;&lt; std::endl;
-
-  // Count triangles
-  vtkIdType numPolys = polydata-&gt;GetNumberOfPolys();
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; numPolys &lt;&lt; &quot; polys.&quot; &lt;&lt; std::endl;
-
-  ////////////////////////////////////////////////////////////////
-  // Double normals in an array
-  vtkDoubleArray* normalDataDouble =
-    vtkDoubleArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetArray(&quot;Normals&quot;));
-
-  if(normalDataDouble)
-  {
-    int nc = normalDataDouble-&gt;GetNumberOfTuples();
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; nc
-            &lt;&lt; &quot; components in normalDataDouble&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  ////////////////////////////////////////////////////////////////
-  // Double normals in an array
-  vtkFloatArray* normalDataFloat =
-    vtkFloatArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetArray(&quot;Normals&quot;));
-
-  if(normalDataFloat)
-  {
-    int nc = normalDataFloat-&gt;GetNumberOfTuples();
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; nc
-            &lt;&lt; &quot; components in normalDataFloat&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  ////////////////////////////////////////////////////////////////
-  // Point normals
-  vtkDoubleArray* normalsDouble =
-    vtkDoubleArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetNormals());
-
-  if(normalsDouble)
-  {
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; normalsDouble-&gt;GetNumberOfComponents()
-              &lt;&lt; &quot; components in normalsDouble&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  ////////////////////////////////////////////////////////////////
-  // Point normals
-  vtkFloatArray* normalsFloat =
-    vtkFloatArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetNormals());
-
-  if(normalsFloat)
-  {
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; normalsFloat-&gt;GetNumberOfComponents()
-              &lt;&lt; &quot; components in normalsFloat&quot; &lt;&lt; std::endl;
-    return true;
-  }
-
-  /////////////////////////////////////////////////////////////////////
-  // Generic type point normals
-  vtkDataArray* normalsGeneric = polydata-&gt;GetCellData()-&gt;GetNormals(); //works
-  if(normalsGeneric)
-  {
-    std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; normalsGeneric-&gt;GetNumberOfTuples()
-              &lt;&lt; &quot; normals in normalsGeneric&quot; &lt;&lt; std::endl;
-
-    double testDouble[3];
-    normalsGeneric-&gt;GetTuple(0, testDouble);
-
-    std::cout &lt;&lt; &quot;Double: &quot; &lt;&lt; testDouble[0] &lt;&lt; &quot; &quot;
-              &lt;&lt; testDouble[1] &lt;&lt; &quot; &quot; &lt;&lt; testDouble[2] &lt;&lt; std::endl;
-
-    // Can't do this:
-    /*
-    float testFloat[3];
-    normalsGeneric-&gt;GetTuple(0, testFloat);
-
-    std::cout &lt;&lt; &quot;Float: &quot; &lt;&lt; testFloat[0] &lt;&lt; &quot; &quot;
-              &lt;&lt; testFloat[1] &lt;&lt; &quot; &quot; &lt;&lt; testFloat[2] &lt;&lt; std::endl;
-    */
-    return true;
-  }
-
-
-  // If the function has not yet quit, there were none of these types of normals
-  std::cout &lt;&lt; &quot;Normals not found!&quot; &lt;&lt; std::endl;
-  return false;
-
-}
-</code></pre>
-
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
-
-PROJECT(PolyDataExtractNormals)
-
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
-
-add_executable(PolyDataExtractNormals MACOSX_BUNDLE PolyDataExtractNormals.cxx)
-
-target_link_libraries(PolyDataExtractNormals ${VTK_LIBRARIES})
-</code></pre>
-
-<h3 id="download-and-build-polydataextractnormals">Download and Build PolyDataExtractNormals</h3>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataNormals.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">TestPointNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">TestCellNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">);</span>
+
+<span class="kt">bool</span> <span class="nf">GetPointNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">GetCellNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="c1">// If a file is provided, read it. Else, create a sphere.</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+
+    <span class="c1">// Read File</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//first command line argument</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reading file &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">filename</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reading &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">filename</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Creating a sphere...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;In main: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;PolyData address: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">polydata</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="n">TestPointNormals</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+
+  <span class="n">TestCellNormals</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">TestPointNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;In TestPointNormals: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="c1">// Try to read normals directly</span>
+  <span class="kt">bool</span> <span class="n">hasPointNormals</span> <span class="o">=</span> <span class="n">GetPointNormals</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">hasPointNormals</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;No point normals were found. Computing normals...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// Generate normals</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normalGenerator</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">ComputePointNormalsOn</span><span class="p">();</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">ComputeCellNormalsOff</span><span class="p">();</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="cm">/*</span>
+<span class="cm">    // Optional settings</span>
+<span class="cm">    normalGenerator-&gt;SetFeatureAngle(0.1);</span>
+<span class="cm">    normalGenerator-&gt;SetSplitting(1);</span>
+<span class="cm">    normalGenerator-&gt;SetConsistency(0);</span>
+<span class="cm">    normalGenerator-&gt;SetAutoOrientNormals(0);</span>
+<span class="cm">    normalGenerator-&gt;SetComputePointNormals(1);</span>
+<span class="cm">    normalGenerator-&gt;SetComputeCellNormals(0);</span>
+<span class="cm">    normalGenerator-&gt;SetFlipNormals(0);</span>
+<span class="cm">    normalGenerator-&gt;SetNonManifoldTraversal(1);</span>
+<span class="cm">    */</span>
+
+    <span class="n">polydata</span> <span class="o">=</span> <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+
+    <span class="c1">// Try to read normals again</span>
+    <span class="n">hasPointNormals</span> <span class="o">=</span> <span class="n">GetPointNormals</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;On the second try, has point normals? &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hasPointNormals</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Point normals were found!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">TestCellNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Try to read normals directly</span>
+  <span class="kt">bool</span> <span class="n">hasCellNormals</span> <span class="o">=</span> <span class="n">GetCellNormals</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">hasCellNormals</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;No cell normals were found. Computing normals...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// Generate normals</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normalGenerator</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">ComputePointNormalsOff</span><span class="p">();</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">ComputeCellNormalsOn</span><span class="p">();</span>
+    <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="cm">/*</span>
+<span class="cm">    // Optional settings</span>
+<span class="cm">    normalGenerator-&gt;SetFeatureAngle(0.1);</span>
+<span class="cm">    normalGenerator-&gt;SetSplitting(1);</span>
+<span class="cm">    normalGenerator-&gt;SetConsistency(0);</span>
+<span class="cm">    normalGenerator-&gt;SetAutoOrientNormals(0);</span>
+<span class="cm">    normalGenerator-&gt;SetComputePointNormals(1);</span>
+<span class="cm">    normalGenerator-&gt;SetComputeCellNormals(0);</span>
+<span class="cm">    normalGenerator-&gt;SetFlipNormals(0);</span>
+<span class="cm">    normalGenerator-&gt;SetNonManifoldTraversal(1);</span>
+<span class="cm">    */</span>
+
+    <span class="n">polydata</span> <span class="o">=</span> <span class="n">normalGenerator</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+
+    <span class="c1">// Try to read normals again</span>
+    <span class="n">hasCellNormals</span> <span class="o">=</span> <span class="n">GetCellNormals</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;On the second try, has cell normals? &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hasCellNormals</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Cell normals were found!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+<span class="kt">bool</span> <span class="nf">GetPointNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;In GetPointNormals: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Looking for point normals...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="c1">// Count points</span>
+  <span class="n">vtkIdType</span> <span class="n">numPoints</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numPoints</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="c1">// Count triangles</span>
+  <span class="n">vtkIdType</span> <span class="n">numPolys</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numPolys</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polys.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Double normals in an array</span>
+  <span class="n">vtkDoubleArray</span><span class="o">*</span> <span class="n">normalDataDouble</span> <span class="o">=</span>
+    <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;Normals&quot;</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalDataDouble</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">normalDataDouble</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nc</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalDataDouble&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Double normals in an array</span>
+  <span class="n">vtkFloatArray</span><span class="o">*</span> <span class="n">normalDataFloat</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;Normals&quot;</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalDataFloat</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">normalDataFloat</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nc</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalDataFloat&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Point normals</span>
+  <span class="n">vtkDoubleArray</span><span class="o">*</span> <span class="n">normalsDouble</span> <span class="o">=</span>
+    <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalsDouble</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">normalsDouble</span><span class="o">-&gt;</span><span class="n">GetNumberOfComponents</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalsDouble&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Point normals</span>
+  <span class="n">vtkFloatArray</span><span class="o">*</span> <span class="n">normalsFloat</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalsFloat</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">normalsFloat</span><span class="o">-&gt;</span><span class="n">GetNumberOfComponents</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalsFloat&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">/////////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Generic type point normals</span>
+  <span class="n">vtkDataArray</span><span class="o">*</span> <span class="n">normalsGeneric</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">();</span> <span class="c1">//works</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">normalsGeneric</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">normalsGeneric</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; normals in normalsGeneric&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="kt">double</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">normalsGeneric</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">testDouble</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Double: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// Can&#39;t do this:</span>
+    <span class="cm">/*</span>
+<span class="cm">    float testFloat[3];</span>
+<span class="cm">    normalsGeneric-&gt;GetTuple(0, testFloat);</span>
+
+<span class="cm">    std::cout &lt;&lt; &quot;Float: &quot; &lt;&lt; testFloat[0] &lt;&lt; &quot; &quot;</span>
+<span class="cm">              &lt;&lt; testFloat[1] &lt;&lt; &quot; &quot; &lt;&lt; testFloat[2] &lt;&lt; std::endl;</span>
+<span class="cm">    */</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="c1">// If the function has not yet quit, there were none of these types of normals</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Normals not found!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+
+<span class="kt">bool</span> <span class="nf">GetCellNormals</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Looking for cell normals...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="c1">// Count points</span>
+  <span class="n">vtkIdType</span> <span class="n">numCells</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numCells</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; cells.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="c1">// Count triangles</span>
+  <span class="n">vtkIdType</span> <span class="n">numPolys</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numPolys</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polys.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Double normals in an array</span>
+  <span class="n">vtkDoubleArray</span><span class="o">*</span> <span class="n">normalDataDouble</span> <span class="o">=</span>
+    <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;Normals&quot;</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalDataDouble</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">normalDataDouble</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nc</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalDataDouble&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Double normals in an array</span>
+  <span class="n">vtkFloatArray</span><span class="o">*</span> <span class="n">normalDataFloat</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;Normals&quot;</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalDataFloat</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">normalDataFloat</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nc</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalDataFloat&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Point normals</span>
+  <span class="n">vtkDoubleArray</span><span class="o">*</span> <span class="n">normalsDouble</span> <span class="o">=</span>
+    <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalsDouble</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">normalsDouble</span><span class="o">-&gt;</span><span class="n">GetNumberOfComponents</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalsDouble&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Point normals</span>
+  <span class="n">vtkFloatArray</span><span class="o">*</span> <span class="n">normalsFloat</span> <span class="o">=</span>
+    <span class="n">vtkFloatArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">());</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">normalsFloat</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">normalsFloat</span><span class="o">-&gt;</span><span class="n">GetNumberOfComponents</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; components in normalsFloat&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">/////////////////////////////////////////////////////////////////////</span>
+  <span class="c1">// Generic type point normals</span>
+  <span class="n">vtkDataArray</span><span class="o">*</span> <span class="n">normalsGeneric</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">();</span> <span class="c1">//works</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">normalsGeneric</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">normalsGeneric</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">()</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; normals in normalsGeneric&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="kt">double</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">normalsGeneric</span><span class="o">-&gt;</span><span class="n">GetTuple</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">testDouble</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Double: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">testDouble</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// Can&#39;t do this:</span>
+    <span class="cm">/*</span>
+<span class="cm">    float testFloat[3];</span>
+<span class="cm">    normalsGeneric-&gt;GetTuple(0, testFloat);</span>
+
+<span class="cm">    std::cout &lt;&lt; &quot;Float: &quot; &lt;&lt; testFloat[0] &lt;&lt; &quot; &quot;</span>
+<span class="cm">              &lt;&lt; testFloat[1] &lt;&lt; &quot; &quot; &lt;&lt; testFloat[2] &lt;&lt; std::endl;</span>
+<span class="cm">    */</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="c1">// If the function has not yet quit, there were none of these types of normals</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Normals not found!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PolyDataExtractNormals</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PolyDataExtractNormals</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PolyDataExtractNormals.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PolyDataExtractNormals</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-polydataextractnormals">Download and Build PolyDataExtractNormals<a class="headerlink" href="#download-and-build-polydataextractnormals" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataExtractNormals.tar">here to download PolyDataExtractNormals</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataExtractNormals.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PolyDataExtractNormals/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PolyDataExtractNormals/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PolyDataExtractNormals
-</code></pre>
+<div class="codehilite"><pre><span></span>./PolyDataExtractNormals
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

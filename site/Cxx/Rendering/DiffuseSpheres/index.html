@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,190 +16005,197 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Rendering/DiffuseSpheres</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Rendering/TestDiffuseSpheres.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DiffuseSpheres.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
-#include &quot;vtkSphereSource.h&quot;
-#include &quot;vtkPolyDataMapper.h&quot;
-#include &quot;vtkActor.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkProperty.h&quot;
-#include &quot;vtkCamera.h&quot;
-#include &quot;vtkLight.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSphereSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCamera.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkLight.h&quot;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // The following lines create a sphere represented by polygons.
-  //
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphere = vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphere-&gt;SetThetaResolution(100);
-  sphere-&gt;SetPhiResolution(50);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// The following lines create a sphere represented by polygons.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 
-  // The mapper is responsible for pushing the geometry into the graphics
-  // library. It may also do color mapping, if scalars or other attributes
-  // are defined.
-  //
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper = vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection(sphere-&gt;GetOutputPort());
+  <span class="c1">// The mapper is responsible for pushing the geometry into the graphics</span>
+  <span class="c1">// library. It may also do color mapping, if scalars or other attributes</span>
+  <span class="c1">// are defined.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // The actor is a grouping mechanism: besides the geometry (mapper), it
-  // also has a property, transformation matrix, and/or texture map.
-  // In this example we create eight different spheres (two rows of four
-  // spheres) and set the specular lighting coefficients. A little ambient
-  // is turned on so the sphere is not completely black on the back side.
-  //
-  vtkSmartPointer&lt;vtkActor&gt; sphere1 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere1-&gt;SetMapper(sphereMapper);
-  sphere1-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere1-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere1-&gt;GetProperty()-&gt;SetDiffuse(0.0);
-  sphere1-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere1-&gt;GetProperty()-&gt;SetSpecularPower(5.0);
+  <span class="c1">// The actor is a grouping mechanism: besides the geometry (mapper), it</span>
+  <span class="c1">// also has a property, transformation matrix, and/or texture map.</span>
+  <span class="c1">// In this example we create eight different spheres (two rows of four</span>
+  <span class="c1">// spheres) and set the specular lighting coefficients. A little ambient</span>
+  <span class="c1">// is turned on so the sphere is not completely black on the back side.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere1</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mf">5.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere2 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere2-&gt;SetMapper(sphereMapper);
-  sphere2-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere2-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere2-&gt;GetProperty()-&gt;SetDiffuse(0.125);
-  sphere2-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere2-&gt;GetProperty()-&gt;SetSpecularPower(10.0);
-  sphere2-&gt;AddPosition(1.25,0,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.125</span><span class="p">);</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mf">10.0</span><span class="p">);</span>
+  <span class="n">sphere2</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">1.25</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere3 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere3-&gt;SetMapper(sphereMapper);
-  sphere3-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere3-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere3-&gt;GetProperty()-&gt;SetDiffuse(0.25);
-  sphere3-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere3-&gt;AddPosition(2.5,0,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere3</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere3</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere3</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere3</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere3</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span>
+  <span class="n">sphere3</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere3</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere4 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere4-&gt;SetMapper(sphereMapper);
-  sphere4-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere4-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere4-&gt;GetProperty()-&gt;SetDiffuse(0.375);
-  sphere4-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere4-&gt;AddPosition(3.75,0,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere4</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere4</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere4</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere4</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere4</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.375</span><span class="p">);</span>
+  <span class="n">sphere4</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere4</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">3.75</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere5 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere5-&gt;SetMapper(sphereMapper);
-  sphere5-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere5-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere5-&gt;GetProperty()-&gt;SetDiffuse(0.5);
-  sphere5-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere5-&gt;AddPosition(0.0,1.25,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere5</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere5</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere5</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere5</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere5</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
+  <span class="n">sphere5</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere5</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere6 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere6-&gt;SetMapper(sphereMapper);
-  sphere6-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere6-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere6-&gt;GetProperty()-&gt;SetDiffuse(0.625);
-  sphere6-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere6-&gt;AddPosition(1.25,1.25,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere6</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere6</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere6</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere6</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere6</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.625</span><span class="p">);</span>
+  <span class="n">sphere6</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere6</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">1.25</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere7 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere7-&gt;SetMapper(sphereMapper);
-  sphere7-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere7-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere7-&gt;GetProperty()-&gt;SetDiffuse(0.75);
-  sphere7-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere7-&gt;AddPosition(2.5,1.25,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere7</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere7</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere7</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere7</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere7</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.75</span><span class="p">);</span>
+  <span class="n">sphere7</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere7</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphere8 = vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphere8-&gt;SetMapper(sphereMapper);
-  sphere8-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  sphere8-&gt;GetProperty()-&gt;SetAmbient(0.3);
-  sphere8-&gt;GetProperty()-&gt;SetDiffuse(0.875);
-  sphere8-&gt;GetProperty()-&gt;SetSpecular(0.0);
-  sphere8-&gt;AddPosition(3.75,1.25,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphere8</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere8</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
+  <span class="n">sphere8</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">sphere8</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+  <span class="n">sphere8</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">0.875</span><span class="p">);</span>
+  <span class="n">sphere8</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sphere8</span><span class="o">-&gt;</span><span class="n">AddPosition</span><span class="p">(</span><span class="mf">3.75</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  // Create the graphics structure. The renderer renders into the
-  // render window. The render window interactor captures mouse events
-  // and will perform appropriate camera or actor manipulation
-  // depending on the nature of the events.
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin = vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren = vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="c1">// Create the graphics structure. The renderer renders into the</span>
+  <span class="c1">// render window. The render window interactor captures mouse events</span>
+  <span class="c1">// and will perform appropriate camera or actor manipulation</span>
+  <span class="c1">// depending on the nature of the events.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size.
-  //
-  ren1-&gt;AddActor(sphere1);
-  ren1-&gt;AddActor(sphere2);
-  ren1-&gt;AddActor(sphere3);
-  ren1-&gt;AddActor(sphere4);
-  ren1-&gt;AddActor(sphere5);
-  ren1-&gt;AddActor(sphere6);
-  ren1-&gt;AddActor(sphere7);
-  ren1-&gt;AddActor(sphere8);
-  ren1-&gt;SetBackground(0.1, 0.2, 0.4);
-  renWin-&gt;SetSize(600, 400);
+  <span class="c1">// Add the actors to the renderer, set the background and size.</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere1</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere2</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere3</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere4</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere5</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere6</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere7</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphere8</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
 
-  // Set up the lighting.
-  //
-  vtkSmartPointer&lt;vtkLight&gt; light = vtkSmartPointer&lt;vtkLight&gt;::New();
-  light-&gt;SetFocalPoint(1.875,0.6125,0);
-  light-&gt;SetPosition(0.875,1.6125,1);
-  ren1-&gt;AddLight(light);
+  <span class="c1">// Set up the lighting.</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLight</span><span class="o">&gt;</span> <span class="n">light</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLight</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">light</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mf">1.875</span><span class="p">,</span><span class="mf">0.6125</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">light</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mf">0.875</span><span class="p">,</span><span class="mf">1.6125</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddLight</span><span class="p">(</span><span class="n">light</span><span class="p">);</span>
 
-  // We want to eliminate perspective effects on the apparent lighting.
-  // Parallel camera projection will be used. To zoom in parallel projection
-  // mode, the ParallelScale is set.
-  //
-  ren1-&gt;GetActiveCamera()-&gt;SetFocalPoint(0,0,0);
-  ren1-&gt;GetActiveCamera()-&gt;SetPosition(0,0,1);
-  ren1-&gt;GetActiveCamera()-&gt;SetViewUp(0,1,0);
-  ren1-&gt;GetActiveCamera()-&gt;ParallelProjectionOn();
-  ren1-&gt;ResetCamera();
-  ren1-&gt;GetActiveCamera()-&gt;SetParallelScale(1.5);
+  <span class="c1">// We want to eliminate perspective effects on the apparent lighting.</span>
+  <span class="c1">// Parallel camera projection will be used. To zoom in parallel projection</span>
+  <span class="c1">// mode, the ParallelScale is set.</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetViewUp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ParallelProjectionOn</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetParallelScale</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
 
-  // This starts the event loop and invokes an initial render.
-  //
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="c1">// This starts the event loop and invokes an initial render.</span>
+  <span class="c1">//</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DiffuseSpheres)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DiffuseSpheres</span><span class="p">)</span>
 
-add_executable(DiffuseSpheres MACOSX_BUNDLE DiffuseSpheres.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DiffuseSpheres ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DiffuseSpheres</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DiffuseSpheres.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-diffusespheres">Download and Build DiffuseSpheres</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DiffuseSpheres</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-diffusespheres">Download and Build DiffuseSpheres<a class="headerlink" href="#download-and-build-diffusespheres" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DiffuseSpheres.tar">here to download DiffuseSpheres</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DiffuseSpheres.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DiffuseSpheres/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DiffuseSpheres/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DiffuseSpheres
-</code></pre>
+<div class="codehilite"><pre><span></span>./DiffuseSpheres
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

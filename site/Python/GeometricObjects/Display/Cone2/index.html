@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15536,6 +15536,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15929,63 +15941,63 @@
                 
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Cone2</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><source lang="python">
 import vtk</p>
-<h1 id="create-a-rendering-window-and-renderer">create a rendering window and renderer</h1>
+<h1 id="create-a-rendering-window-and-renderer">create a rendering window and renderer<a class="headerlink" href="#create-a-rendering-window-and-renderer" title="Permanent link">&para;</a></h1>
 <p>ren = vtk.vtkRenderer()
 renWin = vtk.vtkRenderWindow()
 renWin.AddRenderer(ren)
 WIDTH=640
 HEIGHT=480
 renWin.SetSize(WIDTH,HEIGHT)</p>
-<h1 id="create-a-renderwindowinteractor">create a renderwindowinteractor</h1>
+<h1 id="create-a-renderwindowinteractor">create a renderwindowinteractor<a class="headerlink" href="#create-a-renderwindowinteractor" title="Permanent link">&para;</a></h1>
 <p>iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(renWin)</p>
-<h1 id="create-cone">create cone</h1>
+<h1 id="create-cone">create cone<a class="headerlink" href="#create-cone" title="Permanent link">&para;</a></h1>
 <p>cone = vtk.vtkConeSource()
 cone.SetResolution(60)
 cone.SetCenter(-2,0,0)</p>
-<h1 id="mapper">mapper</h1>
+<h1 id="mapper">mapper<a class="headerlink" href="#mapper" title="Permanent link">&para;</a></h1>
 <p>coneMapper = vtk.vtkPolyDataMapper()
 coneMapper.SetInput(cone.GetOutput())</p>
-<h1 id="actor">actor</h1>
+<h1 id="actor">actor<a class="headerlink" href="#actor" title="Permanent link">&para;</a></h1>
 <p>coneActor = vtk.vtkActor()
 coneActor.SetMapper(coneMapper)</p>
-<h1 id="assign-actor-to-the-renderer">assign actor to the renderer</h1>
+<h1 id="assign-actor-to-the-renderer">assign actor to the renderer<a class="headerlink" href="#assign-actor-to-the-renderer" title="Permanent link">&para;</a></h1>
 <p>ren.AddActor(coneActor)</p>
-<h1 id="enable-user-interface-interactor">enable user interface interactor</h1>
+<h1 id="enable-user-interface-interactor">enable user interface interactor<a class="headerlink" href="#enable-user-interface-interactor" title="Permanent link">&para;</a></h1>
 <p>iren.Initialize()
 renWin.Render()
 iren.Start()
 </source></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cone2.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-coneSource = vtk.vtkConeSource()
-#coneSource.SetResolution(60)
-#coneSource.SetCenter(-2,0,0)
+<span class="n">coneSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">()</span>
+<span class="c1">#coneSource.SetResolution(60)</span>
+<span class="c1">#coneSource.SetCenter(-2,0,0)</span>
 
-# Create a mapper and actor
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(coneSource.GetOutput())
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="c1"># Create a mapper and actor</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">coneSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-# Visualize
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># Visualize</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-renderer.AddActor(actor)
-renderer.SetBackground(.1, .2, .3) # Background color dark blue
-renderer.SetBackground(.3, .2, .1) # Background color dark red
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Background color dark blue</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Background color dark red</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

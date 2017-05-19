@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,108 +16004,115 @@
                   <h1>TriangleArea</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/TriangleArea</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TriangleArea.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkTriangle.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  //setup points (geometry)
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint ( 0.0, 0.0, 0.0 );
-  points-&gt;InsertNextPoint ( 1.0, 0.0, 0.0 );
-  points-&gt;InsertNextPoint ( 1.0, 1.0, 0.0 );
-  points-&gt;InsertNextPoint ( 0.0, 1.0, 0.0 );
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">//setup points (geometry)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
 
-  //create a triangle on the three points in the polydata
-  vtkSmartPointer&lt;vtkTriangle&gt; triangle1 =
-    vtkSmartPointer&lt;vtkTriangle&gt;::New();
-  triangle1-&gt;GetPointIds()-&gt;SetId ( 0, 0 );
-  triangle1-&gt;GetPointIds()-&gt;SetId ( 1, 1 );
-  triangle1-&gt;GetPointIds()-&gt;SetId ( 2, 2 );
+  <span class="c1">//create a triangle on the three points in the polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">&gt;</span> <span class="n">triangle1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">triangle1</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span> <span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">triangle1</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">triangle1</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span> <span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTriangle&gt; triangle2 =
-    vtkSmartPointer&lt;vtkTriangle&gt;::New();
-  triangle2-&gt;GetPointIds()-&gt;SetId ( 0, 2 );
-  triangle2-&gt;GetPointIds()-&gt;SetId ( 1, 3 );
-  triangle2-&gt;GetPointIds()-&gt;SetId ( 2, 0 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">&gt;</span> <span class="n">triangle2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">triangle2</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span> <span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="p">);</span>
+  <span class="n">triangle2</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="p">);</span>
+  <span class="n">triangle2</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetId</span> <span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
 
-  //add the triangles to the list of triangles
-  vtkSmartPointer&lt;vtkCellArray&gt; triangles =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  triangles-&gt;InsertNextCell ( triangle1 );
-  triangles-&gt;InsertNextCell ( triangle2 );
+  <span class="c1">//add the triangles to the list of triangles</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">triangles</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span> <span class="p">(</span> <span class="n">triangle1</span> <span class="p">);</span>
+  <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span> <span class="p">(</span> <span class="n">triangle2</span> <span class="p">);</span>
 
-  //create a polydata object
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
+  <span class="c1">//create a polydata object</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  //add the geometry and topology to the polydata
-  polydata-&gt;SetPoints ( points );
-  polydata-&gt;SetPolys ( triangles );
+  <span class="c1">//add the geometry and topology to the polydata</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span> <span class="p">(</span> <span class="n">points</span> <span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPolys</span> <span class="p">(</span> <span class="n">triangles</span> <span class="p">);</span>
 
-  for(vtkIdType i = 0; i &lt; polydata-&gt;GetNumberOfCells(); i++)
-  {
-    vtkCell* cell = polydata-&gt;GetCell(0);
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkCell</span><span class="o">*</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetCell</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-    vtkTriangle* triangle = dynamic_cast&lt;vtkTriangle*&gt;(cell);
-    double p0[3];
-    double p1[3];
-    double p2[3];
-    triangle-&gt;GetPoints()-&gt;GetPoint(0, p0);
-    std::cout &lt;&lt; &quot;p0: &quot; &lt;&lt; p0[0] &lt;&lt; &quot; &quot; &lt;&lt; p0[1] &lt;&lt; &quot; &quot; &lt;&lt; p0[2] &lt;&lt; std::endl;
-    triangle-&gt;GetPoints()-&gt;GetPoint(1, p1);
-    std::cout &lt;&lt; &quot;p1: &quot; &lt;&lt; p1[0] &lt;&lt; &quot; &quot; &lt;&lt; p1[1] &lt;&lt; &quot; &quot; &lt;&lt; p1[2] &lt;&lt; std::endl;
-    triangle-&gt;GetPoints()-&gt;GetPoint(2, p2);
-    std::cout &lt;&lt; &quot;p2: &quot; &lt;&lt; p2[0] &lt;&lt; &quot; &quot; &lt;&lt; p2[1] &lt;&lt; &quot; &quot; &lt;&lt; p2[2] &lt;&lt; std::endl;
+    <span class="n">vtkTriangle</span><span class="o">*</span> <span class="n">triangle</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">vtkTriangle</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">cell</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">p0</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">p2</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p0</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;p0: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p0</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p1</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;p1: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">triangle</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;p2: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    double area = vtkTriangle::TriangleArea(p0, p1, p2);
+    <span class="kt">double</span> <span class="n">area</span> <span class="o">=</span> <span class="n">vtkTriangle</span><span class="o">::</span><span class="n">TriangleArea</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
 
-    std::cout &lt;&lt; &quot;area of triangle &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; area &lt;&lt; std::endl;
-  }
-  return EXIT_SUCCESS;
-}
-</code></pre>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;area of triangle &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">area</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TriangleArea)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TriangleArea</span><span class="p">)</span>
 
-add_executable(TriangleArea MACOSX_BUNDLE TriangleArea.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TriangleArea ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TriangleArea</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TriangleArea.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-trianglearea">Download and Build TriangleArea</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TriangleArea</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-trianglearea">Download and Build TriangleArea<a class="headerlink" href="#download-and-build-trianglearea" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TriangleArea.tar">here to download TriangleArea</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TriangleArea.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TriangleArea/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TriangleArea/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TriangleArea
-</code></pre>
+<div class="codehilite"><pre><span></span>./TriangleArea
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

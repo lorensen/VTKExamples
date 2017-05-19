@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,141 +16019,148 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/LabelPlacementMapper</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestLabelPlacementMapper.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to add labels from an array to points. Each point is given a priority that determines which labels are visible when space is limited.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LabelPlacementMapper.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkActor.h&gt;
-#include &lt;vtkActor2D.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkLabelPlacementMapper.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPointSetToLabelHierarchy.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkStringArray.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLabelPlacementMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSetToLabelHierarchy.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStringArray.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create a point set.
-  vtkSmartPointer&lt;vtkPointSource&gt; pointSource =
-    vtkSmartPointer&lt;vtkPointSource&gt;::New();
-  pointSource-&gt;SetNumberOfPoints(6);
-  pointSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a point set.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">pointSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Add label array.
-  vtkSmartPointer&lt;vtkStringArray&gt; labels =
-    vtkSmartPointer&lt;vtkStringArray&gt;::New();
-  labels-&gt;SetNumberOfValues(6);
-  labels-&gt;SetName(&quot;labels&quot;);
-  labels-&gt;SetValue(0, &quot;Priority 10&quot;);
-  labels-&gt;SetValue(1, &quot;Priority 7&quot;);
-  labels-&gt;SetValue(2, &quot;Priority 6&quot;);
-  labels-&gt;SetValue(3, &quot;Priority 4&quot;);
-  labels-&gt;SetValue(4, &quot;Priority 4&quot;);
-  labels-&gt;SetValue(5, &quot;Priority 4&quot;);
-  pointSource-&gt;GetOutput()-&gt;GetPointData()-&gt;AddArray(labels);
+  <span class="c1">// Add label array.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;</span> <span class="n">labels</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;labels&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Priority 10&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Priority 7&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;Priority 6&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;Priority 4&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&quot;Priority 4&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s">&quot;Priority 4&quot;</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">labels</span><span class="p">);</span>
 
-  // Add priority array.
-  vtkSmartPointer&lt;vtkIntArray&gt; sizes =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  sizes-&gt;SetNumberOfValues(6);
-  sizes-&gt;SetName(&quot;sizes&quot;);
-  sizes-&gt;SetValue(0, 10);
-  sizes-&gt;SetValue(1, 7);
-  sizes-&gt;SetValue(2, 6);
-  sizes-&gt;SetValue(3, 4);
-  sizes-&gt;SetValue(4, 4);
-  sizes-&gt;SetValue(5, 4);
-  pointSource-&gt;GetOutput()-&gt;GetPointData()-&gt;AddArray(sizes);
+  <span class="c1">// Add priority array.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">sizes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;sizes&quot;</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">sizes</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">sizes</span><span class="p">);</span>
 
-  // Create a mapper and actor for the points.
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; pointMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  pointMapper-&gt;SetInputConnection(pointSource-&gt;GetOutputPort());
+  <span class="c1">// Create a mapper and actor for the points.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">pointMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; pointActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  pointActor-&gt;SetMapper(pointMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">pointActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">pointMapper</span><span class="p">);</span>
 
-  // Generate the label hierarchy.
-  vtkSmartPointer&lt;vtkPointSetToLabelHierarchy&gt; pointSetToLabelHierarchyFilter =
-    vtkSmartPointer&lt;vtkPointSetToLabelHierarchy&gt;::New();
-  pointSetToLabelHierarchyFilter-&gt;SetInputConnection(
-    pointSource-&gt;GetOutputPort());
-  pointSetToLabelHierarchyFilter-&gt;SetLabelArrayName(&quot;labels&quot;);
-  pointSetToLabelHierarchyFilter-&gt;SetPriorityArrayName(&quot;sizes&quot;);
-  pointSetToLabelHierarchyFilter-&gt;Update();
+  <span class="c1">// Generate the label hierarchy.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSetToLabelHierarchy</span><span class="o">&gt;</span> <span class="n">pointSetToLabelHierarchyFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSetToLabelHierarchy</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointSetToLabelHierarchyFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span>
+    <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">pointSetToLabelHierarchyFilter</span><span class="o">-&gt;</span><span class="n">SetLabelArrayName</span><span class="p">(</span><span class="s">&quot;labels&quot;</span><span class="p">);</span>
+  <span class="n">pointSetToLabelHierarchyFilter</span><span class="o">-&gt;</span><span class="n">SetPriorityArrayName</span><span class="p">(</span><span class="s">&quot;sizes&quot;</span><span class="p">);</span>
+  <span class="n">pointSetToLabelHierarchyFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create a mapper and actor for the labels.
-  vtkSmartPointer&lt;vtkLabelPlacementMapper&gt; labelMapper =
-    vtkSmartPointer&lt;vtkLabelPlacementMapper&gt;::New();
-  labelMapper-&gt;SetInputConnection(
-    pointSetToLabelHierarchyFilter-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor2D&gt; labelActor =
-    vtkSmartPointer&lt;vtkActor2D&gt;::New();
-  labelActor-&gt;SetMapper(labelMapper);
+  <span class="c1">// Create a mapper and actor for the labels.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabelPlacementMapper</span><span class="o">&gt;</span> <span class="n">labelMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabelPlacementMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">labelMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span>
+    <span class="n">pointSetToLabelHierarchyFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">labelActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">labelActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">labelMapper</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor.
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create a renderer, render window, and interactor.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the scene.
-  renderer-&gt;AddActor(pointActor);
-  renderer-&gt;AddActor(labelActor);
+  <span class="c1">// Add the actors to the scene.</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">pointActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">labelActor</span><span class="p">);</span>
 
-  // Render and interact.
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact.</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LabelPlacementMapper)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LabelPlacementMapper</span><span class="p">)</span>
 
-add_executable(LabelPlacementMapper MACOSX_BUNDLE LabelPlacementMapper.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LabelPlacementMapper ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LabelPlacementMapper</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LabelPlacementMapper.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-labelplacementmapper">Download and Build LabelPlacementMapper</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LabelPlacementMapper</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-labelplacementmapper">Download and Build LabelPlacementMapper<a class="headerlink" href="#download-and-build-labelplacementmapper" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LabelPlacementMapper.tar">here to download LabelPlacementMapper</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LabelPlacementMapper.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LabelPlacementMapper/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LabelPlacementMapper/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LabelPlacementMapper
-</code></pre>
+<div class="codehilite"><pre><span></span>./LabelPlacementMapper
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

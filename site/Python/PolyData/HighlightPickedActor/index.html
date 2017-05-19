@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,79 +15990,79 @@
                   <h1>HighlightPickedActor</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/PolyData/HighlightPickedActor</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="../[File:VTK_Examples_Python_Interaction_vtkImplicitPolyDataDistance.png]"></a></p>
 <p>Shows how to use vtkImplicitPolyDataDistance.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>HighlightPickedActor.py</strong></p>
-<pre><code class="python">import vtk
-import numpy as np
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(0.0, 0.0, 0.0)
-sphereSource.SetRadius(1.0)
-sphereSource.Update()
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-sphereMapper = vtk.vtkPolyDataMapper()
-sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
-sphereMapper.ScalarVisibilityOff()
+<span class="n">sphereMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">sphereMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">sphereMapper</span><span class="o">.</span><span class="n">ScalarVisibilityOff</span><span class="p">()</span>
 
-sphereActor = vtk.vtkActor()
-sphereActor.SetMapper(sphereMapper)
-sphereActor.GetProperty().SetOpacity(.3)
-sphereActor.GetProperty().SetColor(1, 0, 0)
+<span class="n">sphereActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">sphereActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">)</span>
+<span class="n">sphereActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetOpacity</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sphereActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-implicitPolyDataDistance = vtk.vtkImplicitPolyDataDistance()
-implicitPolyDataDistance.SetInput(sphereSource.GetOutput())
+<span class="n">implicitPolyDataDistance</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImplicitPolyDataDistance</span><span class="p">()</span>
+<span class="n">implicitPolyDataDistance</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-# Setup a grid
-points = vtk.vtkPoints()
-step = 0.1
-for x in np.arange(-2, 2, step):
-    for y in np.arange(-2, 2, step):
-        for z in np.arange(-2, 2, step):
-            points.InsertNextPoint(x, y, z)
+<span class="c1"># Setup a grid</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+            <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 
 
-# Add distances to each point
-signedDistances = vtk.vtkFloatArray()
-signedDistances.SetNumberOfComponents(1)
-signedDistances.SetName(&quot;SignedDistances&quot;)
+<span class="c1"># Add distances to each point</span>
+<span class="n">signedDistances</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">signedDistances</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">signedDistances</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;SignedDistances&quot;</span><span class="p">)</span>
 
-# Evaluate the signed distance function at all of the grid points
-for pointId in range(points.GetNumberOfPoints()):
-    p = points.GetPoint(pointId)
-    signedDistance = implicitPolyDataDistance.EvaluateFunction(p)
-    signedDistances.InsertNextValue(signedDistance)
+<span class="c1"># Evaluate the signed distance function at all of the grid points</span>
+<span class="k">for</span> <span class="n">pointId</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">pointId</span><span class="p">)</span>
+    <span class="n">signedDistance</span> <span class="o">=</span> <span class="n">implicitPolyDataDistance</span><span class="o">.</span><span class="n">EvaluateFunction</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">signedDistances</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">signedDistance</span><span class="p">)</span>
 
-polyData = vtk.vtkPolyData()
-polyData.SetPoints(points)
-polyData.GetPointData().SetScalars(signedDistances)
+<span class="n">polyData</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">polyData</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">polyData</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">signedDistances</span><span class="p">)</span>
 
-vertexGlyphFilter = vtk.vtkVertexGlyphFilter()
-vertexGlyphFilter.SetInputData(polyData)
-vertexGlyphFilter.Update()
+<span class="n">vertexGlyphFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVertexGlyphFilter</span><span class="p">()</span>
+<span class="n">vertexGlyphFilter</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">)</span>
+<span class="n">vertexGlyphFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-signedDistanceMapper = vtk.vtkPolyDataMapper()
-signedDistanceMapper.SetInputConnection(vertexGlyphFilter.GetOutputPort())
-signedDistanceMapper.ScalarVisibilityOn()
+<span class="n">signedDistanceMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">signedDistanceMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">vertexGlyphFilter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">signedDistanceMapper</span><span class="o">.</span><span class="n">ScalarVisibilityOn</span><span class="p">()</span>
 
-signedDistanceActor = vtk.vtkActor()
-signedDistanceActor.SetMapper(signedDistanceMapper)
+<span class="n">signedDistanceActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">signedDistanceActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">signedDistanceMapper</span><span class="p">)</span>
 
-renderer = vtk.vtkRenderer()
-renderer.AddViewProp(sphereActor)
-renderer.AddViewProp(signedDistanceActor)
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">signedDistanceActor</span><span class="p">)</span>
 
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-renWinInteractor = vtk.vtkRenderWindowInteractor()
-renWinInteractor.SetRenderWindow(renderWindow)
+<span class="n">renWinInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renWinInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-renderWindow.Render()
-renWinInteractor.Start()
-</code></pre>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renWinInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

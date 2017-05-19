@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,7 +16018,7 @@
                   <h1>NamedColorPatches</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/NamedColorPatches</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to produce a HTML page called <a href="../../../Python/Visualization/VTKNamedColorPatches.html">VTKNamedColorPatches.html</a> showing the available
 colors in <a href="http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html">vtkNamedColors</a>.</p>
 <p>It also shows how to select the text color based on luminance.
@@ -16023,890 +16035,873 @@ however the Python dictionaries and lists defining the various color names by ty
 <li>MakeSynonymColorPage() -- Makes a page of color names and their synonyms.</li>
 <li>MakeCombinedColorPage() -- Makes an indexed page with all the colors and names in the class <a href="http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html">vtkNamedColors</a>.</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>NamedColorPatches.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkNamedColors.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;map&gt;
-#include &lt;algorithm&gt;
-#include &lt;functional&gt;
-#include &lt;iterator&gt;
-#include &lt;fstream&gt;
-#include &lt;iostream&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cctype&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cctype&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+
+<span class="cp">#ifdef WIN32</span>
+<span class="cp">#define snprintf _snprintf_s</span>
+<span class="cp">#endif</span>
+
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="c1">//! Some STL Utilities.</span>
+<span class="k">class</span> <span class="nc">STLHelpers</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="n">STLHelpers</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">STLHelpers</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// Convert a string to lowercase.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ToLowercase</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">str</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+      <span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">))</span><span class="n">std</span><span class="o">::</span><span class="n">tolower</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// Replace all occurrences of old_value in a string with new_value.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ReplaceAll</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">old_value</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">new_value</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">start_pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">start_pos</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">old_value</span><span class="p">,</span> <span class="n">start_pos</span><span class="p">))</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">start_pos</span><span class="p">,</span> <span class="n">old_value</span><span class="p">.</span><span class="n">length</span><span class="p">(),</span> <span class="n">new_value</span><span class="p">);</span>
+      <span class="c1">// It could be that &#39;new_value&#39; is a substring of &#39;old_value&#39;.</span>
+      <span class="n">start_pos</span> <span class="o">+=</span> <span class="n">new_value</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// An implementation of the C++11 next(iter,n) found in the header &lt;iterator&gt;.</span>
+  <span class="c1">// ForwardIt must meet the requirements of ForwardIterator.</span>
+  <span class="c1">// Return the nth successor of iterator it.</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">ForwardIt</span><span class="o">&gt;</span>
+  <span class="n">ForwardIt</span> <span class="n">Next</span><span class="p">(</span><span class="n">ForwardIt</span> <span class="n">iter</span><span class="p">,</span>
+    <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">ForwardIt</span><span class="o">&gt;::</span><span class="n">difference_type</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">advance</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">iter</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="c1">// Return true if the iterator points to the last element.</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Iter</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Cont</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="n">IsLast</span><span class="p">(</span><span class="n">Iter</span> <span class="n">iter</span><span class="p">,</span> <span class="k">const</span> <span class="n">Cont</span><span class="o">&amp;</span> <span class="n">cont</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">iter</span> <span class="o">!=</span> <span class="n">cont</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Next</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span> <span class="o">==</span> <span class="n">cont</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Convert to and from HTML color strings.</span>
+<span class="k">class</span> <span class="nc">HTMLToFromRGBAColor</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="n">HTMLToFromRGBAColor</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">HTMLToFromRGBAColor</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="kt">bool</span> <span class="n">IsValidHTMLColorString</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">7</span> <span class="o">||</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)</span> <span class="c1">// #rrggbb or #rrggbbaa</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;#&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+          <span class="n">s</span><span class="p">.</span><span class="n">find_first_not_of</span><span class="p">(</span><span class="s">&quot;0123456789abcdefABCDEF&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">RGBToHTMLColor</span><span class="p">(</span><span class="n">vtkColor3ub</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rgb</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;#&quot;</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">buff</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;%02x&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetRed</span><span class="p">());</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">buff</span><span class="p">;</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;%02x&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetGreen</span><span class="p">());</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">buff</span><span class="p">;</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;%02x&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetBlue</span><span class="p">());</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">buff</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">vtkColor3ub</span> <span class="n">HTMLColorToRGB</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">colorString</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkColor3ub</span> <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsValidHTMLColorString</span><span class="p">(</span><span class="n">colorString</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">t</span> <span class="o">=</span> <span class="n">colorString</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">v</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+      <span class="n">c</span><span class="p">.</span><span class="n">SetRed</span><span class="p">(</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtoul</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">).</span><span class="n">c_str</span><span class="p">(),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">16</span><span class="p">)));</span>
+      <span class="n">c</span><span class="p">.</span><span class="n">SetGreen</span><span class="p">(</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtoul</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">).</span><span class="n">c_str</span><span class="p">(),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">16</span><span class="p">)));</span>
+      <span class="n">c</span><span class="p">.</span><span class="n">SetBlue</span><span class="p">(</span>
+        <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtoul</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">).</span><span class="n">c_str</span><span class="p">(),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">16</span><span class="p">)));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="kt">double</span> <span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">vtkColor3ub</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rgb</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="mf">0.299</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetRed</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.587</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetGreen</span><span class="p">()</span> <span class="o">+</span>
+           <span class="mf">0.114</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetBlue</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//! Holds the color names and information about table layout and ordering.</span>
+<span class="cm">/*!</span>
+<span class="cm">  This class creates a series of maps and vectors of color names from</span>
+<span class="cm">  a series of python dictionaries and lists.</span>
+<span class="cm">  */</span>
+<span class="k">class</span> <span class="nc">ColorStructures</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="n">ColorStructures</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Init</span><span class="p">();</span> <span class="p">}</span>
+
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">ColorStructures</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="kt">void</span> <span class="n">Init</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="c1">// These strings correspond to the maps and lists used in the Python</span>
+    <span class="c1">// version of this code (NamedColorPatches.py).</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cnStr</span> <span class="o">=</span> <span class="s">&quot;\</span>
+<span class="s">&#39;Red&#39;:[&#39;IndianRed&#39;, &#39;LightCoral&#39;, &#39;Salmon&#39;, &#39;DarkSalmon&#39;,\</span>
+<span class="s">&#39;LightSalmon&#39;, &#39;Red&#39;, &#39;Crimson&#39;, &#39;FireBrick&#39;, &#39;DarkRed&#39;],\</span>
+<span class="s">&#39;Pink&#39;:[&#39;Pink&#39;, &#39;LightPink&#39;, &#39;HotPink&#39;, &#39;DeepPink&#39;,\</span>
+<span class="s">&#39;MediumVioletRed&#39;, &#39;PaleVioletRed&#39;],\</span>
+<span class="s">&#39;Orange&#39;:[&#39;LightSalmon&#39;, &#39;Coral&#39;, &#39;Tomato&#39;, &#39;OrangeRed&#39;,\</span>
+<span class="s">&#39;DarkOrange&#39;, &#39;Orange&#39;],\</span>
+<span class="s">&#39;Yellow&#39;:[&#39;Gold&#39;, &#39;Yellow&#39;, &#39;LightYellow&#39;, &#39;LemonChiffon&#39;,\</span>
+<span class="s">&#39;LightGoldenrodYellow&#39;, &#39;PapayaWhip&#39;, &#39;Moccasin&#39;,\</span>
+<span class="s">&#39;PeachPuff&#39;, &#39;PaleGoldenrod&#39;, &#39;Khaki&#39;, &#39;DarkKhaki&#39;],\</span>
+<span class="s">&#39;Purple&#39;:[&#39;Lavender&#39;, &#39;Thistle&#39;, &#39;Plum&#39;, &#39;Violet&#39;, &#39;Orchid&#39;,\</span>
+<span class="s">&#39;Fuchsia&#39;, &#39;Magenta&#39;, &#39;MediumOrchid&#39;, &#39;MediumPurple&#39;,\</span>
+<span class="s">&#39;BlueViolet&#39;, &#39;DarkViolet&#39;, &#39;DarkOrchid&#39;, &#39;DarkMagenta&#39;,\</span>
+<span class="s">&#39;Purple&#39;, &#39;Indigo&#39;, &#39;DarkSlateBlue&#39;, &#39;SlateBlue&#39;,\</span>
+<span class="s">&#39;MediumSlateBlue&#39;],\</span>
+<span class="s">&#39;Green&#39;:[&#39;GreenYellow&#39;, &#39;Chartreuse&#39;, &#39;LawnGreen&#39;, &#39;Lime&#39;,\</span>
+<span class="s">&#39;LimeGreen&#39;, &#39;PaleGreen&#39;, &#39;LightGreen&#39;,\</span>
+<span class="s">&#39;MediumSpringGreen&#39;, &#39;SpringGreen&#39;, &#39;MediumSeaGreen&#39;,\</span>
+<span class="s">&#39;SeaGreen&#39;, &#39;ForestGreen&#39;, &#39;Green&#39;, &#39;DarkGreen&#39;,\</span>
+<span class="s">&#39;YellowGreen&#39;, &#39;OliveDrab&#39;, &#39;Olive&#39;, &#39;DarkOliveGreen&#39;,\</span>
+<span class="s">&#39;MediumAquamarine&#39;, &#39;DarkSeaGreen&#39;, &#39;LightSeaGreen&#39;,\</span>
+<span class="s">&#39;DarkCyan&#39;, &#39;Teal&#39;],\</span>
+<span class="s">&#39;Blue/Cyan&#39;:[&#39;Aqua&#39;, &#39;Cyan&#39;, &#39;LightCyan&#39;, &#39;PaleTurquoise&#39;,\</span>
+<span class="s">&#39;Aquamarine&#39;, &#39;Turquoise&#39;, &#39;MediumTurquoise&#39;,\</span>
+<span class="s">&#39;DarkTurquoise&#39;, &#39;CadetBlue&#39;, &#39;SteelBlue&#39;,\</span>
+<span class="s">&#39;LightSteelBlue&#39;, &#39;PowderBlue&#39;, &#39;LightBlue&#39;,\</span>
+<span class="s">&#39;SkyBlue&#39;, &#39;LightSkyBlue&#39;, &#39;DeepSkyBlue&#39;,\</span>
+<span class="s">&#39;DodgerBlue&#39;, &#39;CornflowerBlue&#39;, &#39;RoyalBlue&#39;, &#39;Blue&#39;,\</span>
+<span class="s">&#39;MediumBlue&#39;, &#39;DarkBlue&#39;, &#39;Navy&#39;, &#39;MidnightBlue&#39;],\</span>
+<span class="s">&#39;Brown&#39;:[&#39;Cornsilk&#39;, &#39;BlanchedAlmond&#39;, &#39;Bisque&#39;, &#39;NavajoWhite&#39;,\</span>
+<span class="s">&#39;Wheat&#39;, &#39;BurlyWood&#39;, &#39;Tan&#39;, &#39;RosyBrown&#39;, &#39;SandyBrown&#39;,\</span>
+<span class="s">&#39;Goldenrod&#39;, &#39;DarkGoldenrod&#39;, &#39;Peru&#39;, &#39;Chocolate&#39;,\</span>
+<span class="s">&#39;SaddleBrown&#39;, &#39;Sienna&#39;, &#39;Brown&#39;, &#39;Maroon&#39;],\</span>
+<span class="s">&#39;White&#39;:[&#39;White&#39;, &#39;Snow&#39;, &#39;Honeydew&#39;, &#39;MintCream&#39;, &#39;Azure&#39;,\</span>
+<span class="s">&#39;AliceBlue&#39;, &#39;GhostWhite&#39;, &#39;WhiteSmoke&#39;, &#39;Seashell&#39;,\</span>
+<span class="s">&#39;Beige&#39;, &#39;OldLace&#39;, &#39;FloralWhite&#39;, &#39;Ivory&#39;,\</span>
+<span class="s">&#39;AntiqueWhite&#39;, &#39;Linen&#39;,\</span>
+<span class="s">&#39;LavenderBlush&#39;, &#39;MistyRose&#39;],\</span>
+<span class="s">&#39;Gray&#39;:[&#39;Gainsboro&#39;, &#39;LightGrey&#39;, &#39;Silver&#39;, &#39;DarkGray&#39;, &#39;Gray&#39;,\</span>
+<span class="s">&#39;DimGray&#39;, &#39;LightSlateGray&#39;, &#39;SlateGray&#39;, &#39;DarkSlateGray&#39;,\</span>
+<span class="s">&#39;Black&#39;]\</span>
+<span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cnOrderStr</span> <span class="o">=</span>
+      <span class="s">&quot;[&#39;Red&#39;, &#39;Pink&#39;, &#39;Orange&#39;, &#39;Yellow&#39;, &#39;Purple&#39;, &#39;Green&#39;,\</span>
+<span class="s">&#39;Blue/Cyan&#39;, &#39;Brown&#39;, &#39;White&#39;, &#39;Gray&#39;]&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cnStartTableStr</span> <span class="o">=</span> <span class="s">&quot;[&#39;Red&#39;, &#39;Green&#39;, &#39;Brown&#39;]&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cnEndTableStr</span> <span class="o">=</span> <span class="s">&quot;[&#39;Purple&#39;, &#39;Blue/Cyan&#39;, &#39;Gray&#39;]&quot;</span><span class="p">;</span>
+
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">vtkcnStr</span> <span class="o">=</span> <span class="s">&quot;\</span>
+<span class="s">&#39;Whites&#39;:[&#39;antique_white&#39;, &#39;azure&#39;, &#39;bisque&#39;, &#39;blanched_almond&#39;,\</span>
+<span class="s">&#39;cornsilk&#39;, &#39;eggshell&#39;, &#39;floral_white&#39;, &#39;gainsboro&#39;,\</span>
+<span class="s">&#39;ghost_white&#39;, &#39;honeydew&#39;, &#39;ivory&#39;, &#39;lavender&#39;,\</span>
+<span class="s">&#39;lavender_blush&#39;, &#39;lemon_chiffon&#39;, &#39;linen&#39;, &#39;mint_cream&#39;,\</span>
+<span class="s">&#39;misty_rose&#39;, &#39;moccasin&#39;, &#39;navajo_white&#39;, &#39;old_lace&#39;,\</span>
+<span class="s">&#39;papaya_whip&#39;,  &#39;peach_puff&#39;, &#39;seashell&#39;, &#39;snow&#39;,\</span>
+<span class="s">&#39;thistle&#39;, &#39;titanium_white&#39;, &#39;wheat&#39;, &#39;white&#39;,\</span>
+<span class="s">&#39;white_smoke&#39;, &#39;zinc_white&#39;],\</span>
+<span class="s">&#39;Greys&#39;:[&#39;cold_grey&#39;, &#39;dim_grey&#39;, &#39;grey&#39;, &#39;light_grey&#39;,\</span>
+<span class="s">&#39;slate_grey&#39;, &#39;slate_grey_dark&#39;, &#39;slate_grey_light&#39;,\</span>
+<span class="s">&#39;warm_grey&#39;],\</span>
+<span class="s">&#39;Blacks&#39;:[&#39;black&#39;, &#39;ivory_black&#39;, &#39;lamp_black&#39;],\</span>
+<span class="s">&#39;Reds&#39;:[&#39;alizarin_crimson&#39;, &#39;brick&#39;, &#39;cadmium_red_deep&#39;, &#39;coral&#39;,\</span>
+<span class="s">&#39;coral_light&#39;, &#39;deep_pink&#39;, &#39;english_red&#39;, &#39;firebrick&#39;,\</span>
+<span class="s">&#39;geranium_lake&#39;, &#39;hot_pink&#39;, &#39;indian_red&#39;, &#39;light_salmon&#39;,\</span>
+<span class="s">&#39;madder_lake_deep&#39;, &#39;maroon&#39;, &#39;pink&#39;, &#39;pink_light&#39;,\</span>
+<span class="s">&#39;raspberry&#39;, &#39;red&#39;, &#39;rose_madder&#39;, &#39;salmon&#39;, &#39;tomato&#39;,\</span>
+<span class="s">&#39;venetian_red&#39;],\</span>
+<span class="s">&#39;Browns&#39;:[&#39;beige&#39;, &#39;brown&#39;, &#39;brown_madder&#39;, &#39;brown_ochre&#39;,\</span>
+<span class="s">&#39;burlywood&#39;, &#39;burnt_sienna&#39;, &#39;burnt_umber&#39;, &#39;chocolate&#39;,\</span>
+<span class="s">&#39;deep_ochre&#39;, &#39;flesh&#39;, &#39;flesh_ochre&#39;, &#39;gold_ochre&#39;,\</span>
+<span class="s">&#39;greenish_umber&#39;, &#39;khaki&#39;, &#39;khaki_dark&#39;, &#39;light_beige&#39;,\</span>
+<span class="s">&#39;peru&#39;, &#39;rosy_brown&#39;, &#39;raw_sienna&#39;, &#39;raw_umber&#39;, &#39;sepia&#39;,\</span>
+<span class="s">&#39;sienna&#39;, &#39;saddle_brown&#39;, &#39;sandy_brown&#39;, &#39;tan&#39;,\</span>
+<span class="s">&#39;van_dyke_brown&#39;],\</span>
+<span class="s">&#39;Oranges&#39;:[&#39;cadmium_orange&#39;, &#39;cadmium_red_light&#39;, &#39;carrot&#39;,\</span>
+<span class="s">&#39;dark_orange&#39;, &#39;mars_orange&#39;, &#39;mars_yellow&#39;, &#39;orange&#39;,\</span>
+<span class="s">&#39;orange_red&#39;, &#39;yellow_ochre&#39;],\</span>
+<span class="s">&#39;Yellows&#39;:[&#39;aureoline_yellow&#39;, &#39;banana&#39;, &#39;cadmium_lemon&#39;,\</span>
+<span class="s">&#39;cadmium_yellow&#39;, &#39;cadmium_yellow_light&#39;, &#39;gold&#39;,\</span>
+<span class="s">&#39;goldenrod&#39;, &#39;goldenrod_dark&#39;, &#39;goldenrod_light&#39;,\</span>
+<span class="s">&#39;goldenrod_pale&#39;, &#39;light_goldenrod&#39;, &#39;melon&#39;,\</span>
+<span class="s">&#39;naples_yellow_deep&#39;, &#39;yellow&#39;, &#39;yellow_light&#39;],\</span>
+<span class="s">&#39;Greens&#39;:[&#39;chartreuse&#39;, &#39;chrome_oxide_green&#39;, &#39;cinnabar_green&#39;,\</span>
+<span class="s">&#39;cobalt_green&#39;, &#39;emerald_green&#39;, &#39;forest_green&#39;, &#39;green&#39;,\</span>
+<span class="s">&#39;green_dark&#39;, &#39;green_pale&#39;, &#39;green_yellow&#39;, &#39;lawn_green&#39;,\</span>
+<span class="s">&#39;lime_green&#39;, &#39;mint&#39;, &#39;olive&#39;, &#39;olive_drab&#39;,\</span>
+<span class="s">&#39;olive_green_dark&#39;, &#39;permanent_green&#39;, &#39;sap_green&#39;,\</span>
+<span class="s">&#39;sea_green&#39;, &#39;sea_green_dark&#39;, &#39;sea_green_medium&#39;,\</span>
+<span class="s">&#39;sea_green_light&#39;, &#39;spring_green&#39;, &#39;spring_green_medium&#39;,\</span>
+<span class="s">&#39;terre_verte&#39;, &#39;viridian_light&#39;, &#39;yellow_green&#39;],\</span>
+<span class="s">&#39;Cyans&#39;:[&#39;aquamarine&#39;, &#39;aquamarine_medium&#39;, &#39;cyan&#39;, &#39;cyan_white&#39;,\</span>
+<span class="s">&#39;turquoise&#39;, &#39;turquoise_dark&#39;, &#39;turquoise_medium&#39;,\</span>
+<span class="s">&#39;turquoise_pale&#39;],\</span>
+<span class="s">&#39;Blues&#39;:[&#39;alice_blue&#39;, &#39;blue&#39;, &#39;blue_light&#39;, &#39;blue_medium&#39;,\</span>
+<span class="s">&#39;cadet&#39;, &#39;cobalt&#39;, &#39;cornflower&#39;, &#39;cerulean&#39;, &#39;dodger_blue&#39;,\</span>
+<span class="s">&#39;indigo&#39;, &#39;manganese_blue&#39;, &#39;midnight_blue&#39;, &#39;navy&#39;,\</span>
+<span class="s">&#39;peacock&#39;,  &#39;powder_blue&#39;, &#39;royal_blue&#39;, &#39;slate_blue&#39;,\</span>
+<span class="s">&#39;slate_blue_dark&#39;, &#39;slate_blue_light&#39;,\</span>
+<span class="s">&#39;slate_blue_medium&#39;, &#39;sky_blue&#39;, &#39;sky_blue_deep&#39;,\</span>
+<span class="s">&#39;sky_blue_light&#39;, &#39;steel_blue&#39;, &#39;steel_blue_light&#39;,\</span>
+<span class="s">&#39;turquoise_blue&#39;, &#39;ultramarine&#39;],\</span>
+<span class="s">&#39;Magentas&#39;:[&#39;blue_violet&#39;, &#39;cobalt_violet_deep&#39;, &#39;magenta&#39;,\</span>
+<span class="s">&#39;orchid&#39;, &#39;orchid_dark&#39;, &#39;orchid_medium&#39;,\</span>
+<span class="s">&#39;permanent_red_violet&#39;, &#39;plum&#39;, &#39;purple&#39;,\</span>
+<span class="s">&#39;purple_medium&#39;, &#39;ultramarine_violet&#39;, &#39;violet&#39;,\</span>
+<span class="s">&#39;violet_dark&#39;, &#39;violet_red&#39;, &#39;violet_red_medium&#39;,\</span>
+<span class="s">&#39;violet_red_pale&#39;]\</span>
+<span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">vtkcnOrderStr</span> <span class="o">=</span>
+      <span class="s">&quot;[&#39;Whites&#39;, &#39;Greys&#39;, &#39;Blacks&#39;, &#39;Reds&#39;, &#39;Oranges&#39;,\</span>
+<span class="s">&#39;Browns&#39;, &#39;Yellows&#39;, &#39;Greens&#39;, &#39;Cyans&#39;, &#39;Blues&#39;,\</span>
+<span class="s">&#39;Magentas&#39;]&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">vtkcnStartTableStr</span> <span class="o">=</span> <span class="s">&quot;[&#39;Whites&#39;, &#39;Browns&#39;, &#39;Cyans&#39;]&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">vtkcnEndTableStr</span> <span class="o">=</span> <span class="s">&quot;[&#39;Oranges&#39;, &#39;Greens&#39;, &#39;Magentas&#39;]&quot;</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">cn</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseDictionary</span><span class="p">(</span><span class="n">cnStr</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">cnOrder</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseList</span><span class="p">(</span><span class="n">cnOrderStr</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">cnStartTable</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseList</span><span class="p">(</span><span class="n">cnStartTableStr</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">cnEndTable</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseList</span><span class="p">(</span><span class="n">cnEndTableStr</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">vtkcn</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseDictionary</span><span class="p">(</span><span class="n">vtkcnStr</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">vtkcnOrder</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseList</span><span class="p">(</span><span class="n">vtkcnOrderStr</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">vtkcnStartTable</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseList</span><span class="p">(</span><span class="n">vtkcnStartTableStr</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">vtkcnEndTable</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseList</span><span class="p">(</span><span class="n">vtkcnEndTableStr</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="c1">//! Words are delimited by single quotes.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ParseWords</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find_first_of</span><span class="p">(</span><span class="s">&quot;&#39;&quot;</span><span class="p">);</span>
+    <span class="kt">size_t</span> <span class="n">idx2</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find_last_of</span><span class="p">(</span><span class="s">&quot;&#39;&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">idx1</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span> <span class="o">&amp;&amp;</span> <span class="n">idx2</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">idx1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">idx2</span> <span class="o">-</span> <span class="n">idx1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="c1">//! Convert a list to a vector.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">ParseList</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">idx1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">idx2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">idx1</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span> <span class="o">&amp;&amp;</span> <span class="n">idx2</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span> <span class="o">&amp;&amp;</span>
+           <span class="n">idx1</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">idx1</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;&#39;&quot;</span><span class="p">,</span> <span class="n">idx1</span><span class="p">);</span>
+      <span class="n">idx2</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;&#39;&quot;</span><span class="p">,</span> <span class="n">idx1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">idx1</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">idx2</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">idx1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">idx2</span> <span class="o">-</span> <span class="n">idx1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">idx1</span> <span class="o">=</span> <span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//---------------------------------------------------------------------------</span>
+  <span class="c1">//! Convert a dictionary to a map.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span> <span class="n">ParseDictionary</span><span class="p">(</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">idx0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">idx1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">idx2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">key</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">value</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">idx1</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span> <span class="o">&amp;&amp;</span> <span class="n">idx2</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">idx1</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;[&#39;</span><span class="p">,</span> <span class="n">idx1</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">idx1</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">idx2</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;]&#39;</span><span class="p">,</span> <span class="n">idx1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">ParseWords</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">idx0</span><span class="p">,</span> <span class="n">idx1</span> <span class="o">-</span> <span class="n">idx0</span><span class="p">));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">idx2</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">value</span> <span class="o">=</span> <span class="n">ParseList</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">idx1</span><span class="p">,</span> <span class="n">idx2</span> <span class="o">-</span> <span class="n">idx1</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">idx0</span> <span class="o">=</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">idx2</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span> <span class="n">cn</span><span class="p">;</span>
+  <span class="c1">// Ordering of the tables and when to start and end a column of</span>
+  <span class="c1">// tables in the layout.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">cnOrder</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">cnStartTable</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">cnEndTable</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span> <span class="n">vtkcn</span><span class="p">;</span>
+  <span class="c1">// Ordering of the tables and when to start and end a column of</span>
+  <span class="c1">// tables in the layout.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">vtkcnOrder</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">vtkcnStartTable</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">vtkcnEndTable</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">ColorStructures</span> <span class="n">cs</span> <span class="o">=</span> <span class="n">ColorStructures</span><span class="p">();</span>
+<span class="n">STLHelpers</span> <span class="n">stlHelpers</span> <span class="o">=</span> <span class="n">STLHelpers</span><span class="p">();</span>
+<span class="n">HTMLToFromRGBAColor</span> <span class="n">htmlRGBA</span> <span class="o">=</span> <span class="n">HTMLToFromRGBAColor</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cm">/*!</span>
+<span class="cm">  This class creates HTML Tables displaying all the colors in</span>
+<span class="cm">  the class vtkNamedColors grouped by various categories.</span>
+<span class="cm">*/</span>
+<span class="k">class</span> <span class="nc">HTMLTableMaker</span>
+<span class="p">{</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">HTMLTableMaker</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nc</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="o">~</span><span class="n">HTMLTableMaker</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeWebColorPage</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeHTMLHeader</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table style=</span><span class="se">\&quot;</span><span class="s">font-size:90%</span><span class="se">\&quot;</span><span class="s"> cellpadding=</span><span class="se">\&quot;</span><span class="s">4</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span>
+      <span class="s">&quot;&lt;caption style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;Web Color Names&lt;/caption&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;tr valign=</span><span class="se">\&quot;</span><span class="s">top</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeWebColorTables</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeVTKColorPage</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeHTMLHeader</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;p&gt;The web colors take precedence over colors of the same&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot; name in VTK Color Names.&lt;/p&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table style=</span><span class="se">\&quot;</span><span class="s">font-size:90%</span><span class="se">\&quot;</span><span class="s"> cellpadding=</span><span class="se">\&quot;</span><span class="s">4</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span>
+      <span class="s">&quot;&lt;caption style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;VTK Color Names&lt;/caption&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;tr valign=</span><span class="se">\&quot;</span><span class="s">top</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeVTKColorTables</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeSynonymColorPage</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeHTMLHeader</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h1&gt;Synonyms in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table style=</span><span class="se">\&quot;</span><span class="s">font-size:90%</span><span class="se">\&quot;</span><span class="s"> cellpadding=</span><span class="se">\&quot;</span><span class="s">4</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;caption style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;&lt;/caption&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;tr valign=</span><span class="se">\&quot;</span><span class="s">top</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeSynonymColorTable</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeCombinedColorPage</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeHTMLHeader</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;p&gt;The class vtkNamedColors provides color names and their&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot; values for the convenience of the user.&lt;/p&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;p&gt;The following tables show the available colors along with&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot; their red, green and blue values.&lt;/p&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeHTMLIndex</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h2&gt;&lt;a id=</span><span class="se">\&quot;</span><span class="s">WebColorNames</span><span class="se">\&quot;</span><span class="s">&gt;Web color Names&lt;/h2&gt;&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;These colors correspond to those in&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot; &lt;a href=</span><span class="se">\&quot;</span><span class="s">http://en.wikipedia.org/wiki/Web_colors</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot; title=</span><span class="se">\&quot;</span><span class="s">Web Colors</span><span class="se">\&quot;</span><span class="s">&gt;Web Colors&lt;/a&gt;.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table style=</span><span class="se">\&quot;</span><span class="s">font-size:90%</span><span class="se">\&quot;</span><span class="s"> cellpadding=</span><span class="se">\&quot;</span><span class="s">4</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;tr valign=</span><span class="se">\&quot;</span><span class="s">top</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeWebColorTables</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h2&gt;&lt;a id=</span><span class="se">\&quot;</span><span class="s">VTKColorNames</span><span class="se">\&quot;</span><span class="s">&gt;VTK color Names&lt;/h2&gt;&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;p&gt;The colors mainly correspond to those in vtkColors.txt.</span><span class="se">\n</span><span class="s">&lt;/p&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;p&gt;The web colors (above) take precedence over colors of the&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot; same name in vtkColors.txt.&lt;/p&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table style=</span><span class="se">\&quot;</span><span class="s">font-size:90%</span><span class="se">\&quot;</span><span class="s"> cellpadding=</span><span class="se">\&quot;</span><span class="s">4</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;tr valign=</span><span class="se">\&quot;</span><span class="s">top</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeVTKColorTables</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;h2&gt;&lt;a id=</span><span class="se">\&quot;</span><span class="s">Synonyms</span><span class="se">\&quot;</span><span class="s">&gt;Synonyms&lt;/h2&gt;&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table style=</span><span class="se">\&quot;</span><span class="s">font-size:90%</span><span class="se">\&quot;</span><span class="s"> cellpadding=</span><span class="se">\&quot;</span><span class="s">4</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;tr valign=</span><span class="se">\&quot;</span><span class="s">top</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeSynonymColorTable</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/body&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;</span> <span class="n">ParseColorNames</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkStdString</span><span class="o">&amp;</span> <span class="n">colorNames</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// The delimiter for a color.</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">colorDelimiter</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;</span> <span class="n">cn</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">end</span> <span class="o">=</span> <span class="n">colorNames</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">colorDelimiter</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">end</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">cn</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">colorNames</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">));</span>
+      <span class="n">start</span> <span class="o">=</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">end</span> <span class="o">=</span> <span class="n">colorNames</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">colorDelimiter</span><span class="p">,</span> <span class="n">start</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Get the last color.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">colorNames</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">cn</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">colorNames</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">colorNames</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">cn</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;&gt;</span> <span class="n">ParseSynonyms</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">vtkStdString</span><span class="o">&amp;</span> <span class="n">synonyms</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// The delimiter for a string of synonyms.</span>
+    <span class="k">const</span> <span class="n">vtkStdString</span> <span class="n">synonymDelimiter</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">end</span> <span class="o">=</span> <span class="n">synonyms</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">synonymDelimiter</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;</span> <span class="n">cn</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;&gt;</span> <span class="n">syn</span><span class="p">;</span>
+    <span class="n">vtkStdString</span> <span class="n">str</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">end</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">str</span> <span class="o">=</span> <span class="n">synonyms</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">);</span>
+      <span class="n">cn</span> <span class="o">=</span> <span class="n">ParseColorNames</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+      <span class="n">syn</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">cn</span><span class="p">);</span>
+      <span class="n">start</span> <span class="o">=</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="n">end</span> <span class="o">=</span> <span class="n">synonyms</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">synonymDelimiter</span><span class="p">,</span> <span class="n">start</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Get the last set of synonyms.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">synonyms</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">str</span> <span class="o">=</span> <span class="n">synonyms</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">);</span>
+      <span class="n">cn</span> <span class="o">=</span> <span class="n">ParseColorNames</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+      <span class="n">syn</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">cn</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">syn</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeHTMLHeader</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;!DOCTYPE html&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;html lang=</span><span class="se">\&quot;</span><span class="s">en</span><span class="se">\&quot;</span><span class="s"> dir=</span><span class="se">\&quot;</span><span class="s">ltr</span><span class="se">\&quot;</span><span class="s"> class=</span><span class="se">\&quot;</span><span class="s">client-nojs</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;head&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;title&gt;vtkNamedColors&lt;/title&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;meta charset=</span><span class="se">\&quot;</span><span class="s">UTF-8</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/head&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeHTMLIndex</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;h2&gt;Index&lt;/h2&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;ul&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&lt;li&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s">#WebColorNames</span><span class="se">\&quot;</span><span class="s">&gt;Web color Names&lt;/li&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&lt;li&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s">#VTKColorNames</span><span class="se">\&quot;</span><span class="s">&gt;VTK color Names&lt;/li&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&lt;li&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s">#Synonyms</span><span class="se">\&quot;</span><span class="s">&gt;Synonyms&lt;/li&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/ul&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeTableHeader</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;th style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;HTML name&lt;/th&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;th style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;Decimal code&lt;br /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeSynonymTableHeader</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;th style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;Synonyms&lt;/th&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;th style=</span><span class="se">\&quot;</span><span class="s">background:lightgrey</span><span class="se">\&quot;</span><span class="s">&gt;Decimal code&lt;br /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeTD</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;td colspan=</span><span class="se">\&quot;</span><span class="s">2</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">background:whitesmoke;&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span>
+      <span class="s">&quot;color:slategray;text-align:left</span><span class="se">\&quot;</span><span class="s">&gt;&lt;big&gt;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;&lt;/b&gt;&lt;/big&gt;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">FormatRGBForHTML</span><span class="p">(</span><span class="n">vtkColor3ub</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rgb</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">buff</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;%3d&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetRed</span><span class="p">());</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">buff</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="o">+</span><span class="s">&quot;,&quot;</span><span class="p">;</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;%3d&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetGreen</span><span class="p">());</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">buff</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="o">+</span><span class="s">&quot;,&quot;</span><span class="p">;</span>
+    <span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;%3d&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="p">.</span><span class="n">GetBlue</span><span class="p">());</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">buff</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">stlHelpers</span><span class="p">.</span><span class="n">ReplaceAll</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;&amp;#160;&quot;</span><span class="p">);</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">stlHelpers</span><span class="p">.</span><span class="n">ReplaceAll</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="s">&quot;&amp;#160;&amp;#160;&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="cm">/*!</span>
+<span class="cm">    Use when the name is a color name known to the web browser.</span>
+<span class="cm">  */</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeTR</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="n">vtkColor3ub</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rgb</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">textColor</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;td style=</span><span class="se">\&quot;</span><span class="s">background:&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;;color:&quot;</span> <span class="o">+</span> <span class="n">textColor</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;td style=</span><span class="se">\&quot;</span><span class="s">background:&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;;color:&quot;</span> <span class="o">+</span> <span class="n">textColor</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&gt;&lt;tt&gt;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">FormatRGBForHTML</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&lt;/tt&gt;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="cm">/*!</span>
+<span class="cm">    Use when the name is not a color name known to the web browser.</span>
+<span class="cm">   */</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeSynonymTR</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">nameColor</span><span class="p">,</span> <span class="n">vtkColor3ub</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rgb</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">textColor</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&lt;tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;td style=</span><span class="se">\&quot;</span><span class="s">background:&quot;</span> <span class="o">+</span> <span class="n">nameColor</span> <span class="o">+</span> <span class="s">&quot;;color:&quot;</span> <span class="o">+</span> <span class="n">textColor</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&gt;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;td style=</span><span class="se">\&quot;</span><span class="s">background:&quot;</span> <span class="o">+</span> <span class="n">nameColor</span> <span class="o">+</span> <span class="s">&quot;;color:&quot;</span> <span class="o">+</span> <span class="n">textColor</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&gt;&lt;tt&gt;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">FormatRGBForHTML</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&lt;/tt&gt;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;&lt;/tr&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeWebColorTables</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">cs</span><span class="p">.</span><span class="n">cnOrder</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+         <span class="n">p</span> <span class="o">!=</span> <span class="n">cs</span><span class="p">.</span><span class="n">cnOrder</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">cs</span><span class="p">.</span><span class="n">cnStartTable</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">cs</span><span class="p">.</span><span class="n">cnStartTable</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span>
+          <span class="n">cs</span><span class="p">.</span><span class="n">cnStartTable</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeTableHeader</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="c1">// Add in the name of the group in the color table.</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeTD</span><span class="p">(</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="s">&quot; colors&quot;</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">cs</span><span class="p">.</span><span class="n">cn</span><span class="p">[</span><span class="o">*</span><span class="n">p</span><span class="p">];</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+           <span class="n">q</span> <span class="o">!=</span> <span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">q</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vtkColor3ub</span> <span class="n">rgb</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">);</span>
+        <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">htmlRGBA</span><span class="p">.</span><span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">textColor</span> <span class="o">=</span> <span class="s">&quot;#000000&quot;</span><span class="p">;</span> <span class="c1">// Black</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">255</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">textColor</span> <span class="o">=</span> <span class="s">&quot;#ffffff&quot;</span><span class="p">;</span> <span class="c1">// White</span>
+        <span class="p">}</span>
+        <span class="c1">// Make the row for each color in the group.</span>
+        <span class="c1">// Here we use the name to set the background color</span>
+        <span class="c1">//  as it is known to the web browser.</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeTR</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">cs</span><span class="p">.</span><span class="n">cnEndTable</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">cs</span><span class="p">.</span><span class="n">cnEndTable</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span>
+          <span class="n">cs</span><span class="p">.</span><span class="n">cnEndTable</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeVTKColorTables</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">cs</span><span class="p">.</span><span class="n">vtkcnOrder</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+         <span class="n">p</span> <span class="o">!=</span> <span class="n">cs</span><span class="p">.</span><span class="n">vtkcnOrder</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">cs</span><span class="p">.</span><span class="n">vtkcnStartTable</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">cs</span><span class="p">.</span><span class="n">vtkcnStartTable</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span>
+          <span class="n">cs</span><span class="p">.</span><span class="n">vtkcnStartTable</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeTableHeader</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="c1">// Add in the name of the group in the color table.</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeTD</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">cs</span><span class="p">.</span><span class="n">vtkcn</span><span class="p">[</span><span class="o">*</span><span class="n">p</span><span class="p">];</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+           <span class="n">q</span> <span class="o">!=</span> <span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">q</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vtkColor3ub</span> <span class="n">rgb</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">);</span>
+        <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">htmlRGBA</span><span class="p">.</span><span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">textColor</span> <span class="o">=</span> <span class="s">&quot;#000000&quot;</span><span class="p">;</span> <span class="c1">// Black</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">255</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">textColor</span> <span class="o">=</span> <span class="s">&quot;#ffffff&quot;</span><span class="p">;</span> <span class="c1">// White</span>
+        <span class="p">}</span>
+        <span class="c1">// We must set the background color to a specific</span>
+        <span class="c1">// HTML color as the color name may not be a standard</span>
+        <span class="c1">// name known to the web browser.</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">nameColor</span> <span class="o">=</span> <span class="n">htmlRGBA</span><span class="p">.</span><span class="n">RGBToHTMLColor</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+        <span class="c1">// Make the row for each color in the group.</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeSynonymTR</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="n">nameColor</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">cs</span><span class="p">.</span><span class="n">vtkcnEndTable</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">cs</span><span class="p">.</span><span class="n">vtkcnEndTable</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span>
+          <span class="n">cs</span><span class="p">.</span><span class="n">vtkcnEndTable</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">//-----------------------------------------------------------------------------</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">MakeSynonymColorTable</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;&gt;</span> <span class="n">synonyms</span> <span class="o">=</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">ParseSynonyms</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetSynonyms</span><span class="p">());</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">cn</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span>
+           <span class="n">cs</span><span class="p">.</span><span class="n">cn</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+         <span class="n">p</span> <span class="o">!=</span> <span class="n">cs</span><span class="p">.</span><span class="n">cn</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+           <span class="n">q</span> <span class="o">!=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">q</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">cn</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">cn</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">cn</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+         <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">d</span><span class="p">[</span><span class="n">stlHelpers</span><span class="p">.</span><span class="n">ToLowercase</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)]</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeSynonymTableHeader</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;&gt;::</span><span class="n">iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">synonyms</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+         <span class="n">p</span> <span class="o">!=</span> <span class="n">synonyms</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">();</span> <span class="n">q</span> <span class="o">!=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">();</span>
+           <span class="o">++</span><span class="n">q</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="c1">// Replace the lowercase name with the proper name.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">)</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+        <span class="p">{</span>
+          <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="o">*</span><span class="n">q</span><span class="p">];</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">(),</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">());</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">names</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkStdString</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">();</span> <span class="n">q</span> <span class="o">!=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">();</span>
+           <span class="o">++</span><span class="n">q</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">names</span> <span class="o">+=</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">stlHelpers</span><span class="p">.</span><span class="n">IsLast</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">))</span>
+        <span class="p">{</span>
+          <span class="n">names</span> <span class="o">+=</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="n">vtkColor3ub</span> <span class="n">rgb</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">nc</span><span class="o">-&gt;</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">()));</span>
+      <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">htmlRGBA</span><span class="p">.</span><span class="n">RGBToLumaCCIR601</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">textColor</span> <span class="o">=</span> <span class="s">&quot;#000000&quot;</span><span class="p">;</span> <span class="c1">// Black</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">255</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">textColor</span> <span class="o">=</span> <span class="s">&quot;#ffffff&quot;</span><span class="p">;</span> <span class="c1">// White</span>
+      <span class="p">}</span>
+      <span class="c1">// We must set the background color to a specific</span>
+      <span class="c1">// HTML color because names is just a list of</span>
+      <span class="c1">// synonyms for that particular color.</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">nameColor</span> <span class="o">=</span> <span class="n">htmlRGBA</span><span class="p">.</span><span class="n">RGBToHTMLColor</span><span class="p">(</span><span class="n">rgb</span><span class="p">);</span>
+      <span class="c1">// Make the row for each color in the group.</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">MakeSynonymTR</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">nameColor</span><span class="p">,</span> <span class="n">rgb</span><span class="p">,</span> <span class="n">textColor</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/table&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">+=</span> <span class="s">&quot;&lt;/td&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">nc</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">HTMLTableMaker</span> <span class="n">ncp</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">outputFile</span><span class="p">;</span>
+  <span class="n">outputFile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span>
+    <span class="s">&quot;VTKNamedColorPatches.html&quot;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">trunc</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">binary</span><span class="p">);</span>
+  <span class="n">outputFile</span> <span class="o">&lt;&lt;</span> <span class="n">ncp</span><span class="p">.</span><span class="n">MakeCombinedColorPage</span><span class="p">();</span>
+  <span class="n">outputFile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 
-#ifdef WIN32
-#define snprintf _snprintf_s
-#endif
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-namespace {
-  //! Some STL Utilities.
-  class STLHelpers
-  {
-  public:
-    //---------------------------------------------------------------------------
-    STLHelpers()
-    {
-    }
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">NamedColorPatches</span><span class="p">)</span>
 
-    //---------------------------------------------------------------------------
-    virtual ~STLHelpers()
-    {
-    }
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-    //-----------------------------------------------------------------------------
-    // Convert a string to lowercase.
-    std::string ToLowercase(const std::string &amp; str)
-    {
-      std::string s;
-      std::transform(str.begin(), str.end(), std::back_inserter(s),
-        (int(*)(int))std::tolower);
-      return s;
-    }
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">NamedColorPatches</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">NamedColorPatches.cxx</span><span class="p">)</span>
 
-    //-----------------------------------------------------------------------------
-    // Replace all occurrences of old_value in a string with new_value.
-    std::string ReplaceAll(std::string &amp; str,
-      const std::string &amp; old_value, const std::string &amp; new_value)
-    {
-      size_t start_pos = 0;
-      while ((start_pos = str.find(old_value, start_pos)) != std::string::npos)
-      {
-        str.replace(start_pos, old_value.length(), new_value);
-        // It could be that 'new_value' is a substring of 'old_value'.
-        start_pos += new_value.length();
-      }
-      return str;
-    }
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">NamedColorPatches</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
 
-    //-----------------------------------------------------------------------------
-    // An implementation of the C++11 next(iter,n) found in the header &lt;iterator&gt;.
-    // ForwardIt must meet the requirements of ForwardIterator.
-    // Return the nth successor of iterator it.
-    template &lt;typename ForwardIt&gt;
-    ForwardIt Next(ForwardIt iter,
-      typename std::iterator_traits&lt;ForwardIt&gt;::difference_type n = 1)
-    {
-      std::advance(iter, n);
-      return iter;
-    }
 
-    //-----------------------------------------------------------------------------
-    // Return true if the iterator points to the last element.
-    template &lt;typename Iter, typename Cont&gt;
-    bool IsLast(Iter iter, const Cont &amp; cont)
-    {
-      return (iter != cont.end()) &amp;&amp; (Next(iter) == cont.end());
-    }
-
-  };
-
-  // Convert to and from HTML color strings.
-  class HTMLToFromRGBAColor
-  {
-  public:
-    //---------------------------------------------------------------------------
-    HTMLToFromRGBAColor()
-    {
-    }
-
-    //---------------------------------------------------------------------------
-    virtual ~HTMLToFromRGBAColor()
-    {
-    }
-
-    //-----------------------------------------------------------------------------
-    bool IsValidHTMLColorString(std::string const &amp; s)
-    {
-      if (s.size() == 7 || s.size() == 9) // #rrggbb or #rrggbbaa
-      {
-        if (s.compare(0, 1, &quot;#&quot;) == 0
-          &amp;&amp; s.find_first_not_of(&quot;0123456789abcdefABCDEF&quot;, 1) == std::string::npos)
-        {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string RGBToHTMLColor(vtkColor3ub const &amp; rgb)
-    {
-      std::string s = &quot;#&quot;;
-      char buff[9];
-      snprintf(buff, sizeof(buff) - 1, &quot;%02x&quot;, rgb.GetRed());
-      s += buff;
-      snprintf(buff, sizeof(buff) - 1, &quot;%02x&quot;, rgb.GetGreen());
-      s += buff;
-      snprintf(buff, sizeof(buff) - 1, &quot;%02x&quot;, rgb.GetBlue());
-      s += buff;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    vtkColor3ub HTMLColorToRGB(std::string const &amp; colorString)
-    {
-      vtkColor3ub c(0, 0, 0);
-      if (IsValidHTMLColorString(colorString))
-      {
-        std::string t = colorString.substr(1);
-        std::string v = t.substr(0, 2);
-        c.SetRed(static_cast&lt;unsigned char&gt;(
-          strtoul(t.substr(0, 2).c_str(), NULL, 16)));
-        c.SetGreen(static_cast&lt;unsigned char&gt;(strtoul(
-          t.substr(2, 2).c_str(), NULL, 16)));
-        c.SetBlue(static_cast&lt;unsigned char&gt;(strtoul(
-          t.substr(4, 2).c_str(), NULL, 16)));
-      }
-      return c;
-    }
-
-    //-----------------------------------------------------------------------------
-    double RGBToLumaCCIR601(vtkColor3ub const &amp; rgb)
-    {
-      return 0.299 * rgb.GetRed() + 0.587 * rgb.GetGreen() + 0.114 * rgb.GetBlue();
-    }
-
-  };
-
-  //! Holds the color names and information about table layout and ordering.
-  /*!
-    This class creates a series of maps and vectors of color names from
-    a series of python dictionaries and lists.
-    */
-  class ColorStructures
-  {
-  public:
-    //---------------------------------------------------------------------------
-    ColorStructures()
-    {
-      this-&gt;Init();
-    }
-
-    //---------------------------------------------------------------------------
-    virtual ~ColorStructures()
-    {
-    }
-
-  private:
-    //---------------------------------------------------------------------------
-    void Init()
-    {
-      // These strings correspond to the maps and lists used in the Python
-      // version of this code (NamedColorPatches.py).
-      const std::string cnStr = &quot;\
-'Red':['IndianRed', 'LightCoral', 'Salmon', 'DarkSalmon',\
-'LightSalmon', 'Red', 'Crimson', 'FireBrick', 'DarkRed'],\
-'Pink':['Pink', 'LightPink', 'HotPink', 'DeepPink',\
-'MediumVioletRed', 'PaleVioletRed'],\
-'Orange':['LightSalmon', 'Coral', 'Tomato', 'OrangeRed',\
-'DarkOrange', 'Orange'],\
-'Yellow':['Gold', 'Yellow', 'LightYellow', 'LemonChiffon',\
-'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin',\
-'PeachPuff', 'PaleGoldenrod', 'Khaki', 'DarkKhaki'],\
-'Purple':['Lavender', 'Thistle', 'Plum', 'Violet', 'Orchid',\
-'Fuchsia', 'Magenta', 'MediumOrchid', 'MediumPurple',\
-'BlueViolet', 'DarkViolet', 'DarkOrchid', 'DarkMagenta',\
-'Purple', 'Indigo', 'DarkSlateBlue', 'SlateBlue',\
-'MediumSlateBlue'],\
-'Green':['GreenYellow', 'Chartreuse', 'LawnGreen', 'Lime',\
-'LimeGreen', 'PaleGreen', 'LightGreen',\
-'MediumSpringGreen', 'SpringGreen', 'MediumSeaGreen',\
-'SeaGreen', 'ForestGreen', 'Green', 'DarkGreen',\
-'YellowGreen', 'OliveDrab', 'Olive', 'DarkOliveGreen',\
-'MediumAquamarine', 'DarkSeaGreen', 'LightSeaGreen',\
-'DarkCyan', 'Teal'],\
-'Blue/Cyan':['Aqua', 'Cyan', 'LightCyan', 'PaleTurquoise',\
-'Aquamarine', 'Turquoise', 'MediumTurquoise',\
-'DarkTurquoise', 'CadetBlue', 'SteelBlue',\
-'LightSteelBlue', 'PowderBlue', 'LightBlue',\
-'SkyBlue', 'LightSkyBlue', 'DeepSkyBlue',\
-'DodgerBlue', 'CornflowerBlue', 'RoyalBlue', 'Blue',\
-'MediumBlue', 'DarkBlue', 'Navy', 'MidnightBlue'],\
-'Brown':['Cornsilk', 'BlanchedAlmond', 'Bisque', 'NavajoWhite',\
-'Wheat', 'BurlyWood', 'Tan', 'RosyBrown', 'SandyBrown',\
-'Goldenrod', 'DarkGoldenrod', 'Peru', 'Chocolate',\
-'SaddleBrown', 'Sienna', 'Brown', 'Maroon'],\
-'White':['White', 'Snow', 'Honeydew', 'MintCream', 'Azure',\
-'AliceBlue', 'GhostWhite', 'WhiteSmoke', 'Seashell',\
-'Beige', 'OldLace', 'FloralWhite', 'Ivory',\
-'AntiqueWhite', 'Linen',\
-'LavenderBlush', 'MistyRose'],\
-'Gray':['Gainsboro', 'LightGrey', 'Silver', 'DarkGray', 'Gray',\
-'DimGray', 'LightSlateGray', 'SlateGray', 'DarkSlateGray',\
-'Black']\
-&quot;;
-const std::string cnOrderStr =
-&quot;['Red', 'Pink', 'Orange', 'Yellow', 'Purple', 'Green',\
-'Blue/Cyan', 'Brown', 'White', 'Gray']&quot;;
-const std::string cnStartTableStr =
-&quot;['Red', 'Green', 'Brown']&quot;;
-const std::string cnEndTableStr =
-&quot;['Purple', 'Blue/Cyan', 'Gray']&quot;;
-
-const std::string vtkcnStr = &quot;\
-'Whites':['antique_white', 'azure', 'bisque', 'blanched_almond',\
-'cornsilk', 'eggshell', 'floral_white', 'gainsboro',\
-'ghost_white', 'honeydew', 'ivory', 'lavender',\
-'lavender_blush', 'lemon_chiffon', 'linen', 'mint_cream',\
-'misty_rose', 'moccasin', 'navajo_white', 'old_lace',\
-'papaya_whip',  'peach_puff', 'seashell', 'snow',\
-'thistle', 'titanium_white', 'wheat', 'white',\
-'white_smoke', 'zinc_white'],\
-'Greys':['cold_grey', 'dim_grey', 'grey', 'light_grey',\
-'slate_grey', 'slate_grey_dark', 'slate_grey_light',\
-'warm_grey'],\
-'Blacks':['black', 'ivory_black', 'lamp_black'],\
-'Reds':['alizarin_crimson', 'brick', 'cadmium_red_deep', 'coral',\
-'coral_light', 'deep_pink', 'english_red', 'firebrick',\
-'geranium_lake', 'hot_pink', 'indian_red', 'light_salmon',\
-'madder_lake_deep', 'maroon', 'pink', 'pink_light',\
-'raspberry', 'red', 'rose_madder', 'salmon', 'tomato',\
-'venetian_red'],\
-'Browns':['beige', 'brown', 'brown_madder', 'brown_ochre',\
-'burlywood', 'burnt_sienna', 'burnt_umber', 'chocolate',\
-'deep_ochre', 'flesh', 'flesh_ochre', 'gold_ochre',\
-'greenish_umber', 'khaki', 'khaki_dark', 'light_beige',\
-'peru', 'rosy_brown', 'raw_sienna', 'raw_umber', 'sepia',\
-'sienna', 'saddle_brown', 'sandy_brown', 'tan',\
-'van_dyke_brown'],\
-'Oranges':['cadmium_orange', 'cadmium_red_light', 'carrot',\
-'dark_orange', 'mars_orange', 'mars_yellow', 'orange',\
-'orange_red', 'yellow_ochre'],\
-'Yellows':['aureoline_yellow', 'banana', 'cadmium_lemon',\
-'cadmium_yellow', 'cadmium_yellow_light', 'gold',\
-'goldenrod', 'goldenrod_dark', 'goldenrod_light',\
-'goldenrod_pale', 'light_goldenrod', 'melon',\
-'naples_yellow_deep', 'yellow', 'yellow_light'],\
-'Greens':['chartreuse', 'chrome_oxide_green', 'cinnabar_green',\
-'cobalt_green', 'emerald_green', 'forest_green', 'green',\
-'green_dark', 'green_pale', 'green_yellow', 'lawn_green',\
-'lime_green', 'mint', 'olive', 'olive_drab',\
-'olive_green_dark', 'permanent_green', 'sap_green',\
-'sea_green', 'sea_green_dark', 'sea_green_medium',\
-'sea_green_light', 'spring_green', 'spring_green_medium',\
-'terre_verte', 'viridian_light', 'yellow_green'],\
-'Cyans':['aquamarine', 'aquamarine_medium', 'cyan', 'cyan_white',\
-'turquoise', 'turquoise_dark', 'turquoise_medium',\
-'turquoise_pale'],\
-'Blues':['alice_blue', 'blue', 'blue_light', 'blue_medium',\
-'cadet', 'cobalt', 'cornflower', 'cerulean', 'dodger_blue',\
-'indigo', 'manganese_blue', 'midnight_blue', 'navy',\
-'peacock',  'powder_blue', 'royal_blue', 'slate_blue',\
-'slate_blue_dark', 'slate_blue_light',\
-'slate_blue_medium', 'sky_blue', 'sky_blue_deep',\
-'sky_blue_light', 'steel_blue', 'steel_blue_light',\
-'turquoise_blue', 'ultramarine'],\
-'Magentas':['blue_violet', 'cobalt_violet_deep', 'magenta',\
-'orchid', 'orchid_dark', 'orchid_medium',\
-'permanent_red_violet', 'plum', 'purple',\
-'purple_medium', 'ultramarine_violet', 'violet',\
-'violet_dark', 'violet_red', 'violet_red_medium',\
-'violet_red_pale']\
-&quot;;
-const std::string vtkcnOrderStr =
-&quot;['Whites', 'Greys', 'Blacks', 'Reds', 'Oranges',\
-'Browns', 'Yellows', 'Greens', 'Cyans', 'Blues',\
-'Magentas']&quot;;
-const std::string vtkcnStartTableStr =
-&quot;['Whites', 'Browns', 'Cyans']&quot;;
-const std::string vtkcnEndTableStr =
-&quot;['Oranges', 'Greens', 'Magentas']&quot;;
-
-      this-&gt;cn = this-&gt;ParseDictionary(cnStr);
-      this-&gt;cnOrder = this-&gt;ParseList(cnOrderStr);
-      this-&gt;cnStartTable = this-&gt;ParseList(cnStartTableStr);
-      this-&gt;cnEndTable = this-&gt;ParseList(cnEndTableStr);
-
-      this-&gt;vtkcn = this-&gt;ParseDictionary(vtkcnStr);
-      this-&gt;vtkcnOrder = this-&gt;ParseList(vtkcnOrderStr);
-      this-&gt;vtkcnStartTable = this-&gt;ParseList(vtkcnStartTableStr);
-      this-&gt;vtkcnEndTable = this-&gt;ParseList(vtkcnEndTableStr);
-    }
-
-  private:
-    //---------------------------------------------------------------------------
-    //! Words are delimited by single quotes.
-    std::string ParseWords(std::string const &amp; str)
-    {
-      size_t idx1 = str.find_first_of(&quot;'&quot;);
-      size_t idx2 = str.find_last_of(&quot;'&quot;);
-      if (idx1 != std::string::npos &amp;&amp; idx2 != std::string::npos)
-      {
-        return str.substr(idx1 + 1, idx2 - idx1 - 1);
-      }
-      return &quot;&quot;;
-    }
-
-    //---------------------------------------------------------------------------
-    //! Convert a list to a vector.
-    std::vector&lt;std::string&gt; ParseList(std::string const &amp; str)
-    {
-      std::vector&lt;std::string&gt; result;
-      size_t idx1 = 0;
-      size_t idx2 = 0;
-      while (idx1 != std::string::npos &amp;&amp; idx2 !=
-        std::string::npos &amp;&amp; idx1 &lt; str.size())
-      {
-        idx1 = str.find(&quot;'&quot;, idx1);
-        idx2 = str.find(&quot;'&quot;, idx1 + 1);
-        if (idx1 != std::string::npos)
-        {
-          if (idx2 != std::string::npos)
-          {
-            result.push_back(str.substr(idx1 + 1, idx2 - idx1 - 1));
-          }
-          else
-          {
-            break;
-          }
-        }
-        else
-        {
-          break;
-        }
-        idx1 = idx2 + 1;
-      }
-      return result;
-    }
-
-    //---------------------------------------------------------------------------
-    //! Convert a dictionary to a map.
-    std::map&lt;std::string, std::vector&lt;std::string&gt; &gt;
-      ParseDictionary(std::string const &amp; str)
-    {
-      std::map&lt;std::string, std::vector&lt;std::string&gt; &gt; result;
-      size_t idx0 = 0;
-      size_t idx1 = 0;
-      size_t idx2 = 0;
-      std::string key;
-      std::vector&lt;std::string&gt; value;
-      while (idx1 != std::string::npos &amp;&amp; idx2 != std::string::npos)
-      {
-        idx1 = str.find('[', idx1);
-        if (idx1 != std::string::npos)
-        {
-          idx2 = str.find(']', idx1 + 1);
-          key = ParseWords(str.substr(idx0, idx1 - idx0));
-          if (idx2 != std::string::npos)
-          {
-            value = ParseList(str.substr(idx1, idx2 - idx1));
-          }
-          else
-          {
-            break;
-          }
-          idx0 = idx1 = idx2;
-        }
-        else
-        {
-          break;
-        }
-        result[key] = value;
-      }
-      return result;
-    }
-
-  public:
-    std::map&lt;std::string, std::vector&lt;std::string&gt; &gt; cn;
-    // Ordering of the tables and when to start and end a column of
-    // tables in the layout.
-    std::vector&lt;std::string&gt; cnOrder;
-    std::vector&lt;std::string&gt; cnStartTable;
-    std::vector&lt;std::string&gt; cnEndTable;
-
-    std::map&lt;std::string, std::vector&lt;std::string&gt; &gt; vtkcn;
-    // Ordering of the tables and when to start and end a column of
-    // tables in the layout.
-    std::vector&lt;std::string&gt; vtkcnOrder;
-    std::vector&lt;std::string&gt; vtkcnStartTable;
-    std::vector&lt;std::string&gt; vtkcnEndTable;
-  };
-
-  ColorStructures cs = ColorStructures();
-  STLHelpers stlHelpers = STLHelpers();
-  HTMLToFromRGBAColor htmlRGBA = HTMLToFromRGBAColor();
-}
-
-/*!
-  This class creates HTML Tables displaying all the colors in
-  the class vtkNamedColors grouped by various categories.
-*/
-class HTMLTableMaker
-{
-
-  public:
-    //-----------------------------------------------------------------------------
-    HTMLTableMaker()
-    {
-      this-&gt;nc = vtkSmartPointer&lt;vtkNamedColors&gt;::New();
-    }
-
-    //-----------------------------------------------------------------------------
-    ~HTMLTableMaker()
-    {
-    }
-
-  //-----------------------------------------------------------------------------
-    std::string MakeWebColorPage()
-    {
-      std::string res = this-&gt;MakeHTMLHeader();
-      res += &quot;&lt;body&gt;\n&quot;;
-      res += &quot;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;\n&quot;;
-      res += &quot;&lt;table style=\&quot;font-size:90%\&quot; cellpadding=\&quot;4\&quot;&gt;\n&quot;;
-      res += &quot;&lt;caption style=\&quot;background:lightgrey\&quot;&gt;Web Color Names&lt;/caption&gt;\n&quot;;
-      res += &quot;&lt;tr valign=\&quot;top\&quot;&gt;\n&quot;;
-      res += this-&gt;MakeWebColorTables();
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;/body&gt;\n&quot;;
-      return res;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeVTKColorPage()
-    {
-      std::string res = this-&gt;MakeHTMLHeader();
-      res += &quot;&lt;body&gt;\n&quot;;
-      res += &quot;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;\n&quot;;
-      res += &quot;&lt;p&gt;The web colors take precedence over colors of the same&quot;;
-      res += &quot; name in VTK Color Names.&lt;/p&gt;\n&quot;;
-      res += &quot;&lt;table style=\&quot;font-size:90%\&quot; cellpadding=\&quot;4\&quot;&gt;\n&quot;;
-      res += &quot;&lt;caption style=\&quot;background:lightgrey\&quot;&gt;VTK Color Names&lt;/caption&gt;\n&quot;;
-      res += &quot;&lt;tr valign=\&quot;top\&quot;&gt;\n&quot;;
-      res += this-&gt;MakeVTKColorTables();
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;/body&gt;\n&quot;;
-      return res;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeSynonymColorPage()
-    {
-      std::string res = this-&gt;MakeHTMLHeader();
-      res += &quot;&lt;body&gt;\n&quot;;
-      res += &quot;&lt;h1&gt;Synonyms in vtkNamedColors&lt;/h1&gt;\n&quot;;
-      res += &quot;&lt;table style=\&quot;font-size:90%\&quot; cellpadding=\&quot;4\&quot;&gt;\n&quot;;
-      res += &quot;&lt;caption style=\&quot;background:lightgrey\&quot;&gt;&lt;/caption&gt;\n&quot;;
-      res += &quot;&lt;tr valign=\&quot;top\&quot;&gt;\n&quot;;
-      res += this-&gt;MakeSynonymColorTable();
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;/body&gt;\n&quot;;
-      return res;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeCombinedColorPage()
-    {
-      std::string res = this-&gt;MakeHTMLHeader();
-      res += &quot;&lt;body&gt;\n&quot;;
-      res += &quot;&lt;h1&gt;Colors available in vtkNamedColors&lt;/h1&gt;\n&quot;;
-      res += &quot;&lt;p&gt;The class vtkNamedColors provides color names and their&quot;;
-      res += &quot; values for the convenience of the user.&lt;/p&gt;\n&quot;;
-      res += &quot;&lt;p&gt;The following tables show the available colors along with&quot;;
-      res += &quot; their red, green and blue values.&lt;/p&gt;\n&quot;;
-      res += this-&gt;MakeHTMLIndex();
-      res += &quot;&lt;h2&gt;&lt;a id=\&quot;WebColorNames\&quot;&gt;Web color Names&lt;/h2&gt;&quot;;
-      res += &quot;These colors correspond to those in&quot;;
-      res += &quot; &lt;a href=\&quot;http://en.wikipedia.org/wiki/Web_colors\&quot;&quot;;
-      res += &quot; title=\&quot;Web Colors\&quot;&gt;Web Colors&lt;/a&gt;.\n&quot;;
-      res += &quot;&lt;table style=\&quot;font-size:90%\&quot; cellpadding=\&quot;4\&quot;&gt;\n&quot;;
-      res += &quot;&lt;tr valign=\&quot;top\&quot;&gt;\n&quot;;
-      res += this-&gt;MakeWebColorTables();
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;h2&gt;&lt;a id=\&quot;VTKColorNames\&quot;&gt;VTK color Names&lt;/h2&gt;&quot;;
-      res += &quot;&lt;p&gt;The colors mainly correspond to those in vtkColors.txt.\n&lt;/p&gt;\n&quot;;
-      res += &quot;&lt;p&gt;The web colors (above) take precedence over colors of the&quot;;
-      res += &quot; same name in vtkColors.txt.&lt;/p&gt;\n&quot;;
-      res += &quot;&lt;table style=\&quot;font-size:90%\&quot; cellpadding=\&quot;4\&quot;&gt;\n&quot;;
-      res += &quot;&lt;tr valign=\&quot;top\&quot;&gt;\n&quot;;
-      res += this-&gt;MakeVTKColorTables();
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;h2&gt;&lt;a id=\&quot;Synonyms\&quot;&gt;Synonyms&lt;/h2&gt;&quot;;
-      res += &quot;&lt;table style=\&quot;font-size:90%\&quot; cellpadding=\&quot;4\&quot;&gt;\n&quot;;
-      res += &quot;&lt;tr valign=\&quot;top\&quot;&gt;\n&quot;;
-      res += this-&gt;MakeSynonymColorTable();
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;/body&gt;\n&quot;;
-      return res;
-    }
-
-  private:
-    //-----------------------------------------------------------------------------
-    std::vector&lt;vtkStdString&gt; ParseColorNames(
-                                              const vtkStdString &amp; colorNames)
-    {
-      // The delimiter for a color.
-      const std::string colorDelimiter = &quot;\n&quot;;
-      std::vector&lt;vtkStdString&gt; cn;
-      size_t start = 0;
-      size_t end = colorNames.find(colorDelimiter);
-      while (end != std::string::npos)
-      {
-        cn.push_back(colorNames.substr(start, end - start));
-        start = end + 1;
-        end = colorNames.find(colorDelimiter, start);
-      }
-      // Get the last color.
-      if (!colorNames.empty())
-      {
-        cn.push_back(colorNames.substr(start, colorNames.size() - start));
-      }
-      return cn;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::vector&lt;std::vector&lt;vtkStdString&gt; &gt; ParseSynonyms(
-                                                      const vtkStdString &amp; synonyms)
-    {
-      // The delimiter for a string of synonyms.
-      const vtkStdString synonymDelimiter = &quot;\n\n&quot;;
-      size_t start = 0;
-      size_t end = synonyms.find(synonymDelimiter);
-      std::vector&lt;vtkStdString&gt; cn;
-      std::vector&lt;std::vector&lt;vtkStdString&gt; &gt; syn;
-      vtkStdString str;
-      while (end != std::string::npos)
-      {
-        str = synonyms.substr(start, end - start);
-        cn = ParseColorNames(str);
-        syn.push_back(cn);
-        start = end + 2;
-        end = synonyms.find(synonymDelimiter, start);
-      }
-      // Get the last set of synonyms.
-      if (!synonyms.empty())
-      {
-        str = synonyms.substr(start, end - start);
-        cn = ParseColorNames(str);
-        syn.push_back(cn);
-      }
-      return syn;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeHTMLHeader()
-    {
-      std::string s = &quot;&lt;!DOCTYPE html&gt;\n&quot;;
-      s += &quot;&lt;html lang=\&quot;en\&quot; dir=\&quot;ltr\&quot; class=\&quot;client-nojs\&quot;&gt;\n&quot;;
-      s += &quot;&lt;head&gt;\n&quot;;
-      s += &quot;&lt;title&gt;vtkNamedColors&lt;/title&gt;\n&quot;;
-      s += &quot;&lt;meta charset=\&quot;UTF-8\&quot; /&gt;\n&quot;;
-      s += &quot;&lt;/head&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeHTMLIndex()
-    {
-      std::string s = &quot;&lt;h2&gt;Index&lt;/h2&gt;\n&quot;;
-      s += &quot;&lt;ul&gt;\n&quot;;
-      s += &quot;\t&lt;li&gt;&lt;a href=\&quot;#WebColorNames\&quot;&gt;Web color Names&lt;/li&gt;\n&quot;;
-      s += &quot;\t&lt;li&gt;&lt;a href=\&quot;#VTKColorNames\&quot;&gt;VTK color Names&lt;/li&gt;\n&quot;;
-      s += &quot;\t&lt;li&gt;&lt;a href=\&quot;#Synonyms\&quot;&gt;Synonyms&lt;/li&gt;\n&quot;;
-      s += &quot;&lt;/ul&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeTableHeader()
-    {
-      std::string s = &quot;&lt;tr&gt;\n&quot;;
-      s += &quot;&lt;th style=\&quot;background:lightgrey\&quot;&gt;HTML name&lt;/th&gt;\n&quot;;
-      s += &quot;&lt;th style=\&quot;background:lightgrey\&quot;&gt;Decimal code&lt;br /&gt;\n&quot;;
-      s += &quot;&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&quot;;
-      s += &quot;G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;\n&quot;;
-      s += &quot;&lt;/tr&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeSynonymTableHeader()
-    {
-      std::string s = &quot;&lt;tr&gt;\n&quot;;
-      s += &quot;&lt;th style=\&quot;background:lightgrey\&quot;&gt;Synonyms&lt;/th&gt;\n&quot;;
-      s += &quot;&lt;th style=\&quot;background:lightgrey\&quot;&gt;Decimal code&lt;br /&gt;\n&quot;;
-      s += &quot;&amp;#160;&amp;#160;R&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&quot;;
-      s += &quot;G&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;B&lt;/th&gt;\n&quot;;
-      s += &quot;&lt;/tr&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeTD(std::string const &amp; name)
-    {
-      std::string s = &quot;&lt;tr&gt;\n&quot;;
-      s += &quot;&lt;td colspan=\&quot;2\&quot; style=\&quot;background:whitesmoke;&quot;;
-      s += &quot;color:slategray;text-align:left\&quot;&gt;&lt;big&gt;&lt;b&gt;&quot; + name + &quot;&lt;/b&gt;&lt;/big&gt;&lt;/td&gt;\n&quot;;
-      s += &quot;&lt;/tr&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string FormatRGBForHTML(vtkColor3ub const &amp; rgb)
-    {
-      std::string s;
-      char buff[9];
-      snprintf(buff, sizeof(buff) - 1, &quot;%3d&quot;, rgb.GetRed());
-      s += buff;
-      s += +&quot;,&quot;;
-      snprintf(buff, sizeof(buff) - 1, &quot;%3d&quot;, rgb.GetGreen());
-      s += buff;
-      s += +&quot;,&quot;;
-      snprintf(buff, sizeof(buff) - 1, &quot;%3d&quot;, rgb.GetBlue());
-      s += buff;
-      s = stlHelpers.ReplaceAll(s, &quot; &quot;, &quot;&amp;#160;&quot;);
-      s = stlHelpers.ReplaceAll(s, &quot;,&quot;, &quot;&amp;#160;&amp;#160;&quot;);
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    /*!
-      Use when the name is a color name known to the web browser.
-    */
-    std::string  MakeTR(const std::string &amp; name,
-                            vtkColor3ub const &amp; rgb, const std::string &amp; textColor)
-    {
-      std::string s = &quot;&lt;tr&gt;\n&quot;;
-      s += &quot;&lt;td style=\&quot;background:&quot; + name + &quot;;color:&quot; + textColor;
-      s += &quot;\&quot;&gt;&quot; + name + &quot;&lt;/td&gt;\n&quot;;
-      s += &quot;&lt;td style=\&quot;background:&quot; + name + &quot;;color:&quot; + textColor;
-      s += &quot;\&quot;&gt;&lt;tt&gt;&quot; + this-&gt;FormatRGBForHTML(rgb) + &quot;&lt;/tt&gt;&lt;/td&gt;\n&quot;;
-      s += &quot;&lt;/tr&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    /*!
-      Use when the name is not a color name known to the web browser.
-     */
-    std::string  MakeSynonymTR(const std::string &amp; name,
-                            const std::string &amp; nameColor, vtkColor3ub const &amp; rgb,
-                            const std::string &amp; textColor)
-    {
-      std::string s = &quot;&lt;tr&gt;\n&quot;;
-      s += &quot;&lt;td style=\&quot;background:&quot; + nameColor + &quot;;color:&quot; + textColor;
-      s += &quot;\&quot;&gt;&quot; + name + &quot;&lt;/td&gt;\n&quot;;
-      s += &quot;&lt;td style=\&quot;background:&quot; + nameColor + &quot;;color:&quot; + textColor;
-      s += &quot;\&quot;&gt;&lt;tt&gt;&quot; + this-&gt;FormatRGBForHTML(rgb) + &quot;&lt;/tt&gt;&lt;/td&gt;\n&quot;;
-      s += &quot;&lt;/tr&gt;\n&quot;;
-      return s;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string  MakeWebColorTables()
-    {
-      std::string res;
-      for (std::vector&lt;std::string&gt;::const_iterator
-        p = cs.cnOrder.begin(); p != cs.cnOrder.end(); ++p)
-      {
-        if (std::find(
-          cs.cnStartTable.begin(),  cs.cnStartTable.end(), *p)
-          != cs.cnStartTable.end())
-        {
-          res += &quot;&lt;td&gt;\n&quot;;
-          res += &quot;&lt;table&gt;\n&quot;;
-          res += this-&gt;MakeTableHeader();
-        }
-        // Add in the name of the group in the color table.
-        res += this-&gt;MakeTD(*p + &quot; colors&quot;);
-        std::vector&lt;std::string&gt; values = cs.cn[*p];
-        for (std::vector&lt;std::string&gt;::const_iterator
-          q = values.begin(); q != values.end(); ++q)
-        {
-          vtkColor3ub rgb = this-&gt;nc-&gt;GetColor3ub(*q);
-          double y = htmlRGBA.RGBToLumaCCIR601(rgb);
-          std::string textColor = &quot;#000000&quot;; // Black
-          if (y &lt; 255 / 2.0)
-          {
-            textColor = &quot;#ffffff&quot;; // White
-          }
-          // Make the row for each color in the group.
-          // Here we use the name to set the background color
-          //  as it is known to the web browser.
-          res += this-&gt;MakeTR(*q, rgb, textColor);
-        }
-        if (std::find(
-          cs.cnEndTable.begin(), cs.cnEndTable.end(), *p)
-          != cs.cnEndTable.end())
-        {
-          res += &quot;&lt;/table&gt;\n&quot;;
-          res += &quot;&lt;/td&gt;\n&quot;;
-        }
-      }
-      return res;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string  MakeVTKColorTables()
-    {
-      std::string res;
-
-      for (std::vector&lt;std::string&gt;::const_iterator
-        p = cs.vtkcnOrder.begin(); p != cs.vtkcnOrder.end(); ++p)
-      {
-        if (std::find(
-          cs.vtkcnStartTable.begin(), cs.vtkcnStartTable.end(), *p)
-          != cs.vtkcnStartTable.end())
-        {
-          res += &quot;&lt;td&gt;\n&quot;;
-          res += &quot;&lt;table&gt;\n&quot;;
-          res += this-&gt;MakeTableHeader();
-        }
-        // Add in the name of the group in the color table.
-        res += this-&gt;MakeTD(*p);
-        std::vector&lt;std::string&gt; values = cs.vtkcn[*p];
-        for (std::vector&lt;std::string&gt;::const_iterator
-          q = values.begin(); q != values.end(); ++q)
-        {
-          vtkColor3ub rgb = this-&gt;nc-&gt;GetColor3ub(*q);
-          double y = htmlRGBA.RGBToLumaCCIR601(rgb);
-          std::string textColor = &quot;#000000&quot;; // Black
-          if (y &lt; 255 / 2.0)
-          {
-            textColor = &quot;#ffffff&quot;; // White
-          }
-          // We must set the background color to a specific
-          // HTML color as the color name may not be a standard
-          // name known to the web browser.
-          std::string nameColor = htmlRGBA.RGBToHTMLColor(rgb);
-          // Make the row for each color in the group.
-          res += this-&gt;MakeSynonymTR(*q, nameColor, rgb, textColor);
-        }
-        if (std::find(
-          cs.vtkcnEndTable.begin(), cs.vtkcnEndTable.end(), *p)
-          != cs.vtkcnEndTable.end())
-        {
-          res += &quot;&lt;/table&gt;\n&quot;;
-          res += &quot;&lt;/td&gt;\n&quot;;
-        }
-      }
-      return res;
-    }
-
-    //-----------------------------------------------------------------------------
-    std::string MakeSynonymColorTable()
-    {
-      std::vector&lt;std::vector&lt;vtkStdString &gt; &gt; synonyms
-        = this-&gt;ParseSynonyms(this-&gt;nc-&gt;GetSynonyms());
-      std::vector&lt;std::string&gt; cn;
-      for (std::map&lt;std::string, std::vector&lt;std::string&gt; &gt;::const_iterator
-        p = cs.cn.begin(); p != cs.cn.end(); ++p)
-      {
-        for (std::vector&lt;std::string&gt;::const_iterator
-          q = p-&gt;second.begin(); q != p-&gt;second.end(); ++q)
-        {
-          cn.push_back(*q);
-        }
-      }
-      std::map&lt;std::string, std::string&gt; d;
-      for (std::vector&lt;std::string&gt;::const_iterator
-        p = cn.begin(); p != cn.end(); ++p)
-      {
-        d[stlHelpers.ToLowercase(*p)] = *p;
-      }
-      std::string res;
-      res += &quot;&lt;td&gt;\n&quot;;
-      res += &quot;&lt;table&gt;\n&quot;;
-      res += this-&gt;MakeSynonymTableHeader();
-      for (std::vector&lt;std::vector&lt;vtkStdString &gt; &gt;::iterator
-        p = synonyms.begin(); p != synonyms.end(); ++p)
-      {
-        for (std::vector&lt;vtkStdString &gt;::iterator
-          q = p-&gt;begin(); q != p-&gt;end(); ++q)
-        {
-          // Replace the lowercase name with the proper name.
-          if (d.find(*q) != d.end())
-          {
-            *q = d[*q];
-          }
-        }
-        std::sort(p-&gt;begin(), p-&gt;end());
-        std::string names;
-        for (std::vector&lt;vtkStdString &gt;::iterator
-          q = p-&gt;begin(); q != p-&gt;end(); ++q)
-        {
-          names += *q;
-          if (!stlHelpers.IsLast(q, *p))
-          {
-            names += &quot;, &quot;;
-          }
-        }
-        vtkColor3ub rgb = this-&gt;nc-&gt;GetColor3ub(*(p-&gt;begin()));
-        double y = htmlRGBA.RGBToLumaCCIR601(rgb);
-        std::string textColor = &quot;#000000&quot;; // Black
-        if (y &lt; 255 / 2.0)
-        {
-          textColor = &quot;#ffffff&quot;; // White
-        }
-        // We must set the background color to a specific
-        // HTML color because names is just a list of
-        // synonyms for that particular color.
-        std::string nameColor = htmlRGBA.RGBToHTMLColor(rgb);
-        // Make the row for each color in the group.
-        res += this-&gt;MakeSynonymTR(names, nameColor, rgb, textColor);
-      }
-      res += &quot;&lt;/table&gt;\n&quot;;
-      res += &quot;&lt;/td&gt;\n&quot;;
-      return res;
-    }
-
-  private:
-    vtkSmartPointer&lt;vtkNamedColors&gt; nc;
-};
-
-int main(int, char *[])
-{
-  HTMLTableMaker ncp;
-
-  std::ofstream outputFile;
-  outputFile.open(&quot;VTKNamedColorPatches.html&quot;,
-                    ios::out | ios::trunc | ios::binary);
-  outputFile &lt;&lt; ncp.MakeCombinedColorPage();
-  outputFile.close();
-
-  return EXIT_SUCCESS;
-}
-</code></pre>
-
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
-
-PROJECT(NamedColorPatches)
-
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
-
-add_executable(NamedColorPatches MACOSX_BUNDLE NamedColorPatches.cxx)
-
-target_link_libraries(NamedColorPatches ${VTK_LIBRARIES})
-</code></pre>
-
-<h3 id="download-and-build-namedcolorpatches">Download and Build NamedColorPatches</h3>
+<h3 id="download-and-build-namedcolorpatches">Download and Build NamedColorPatches<a class="headerlink" href="#download-and-build-namedcolorpatches" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/NamedColorPatches.tar">here to download NamedColorPatches</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball NamedColorPatches.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd NamedColorPatches/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd NamedColorPatches/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./NamedColorPatches
-</code></pre>
+<div class="codehilite"><pre><span></span>./NamedColorPatches
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

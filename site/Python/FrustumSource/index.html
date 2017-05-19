@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15558,6 +15558,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,49 +15984,49 @@
                   <h1>FrustumSource</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//FrustumSource</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This is a Python version of the C++ example for viewing a Frustum</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>FrustumSource.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
+<span class="c1"># create a rendering window and renderer</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+<span class="c1"># create a renderwindowinteractor</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
 
-planesArray=[0]*24 # Allocate a list of length 24
-camera = vtk.vtkCamera()
-camera.GetFrustumPlanes(1, planesArray)
-planes=vtk.vtkPlanes()
-planes.SetFrustumPlanes(planesArray)
+<span class="n">planesArray</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">24</span> <span class="c1"># Allocate a list of length 24</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCamera</span><span class="p">()</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">GetFrustumPlanes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">planesArray</span><span class="p">)</span>
+<span class="n">planes</span><span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlanes</span><span class="p">()</span>
+<span class="n">planes</span><span class="o">.</span><span class="n">SetFrustumPlanes</span><span class="p">(</span><span class="n">planesArray</span><span class="p">)</span>
 
-frustumSource = vtk.vtkFrustumSource()
-frustumSource.SetPlanes(planes)
-frustumSource.ShowLinesOff();
-frustumSource.Update()
+<span class="n">frustumSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFrustumSource</span><span class="p">()</span>
+<span class="n">frustumSource</span><span class="o">.</span><span class="n">SetPlanes</span><span class="p">(</span><span class="n">planes</span><span class="p">)</span>
+<span class="n">frustumSource</span><span class="o">.</span><span class="n">ShowLinesOff</span><span class="p">();</span>
+<span class="n">frustumSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputData(frustumSource.GetOutput())
+<span class="c1"># mapper</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">frustumSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
-actor.GetProperty().SetColor(0.8,0.9,0.7)
+<span class="c1"># actor</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.7</span><span class="p">)</span>
 
-# assign actor to the renderer
-ren.AddActor(actor)
-ren.SetBackground(0.2,0.1,0.3)
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
-</code></pre>
+<span class="c1"># assign actor to the renderer</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="c1"># enable user interface interactor</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

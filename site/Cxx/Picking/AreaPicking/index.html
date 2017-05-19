@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,7 +16019,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Picking/AreaPicking</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Picking/TestAreaPicking.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates 3 points+vertices. Currently, the address of the picked prop is 0 (this is not correct). A red bounding box is drawn around every picked prop.</p>
 <ul>
 <li>
@@ -16017,153 +16029,160 @@
 <p>For '''vtkInteractorStyleRubberBandPick''' - use 'r' and left-mouse to draw a selection box used to pick</p>
 </li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AreaPicking.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleRubberBandPick.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
-#include &lt;vtkInteractorStyleTrackball.h&gt;
-#include &lt;vtkAreaPicker.h&gt;
-#include &lt;vtkCallbackCommand.h&gt;
-#include &lt;vtkProp3DCollection.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleRubberBandPick.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackball.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAreaPicker.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCallbackCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProp3DCollection.h&gt;</span><span class="cp"></span>
 
-void PickCallbackFunction ( vtkObject* caller, long unsigned int eventId, void* clientData, void* callData );
+<span class="kt">void</span> <span class="nf">PickCallbackFunction</span> <span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">);</span>
 
-int main(int, char *[])
-{
-  // Create a set of points
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  vtkSmartPointer&lt;vtkCellArray&gt; vertices =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  vtkIdType pid[1];
-  pid[0] = points-&gt;InsertNextPoint ( 1.0, 0.0, 0.0 );
-  vertices-&gt;InsertNextCell ( 1,pid );
-  pid[0] = points-&gt;InsertNextPoint ( 0.0, 0.0, 0.0 );
-  vertices-&gt;InsertNextCell ( 1,pid );
-  pid[0] = points-&gt;InsertNextPoint ( 0.0, 1.0, 0.0 );
-  vertices-&gt;InsertNextCell ( 1,pid );
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a set of points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">vertices</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">pid</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">pid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">vertices</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="n">pid</span> <span class="p">);</span>
+  <span class="n">pid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">vertices</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="n">pid</span> <span class="p">);</span>
+  <span class="n">pid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">vertices</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="n">pid</span> <span class="p">);</span>
 
-  // Create a polydata
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints ( points );
-  polydata-&gt;SetVerts ( vertices );
+  <span class="c1">// Create a polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span> <span class="p">(</span> <span class="n">points</span> <span class="p">);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetVerts</span> <span class="p">(</span> <span class="n">vertices</span> <span class="p">);</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  mapper-&gt;SetInput(polydata);
-#else
-  mapper-&gt;SetInputData(polydata);
-#endif
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkAreaPicker&gt; areaPicker =
-    vtkSmartPointer&lt;vtkAreaPicker&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAreaPicker</span><span class="o">&gt;</span> <span class="n">areaPicker</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAreaPicker</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderWindowInteractor-&gt;SetPicker(areaPicker);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetPicker</span><span class="p">(</span><span class="n">areaPicker</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(0,0,0.2); // Background color dark blue
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">);</span> <span class="c1">// Background color dark blue</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // For vtkInteractorStyleRubberBandPick - use 'r' and left-mouse to draw a selection box used to pick
-  //vtkSmartPointer&lt;vtkInteractorStyleRubberBandPick&gt; style =
-    //vtkSmartPointer&lt;vtkInteractorStyleRubberBandPick&gt;::New();
+  <span class="c1">// For vtkInteractorStyleRubberBandPick - use &#39;r&#39; and left-mouse to draw a selection box used to pick</span>
+  <span class="c1">//vtkSmartPointer&lt;vtkInteractorStyleRubberBandPick&gt; style =</span>
+    <span class="c1">//vtkSmartPointer&lt;vtkInteractorStyleRubberBandPick&gt;::New();</span>
 
-  // For vtkInteractorStyleTrackballCamera - use 'p' to pick at the current mouse position
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New(); //like paraview
-  style-&gt;SetCurrentRenderer(renderer);
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="c1">// For vtkInteractorStyleTrackballCamera - use &#39;p&#39; to pick at the current mouse position</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> <span class="c1">//like paraview</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">SetCurrentRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCallbackCommand&gt; pickCallback =
-    vtkSmartPointer&lt;vtkCallbackCommand&gt;::New();
-  pickCallback-&gt;SetCallback ( PickCallbackFunction );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">pickCallback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pickCallback</span><span class="o">-&gt;</span><span class="n">SetCallback</span> <span class="p">(</span> <span class="n">PickCallbackFunction</span> <span class="p">);</span>
 
-  areaPicker-&gt;AddObserver ( vtkCommand::EndPickEvent, pickCallback );
+  <span class="n">areaPicker</span><span class="o">-&gt;</span><span class="n">AddObserver</span> <span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">EndPickEvent</span><span class="p">,</span> <span class="n">pickCallback</span> <span class="p">);</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-void PickCallbackFunction(vtkObject* caller,
-                          long unsigned int vtkNotUsed(eventId),
-                          void* vtkNotUsed(clientData),
-                          void* vtkNotUsed(callData))
-{
-  std::cout &lt;&lt; &quot;Pick.&quot; &lt;&lt; std::endl;
-  vtkAreaPicker* areaPicker = static_cast&lt;vtkAreaPicker*&gt;(caller);
-  vtkProp3DCollection* props = areaPicker-&gt;GetProp3Ds();
+<span class="kt">void</span> <span class="nf">PickCallbackFunction</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span>
+                          <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">eventId</span><span class="p">),</span>
+                          <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">clientData</span><span class="p">),</span>
+                          <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Pick.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">vtkAreaPicker</span><span class="o">*</span> <span class="n">areaPicker</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkAreaPicker</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+  <span class="n">vtkProp3DCollection</span><span class="o">*</span> <span class="n">props</span> <span class="o">=</span> <span class="n">areaPicker</span><span class="o">-&gt;</span><span class="n">GetProp3Ds</span><span class="p">();</span>
 
-  for(vtkIdType i = 0; i &lt; props-&gt;GetNumberOfItems(); i++)
-  {
-    vtkProp3D* prop = props-&gt;GetNextProp3D();
-    std::cout &lt;&lt; &quot;Picked prop: &quot; &lt;&lt; prop &lt;&lt; std::endl;
-  }
-}
-</code></pre>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">props</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkProp3D</span><span class="o">*</span> <span class="n">prop</span> <span class="o">=</span> <span class="n">props</span><span class="o">-&gt;</span><span class="n">GetNextProp3D</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Picked prop: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">prop</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AreaPicking)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AreaPicking</span><span class="p">)</span>
 
-add_executable(AreaPicking MACOSX_BUNDLE AreaPicking.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AreaPicking ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AreaPicking</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AreaPicking.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-areapicking">Download and Build AreaPicking</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AreaPicking</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-areapicking">Download and Build AreaPicking<a class="headerlink" href="#download-and-build-areapicking" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AreaPicking.tar">here to download AreaPicking</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AreaPicking.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AreaPicking/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AreaPicking/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AreaPicking
-</code></pre>
+<div class="codehilite"><pre><span></span>./AreaPicking
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

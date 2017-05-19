@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15523,6 +15523,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -15965,47 +15977,47 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/PointSize</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestPointSize.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PointSize.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-# create a rendering window and renderer
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
+<span class="c1"># create a rendering window and renderer</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
 
-# create a renderwindowinteractor
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-
-
-
-# create source
-src = vtk.vtkPointSource()
-src.SetCenter(0,0,0)
-src.SetNumberOfPoints(50)
-src.SetRadius(5)
-src.Update()
+<span class="c1"># create a renderwindowinteractor</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
 
 
-# mapper
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(src.GetOutput())
 
-# actor
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="c1"># create source</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPointSource</span><span class="p">()</span>
+<span class="n">src</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-actor.GetProperty().SetPointSize(5)
 
-# assign actor to the renderer
-ren.AddActor(actor)
+<span class="c1"># mapper</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-# enable user interface interactor
-iren.Initialize()
-renWin.Render()
-iren.Start()
-</code></pre>
+<span class="c1"># actor</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+
+<span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># assign actor to the renderer</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+
+<span class="c1"># enable user interface interactor</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 
@@ -16024,7 +16036,7 @@ iren.Start()
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../NamedColors/" title="NamedColors" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -16033,7 +16045,7 @@ iren.Start()
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                NamedColors
+                PointDataSubdivision
               </span>
             </div>
           </a>

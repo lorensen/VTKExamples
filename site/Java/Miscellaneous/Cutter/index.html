@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,79 +15990,79 @@
                   <h1>Cutter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Miscellaneous/Cutter</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to use vtkCutter by cutting through a cube.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cutter.java</strong></p>
-<pre><code class="java">import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class Cutter
-{
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cutter</span>
+<span class="o">{</span>
 
-  static
-  {
-    System.loadLibrary(&quot;vtkCommonJava&quot;);
-    System.loadLibrary(&quot;vtkFilteringJava&quot;);
-    System.loadLibrary(&quot;vtkIOJava&quot;);
-    System.loadLibrary(&quot;vtkImagingJava&quot;);
-    System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-    System.loadLibrary(&quot;vtkRenderingJava&quot;);
-  }
+  <span class="kd">static</span>
+  <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  public static void main(String[] args)
-  {
-    vtkCubeSource cube = new vtkCubeSource();
-    cube.SetXLength(40);
-    cube.SetYLength(30);
-    cube.SetZLength(20);
-    vtkPolyDataMapper cubeMapper = new vtkPolyDataMapper();
-    cubeMapper.SetInputConnection(cube.GetOutputPort());
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="n">vtkCubeSource</span> <span class="n">cube</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkCubeSource</span><span class="o">();</span>
+    <span class="n">cube</span><span class="o">.</span><span class="na">SetXLength</span><span class="o">(</span><span class="mi">40</span><span class="o">);</span>
+    <span class="n">cube</span><span class="o">.</span><span class="na">SetYLength</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>
+    <span class="n">cube</span><span class="o">.</span><span class="na">SetZLength</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+    <span class="n">vtkPolyDataMapper</span> <span class="n">cubeMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">cubeMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">cube</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
 
-    //create a plane to cut,here it cuts in the XZ direction (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)
-    vtkPlane plane = new vtkPlane();
-    plane.SetOrigin(10,0,0);
-    plane.SetNormal(1,0,0);
+    <span class="c1">//create a plane to cut,here it cuts in the XZ direction (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)</span>
+    <span class="n">vtkPlane</span> <span class="n">plane</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPlane</span><span class="o">();</span>
+    <span class="n">plane</span><span class="o">.</span><span class="na">SetOrigin</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">plane</span><span class="o">.</span><span class="na">SetNormal</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
 
-    //create cutter
-    vtkCutter cutter = new vtkCutter();
-    cutter.SetCutFunction(plane);
-    cutter.SetInput(cubeMapper.GetInput());
-    cutter.Update();
+    <span class="c1">//create cutter</span>
+    <span class="n">vtkCutter</span> <span class="n">cutter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkCutter</span><span class="o">();</span>
+    <span class="n">cutter</span><span class="o">.</span><span class="na">SetCutFunction</span><span class="o">(</span><span class="n">plane</span><span class="o">);</span>
+    <span class="n">cutter</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span><span class="n">cubeMapper</span><span class="o">.</span><span class="na">GetInput</span><span class="o">());</span>
+    <span class="n">cutter</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
-    vtkPolyDataMapper cutterMapper = new vtkPolyDataMapper();
-    cutterMapper.SetInputConnection( cutter.GetOutputPort());
+    <span class="n">vtkPolyDataMapper</span> <span class="n">cutterMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">cutterMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span> <span class="n">cutter</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
 
-    //create plane actor
-    vtkActor planeActor = new vtkActor();
-    planeActor.GetProperty().SetColor(1.0,1,0);
-    planeActor.GetProperty().SetLineWidth(2);
-    planeActor.SetMapper(cutterMapper);
+    <span class="c1">//create plane actor</span>
+    <span class="n">vtkActor</span> <span class="n">planeActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">planeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetColor</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">planeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetLineWidth</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+    <span class="n">planeActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">cutterMapper</span><span class="o">);</span>
 
-    //create cube actor
-    vtkActor cubeActor = new vtkActor();
-    cubeActor.GetProperty().SetColor(0.5,1,0.5);
-    cubeActor.GetProperty().SetOpacity(0.5);
-    cubeActor.SetMapper(cubeMapper);
+    <span class="c1">//create cube actor</span>
+    <span class="n">vtkActor</span> <span class="n">cubeActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">cubeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetColor</span><span class="o">(</span><span class="mf">0.5</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mf">0.5</span><span class="o">);</span>
+    <span class="n">cubeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetOpacity</span><span class="o">(</span><span class="mf">0.5</span><span class="o">);</span>
+    <span class="n">cubeActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">cubeMapper</span><span class="o">);</span>
 
-    //create renderers and add actors of plane and cube
-    vtkRenderer ren = new vtkRenderer();
-    ren.AddActor(planeActor);
-    ren.AddActor(cubeActor);
+    <span class="c1">//create renderers and add actors of plane and cube</span>
+    <span class="n">vtkRenderer</span> <span class="n">ren</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+    <span class="n">ren</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">planeActor</span><span class="o">);</span>
+    <span class="n">ren</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">cubeActor</span><span class="o">);</span>
 
-    //Add renderer to renderwindow and render
-    vtkRenderWindow renWin = new vtkRenderWindow();
-    renWin.AddRenderer(ren);
-    renWin.SetSize(600, 600);
+    <span class="c1">//Add renderer to renderwindow and render</span>
+    <span class="n">vtkRenderWindow</span> <span class="n">renWin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span><span class="n">ren</span><span class="o">);</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="na">SetSize</span><span class="o">(</span><span class="mi">600</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
 
-    vtkRenderWindowInteractor iren = new vtkRenderWindowInteractor();
-    iren.SetRenderWindow(renWin);
-    ren.SetBackground(0,0,0);
-    renWin.Render();
+    <span class="n">vtkRenderWindowInteractor</span> <span class="n">iren</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">();</span>
+    <span class="n">iren</span><span class="o">.</span><span class="na">SetRenderWindow</span><span class="o">(</span><span class="n">renWin</span><span class="o">);</span>
+    <span class="n">ren</span><span class="o">.</span><span class="na">SetBackground</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
 
-    iren.Start();
-  }
-}
-</code></pre>
+    <span class="n">iren</span><span class="o">.</span><span class="na">Start</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

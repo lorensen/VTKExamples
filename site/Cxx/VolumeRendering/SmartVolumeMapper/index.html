@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,191 +16005,198 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/VolumeRendering/SmartVolumeMapper</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/VolumeRendering/TestSmartVolumeMapper.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SmartVolumeMapper.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphere.h&gt;
-#include &lt;vtkSampleFunction.h&gt;
-#include &lt;vtkSmartVolumeMapper.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
-#include &lt;vtkPiecewiseFunction.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkVolumeProperty.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkImageShiftScale.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkDataArray.h&gt;
-#include &lt;vtkXMLImageDataReader.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphere.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSampleFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartVolumeMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPiecewiseFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolumeProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageShiftScale.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLImageDataReader.h&gt;</span><span class="cp"></span>
 
-static void CreateImageData(vtkImageData* im);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateImageData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">im</span><span class="p">);</span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkImageData&gt; imageData =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  if (argc &lt; 2)
-  {
-    CreateImageData(imageData);
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkXMLImageDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLImageDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
-    reader-&gt;Update();
-    imageData-&gt;ShallowCopy(reader-&gt;GetOutput());
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">CreateImageData</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  ren1-&gt;SetBackground(0.1,0.4,0.2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.2</span><span class="p">);</span>
 
-  renWin-&gt;AddRenderer(ren1);
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
 
-  renWin-&gt;SetSize(301,300); // intentional odd and NPOT  width/height
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">301</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span> <span class="c1">// intentional odd and NPOT  width/height</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  renWin-&gt;Render(); // make sure we have an OpenGL context.
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span> <span class="c1">// make sure we have an OpenGL context.</span>
 
-  vtkSmartPointer&lt;vtkSmartVolumeMapper&gt; volumeMapper =
-    vtkSmartPointer&lt;vtkSmartVolumeMapper&gt;::New();
-  volumeMapper-&gt;SetBlendModeToComposite(); // composite first
-#if VTK_MAJOR_VERSION &lt;= 5
-  volumeMapper-&gt;SetInputConnection(imageData-&gt;GetProducerPort());
-#else
-  volumeMapper-&gt;SetInputData(imageData);
-#endif
-  vtkSmartPointer&lt;vtkVolumeProperty&gt; volumeProperty =
-    vtkSmartPointer&lt;vtkVolumeProperty&gt;::New();
-  volumeProperty-&gt;ShadeOff();
-  volumeProperty-&gt;SetInterpolationType(VTK_LINEAR_INTERPOLATION);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSmartVolumeMapper</span><span class="o">&gt;</span> <span class="n">volumeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSmartVolumeMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetBlendModeToComposite</span><span class="p">();</span> <span class="c1">// composite first</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;</span> <span class="n">volumeProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumeProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">ShadeOff</span><span class="p">();</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetInterpolationType</span><span class="p">(</span><span class="n">VTK_LINEAR_INTERPOLATION</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPiecewiseFunction&gt; compositeOpacity =
-    vtkSmartPointer&lt;vtkPiecewiseFunction&gt;::New();
-  compositeOpacity-&gt;AddPoint(0.0,0.0);
-  compositeOpacity-&gt;AddPoint(80.0,1.0);
-  compositeOpacity-&gt;AddPoint(80.1,0.0);
-  compositeOpacity-&gt;AddPoint(255.0,0.0);
-  volumeProperty-&gt;SetScalarOpacity(compositeOpacity); // composite first.
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;</span> <span class="n">compositeOpacity</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPiecewiseFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">compositeOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">compositeOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">compositeOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">80.1</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">compositeOpacity</span><span class="o">-&gt;</span><span class="n">AddPoint</span><span class="p">(</span><span class="mf">255.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetScalarOpacity</span><span class="p">(</span><span class="n">compositeOpacity</span><span class="p">);</span> <span class="c1">// composite first.</span>
 
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt; color =
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  color-&gt;AddRGBPoint(0.0  ,0.0,0.0,1.0);
-  color-&gt;AddRGBPoint(40.0  ,1.0,0.0,0.0);
-  color-&gt;AddRGBPoint(255.0,1.0,1.0,1.0);
-  volumeProperty-&gt;SetColor(color);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span> <span class="n">color</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">color</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">0.0</span>  <span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">color</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">40.0</span>  <span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">color</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="mf">255.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">volumeProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVolume&gt; volume =
-    vtkSmartPointer&lt;vtkVolume&gt;::New();
-  volume-&gt;SetMapper(volumeMapper);
-  volume-&gt;SetProperty(volumeProperty);
-  ren1-&gt;AddViewProp(volume);
-  ren1-&gt;ResetCamera();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;</span> <span class="n">volume</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolume</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">volumeMapper</span><span class="p">);</span>
+  <span class="n">volume</span><span class="o">-&gt;</span><span class="n">SetProperty</span><span class="p">(</span><span class="n">volumeProperty</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">volume</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  // Render composite. In default mode. For coverage.
-  renWin-&gt;Render();
+  <span class="c1">// Render composite. In default mode. For coverage.</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // 3D texture mode. For coverage.
-#if !defined(VTK_LEGACY_REMOVE) &amp;&amp; !defined(VTK_OPENGL2)
-  volumeMapper-&gt;SetRequestedRenderModeToRayCastAndTexture();
-#endif // VTK_LEGACY_REMOVE
-  renWin-&gt;Render();
+  <span class="c1">// 3D texture mode. For coverage.</span>
+<span class="cp">#if !defined(VTK_LEGACY_REMOVE) &amp;&amp; !defined(VTK_OPENGL2)</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetRequestedRenderModeToRayCastAndTexture</span><span class="p">();</span>
+<span class="cp">#endif </span><span class="c1">// VTK_LEGACY_REMOVE</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Software mode, for coverage. It also makes sure we will get the same
-  // regression image on all platforms.
-  volumeMapper-&gt;SetRequestedRenderModeToRayCast();
-  renWin-&gt;Render();
+  <span class="c1">// Software mode, for coverage. It also makes sure we will get the same</span>
+  <span class="c1">// regression image on all platforms.</span>
+  <span class="n">volumeMapper</span><span class="o">-&gt;</span><span class="n">SetRequestedRenderModeToRayCast</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void CreateImageData(vtkImageData* imageData)
-{
-  // Create a spherical implicit function.
-  vtkSmartPointer&lt;vtkSphere&gt; sphere =
-    vtkSmartPointer&lt;vtkSphere&gt;::New();
-  sphere-&gt;SetRadius(0.1);
-  sphere-&gt;SetCenter(0.0,0.0,0.0);
+<span class="kt">void</span> <span class="nf">CreateImageData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">imageData</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create a spherical implicit function.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
+  <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSampleFunction&gt; sampleFunction =
-    vtkSmartPointer&lt;vtkSampleFunction&gt;::New();
-  sampleFunction-&gt;SetImplicitFunction(sphere);
-  sampleFunction-&gt;SetOutputScalarTypeToDouble();
-  sampleFunction-&gt;SetSampleDimensions(127,127,127); // intentional NPOT dimensions.
-  sampleFunction-&gt;SetModelBounds(-1.0,1.0,-1.0,1.0,-1.0,1.0);
-  sampleFunction-&gt;SetCapping(false);
-  sampleFunction-&gt;SetComputeNormals(false);
-  sampleFunction-&gt;SetScalarArrayName(&quot;values&quot;);
-  sampleFunction-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;</span> <span class="n">sampleFunction</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">sphere</span><span class="p">);</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToDouble</span><span class="p">();</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">);</span> <span class="c1">// intentional NPOT dimensions.</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetCapping</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetComputeNormals</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">SetScalarArrayName</span><span class="p">(</span><span class="s">&quot;values&quot;</span><span class="p">);</span>
+  <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkDataArray* a = sampleFunction-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars(&quot;values&quot;);
-  double range[2];
-  a-&gt;GetRange(range);
+  <span class="n">vtkDataArray</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">(</span><span class="s">&quot;values&quot;</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">a</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageShiftScale&gt; t =
-    vtkSmartPointer&lt;vtkImageShiftScale&gt;::New();
-  t-&gt;SetInputConnection(sampleFunction-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageShiftScale</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sampleFunction</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  t-&gt;SetShift(-range[0]);
-  double magnitude=range[1]-range[0];
-  if(magnitude==0.0)
-  {
-    magnitude=1.0;
-  }
-  t-&gt;SetScale(255.0/magnitude);
-  t-&gt;SetOutputScalarTypeToUnsignedChar();
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">SetShift</span><span class="p">(</span><span class="o">-</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="kt">double</span> <span class="n">magnitude</span><span class="o">=</span><span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">magnitude</span><span class="o">==</span><span class="mf">0.0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">magnitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">SetScale</span><span class="p">(</span><span class="mf">255.0</span><span class="o">/</span><span class="n">magnitude</span><span class="p">);</span>
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">SetOutputScalarTypeToUnsignedChar</span><span class="p">();</span>
 
-  t-&gt;Update();
+  <span class="n">t</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  imageData-&gt;ShallowCopy(t-&gt;GetOutput());
-}
-</code></pre>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(SmartVolumeMapper)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">SmartVolumeMapper</span><span class="p">)</span>
 
-add_executable(SmartVolumeMapper MACOSX_BUNDLE SmartVolumeMapper.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(SmartVolumeMapper ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">SmartVolumeMapper</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">SmartVolumeMapper.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-smartvolumemapper">Download and Build SmartVolumeMapper</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">SmartVolumeMapper</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-smartvolumemapper">Download and Build SmartVolumeMapper<a class="headerlink" href="#download-and-build-smartvolumemapper" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/SmartVolumeMapper.tar">here to download SmartVolumeMapper</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball SmartVolumeMapper.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd SmartVolumeMapper/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd SmartVolumeMapper/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./SmartVolumeMapper
-</code></pre>
+<div class="codehilite"><pre><span></span>./SmartVolumeMapper
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,7 +15990,7 @@
                   <h1>PolyDataContourToImageData</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/PolyData/PolyDataContourToImageData</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Contributed by: Lars Friedrich, Peter Gruber</li>
 </ul>
@@ -15987,126 +15999,126 @@
 Both the circular poly data (circle.vtp) and the resultant image (labelImage.mhd) are saved to disk.</p>
 <p>'''NOTE''': Similarily to example <a href="../[VTK/Examples/PolyData/PolyDataToImageData]"></a>, I am not really sure whether or not the image origin needs to be adjusted as the sphere-image-overlay shows some offset in paraview visualization (at least I think ...). Maybe someone could verify that. Thanks!</p>
 <p><a href="../[Image:Circle_and_label.png]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolyDataContourToImageData.py</strong></p>
-<pre><code class="python">import vtk
-import math
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-# 3D source sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetPhiResolution(30)
-sphereSource.SetThetaResolution(30)
-sphereSource.SetCenter(40, 40, 0)
-sphereSource.SetRadius(20)
-# generate circle by cutting the sphere with an implicit plane
-# (through its center, axis-aligned)
-circleCutter = vtk.vtkCutter()
-circleCutter.SetInputConnection(sphereSource.GetOutputPort())
-cutPlane = vtk.vtkPlane()
-cutPlane.SetOrigin(sphereSource.GetCenter())
-cutPlane.SetNormal(0, 0, 1)
-circleCutter.SetCutFunction(cutPlane)
-stripper = vtk.vtkStripper()
-stripper.SetInputConnection(circleCutter.GetOutputPort()) # valid circle
-stripper.Update()
-# that's our circle
-circle = stripper.GetOutput()
+<span class="c1"># 3D source sphere</span>
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="c1"># generate circle by cutting the sphere with an implicit plane</span>
+<span class="c1"># (through its center, axis-aligned)</span>
+<span class="n">circleCutter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCutter</span><span class="p">()</span>
+<span class="n">circleCutter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">cutPlane</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlane</span><span class="p">()</span>
+<span class="n">cutPlane</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetCenter</span><span class="p">())</span>
+<span class="n">cutPlane</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">circleCutter</span><span class="o">.</span><span class="n">SetCutFunction</span><span class="p">(</span><span class="n">cutPlane</span><span class="p">)</span>
+<span class="n">stripper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkStripper</span><span class="p">()</span>
+<span class="n">stripper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">circleCutter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span> <span class="c1"># valid circle</span>
+<span class="n">stripper</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="c1"># that&#39;s our circle</span>
+<span class="n">circle</span> <span class="o">=</span> <span class="n">stripper</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span>
 
-# write circle out
-polyDataWriter = vtk.vtkXMLPolyDataWriter()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    polyDataWriter.SetInput(circle)
-else:
-    polyDataWriter.SetInputData(circle)
+<span class="c1"># write circle out</span>
+<span class="n">polyDataWriter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkXMLPolyDataWriter</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">polyDataWriter</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">polyDataWriter</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
 
-polyDataWriter.SetFileName(&quot;circle.vtp&quot;)
-polyDataWriter.SetCompressorTypeToNone()
-polyDataWriter.SetDataModeToAscii()
-polyDataWriter.Write()
+<span class="n">polyDataWriter</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s2">&quot;circle.vtp&quot;</span><span class="p">)</span>
+<span class="n">polyDataWriter</span><span class="o">.</span><span class="n">SetCompressorTypeToNone</span><span class="p">()</span>
+<span class="n">polyDataWriter</span><span class="o">.</span><span class="n">SetDataModeToAscii</span><span class="p">()</span>
+<span class="n">polyDataWriter</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
 
-# prepare the binary image's voxel grid
-whiteImage = vtk.vtkImageData()
-bounds = [0]*6
-circle.GetBounds(bounds)
-spacing = [0]*3 # desired volume spacing
-spacing[0] = 0.5
-spacing[1] = 0.5
-spacing[2] = 0.5
-whiteImage.SetSpacing(spacing)
+<span class="c1"># prepare the binary image&#39;s voxel grid</span>
+<span class="n">whiteImage</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageData</span><span class="p">()</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span>
+<span class="n">circle</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
+<span class="n">spacing</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span> <span class="c1"># desired volume spacing</span>
+<span class="n">spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">spacing</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">whiteImage</span><span class="o">.</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing</span><span class="p">)</span>
 
-# compute dimensions
-dim = [0]*3
-for i in range(3):
-    dim[i] = int(math.ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i])) + 1
-    if (dim[i] &lt; 1):
-        dim[i] = 1
-whiteImage.SetDimensions(dim)
-whiteImage.SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1)
-origin = [0]*3
-# NOTE: I am not sure whether or not we had to add some offset!
-origin[0] = bounds[0]# + spacing[0] / 2
-origin[1] = bounds[2]# + spacing[1] / 2
-origin[2] = bounds[4]# + spacing[2] / 2
-whiteImage.SetOrigin(origin)
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    whiteImage.SetScalarTypeToUnsignedChar()
-    whiteImage.AllocateScalars()
-else:
-    whiteImage.AllocateScalars(vtk.VTK_UNSIGNED_CHAR, 1)
+<span class="c1"># compute dimensions</span>
+<span class="n">dim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">bounds</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="n">spacing</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">dim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">whiteImage</span><span class="o">.</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<span class="n">whiteImage</span><span class="o">.</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+<span class="c1"># NOTE: I am not sure whether or not we had to add some offset!</span>
+<span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="c1"># + spacing[0] / 2</span>
+<span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="c1"># + spacing[1] / 2</span>
+<span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="c1"># + spacing[2] / 2</span>
+<span class="n">whiteImage</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">whiteImage</span><span class="o">.</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">()</span>
+    <span class="n">whiteImage</span><span class="o">.</span><span class="n">AllocateScalars</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">whiteImage</span><span class="o">.</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-# fill the image with foreground voxels:
-inval = 255
-outval = 0
-count = whiteImage.GetNumberOfPoints()
-#for (vtkIdType i = 0 i &lt; count ++i)
-for i in range(count):
-    whiteImage.GetPointData().GetScalars().SetTuple1(i, inval)
+<span class="c1"># fill the image with foreground voxels:</span>
+<span class="n">inval</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">outval</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">whiteImage</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()</span>
+<span class="c1">#for (vtkIdType i = 0 i &lt; count ++i)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+    <span class="n">whiteImage</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">inval</span><span class="p">)</span>
 
 
-# sweep polygonal data (this is the important thing with contours!)
-extruder = vtk.vtkLinearExtrusionFilter()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    extruder.SetInput(circle)
-else:
-    extruder.SetInputData(circle)
+<span class="c1"># sweep polygonal data (this is the important thing with contours!)</span>
+<span class="n">extruder</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLinearExtrusionFilter</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">extruder</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">extruder</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
 
-extruder.SetScaleFactor(1.)
-extruder.SetExtrusionTypeToNormalExtrusion()
-extruder.SetVector(0, 0, 1)
-extruder.Update()
+<span class="n">extruder</span><span class="o">.</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">extruder</span><span class="o">.</span><span class="n">SetExtrusionTypeToNormalExtrusion</span><span class="p">()</span>
+<span class="n">extruder</span><span class="o">.</span><span class="n">SetVector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">extruder</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# polygonal data -. image stencil:
-pol2stenc = vtk.vtkPolyDataToImageStencil()
-pol2stenc.SetTolerance(0) # important if extruder.SetVector(0, 0, 1) !!!
-pol2stenc.SetInputConnection(extruder.GetOutputPort())
-pol2stenc.SetOutputOrigin(origin)
-pol2stenc.SetOutputSpacing(spacing)
-pol2stenc.SetOutputWholeExtent(whiteImage.GetExtent())
-pol2stenc.Update()
+<span class="c1"># polygonal data -. image stencil:</span>
+<span class="n">pol2stenc</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataToImageStencil</span><span class="p">()</span>
+<span class="n">pol2stenc</span><span class="o">.</span><span class="n">SetTolerance</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># important if extruder.SetVector(0, 0, 1) !!!</span>
+<span class="n">pol2stenc</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extruder</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">pol2stenc</span><span class="o">.</span><span class="n">SetOutputOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+<span class="n">pol2stenc</span><span class="o">.</span><span class="n">SetOutputSpacing</span><span class="p">(</span><span class="n">spacing</span><span class="p">)</span>
+<span class="n">pol2stenc</span><span class="o">.</span><span class="n">SetOutputWholeExtent</span><span class="p">(</span><span class="n">whiteImage</span><span class="o">.</span><span class="n">GetExtent</span><span class="p">())</span>
+<span class="n">pol2stenc</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# cut the corresponding white image and set the background:
-imgstenc = vtk.vtkImageStencil()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    imgstenc.SetInput(whiteImage)
-    imgstenc.SetStencil(pol2stenc.GetOutput())
-else:
-    imgstenc.SetInputData(whiteImage)
-    imgstenc.SetStencilConnection(pol2stenc.GetOutputPort())
+<span class="c1"># cut the corresponding white image and set the background:</span>
+<span class="n">imgstenc</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageStencil</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">imgstenc</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">whiteImage</span><span class="p">)</span>
+    <span class="n">imgstenc</span><span class="o">.</span><span class="n">SetStencil</span><span class="p">(</span><span class="n">pol2stenc</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">imgstenc</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">whiteImage</span><span class="p">)</span>
+    <span class="n">imgstenc</span><span class="o">.</span><span class="n">SetStencilConnection</span><span class="p">(</span><span class="n">pol2stenc</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-imgstenc.ReverseStencilOff()
-imgstenc.SetBackgroundValue(outval)
-imgstenc.Update()
+<span class="n">imgstenc</span><span class="o">.</span><span class="n">ReverseStencilOff</span><span class="p">()</span>
+<span class="n">imgstenc</span><span class="o">.</span><span class="n">SetBackgroundValue</span><span class="p">(</span><span class="n">outval</span><span class="p">)</span>
+<span class="n">imgstenc</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-imageWriter = vtk.vtkMetaImageWriter()
-imageWriter.SetFileName(&quot;labelImage.mhd&quot;)
-imageWriter.SetInputConnection(imgstenc.GetOutputPort())
-imageWriter.Write()
+<span class="n">imageWriter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMetaImageWriter</span><span class="p">()</span>
+<span class="n">imageWriter</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s2">&quot;labelImage.mhd&quot;</span><span class="p">)</span>
+<span class="n">imageWriter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgstenc</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">imageWriter</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
 
-imageWriter = vtk.vtkPNGWriter()
-imageWriter.SetFileName(&quot;labelImage.png&quot;)
-imageWriter.SetInputConnection(imgstenc.GetOutputPort())
-imageWriter.Write()
-</code></pre>
+<span class="n">imageWriter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">()</span>
+<span class="n">imageWriter</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s2">&quot;labelImage.png&quot;</span><span class="p">)</span>
+<span class="n">imageWriter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imgstenc</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">imageWriter</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

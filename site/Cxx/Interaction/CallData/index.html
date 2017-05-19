@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,168 +16019,175 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Interaction/CallData</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Interaction/TestCallData.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates the use of 'calldata' in a vtkCallbackCommand. Here, we create a custom VTK filter to invoke an event to which we attach a value (the 'calldata'). We use a timer to modify and update the filter so that the event is triggered repeatedly, demonstrating the pass-via-calldata.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CallData.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkObjectFactory.h&quot;
-#include &quot;vtkCommand.h&quot;
-#include &quot;vtkCallbackCommand.h&quot;
-#include &quot;vtkStreamingDemandDrivenPipeline.h&quot;
-#include &quot;vtkInformationVector.h&quot;
-#include &quot;vtkInformation.h&quot;
-#include &quot;vtkDataObject.h&quot;
-#include &quot;vtkSmartPointer.h&quot;
-#include &quot;vtkAppendPolyData.h&quot;
-#include &quot;vtkSphereSource.h&quot;
-#include &quot;vtkPolyDataAlgorithm.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCommand.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCallbackCommand.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkAppendPolyData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSphereSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataAlgorithm.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
 
-class vtkMyTestFilter : public vtkPolyDataAlgorithm
-{
-public:
-  vtkTypeMacro(vtkMyTestFilter,vtkPolyDataAlgorithm);
-  static vtkMyTestFilter *New();
+<span class="k">class</span> <span class="nc">vtkMyTestFilter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkPolyDataAlgorithm</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">vtkMyTestFilter</span><span class="p">,</span><span class="n">vtkPolyDataAlgorithm</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">vtkMyTestFilter</span> <span class="o">*</span><span class="nf">New</span><span class="p">();</span>
 
-  int RefreshEvent;
+  <span class="kt">int</span> <span class="n">RefreshEvent</span><span class="p">;</span>
 
-protected:
-  vtkMyTestFilter()
-  {
-    this-&gt;SetNumberOfInputPorts(0);
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">vtkMyTestFilter</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputPorts</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-    this-&gt;RefreshEvent = vtkCommand::UserEvent + 1;
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">RefreshEvent</span> <span class="o">=</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">UserEvent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 
-    this-&gt;Counter = 0;
-  }
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *)
-  {
-      this-&gt;InvokeEvent(this-&gt;RefreshEvent, &amp;this-&gt;Counter);
-      this-&gt;Counter++;
-      return 1;
-  }
+  <span class="kt">int</span> <span class="n">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">InvokeEvent</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RefreshEvent</span><span class="p">,</span> <span class="o">&amp;</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Counter</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Counter</span><span class="o">++</span><span class="p">;</span>
+      <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
 
-private:
-  vtkMyTestFilter(const vtkMyTestFilter&amp;);  // Not implemented.
-  void operator=(const vtkMyTestFilter&amp;);  // Not implemented.
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkMyTestFilter</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkMyTestFilter</span><span class="o">&amp;</span><span class="p">);</span>  <span class="c1">// Not implemented.</span>
+  <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkMyTestFilter</span><span class="o">&amp;</span><span class="p">);</span>  <span class="c1">// Not implemented.</span>
 
-  unsigned int Counter;
-};
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Counter</span><span class="p">;</span>
+<span class="p">};</span>
 
-vtkStandardNewMacro(vtkMyTestFilter);
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkMyTestFilter</span><span class="p">);</span>
 
-static void CallbackFunction(vtkObject* caller,
-                long unsigned int eventId,
-                void* clientData,
-                void* callData );
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CallbackFunction</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span>
+                <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span>
+                <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span>
+                <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">);</span>
 
-class vtkTimerCallback : public vtkCommand
-{
-  public:
-    static vtkTimerCallback *New()
-    {
-      vtkTimerCallback *cb = new vtkTimerCallback;
+<span class="k">class</span> <span class="nc">vtkTimerCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">vtkTimerCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="n">vtkTimerCallback</span> <span class="o">*</span><span class="n">cb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkTimerCallback</span><span class="p">;</span>
 
-      return cb;
-    }
+      <span class="k">return</span> <span class="n">cb</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    virtual void Execute(vtkObject *vtkNotUsed(caller),
-                         unsigned long vtkNotUsed(eventId),
-                         void *vtkNotUsed(callData))
-    {
-        TestFilter-&gt;Modified();
-        TestFilter-&gt;Update();
-    }
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+                         <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">eventId</span><span class="p">),</span>
+                         <span class="kt">void</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">TestFilter</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+        <span class="n">TestFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    vtkMyTestFilter* TestFilter;
+    <span class="n">vtkMyTestFilter</span><span class="o">*</span> <span class="n">TestFilter</span><span class="p">;</span>
 
-};
+<span class="p">};</span>
 
-int main(int, char *[])
-{
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkMyTestFilter&gt; testFilter =
-    vtkSmartPointer&lt;vtkMyTestFilter&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMyTestFilter</span><span class="o">&gt;</span> <span class="n">testFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMyTestFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkCallbackCommand&gt; callback =
-    vtkSmartPointer&lt;vtkCallbackCommand&gt;::New();
-  callback-&gt;SetCallback(CallbackFunction );
-  testFilter-&gt;AddObserver(testFilter-&gt;RefreshEvent, callback);
-  testFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">callback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callback</span><span class="o">-&gt;</span><span class="n">SetCallback</span><span class="p">(</span><span class="n">CallbackFunction</span> <span class="p">);</span>
+  <span class="n">testFilter</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">testFilter</span><span class="o">-&gt;</span><span class="n">RefreshEvent</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
+  <span class="n">testFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Initialize();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  // Sign up to receive TimerEvent
-  vtkSmartPointer&lt;vtkTimerCallback&gt; timerCallback =
-    vtkSmartPointer&lt;vtkTimerCallback&gt;::New();
-  timerCallback-&gt;TestFilter = testFilter;
+  <span class="c1">// Sign up to receive TimerEvent</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerCallback</span><span class="o">&gt;</span> <span class="n">timerCallback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">timerCallback</span><span class="o">-&gt;</span><span class="n">TestFilter</span> <span class="o">=</span> <span class="n">testFilter</span><span class="p">;</span>
 
-  renderWindowInteractor-&gt;AddObserver(vtkCommand::TimerEvent, timerCallback);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">TimerEvent</span><span class="p">,</span> <span class="n">timerCallback</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;CreateRepeatingTimer(100);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">CreateRepeatingTimer</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void CallbackFunction(vtkObject* vtkNotUsed(caller),
-                      long unsigned int vtkNotUsed(eventId),
-                      void* vtkNotUsed(clientData),
-                      void* callData )
-{
-  unsigned int* callDataCasted = reinterpret_cast&lt;unsigned int*&gt;(callData);
-  std::cout &lt;&lt; *callDataCasted &lt;&lt; std::endl;
-}
-</code></pre>
+<span class="kt">void</span> <span class="nf">CallbackFunction</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+                      <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">eventId</span><span class="p">),</span>
+                      <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">clientData</span><span class="p">),</span>
+                      <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">callDataCasted</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">callData</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">callDataCasted</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(CallData)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">CallData</span><span class="p">)</span>
 
-add_executable(CallData MACOSX_BUNDLE CallData.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(CallData ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">CallData</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">CallData.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-calldata">Download and Build CallData</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">CallData</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-calldata">Download and Build CallData<a class="headerlink" href="#download-and-build-calldata" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/CallData.tar">here to download CallData</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball CallData.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd CallData/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd CallData/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./CallData
-</code></pre>
+<div class="codehilite"><pre><span></span>./CallData
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

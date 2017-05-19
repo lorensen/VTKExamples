@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,87 +16004,94 @@
                   <h1>PlanesIntersection</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/PlanesIntersection</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PlanesIntersection.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPlanesIntersection.h&gt;
-#include &lt;vtkSphereSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlanesIntersection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  double bounds[6];
-  sphereSource-&gt;GetOutput()-&gt;GetBounds(bounds);
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; box =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">box</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  box-&gt;SetNumberOfPoints(8);
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
 
-  double xMin, xMax, yMin, yMax, zMin, zMax;
-  xMin = bounds[0]; xMax = bounds[1];
-  yMin = bounds[2]; yMax = bounds[3];
-  zMin = bounds[4]; zMax = bounds[5];
+  <span class="kt">double</span> <span class="n">xMin</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span> <span class="n">yMin</span><span class="p">,</span> <span class="n">yMax</span><span class="p">,</span> <span class="n">zMin</span><span class="p">,</span> <span class="n">zMax</span><span class="p">;</span>
+  <span class="n">xMin</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">xMax</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">yMin</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">yMax</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">zMin</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="n">zMax</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 
-  box-&gt;SetPoint(0, xMax, yMin, zMax);
-  box-&gt;SetPoint(1, xMax, yMin, zMin);
-  box-&gt;SetPoint(2, xMax, yMax, zMin);
-  box-&gt;SetPoint(3, xMax, yMax, zMax);
-  box-&gt;SetPoint(4, xMin, yMin, zMax);
-  box-&gt;SetPoint(5, xMin, yMin, zMin);
-  box-&gt;SetPoint(6, xMin, yMax, zMin);
-  box-&gt;SetPoint(7, xMin, yMax, zMax);
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span> <span class="n">yMin</span><span class="p">,</span> <span class="n">zMax</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span> <span class="n">yMin</span><span class="p">,</span> <span class="n">zMin</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span> <span class="n">yMax</span><span class="p">,</span> <span class="n">zMin</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">xMax</span><span class="p">,</span> <span class="n">yMax</span><span class="p">,</span> <span class="n">zMax</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">xMin</span><span class="p">,</span> <span class="n">yMin</span><span class="p">,</span> <span class="n">zMax</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">xMin</span><span class="p">,</span> <span class="n">yMin</span><span class="p">,</span> <span class="n">zMin</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">xMin</span><span class="p">,</span> <span class="n">yMax</span><span class="p">,</span> <span class="n">zMin</span><span class="p">);</span>
+  <span class="n">box</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">xMin</span><span class="p">,</span> <span class="n">yMax</span><span class="p">,</span> <span class="n">zMax</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPlanesIntersection&gt; planesIntersection =
-      vtkSmartPointer&lt;vtkPlanesIntersection&gt;::New();
-  planesIntersection-&gt;SetBounds(bounds);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlanesIntersection</span><span class="o">&gt;</span> <span class="n">planesIntersection</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlanesIntersection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">planesIntersection</span><span class="o">-&gt;</span><span class="n">SetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-  int intersects = planesIntersection-&gt;IntersectsRegion(box);
+  <span class="kt">int</span> <span class="n">intersects</span> <span class="o">=</span> <span class="n">planesIntersection</span><span class="o">-&gt;</span><span class="n">IntersectsRegion</span><span class="p">(</span><span class="n">box</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;Intersects? &quot; &lt;&lt; intersects &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Intersects? &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">intersects</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PlanesIntersection)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PlanesIntersection</span><span class="p">)</span>
 
-add_executable(PlanesIntersection MACOSX_BUNDLE PlanesIntersection.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PlanesIntersection ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PlanesIntersection</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PlanesIntersection.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-planesintersection">Download and Build PlanesIntersection</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PlanesIntersection</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-planesintersection">Download and Build PlanesIntersection<a class="headerlink" href="#download-and-build-planesintersection" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PlanesIntersection.tar">here to download PlanesIntersection</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PlanesIntersection.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PlanesIntersection/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PlanesIntersection/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PlanesIntersection
-</code></pre>
+<div class="codehilite"><pre><span></span>./PlanesIntersection
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

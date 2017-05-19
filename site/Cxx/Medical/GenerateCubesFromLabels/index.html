@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,163 +16019,170 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Medical/GenerateCubesFromLabels</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Medical/TestGenerateCubesFromLabels.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Sometimes it is helpful to view the results of a segmentation without any post processing. This example converts the point data from a labeled volume into cell data. The surfaces are displayed as polydata. If you want to created smoothed polydata models from your segmented volumes, see the example [models from labeled volume data (Discrete MarchingCubes)]]. The input volume must be in <a href="../[VTK/Examples/Medical/Cxx/GenerateModelsFromLabels|Create">[ MetaIO/Documentation| META format]</a>.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GenerateCubesFromLabels.cxx</strong></p>
-<pre><code class="c++">//
-// GenerateCubesFromLabels
-//   Usage: GenerateCubesFromLabels InputVolume Startlabel Endlabel
-//          where
-//          InputVolume is a meta file containing a 3 volume of
-//            discrete labels.
-//          StartLabel is the first label to be processed
-//          EndLabel is the last label to be processed
-//          NOTE: There can be gaps in the labeling. If a label does
-//          not exist in the volume, it will be skipped.
-//
-//
-#include &lt;vtkMetaImageReader.h&gt;
-#include &lt;vtkImageAccumulate.h&gt;
-#include &lt;vtkImageWrapPad.h&gt;
-#include &lt;vtkMaskFields.h&gt;
-#include &lt;vtkThreshold.h&gt;
-#include &lt;vtkTransformFilter.h&gt;
-#include &lt;vtkGeometryFilter.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">// GenerateCubesFromLabels</span>
+<span class="c1">//   Usage: GenerateCubesFromLabels InputVolume Startlabel Endlabel</span>
+<span class="c1">//          where</span>
+<span class="c1">//          InputVolume is a meta file containing a 3 volume of</span>
+<span class="c1">//            discrete labels.</span>
+<span class="c1">//          StartLabel is the first label to be processed</span>
+<span class="c1">//          EndLabel is the last label to be processed</span>
+<span class="c1">//          NOTE: There can be gaps in the labeling. If a label does</span>
+<span class="c1">//          not exist in the volume, it will be skipped.</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMetaImageReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageAccumulate.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageWrapPad.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMaskFields.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkThreshold.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransformFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGeometryFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[])
-{
-  if(argc &lt; 4)
-  {
-    std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; InputVolume StartLabel EndLabel&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; InputVolume StartLabel EndLabel&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Define all of the variables
-  unsigned int startLabel = atoi(argv[2]);
-  unsigned int endLabel = atoi(argv[3]);
+  <span class="c1">// Define all of the variables</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">startLabel</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">endLabel</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 
-  // Generate cubes from labels
-  // 1) Read the meta file
-  // 2) Convert point data to cell data
-  // 3) Convert to geometry and display
+  <span class="c1">// Generate cubes from labels</span>
+  <span class="c1">// 1) Read the meta file</span>
+  <span class="c1">// 2) Convert point data to cell data</span>
+  <span class="c1">// 3) Convert to geometry and display</span>
 
-  vtkSmartPointer&lt;vtkMetaImageReader&gt; reader =
-    vtkSmartPointer&lt;vtkMetaImageReader&gt;::New();
-  reader-&gt;SetFileName(argv[1]);
-  reader-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Pad the volume so that we can change the point data into cell
-  // data.
-  int *extent = reader-&gt;GetOutput()-&gt;GetExtent();
-  vtkSmartPointer&lt;vtkImageWrapPad&gt; pad =
-    vtkSmartPointer&lt;vtkImageWrapPad&gt;::New();
-  pad-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  pad-&gt;SetOutputWholeExtent(extent[0], extent[1] + 1,
-                            extent[2], extent[3] + 1,
-                            extent[4], extent[5] + 1);
-  pad-&gt;Update();
+  <span class="c1">// Pad the volume so that we can change the point data into cell</span>
+  <span class="c1">// data.</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">extent</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageWrapPad</span><span class="o">&gt;</span> <span class="n">pad</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageWrapPad</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">SetOutputWholeExtent</span><span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                            <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                            <span class="n">extent</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Copy the scalar point data of the volume into the scalar cell data
-  pad-&gt;GetOutput()-&gt;GetCellData()-&gt;SetScalars(
-    reader-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars());
+  <span class="c1">// Copy the scalar point data of the volume into the scalar cell data</span>
+  <span class="n">pad</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkThreshold&gt; selector =
-    vtkSmartPointer&lt;vtkThreshold&gt;::New();
-  selector-&gt;SetInputArrayToProcess(0, 0, 0,
-                                   vtkDataObject::FIELD_ASSOCIATION_CELLS,
-                                   vtkDataSetAttributes::SCALARS);
-  selector-&gt;SetInputConnection(pad-&gt;GetOutputPort());
-  selector-&gt;ThresholdBetween(startLabel, endLabel);
-  selector-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;</span> <span class="n">selector</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selector</span><span class="o">-&gt;</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                   <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">FIELD_ASSOCIATION_CELLS</span><span class="p">,</span>
+                                   <span class="n">vtkDataSetAttributes</span><span class="o">::</span><span class="n">SCALARS</span><span class="p">);</span>
+  <span class="n">selector</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pad</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">selector</span><span class="o">-&gt;</span><span class="n">ThresholdBetween</span><span class="p">(</span><span class="n">startLabel</span><span class="p">,</span> <span class="n">endLabel</span><span class="p">);</span>
+  <span class="n">selector</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Shift the geometry by 1/2
-  vtkSmartPointer&lt;vtkTransform&gt; transform =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform-&gt;Translate (-.5, -.5, -.5);
+  <span class="c1">// Shift the geometry by 1/2</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform</span><span class="o">-&gt;</span><span class="n">Translate</span> <span class="p">(</span><span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransformFilter&gt; transformModel =
-    vtkSmartPointer&lt;vtkTransformFilter&gt;::New();
-  transformModel-&gt;SetTransform(transform);
-  transformModel-&gt;SetInputConnection(selector-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformFilter</span><span class="o">&gt;</span> <span class="n">transformModel</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transformModel</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+  <span class="n">transformModel</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">selector</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkGeometryFilter&gt; geometry =
-    vtkSmartPointer&lt;vtkGeometryFilter&gt;::New();
-  geometry-&gt;SetInputConnection(transformModel-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeometryFilter</span><span class="o">&gt;</span> <span class="n">geometry</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGeometryFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">geometry</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">transformModel</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(geometry-&gt;GetOutputPort());
-  mapper-&gt;SetScalarRange(startLabel, endLabel);
-  mapper-&gt;SetScalarModeToUseCellData();
-  mapper-&gt;SetColorModeToMapScalars();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geometry</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">startLabel</span><span class="p">,</span> <span class="n">endLabel</span><span class="p">);</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetColorModeToMapScalars</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(.1, .2, .3);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(GenerateCubesFromLabels)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">GenerateCubesFromLabels</span><span class="p">)</span>
 
-add_executable(GenerateCubesFromLabels MACOSX_BUNDLE GenerateCubesFromLabels.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(GenerateCubesFromLabels ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GenerateCubesFromLabels</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GenerateCubesFromLabels.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-generatecubesfromlabels">Download and Build GenerateCubesFromLabels</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GenerateCubesFromLabels</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-generatecubesfromlabels">Download and Build GenerateCubesFromLabels<a class="headerlink" href="#download-and-build-generatecubesfromlabels" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/GenerateCubesFromLabels.tar">here to download GenerateCubesFromLabels</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball GenerateCubesFromLabels.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd GenerateCubesFromLabels/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd GenerateCubesFromLabels/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./GenerateCubesFromLabels
-</code></pre>
+<div class="codehilite"><pre><span></span>./GenerateCubesFromLabels
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

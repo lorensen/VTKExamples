@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,179 +16019,186 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/BackgroundImage</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestBackgroundImage.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example displays an image as the "background" of a scene, and renders a superquadric in front of it.</p>
 <p>The example accepts a jpeg file on the command line to use as a background image. If there is no file, it generates a simple background.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BackgroundImage.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSuperquadricSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSuperquadricSource.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkImageData&gt; imageData;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span><span class="p">;</span>
 
-  // Verify input arguments
-  if ( argc &gt; 1 )
-  {
-    //Read the image
-    vtkSmartPointer&lt;vtkJPEGReader&gt; jpegReader =
-      vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-    if( !jpegReader-&gt;CanReadFile( argv[1] ) )
-    {
-      std::cerr &lt;&lt; &quot;Error reading file &quot; &lt;&lt; argv[1] &lt;&lt; std::endl;
-      return EXIT_FAILURE;
-    }
-    jpegReader-&gt;SetFileName ( argv[1] );
-    jpegReader-&gt;Update();
-    imageData = jpegReader-&gt;GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; canvasSource =
-      vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-    canvasSource-&gt;SetExtent(0, 100, 0, 100, 0, 0);
-    canvasSource-&gt;SetScalarTypeToUnsignedChar();
-    canvasSource-&gt;SetNumberOfScalarComponents(3);
-    canvasSource-&gt;SetDrawColor(127, 127, 100);
-    canvasSource-&gt;FillBox(0, 100, 0, 100);
-    canvasSource-&gt;SetDrawColor(100, 255, 255);
-    canvasSource-&gt;FillTriangle(10, 10, 25, 10, 25, 25);
-    canvasSource-&gt;SetDrawColor(255, 100, 255);
-    canvasSource-&gt;FillTube(75, 75, 0, 75, 5.0);
-    canvasSource-&gt;Update();
-    imageData = canvasSource-&gt;GetOutput();
-  }
-  // Create an image actor to display the image
-  vtkSmartPointer&lt;vtkImageActor&gt; imageActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  imageActor-&gt;SetInput(imageData);
-#else
-  imageActor-&gt;SetInputData(imageData);
-#endif
+  <span class="c1">// Verify input arguments</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">//Read the image</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jpegReader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">CanReadFile</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error reading file &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+    <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">imageData</span> <span class="o">=</span> <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">canvasSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">FillTriangle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">FillTube</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">);</span>
+    <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">imageData</span> <span class="o">=</span> <span class="n">canvasSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="c1">// Create an image actor to display the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">imageActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  // Create a renderer to display the image in the background
-  vtkSmartPointer&lt;vtkRenderer&gt; backgroundRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
+  <span class="c1">// Create a renderer to display the image in the background</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">backgroundRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create a superquadric
-  vtkSmartPointer&lt;vtkSuperquadricSource&gt; superquadricSource =
-    vtkSmartPointer&lt;vtkSuperquadricSource&gt;::New();
-  superquadricSource-&gt;SetPhiRoundness(1.1);
-  superquadricSource-&gt;SetThetaRoundness(.2);
+  <span class="c1">// Create a superquadric</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadricSource</span><span class="o">&gt;</span> <span class="n">superquadricSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadricSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">superquadricSource</span><span class="o">-&gt;</span><span class="n">SetPhiRoundness</span><span class="p">(</span><span class="mf">1.1</span><span class="p">);</span>
+  <span class="n">superquadricSource</span><span class="o">-&gt;</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="mf">.2</span><span class="p">);</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; superquadricMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  superquadricMapper-&gt;SetInputConnection(superquadricSource-&gt;GetOutputPort());
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">superquadricMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">superquadricMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">superquadricSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; superquadricActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  superquadricActor-&gt;SetMapper(superquadricMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">superquadricActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">superquadricMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; sceneRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">sceneRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Set up the render window and renderers such that there is
-  // a background layer and a foreground layer
-  backgroundRenderer-&gt;SetLayer(0);
-  backgroundRenderer-&gt;InteractiveOff();
-  sceneRenderer-&gt;SetLayer(1);
-  renderWindow-&gt;SetNumberOfLayers(2);
-  renderWindow-&gt;AddRenderer(backgroundRenderer);
-  renderWindow-&gt;AddRenderer(sceneRenderer);
+  <span class="c1">// Set up the render window and renderers such that there is</span>
+  <span class="c1">// a background layer and a foreground layer</span>
+  <span class="n">backgroundRenderer</span><span class="o">-&gt;</span><span class="n">SetLayer</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">backgroundRenderer</span><span class="o">-&gt;</span><span class="n">InteractiveOff</span><span class="p">();</span>
+  <span class="n">sceneRenderer</span><span class="o">-&gt;</span><span class="n">SetLayer</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetNumberOfLayers</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">backgroundRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">sceneRenderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add actors to the renderers
-  sceneRenderer-&gt;AddActor(superquadricActor);
-  backgroundRenderer-&gt;AddActor(imageActor);
+  <span class="c1">// Add actors to the renderers</span>
+  <span class="n">sceneRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">superquadricActor</span><span class="p">);</span>
+  <span class="n">backgroundRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">imageActor</span><span class="p">);</span>
 
-  // Render once to figure out where the background camera will be
-  renderWindow-&gt;Render();
+  <span class="c1">// Render once to figure out where the background camera will be</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Set up the background camera to fill the renderer with the image
-  double origin[3];
-  double spacing[3];
-  int extent[6];
-  imageData-&gt;GetOrigin( origin );
-  imageData-&gt;GetSpacing( spacing );
-  imageData-&gt;GetExtent( extent );
+  <span class="c1">// Set up the background camera to fill the renderer with the image</span>
+  <span class="kt">double</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">extent</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetOrigin</span><span class="p">(</span> <span class="n">origin</span> <span class="p">);</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetSpacing</span><span class="p">(</span> <span class="n">spacing</span> <span class="p">);</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">(</span> <span class="n">extent</span> <span class="p">);</span>
 
-  vtkCamera* camera = backgroundRenderer-&gt;GetActiveCamera();
-  camera-&gt;ParallelProjectionOn();
+  <span class="n">vtkCamera</span><span class="o">*</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">backgroundRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParallelProjectionOn</span><span class="p">();</span>
 
-  double xc = origin[0] + 0.5*(extent[0] + extent[1])*spacing[0];
-  double yc = origin[1] + 0.5*(extent[2] + extent[3])*spacing[1];
-  //double xd = (extent[1] - extent[0] + 1)*spacing[0];
-  double yd = (extent[3] - extent[2] + 1)*spacing[1];
-  double d = camera-&gt;GetDistance();
-  camera-&gt;SetParallelScale(0.5*yd);
-  camera-&gt;SetFocalPoint(xc,yc,0.0);
-  camera-&gt;SetPosition(xc,yc,d);
+  <span class="kt">double</span> <span class="n">xc</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">yc</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">*</span><span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="c1">//double xd = (extent[1] - extent[0] + 1)*spacing[0];</span>
+  <span class="kt">double</span> <span class="n">yd</span> <span class="o">=</span> <span class="p">(</span><span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">GetDistance</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetParallelScale</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">yd</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span><span class="n">yc</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span><span class="n">yc</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
 
-  // Render again to set the correct view
-  renderWindow-&gt;Render();
+  <span class="c1">// Render again to set the correct view</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Interact with the window
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Interact with the window</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BackgroundImage)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BackgroundImage</span><span class="p">)</span>
 
-add_executable(BackgroundImage MACOSX_BUNDLE BackgroundImage.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BackgroundImage ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BackgroundImage</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BackgroundImage.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-backgroundimage">Download and Build BackgroundImage</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BackgroundImage</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-backgroundimage">Download and Build BackgroundImage<a class="headerlink" href="#download-and-build-backgroundimage" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BackgroundImage.tar">here to download BackgroundImage</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BackgroundImage.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BackgroundImage/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BackgroundImage/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BackgroundImage
-</code></pre>
+<div class="codehilite"><pre><span></span>./BackgroundImage
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

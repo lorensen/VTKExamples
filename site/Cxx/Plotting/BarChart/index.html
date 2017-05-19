@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,136 +16005,143 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Plotting/BarChart</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Plotting/TestBarChart.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BarChart.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkChartXY.h&gt;
-#include &lt;vtkPlot.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkContextView.h&gt;
-#include &lt;vtkContextScene.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartXY.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlot.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#define VTK_CREATE(type, name) \
-  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()
+<span class="cp">#define VTK_CREATE(type, name) \</span>
+<span class="cp">  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()</span>
 
 
-// Monthly circulation data
-static int data_2008[] = {10822, 10941, 9979, 10370, 9460, 11228, 15093, 12231, 10160, 9816, 9384, 7892};
-static int data_2009[] = {9058, 9474, 9979, 9408, 8900, 11569, 14688, 12231, 10294, 9585, 8957, 8590};
-static int data_2010[] = {9058, 10941, 9979, 10270, 8900, 11228, 14688, 12231, 10160, 9585, 9384, 8590};
+<span class="c1">// Monthly circulation data</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">data_2008</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10822</span><span class="p">,</span> <span class="mi">10941</span><span class="p">,</span> <span class="mi">9979</span><span class="p">,</span> <span class="mi">10370</span><span class="p">,</span> <span class="mi">9460</span><span class="p">,</span> <span class="mi">11228</span><span class="p">,</span> <span class="mi">15093</span><span class="p">,</span> <span class="mi">12231</span><span class="p">,</span> <span class="mi">10160</span><span class="p">,</span> <span class="mi">9816</span><span class="p">,</span> <span class="mi">9384</span><span class="p">,</span> <span class="mi">7892</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">data_2009</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9058</span><span class="p">,</span> <span class="mi">9474</span><span class="p">,</span> <span class="mi">9979</span><span class="p">,</span> <span class="mi">9408</span><span class="p">,</span> <span class="mi">8900</span><span class="p">,</span> <span class="mi">11569</span><span class="p">,</span> <span class="mi">14688</span><span class="p">,</span> <span class="mi">12231</span><span class="p">,</span> <span class="mi">10294</span><span class="p">,</span> <span class="mi">9585</span><span class="p">,</span> <span class="mi">8957</span><span class="p">,</span> <span class="mi">8590</span><span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">data_2010</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9058</span><span class="p">,</span> <span class="mi">10941</span><span class="p">,</span> <span class="mi">9979</span><span class="p">,</span> <span class="mi">10270</span><span class="p">,</span> <span class="mi">8900</span><span class="p">,</span> <span class="mi">11228</span><span class="p">,</span> <span class="mi">14688</span><span class="p">,</span> <span class="mi">12231</span><span class="p">,</span> <span class="mi">10160</span><span class="p">,</span> <span class="mi">9585</span><span class="p">,</span> <span class="mi">9384</span><span class="p">,</span> <span class="mi">8590</span><span class="p">};</span>
 
-int main(int, char*[] )
-{
-  // Set up a 2D scene, add an XY chart to it
-  VTK_CREATE(vtkContextView, view);
-  view-&gt;GetRenderer()-&gt;SetBackground(1.0, 1.0, 1.0);
-  view-&gt;GetRenderWindow()-&gt;SetSize(400, 300);
-  VTK_CREATE(vtkChartXY, chart);
-  view-&gt;GetScene()-&gt;AddItem(chart);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Set up a 2D scene, add an XY chart to it</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkContextView</span><span class="p">,</span> <span class="n">view</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkChartXY</span><span class="p">,</span> <span class="n">chart</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetScene</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">chart</span><span class="p">);</span>
 
-  // Create a table with some points in it...
-  VTK_CREATE(vtkTable, table);
+  <span class="c1">// Create a table with some points in it...</span>
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkTable</span><span class="p">,</span> <span class="n">table</span><span class="p">);</span>
 
-  VTK_CREATE(vtkIntArray, arrMonth);
-  arrMonth-&gt;SetName(&quot;Month&quot;);
-  table-&gt;AddColumn(arrMonth);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkIntArray</span><span class="p">,</span> <span class="n">arrMonth</span><span class="p">);</span>
+  <span class="n">arrMonth</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Month&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrMonth</span><span class="p">);</span>
 
-  VTK_CREATE(vtkIntArray, arr2008);
-  arr2008-&gt;SetName(&quot;2008&quot;);
-  table-&gt;AddColumn(arr2008);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkIntArray</span><span class="p">,</span> <span class="n">arr2008</span><span class="p">);</span>
+  <span class="n">arr2008</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;2008&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arr2008</span><span class="p">);</span>
 
-  VTK_CREATE(vtkIntArray, arr2009);
-  arr2009-&gt;SetName(&quot;2009&quot;);
-  table-&gt;AddColumn(arr2009);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkIntArray</span><span class="p">,</span> <span class="n">arr2009</span><span class="p">);</span>
+  <span class="n">arr2009</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;2009&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arr2009</span><span class="p">);</span>
 
-  VTK_CREATE(vtkIntArray, arr2010);
-  arr2010-&gt;SetName(&quot;2010&quot;);
-  table-&gt;AddColumn(arr2010);
+  <span class="n">VTK_CREATE</span><span class="p">(</span><span class="n">vtkIntArray</span><span class="p">,</span> <span class="n">arr2010</span><span class="p">);</span>
+  <span class="n">arr2010</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;2010&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arr2010</span><span class="p">);</span>
 
-  table-&gt;SetNumberOfRows(12);
-  for (int i = 0; i &lt; 12; i++)
-  {
-    table-&gt;SetValue(i,0,i+1);
-    table-&gt;SetValue(i,1,data_2008[i]);
-    table-&gt;SetValue(i,2,data_2009[i]);
-    table-&gt;SetValue(i,3,data_2010[i]);
-  }
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetNumberOfRows</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">data_2008</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">data_2009</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">data_2010</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  // Add multiple line plots, setting the colors etc
-  vtkPlot *line = 0;
+  <span class="c1">// Add multiple line plots, setting the colors etc</span>
+  <span class="n">vtkPlot</span> <span class="o">*</span><span class="n">line</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-  line = chart-&gt;AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION &lt;= 5
-  line-&gt;SetInput(table, 0, 1);
-#else
-  line-&gt;SetInputData(table, 0, 1);
-#endif
-  line-&gt;SetColor(0, 255, 0, 255);
+  <span class="n">line</span> <span class="o">=</span> <span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">BAR</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
 
-  line = chart-&gt;AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION &lt;= 5
-  line-&gt;SetInput(table, 0, 2);
-#else
-  line-&gt;SetInputData(table, 0, 2);
-#endif
-  line-&gt;SetColor(255, 0, 0, 255);
+  <span class="n">line</span> <span class="o">=</span> <span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">BAR</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
 
-  line = chart-&gt;AddPlot(vtkChart::BAR);
-#if VTK_MAJOR_VERSION &lt;= 5
-  line-&gt;SetInput(table, 0, 3);
-#else
-  line-&gt;SetInputData(table, 0, 3);
-#endif
-  line-&gt;SetColor(0, 0, 255, 255);
+  <span class="n">line</span> <span class="o">=</span> <span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">BAR</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
 
-  //Finally render the scene and compare the image to a reference image
-  view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="c1">//Finally render the scene and compare the image to a reference image</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BarChart)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BarChart</span><span class="p">)</span>
 
-add_executable(BarChart MACOSX_BUNDLE BarChart.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BarChart ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BarChart</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BarChart.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-barchart">Download and Build BarChart</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BarChart</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-barchart">Download and Build BarChart<a class="headerlink" href="#download-and-build-barchart" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BarChart.tar">here to download BarChart</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BarChart.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BarChart/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BarChart/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BarChart
-</code></pre>
+<div class="codehilite"><pre><span></span>./BarChart
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

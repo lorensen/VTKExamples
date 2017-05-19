@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,236 +16005,243 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/AnimationScene</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Utilities/TestAnimationScene.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AnimationScene.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkAnimationCue.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkAnimationScene.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAnimationCue.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAnimationScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-class CueAnimator
-{
-public:
-  CueAnimator()
-  {
-      this-&gt;SphereSource=0;
-      this-&gt;Mapper=0;
-      this-&gt;Actor=0;
-  }
+<span class="k">class</span> <span class="nc">CueAnimator</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">CueAnimator</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  ~CueAnimator()
-  {
-      this-&gt;Cleanup();
-  }
+  <span class="o">~</span><span class="n">CueAnimator</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Cleanup</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  void StartCue(vtkAnimationCue::AnimationCueInfo *vtkNotUsed(info),
-                vtkRenderer *ren)
-  {
-      cout &lt;&lt; &quot;*** IN StartCue &quot; &lt;&lt; endl;
-      this-&gt;SphereSource=vtkSphereSource::New();
-      this-&gt;SphereSource-&gt;SetRadius(0.5);
+  <span class="kt">void</span> <span class="n">StartCue</span><span class="p">(</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">info</span><span class="p">),</span>
+                <span class="n">vtkRenderer</span> <span class="o">*</span><span class="n">ren</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;*** IN StartCue &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">=</span><span class="n">vtkSphereSource</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span>
 
-      this-&gt;Mapper=vtkPolyDataMapper::New();
-      this-&gt;Mapper-&gt;SetInputConnection(this-&gt;SphereSource-&gt;GetOutputPort());
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="o">=</span><span class="n">vtkPolyDataMapper</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-      this-&gt;Actor=vtkActor::New();
-      this-&gt;Actor-&gt;SetMapper(this-&gt;Mapper);
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">=</span><span class="n">vtkActor</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="p">);</span>
 
-      ren-&gt;AddActor(this-&gt;Actor);
-      ren-&gt;ResetCamera();
-      ren-&gt;Render();
-  }
+      <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="p">);</span>
+      <span class="n">ren</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+      <span class="n">ren</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  void Tick(vtkAnimationCue::AnimationCueInfo *info,
-            vtkRenderer *ren)
-  {
-      double newradius=0.1 +
-        (static_cast&lt;double&gt;(info-&gt;AnimationTime -
-                             info-&gt;StartTime)/
-         static_cast&lt;double&gt;(info-&gt;EndTime-info-&gt;StartTime)) * 1;
-      this-&gt;SphereSource-&gt;SetRadius(newradius);
-      this-&gt;SphereSource-&gt;Update();
-      ren-&gt;Render();
-  }
+  <span class="kt">void</span> <span class="n">Tick</span><span class="p">(</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">info</span><span class="p">,</span>
+            <span class="n">vtkRenderer</span> <span class="o">*</span><span class="n">ren</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">newradius</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">+</span>
+        <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">AnimationTime</span> <span class="o">-</span>
+                             <span class="n">info</span><span class="o">-&gt;</span><span class="n">StartTime</span><span class="p">)</span><span class="o">/</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">EndTime</span><span class="o">-</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">StartTime</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">newradius</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+      <span class="n">ren</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  void EndCue(vtkAnimationCue::AnimationCueInfo *vtkNotUsed(info),
-              vtkRenderer *ren)
-  {
-      (void)ren;
-      // don't remove the actor for the regression image.
-//      ren-&gt;RemoveActor(this-&gt;Actor);
-      this-&gt;Cleanup();
-  }
+  <span class="kt">void</span> <span class="n">EndCue</span><span class="p">(</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">info</span><span class="p">),</span>
+              <span class="n">vtkRenderer</span> <span class="o">*</span><span class="n">ren</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">ren</span><span class="p">;</span>
+      <span class="c1">// don&#39;t remove the actor for the regression image.</span>
+<span class="c1">//      ren-&gt;RemoveActor(this-&gt;Actor);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Cleanup</span><span class="p">();</span>
+  <span class="p">}</span>
 
-protected:
-  vtkSphereSource *SphereSource;
-  vtkPolyDataMapper *Mapper;
-  vtkActor *Actor;
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">vtkSphereSource</span> <span class="o">*</span><span class="n">SphereSource</span><span class="p">;</span>
+  <span class="n">vtkPolyDataMapper</span> <span class="o">*</span><span class="n">Mapper</span><span class="p">;</span>
+  <span class="n">vtkActor</span> <span class="o">*</span><span class="n">Actor</span><span class="p">;</span>
 
-  void Cleanup()
-  {
-      if(this-&gt;SphereSource!=0)
-      {
-        this-&gt;SphereSource-&gt;Delete();
-        this-&gt;SphereSource=0;
-      }
+  <span class="kt">void</span> <span class="nf">Cleanup</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">SphereSource</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
 
-      if(this-&gt;Mapper!=0)
-      {
-        this-&gt;Mapper-&gt;Delete();
-        this-&gt;Mapper=0;
-      }
-      if(this-&gt;Actor!=0)
-      {
-        this-&gt;Actor-&gt;Delete();
-        this-&gt;Actor=0;
-      }
-  }
-};
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Mapper</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
 
-class vtkAnimationCueObserver : public vtkCommand
-{
-public:
-  static vtkAnimationCueObserver *New()
-  {
-      return new vtkAnimationCueObserver;
-  }
+<span class="k">class</span> <span class="nc">vtkAnimationCueObserver</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkAnimationCueObserver</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">vtkAnimationCueObserver</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  virtual void Execute(vtkObject *vtkNotUsed(caller),
-                       unsigned long event,
-                       void *calldata)
-  {
-      if(this-&gt;Animator!=0 &amp;&amp; this-&gt;Renderer!=0)
-      {
-        vtkAnimationCue::AnimationCueInfo *info=
-          static_cast&lt;vtkAnimationCue::AnimationCueInfo *&gt;(calldata);
-        switch(event)
-        {
-          case vtkCommand::StartAnimationCueEvent:
-            this-&gt;Animator-&gt;StartCue(info,this-&gt;Renderer);
-            break;
-          case vtkCommand::EndAnimationCueEvent:
-            this-&gt;Animator-&gt;EndCue(info,this-&gt;Renderer);
-            break;
-          case vtkCommand::AnimationCueTickEvent:
-            this-&gt;Animator-&gt;Tick(info,this-&gt;Renderer);
-            break;
-        }
-      }
-      if(this-&gt;RenWin!=0)
-      {
-        this-&gt;RenWin-&gt;Render();
-      }
-  }
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+                       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">event</span><span class="p">,</span>
+                       <span class="kt">void</span> <span class="o">*</span><span class="n">calldata</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">!=</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">info</span><span class="o">=</span>
+          <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">calldata</span><span class="p">);</span>
+        <span class="k">switch</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">StartAnimationCueEvent</span><span class="p">:</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">-&gt;</span><span class="n">StartCue</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">EndAnimationCueEvent</span><span class="p">:</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">-&gt;</span><span class="n">EndCue</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">AnimationCueTickEvent</span><span class="p">:</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">-&gt;</span><span class="n">Tick</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RenWin</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
 
-  vtkRenderer *Renderer;
-  vtkRenderWindow *RenWin;
-  CueAnimator *Animator;
-protected:
-  vtkAnimationCueObserver()
-  {
-      this-&gt;Renderer=0;
-      this-&gt;Animator=0;
-      this-&gt;RenWin=0;
-  }
-};
+  <span class="n">vtkRenderer</span> <span class="o">*</span><span class="n">Renderer</span><span class="p">;</span>
+  <span class="n">vtkRenderWindow</span> <span class="o">*</span><span class="n">RenWin</span><span class="p">;</span>
+  <span class="n">CueAnimator</span> <span class="o">*</span><span class="n">Animator</span><span class="p">;</span>
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">vtkAnimationCueObserver</span><span class="p">()</span>
+  <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenWin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
 
-int main(int, char *[])
-{
-  // Create the graphics structure. The renderer renders into the
-  // render window.
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;SetMultiSamples(0);
-  iren-&gt;SetRenderWindow(renWin);
-  renWin-&gt;AddRenderer(ren1);
-  renWin-&gt;Render();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create the graphics structure. The renderer renders into the</span>
+  <span class="c1">// render window.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Create an Animation Scene
-  vtkSmartPointer&lt;vtkAnimationScene&gt; scene =
-    vtkSmartPointer&lt;vtkAnimationScene&gt;::New();
+  <span class="c1">// Create an Animation Scene</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationScene</span><span class="o">&gt;</span> <span class="n">scene</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationScene</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  scene-&gt;SetModeToRealTime();
-  //scene-&gt;SetModeToSequence();
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetModeToRealTime</span><span class="p">();</span>
+  <span class="c1">//scene-&gt;SetModeToSequence();</span>
 
-  scene-&gt;SetLoop(0);
-  scene-&gt;SetFrameRate(5);
-  scene-&gt;SetStartTime(3);
-  scene-&gt;SetEndTime(20);
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetFrameRate</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetStartTime</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">SetEndTime</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
 
-  // Create an Animation Cue.
-  vtkSmartPointer&lt;vtkAnimationCue&gt; cue1 =
-    vtkSmartPointer&lt;vtkAnimationCue&gt;::New();
-  cue1-&gt;SetStartTime(5);
-  cue1-&gt;SetEndTime(23);
-  scene-&gt;AddCue(cue1);
+  <span class="c1">// Create an Animation Cue.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">&gt;</span> <span class="n">cue1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">SetStartTime</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">SetEndTime</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">AddCue</span><span class="p">(</span><span class="n">cue1</span><span class="p">);</span>
 
-  // Create cue animator;
-  CueAnimator animator;
+  <span class="c1">// Create cue animator;</span>
+  <span class="n">CueAnimator</span> <span class="n">animator</span><span class="p">;</span>
 
-  // Create Cue observer.
-  vtkSmartPointer&lt;vtkAnimationCueObserver&gt; observer =
-    vtkSmartPointer&lt;vtkAnimationCueObserver&gt;::New();
-  observer-&gt;Renderer=ren1;
-  observer-&gt;Animator=&amp;animator;
-  observer-&gt;RenWin=renWin;
+  <span class="c1">// Create Cue observer.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCueObserver</span><span class="o">&gt;</span> <span class="n">observer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAnimationCueObserver</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">observer</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="o">=</span><span class="n">ren1</span><span class="p">;</span>
+  <span class="n">observer</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">=&amp;</span><span class="n">animator</span><span class="p">;</span>
+  <span class="n">observer</span><span class="o">-&gt;</span><span class="n">RenWin</span><span class="o">=</span><span class="n">renWin</span><span class="p">;</span>
 
-  cue1-&gt;AddObserver(vtkCommand::StartAnimationCueEvent,observer);
-  cue1-&gt;AddObserver(vtkCommand::EndAnimationCueEvent,observer);
-  cue1-&gt;AddObserver(vtkCommand::AnimationCueTickEvent,observer);
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">StartAnimationCueEvent</span><span class="p">,</span><span class="n">observer</span><span class="p">);</span>
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">EndAnimationCueEvent</span><span class="p">,</span><span class="n">observer</span><span class="p">);</span>
+  <span class="n">cue1</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">AnimationCueTickEvent</span><span class="p">,</span><span class="n">observer</span><span class="p">);</span>
 
-  scene-&gt;Play();
-  scene-&gt;Stop();
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">Play</span><span class="p">();</span>
+  <span class="n">scene</span><span class="o">-&gt;</span><span class="n">Stop</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AnimationScene)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AnimationScene</span><span class="p">)</span>
 
-add_executable(AnimationScene MACOSX_BUNDLE AnimationScene.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AnimationScene ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AnimationScene</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AnimationScene.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-animationscene">Download and Build AnimationScene</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AnimationScene</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-animationscene">Download and Build AnimationScene<a class="headerlink" href="#download-and-build-animationscene" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AnimationScene.tar">here to download AnimationScene</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AnimationScene.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AnimationScene/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AnimationScene/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AnimationScene
-</code></pre>
+<div class="codehilite"><pre><span></span>./AnimationScene
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

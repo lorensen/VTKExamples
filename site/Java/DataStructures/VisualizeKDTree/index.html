@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,128 +15991,128 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/DataStructures/VisualizeKDTree</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/DataStructures/TestVisualizeKDTree.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This demo shows every level of a kdTree.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VisualizeKDTree.java</strong></p>
-<pre><code class="java">import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class VisualizeKDTree
-{
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VisualizeKDTree</span>
+<span class="o">{</span>
 
-  static
-  {
-    System.loadLibrary(&quot;vtkCommonJava&quot;);
-    System.loadLibrary(&quot;vtkFilteringJava&quot;);
-    System.loadLibrary(&quot;vtkIOJava&quot;);
-    System.loadLibrary(&quot;vtkImagingJava&quot;);
-    System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-    System.loadLibrary(&quot;vtkRenderingJava&quot;);
-    System.loadLibrary(&quot;vtkWidgetsJava&quot;);
-  }
+  <span class="kd">static</span>
+  <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkWidgetsJava&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  static class vtkSliderCallback
-  {
-    void Execute()
-    {
-      this.Level = (int)Math.round(((vtkSliderRepresentation)SliderWidget.GetRepresentation()).GetValue());
-      this.KdTree.GenerateRepresentation(this.Level, this.PolyData);
-      this.Renderer.Render();
-    }
+  <span class="kd">static</span> <span class="kd">class</span> <span class="nc">vtkSliderCallback</span>
+  <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">Execute</span><span class="o">()</span>
+    <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">Level</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(((</span><span class="n">vtkSliderRepresentation</span><span class="o">)</span><span class="n">SliderWidget</span><span class="o">.</span><span class="na">GetRepresentation</span><span class="o">()).</span><span class="na">GetValue</span><span class="o">());</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">KdTree</span><span class="o">.</span><span class="na">GenerateRepresentation</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">Level</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">PolyData</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">Renderer</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
+    <span class="o">}</span>
 
-    vtkKdTreePointLocator KdTree;
-    int Level = 0;
-    vtkPolyData PolyData;
-    vtkRenderer Renderer;
-    vtkSliderWidget SliderWidget;
-  }
+    <span class="n">vtkKdTreePointLocator</span> <span class="n">KdTree</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">Level</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="n">vtkPolyData</span> <span class="n">PolyData</span><span class="o">;</span>
+    <span class="n">vtkRenderer</span> <span class="n">Renderer</span><span class="o">;</span>
+    <span class="n">vtkSliderWidget</span> <span class="n">SliderWidget</span><span class="o">;</span>
+  <span class="o">}</span>
 
-  public static void main(String[] args)
-  {
-    // Create a point cloud
-    vtkPointSource pointSource = new vtkPointSource();
-    pointSource.SetRadius(4);
-    pointSource.SetNumberOfPoints(1000);
-    pointSource.Update();
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="c1">// Create a point cloud</span>
+    <span class="n">vtkPointSource</span> <span class="n">pointSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPointSource</span><span class="o">();</span>
+    <span class="n">pointSource</span><span class="o">.</span><span class="na">SetRadius</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+    <span class="n">pointSource</span><span class="o">.</span><span class="na">SetNumberOfPoints</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+    <span class="n">pointSource</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
-    vtkPolyDataMapper pointsMapper = new vtkPolyDataMapper();
-    pointsMapper.SetInputConnection(pointSource.GetOutputPort());
+    <span class="n">vtkPolyDataMapper</span> <span class="n">pointsMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">pointsMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">pointSource</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
 
-    vtkActor pointsActor = new vtkActor();
-    pointsActor.SetMapper(pointsMapper);
-    pointsActor.GetProperty().SetInterpolationToFlat();
+    <span class="n">vtkActor</span> <span class="n">pointsActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">pointsActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">pointsMapper</span><span class="o">);</span>
+    <span class="n">pointsActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetInterpolationToFlat</span><span class="o">();</span>
 
-    int maxLevel = 20;
-    // Create the tree
-    vtkKdTreePointLocator kdTree = new vtkKdTreePointLocator();
-    kdTree.SetDataSet(pointSource.GetOutput());
-    kdTree.AutomaticOff();
-    kdTree.SetMaxLevel(maxLevel);
-    kdTree.BuildLocator();
+    <span class="kt">int</span> <span class="n">maxLevel</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+    <span class="c1">// Create the tree</span>
+    <span class="n">vtkKdTreePointLocator</span> <span class="n">kdTree</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkKdTreePointLocator</span><span class="o">();</span>
+    <span class="n">kdTree</span><span class="o">.</span><span class="na">SetDataSet</span><span class="o">(</span><span class="n">pointSource</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">());</span>
+    <span class="n">kdTree</span><span class="o">.</span><span class="na">AutomaticOff</span><span class="o">();</span>
+    <span class="n">kdTree</span><span class="o">.</span><span class="na">SetMaxLevel</span><span class="o">(</span><span class="n">maxLevel</span><span class="o">);</span>
+    <span class="n">kdTree</span><span class="o">.</span><span class="na">BuildLocator</span><span class="o">();</span>
 
-    // Initialize the representation
-    vtkPolyData polydata = new vtkPolyData();
-    kdTree.GenerateRepresentation(0, polydata);
+    <span class="c1">// Initialize the representation</span>
+    <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyData</span><span class="o">();</span>
+    <span class="n">kdTree</span><span class="o">.</span><span class="na">GenerateRepresentation</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">polydata</span><span class="o">);</span>
 
-    vtkPolyDataMapper octreeMapper = new vtkPolyDataMapper();
-    octreeMapper.SetInputConnection(polydata.GetProducerPort());
+    <span class="n">vtkPolyDataMapper</span> <span class="n">octreeMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">octreeMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">polydata</span><span class="o">.</span><span class="na">GetProducerPort</span><span class="o">());</span>
 
-    vtkActor octreeActor = new vtkActor();
-    octreeActor.SetMapper(octreeMapper);
-    octreeActor.GetProperty().SetInterpolationToFlat();
-    octreeActor.GetProperty().SetRepresentationToWireframe();
+    <span class="n">vtkActor</span> <span class="n">octreeActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">octreeActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">octreeMapper</span><span class="o">);</span>
+    <span class="n">octreeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetInterpolationToFlat</span><span class="o">();</span>
+    <span class="n">octreeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetRepresentationToWireframe</span><span class="o">();</span>
 
-    // A renderer and render window
-    vtkRenderer renderer = new vtkRenderer();
-    vtkRenderWindow renderWindow = new vtkRenderWindow();
-    renderWindow.AddRenderer(renderer);
+    <span class="c1">// A renderer and render window</span>
+    <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+    <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span><span class="n">renderer</span><span class="o">);</span>
 
-    // An interactor
-    vtkRenderWindowInteractor renderWindowInteractor =
-      new vtkRenderWindowInteractor();
-    renderWindowInteractor.SetRenderWindow(renderWindow);
+    <span class="c1">// An interactor</span>
+    <span class="n">vtkRenderWindowInteractor</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="k">new</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">();</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">SetRenderWindow</span><span class="o">(</span><span class="n">renderWindow</span><span class="o">);</span>
 
-    // Add the actors to the scene
-    renderer.AddActor(pointsActor);
-    renderer.AddActor(octreeActor);
+    <span class="c1">// Add the actors to the scene</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">pointsActor</span><span class="o">);</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span><span class="n">octreeActor</span><span class="o">);</span>
 
-    // Render an image (lights and cameras are created automatically)
-    renderWindow.Render();
+    <span class="c1">// Render an image (lights and cameras are created automatically)</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
 
-    vtkSliderRepresentation2D sliderRep = new vtkSliderRepresentation2D();
-    sliderRep.SetMinimumValue(0);
-    sliderRep.SetMaximumValue(kdTree.GetLevel());
-    sliderRep.SetValue(0);
-    sliderRep.SetTitleText(&quot;Level&quot;);
-    sliderRep.GetPoint1Coordinate().SetCoordinateSystemToNormalizedDisplay();
-    sliderRep.GetPoint1Coordinate().SetValue(.2, .2);
-    sliderRep.GetPoint2Coordinate().SetCoordinateSystemToNormalizedDisplay();
-    sliderRep.GetPoint2Coordinate().SetValue(.8, .2);
-    sliderRep.SetSliderLength(0.075);
-    sliderRep.SetSliderWidth(0.05);
-    sliderRep.SetEndCapLength(0.05);
+    <span class="n">vtkSliderRepresentation2D</span> <span class="n">sliderRep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSliderRepresentation2D</span><span class="o">();</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetMinimumValue</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetMaximumValue</span><span class="o">(</span><span class="n">kdTree</span><span class="o">.</span><span class="na">GetLevel</span><span class="o">());</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetValue</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetTitleText</span><span class="o">(</span><span class="s">&quot;Level&quot;</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">GetPoint1Coordinate</span><span class="o">().</span><span class="na">SetCoordinateSystemToNormalizedDisplay</span><span class="o">();</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">GetPoint1Coordinate</span><span class="o">().</span><span class="na">SetValue</span><span class="o">(</span><span class="mf">.2</span><span class="o">,</span> <span class="mf">.2</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">GetPoint2Coordinate</span><span class="o">().</span><span class="na">SetCoordinateSystemToNormalizedDisplay</span><span class="o">();</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">GetPoint2Coordinate</span><span class="o">().</span><span class="na">SetValue</span><span class="o">(</span><span class="mf">.8</span><span class="o">,</span> <span class="mf">.2</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetSliderLength</span><span class="o">(</span><span class="mf">0.075</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetSliderWidth</span><span class="o">(</span><span class="mf">0.05</span><span class="o">);</span>
+    <span class="n">sliderRep</span><span class="o">.</span><span class="na">SetEndCapLength</span><span class="o">(</span><span class="mf">0.05</span><span class="o">);</span>
 
-    vtkSliderWidget sliderWidget = new vtkSliderWidget();
-    sliderWidget.SetInteractor(renderWindowInteractor);
-    sliderWidget.SetRepresentation(sliderRep);
-    sliderWidget.SetAnimationModeToAnimate();
-    sliderWidget.EnabledOn();
+    <span class="n">vtkSliderWidget</span> <span class="n">sliderWidget</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSliderWidget</span><span class="o">();</span>
+    <span class="n">sliderWidget</span><span class="o">.</span><span class="na">SetInteractor</span><span class="o">(</span><span class="n">renderWindowInteractor</span><span class="o">);</span>
+    <span class="n">sliderWidget</span><span class="o">.</span><span class="na">SetRepresentation</span><span class="o">(</span><span class="n">sliderRep</span><span class="o">);</span>
+    <span class="n">sliderWidget</span><span class="o">.</span><span class="na">SetAnimationModeToAnimate</span><span class="o">();</span>
+    <span class="n">sliderWidget</span><span class="o">.</span><span class="na">EnabledOn</span><span class="o">();</span>
 
-    vtkSliderCallback callback = new vtkSliderCallback();
-    callback.KdTree = kdTree;
-    callback.PolyData = polydata;
-    callback.Renderer = renderer;
-    callback.SliderWidget = sliderWidget;
+    <span class="n">vtkSliderCallback</span> <span class="n">callback</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkSliderCallback</span><span class="o">();</span>
+    <span class="n">callback</span><span class="o">.</span><span class="na">KdTree</span> <span class="o">=</span> <span class="n">kdTree</span><span class="o">;</span>
+    <span class="n">callback</span><span class="o">.</span><span class="na">PolyData</span> <span class="o">=</span> <span class="n">polydata</span><span class="o">;</span>
+    <span class="n">callback</span><span class="o">.</span><span class="na">Renderer</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">;</span>
+    <span class="n">callback</span><span class="o">.</span><span class="na">SliderWidget</span> <span class="o">=</span> <span class="n">sliderWidget</span><span class="o">;</span>
 
-    sliderWidget.AddObserver(&quot;InteractionEvent&quot;, callback, &quot;Execute&quot;);
+    <span class="n">sliderWidget</span><span class="o">.</span><span class="na">AddObserver</span><span class="o">(</span><span class="s">&quot;InteractionEvent&quot;</span><span class="o">,</span> <span class="n">callback</span><span class="o">,</span> <span class="s">&quot;Execute&quot;</span><span class="o">);</span>
 
-    renderWindowInteractor.Initialize();
-    renderWindow.Render();
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">Initialize</span><span class="o">();</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
 
-    renderWindowInteractor.Start();
-  }
-}
-</code></pre>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">Start</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

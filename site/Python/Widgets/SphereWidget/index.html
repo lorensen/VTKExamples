@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15523,6 +15523,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,41 +15991,41 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Widgets/SphereWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestSphereWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>[Examples Python Widgets SphereWidget.png]]([File:VTK)</p>
 <p>This example shows how to use the SphereWidget.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SphereWidget.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-# Call back function
-def sphereCallback(obj, event):
-    print('Center: {}, {}, {}'.format(*obj.GetCenter()))
+<span class="c1"># Call back function</span>
+<span class="k">def</span> <span class="nf">sphereCallback</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Center: {}, {}, {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">obj</span><span class="o">.</span><span class="n">GetCenter</span><span class="p">()))</span>
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderer.SetBackground(1, 1, 1)
+<span class="c1"># A renderer and render window</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-renwin = vtk.vtkRenderWindow()
-renwin.AddRenderer(renderer)
+<span class="n">renwin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renwin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-# An interactor
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renwin)
+<span class="c1"># An interactor</span>
+<span class="n">interactor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renwin</span><span class="p">)</span>
 
-# A Sphere widget
-sphereWidget = vtk.vtkSphereWidget()
-sphereWidget.SetInteractor(interactor)
-sphereWidget.SetRepresentationToSurface()
-sphereWidget.On()
+<span class="c1"># A Sphere widget</span>
+<span class="n">sphereWidget</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereWidget</span><span class="p">()</span>
+<span class="n">sphereWidget</span><span class="o">.</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">)</span>
+<span class="n">sphereWidget</span><span class="o">.</span><span class="n">SetRepresentationToSurface</span><span class="p">()</span>
+<span class="n">sphereWidget</span><span class="o">.</span><span class="n">On</span><span class="p">()</span>
 
-# Connect the event to a function
-sphereWidget.AddObserver(&quot;InteractionEvent&quot;, sphereCallback)
+<span class="c1"># Connect the event to a function</span>
+<span class="n">sphereWidget</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;InteractionEvent&quot;</span><span class="p">,</span> <span class="n">sphereCallback</span><span class="p">)</span>
 
-# Start
-interactor.Initialize()
-interactor.Start()
-</code></pre>
+<span class="c1"># Start</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

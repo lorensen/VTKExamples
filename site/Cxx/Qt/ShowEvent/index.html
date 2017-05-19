@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,59 +16004,66 @@
                   <h1>ShowEvent</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Qt/ShowEvent</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ShowEvent.cxx</strong></p>
-<pre><code class="c++">#include &lt;iostream&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
-#include &quot;ShowEvent.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;ShowEvent.h&quot;</span><span class="cp"></span>
 
-ShowEvent::ShowEvent(QWidget *myParent) : QWidget(myParent)
-{
-  this-&gt;setupUi(this);
+<span class="n">ShowEvent</span><span class="o">::</span><span class="n">ShowEvent</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">myParent</span><span class="p">)</span> <span class="o">:</span> <span class="n">QWidget</span><span class="p">(</span><span class="n">myParent</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">setupUi</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-  // Do not do anything related to VTK display here!
-}
+  <span class="c1">// Do not do anything related to VTK display here!</span>
+<span class="p">}</span>
 
-void ShowEvent::showEvent(QShowEvent *)
-{
-  // Instead, do the VTK display things here!
-}
-</code></pre>
+<span class="kt">void</span> <span class="n">ShowEvent</span><span class="o">::</span><span class="n">showEvent</span><span class="p">(</span><span class="n">QShowEvent</span> <span class="o">*</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Instead, do the VTK display things here!</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ShowEvent)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ShowEvent</span><span class="p">)</span>
 
-add_executable(ShowEvent MACOSX_BUNDLE ShowEvent.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ShowEvent ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ShowEvent</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ShowEvent.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-showevent">Download and Build ShowEvent</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ShowEvent</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-showevent">Download and Build ShowEvent<a class="headerlink" href="#download-and-build-showevent" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ShowEvent.tar">here to download ShowEvent</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ShowEvent.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ShowEvent/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ShowEvent/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ShowEvent
-</code></pre>
+<div class="codehilite"><pre><span></span>./ShowEvent
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

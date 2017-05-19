@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,66 +15991,66 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/CubeAxesActor</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestCubeAxesActor.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>*Translated to python from the .cxx examples by Michka Popoff</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CubeAxesActor.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Create a superquadric
-superquadricSource = vtk.vtkSuperquadricSource()
-superquadricSource.SetPhiRoundness(3.1)
-superquadricSource.SetThetaRoundness(1.0)
-superquadricSource.Update()  # needed to GetBounds later
+<span class="c1"># Create a superquadric</span>
+<span class="n">superquadricSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSuperquadricSource</span><span class="p">()</span>
+<span class="n">superquadricSource</span><span class="o">.</span><span class="n">SetPhiRoundness</span><span class="p">(</span><span class="mf">3.1</span><span class="p">)</span>
+<span class="n">superquadricSource</span><span class="o">.</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">superquadricSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>  <span class="c1"># needed to GetBounds later</span>
 
-renderer = vtk.vtkRenderer()
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
 
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(superquadricSource.GetOutputPort())
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">superquadricSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-superquadricActor = vtk.vtkActor()
-superquadricActor.SetMapper(mapper)
+<span class="n">superquadricActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">superquadricActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-cubeAxesActor = vtk.vtkCubeAxesActor()
-cubeAxesActor.SetBounds(superquadricSource.GetOutput().GetBounds())
-cubeAxesActor.SetCamera(renderer.GetActiveCamera())
-cubeAxesActor.GetTitleTextProperty(0).SetColor(1.0, 0.0, 0.0)
-cubeAxesActor.GetLabelTextProperty(0).SetColor(1.0, 0.0, 0.0)
+<span class="n">cubeAxesActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCubeAxesActor</span><span class="p">()</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">SetBounds</span><span class="p">(</span><span class="n">superquadricSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">())</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">SetCamera</span><span class="p">(</span><span class="n">renderer</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">())</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">GetTitleTextProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">GetLabelTextProperty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-cubeAxesActor.GetTitleTextProperty(1).SetColor(0.0, 1.0, 0.0)
-cubeAxesActor.GetLabelTextProperty(1).SetColor(0.0, 1.0, 0.0)
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">GetTitleTextProperty</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">GetLabelTextProperty</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-cubeAxesActor.GetTitleTextProperty(2).SetColor(0.0, 0.0, 1.0)
-cubeAxesActor.GetLabelTextProperty(2).SetColor(0.0, 0.0, 1.0)
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">GetTitleTextProperty</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">GetLabelTextProperty</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-cubeAxesActor.DrawXGridlinesOn()
-cubeAxesActor.DrawYGridlinesOn()
-cubeAxesActor.DrawZGridlinesOn()
-if vtk.VTK_MAJOR_VERSION &gt; 5:
-    cubeAxesActor.SetGridLineLocation(vtk.VTK_GRID_LINES_FURTHEST)
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">DrawXGridlinesOn</span><span class="p">()</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">DrawYGridlinesOn</span><span class="p">()</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">DrawZGridlinesOn</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">SetGridLineLocation</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">VTK_GRID_LINES_FURTHEST</span><span class="p">)</span>
 
-cubeAxesActor.XAxisMinorTickVisibilityOff()
-cubeAxesActor.YAxisMinorTickVisibilityOff()
-cubeAxesActor.ZAxisMinorTickVisibilityOff()
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">XAxisMinorTickVisibilityOff</span><span class="p">()</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">YAxisMinorTickVisibilityOff</span><span class="p">()</span>
+<span class="n">cubeAxesActor</span><span class="o">.</span><span class="n">ZAxisMinorTickVisibilityOff</span><span class="p">()</span>
 
-renderer.AddActor(cubeAxesActor)
-renderer.AddActor(superquadricActor)
-renderer.GetActiveCamera().Azimuth(30)
-renderer.GetActiveCamera().Elevation(30)
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cubeAxesActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">superquadricActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
 
-renderer.ResetCamera()
+<span class="n">renderer</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
 
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,164 +16019,171 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Plotting/BoxChart</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Plotting/TestBoxChart.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to generate a <a href="https://en.wikipedia.org/wiki/Box_plot">box plot</a>.</p>
 <p>The example uses data from <a href="https://en.wikipedia.org/wiki/Michelson%E2%80%93Morley_experiment">the Michelson Morley experiment</a>. Compare the wiki example output with the <a href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Michelsonmorley-boxplot.svg">Wikipedia results</a></p>
 <p><strong>NOTE:</strong> The ChartBox expects an input table with exactly 5 rows per column. The 5 rows are minimum, 1st quartile, median, 3rd quartile and maximum. <a href="http://www.vtk.org/doc/nightly/html/classvtkComputeQuartiles.html">vtkComputeQuartiles</a> is used to create a valid input table from the original data.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BoxChart.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkChartBox.h&quot;
-#include &quot;vtkStatisticsAlgorithm.h&quot;
-#include &quot;vtkComputeQuartiles.h&quot;
-#include &quot;vtkContextScene.h&quot;
-#include &quot;vtkContextView.h&quot;
-#include &quot;vtkIntArray.h&quot;
-#include &quot;vtkLookupTable.h&quot;
-#include &quot;vtkPlotBox.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkStringArray.h&quot;
-#include &quot;vtkTable.h&quot;
-#include &quot;vtkAxis.h&quot;
-#include &quot;vtkTextProperty.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkChartBox.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStatisticsAlgorithm.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkComputeQuartiles.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkContextScene.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkContextView.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkIntArray.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkLookupTable.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPlotBox.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStringArray.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTable.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkAxis.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTextProperty.h&quot;</span><span class="cp"></span>
 
-//----------------------------------------------------------------------------
-int main(int , char* [])
-{
-  // Set up a 2D scene, add an XY chart to it
-  vtkSmartPointer&lt;vtkContextView&gt; view =
-    vtkSmartPointer&lt;vtkContextView&gt;::New();
-  view-&gt;GetRenderWindow()-&gt;SetSize(400, 400);
-  view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Set up a 2D scene, add an XY chart to it</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkChartBox&gt; chart =
-    vtkSmartPointer&lt;vtkChartBox&gt;::New();
-  view-&gt;GetScene()-&gt;AddItem(chart);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartBox</span><span class="o">&gt;</span> <span class="n">chart</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartBox</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetScene</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">chart</span><span class="p">);</span>
 
-  // Creates a vtkPlotBox input table
-  int numParam = 5;
-  vtkSmartPointer&lt;vtkTable&gt; inputBoxPlotTable =
-    vtkSmartPointer&lt;vtkTable&gt;::New();
+  <span class="c1">// Creates a vtkPlotBox input table</span>
+  <span class="kt">int</span> <span class="n">numParam</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">inputBoxPlotTable</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for (int i = 0; i &lt; numParam; i++)
-  {
-    char num[10];
-    sprintf(num, &quot;Run %d&quot;, i + 1);
-    vtkSmartPointer&lt;vtkIntArray&gt; arrIndex =
-      vtkSmartPointer&lt;vtkIntArray&gt;::New();
-    arrIndex-&gt;SetName(num);
-    inputBoxPlotTable-&gt;AddColumn(arrIndex);
-  }
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numParam</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">num</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="s">&quot;Run %d&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrIndex</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">arrIndex</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+    <span class="n">inputBoxPlotTable</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrIndex</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  inputBoxPlotTable-&gt;SetNumberOfRows(20);
-  double values[20][5] =
-    {
-      {850,     960,     880,     890,     890},
-      {740,     940,     880,     810,     840},
-      {900,     960,     880,     810,     780},
-      {1070,    940,     860,     820,     810},
-      {930,     880,     720,     800,     760},
-      {850,     800,     720,     770,     810},
-      {950,     850,     620,     760,     790},
-      {980,     880,     860,     740,     810},
-      {980,     900,     970,     750,     820},
-      {880,     840,     950,     760,     850},
-      {1000,    830,     880,     910,     870},
-      {980,     790,     910,     920,     870},
-      {930,     810,     850,     890,     810},
-      {650,     880,     870,     860,     740},
-      {760,     880,     840,     880,     810},
-      {810,     830,     840,     720,     940},
-      {1000,    800,     850,     840,     950},
-      {1000,    790,     840,     850,     800},
-      {960,     760,     840,     850,     810},
-      {960,     800,     840,     780,     870}
-    };
-  for (int j = 0; j &lt; 20; ++j)
-  {
-    for (int i = 0; i &lt; 5; ++i)
-    {
-      inputBoxPlotTable-&gt;SetValue(j, i, values[j][i]);
-    }
-  }
-  vtkSmartPointer&lt;vtkComputeQuartiles&gt; quartiles =
-    vtkSmartPointer&lt;vtkComputeQuartiles&gt;::New();
-  quartiles-&gt;SetInputData(vtkStatisticsAlgorithm::INPUT_DATA, inputBoxPlotTable);
-  quartiles-&gt;Update();
+  <span class="n">inputBoxPlotTable</span><span class="o">-&gt;</span><span class="n">SetNumberOfRows</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">values</span><span class="p">[</span><span class="mi">20</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span>
+    <span class="p">{</span>
+      <span class="p">{</span><span class="mi">850</span><span class="p">,</span>     <span class="mi">960</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">890</span><span class="p">,</span>     <span class="mi">890</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">740</span><span class="p">,</span>     <span class="mi">940</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">810</span><span class="p">,</span>     <span class="mi">840</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">900</span><span class="p">,</span>     <span class="mi">960</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">810</span><span class="p">,</span>     <span class="mi">780</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">1070</span><span class="p">,</span>    <span class="mi">940</span><span class="p">,</span>     <span class="mi">860</span><span class="p">,</span>     <span class="mi">820</span><span class="p">,</span>     <span class="mi">810</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">930</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">720</span><span class="p">,</span>     <span class="mi">800</span><span class="p">,</span>     <span class="mi">760</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">850</span><span class="p">,</span>     <span class="mi">800</span><span class="p">,</span>     <span class="mi">720</span><span class="p">,</span>     <span class="mi">770</span><span class="p">,</span>     <span class="mi">810</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">950</span><span class="p">,</span>     <span class="mi">850</span><span class="p">,</span>     <span class="mi">620</span><span class="p">,</span>     <span class="mi">760</span><span class="p">,</span>     <span class="mi">790</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">980</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">860</span><span class="p">,</span>     <span class="mi">740</span><span class="p">,</span>     <span class="mi">810</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">980</span><span class="p">,</span>     <span class="mi">900</span><span class="p">,</span>     <span class="mi">970</span><span class="p">,</span>     <span class="mi">750</span><span class="p">,</span>     <span class="mi">820</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">880</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">950</span><span class="p">,</span>     <span class="mi">760</span><span class="p">,</span>     <span class="mi">850</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">1000</span><span class="p">,</span>    <span class="mi">830</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">910</span><span class="p">,</span>     <span class="mi">870</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">980</span><span class="p">,</span>     <span class="mi">790</span><span class="p">,</span>     <span class="mi">910</span><span class="p">,</span>     <span class="mi">920</span><span class="p">,</span>     <span class="mi">870</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">930</span><span class="p">,</span>     <span class="mi">810</span><span class="p">,</span>     <span class="mi">850</span><span class="p">,</span>     <span class="mi">890</span><span class="p">,</span>     <span class="mi">810</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">650</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">870</span><span class="p">,</span>     <span class="mi">860</span><span class="p">,</span>     <span class="mi">740</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">760</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">880</span><span class="p">,</span>     <span class="mi">810</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">810</span><span class="p">,</span>     <span class="mi">830</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">720</span><span class="p">,</span>     <span class="mi">940</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">1000</span><span class="p">,</span>    <span class="mi">800</span><span class="p">,</span>     <span class="mi">850</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">950</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">1000</span><span class="p">,</span>    <span class="mi">790</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">850</span><span class="p">,</span>     <span class="mi">800</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">960</span><span class="p">,</span>     <span class="mi">760</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">850</span><span class="p">,</span>     <span class="mi">810</span><span class="p">},</span>
+      <span class="p">{</span><span class="mi">960</span><span class="p">,</span>     <span class="mi">800</span><span class="p">,</span>     <span class="mi">840</span><span class="p">,</span>     <span class="mi">780</span><span class="p">,</span>     <span class="mi">870</span><span class="p">}</span>
+    <span class="p">};</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">inputBoxPlotTable</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkComputeQuartiles</span><span class="o">&gt;</span> <span class="n">quartiles</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkComputeQuartiles</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">quartiles</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkStatisticsAlgorithm</span><span class="o">::</span><span class="n">INPUT_DATA</span><span class="p">,</span> <span class="n">inputBoxPlotTable</span><span class="p">);</span>
+  <span class="n">quartiles</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkTable *outTable = quartiles-&gt;GetOutput();
-  vtkSmartPointer&lt;vtkLookupTable&gt; lookup =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  lookup-&gt;SetNumberOfColors(5);
-  lookup-&gt;SetRange(0, 4);
-  lookup-&gt;Build();
+  <span class="n">vtkTable</span> <span class="o">*</span><span class="n">outTable</span> <span class="o">=</span> <span class="n">quartiles</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lookup</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lookup</span><span class="o">-&gt;</span><span class="n">SetNumberOfColors</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">lookup</span><span class="o">-&gt;</span><span class="n">SetRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">lookup</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  chart-&gt;GetPlot(0)-&gt;SetInputData(outTable);
-  chart-&gt;SetShowLegend(true);
-  chart-&gt;SetColumnVisibilityAll(true);
-  chart-&gt;SetTitle(&quot;Michelson-Morley experiment&quot;);
-  chart-&gt;GetTitleProperties()-&gt;SetFontSize(16);
-  chart-&gt;GetYAxis()-&gt;SetTitle(&quot;Speed of Light (km/s - 299000)&quot;);
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetPlot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">outTable</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">SetShowLegend</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">SetColumnVisibilityAll</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Michelson-Morley experiment&quot;</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetTitleProperties</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetYAxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Speed of Light (km/s - 299000)&quot;</span><span class="p">);</span>
 
-  // Set the labels
-  vtkSmartPointer&lt;vtkStringArray&gt; labels =
-    vtkSmartPointer&lt;vtkStringArray&gt;::New();
-  labels-&gt;SetNumberOfValues(5);
-  labels-&gt;SetValue(0, &quot;Run 1&quot;);
-  labels-&gt;SetValue(1, &quot;Run 2&quot;);
-  labels-&gt;SetValue(2, &quot;Run 3&quot;);
-  labels-&gt;SetValue(3, &quot;Run 4&quot;);
-  labels-&gt;SetValue(4, &quot;Run 5&quot;);
-  chart-&gt;GetPlot(0)-&gt;SetLabels(labels);
+  <span class="c1">// Set the labels</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;</span> <span class="n">labels</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetNumberOfValues</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Run 1&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Run 2&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;Run 3&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;Run 4&quot;</span><span class="p">);</span>
+  <span class="n">labels</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&quot;Run 5&quot;</span><span class="p">);</span>
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">GetPlot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetLabels</span><span class="p">(</span><span class="n">labels</span><span class="p">);</span>
 
-  // Render the scene
-  view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
-  view-&gt;GetRenderer()-&gt;SetBackground(.8, .8, .8);
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;Render();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="c1">// Render the scene</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(BoxChart)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">BoxChart</span><span class="p">)</span>
 
-add_executable(BoxChart MACOSX_BUNDLE BoxChart.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(BoxChart ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">BoxChart</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">BoxChart.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-boxchart">Download and Build BoxChart</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">BoxChart</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-boxchart">Download and Build BoxChart<a class="headerlink" href="#download-and-build-boxchart" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/BoxChart.tar">here to download BoxChart</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball BoxChart.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd BoxChart/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd BoxChart/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./BoxChart
-</code></pre>
+<div class="codehilite"><pre><span></span>./BoxChart
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

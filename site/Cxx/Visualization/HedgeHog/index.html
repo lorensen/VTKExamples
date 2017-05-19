@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,161 +16005,168 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/HedgeHog</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestHedgeHog.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>HedgeHog.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &quot;vtkSmartPointer.h&quot;
-#include &quot;vtkActor.h&quot;
-#include &quot;vtkCamera.h&quot;
-#include &quot;vtkFloatArray.h&quot;
-#include &quot;vtkHedgeHog.h&quot;
-#include &quot;vtkMath.h&quot;
-#include &quot;vtkPointData.h&quot;
-#include &quot;vtkPoints.h&quot;
-#include &quot;vtkPolyDataMapper.h&quot;
-#include &quot;vtkProperty.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkStructuredGrid.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCamera.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkFloatArray.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkHedgeHog.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkMath.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPointData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPoints.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStructuredGrid.h&quot;</span><span class="cp"></span>
 
-static void CreateData(vtkStructuredGrid* sgrid);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateData</span><span class="p">(</span><span class="n">vtkStructuredGrid</span><span class="o">*</span> <span class="n">sgrid</span><span class="p">);</span>
 
-int main(int, char*[])
-{
-  // Create the structured grid.
-  vtkSmartPointer&lt;vtkStructuredGrid&gt; sgrid =
-    vtkSmartPointer&lt;vtkStructuredGrid&gt;::New();
-  CreateData(sgrid);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create the structured grid.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGrid</span><span class="o">&gt;</span> <span class="n">sgrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">CreateData</span><span class="p">(</span><span class="n">sgrid</span><span class="p">);</span>
 
-  // We create a simple pipeline to display the data.
-  vtkSmartPointer&lt;vtkHedgeHog&gt; hedgehog =
-    vtkSmartPointer&lt;vtkHedgeHog&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  hedgehog-&gt;SetInput(sgrid);
-#else
-  hedgehog-&gt;SetInputData(sgrid);
-#endif
-  hedgehog-&gt;SetScaleFactor(0.1);
+  <span class="c1">// We create a simple pipeline to display the data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHedgeHog</span><span class="o">&gt;</span> <span class="n">hedgehog</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHedgeHog</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sgrid</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">sgrid</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sgridMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sgridMapper-&gt;SetInputConnection(hedgehog-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sgridMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sgridMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sgridActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sgridActor-&gt;SetMapper(sgridMapper);
-  sgridActor-&gt;GetProperty()-&gt;SetColor(0,0,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sgridActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sgridActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sgridMapper</span><span class="p">);</span>
+  <span class="n">sgridActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  // Create the usual rendering stuff
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(renderer);
+  <span class="c1">// Create the usual rendering stuff</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(sgridActor);
-  renderer-&gt;SetBackground(1,1,1);
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Elevation(60.0);
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(30.0);
-  renderer-&gt;GetActiveCamera()-&gt;Zoom(1.25);
-  renWin-&gt;SetSize(300,300);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sgridActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mf">60.0</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
 
-  // interact with data
-  renWin-&gt;Render();
-  iren-&gt;Start();
+  <span class="c1">// interact with data</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void CreateData(vtkStructuredGrid* sgrid)
-{
-  int i, j, k, kOffset, jOffset, offset;
-  float x[3], v[3], rMin=0.5, rMax=1.0, deltaRad, deltaZ;
-  float radius, theta;
-  static int dims[3]={13,11,11};
-  sgrid-&gt;SetDimensions(dims);
+<span class="kt">void</span> <span class="nf">CreateData</span><span class="p">(</span><span class="n">vtkStructuredGrid</span><span class="o">*</span> <span class="n">sgrid</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">kOffset</span><span class="p">,</span> <span class="n">jOffset</span><span class="p">,</span> <span class="n">offset</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">rMin</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rMax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">deltaRad</span><span class="p">,</span> <span class="n">deltaZ</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">radius</span><span class="p">,</span> <span class="n">theta</span><span class="p">;</span>
+  <span class="k">static</span> <span class="kt">int</span> <span class="n">dims</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">};</span>
+  <span class="n">sgrid</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dims</span><span class="p">);</span>
 
-  // We also create the points and vectors. The points
-  // form a hemi-cylinder of data.
-  vtkSmartPointer&lt;vtkFloatArray&gt; vectors =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  vectors-&gt;SetNumberOfComponents(3);
-  vectors-&gt;SetNumberOfTuples(dims[0]*dims[1]*dims[2]);
+  <span class="c1">// We also create the points and vectors. The points</span>
+  <span class="c1">// form a hemi-cylinder of data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">vectors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vectors</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">vectors</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;Allocate(dims[0]*dims[1]*dims[2]);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">Allocate</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
-  deltaZ = 2.0 / (dims[2]-1);
-  deltaRad = (rMax-rMin) / (dims[1]-1);
-  v[2]=0.0;
-  for ( k=0; k&lt;dims[2]; k++)
-  {
-    x[2] = -1.0 + k*deltaZ;
-    kOffset = k * dims[0] * dims[1];
-    for (j=0; j&lt;dims[1]; j++)
-    {
-      radius = rMin + j*deltaRad;
-      jOffset = j * dims[0];
-      for (i=0; i&lt;dims[0]; i++)
-      {
-        theta = i * vtkMath::RadiansFromDegrees(15.0);
-        x[0] = radius * cos(theta);
-        x[1] = radius * sin(theta);
-        v[0] = -x[1];
-        v[1] = x[0];
-        offset = i + jOffset + kOffset;
-        points-&gt;InsertPoint(offset,x);
-        vectors-&gt;InsertTuple(offset,v);
-      }
-    }
-  }
-  sgrid-&gt;SetPoints(points);
+  <span class="n">deltaZ</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">deltaRad</span> <span class="o">=</span> <span class="p">(</span><span class="n">rMax</span><span class="o">-</span><span class="n">rMin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">deltaZ</span><span class="p">;</span>
+    <span class="n">kOffset</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">radius</span> <span class="o">=</span> <span class="n">rMin</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">deltaRad</span><span class="p">;</span>
+      <span class="n">jOffset</span> <span class="o">=</span> <span class="n">j</span> <span class="o">*</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">RadiansFromDegrees</span><span class="p">(</span><span class="mf">15.0</span><span class="p">);</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+        <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">jOffset</span> <span class="o">+</span> <span class="n">kOffset</span><span class="p">;</span>
+        <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">vectors</span><span class="o">-&gt;</span><span class="n">InsertTuple</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span><span class="n">v</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="n">sgrid</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  sgrid-&gt;GetPointData()-&gt;SetVectors(vectors);
-}
-</code></pre>
+  <span class="n">sgrid</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetVectors</span><span class="p">(</span><span class="n">vectors</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(HedgeHog)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">HedgeHog</span><span class="p">)</span>
 
-add_executable(HedgeHog MACOSX_BUNDLE HedgeHog.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(HedgeHog ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">HedgeHog</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">HedgeHog.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-hedgehog">Download and Build HedgeHog</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">HedgeHog</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-hedgehog">Download and Build HedgeHog<a class="headerlink" href="#download-and-build-hedgehog" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/HedgeHog.tar">here to download HedgeHog</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball HedgeHog.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd HedgeHog/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd HedgeHog/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./HedgeHog
-</code></pre>
+<div class="codehilite"><pre><span></span>./HedgeHog
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

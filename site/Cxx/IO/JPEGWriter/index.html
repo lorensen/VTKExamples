@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,76 +16004,83 @@
                   <h1>JPEGWriter</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/IO/JPEGWriter</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>JPEGWriter.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageCanvasSource2D.h&gt;
-#include &lt;vtkJPEGWriter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGWriter.h&gt;</span><span class="cp"></span>
 
-int main(int vtkNotUsed(argc), char* vtkNotUsed(argv)[])
-{
-  std::string outputFilename = &quot;output.jpg&quot;;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">argc</span><span class="p">),</span> <span class="kt">char</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">argv</span><span class="p">)[])</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">outputFilename</span> <span class="o">=</span> <span class="s">&quot;output.jpg&quot;</span><span class="p">;</span>
 
-  // Create a 100x100 image to save into the jpeg file
-  int extent[6] = { 0, 99, 0, 99, 0, 0 };
-  vtkSmartPointer&lt;vtkImageCanvasSource2D&gt; imageSource =
-    vtkSmartPointer&lt;vtkImageCanvasSource2D&gt;::New();
-  imageSource-&gt;SetExtent( extent );
-  imageSource-&gt;SetScalarTypeToUnsignedChar(); // vtkJPEGWriter only accepts unsigned char input
-  imageSource-&gt;SetNumberOfScalarComponents( 3 ); // 3 color channels: Red, Green and Blue
+  <span class="c1">// Create a 100x100 image to save into the jpeg file</span>
+  <span class="kt">int</span> <span class="n">extent</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;</span> <span class="n">imageSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCanvasSource2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span> <span class="n">extent</span> <span class="p">);</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span> <span class="c1">// vtkJPEGWriter only accepts unsigned char input</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span> <span class="mi">3</span> <span class="p">);</span> <span class="c1">// 3 color channels: Red, Green and Blue</span>
 
-  // Fill the whole image with a blue background
-  imageSource-&gt;SetDrawColor( 0, 127, 255 );
-  imageSource-&gt;FillBox( extent[0], extent[1], extent[2], extent[3] );
+  <span class="c1">// Fill the whole image with a blue background</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">255</span> <span class="p">);</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">);</span>
 
-  // Paint a 30x30 white square into the image
-  imageSource-&gt;SetDrawColor( 255, 255, 255 );
-  imageSource-&gt;FillBox( 40, 70, 20, 50 );
+  <span class="c1">// Paint a 30x30 white square into the image</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">SetDrawColor</span><span class="p">(</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span> <span class="p">);</span>
+  <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">FillBox</span><span class="p">(</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkJPEGWriter&gt; writer =
-    vtkSmartPointer&lt;vtkJPEGWriter&gt;::New();
-  writer-&gt;SetFileName( outputFilename.c_str() );
-  writer-&gt;SetInputConnection( imageSource-&gt;GetOutputPort() );
-  writer-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span> <span class="n">outputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">imageSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(JPEGWriter)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">JPEGWriter</span><span class="p">)</span>
 
-add_executable(JPEGWriter MACOSX_BUNDLE JPEGWriter.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(JPEGWriter ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">JPEGWriter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">JPEGWriter.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-jpegwriter">Download and Build JPEGWriter</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">JPEGWriter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-jpegwriter">Download and Build JPEGWriter<a class="headerlink" href="#download-and-build-jpegwriter" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/JPEGWriter.tar">here to download JPEGWriter</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball JPEGWriter.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd JPEGWriter/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd JPEGWriter/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./JPEGWriter
-</code></pre>
+<div class="codehilite"><pre><span></span>./JPEGWriter
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

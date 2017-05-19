@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,165 +16004,172 @@
                   <h1>VectorFieldNonZeroExtraction</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Filtering/VectorFieldNonZeroExtraction</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VectorFieldNonZeroExtraction.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkSelection.h&gt;
-#include &lt;vtkSelectionNode.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkThresholdPoints.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkDataArray.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkXMLImageDataWriter.h&gt;
-#include &lt;vtkXMLUnstructuredGridWriter.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkImageMagnitude.h&gt;
-#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelectionNode.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkThresholdPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLImageDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLUnstructuredGridWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMagnitude.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-static void CreateVectorField(vtkImageData* image);
-static void WriteImage(vtkImageData* image, const std::string fileName);
-static void WriteVectorField(vtkPolyData* vectorField, const std::string fileName);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateVectorField</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">WriteImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">fileName</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">WriteVectorField</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">vectorField</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">fileName</span><span class="p">);</span>
 
-int main(int , char *[])
-{
-  // Create an image
-  vtkSmartPointer&lt;vtkImageData&gt; image = vtkSmartPointer&lt;vtkImageData&gt;::New();
-  CreateVectorField(image);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">CreateVectorField</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageMagnitude&gt; magnitudeFilter = vtkSmartPointer&lt;vtkImageMagnitude&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMagnitude</span><span class="o">&gt;</span> <span class="n">magnitudeFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMagnitude</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  magnitudeFilter-&gt;SetInputConnection(image-&gt;GetProducerPort());
-#else
-  magnitudeFilter-&gt;SetInputData(image);
-#endif
-  magnitudeFilter-&gt;Update(); // This filter produces a vtkImageData with an array named &quot;Magnitude&quot;
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">magnitudeFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">magnitudeFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">magnitudeFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// This filter produces a vtkImageData with an array named &quot;Magnitude&quot;</span>
 
-  image-&gt;GetPointData()-&gt;AddArray(magnitudeFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars());
-  image-&gt;GetPointData()-&gt;SetActiveScalars(&quot;Magnitude&quot;);
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">magnitudeFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">());</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s">&quot;Magnitude&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkThresholdPoints&gt; thresholdPoints = vtkSmartPointer&lt;vtkThresholdPoints&gt;::New();
-  //thresholdPoints-&gt;SetInputConnection(magnitudeFilter-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  thresholdPoints-&gt;SetInputConnection(image-&gt;GetProducerPort());
-#else
-  thresholdPoints-&gt;SetInputData(image);
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThresholdPoints</span><span class="o">&gt;</span> <span class="n">thresholdPoints</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThresholdPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="c1">//thresholdPoints-&gt;SetInputConnection(magnitudeFilter-&gt;GetOutputPort());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">thresholdPoints</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">thresholdPoints</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  thresholdPoints-&gt;ThresholdByUpper(.05);
-  thresholdPoints-&gt;Update();
+  <span class="n">thresholdPoints</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="mf">.05</span><span class="p">);</span>
+  <span class="n">thresholdPoints</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  WriteImage(image, &quot;input.vti&quot;);
-  WriteVectorField(thresholdPoints-&gt;GetOutput(), &quot;output.vtp&quot;);
+  <span class="n">WriteImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="s">&quot;input.vti&quot;</span><span class="p">);</span>
+  <span class="n">WriteVectorField</span><span class="p">(</span><span class="n">thresholdPoints</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="s">&quot;output.vtp&quot;</span><span class="p">);</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void CreateVectorField(vtkImageData* image)
-{
-  // Specify the size of the image data
-  image-&gt;SetDimensions(50,50,1);
-#if VTK_MAJOR_VERSION &lt;= 5
-  image-&gt;SetNumberOfScalarComponents(3);
-  image-&gt;SetScalarTypeToFloat();
-  image-&gt;AllocateScalars();
-#else
-  image-&gt;AllocateScalars(VTK_FLOAT, 3);
-#endif
+<span class="kt">void</span> <span class="nf">CreateVectorField</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Specify the size of the image data</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToFloat</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_FLOAT</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  int* dims = image-&gt;GetDimensions();
+  <span class="kt">int</span><span class="o">*</span> <span class="n">dims</span> <span class="o">=</span> <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">();</span>
 
-  // Zero the image
-  for (int y = 0; y &lt; dims[1]; y++)
-  {
-    for (int x = 0; x &lt; dims[0]; x++)
-    {
-      float* pixel = static_cast&lt;float*&gt;(image-&gt;GetScalarPointer(x,y,0));
-      pixel[0] = 0.0;
-      pixel[1] = 0.0;
-      pixel[2] = 0.0;
-    }
-  }
+  <span class="c1">// Zero the image</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">float</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Set two of the pixels to non zero values
-  float* pixel = static_cast&lt;float*&gt;(image-&gt;GetScalarPointer(20,20,0));
-  pixel[0] = -10.0;
-  pixel[1] = 5.0;
-  pixel[2] = 0.0;
+  <span class="c1">// Set two of the pixels to non zero values</span>
+  <span class="kt">float</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+  <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span><span class="p">;</span>
+  <span class="n">pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">;</span>
+  <span class="n">pixel</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
 
-  pixel = static_cast&lt;float*&gt;(image-&gt;GetScalarPointer(30,30,0));
-  pixel[0] = 10.0;
-  pixel[1] = 10.0;
-  pixel[2] = 0.0;
+  <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+  <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
+  <span class="n">pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
+  <span class="n">pixel</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
 
-  image-&gt;GetPointData()-&gt;SetActiveVectors(&quot;ImageScalars&quot;);
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveVectors</span><span class="p">(</span><span class="s">&quot;ImageScalars&quot;</span><span class="p">);</span>
 
-  image-&gt;Modified();
-}
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+<span class="p">}</span>
 
-void WriteVectorField(vtkPolyData* vectorField, const std::string fileName)
-{
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer = vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-    writer-&gt;SetFileName(fileName.c_str());
-    #if VTK_MAJOR_VERSION &lt;= 5
-      writer-&gt;SetInput(vectorField);
-    #else
-      writer-&gt;SetInputData(vectorField);
-    #endif
-    writer-&gt;Write();
-}
+<span class="kt">void</span> <span class="nf">WriteVectorField</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">vectorField</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">fileName</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+      <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">vectorField</span><span class="p">);</span>
+    <span class="cp">#else</span>
+      <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vectorField</span><span class="p">);</span>
+    <span class="cp">#endif</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
 
-void WriteImage(vtkImageData* image, const std::string fileName)
-{
-    vtkSmartPointer&lt;vtkXMLImageDataWriter&gt; writer = vtkSmartPointer&lt;vtkXMLImageDataWriter&gt;::New();
-    writer-&gt;SetFileName(fileName.c_str());
-    #if VTK_MAJOR_VERSION &lt;= 5
-      writer-&gt;SetInput(image);
-    #else
-      writer-&gt;SetInputData(image);
-    #endif
-    writer-&gt;Write();
-}
-</code></pre>
+<span class="kt">void</span> <span class="nf">WriteImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">fileName</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">fileName</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+      <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+    <span class="cp">#else</span>
+      <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+    <span class="cp">#endif</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(VectorFieldNonZeroExtraction)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">VectorFieldNonZeroExtraction</span><span class="p">)</span>
 
-add_executable(VectorFieldNonZeroExtraction MACOSX_BUNDLE VectorFieldNonZeroExtraction.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(VectorFieldNonZeroExtraction ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">VectorFieldNonZeroExtraction</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">VectorFieldNonZeroExtraction.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-vectorfieldnonzeroextraction">Download and Build VectorFieldNonZeroExtraction</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">VectorFieldNonZeroExtraction</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-vectorfieldnonzeroextraction">Download and Build VectorFieldNonZeroExtraction<a class="headerlink" href="#download-and-build-vectorfieldnonzeroextraction" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/VectorFieldNonZeroExtraction.tar">here to download VectorFieldNonZeroExtraction</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball VectorFieldNonZeroExtraction.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd VectorFieldNonZeroExtraction/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd VectorFieldNonZeroExtraction/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./VectorFieldNonZeroExtraction
-</code></pre>
+<div class="codehilite"><pre><span></span>./VectorFieldNonZeroExtraction
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,120 +16005,127 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Plotting/PieChart</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Plotting/TestPieChart.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PieChart.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkChartPie.h&gt;
-#include &lt;vtkPlot.h&gt;
-#include &lt;vtkPlotPie.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkStringArray.h&gt;
-#include &lt;vtkContextView.h&gt;
-#include &lt;vtkContextScene.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkColorSeries.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartPie.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlot.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlotPie.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStringArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorSeries.h&gt;</span><span class="cp"></span>
 
-int NUM_ITEMS = 5;
-static int data[] = {77938,9109,2070,12806,19514};
-//static int data[] = {200,200,200,200,200};
-static const char *labels[] = {&quot;Books&quot;,&quot;New and Popular&quot;,&quot;Periodical&quot;,&quot;Audiobook&quot;,&quot;Video&quot;};
+<span class="kt">int</span> <span class="n">NUM_ITEMS</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">77938</span><span class="p">,</span><span class="mi">9109</span><span class="p">,</span><span class="mi">2070</span><span class="p">,</span><span class="mi">12806</span><span class="p">,</span><span class="mi">19514</span><span class="p">};</span>
+<span class="c1">//static int data[] = {200,200,200,200,200};</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">labels</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;Books&quot;</span><span class="p">,</span><span class="s">&quot;New and Popular&quot;</span><span class="p">,</span><span class="s">&quot;Periodical&quot;</span><span class="p">,</span><span class="s">&quot;Audiobook&quot;</span><span class="p">,</span><span class="s">&quot;Video&quot;</span><span class="p">};</span>
 
-int main(int, char*[])
-{
-  // Set up a 2D scene, add an XY chart to it
-  vtkSmartPointer&lt;vtkContextView&gt; view =
-    vtkSmartPointer&lt;vtkContextView&gt;::New();
-  view-&gt;GetRenderer()-&gt;SetBackground(1.0, 1.0, 1.0);
-  view-&gt;GetRenderWindow()-&gt;SetSize(600, 350);
-  vtkSmartPointer&lt;vtkChartPie&gt; chart =
-    vtkSmartPointer&lt;vtkChartPie&gt;::New();
-  view-&gt;GetScene()-&gt;AddItem(chart);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Set up a 2D scene, add an XY chart to it</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">350</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartPie</span><span class="o">&gt;</span> <span class="n">chart</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartPie</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetScene</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">chart</span><span class="p">);</span>
 
-  // Create a table with some points in it...
-  vtkSmartPointer&lt;vtkTable&gt; table =
-    vtkSmartPointer&lt;vtkTable&gt;::New();
+  <span class="c1">// Create a table with some points in it...</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">table</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; arrData =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  vtkSmartPointer&lt;vtkStringArray&gt; labelArray =
-    vtkSmartPointer&lt;vtkStringArray&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">arrData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;</span> <span class="n">labelArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStringArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  arrData-&gt;SetName(&quot;2008 Circulation&quot;);
-  for (int i = 0; i &lt; NUM_ITEMS; i++)
-  {
-    arrData-&gt;InsertNextValue(data[i]);
-    labelArray-&gt;InsertNextValue(labels[i]);
-  }
+  <span class="n">arrData</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;2008 Circulation&quot;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_ITEMS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">arrData</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">labelArray</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  table-&gt;AddColumn(arrData);
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">arrData</span><span class="p">);</span>
 
-  // Create a color series to use with our stacks.
-  vtkSmartPointer&lt;vtkColorSeries&gt; colorSeries =
-    vtkSmartPointer&lt;vtkColorSeries&gt;::New();
-  colorSeries-&gt;SetColorScheme(vtkColorSeries::WARM);
+  <span class="c1">// Create a color series to use with our stacks.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;</span> <span class="n">colorSeries</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">vtkColorSeries</span><span class="o">::</span><span class="n">WARM</span><span class="p">);</span>
 
-  // Add multiple line plots, setting the colors etc
-  vtkPlotPie *pie = vtkPlotPie::SafeDownCast(chart-&gt;AddPlot(0));
-  pie-&gt;SetColorSeries(colorSeries);
-#if VTK_MAJOR_VERSION &lt;= 5
-  pie-&gt;SetInput(table);
-#else
-  pie-&gt;SetInputData(table);
-#endif
-  pie-&gt;SetInputArray(0,&quot;2008 Circulation&quot;);
-  pie-&gt;SetLabels(labelArray);
+  <span class="c1">// Add multiple line plots, setting the colors etc</span>
+  <span class="n">vtkPlotPie</span> <span class="o">*</span><span class="n">pie</span> <span class="o">=</span> <span class="n">vtkPlotPie</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+  <span class="n">pie</span><span class="o">-&gt;</span><span class="n">SetColorSeries</span><span class="p">(</span><span class="n">colorSeries</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">pie</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">pie</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">pie</span><span class="o">-&gt;</span><span class="n">SetInputArray</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s">&quot;2008 Circulation&quot;</span><span class="p">);</span>
+  <span class="n">pie</span><span class="o">-&gt;</span><span class="n">SetLabels</span><span class="p">(</span><span class="n">labelArray</span><span class="p">);</span>
 
-  chart-&gt;SetShowLegend(true);
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">SetShowLegend</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 
-  chart-&gt;SetTitle(&quot;Circulation 2008&quot;);
+  <span class="n">chart</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Circulation 2008&quot;</span><span class="p">);</span>
 
-  //Finally render the scene and compare the image to a reference image
-  view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="c1">//Finally render the scene and compare the image to a reference image</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PieChart)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PieChart</span><span class="p">)</span>
 
-add_executable(PieChart MACOSX_BUNDLE PieChart.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PieChart ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PieChart</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PieChart.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-piechart">Download and Build PieChart</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PieChart</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-piechart">Download and Build PieChart<a class="headerlink" href="#download-and-build-piechart" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PieChart.tar">here to download PieChart</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PieChart.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PieChart/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PieChart/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PieChart
-</code></pre>
+<div class="codehilite"><pre><span></span>./PieChart
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

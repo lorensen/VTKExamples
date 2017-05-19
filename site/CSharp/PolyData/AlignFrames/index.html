@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,241 +15990,241 @@
                   <h1>AlignFrames</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/PolyData/AlignFrames</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><p>This function takes two frames and finds the matrix M between them.</p>
 A tutorial on how to setup a Console Application utilizing Kitware.VTK.dll can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Console Application to use Kitware.VTK.dll</a><br /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AlignFrames.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Runtime.InteropServices;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   class Program {
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
 
-      struct Frame {
-         private float[] origin;
-         private float[] xDirection;
-         private float[] yDirection;
-         private float[] zDirection;
+      <span class="k">struct</span> <span class="nc">Frame</span> <span class="p">{</span>
+         <span class="k">private</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">origin</span><span class="p">;</span>
+         <span class="k">private</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">xDirection</span><span class="p">;</span>
+         <span class="k">private</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">yDirection</span><span class="p">;</span>
+         <span class="k">private</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">zDirection</span><span class="p">;</span>
 
-         internal float[] Origin {
-            get { return origin; }
-         }
+         <span class="k">internal</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">Origin</span> <span class="p">{</span>
+            <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">origin</span><span class="p">;</span> <span class="p">}</span>
+         <span class="p">}</span>
 
-         internal float[] XDirection {
-            get { return xDirection; }
-         }
+         <span class="k">internal</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">XDirection</span> <span class="p">{</span>
+            <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">xDirection</span><span class="p">;</span> <span class="p">}</span>
+         <span class="p">}</span>
 
-         internal float[] YDirection {
-            get { return yDirection; }
-         }
+         <span class="k">internal</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">YDirection</span> <span class="p">{</span>
+            <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">yDirection</span><span class="p">;</span> <span class="p">}</span>
+         <span class="p">}</span>
 
-         internal float[] ZDirection {
-            get { return zDirection; }
-         }
+         <span class="k">internal</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">ZDirection</span> <span class="p">{</span>
+            <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">zDirection</span><span class="p">;</span> <span class="p">}</span>
+         <span class="p">}</span>
 
-         internal Frame(float[] origin, float[] xDirection, float[] yDirection, float[] zDirection) {
-            this.origin = new float[3];
-            this.xDirection = new float[3];
-            this.yDirection = new float[3];
-            this.zDirection = new float[3];
-            origin.CopyTo(this.origin, 0);
-            xDirection.CopyTo(this.xDirection, 0);
-            yDirection.CopyTo(this.yDirection, 0);
-            zDirection.CopyTo(this.zDirection, 0);
+         <span class="k">internal</span> <span class="nf">Frame</span><span class="p">(</span><span class="kt">float</span><span class="p">[]</span> <span class="n">origin</span><span class="p">,</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">xDirection</span><span class="p">,</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">yDirection</span><span class="p">,</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">zDirection</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">origin</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">xDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">yDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">zDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+            <span class="n">origin</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+            <span class="n">xDirection</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">xDirection</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+            <span class="n">yDirection</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">yDirection</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+            <span class="n">zDirection</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">zDirection</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
 
-            Normalize(ref xDirection);
-            Normalize(ref yDirection);
-            Normalize(ref zDirection);
+            <span class="n">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="n">xDirection</span><span class="p">);</span>
+            <span class="n">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="n">yDirection</span><span class="p">);</span>
+            <span class="n">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="n">zDirection</span><span class="p">);</span>
 
-            Console.WriteLine(&quot;Origin: &quot; + 
-               this.origin[0] + &quot; &quot; + 
-               this.origin[1] + &quot; &quot; + 
-               this.origin[2]);
-            Console.WriteLine(&quot;xDirection: &quot; + 
-               this.xDirection[0] + &quot; &quot; + 
-               this.xDirection[1] + &quot; &quot; + 
-               this.xDirection[2]);
-            Console.WriteLine(&quot;yDirection: &quot; + 
-               this.yDirection[0] + &quot; &quot; + 
-               this.yDirection[1] + &quot; &quot; + 
-               this.yDirection[2]);
-            Console.WriteLine(&quot;zDirection: &quot; + 
-               this.zDirection[0] + &quot; &quot; + 
-               this.zDirection[1] + &quot; &quot; + 
-               this.zDirection[2]);
-         }
-
-
-         private void Normalize(ref float[] vector) {
-            IntPtr pDirection = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(float)) * 3);
-            Marshal.Copy(vector, 0, pDirection, 3);
-            vtkMath.Normalize(pDirection);
-            Marshal.FreeHGlobal(pDirection);
-         }
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Origin: &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;xDirection: &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">xDirection</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">xDirection</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">xDirection</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;yDirection: &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">yDirection</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">yDirection</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">yDirection</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;zDirection: &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">zDirection</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">zDirection</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> 
+               <span class="k">this</span><span class="p">.</span><span class="n">zDirection</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="p">}</span>
 
 
-         internal void ApplyTransform(ref vtkTransform transform, string filename) {
-            vtkPolyData polydata = vtkPolyData.New();
-            CreatePolydata(ref polydata);
-
-            vtkTransformFilter transformFilter = vtkTransformFilter.New();
-#if VTK_MAJOR_VERSION_5
-            transformFilter.SetInputConnection(polydata.GetProducerPort());
-#else
-            transformFilter.SetInputData(polydata);
-#endif
-            transformFilter.SetTransform(transform);
-            transformFilter.Update();
-
-            vtkXMLPolyDataWriter writer = vtkXMLPolyDataWriter.New();
-            writer.SetFileName(filename);
-#if VTK_MAJOR_VERSION_5
-            writer.SetInputConnection(transformFilter.GetOutputPort());
-#else
-            writer.SetInputData(transformFilter);
-#endif
-            writer.Write();
-         }
+         <span class="k">private</span> <span class="k">void</span> <span class="nf">Normalize</span><span class="p">(</span><span class="k">ref</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">vector</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">IntPtr</span> <span class="n">pDirection</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">float</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pDirection</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+            <span class="n">vtkMath</span><span class="p">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">pDirection</span><span class="p">);</span>
+            <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pDirection</span><span class="p">);</span>
+         <span class="p">}</span>
 
 
-         internal void CreatePolydata(ref vtkPolyData polydata) {
-            vtkPoints points = vtkPoints.New();
+         <span class="k">internal</span> <span class="k">void</span> <span class="nf">ApplyTransform</span><span class="p">(</span><span class="k">ref</span> <span class="n">vtkTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="kt">string</span> <span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">CreatePolydata</span><span class="p">(</span><span class="k">ref</span> <span class="n">polydata</span><span class="p">);</span>
 
-            points.InsertNextPoint(this.origin[0], this.origin[1], this.origin[2]);
+            <span class="n">vtkTransformFilter</span> <span class="n">transformFilter</span> <span class="p">=</span> <span class="n">vtkTransformFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+            <span class="n">transformFilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+            <span class="n">transformFilter</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+            <span class="n">transformFilter</span><span class="p">.</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+            <span class="n">transformFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-            float[] x = new float[3];
-            float[] y = new float[3];
-            float[] z = new float[3];
-
-            Add(this.origin, this.xDirection, ref x);
-            Add(this.origin, this.yDirection, ref y);
-            Add(this.origin, this.zDirection, ref z);
-
-            points.InsertNextPoint(x[0], x[1], x[2]);
-            points.InsertNextPoint(y[0], y[1], y[2]);
-            points.InsertNextPoint(z[0], z[1], z[2]);
-
-            polydata.SetPoints(points);
-
-            vtkVertexGlyphFilter vertexGlyphFilter = vtkVertexGlyphFilter.New();
-#if VTK_MAJOR_VERSION_5
-            vertexGlyphFilter.AddInput(polydata);
-#else
-            vertexGlyphFilter.AddInputData(polydata);
-#endif
-            vertexGlyphFilter.Update();
-            polydata.ShallowCopy(vertexGlyphFilter.GetOutput());
-         }
+            <span class="n">vtkXMLPolyDataWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">transformFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">transformFilter</span><span class="p">);</span>
+<span class="cp">#endif</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">();</span>
+         <span class="p">}</span>
 
 
-         internal void Write(string filename) {
-            vtkPolyData polydata = vtkPolyData.New();
-            CreatePolydata(ref polydata);
+         <span class="k">internal</span> <span class="k">void</span> <span class="nf">CreatePolydata</span><span class="p">(</span><span class="k">ref</span> <span class="n">vtkPolyData</span> <span class="n">polydata</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-            vtkXMLPolyDataWriter writer = vtkXMLPolyDataWriter.New();
-            writer.SetFileName(filename);
-#if VTK_MAJOR_VERSION_5
-            writer.SetInputConnection(polydata.GetProducerPort());
-#else
-            writer.SetInputData(polydata);
-#endif
-            writer.Write();
-         }
-      }
+            <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
+            <span class="kt">float</span><span class="p">[]</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+            <span class="kt">float</span><span class="p">[]</span> <span class="n">y</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+            <span class="kt">float</span><span class="p">[]</span> <span class="n">z</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
 
-      static void Main(string[] args) {
-         float[] frame1origin = new float[] { 0, 0, 0 };
-         float[] frame1XDirection = new float[] { 1, 0, 0 };
-         float[] frame1YDirection = new float[] { 0, 1, 0 };
-         Console.WriteLine(frame1YDirection[0] + &quot; &quot; + frame1YDirection[1] + &quot; &quot; + frame1YDirection[2]);
-         float[] frame1ZDirection = new float[] { 0, 0, 1 };
-         Frame frame1 = new Frame(frame1origin, frame1XDirection, frame1YDirection, frame1ZDirection);
-         Console.WriteLine(&quot;\nWriting frame1.vtp...&quot;);
-         // adjust path
-         frame1.Write(@&quot;c:\vtk\vtkdata-5.8.0\Data\frame1.vtp&quot;);
+            <span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">xDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">x</span><span class="p">);</span>
+            <span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">yDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">y</span><span class="p">);</span>
+            <span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">zDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">z</span><span class="p">);</span>
 
-         float[] frame2origin = new float[] { 0, 0, 0 };
-         float[] frame2XDirection = new float[] { .707f, .707f, 0 };
-         float[] frame2YDirection = new float[] { -.707f, .707f, 0 };
-         float[] frame2ZDirection = new float[] { 0, 0, 1 };
-         Frame frame2 = new Frame(frame2origin, frame2XDirection, frame2YDirection, frame2ZDirection);
-         Console.WriteLine(&quot;\nWriting frame2.vtp...&quot;);
-         // adjust path
-         frame2.Write(@&quot;c:\vtk\vtkdata-5.8.0\Data\frame2.vtp&quot;);
+            <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+            <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+            <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-         vtkTransform transform = vtkTransform.New();
-         AlignFrames(frame2, frame1, ref transform); // Brings frame2 to frame1
+            <span class="n">polydata</span><span class="p">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-         Console.WriteLine(&quot;\nWriting transformed.vtp...&quot;);
-         // adjust path
-         frame2.ApplyTransform(ref transform, @&quot;c:\vtk\vtkdata-5.8.0\Data\transformed.vtp&quot;);
-
-         Console.WriteLine(&quot;\nPress any key to continue...&quot;);
-         Console.ReadKey();
-      }
+            <span class="n">vtkVertexGlyphFilter</span> <span class="n">vertexGlyphFilter</span> <span class="p">=</span> <span class="n">vtkVertexGlyphFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+            <span class="n">vertexGlyphFilter</span><span class="p">.</span><span class="n">AddInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+            <span class="n">vertexGlyphFilter</span><span class="p">.</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+            <span class="n">vertexGlyphFilter</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+            <span class="n">polydata</span><span class="p">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">vertexGlyphFilter</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
+         <span class="p">}</span>
 
 
-      static void AlignFrames(Frame sourceFrame, Frame targetFrame, ref vtkTransform transform) {
-         // This function takes two frames and finds the matrix M between them.
-         vtkLandmarkTransform landmarkTransform = vtkLandmarkTransform.New();
+         <span class="k">internal</span> <span class="k">void</span> <span class="nf">Write</span><span class="p">(</span><span class="kt">string</span> <span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vtkPolyData</span> <span class="n">polydata</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">CreatePolydata</span><span class="p">(</span><span class="k">ref</span> <span class="n">polydata</span><span class="p">);</span>
 
-         // Setup source points
-         vtkPoints sourcePoints = vtkPoints.New();
+            <span class="n">vtkXMLPolyDataWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkXMLPolyDataWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+            <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">();</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         sourcePoints.InsertNextPoint(
-            sourceFrame.Origin[0], 
-            sourceFrame.Origin[1], 
-            sourceFrame.Origin[2]);
 
-         float[] sourceX = new float[3];
-         float[] sourceY = new float[3];
-         float[] sourceZ = new float[3];
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame1origin</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame1XDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame1YDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">frame1YDirection</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">frame1YDirection</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">frame1YDirection</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame1ZDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span> <span class="p">};</span>
+         <span class="n">Frame</span> <span class="n">frame1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame1origin</span><span class="p">,</span> <span class="n">frame1XDirection</span><span class="p">,</span> <span class="n">frame1YDirection</span><span class="p">,</span> <span class="n">frame1ZDirection</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nWriting frame1.vtp...&quot;</span><span class="p">);</span>
+         <span class="c1">// adjust path</span>
+         <span class="n">frame1</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">@&quot;c:\vtk\vtkdata-5.8.0\Data\frame1.vtp&quot;</span><span class="p">);</span>
 
-         Add(sourceFrame.Origin, sourceFrame.XDirection, ref sourceX);
-         Add(sourceFrame.Origin, sourceFrame.YDirection, ref sourceY);
-         Add(sourceFrame.Origin, sourceFrame.ZDirection, ref sourceZ);
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame2origin</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame2XDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="p">.</span><span class="m">707f</span><span class="p">,</span> <span class="p">.</span><span class="m">707f</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame2YDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="p">-.</span><span class="m">707f</span><span class="p">,</span> <span class="p">.</span><span class="m">707f</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">frame2ZDirection</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span> <span class="p">};</span>
+         <span class="n">Frame</span> <span class="n">frame2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Frame</span><span class="p">(</span><span class="n">frame2origin</span><span class="p">,</span> <span class="n">frame2XDirection</span><span class="p">,</span> <span class="n">frame2YDirection</span><span class="p">,</span> <span class="n">frame2ZDirection</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nWriting frame2.vtp...&quot;</span><span class="p">);</span>
+         <span class="c1">// adjust path</span>
+         <span class="n">frame2</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">@&quot;c:\vtk\vtkdata-5.8.0\Data\frame2.vtp&quot;</span><span class="p">);</span>
 
-         sourcePoints.InsertNextPoint(sourceX[0], sourceX[1], sourceX[2]);
-         sourcePoints.InsertNextPoint(sourceY[0], sourceY[1], sourceY[2]);
-         sourcePoints.InsertNextPoint(sourceZ[0], sourceZ[1], sourceZ[2]);
+         <span class="n">vtkTransform</span> <span class="n">transform</span> <span class="p">=</span> <span class="n">vtkTransform</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">AlignFrames</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">frame1</span><span class="p">,</span> <span class="k">ref</span> <span class="n">transform</span><span class="p">);</span> <span class="c1">// Brings frame2 to frame1</span>
 
-         // Setup target points
-         vtkPoints targetPoints = vtkPoints.New();
-         targetPoints.InsertNextPoint(targetFrame.Origin[0], targetFrame.Origin[1], targetFrame.Origin[2]);
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nWriting transformed.vtp...&quot;</span><span class="p">);</span>
+         <span class="c1">// adjust path</span>
+         <span class="n">frame2</span><span class="p">.</span><span class="n">ApplyTransform</span><span class="p">(</span><span class="k">ref</span> <span class="n">transform</span><span class="p">,</span> <span class="s">@&quot;c:\vtk\vtkdata-5.8.0\Data\transformed.vtp&quot;</span><span class="p">);</span>
 
-         float[] targetX = new float[3];
-         float[] targetY = new float[3];
-         float[] targetZ = new float[3];
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nPress any key to continue...&quot;</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+      <span class="p">}</span>
 
-         Add(targetFrame.Origin, targetFrame.XDirection, ref targetX);
-         Add(targetFrame.Origin, targetFrame.YDirection, ref targetY);
-         Add(targetFrame.Origin, targetFrame.ZDirection, ref targetZ);
 
-         targetPoints.InsertNextPoint(targetX[0], targetX[1], targetX[2]);
-         targetPoints.InsertNextPoint(targetY[0], targetY[1], targetY[2]);
-         targetPoints.InsertNextPoint(targetZ[0], targetZ[1], targetZ[2]);
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">AlignFrames</span><span class="p">(</span><span class="n">Frame</span> <span class="n">sourceFrame</span><span class="p">,</span> <span class="n">Frame</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="k">ref</span> <span class="n">vtkTransform</span> <span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// This function takes two frames and finds the matrix M between them.</span>
+         <span class="n">vtkLandmarkTransform</span> <span class="n">landmarkTransform</span> <span class="p">=</span> <span class="n">vtkLandmarkTransform</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         landmarkTransform.SetSourceLandmarks(sourcePoints);
-         landmarkTransform.SetTargetLandmarks(targetPoints);
-         landmarkTransform.SetModeToRigidBody();
-         landmarkTransform.Update();
+         <span class="c1">// Setup source points</span>
+         <span class="n">vtkPoints</span> <span class="n">sourcePoints</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         vtkMatrix4x4 M = landmarkTransform.GetMatrix();
-         transform.SetMatrix(M);
-      }
+         <span class="n">sourcePoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span>
+            <span class="n">sourceFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> 
+            <span class="n">sourceFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> 
+            <span class="n">sourceFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
 
-      // helper function
-      static void Add(float[] vec1, float[] vec2, ref float[] vec) {
-         vec[0] = vec1[0] + vec2[0];
-         vec[1] = vec1[1] + vec2[1];
-         vec[2] = vec1[2] + vec2[2];
-      }
-   }
-}
-</code></pre>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">sourceX</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">sourceY</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">sourceZ</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+
+         <span class="n">Add</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">,</span> <span class="n">sourceFrame</span><span class="p">.</span><span class="n">XDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">sourceX</span><span class="p">);</span>
+         <span class="n">Add</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">,</span> <span class="n">sourceFrame</span><span class="p">.</span><span class="n">YDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">sourceY</span><span class="p">);</span>
+         <span class="n">Add</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">,</span> <span class="n">sourceFrame</span><span class="p">.</span><span class="n">ZDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">sourceZ</span><span class="p">);</span>
+
+         <span class="n">sourcePoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceX</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">sourceX</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">sourceX</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">sourcePoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceY</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">sourceY</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">sourceY</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">sourcePoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceZ</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">sourceZ</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">sourceZ</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+
+         <span class="c1">// Setup target points</span>
+         <span class="n">vtkPoints</span> <span class="n">targetPoints</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">targetPoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">targetX</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">targetY</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+         <span class="kt">float</span><span class="p">[]</span> <span class="n">targetZ</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+
+         <span class="n">Add</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">XDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">targetX</span><span class="p">);</span>
+         <span class="n">Add</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">YDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">targetY</span><span class="p">);</span>
+         <span class="n">Add</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">Origin</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">ZDirection</span><span class="p">,</span> <span class="k">ref</span> <span class="n">targetZ</span><span class="p">);</span>
+
+         <span class="n">targetPoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetX</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">targetX</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">targetX</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">targetPoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetY</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">targetY</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">targetY</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">targetPoints</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetZ</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">targetZ</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">targetZ</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+
+         <span class="n">landmarkTransform</span><span class="p">.</span><span class="n">SetSourceLandmarks</span><span class="p">(</span><span class="n">sourcePoints</span><span class="p">);</span>
+         <span class="n">landmarkTransform</span><span class="p">.</span><span class="n">SetTargetLandmarks</span><span class="p">(</span><span class="n">targetPoints</span><span class="p">);</span>
+         <span class="n">landmarkTransform</span><span class="p">.</span><span class="n">SetModeToRigidBody</span><span class="p">();</span>
+         <span class="n">landmarkTransform</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+
+         <span class="n">vtkMatrix4x4</span> <span class="n">M</span> <span class="p">=</span> <span class="n">landmarkTransform</span><span class="p">.</span><span class="n">GetMatrix</span><span class="p">();</span>
+         <span class="n">transform</span><span class="p">.</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// helper function</span>
+      <span class="k">static</span> <span class="k">void</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">float</span><span class="p">[]</span> <span class="n">vec1</span><span class="p">,</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">vec2</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">float</span><span class="p">[]</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">vec</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="n">vec1</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="n">vec2</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+         <span class="n">vec</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="n">vec1</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="n">vec2</span><span class="p">[</span><span class="m">1</span><span class="p">];</span>
+         <span class="n">vec</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="n">vec1</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">+</span> <span class="n">vec2</span><span class="p">[</span><span class="m">2</span><span class="p">];</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

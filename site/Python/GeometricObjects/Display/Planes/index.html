@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,71 +15978,71 @@
                   <h1>Planes</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Planes</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Planes.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Use this variable to select one of the two methods below.
-SELECT_FRUSTUM_METHOD = True
+<span class="c1"># Use this variable to select one of the two methods below.</span>
+<span class="n">SELECT_FRUSTUM_METHOD</span> <span class="o">=</span> <span class="bp">True</span>
 
-if SELECT_FRUSTUM_METHOD:
-    # one way    
-    camera = vtk.vtkCamera()
-    planesArray = [0 for i in range(24)]
+<span class="k">if</span> <span class="n">SELECT_FRUSTUM_METHOD</span><span class="p">:</span>
+    <span class="c1"># one way    </span>
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCamera</span><span class="p">()</span>
+    <span class="n">planesArray</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">)]</span>
 
-    camera.GetFrustumPlanes(1, planesArray)
+    <span class="n">camera</span><span class="o">.</span><span class="n">GetFrustumPlanes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">planesArray</span><span class="p">)</span>
 
-    planes = vtk.vtkPlanes()
-    planes.SetFrustumPlanes(planesArray)
+    <span class="n">planes</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlanes</span><span class="p">()</span>
+    <span class="n">planes</span><span class="o">.</span><span class="n">SetFrustumPlanes</span><span class="p">(</span><span class="n">planesArray</span><span class="p">)</span>
 
-else:    
-    # another way    
-    sphereSource = vtk.vtkSphereSource()
-    sphereSource.Update()
-    bounds = [0 for i in range(6)]
-    sphereSource.GetOutput().GetBounds(bounds)
+<span class="k">else</span><span class="p">:</span>    
+    <span class="c1"># another way    </span>
+    <span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+    <span class="n">sphereSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+    <span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">.</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
 
-    planes = vtk.vtkPlanes()
-    planes.SetBounds(bounds)
+    <span class="n">planes</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPlanes</span><span class="p">()</span>
+    <span class="n">planes</span><span class="o">.</span><span class="n">SetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
 
-# At this point we have the planes created by either of the methods above.
-# You can do whatever you want with them.
+<span class="c1"># At this point we have the planes created by either of the methods above.</span>
+<span class="c1"># You can do whatever you want with them.</span>
 
-# For visualisation we will produce an n-sided convex hull 
-# and visualise it.
+<span class="c1"># For visualisation we will produce an n-sided convex hull </span>
+<span class="c1"># and visualise it.</span>
 
-# To generate the convex hull we supply a vtkPolyData object and a bounding box.
-# We define the bounding box to be where we expect the resulting polyhedron to lie.
-# Make it a generous fit as it is only used to create the initial
-# polygons that are eventually clipped.
-hull  = vtk.vtkHull()
-hull.SetPlanes(planes)
+<span class="c1"># To generate the convex hull we supply a vtkPolyData object and a bounding box.</span>
+<span class="c1"># We define the bounding box to be where we expect the resulting polyhedron to lie.</span>
+<span class="c1"># Make it a generous fit as it is only used to create the initial</span>
+<span class="c1"># polygons that are eventually clipped.</span>
+<span class="n">hull</span>  <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkHull</span><span class="p">()</span>
+<span class="n">hull</span><span class="o">.</span><span class="n">SetPlanes</span><span class="p">(</span><span class="n">planes</span><span class="p">)</span>
 
-pd = vtk.vtkPolyData()
+<span class="n">pd</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
 
-hull.GenerateHull(pd, -200, 200, -200, 200, -200, 200)
+<span class="n">hull</span><span class="o">.</span><span class="n">GenerateHull</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 
-mapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    mapper.SetInput(pd)
-else:
-    mapper.SetInputData(pd)
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">pd</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pd</span><span class="p">)</span>
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
-renderer.AddActor(actor)
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 
-renderWindow.Render()
-renderWindowInteractor.Start()       
-</code></pre>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>       
+</pre></div>
                 
                   
                 

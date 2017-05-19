@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,160 +16005,167 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/PolyDataIsoLines</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestPolyDataIsoLines.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolyDataIsoLines.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkBandedPolyDataContourFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBandedPolyDataContourFilter.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // Parse command line arguments
-  if(argc != 2)
-  {
-    std::cout &lt;&lt; &quot;Required arguments: Filename&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Parse command line arguments</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: Filename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader-&gt;SetFileName(argv[1]);
-  reader-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  //float range[2];
-  double range[2];
-  reader-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange(range);
-  //std::cout &lt;&lt; &quot;Range: &quot; &lt;&lt; range[0] &lt;&lt; &quot; , &quot; &lt;&lt; range[1] &lt;&lt; std::endl;
+  <span class="c1">//float range[2];</span>
+  <span class="kt">double</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+  <span class="c1">//std::cout &lt;&lt; &quot;Range: &quot; &lt;&lt; range[0] &lt;&lt; &quot; , &quot; &lt;&lt; range[1] &lt;&lt; std::endl;</span>
 
-  vtkSmartPointer&lt;vtkBandedPolyDataContourFilter&gt; bf =
-    vtkSmartPointer&lt;vtkBandedPolyDataContourFilter&gt;::New();
-  bf-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  int numContours = 30;
-  bf-&gt;GenerateValues(numContours, range);
-  bf-&gt;GenerateContourEdgesOn();
-  bf-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="o">&gt;</span> <span class="n">bf</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="kt">int</span> <span class="n">numContours</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="n">numContours</span><span class="p">,</span> <span class="n">range</span><span class="p">);</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">GenerateContourEdgesOn</span><span class="p">();</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Color the contours
-  bf-&gt;GetOutput(1)-&gt;GetPointData()-&gt;SetScalars(bf-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars());
+  <span class="c1">// Color the contours</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">());</span>
 
-  // Make sure the mapper uses the new colors
-  bf-&gt;GetOutput(0)-&gt;GetPointData()-&gt;SetActiveScalars(&quot;Scalars&quot;);
+  <span class="c1">// Make sure the mapper uses the new colors</span>
+  <span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetActiveScalars</span><span class="p">(</span><span class="s">&quot;Scalars&quot;</span><span class="p">);</span>
 
-  {
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  writer-&gt;SetInputConnection(bf-&gt;GetOutputPort());
-  writer-&gt;SetFileName(&quot;output.vtp&quot;);
-  writer-&gt;Update();
-  }
+  <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;output.vtp&quot;</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  {
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  writer-&gt;SetInputConnection(bf-&gt;GetOutputPort(1));
-  writer-&gt;SetFileName(&quot;ContourEdges.vtp&quot;);
-  writer-&gt;Update();
-  }
+  <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;ContourEdges.vtp&quot;</span><span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  /*
-  // See which isocontours are being generated
-  double values[10];
-  bf-&gt;GetValues(values);
-  for(unsigned int i = 0; i &lt; 10; i++)
-    {
-    cout &lt;&lt; values[i] &lt;&lt; &quot; &quot;;
-    }
-  cout &lt;&lt; endl;
-  */
+  <span class="cm">/*</span>
+<span class="cm">  // See which isocontours are being generated</span>
+<span class="cm">  double values[10];</span>
+<span class="cm">  bf-&gt;GetValues(values);</span>
+<span class="cm">  for(unsigned int i = 0; i &lt; 10; i++)</span>
+<span class="cm">    {</span>
+<span class="cm">    cout &lt;&lt; values[i] &lt;&lt; &quot; &quot;;</span>
+<span class="cm">    }</span>
+<span class="cm">  cout &lt;&lt; endl;</span>
+<span class="cm">  */</span>
 
 
-  // Color actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; colorMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  colorMapper-&gt;SetInputConnection(bf-&gt;GetOutputPort(0));
-  colorMapper-&gt;SetScalarRange(range);
+  <span class="c1">// Color actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">colorMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+  <span class="n">colorMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; colorActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  colorActor-&gt;SetMapper(colorMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">colorActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">colorMapper</span><span class="p">);</span>
 
-  // Edge actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; edgeMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  edgeMapper-&gt;SetInputConnection(bf-&gt;GetOutputPort(1));
-  edgeMapper-&gt;SetScalarRange(range);
+  <span class="c1">// Edge actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">edgeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">edgeMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+  <span class="n">edgeMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; edgeActor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-  edgeActor-&gt;SetMapper(edgeMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">edgeActor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">edgeMapper</span><span class="p">);</span>
 
-  // Create the RenderWindow, Renderer and both Actors
+  <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the renderer
-  renderer-&gt;AddActor(colorActor);
-  renderer-&gt;AddActor(edgeActor);
+  <span class="c1">// Add the actors to the renderer</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">colorActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">edgeActor</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(PolyDataIsoLines)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">PolyDataIsoLines</span><span class="p">)</span>
 
-add_executable(PolyDataIsoLines MACOSX_BUNDLE PolyDataIsoLines.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(PolyDataIsoLines ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">PolyDataIsoLines</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">PolyDataIsoLines.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-polydataisolines">Download and Build PolyDataIsoLines</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">PolyDataIsoLines</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-polydataisolines">Download and Build PolyDataIsoLines<a class="headerlink" href="#download-and-build-polydataisolines" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/PolyDataIsoLines.tar">here to download PolyDataIsoLines</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball PolyDataIsoLines.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd PolyDataIsoLines/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd PolyDataIsoLines/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./PolyDataIsoLines
-</code></pre>
+<div class="codehilite"><pre><span></span>./PolyDataIsoLines
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

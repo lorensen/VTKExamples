@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,137 +16018,144 @@
                   <h1>DepthFirstSearchIterator</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/DepthFirstSearchIterator</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example traverses a tree in a depth first fashion.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DepthFirstSearchIterator.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkMutableUndirectedGraph.h&gt;
-#include &lt;vtkBoostPrimMinimumSpanningTree.h&gt;
-#include &lt;vtkBoostBreadthFirstSearch.h&gt;
-#include &lt;vtkTree.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkDataSetAttributes.h&gt;
-#include &lt;vtkTreeDFSIterator.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableUndirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoostPrimMinimumSpanningTree.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBoostBreadthFirstSearch.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTree.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetAttributes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTreeDFSIterator.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt; g =
-    vtkSmartPointer&lt;vtkMutableUndirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create 3 vertices
-  vtkIdType v1 = g-&gt;AddVertex();
-  vtkIdType v2 = g-&gt;AddVertex();
-  vtkIdType v3 = g-&gt;AddVertex();
+  <span class="c1">// Create 3 vertices</span>
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
 
-  // Create a fully connected graph
-  g-&gt;AddEdge(v1, v2);
-  g-&gt;AddEdge(v2, v3);
-  g-&gt;AddEdge(v1, v3);
+  <span class="c1">// Create a fully connected graph</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
 
-  // Create the edge weight array
-  vtkSmartPointer&lt;vtkDoubleArray&gt; weights =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  weights-&gt;SetNumberOfComponents(1);
-  weights-&gt;SetName(&quot;Weights&quot;);
+  <span class="c1">// Create the edge weight array</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">weights</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">weights</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">weights</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Weights&quot;</span><span class="p">);</span>
 
-  // Set the edge weights
-  weights-&gt;InsertNextValue(1.0);
-  weights-&gt;InsertNextValue(1.0);
-  weights-&gt;InsertNextValue(2.0);
+  <span class="c1">// Set the edge weights</span>
+  <span class="n">weights</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">weights</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">weights</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
 
-  // Add the edge weight array to the graph
-  g-&gt;GetEdgeData()-&gt;AddArray(weights);
+  <span class="c1">// Add the edge weight array to the graph</span>
+  <span class="n">g</span><span class="o">-&gt;</span><span class="n">GetEdgeData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">weights</span><span class="p">);</span>
 
-  // Output original graph info
-  std::cout &lt;&lt; &quot;Original Graph&quot; &lt;&lt; std::endl &lt;&lt; &quot;----------&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Number of vertices: &quot;
-            &lt;&lt; g-&gt;GetNumberOfVertices() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Number of edges: &quot;
-            &lt;&lt; g-&gt;GetNumberOfEdges() &lt;&lt; std::endl;
+  <span class="c1">// Output original graph info</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Original Graph&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;----------&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of vertices: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">GetNumberOfVertices</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of edges: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">GetNumberOfEdges</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Setup the minimum spanning tree filter
-  vtkSmartPointer&lt;vtkBoostPrimMinimumSpanningTree&gt; minimumSpanningTreeFilter =
-    vtkSmartPointer&lt;vtkBoostPrimMinimumSpanningTree&gt;::New();
-  minimumSpanningTreeFilter-&gt;SetOriginVertex(v1);
-  minimumSpanningTreeFilter-&gt;SetInput(g);
-  minimumSpanningTreeFilter-&gt;SetEdgeWeightArrayName(&quot;Weights&quot;);
+  <span class="c1">// Setup the minimum spanning tree filter</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoostPrimMinimumSpanningTree</span><span class="o">&gt;</span> <span class="n">minimumSpanningTreeFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBoostPrimMinimumSpanningTree</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">minimumSpanningTreeFilter</span><span class="o">-&gt;</span><span class="n">SetOriginVertex</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+  <span class="n">minimumSpanningTreeFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+  <span class="n">minimumSpanningTreeFilter</span><span class="o">-&gt;</span><span class="n">SetEdgeWeightArrayName</span><span class="p">(</span><span class="s">&quot;Weights&quot;</span><span class="p">);</span>
 
-  // Compute the minimum spanning tree
-  minimumSpanningTreeFilter-&gt;Update();
+  <span class="c1">// Compute the minimum spanning tree</span>
+  <span class="n">minimumSpanningTreeFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Get the output tree
-  vtkSmartPointer&lt;vtkTree&gt; minimumSpanningTree =
-    vtkSmartPointer&lt;vtkTree&gt;::New();
-  minimumSpanningTree-&gt;ShallowCopy(minimumSpanningTreeFilter-&gt;GetOutput());
+  <span class="c1">// Get the output tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTree</span><span class="o">&gt;</span> <span class="n">minimumSpanningTree</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTree</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">minimumSpanningTree</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">minimumSpanningTreeFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
-  // Output information about the minimum spanning tree
-  std::cout &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Minimum spanning tree&quot; &lt;&lt; std::endl
-            &lt;&lt; &quot;----------&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Number of vertices: &quot;
-            &lt;&lt; minimumSpanningTree-&gt;GetNumberOfVertices() &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;Number of edges: &quot;
-            &lt;&lt; minimumSpanningTree-&gt;GetNumberOfEdges() &lt;&lt; std::endl;
+  <span class="c1">// Output information about the minimum spanning tree</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Minimum spanning tree&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot;----------&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of vertices: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">minimumSpanningTree</span><span class="o">-&gt;</span><span class="n">GetNumberOfVertices</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of edges: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">minimumSpanningTree</span><span class="o">-&gt;</span><span class="n">GetNumberOfEdges</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkIdType root = minimumSpanningTree-&gt;GetRoot();
-  std::cout &lt;&lt; &quot;Root: &quot; &lt;&lt; root &lt;&lt; std::endl;
+  <span class="n">vtkIdType</span> <span class="n">root</span> <span class="o">=</span> <span class="n">minimumSpanningTree</span><span class="o">-&gt;</span><span class="n">GetRoot</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Root: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">root</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkTreeDFSIterator&gt; dFS =
-    vtkSmartPointer&lt;vtkTreeDFSIterator&gt;::New();
-  dFS-&gt;SetStartVertex(root);
-  dFS-&gt;SetTree(minimumSpanningTree);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeDFSIterator</span><span class="o">&gt;</span> <span class="n">dFS</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeDFSIterator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">dFS</span><span class="o">-&gt;</span><span class="n">SetStartVertex</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+  <span class="n">dFS</span><span class="o">-&gt;</span><span class="n">SetTree</span><span class="p">(</span><span class="n">minimumSpanningTree</span><span class="p">);</span>
 
-  // Traverse the tree in a depth first fashion
-  while(dFS-&gt;HasNext())
-  {
-    vtkIdType NextVertex = dFS-&gt;Next();
-    std::cout &lt;&lt; &quot;Next vertex: &quot;
-              &lt;&lt; NextVertex
-              &lt;&lt; &quot; level: &quot;
-              &lt;&lt; minimumSpanningTree-&gt;GetLevel(NextVertex)
-              &lt;&lt; std::endl;
-  }
+  <span class="c1">// Traverse the tree in a depth first fashion</span>
+  <span class="k">while</span><span class="p">(</span><span class="n">dFS</span><span class="o">-&gt;</span><span class="n">HasNext</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">vtkIdType</span> <span class="n">NextVertex</span> <span class="o">=</span> <span class="n">dFS</span><span class="o">-&gt;</span><span class="n">Next</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Next vertex: &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">NextVertex</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; level: &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">minimumSpanningTree</span><span class="o">-&gt;</span><span class="n">GetLevel</span><span class="p">(</span><span class="n">NextVertex</span><span class="p">)</span>
+              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DepthFirstSearchIterator)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DepthFirstSearchIterator</span><span class="p">)</span>
 
-add_executable(DepthFirstSearchIterator MACOSX_BUNDLE DepthFirstSearchIterator.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DepthFirstSearchIterator ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DepthFirstSearchIterator</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DepthFirstSearchIterator.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-depthfirstsearchiterator">Download and Build DepthFirstSearchIterator</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DepthFirstSearchIterator</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-depthfirstsearchiterator">Download and Build DepthFirstSearchIterator<a class="headerlink" href="#download-and-build-depthfirstsearchiterator" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DepthFirstSearchIterator.tar">here to download DepthFirstSearchIterator</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DepthFirstSearchIterator.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DepthFirstSearchIterator/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DepthFirstSearchIterator/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DepthFirstSearchIterator
-</code></pre>
+<div class="codehilite"><pre><span></span>./DepthFirstSearchIterator
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

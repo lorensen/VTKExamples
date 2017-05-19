@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,172 +16005,179 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/StreamLines</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestStreamLines.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>StreamLines.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkActor.h&gt;
-#if VTK_MAJOR_VERSION &lt;= 5
-#include &lt;vtkPLOT3DReader.h&gt;
-#else
-#include &lt;vtkMultiBlockPLOT3DReader.h&gt;
-#include &lt;vtkMultiBlockDataSet.h&gt;
-#endif
-#include &lt;vtkPlaneSource.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkStreamLine.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
-#include &lt;vtkStructuredGridOutlineFilter.h&gt;
-#include &lt;vtkProperty.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPLOT3DReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#else</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMultiBlockPLOT3DReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMultiBlockDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#endif</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStreamLine.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredGridOutlineFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  if(argc &lt; 3)
-  {
-    std::cerr &lt;&lt; &quot;Required arguments: xyzFile qFile&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: xyzFile qFile&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  std::string xyzFile = argv[1]; // &quot;combxyz.bin&quot;;
-  std::string qFile = argv[2]; // &quot;combq.bin&quot;;
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">xyzFile</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// &quot;combxyz.bin&quot;;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">qFile</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// &quot;combq.bin&quot;;</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  vtkSmartPointer&lt;vtkPLOT3DReader&gt; pl3d =
-    vtkSmartPointer&lt;vtkPLOT3DReader&gt;::New();
-#else
-  vtkSmartPointer&lt;vtkMultiBlockPLOT3DReader&gt; pl3d =
-    vtkSmartPointer&lt;vtkMultiBlockPLOT3DReader&gt;::New();
-#endif
-  pl3d-&gt;SetXYZFileName(xyzFile.c_str());
-  pl3d-&gt;SetQFileName(qFile.c_str());
-  pl3d-&gt;SetScalarFunctionNumber(100);
-  pl3d-&gt;SetVectorFunctionNumber(202);
-  pl3d-&gt;Update();
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPLOT3DReader</span><span class="o">&gt;</span> <span class="n">pl3d</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPLOT3DReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockPLOT3DReader</span><span class="o">&gt;</span> <span class="n">pl3d</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockPLOT3DReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#endif</span>
+  <span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">SetXYZFileName</span><span class="p">(</span><span class="n">xyzFile</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">SetQFileName</span><span class="p">(</span><span class="n">qFile</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">SetScalarFunctionNumber</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+  <span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">SetVectorFunctionNumber</span><span class="p">(</span><span class="mi">202</span><span class="p">);</span>
+  <span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Source of the streamlines
-  vtkSmartPointer&lt;vtkPlaneSource&gt; seeds = 
-    vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-  seeds-&gt;SetXResolution(4);
-  seeds-&gt;SetYResolution(4);
-  seeds-&gt;SetOrigin(2,-2,26);
-  seeds-&gt;SetPoint1(2,2,26);
-  seeds-&gt;SetPoint2(2,-2,32);
+  <span class="c1">// Source of the streamlines</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">seeds</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">seeds</span><span class="o">-&gt;</span><span class="n">SetXResolution</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">seeds</span><span class="o">-&gt;</span><span class="n">SetYResolution</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">seeds</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">26</span><span class="p">);</span>
+  <span class="n">seeds</span><span class="o">-&gt;</span><span class="n">SetPoint1</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">26</span><span class="p">);</span>
+  <span class="n">seeds</span><span class="o">-&gt;</span><span class="n">SetPoint2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">32</span><span class="p">);</span>
 
-  // Streamline itself
-  vtkSmartPointer&lt;vtkStreamLine&gt; streamLine = 
-    vtkSmartPointer&lt;vtkStreamLine&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  streamLine-&gt;SetInputConnection(pl3d-&gt;GetOutputPort());
-  streamLine-&gt;SetSource(seeds-&gt;GetOutput());
-#else
-  pl3d-&gt;Update();
-  streamLine-&gt;SetInputData(pl3d-&gt;GetOutput()-&gt;GetBlock(0));
-  streamLine-&gt;SetSourceConnection(seeds-&gt;GetOutputPort());
-#endif
-  //streamLine-&gt;SetStartPosition(2,-2,30);
-  // as alternative to the SetSource(), which can handle multiple
-  // streamlines, you can set a SINGLE streamline from
-  // SetStartPosition()
-  streamLine-&gt;SetMaximumPropagationTime(200);
-  streamLine-&gt;SetIntegrationStepLength(.2);
-  streamLine-&gt;SetStepLength(.001);
-  streamLine-&gt;SetNumberOfThreads(1);
-  streamLine-&gt;SetIntegrationDirectionToForward();
-  streamLine-&gt;VorticityOn();
+  <span class="c1">// Streamline itself</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStreamLine</span><span class="o">&gt;</span> <span class="n">streamLine</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStreamLine</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetSource</span><span class="p">(</span><span class="n">seeds</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">seeds</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="c1">//streamLine-&gt;SetStartPosition(2,-2,30);</span>
+  <span class="c1">// as alternative to the SetSource(), which can handle multiple</span>
+  <span class="c1">// streamlines, you can set a SINGLE streamline from</span>
+  <span class="c1">// SetStartPosition()</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetMaximumPropagationTime</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetIntegrationStepLength</span><span class="p">(</span><span class="mf">.2</span><span class="p">);</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetStepLength</span><span class="p">(</span><span class="mf">.001</span><span class="p">);</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetNumberOfThreads</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">SetIntegrationDirectionToForward</span><span class="p">();</span>
+  <span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">VorticityOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; streamLineMapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  streamLineMapper-&gt;SetInputConnection(streamLine-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">streamLineMapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">streamLineMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">streamLine</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; streamLineActor = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  streamLineActor-&gt;SetMapper(streamLineMapper);
-  streamLineActor-&gt;VisibilityOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">streamLineActor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">streamLineActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">streamLineMapper</span><span class="p">);</span>
+  <span class="n">streamLineActor</span><span class="o">-&gt;</span><span class="n">VisibilityOn</span><span class="p">();</span>
 
-  // Outline-Filter for the grid
-  vtkSmartPointer&lt;vtkStructuredGridOutlineFilter&gt; outline = 
-    vtkSmartPointer&lt;vtkStructuredGridOutlineFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  outline-&gt;SetInputConnection(pl3d-&gt;GetOutputPort());
-#else
-  outline-&gt;SetInputData(pl3d-&gt;GetOutput()-&gt;GetBlock(0));
-#endif
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; outlineMapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  outlineMapper-&gt;SetInputConnection(outline-&gt;GetOutputPort());
+  <span class="c1">// Outline-Filter for the grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGridOutlineFilter</span><span class="o">&gt;</span> <span class="n">outline</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGridOutlineFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">outline</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">outline</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pl3d</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">outlineMapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">outlineMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outline</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; outlineActor = 
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  outlineActor-&gt;SetMapper(outlineMapper);
-  outlineActor-&gt;GetProperty()-&gt;SetColor(1, 1, 1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">outlineActor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">outlineActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outlineMapper</span><span class="p">);</span>
+  <span class="n">outlineActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  // Create the RenderWindow, Renderer and Actors
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer = 
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// Create the RenderWindow, Renderer and Actors</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style = 
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New();
-  interactor-&gt;SetInteractorStyle(style);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(streamLineActor);
-  renderer-&gt;AddActor(outlineActor);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">streamLineActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  renderer-&gt;SetBackground(0.1, 0.2, 0.4);
-  renderWindow-&gt;SetSize(300, 300);
-  interactor-&gt;Initialize();
-  renderWindow-&gt;Render();
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(StreamLines)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">StreamLines</span><span class="p">)</span>
 
-add_executable(StreamLines MACOSX_BUNDLE StreamLines.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(StreamLines ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">StreamLines</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">StreamLines.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-streamlines">Download and Build StreamLines</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">StreamLines</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-streamlines">Download and Build StreamLines<a class="headerlink" href="#download-and-build-streamlines" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/StreamLines.tar">here to download StreamLines</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball StreamLines.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd StreamLines/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd StreamLines/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./StreamLines
-</code></pre>
+<div class="codehilite"><pre><span></span>./StreamLines
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

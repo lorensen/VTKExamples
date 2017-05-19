@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,348 +16005,355 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/ParametricKuenDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestParametricKuenDemo.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ParametricKuenDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkParametricKuen.h&gt;
-#include &lt;vtkParametricFunctionSource.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricKuen.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkParametricFunctionSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkActor2D.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkMath.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSliderWidget.h&gt;
-#include &lt;vtkSliderRepresentation2D.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSliderRepresentation2D.h&gt;</span><span class="cp"></span>
 
-// These callbacks do the actual work.
-// Callbacks for the interactions
-class SliderCallbackMinimumU : public vtkCommand
-{
-public:
-  static SliderCallbackMinimumU *New()
-  {
-    return new SliderCallbackMinimumU;
-  }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast&lt;vtkSliderWidget*&gt;(caller);
-    double value = static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue();
-    if (value &gt; .9 * this-&gt;Kuen-&gt;GetMaximumU())
-    {
-      value = .99 * this-&gt;Kuen-&gt;GetMaximumU();
-      static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;SetValue(value);
-    }
-    this-&gt;Kuen-&gt;SetMinimumU(value);
-  }
-  SliderCallbackMinimumU():Kuen(0) {}
-  vtkParametricKuen *Kuen;
-};
+<span class="c1">// These callbacks do the actual work.</span>
+<span class="c1">// Callbacks for the interactions</span>
+<span class="k">class</span> <span class="nc">SliderCallbackMinimumU</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">SliderCallbackMinimumU</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SliderCallbackMinimumU</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSliderWidget</span> <span class="o">*</span><span class="n">sliderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">.9</span> <span class="o">*</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMaximumU</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="mf">.99</span> <span class="o">*</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMaximumU</span><span class="p">();</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">SetMinimumU</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">SliderCallbackMinimumU</span><span class="p">()</span><span class="o">:</span><span class="n">Kuen</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">vtkParametricKuen</span> <span class="o">*</span><span class="n">Kuen</span><span class="p">;</span>
+<span class="p">};</span>
 
-class SliderCallbackMaximumU : public vtkCommand
-{
-public:
-  static SliderCallbackMaximumU *New()
-  {
-    return new SliderCallbackMaximumU;
-  }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast&lt;vtkSliderWidget*&gt;(caller);
-    double value = static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue();
-    if (value &lt; this-&gt;Kuen-&gt;GetMinimumU() + .01)
-    {
-      value = this-&gt;Kuen-&gt;GetMinimumU() + .01;
-      static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;SetValue(value);
-    }
-    this-&gt;Kuen-&gt;SetMaximumU(static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue());
-  }
-  SliderCallbackMaximumU():Kuen(0) {}
-  vtkParametricKuen *Kuen;
-};
+<span class="k">class</span> <span class="nc">SliderCallbackMaximumU</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">SliderCallbackMaximumU</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SliderCallbackMaximumU</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSliderWidget</span> <span class="o">*</span><span class="n">sliderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMinimumU</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.01</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMinimumU</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.01</span><span class="p">;</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">SetMaximumU</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">SliderCallbackMaximumU</span><span class="p">()</span><span class="o">:</span><span class="n">Kuen</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">vtkParametricKuen</span> <span class="o">*</span><span class="n">Kuen</span><span class="p">;</span>
+<span class="p">};</span>
 
-class SliderCallbackMinimumV : public vtkCommand
-{
-public:
-  static SliderCallbackMinimumV *New()
-  {
-    return new SliderCallbackMinimumV;
-  }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast&lt;vtkSliderWidget*&gt;(caller);
-    double value = static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue();
-    if (value &gt; .9 * this-&gt;Kuen-&gt;GetMaximumV())
-    {
-      value = .9 * this-&gt;Kuen-&gt;GetMaximumV();
-      static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;SetValue(value);
-    }
-    this-&gt;Kuen-&gt;SetMinimumV(value);
-  }
-  SliderCallbackMinimumV():Kuen(0) {}
-  vtkParametricKuen *Kuen;
-};
+<span class="k">class</span> <span class="nc">SliderCallbackMinimumV</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">SliderCallbackMinimumV</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SliderCallbackMinimumV</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSliderWidget</span> <span class="o">*</span><span class="n">sliderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">.9</span> <span class="o">*</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMaximumV</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="mf">.9</span> <span class="o">*</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMaximumV</span><span class="p">();</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">SetMinimumV</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">SliderCallbackMinimumV</span><span class="p">()</span><span class="o">:</span><span class="n">Kuen</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">vtkParametricKuen</span> <span class="o">*</span><span class="n">Kuen</span><span class="p">;</span>
+<span class="p">};</span>
 
-class SliderCallbackMaximumV : public vtkCommand
-{
-public:
-  static SliderCallbackMaximumV *New()
-  {
-    return new SliderCallbackMaximumV;
-  }
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkSliderWidget *sliderWidget =
-      reinterpret_cast&lt;vtkSliderWidget*&gt;(caller);
-    double value = static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue();
-    if (value &lt; this-&gt;Kuen-&gt;GetMinimumV() + .01)
-    {
-      value = this-&gt;Kuen-&gt;GetMinimumV() + .01;
-      static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;SetValue(value);
-    }
-    this-&gt;Kuen-&gt;SetMaximumV(static_cast&lt;vtkSliderRepresentation2D *&gt;(sliderWidget-&gt;GetRepresentation())-&gt;GetValue());
-  }
-  SliderCallbackMaximumV():Kuen(0) {}
-  vtkParametricKuen *Kuen;
-};
+<span class="k">class</span> <span class="nc">SliderCallbackMaximumV</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">SliderCallbackMaximumV</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SliderCallbackMaximumV</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSliderWidget</span> <span class="o">*</span><span class="n">sliderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMinimumV</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.01</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">GetMinimumV</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.01</span><span class="p">;</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Kuen</span><span class="o">-&gt;</span><span class="n">SetMaximumV</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">sliderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="n">SliderCallbackMaximumV</span><span class="p">()</span><span class="o">:</span><span class="n">Kuen</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">vtkParametricKuen</span> <span class="o">*</span><span class="n">Kuen</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkParametricKuen&gt; surface =
-    vtkSmartPointer&lt;vtkParametricKuen&gt;::New();
-  vtkSmartPointer&lt;vtkParametricFunctionSource&gt; source =
-    vtkSmartPointer&lt;vtkParametricFunctionSource&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricKuen</span><span class="o">&gt;</span> <span class="n">surface</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricKuen</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkProperty&gt; backProperty =
-    vtkSmartPointer&lt;vtkProperty&gt;::New();
-  backProperty-&gt;SetColor(1.0000, 0.3882, 0.2784);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">backProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
 
-  // Create a parametric function source, renderer, mapper, and actor
-  source-&gt;SetParametricFunction(surface);
+  <span class="c1">// Create a parametric function source, renderer, mapper, and actor</span>
+  <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">surface</span><span class="p">);</span>
 
-  mapper-&gt;SetInputConnection(source-&gt;GetOutputPort());
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  actor-&gt;SetMapper(mapper);
-  actor-&gt;SetBackfaceProperty(backProperty);
-  actor-&gt;GetProperty()-&gt;SetDiffuseColor(0.8900, 0.8100, 0.3400);
-  actor-&gt;GetProperty()-&gt;SetSpecular(.5);
-  actor-&gt;GetProperty()-&gt;SetSpecularPower(20);
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backProperty</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  renderWindow-&gt;SetSize(640,480);
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(.2, .3, .4);
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(30);
-  renderer-&gt;GetActiveCamera()-&gt;Elevation(-30);
-  renderer-&gt;GetActiveCamera()-&gt;Zoom(0.9);
-  renderer-&gt;ResetCameraClippingRange();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">0.9</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Setup a slider widget for each varying parameter
-  double tubeWidth(.004);
-  double sliderLength(.004);
-  double titleHeight(.02);
-  double labelHeight(.02);
+  <span class="c1">// Setup a slider widget for each varying parameter</span>
+  <span class="kt">double</span> <span class="n">tubeWidth</span><span class="p">(</span><span class="mf">.004</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">sliderLength</span><span class="p">(</span><span class="mf">.004</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">titleHeight</span><span class="p">(</span><span class="mf">.02</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">labelHeight</span><span class="p">(</span><span class="mf">.02</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderRepresentation2D&gt; sliderRepMinimumU =
-    vtkSmartPointer&lt;vtkSliderRepresentation2D&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;</span> <span class="n">sliderRepMinimumU</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  sliderRepMinimumU-&gt;SetMinimumValue(-4.5);
-  sliderRepMinimumU-&gt;SetMaximumValue(4.5);
-  sliderRepMinimumU-&gt;SetValue(-4.5);
-  sliderRepMinimumU-&gt;SetTitleText(&quot;U min&quot;);
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetMinimumValue</span><span class="p">(</span><span class="o">-</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetMaximumValue</span><span class="p">(</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="o">-</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetTitleText</span><span class="p">(</span><span class="s">&quot;U min&quot;</span><span class="p">);</span>
 
-  sliderRepMinimumU-&gt;GetPoint1Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMinimumU-&gt;GetPoint1Coordinate()-&gt;SetValue(.1, .1);
-  sliderRepMinimumU-&gt;GetPoint2Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMinimumU-&gt;GetPoint2Coordinate()-&gt;SetValue(.9, .1);
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.1</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.9</span><span class="p">,</span> <span class="mf">.1</span><span class="p">);</span>
 
-  sliderRepMinimumU-&gt;SetTubeWidth(tubeWidth);
-  sliderRepMinimumU-&gt;SetSliderLength(sliderLength);
-  sliderRepMinimumU-&gt;SetTitleHeight(titleHeight);
-  sliderRepMinimumU-&gt;SetLabelHeight(labelHeight);
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetTubeWidth</span><span class="p">(</span><span class="n">tubeWidth</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetSliderLength</span><span class="p">(</span><span class="n">sliderLength</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetTitleHeight</span><span class="p">(</span><span class="n">titleHeight</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumU</span><span class="o">-&gt;</span><span class="n">SetLabelHeight</span><span class="p">(</span><span class="n">labelHeight</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderWidget&gt; sliderWidgetMinimumU =
-    vtkSmartPointer&lt;vtkSliderWidget&gt;::New();
-  sliderWidgetMinimumU-&gt;SetInteractor(interactor);
-  sliderWidgetMinimumU-&gt;SetRepresentation(sliderRepMinimumU);
-  sliderWidgetMinimumU-&gt;SetAnimationModeToAnimate();
-  sliderWidgetMinimumU-&gt;EnabledOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;</span> <span class="n">sliderWidgetMinimumU</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderWidgetMinimumU</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">);</span>
+  <span class="n">sliderWidgetMinimumU</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">sliderRepMinimumU</span><span class="p">);</span>
+  <span class="n">sliderWidgetMinimumU</span><span class="o">-&gt;</span><span class="n">SetAnimationModeToAnimate</span><span class="p">();</span>
+  <span class="n">sliderWidgetMinimumU</span><span class="o">-&gt;</span><span class="n">EnabledOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;SliderCallbackMinimumU&gt; callbackMinimumU =
-    vtkSmartPointer&lt;SliderCallbackMinimumU&gt;::New();
-  callbackMinimumU-&gt;Kuen = surface;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMinimumU</span><span class="o">&gt;</span> <span class="n">callbackMinimumU</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMinimumU</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callbackMinimumU</span><span class="o">-&gt;</span><span class="n">Kuen</span> <span class="o">=</span> <span class="n">surface</span><span class="p">;</span>
 
-  sliderWidgetMinimumU-&gt;AddObserver(vtkCommand::InteractionEvent,callbackMinimumU);
+  <span class="n">sliderWidgetMinimumU</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">callbackMinimumU</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderRepresentation2D&gt; sliderRepMaximumU =
-    vtkSmartPointer&lt;vtkSliderRepresentation2D&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;</span> <span class="n">sliderRepMaximumU</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  sliderRepMaximumU-&gt;SetMinimumValue(-4.5);
-  sliderRepMaximumU-&gt;SetMaximumValue(4.5);
-  sliderRepMaximumU-&gt;SetValue(4.5);
-  sliderRepMaximumU-&gt;SetTitleText(&quot;U max&quot;);
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetMinimumValue</span><span class="p">(</span><span class="o">-</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetMaximumValue</span><span class="p">(</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetTitleText</span><span class="p">(</span><span class="s">&quot;U max&quot;</span><span class="p">);</span>
 
-  sliderRepMaximumU-&gt;GetPoint1Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMaximumU-&gt;GetPoint1Coordinate()-&gt;SetValue(.1, .9);
-  sliderRepMaximumU-&gt;GetPoint2Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMaximumU-&gt;GetPoint2Coordinate()-&gt;SetValue(.9, .9);
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.9</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
 
-  sliderRepMaximumU-&gt;SetTubeWidth(tubeWidth);
-  sliderRepMaximumU-&gt;SetSliderLength(sliderLength);
-  sliderRepMaximumU-&gt;SetTitleHeight(titleHeight);
-  sliderRepMaximumU-&gt;SetLabelHeight(labelHeight);
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetTubeWidth</span><span class="p">(</span><span class="n">tubeWidth</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetSliderLength</span><span class="p">(</span><span class="n">sliderLength</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetTitleHeight</span><span class="p">(</span><span class="n">titleHeight</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumU</span><span class="o">-&gt;</span><span class="n">SetLabelHeight</span><span class="p">(</span><span class="n">labelHeight</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderWidget&gt; sliderWidgetMaximumU =
-    vtkSmartPointer&lt;vtkSliderWidget&gt;::New();
-  sliderWidgetMaximumU-&gt;SetInteractor(interactor);
-  sliderWidgetMaximumU-&gt;SetRepresentation(sliderRepMaximumU);
-  sliderWidgetMaximumU-&gt;SetAnimationModeToAnimate();
-  sliderWidgetMaximumU-&gt;EnabledOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;</span> <span class="n">sliderWidgetMaximumU</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderWidgetMaximumU</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">);</span>
+  <span class="n">sliderWidgetMaximumU</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">sliderRepMaximumU</span><span class="p">);</span>
+  <span class="n">sliderWidgetMaximumU</span><span class="o">-&gt;</span><span class="n">SetAnimationModeToAnimate</span><span class="p">();</span>
+  <span class="n">sliderWidgetMaximumU</span><span class="o">-&gt;</span><span class="n">EnabledOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;SliderCallbackMaximumU&gt; callbackMaximumU =
-    vtkSmartPointer&lt;SliderCallbackMaximumU&gt;::New();
-  callbackMaximumU-&gt;Kuen = surface;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMaximumU</span><span class="o">&gt;</span> <span class="n">callbackMaximumU</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMaximumU</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callbackMaximumU</span><span class="o">-&gt;</span><span class="n">Kuen</span> <span class="o">=</span> <span class="n">surface</span><span class="p">;</span>
 
-  sliderWidgetMaximumU-&gt;AddObserver(vtkCommand::InteractionEvent,callbackMaximumU);
+  <span class="n">sliderWidgetMaximumU</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">callbackMaximumU</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderRepresentation2D&gt; sliderRepMinimumV =
-    vtkSmartPointer&lt;vtkSliderRepresentation2D&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;</span> <span class="n">sliderRepMinimumV</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  sliderRepMinimumV-&gt;SetMinimumValue(0.05);
-  sliderRepMinimumV-&gt;SetMaximumValue(vtkMath::Pi());
-  sliderRepMinimumV-&gt;SetValue(0.0);
-  sliderRepMinimumV-&gt;SetTitleText(&quot;V min&quot;);
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetMinimumValue</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetMaximumValue</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">());</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetTitleText</span><span class="p">(</span><span class="s">&quot;V min&quot;</span><span class="p">);</span>
 
-  sliderRepMinimumV-&gt;GetPoint1Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMinimumV-&gt;GetPoint1Coordinate()-&gt;SetValue(.1, .1);
-  sliderRepMinimumV-&gt;GetPoint2Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMinimumV-&gt;GetPoint2Coordinate()-&gt;SetValue(.1, .9);
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.1</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
 
-  sliderRepMinimumV-&gt;SetTubeWidth(tubeWidth);
-  sliderRepMinimumV-&gt;SetSliderLength(sliderLength);
-  sliderRepMinimumV-&gt;SetTitleHeight(titleHeight);
-  sliderRepMinimumV-&gt;SetLabelHeight(labelHeight);
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetTubeWidth</span><span class="p">(</span><span class="n">tubeWidth</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetSliderLength</span><span class="p">(</span><span class="n">sliderLength</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetTitleHeight</span><span class="p">(</span><span class="n">titleHeight</span><span class="p">);</span>
+  <span class="n">sliderRepMinimumV</span><span class="o">-&gt;</span><span class="n">SetLabelHeight</span><span class="p">(</span><span class="n">labelHeight</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderWidget&gt; sliderWidgetMinimumV =
-    vtkSmartPointer&lt;vtkSliderWidget&gt;::New();
-  sliderWidgetMinimumV-&gt;SetInteractor(interactor);
-  sliderWidgetMinimumV-&gt;SetRepresentation(sliderRepMinimumV);
-  sliderWidgetMinimumV-&gt;SetAnimationModeToAnimate();
-  sliderWidgetMinimumV-&gt;EnabledOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;</span> <span class="n">sliderWidgetMinimumV</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderWidgetMinimumV</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">);</span>
+  <span class="n">sliderWidgetMinimumV</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">sliderRepMinimumV</span><span class="p">);</span>
+  <span class="n">sliderWidgetMinimumV</span><span class="o">-&gt;</span><span class="n">SetAnimationModeToAnimate</span><span class="p">();</span>
+  <span class="n">sliderWidgetMinimumV</span><span class="o">-&gt;</span><span class="n">EnabledOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;SliderCallbackMinimumV&gt; callbackMinimumV =
-    vtkSmartPointer&lt;SliderCallbackMinimumV&gt;::New();
-  callbackMinimumV-&gt;Kuen = surface;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMinimumV</span><span class="o">&gt;</span> <span class="n">callbackMinimumV</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMinimumV</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callbackMinimumV</span><span class="o">-&gt;</span><span class="n">Kuen</span> <span class="o">=</span> <span class="n">surface</span><span class="p">;</span>
 
-  sliderWidgetMinimumV-&gt;AddObserver(vtkCommand::InteractionEvent,callbackMinimumV);
+  <span class="n">sliderWidgetMinimumV</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">callbackMinimumV</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderRepresentation2D&gt; sliderRepMaximumV =
-    vtkSmartPointer&lt;vtkSliderRepresentation2D&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;</span> <span class="n">sliderRepMaximumV</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  sliderRepMaximumV-&gt;SetMinimumValue(0.05);
-  sliderRepMaximumV-&gt;SetMaximumValue(vtkMath::Pi() - .05);
-  sliderRepMaximumV-&gt;SetValue(vtkMath::Pi());
-  sliderRepMaximumV-&gt;SetTitleText(&quot;V max&quot;);
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetMinimumValue</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetMaximumValue</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">()</span> <span class="o">-</span> <span class="mf">.05</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">());</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetTitleText</span><span class="p">(</span><span class="s">&quot;V max&quot;</span><span class="p">);</span>
 
-  sliderRepMaximumV-&gt;GetPoint1Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMaximumV-&gt;GetPoint1Coordinate()-&gt;SetValue(.9, .1);
-  sliderRepMaximumV-&gt;GetPoint2Coordinate()-&gt;SetCoordinateSystemToNormalizedDisplay();
-  sliderRepMaximumV-&gt;GetPoint2Coordinate()-&gt;SetValue(.9, .9);
-  sliderRepMaximumV-&gt;SetTubeWidth(tubeWidth);
-  sliderRepMaximumV-&gt;SetSliderLength(sliderLength);
-  sliderRepMaximumV-&gt;SetTitleHeight(titleHeight);
-  sliderRepMaximumV-&gt;SetLabelHeight(labelHeight);
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">GetPoint1Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.9</span><span class="p">,</span> <span class="mf">.1</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">GetPoint2Coordinate</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">.9</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetTubeWidth</span><span class="p">(</span><span class="n">tubeWidth</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetSliderLength</span><span class="p">(</span><span class="n">sliderLength</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetTitleHeight</span><span class="p">(</span><span class="n">titleHeight</span><span class="p">);</span>
+  <span class="n">sliderRepMaximumV</span><span class="o">-&gt;</span><span class="n">SetLabelHeight</span><span class="p">(</span><span class="n">labelHeight</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSliderWidget&gt; sliderWidgetMaximumV =
-    vtkSmartPointer&lt;vtkSliderWidget&gt;::New();
-  sliderWidgetMaximumV-&gt;SetInteractor(interactor);
-  sliderWidgetMaximumV-&gt;SetRepresentation(sliderRepMaximumV);
-  sliderWidgetMaximumV-&gt;SetAnimationModeToAnimate();
-  sliderWidgetMaximumV-&gt;EnabledOn();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;</span> <span class="n">sliderWidgetMaximumV</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sliderWidgetMaximumV</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">interactor</span><span class="p">);</span>
+  <span class="n">sliderWidgetMaximumV</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">sliderRepMaximumV</span><span class="p">);</span>
+  <span class="n">sliderWidgetMaximumV</span><span class="o">-&gt;</span><span class="n">SetAnimationModeToAnimate</span><span class="p">();</span>
+  <span class="n">sliderWidgetMaximumV</span><span class="o">-&gt;</span><span class="n">EnabledOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;SliderCallbackMaximumV&gt; callbackMaximumV =
-    vtkSmartPointer&lt;SliderCallbackMaximumV&gt;::New();
-  callbackMaximumV-&gt;Kuen = surface;
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMaximumV</span><span class="o">&gt;</span> <span class="n">callbackMaximumV</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">SliderCallbackMaximumV</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">callbackMaximumV</span><span class="o">-&gt;</span><span class="n">Kuen</span> <span class="o">=</span> <span class="n">surface</span><span class="p">;</span>
 
-  sliderWidgetMaximumV-&gt;AddObserver(vtkCommand::InteractionEvent,callbackMaximumV);
+  <span class="n">sliderWidgetMaximumV</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">callbackMaximumV</span><span class="p">);</span>
 
-  surface-&gt;SetMinimumU(-4.5);
-  surface-&gt;SetMaximumU(4.5);
-  surface-&gt;SetMinimumV(0.05);
-  surface-&gt;SetMaximumV(vtkMath::Pi() - .05);
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetMinimumU</span><span class="p">(</span><span class="o">-</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetMaximumU</span><span class="p">(</span><span class="mf">4.5</span><span class="p">);</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetMinimumV</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetMaximumV</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Pi</span><span class="p">()</span> <span class="o">-</span> <span class="mf">.05</span><span class="p">);</span>
 
-  renderer-&gt;ResetCamera();
-  renderer-&gt;GetActiveCamera()-&gt;Azimuth(30);
-  renderer-&gt;GetActiveCamera()-&gt;Elevation(-30);
-  renderer-&gt;GetActiveCamera()-&gt;Zoom(0.9);
-  renderer-&gt;ResetCameraClippingRange();
-  renderWindow-&gt;Render();
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">0.9</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Initialize();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ParametricKuenDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ParametricKuenDemo</span><span class="p">)</span>
 
-add_executable(ParametricKuenDemo MACOSX_BUNDLE ParametricKuenDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ParametricKuenDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ParametricKuenDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ParametricKuenDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-parametrickuendemo">Download and Build ParametricKuenDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ParametricKuenDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-parametrickuendemo">Download and Build ParametricKuenDemo<a class="headerlink" href="#download-and-build-parametrickuendemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ParametricKuenDemo.tar">here to download ParametricKuenDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ParametricKuenDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ParametricKuenDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ParametricKuenDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ParametricKuenDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./ParametricKuenDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

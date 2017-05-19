@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,218 +16019,225 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/InfoVis/KMeansClustering</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/InfoVis/TestKMeansClustering.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example clusters 3D points using the KMeans algorithm. The points are assigned to a cluster by creating an array with each point's cluster id.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>KMeansClustering.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkMultiBlockDataSet.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkKMeansStatistics.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMultiBlockDataSet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkKMeansStatistics.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
 
-#include &lt;sstream&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
 
-int main(int, char*[])
-{
-  // Create 2 clusters, one near (0,0,0) and the other near (3,3,3)
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-      vtkSmartPointer&lt;vtkPoints&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create 2 clusters, one near (0,0,0) and the other near (3,3,3)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  points-&gt;InsertNextPoint ( 0.0, 0.0, 0.0 );
-  points-&gt;InsertNextPoint ( 3.0, 3.0, 3.0 );
-  points-&gt;InsertNextPoint ( 0.1, 0.1, 0.1 );
-  points-&gt;InsertNextPoint ( 3.1, 3.1, 3.1 );
-  points-&gt;InsertNextPoint ( 0.2, 0.2, 0.2 );
-  points-&gt;InsertNextPoint ( 3.2, 3.2, 3.2 );
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.1</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span> <span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">3.2</span> <span class="p">);</span>
 
-  // Get the points into the format needed for KMeans
-  vtkSmartPointer&lt;vtkTable&gt; inputData =
-      vtkSmartPointer&lt;vtkTable&gt;::New();
+  <span class="c1">// Get the points into the format needed for KMeans</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">inputData</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  for( int c = 0; c &lt; 3; ++c )
-  {
-    std::stringstream colName;
-    colName &lt;&lt; &quot;coord &quot; &lt;&lt; c;
-    vtkSmartPointer&lt;vtkDoubleArray&gt; doubleArray =
-      vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-    doubleArray-&gt;SetNumberOfComponents(1);
-    doubleArray-&gt;SetName( colName.str().c_str() );
-    doubleArray-&gt;SetNumberOfTuples(points-&gt;GetNumberOfPoints());
-
-
-    for( int r = 0; r &lt; points-&gt;GetNumberOfPoints(); ++ r )
-    {
-      double p[3];
-      points-&gt;GetPoint(r, p);
-
-      doubleArray-&gt;SetValue( r, p[c] );
-    }
-
-    inputData-&gt;AddColumn( doubleArray );
-  }
+  <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">c</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">colName</span><span class="p">;</span>
+    <span class="n">colName</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;coord &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">;</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">doubleArray</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">doubleArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">doubleArray</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span> <span class="n">colName</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+    <span class="n">doubleArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
 
 
-  vtkSmartPointer&lt;vtkKMeansStatistics&gt; kMeansStatistics =
-    vtkSmartPointer&lt;vtkKMeansStatistics&gt;::New();
+    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="o">++</span> <span class="n">r</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  kMeansStatistics-&gt;SetInput( vtkStatisticsAlgorithm::INPUT_DATA, inputData );
-#else
-  kMeansStatistics-&gt;SetInputData( vtkStatisticsAlgorithm::INPUT_DATA, inputData );
-#endif
-  kMeansStatistics-&gt;SetColumnStatus( inputData-&gt;GetColumnName( 0 ) , 1 );
-  kMeansStatistics-&gt;SetColumnStatus( inputData-&gt;GetColumnName( 1 ) , 1 );
-  kMeansStatistics-&gt;SetColumnStatus( inputData-&gt;GetColumnName( 2 ) , 1 );
-  //kMeansStatistics-&gt;SetColumnStatus( &quot;Testing&quot;, 1 );
-  kMeansStatistics-&gt;RequestSelectedColumns();
-  kMeansStatistics-&gt;SetAssessOption( true );
-  kMeansStatistics-&gt;SetDefaultNumberOfClusters( 2 );
-  kMeansStatistics-&gt;Update() ;
+      <span class="n">doubleArray</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="p">);</span>
+    <span class="p">}</span>
 
-  // Display the results
-  kMeansStatistics-&gt;GetOutput()-&gt;Dump();
+    <span class="n">inputData</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span> <span class="n">doubleArray</span> <span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkIntArray&gt; clusterArray =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  clusterArray-&gt;SetNumberOfComponents(1);
-  clusterArray-&gt;SetName( &quot;ClusterId&quot; );
 
-  for(int r = 0; r &lt; kMeansStatistics-&gt;GetOutput()-&gt;GetNumberOfRows(); r++)
-  {
-    vtkVariant v = kMeansStatistics-&gt;GetOutput()-&gt;GetValue(r,kMeansStatistics-&gt;GetOutput()-&gt;GetNumberOfColumns() - 1);
-    std::cout &lt;&lt; &quot;Point &quot; &lt;&lt; r &lt;&lt; &quot; is in cluster &quot; &lt;&lt; v.ToInt() &lt;&lt; std::endl;
-    clusterArray-&gt;InsertNextValue(v.ToInt());
-  }
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKMeansStatistics</span><span class="o">&gt;</span> <span class="n">kMeansStatistics</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKMeansStatistics</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-/*
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">vtkStatisticsAlgorithm</span><span class="o">::</span><span class="n">INPUT_DATA</span><span class="p">,</span> <span class="n">inputData</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">vtkStatisticsAlgorithm</span><span class="o">::</span><span class="n">INPUT_DATA</span><span class="p">,</span> <span class="n">inputData</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetColumnStatus</span><span class="p">(</span> <span class="n">inputData</span><span class="o">-&gt;</span><span class="n">GetColumnName</span><span class="p">(</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetColumnStatus</span><span class="p">(</span> <span class="n">inputData</span><span class="o">-&gt;</span><span class="n">GetColumnName</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetColumnStatus</span><span class="p">(</span> <span class="n">inputData</span><span class="o">-&gt;</span><span class="n">GetColumnName</span><span class="p">(</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="c1">//kMeansStatistics-&gt;SetColumnStatus( &quot;Testing&quot;, 1 );</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">RequestSelectedColumns</span><span class="p">();</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetAssessOption</span><span class="p">(</span> <span class="nb">true</span> <span class="p">);</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">SetDefaultNumberOfClusters</span><span class="p">(</span> <span class="mi">2</span> <span class="p">);</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">()</span> <span class="p">;</span>
 
-  // Output the cluster centers
+  <span class="c1">// Display the results</span>
+  <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dump</span><span class="p">();</span>
 
-  vtkMultiBlockDataSet* outputMetaDS = vtkMultiBlockDataSet::SafeDownCast( kMeansStatistics-&gt;GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );
-  vtkSmartPointer&lt;vtkTable&gt; outputMeta = vtkTable::SafeDownCast( outputMetaDS-&gt;GetBlock( 0 ) );
-  //vtkSmartPointer&lt;vtkTable&gt; outputMeta = vtkTable::SafeDownCast( outputMetaDS-&gt;GetBlock( 1 ) );
-  vtkDoubleArray* coord0 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 0&quot;));
-  vtkDoubleArray* coord1 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 1&quot;));
-  vtkDoubleArray* coord2 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 2&quot;));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">clusterArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clusterArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">clusterArray</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span> <span class="s">&quot;ClusterId&quot;</span> <span class="p">);</span>
 
-  for(unsigned int i = 0; i &lt; coord0-&gt;GetNumberOfTuples(); ++i)
-    {
-    std::cout &lt;&lt; coord0-&gt;GetValue(i) &lt;&lt; &quot; &quot; &lt;&lt; coord1-&gt;GetValue(i) &lt;&lt; &quot; &quot; &lt;&lt; coord2-&gt;GetValue(i) &lt;&lt; std::endl;
-    }
-*/
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfRows</span><span class="p">();</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkVariant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">kMeansStatistics</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfColumns</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Point &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">r</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is in cluster &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">ToInt</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">clusterArray</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">ToInt</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints(points);
-  //polydata-&gt;GetPointData()-&gt;AddArray(clusterArray);
-  polydata-&gt;GetPointData()-&gt;SetScalars(clusterArray);
+<span class="cm">/*</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;output.vtp&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-  writer-&gt;SetInputData(polydata);
-#endif
-  writer-&gt;Write();
+<span class="cm">  // Output the cluster centers</span>
 
-  // Display
-  vtkSmartPointer&lt;vtkVertexGlyphFilter&gt; glyphFilter =
-    vtkSmartPointer&lt;vtkVertexGlyphFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  glyphFilter-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-  glyphFilter-&gt;SetInputData(polydata);
-#endif
-  glyphFilter-&gt;Update();
+<span class="cm">  vtkMultiBlockDataSet* outputMetaDS = vtkMultiBlockDataSet::SafeDownCast( kMeansStatistics-&gt;GetOutputDataObject( vtkStatisticsAlgorithm::OUTPUT_MODEL ) );</span>
+<span class="cm">  vtkSmartPointer&lt;vtkTable&gt; outputMeta = vtkTable::SafeDownCast( outputMetaDS-&gt;GetBlock( 0 ) );</span>
+<span class="cm">  //vtkSmartPointer&lt;vtkTable&gt; outputMeta = vtkTable::SafeDownCast( outputMetaDS-&gt;GetBlock( 1 ) );</span>
+<span class="cm">  vtkDoubleArray* coord0 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 0&quot;));</span>
+<span class="cm">  vtkDoubleArray* coord1 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 1&quot;));</span>
+<span class="cm">  vtkDoubleArray* coord2 = vtkDoubleArray::SafeDownCast(outputMeta-&gt;GetColumnByName(&quot;coord 2&quot;));</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(glyphFilter-&gt;GetOutputPort());
+<span class="cm">  for(unsigned int i = 0; i &lt; coord0-&gt;GetNumberOfTuples(); ++i)</span>
+<span class="cm">    {</span>
+<span class="cm">    std::cout &lt;&lt; coord0-&gt;GetValue(i) &lt;&lt; &quot; &quot; &lt;&lt; coord1-&gt;GetValue(i) &lt;&lt; &quot; &quot; &lt;&lt; coord2-&gt;GetValue(i) &lt;&lt; std::endl;</span>
+<span class="cm">    }</span>
+<span class="cm">*/</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
-  actor-&gt;GetProperty()-&gt;SetPointSize(3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="c1">//polydata-&gt;GetPointData()-&gt;AddArray(clusterArray);</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">clusterArray</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;output.vtp&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  // Add the actor to the scene
-  renderer-&gt;AddActor(actor);
-  //renderer-&gt;SetBackground(.3, .6, .3); // Background color green
+  <span class="c1">// Display</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;</span> <span class="n">glyphFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">glyphFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">glyphFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">glyphFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New();
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyphFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
+  <span class="c1">// Add the actor to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="c1">//renderer-&gt;SetBackground(.3, .6, .3); // Background color green</span>
 
-PROJECT(KMeansClustering)
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-add_executable(KMeansClustering MACOSX_BUNDLE KMeansClustering.cxx)
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-target_link_libraries(KMeansClustering ${VTK_LIBRARIES})
-</code></pre>
 
-<h3 id="download-and-build-kmeansclustering">Download and Build KMeansClustering</h3>
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">KMeansClustering</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">KMeansClustering</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">KMeansClustering.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">KMeansClustering</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-kmeansclustering">Download and Build KMeansClustering<a class="headerlink" href="#download-and-build-kmeansclustering" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/KMeansClustering.tar">here to download KMeansClustering</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball KMeansClustering.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd KMeansClustering/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd KMeansClustering/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./KMeansClustering
-</code></pre>
+<div class="codehilite"><pre><span></span>./KMeansClustering
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

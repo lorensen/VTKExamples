@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,226 +16005,233 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/CompositeData/OverlappingAMR</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/CompositeData/TestOverlappingAMR.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OverlappingAMR.cxx</strong></p>
-<pre><code class="c++">//Demonstrates how to create and populate a VTK's Overlapping AMR Grid type Data
+<div class="codehilite"><pre><span></span><span class="c1">//Demonstrates how to create and populate a VTK&#39;s Overlapping AMR Grid type Data</span>
 
-#include &lt;vtkAMRBox.h&gt;
-#include &lt;vtkAMRUtilities.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkCompositeDataGeometryFilter.h&gt;
-#include &lt;vtkOutlineFilter.h&gt;
-#include &lt;vtkOverlappingAMR.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphere.h&gt;
-#include &lt;vtkUniformGrid.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAMRBox.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAMRUtilities.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCompositeDataGeometryFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOutlineFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOverlappingAMR.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphere.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUniformGrid.h&gt;</span><span class="cp"></span>
 
-namespace
-{
-  void MakeScalars(int dims[3], double origin[3], double spacing[3],
-      vtkFloatArray* scalars)
-  {
-    // Implicit function used to compute scalars
-    vtkSmartPointer&lt;vtkSphere&gt; sphere = vtkSmartPointer&lt;vtkSphere&gt;::New();
-    sphere-&gt;SetRadius(3);
-    sphere-&gt;SetCenter(5, 5, 5);
+<span class="k">namespace</span>
+<span class="p">{</span>
+  <span class="kt">void</span> <span class="n">MakeScalars</span><span class="p">(</span><span class="kt">int</span> <span class="n">dims</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">double</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">double</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+      <span class="n">vtkFloatArray</span><span class="o">*</span> <span class="n">scalars</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Implicit function used to compute scalars</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
 
-    scalars-&gt;SetNumberOfTuples(dims[0]*dims[1]*dims[2]);
-    for (int k=0; k&lt;dims[2]; k++)
-    {
-      double z = origin[2] + spacing[2]*k;
-      for (int j=0; j&lt;dims[1]; j++)
-      {
-        double y = origin[1] + spacing[1]*j;
-        for (int i=0; i&lt;dims[0]; i++)
-        {
-          double x = origin[0] + spacing[0]*i;
-          scalars-&gt;SetValue(
-              k*dims[0]*dims[1] + j*dims[0] + i, 
-              sphere-&gt;EvaluateFunction(x, y, z));
-        }
-      }
-    }
-  }
-}
+    <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">k</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">j</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">i</span><span class="p">;</span>
+          <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span>
+              <span class="n">k</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> 
+              <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">EvaluateFunction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">));</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-int main (int, char *[])
-{  
-  // Create and populate the AMR dataset
-  // The dataset should look like
-  // Level 0
-  //   uniform grid, dimensions 11, 11, 11, AMR box (0, 0, 0) - (9, 9, 9) 
-  // Level 1 - refinement ratio : 2
-  //   uniform grid, dimensions 11, 11, 11, AMR box (0, 0, 0) - (9, 9, 9)
-  //   uniform grid, dimensions 11, 11, 11, AMR box (10, 10, 10) - (19, 19, 19)
-  // Use MakeScalars() above to fill the scalar arrays
+<span class="kt">int</span> <span class="n">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>  
+  <span class="c1">// Create and populate the AMR dataset</span>
+  <span class="c1">// The dataset should look like</span>
+  <span class="c1">// Level 0</span>
+  <span class="c1">//   uniform grid, dimensions 11, 11, 11, AMR box (0, 0, 0) - (9, 9, 9) </span>
+  <span class="c1">// Level 1 - refinement ratio : 2</span>
+  <span class="c1">//   uniform grid, dimensions 11, 11, 11, AMR box (0, 0, 0) - (9, 9, 9)</span>
+  <span class="c1">//   uniform grid, dimensions 11, 11, 11, AMR box (10, 10, 10) - (19, 19, 19)</span>
+  <span class="c1">// Use MakeScalars() above to fill the scalar arrays</span>
 
-  vtkSmartPointer&lt;vtkOverlappingAMR&gt; amr = 
-    vtkSmartPointer&lt;vtkOverlappingAMR&gt;::New();
-  int blocksPerLevel[] = { 1, 2 };
-  amr-&gt;Initialize(2, blocksPerLevel);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOverlappingAMR</span><span class="o">&gt;</span> <span class="n">amr</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOverlappingAMR</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">blocksPerLevel</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">blocksPerLevel</span><span class="p">);</span>
 
-  double origin[3] = {0.0, 0.0, 0.0};
-  double spacing[3] = {1.0, 1.0, 1.0};
-  int dims[3] = {11, 11, 11};
+  <span class="kt">double</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">dims</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkUniformGrid&gt; ug1 = vtkSmartPointer&lt;vtkUniformGrid&gt;::New();
-  // Geometry
-  ug1-&gt;SetOrigin(origin);
-  ug1-&gt;SetSpacing(spacing);
-  ug1-&gt;SetDimensions(dims);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="c1">// Geometry</span>
+  <span class="n">ug1</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
+  <span class="n">ug1</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing</span><span class="p">);</span>
+  <span class="n">ug1</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dims</span><span class="p">);</span>
 
-  // Data
-  vtkSmartPointer&lt;vtkFloatArray&gt; scalars = 
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New(); 
-  ug1-&gt;GetPointData()-&gt;SetScalars(scalars);
-  MakeScalars(dims, origin, spacing, scalars);
+  <span class="c1">// Data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">scalars</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> 
+  <span class="n">ug1</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">scalars</span><span class="p">);</span>
+  <span class="n">MakeScalars</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">spacing</span><span class="p">,</span> <span class="n">scalars</span><span class="p">);</span>
 
-  int lo[3] = {0, 0, 0};
-  int hi[3] = {9, 9, 9};
-  vtkAMRBox box1(lo, hi);
-  amr-&gt;SetAMRBox(0, 0, box1);
-  amr-&gt;SetDataSet(0, 0, ug1);
+  <span class="kt">int</span> <span class="n">lo</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">hi</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">};</span>
+  <span class="n">vtkAMRBox</span> <span class="nf">box1</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">);</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetAMRBox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">box1</span><span class="p">);</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ug1</span><span class="p">);</span>
 
-  double spacing2[3] = {0.5, 0.5, 0.5};
+  <span class="kt">double</span> <span class="n">spacing2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkUniformGrid&gt; ug2 = vtkSmartPointer&lt;vtkUniformGrid&gt;::New();
-  // Geometry
-  ug2-&gt;SetOrigin(origin);
-  ug2-&gt;SetSpacing(spacing2);
-  ug2-&gt;SetDimensions(dims);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="c1">// Geometry</span>
+  <span class="n">ug2</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
+  <span class="n">ug2</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing2</span><span class="p">);</span>
+  <span class="n">ug2</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dims</span><span class="p">);</span>
 
-  // Data
-  scalars = vtkSmartPointer&lt;vtkFloatArray&gt;::New(); 
-  ug2-&gt;GetPointData()-&gt;SetScalars(scalars);
-  MakeScalars(dims, origin, spacing2, scalars);
+  <span class="c1">// Data</span>
+  <span class="n">scalars</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> 
+  <span class="n">ug2</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">scalars</span><span class="p">);</span>
+  <span class="n">MakeScalars</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">spacing2</span><span class="p">,</span> <span class="n">scalars</span><span class="p">);</span>
 
-  int lo2[3] = {0, 0, 0};
-  int hi2[3] = {9, 9, 9};
-  vtkAMRBox box2(lo2, hi2);
-  amr-&gt;SetAMRBox(1, 0, box2);
-  amr-&gt;SetDataSet(1, 0, ug2);
+  <span class="kt">int</span> <span class="n">lo2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">hi2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">};</span>
+  <span class="n">vtkAMRBox</span> <span class="nf">box2</span><span class="p">(</span><span class="n">lo2</span><span class="p">,</span> <span class="n">hi2</span><span class="p">);</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetAMRBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">box2</span><span class="p">);</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ug2</span><span class="p">);</span>
 
-  double origin3[3] = {5, 5, 5};
+  <span class="kt">double</span> <span class="n">origin3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkUniformGrid&gt; ug3 = vtkSmartPointer&lt;vtkUniformGrid&gt;::New();
-  // Geometry
-  ug3-&gt;SetOrigin(origin3);
-  ug3-&gt;SetSpacing(spacing2);
-  ug3-&gt;SetDimensions(dims);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug3</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="c1">// Geometry</span>
+  <span class="n">ug3</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin3</span><span class="p">);</span>
+  <span class="n">ug3</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing2</span><span class="p">);</span>
+  <span class="n">ug3</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dims</span><span class="p">);</span>
 
-  // Data
-  scalars = vtkSmartPointer&lt;vtkFloatArray&gt;::New(); 
-  ug3-&gt;GetPointData()-&gt;SetScalars(scalars);
-  MakeScalars(dims, origin3, spacing2, scalars);
+  <span class="c1">// Data</span>
+  <span class="n">scalars</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span> 
+  <span class="n">ug3</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">scalars</span><span class="p">);</span>
+  <span class="n">MakeScalars</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">origin3</span><span class="p">,</span> <span class="n">spacing2</span><span class="p">,</span> <span class="n">scalars</span><span class="p">);</span>
 
-  int lo3[3] = {10, 10, 10};
-  int hi3[3] = {19, 19, 19};
-  vtkAMRBox box3(lo3, hi3);
-  amr-&gt;SetAMRBox(1, 1, box3);
-  amr-&gt;SetDataSet(1, 1, ug3);
+  <span class="kt">int</span> <span class="n">lo3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">hi3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">};</span>
+  <span class="n">vtkAMRBox</span> <span class="nf">box3</span><span class="p">(</span><span class="n">lo3</span><span class="p">,</span> <span class="n">hi3</span><span class="p">);</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetAMRBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">box3</span><span class="p">);</span>
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ug3</span><span class="p">);</span>
 
-  amr-&gt;SetRefinementRatio(0, 2);
-  vtkAMRUtilities::BlankCells(amr);
+  <span class="n">amr</span><span class="o">-&gt;</span><span class="n">SetRefinementRatio</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="n">vtkAMRUtilities</span><span class="o">::</span><span class="n">BlankCells</span><span class="p">(</span><span class="n">amr</span><span class="p">);</span>
 
-  // Render the amr data here
-  vtkSmartPointer&lt;vtkOutlineFilter&gt; of = 
-    vtkSmartPointer&lt;vtkOutlineFilter&gt;::New();
-  of-&gt;SetInputData(amr);
+  <span class="c1">// Render the amr data here</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOutlineFilter</span><span class="o">&gt;</span> <span class="n">of</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOutlineFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">of</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">amr</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCompositeDataGeometryFilter&gt; geomFilter =
-    vtkSmartPointer&lt;vtkCompositeDataGeometryFilter&gt;::New();
-  geomFilter-&gt;SetInputConnection(of-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="o">&gt;</span> <span class="n">geomFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">geomFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">of</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // Create an iso-surface - at 10
-  vtkSmartPointer&lt;vtkContourFilter&gt; cf = 
-    vtkSmartPointer&lt;vtkContourFilter&gt;::New();
-  cf-&gt;SetInputData(amr);
-  cf-&gt;SetNumberOfContours(1);
-  cf-&gt;SetValue(0, 10.0);
+  <span class="c1">// Create an iso-surface - at 10</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">cf</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cf</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">amr</span><span class="p">);</span>
+  <span class="n">cf</span><span class="o">-&gt;</span><span class="n">SetNumberOfContours</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">cf</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCompositeDataGeometryFilter&gt; geomFilter2 =
-    vtkSmartPointer&lt;vtkCompositeDataGeometryFilter&gt;::New();
-  geomFilter2-&gt;SetInputConnection(cf-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="o">&gt;</span> <span class="n">geomFilter2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCompositeDataGeometryFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">geomFilter2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // create the render window, renderer, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; aren = vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin  = 
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(aren);
+  <span class="c1">// create the render window, renderer, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">aren</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span>  <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">aren</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren = 
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  // associate the geometry with a mapper and the mapper to an actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
+  <span class="c1">// associate the geometry with a mapper and the mapper to an actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  mapper-&gt;SetInputConnection(geomFilter-&gt;GetOutputPort());
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geomFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkActor *actor1 = vtkActor::New();
-  actor1-&gt;SetMapper(mapper);
+  <span class="n">vtkActor</span> <span class="o">*</span><span class="n">actor1</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor1</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // associate the geometry with a mapper and the mapper to an actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper2 = 
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
+  <span class="c1">// associate the geometry with a mapper and the mapper to an actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper2</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  mapper2-&gt;SetInputConnection(geomFilter2-&gt;GetOutputPort());
+  <span class="n">mapper2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geomFilter2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkActor *actor2 = vtkActor::New();
-  actor2-&gt;SetMapper(mapper2);
+  <span class="n">vtkActor</span> <span class="o">*</span><span class="n">actor2</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor2</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper2</span><span class="p">);</span>
 
-  // add the actor to the renderer and start handling events
-  aren-&gt;AddActor(actor1);
-  aren-&gt;AddActor(actor2);
-  renWin-&gt;Render();
-  iren-&gt;Start();
+  <span class="c1">// add the actor to the renderer and start handling events</span>
+  <span class="n">aren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor1</span><span class="p">);</span>
+  <span class="n">aren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor2</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(OverlappingAMR)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">OverlappingAMR</span><span class="p">)</span>
 
-add_executable(OverlappingAMR MACOSX_BUNDLE OverlappingAMR.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(OverlappingAMR ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">OverlappingAMR</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">OverlappingAMR.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-overlappingamr">Download and Build OverlappingAMR</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">OverlappingAMR</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-overlappingamr">Download and Build OverlappingAMR<a class="headerlink" href="#download-and-build-overlappingamr" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OverlappingAMR.tar">here to download OverlappingAMR</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball OverlappingAMR.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd OverlappingAMR/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd OverlappingAMR/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./OverlappingAMR
-</code></pre>
+<div class="codehilite"><pre><span></span>./OverlappingAMR
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

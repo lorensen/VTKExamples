@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,88 +15978,88 @@
                   <h1>Tetrahedron</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Tetrahedron</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Tetrahedron.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-points = vtk.vtkPoints()
-points.InsertNextPoint(0, 0, 0)
-points.InsertNextPoint(1, 0, 0)
-points.InsertNextPoint(1, 1, 0)
-points.InsertNextPoint(0, 1, 1)
-points.InsertNextPoint(5, 5, 5)
-points.InsertNextPoint(6, 5, 5)
-points.InsertNextPoint(6, 6, 5)
-points.InsertNextPoint(5, 6, 6)
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
-# The first tetrahedron
-unstructuredGrid1 = vtk.vtkUnstructuredGrid()
-unstructuredGrid1.SetPoints(points)
+<span class="c1"># The first tetrahedron</span>
+<span class="n">unstructuredGrid1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+<span class="n">unstructuredGrid1</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 
-tetra = vtk.vtkTetra()
+<span class="n">tetra</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTetra</span><span class="p">()</span>
 
-tetra.GetPointIds().SetId(0, 0)
-tetra.GetPointIds().SetId(1, 1)
-tetra.GetPointIds().SetId(2, 2)
-tetra.GetPointIds().SetId(3, 3)
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-cellArray = vtk.vtkCellArray()
-cellArray.InsertNextCell(tetra)
-unstructuredGrid1.SetCells(vtk.VTK_TETRA, cellArray)
+<span class="n">cellArray</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+<span class="n">cellArray</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">tetra</span><span class="p">)</span>
+<span class="n">unstructuredGrid1</span><span class="o">.</span><span class="n">SetCells</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">VTK_TETRA</span><span class="p">,</span> <span class="n">cellArray</span><span class="p">)</span>
 
-# The second tetrahedron
-unstructuredGrid2 = vtk.vtkUnstructuredGrid()
-unstructuredGrid2.SetPoints(points)
+<span class="c1"># The second tetrahedron</span>
+<span class="n">unstructuredGrid2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+<span class="n">unstructuredGrid2</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 
-tetra = vtk.vtkTetra()
+<span class="n">tetra</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTetra</span><span class="p">()</span>
 
-tetra.GetPointIds().SetId(0, 4)
-tetra.GetPointIds().SetId(1, 5)
-tetra.GetPointIds().SetId(2, 6)
-tetra.GetPointIds().SetId(3, 7)
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 
-cellArray = vtk.vtkCellArray()
-cellArray.InsertNextCell(tetra)
-unstructuredGrid2.SetCells(vtk.VTK_TETRA, cellArray)
+<span class="n">cellArray</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+<span class="n">cellArray</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">tetra</span><span class="p">)</span>
+<span class="n">unstructuredGrid2</span><span class="o">.</span><span class="n">SetCells</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">VTK_TETRA</span><span class="p">,</span> <span class="n">cellArray</span><span class="p">)</span>
 
-# Create a mapper and actor
-mapper1 = vtk.vtkDataSetMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    mapper1.SetInputConnection(unstructuredGrid1.GetProducerPort())
-else:
-    mapper1.SetInputData(unstructuredGrid1)
+<span class="c1"># Create a mapper and actor</span>
+<span class="n">mapper1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">mapper1</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">unstructuredGrid1</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mapper1</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">unstructuredGrid1</span><span class="p">)</span>
 
-actor1 = vtk.vtkActor()
-actor1.SetMapper(mapper1)
+<span class="n">actor1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor1</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper1</span><span class="p">)</span>
 
-# Create a mapper and actor
-mapper2 = vtk.vtkDataSetMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    mapper2.SetInputConnection(unstructuredGrid2.GetProducerPort())
-else:
-    mapper2.SetInputData(unstructuredGrid2)
+<span class="c1"># Create a mapper and actor</span>
+<span class="n">mapper2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">mapper2</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">unstructuredGrid2</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mapper2</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">unstructuredGrid2</span><span class="p">)</span>
 
-actor2 = vtk.vtkActor()
-actor2.SetMapper(mapper2)
+<span class="n">actor2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor2</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper2</span><span class="p">)</span>
 
-# Create a renderer, render window, and interactor
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># Create a renderer, render window, and interactor</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-# Add the actor to the scene
-renderer.AddActor(actor1)
-renderer.AddActor(actor2)
-renderer.SetBackground(.3, .6, .3) # Background color green
+<span class="c1"># Add the actor to the scene</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor1</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor2</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Background color green</span>
 
-# Render and interact
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="c1"># Render and interact</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

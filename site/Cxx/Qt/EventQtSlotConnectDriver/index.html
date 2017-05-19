@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,56 +16004,63 @@
                   <h1>EventQtSlotConnectDriver</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Qt/EventQtSlotConnectDriver</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>EventQtSlotConnectDriver.cxx</strong></p>
-<pre><code class="c++">#include &lt;QApplication&gt;
-#include &quot;EventQtSlotConnect.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;QApplication&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;EventQtSlotConnect.h&quot;</span><span class="cp"></span>
 
-int main(int argc, char** argv)
-{
-  QApplication app(argc, argv);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">QApplication</span> <span class="n">app</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
-  EventQtSlotConnect eventQtSlotConnect;
-  eventQtSlotConnect.show();
+  <span class="n">EventQtSlotConnect</span> <span class="n">eventQtSlotConnect</span><span class="p">;</span>
+  <span class="n">eventQtSlotConnect</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
 
-  return app.exec();
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">app</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(EventQtSlotConnectDriver)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">EventQtSlotConnectDriver</span><span class="p">)</span>
 
-add_executable(EventQtSlotConnectDriver MACOSX_BUNDLE EventQtSlotConnectDriver.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(EventQtSlotConnectDriver ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">EventQtSlotConnectDriver</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">EventQtSlotConnectDriver.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-eventqtslotconnectdriver">Download and Build EventQtSlotConnectDriver</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">EventQtSlotConnectDriver</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-eventqtslotconnectdriver">Download and Build EventQtSlotConnectDriver<a class="headerlink" href="#download-and-build-eventqtslotconnectdriver" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/EventQtSlotConnectDriver.tar">here to download EventQtSlotConnectDriver</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball EventQtSlotConnectDriver.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd EventQtSlotConnectDriver/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd EventQtSlotConnectDriver/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./EventQtSlotConnectDriver
-</code></pre>
+<div class="codehilite"><pre><span></span>./EventQtSlotConnectDriver
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

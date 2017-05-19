@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,101 +16004,108 @@
                   <h1>NegativeIndices</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/NegativeIndices</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>NegativeIndices.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageData.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create an image data
-  vtkSmartPointer&lt;vtkImageData&gt; imageData =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Specify the size of the image data
-  imageData-&gt;SetExtent(-5, 5, -5, 5, -5, 5);
+  <span class="c1">// Specify the size of the image data</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
 
-  // Fill every entry of the image data with &quot;2.0&quot;
-  int* extent = imageData-&gt;GetExtent();
+  <span class="c1">// Fill every entry of the image data with &quot;2.0&quot;</span>
+  <span class="kt">int</span><span class="o">*</span> <span class="n">extent</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">();</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  imageData-&gt;SetNumberOfScalarComponents(1);
-#else
-  imageData-&gt;AllocateScalars(VTK_UNSIGNED_CHAR,1);
-#endif
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  std::cout &lt;&lt; &quot;Extent: &quot; &lt;&lt; &quot; xmin: &quot; &lt;&lt; extent[0] &lt;&lt; &quot; xmax: &quot; &lt;&lt; extent[1]
-            &lt;&lt; &quot; ymin: &quot; &lt;&lt; extent[2] &lt;&lt; &quot; ymax: &quot; &lt;&lt; extent[3]
-            &lt;&lt; &quot; zmin: &quot; &lt;&lt; extent[4] &lt;&lt; &quot; zmax: &quot; &lt;&lt; extent[5] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Extent: &quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; xmin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; xmax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; ymin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; ymax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; zmin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; zmax: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
 
-  for (int z = extent[4]; z &lt; extent[5]; z++)
-  {
-    for (int y = extent[2]; y &lt; extent[3]; y++)
-    {
-      for (int x = extent[0]; x &lt; extent[1]; x++)
-      {
-        imageData-&gt;SetScalarComponentFromDouble(x,y,z,0,2.0);
-      }
-    }
-  }
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span> <span class="n">z</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetScalarComponentFromDouble</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Retrieve the entries from the image data and print them to the screen
-  for (int z = extent[4]; z &lt; extent[5]; z++)
-  {
-    for (int y = extent[2]; y &lt; extent[3]; y++)
-    {
-      for (int x = extent[0]; x &lt; extent[1]; x++)
-      {
-        // Zero is the component, add another loop if you have more
-        // than one component
-        double v = imageData-&gt;GetScalarComponentAsDouble(x,y,z,0);
-        // Eo something with v
-        std::cout &lt;&lt; v &lt;&lt; &quot; &quot;;
-      }
-      std::cout &lt;&lt; std::endl;
-    }
-    std::cout &lt;&lt; std::endl;
-  }
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="c1">// Retrieve the entries from the image data and print them to the screen</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span> <span class="n">z</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="c1">// Zero is the component, add another loop if you have more</span>
+        <span class="c1">// than one component</span>
+        <span class="kt">double</span> <span class="n">v</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetScalarComponentAsDouble</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+        <span class="c1">// Eo something with v</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(NegativeIndices)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">NegativeIndices</span><span class="p">)</span>
 
-add_executable(NegativeIndices MACOSX_BUNDLE NegativeIndices.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(NegativeIndices ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">NegativeIndices</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">NegativeIndices.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-negativeindices">Download and Build NegativeIndices</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">NegativeIndices</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-negativeindices">Download and Build NegativeIndices<a class="headerlink" href="#download-and-build-negativeindices" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/NegativeIndices.tar">here to download NegativeIndices</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball NegativeIndices.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd NegativeIndices/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd NegativeIndices/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./NegativeIndices
-</code></pre>
+<div class="codehilite"><pre><span></span>./NegativeIndices
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

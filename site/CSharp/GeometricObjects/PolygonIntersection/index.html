@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,90 +15990,90 @@
                   <h1>PolygonIntersection</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/GeometricObjects/PolygonIntersection</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Calculates the intersection of a polygon and a line.<br />
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolygonIntersection.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            PolygonIntersection();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void PolygonIntersection() {
-         // Create a square in the XY plane
-         vtkPoints points = vtkPoints.New();
-         points.InsertNextPoint(0.0, 0.0, 0.0);
-         points.InsertNextPoint(1.0, 0.0, 0.0);
-         points.InsertNextPoint(1.0, 1.0, 0.0);
-         points.InsertNextPoint(0.0, 1.0, 0.0);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">PolygonIntersection</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // Create the polygon
-         vtkPolygon polygon = vtkPolygon.New();
-         polygon.GetPoints().DeepCopy(points);
-         polygon.GetPointIds().SetNumberOfIds(4); // 4 corners of the square
-         polygon.GetPointIds().SetId(0, 0);
-         polygon.GetPointIds().SetId(1, 1);
-         polygon.GetPointIds().SetId(2, 2);
-         polygon.GetPointIds().SetId(3, 3);
 
-         // our line to intersect the polygon with
-         double[] p1 = new double[] { 0.1, 0, -1.0 };
-         double[] p2 = new double[] { 0.1, 0, 1.0 };
-         double tolerance = 0.001;
-         // Outputs
-         // t must be initalized cause it is passed by reference (that's a c# convention)
-         double t = 0.0; // Parametric coordinate of intersection (0 (corresponding to p1) to 1 (corresponding to p2))
-         double[] x = new double[] { 0.0, 0.0, 0.0 };
-         double[] coords = new double[] { 0.0, 0.0, 0.0 };
-         // subId must be initialized cause it is passed by reference (that's a c# convention)
-         int subId = 0;
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">PolygonIntersection</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Create a square in the XY plane</span>
+         <span class="n">vtkPoints</span> <span class="n">points</span> <span class="p">=</span> <span class="n">vtkPoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
 
-         IntPtr pP1 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-         IntPtr pP2 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-         IntPtr pX = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-         IntPtr pCoords = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-         Marshal.Copy(p1, 0, pP1, 3);
-         Marshal.Copy(p2, 0, pP2, 3);
-         // next two lines are not necessarely needed, but I prefer to initialize ref parameter (in those a result is passed back)
-         Marshal.Copy(x, 0, pX, 3);
-         Marshal.Copy(coords, 0, pCoords, 3);
-         // see vtkCell API for a detailed description of this function
-         int iD = polygon.IntersectWithLine(pP1, pP2, tolerance, ref t, pX, pCoords, ref subId);
-         // Copy result back to our managed arrays
-         Marshal.Copy(pX, x, 0, 3);
-         Marshal.Copy(pCoords, coords, 0, 3);
-         Console.WriteLine(&quot;intersected? &quot; + iD); ;
-         Console.WriteLine(&quot;intersection: &quot; + x[0] + &quot; &quot; + x[1] + &quot; &quot; + x[2]);
-         Marshal.FreeHGlobal(pP1);
-         Marshal.FreeHGlobal(pP2);
-         Marshal.FreeHGlobal(pX);
-         Marshal.FreeHGlobal(pCoords);
-         // nothing to visualize
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Create the polygon</span>
+         <span class="n">vtkPolygon</span> <span class="n">polygon</span> <span class="p">=</span> <span class="n">vtkPolygon</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">polygon</span><span class="p">.</span><span class="n">GetPoints</span><span class="p">().</span><span class="n">DeepCopy</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+         <span class="n">polygon</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="m">4</span><span class="p">);</span> <span class="c1">// 4 corners of the square</span>
+         <span class="n">polygon</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">polygon</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">polygon</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+         <span class="n">polygon</span><span class="p">.</span><span class="n">GetPointIds</span><span class="p">().</span><span class="n">SetId</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+
+         <span class="c1">// our line to intersect the polygon with</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">p1</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">-</span><span class="m">1.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">p2</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1.0</span> <span class="p">};</span>
+         <span class="kt">double</span> <span class="n">tolerance</span> <span class="p">=</span> <span class="m">0.001</span><span class="p">;</span>
+         <span class="c1">// Outputs</span>
+         <span class="c1">// t must be initalized cause it is passed by reference (that&#39;s a c# convention)</span>
+         <span class="kt">double</span> <span class="n">t</span> <span class="p">=</span> <span class="m">0.0</span><span class="p">;</span> <span class="c1">// Parametric coordinate of intersection (0 (corresponding to p1) to 1 (corresponding to p2))</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">coords</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+         <span class="c1">// subId must be initialized cause it is passed by reference (that&#39;s a c# convention)</span>
+         <span class="kt">int</span> <span class="n">subId</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+         <span class="n">IntPtr</span> <span class="n">pP1</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">IntPtr</span> <span class="n">pP2</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">IntPtr</span> <span class="n">pX</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">IntPtr</span> <span class="n">pCoords</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP1</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP2</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="c1">// next two lines are not necessarely needed, but I prefer to initialize ref parameter (in those a result is passed back)</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pX</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pCoords</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="c1">// see vtkCell API for a detailed description of this function</span>
+         <span class="kt">int</span> <span class="n">iD</span> <span class="p">=</span> <span class="n">polygon</span><span class="p">.</span><span class="n">IntersectWithLine</span><span class="p">(</span><span class="n">pP1</span><span class="p">,</span> <span class="n">pP2</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="k">ref</span> <span class="n">t</span><span class="p">,</span> <span class="n">pX</span><span class="p">,</span> <span class="n">pCoords</span><span class="p">,</span> <span class="k">ref</span> <span class="n">subId</span><span class="p">);</span>
+         <span class="c1">// Copy result back to our managed arrays</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pX</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pCoords</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;intersected? &quot;</span> <span class="p">+</span> <span class="n">iD</span><span class="p">);</span> <span class="p">;</span>
+         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;intersection: &quot;</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP1</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP2</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pX</span><span class="p">);</span>
+         <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pCoords</span><span class="p">);</span>
+         <span class="c1">// nothing to visualize</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

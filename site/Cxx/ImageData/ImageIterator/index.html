@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,113 +16018,120 @@
                   <h1>ImageIterator</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/ImageData/ImageIterator</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Extracts an extent from an image using an image iterator.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageIterator.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageIterator.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageIterator.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create an image data
-  vtkSmartPointer&lt;vtkImageData&gt; imageData =
-      vtkSmartPointer&lt;vtkImageData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create an image data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Specify the size of the image data
-  imageData-&gt;SetDimensions(10,20,30);
-#if VTK_MAJOR_VERSION &lt;= 5
-  imageData-&gt;SetNumberOfScalarComponents(3);
-  imageData-&gt;SetScalarTypeToDouble();
-  imageData-&gt;AllocateScalars();
-#else
-  imageData-&gt;AllocateScalars(VTK_DOUBLE,3);
-#endif
+  <span class="c1">// Specify the size of the image data</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  // Fill every entry of the image data with x,y,z
-  int* dims = imageData-&gt;GetDimensions();
-  double *ptr = static_cast&lt;double *&gt;(imageData-&gt;GetScalarPointer(0, 0, 0));
-  for (int z=0; z&lt;dims[2]; z++)
-  {
-    for (int y=0; y&lt;dims[1]; y++)
-    {
-      for (int x=0; x&lt;dims[0]; x++)
-      {
-        *ptr++ = z;
-        *ptr++ = y;
-        *ptr++ = x;
-      }
-    }
-  }
+  <span class="c1">// Fill every entry of the image data with x,y,z</span>
+  <span class="kt">int</span><span class="o">*</span> <span class="n">dims</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">z</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">z</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="o">*</span><span class="n">ptr</span><span class="o">++</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>
+        <span class="o">*</span><span class="n">ptr</span><span class="o">++</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+        <span class="o">*</span><span class="n">ptr</span><span class="o">++</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Define the extent to be extracted
-  int extent[6];
-  extent[0] = 2; extent[1] = 5;
-  extent[2] = 2; extent[3] = 5;
-  extent[4] = 15; extent[5] = 15;
+  <span class="c1">// Define the extent to be extracted</span>
+  <span class="kt">int</span> <span class="n">extent</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">extent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="n">extent</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">extent</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
 
-  // Retrieve the entries from the image data and print them to the screen
-  vtkImageIterator&lt;double&gt; it(imageData, extent);
-  while(!it.IsAtEnd())
-  {
-    double* valIt = it.BeginSpan();
-    double *valEnd = it.EndSpan();
-    while (valIt != valEnd)
-    {
-      // Increment for each component
-      double x = *valIt++;
-      double y = *valIt++;
-      double z = *valIt++;
-      std::cout &lt;&lt; &quot;(&quot;
-                &lt;&lt; x &lt;&lt; &quot;,&quot;
-                &lt;&lt; y &lt;&lt; &quot;,&quot;
-                &lt;&lt; z &lt;&lt; &quot;) &quot;;
-    }
-    std::cout &lt;&lt; std::endl;
-    it.NextSpan();
-  }
+  <span class="c1">// Retrieve the entries from the image data and print them to the screen</span>
+  <span class="n">vtkImageIterator</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">it</span><span class="p">(</span><span class="n">imageData</span><span class="p">,</span> <span class="n">extent</span><span class="p">);</span>
+  <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">it</span><span class="p">.</span><span class="n">IsAtEnd</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="kt">double</span><span class="o">*</span> <span class="n">valIt</span> <span class="o">=</span> <span class="n">it</span><span class="p">.</span><span class="n">BeginSpan</span><span class="p">();</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">valEnd</span> <span class="o">=</span> <span class="n">it</span><span class="p">.</span><span class="n">EndSpan</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">valIt</span> <span class="o">!=</span> <span class="n">valEnd</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="c1">// Increment for each component</span>
+      <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">valIt</span><span class="o">++</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="o">*</span><span class="n">valIt</span><span class="o">++</span><span class="p">;</span>
+      <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="o">*</span><span class="n">valIt</span><span class="o">++</span><span class="p">;</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span>
+                <span class="o">&lt;&lt;</span> <span class="n">z</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;) &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">it</span><span class="p">.</span><span class="n">NextSpan</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageIterator)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageIterator</span><span class="p">)</span>
 
-add_executable(ImageIterator MACOSX_BUNDLE ImageIterator.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageIterator ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageIterator</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageIterator.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imageiterator">Download and Build ImageIterator</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageIterator</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imageiterator">Download and Build ImageIterator<a class="headerlink" href="#download-and-build-imageiterator" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageIterator.tar">here to download ImageIterator</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageIterator.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageIterator/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageIterator/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageIterator
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageIterator
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,193 +15991,193 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/IO/ReadDICOMSeries</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadDICOMSeries.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstates how to read a series of DICOM images and how to scroll with the mousewheel or the up/down keys through all slices.<br />
 Sample data are available as a zipped file (977 kB, 40 slices): <a href="../[File:VTK_Examples_StandardFormats_Input_DicomTestImages.zip]"></a><br />
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadDICOMSeries.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
 
-      // module wide accessible variables
-      vtkImageViewer2 _ImageViewer;
-      vtkTextMapper _SliceStatusMapper;
-      int _Slice;
-      int _MinSlice;
-      int _MaxSlice;
-
-
-      public Form1() {
-         InitializeComponent();
-      }
+      <span class="c1">// module wide accessible variables</span>
+      <span class="n">vtkImageViewer2</span> <span class="n">_ImageViewer</span><span class="p">;</span>
+      <span class="n">vtkTextMapper</span> <span class="n">_SliceStatusMapper</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">_Slice</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">_MinSlice</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">_MaxSlice</span><span class="p">;</span>
 
 
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            ReadDICOMSeries();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-       private void ReadDICOMSeries() {
-         // Path to vtk data must be set as an environment variable
-         // VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;
-         vtkTesting test = vtkTesting.New();
-         string root = test.GetDataRoot();
-         // Read all the DICOM files in the specified directory.
-         // Caution: folder &quot;DicomTestImages&quot; don't exists by default in the standard vtk data folder
-         // sample data are available at http://www.vtk.org/Wiki/images/1/12/VTK_Examples_StandardFormats_Input_DicomTestImages.zip
-         string folder = Path.Combine(root, @&quot;Data\DicomTestImages&quot;);
-         vtkDICOMImageReader reader = vtkDICOMImageReader.New();
-         reader.SetDirectoryName(folder);
-         reader.Update();
-         // Visualize
-         _ImageViewer = vtkImageViewer2.New();
-         _ImageViewer.SetInputConnection(reader.GetOutputPort());
-         // get range of slices (min is the first index, max is the last index)
-         _ImageViewer.GetSliceRange(ref _MinSlice, ref _MaxSlice);
-         Debug.WriteLine(&quot;slices range from : &quot; + _MinSlice.ToString() + &quot; to &quot; + _MaxSlice.ToString());
-
-         // slice status message
-         vtkTextProperty sliceTextProp = vtkTextProperty.New();
-         sliceTextProp.SetFontFamilyToCourier();
-         sliceTextProp.SetFontSize(20);
-         sliceTextProp.SetVerticalJustificationToBottom();
-         sliceTextProp.SetJustificationToLeft();
-
-         _SliceStatusMapper = vtkTextMapper.New();
-         _SliceStatusMapper.SetInput(&quot;Slice No &quot; + ( _Slice + 1 ).ToString() + &quot;/&quot; + ( _MaxSlice + 1 ).ToString());
-         _SliceStatusMapper.SetTextProperty(sliceTextProp);
-
-         vtkActor2D sliceStatusActor = vtkActor2D.New();
-         sliceStatusActor.SetMapper(_SliceStatusMapper);
-         sliceStatusActor.SetPosition(15, 10);
-
-         // usage hint message
-         vtkTextProperty usageTextProp = vtkTextProperty.New();
-         usageTextProp.SetFontFamilyToCourier();
-         usageTextProp.SetFontSize(14);
-         usageTextProp.SetVerticalJustificationToTop();
-         usageTextProp.SetJustificationToLeft();
-
-         vtkTextMapper usageTextMapper = vtkTextMapper.New();
-         usageTextMapper.SetInput(&quot;Slice with mouse wheel\nor Up/Down-Key&quot;);
-         usageTextMapper.SetTextProperty(usageTextProp);
-
-         vtkActor2D usageTextActor = vtkActor2D.New();
-         usageTextActor.SetMapper(usageTextMapper);
-         usageTextActor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay();
-         usageTextActor.GetPositionCoordinate().SetValue(0.05, 0.95);
-
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-
-         vtkInteractorStyleImage interactorStyle = vtkInteractorStyleImage.New();
-         interactorStyle.MouseWheelForwardEvt += new vtkObject.vtkObjectEventHandler(interactor_MouseWheelForwardEvt);
-         interactorStyle.MouseWheelBackwardEvt += new vtkObject.vtkObjectEventHandler(interactor_MouseWheelBackwardEvt);
-
-         renderWindow.GetInteractor().SetInteractorStyle(interactorStyle);
-         renderWindow.GetRenderers().InitTraversal();
-         vtkRenderer ren;
-         while(( ren = renderWindow.GetRenderers().GetNextItem() ) != null)
-            ren.SetBackground(0.0, 0.0, 0.0);
-
-         _ImageViewer.SetRenderWindow(renderWindow);
-         _ImageViewer.GetRenderer().AddActor2D(sliceStatusActor);
-         _ImageViewer.GetRenderer().AddActor2D(usageTextActor);
-         _ImageViewer.SetSlice(_MinSlice);
-         _ImageViewer.Render();
-      }
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">ReadDICOMSeries</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-      /// &lt;summary&gt;
-      /// move forward to next slice
-      /// &lt;/summary&gt;
-      private void MoveForwardSlice() {
-         Debug.WriteLine(_Slice.ToString());
-         if(_Slice &lt; _MaxSlice) {
-            _Slice += 1;
-            _ImageViewer.SetSlice(_Slice);
-            _SliceStatusMapper.SetInput(&quot;Slice No &quot; + ( _Slice + 1 ).ToString() + &quot;/&quot; + ( _MaxSlice + 1 ).ToString());
-            _ImageViewer.Render();
-         }
-      }
+       <span class="k">private</span> <span class="k">void</span> <span class="nf">ReadDICOMSeries</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Path to vtk data must be set as an environment variable</span>
+         <span class="c1">// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+         <span class="n">vtkTesting</span> <span class="n">test</span> <span class="p">=</span> <span class="n">vtkTesting</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">root</span> <span class="p">=</span> <span class="n">test</span><span class="p">.</span><span class="n">GetDataRoot</span><span class="p">();</span>
+         <span class="c1">// Read all the DICOM files in the specified directory.</span>
+         <span class="c1">// Caution: folder &quot;DicomTestImages&quot; don&#39;t exists by default in the standard vtk data folder</span>
+         <span class="c1">// sample data are available at http://www.vtk.org/Wiki/images/1/12/VTK_Examples_StandardFormats_Input_DicomTestImages.zip</span>
+         <span class="kt">string</span> <span class="n">folder</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\DicomTestImages&quot;</span><span class="p">);</span>
+         <span class="n">vtkDICOMImageReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkDICOMImageReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">SetDirectoryName</span><span class="p">(</span><span class="n">folder</span><span class="p">);</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+         <span class="c1">// Visualize</span>
+         <span class="n">_ImageViewer</span> <span class="p">=</span> <span class="n">vtkImageViewer2</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="c1">// get range of slices (min is the first index, max is the last index)</span>
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">GetSliceRange</span><span class="p">(</span><span class="k">ref</span> <span class="n">_MinSlice</span><span class="p">,</span> <span class="k">ref</span> <span class="n">_MaxSlice</span><span class="p">);</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;slices range from : &quot;</span> <span class="p">+</span> <span class="n">_MinSlice</span><span class="p">.</span><span class="n">ToString</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; to &quot;</span> <span class="p">+</span> <span class="n">_MaxSlice</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+
+         <span class="c1">// slice status message</span>
+         <span class="n">vtkTextProperty</span> <span class="n">sliceTextProp</span> <span class="p">=</span> <span class="n">vtkTextProperty</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sliceTextProp</span><span class="p">.</span><span class="n">SetFontFamilyToCourier</span><span class="p">();</span>
+         <span class="n">sliceTextProp</span><span class="p">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="m">20</span><span class="p">);</span>
+         <span class="n">sliceTextProp</span><span class="p">.</span><span class="n">SetVerticalJustificationToBottom</span><span class="p">();</span>
+         <span class="n">sliceTextProp</span><span class="p">.</span><span class="n">SetJustificationToLeft</span><span class="p">();</span>
+
+         <span class="n">_SliceStatusMapper</span> <span class="p">=</span> <span class="n">vtkTextMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">_SliceStatusMapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;Slice No &quot;</span> <span class="p">+</span> <span class="p">(</span> <span class="n">_Slice</span> <span class="p">+</span> <span class="m">1</span> <span class="p">).</span><span class="n">ToString</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="p">(</span> <span class="n">_MaxSlice</span> <span class="p">+</span> <span class="m">1</span> <span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+         <span class="n">_SliceStatusMapper</span><span class="p">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">sliceTextProp</span><span class="p">);</span>
+
+         <span class="n">vtkActor2D</span> <span class="n">sliceStatusActor</span> <span class="p">=</span> <span class="n">vtkActor2D</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sliceStatusActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">_SliceStatusMapper</span><span class="p">);</span>
+         <span class="n">sliceStatusActor</span><span class="p">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="m">15</span><span class="p">,</span> <span class="m">10</span><span class="p">);</span>
+
+         <span class="c1">// usage hint message</span>
+         <span class="n">vtkTextProperty</span> <span class="n">usageTextProp</span> <span class="p">=</span> <span class="n">vtkTextProperty</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">usageTextProp</span><span class="p">.</span><span class="n">SetFontFamilyToCourier</span><span class="p">();</span>
+         <span class="n">usageTextProp</span><span class="p">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="m">14</span><span class="p">);</span>
+         <span class="n">usageTextProp</span><span class="p">.</span><span class="n">SetVerticalJustificationToTop</span><span class="p">();</span>
+         <span class="n">usageTextProp</span><span class="p">.</span><span class="n">SetJustificationToLeft</span><span class="p">();</span>
+
+         <span class="n">vtkTextMapper</span> <span class="n">usageTextMapper</span> <span class="p">=</span> <span class="n">vtkTextMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">usageTextMapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;Slice with mouse wheel\nor Up/Down-Key&quot;</span><span class="p">);</span>
+         <span class="n">usageTextMapper</span><span class="p">.</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">usageTextProp</span><span class="p">);</span>
+
+         <span class="n">vtkActor2D</span> <span class="n">usageTextActor</span> <span class="p">=</span> <span class="n">vtkActor2D</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">usageTextActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">usageTextMapper</span><span class="p">);</span>
+         <span class="n">usageTextActor</span><span class="p">.</span><span class="n">GetPositionCoordinate</span><span class="p">().</span><span class="n">SetCoordinateSystemToNormalizedDisplay</span><span class="p">();</span>
+         <span class="n">usageTextActor</span><span class="p">.</span><span class="n">GetPositionCoordinate</span><span class="p">().</span><span class="n">SetValue</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span> <span class="m">0.95</span><span class="p">);</span>
+
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+
+         <span class="n">vtkInteractorStyleImage</span> <span class="n">interactorStyle</span> <span class="p">=</span> <span class="n">vtkInteractorStyleImage</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">interactorStyle</span><span class="p">.</span><span class="n">MouseWheelForwardEvt</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">vtkObject</span><span class="p">.</span><span class="n">vtkObjectEventHandler</span><span class="p">(</span><span class="n">interactor_MouseWheelForwardEvt</span><span class="p">);</span>
+         <span class="n">interactorStyle</span><span class="p">.</span><span class="n">MouseWheelBackwardEvt</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">vtkObject</span><span class="p">.</span><span class="n">vtkObjectEventHandler</span><span class="p">(</span><span class="n">interactor_MouseWheelBackwardEvt</span><span class="p">);</span>
+
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetInteractor</span><span class="p">().</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">interactorStyle</span><span class="p">);</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">InitTraversal</span><span class="p">();</span>
+         <span class="n">vtkRenderer</span> <span class="n">ren</span><span class="p">;</span>
+         <span class="k">while</span><span class="p">((</span> <span class="n">ren</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetNextItem</span><span class="p">()</span> <span class="p">)</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="n">ren</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">GetRenderer</span><span class="p">().</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">sliceStatusActor</span><span class="p">);</span>
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">GetRenderer</span><span class="p">().</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">usageTextActor</span><span class="p">);</span>
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">SetSlice</span><span class="p">(</span><span class="n">_MinSlice</span><span class="p">);</span>
+         <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      /// &lt;summary&gt;
-      /// move backward to next slice
-      /// &lt;/summary&gt;
-      private void MoveBackwardSlice() {
-         Debug.WriteLine(_Slice.ToString());
-         if(_Slice &gt; _MinSlice) {
-            _Slice -= 1;
-            _ImageViewer.SetSlice(_Slice);
-            _SliceStatusMapper.SetInput(&quot;Slice No &quot; + ( _Slice + 1 ).ToString() + &quot;/&quot; + ( _MaxSlice + 1 ).ToString());
-            _ImageViewer.Render();
-         }
-      }
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// move forward to next slice</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">MoveForwardSlice</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">_Slice</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">_Slice</span> <span class="p">&lt;</span> <span class="n">_MaxSlice</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_Slice</span> <span class="p">+=</span> <span class="m">1</span><span class="p">;</span>
+            <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">SetSlice</span><span class="p">(</span><span class="n">_Slice</span><span class="p">);</span>
+            <span class="n">_SliceStatusMapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;Slice No &quot;</span> <span class="p">+</span> <span class="p">(</span> <span class="n">_Slice</span> <span class="p">+</span> <span class="m">1</span> <span class="p">).</span><span class="n">ToString</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="p">(</span> <span class="n">_MaxSlice</span> <span class="p">+</span> <span class="m">1</span> <span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+            <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-      /// &lt;summary&gt;
-      /// eventhanndler to process keyboard input
-      /// &lt;/summary&gt;
-      /// &lt;param name=&quot;msg&quot;&gt;&lt;/param&gt;
-      /// &lt;param name=&quot;keyData&quot;&gt;&lt;/param&gt;
-      /// &lt;returns&gt;&lt;/returns&gt;
-      protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData) {
-         //Debug.WriteLine(DateTime.Now + &quot;:&quot; + msg.Msg + &quot;, &quot; + keyData);
-         if(keyData == System.Windows.Forms.Keys.Up) {
-            MoveForwardSlice();
-            return true;
-         }
-         else if(keyData == System.Windows.Forms.Keys.Down) {
-            MoveBackwardSlice();
-            return true;
-         }
-         // don't forward the following keys
-         // add all keys which are not supposed to get forwarded
-         else if(
-               keyData == System.Windows.Forms.Keys.F
-            || keyData == System.Windows.Forms.Keys.L
-         ) {
-            return true;
-         }
-         return false;
-      }
-
-      /// &lt;summary&gt;
-      /// event handler for mousewheel forward event
-      /// &lt;/summary&gt;
-      /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
-      /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
-      void interactor_MouseWheelForwardEvt(vtkObject sender, vtkObjectEventArgs e) {
-         MoveForwardSlice();
-      }
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// move backward to next slice</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">MoveBackwardSlice</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">_Slice</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">_Slice</span> <span class="p">&gt;</span> <span class="n">_MinSlice</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_Slice</span> <span class="p">-=</span> <span class="m">1</span><span class="p">;</span>
+            <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">SetSlice</span><span class="p">(</span><span class="n">_Slice</span><span class="p">);</span>
+            <span class="n">_SliceStatusMapper</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="s">&quot;Slice No &quot;</span> <span class="p">+</span> <span class="p">(</span> <span class="n">_Slice</span> <span class="p">+</span> <span class="m">1</span> <span class="p">).</span><span class="n">ToString</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="p">(</span> <span class="n">_MaxSlice</span> <span class="p">+</span> <span class="m">1</span> <span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+            <span class="n">_ImageViewer</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-      /// &lt;summary&gt;
-      /// event handler for mousewheel backward event
-      /// &lt;/summary&gt;
-      /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
-      /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
-      void interactor_MouseWheelBackwardEvt(vtkObject sender, vtkObjectEventArgs e) {
-         MoveBackwardSlice();
-      }
-   }
-}
-</code></pre>
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// eventhanndler to process keyboard input</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;msg&quot;&gt;&lt;/param&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;keyData&quot;&gt;&lt;/param&gt;</span>
+      <span class="c1">/// &lt;returns&gt;&lt;/returns&gt;</span>
+      <span class="k">protected</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">ProcessCmdKey</span><span class="p">(</span><span class="k">ref</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Message</span> <span class="n">msg</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Keys</span> <span class="n">keyData</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">//Debug.WriteLine(DateTime.Now + &quot;:&quot; + msg.Msg + &quot;, &quot; + keyData);</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">keyData</span> <span class="p">==</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Keys</span><span class="p">.</span><span class="n">Up</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MoveForwardSlice</span><span class="p">();</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">keyData</span> <span class="p">==</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Keys</span><span class="p">.</span><span class="n">Down</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MoveBackwardSlice</span><span class="p">();</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="c1">// don&#39;t forward the following keys</span>
+         <span class="c1">// add all keys which are not supposed to get forwarded</span>
+         <span class="k">else</span> <span class="nf">if</span><span class="p">(</span>
+               <span class="n">keyData</span> <span class="p">==</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Keys</span><span class="p">.</span><span class="n">F</span>
+            <span class="p">||</span> <span class="n">keyData</span> <span class="p">==</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Keys</span><span class="p">.</span><span class="n">L</span>
+         <span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// event handler for mousewheel forward event</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;</span>
+      <span class="k">void</span> <span class="nf">interactor_MouseWheelForwardEvt</span><span class="p">(</span><span class="n">vtkObject</span> <span class="n">sender</span><span class="p">,</span> <span class="n">vtkObjectEventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">MoveForwardSlice</span><span class="p">();</span>
+      <span class="p">}</span>
+
+
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// event handler for mousewheel backward event</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;</span>
+      <span class="k">void</span> <span class="nf">interactor_MouseWheelBackwardEvt</span><span class="p">(</span><span class="n">vtkObject</span> <span class="n">sender</span><span class="p">,</span> <span class="n">vtkObjectEventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">MoveBackwardSlice</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

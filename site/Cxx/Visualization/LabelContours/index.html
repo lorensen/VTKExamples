@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,273 +16019,280 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/LabelContours</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestLabelContours.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example labels isolines created by vtkContourFilter. After the isolines are generated, the resulting disconnected lines segments are gathered into polylines by vtkStripper. Then an appropriate position along each line is chosen to place the label for the contour. Two strategies for label placement are illustrated: a point at the midpoint of the line or a random point. vtkLabeledDataMapper places the labels for the contour lines.</p>
 <p>The program can be run with an input XML polydata file (.vtp) or without arguments. If a file is specified then one, two or a range of contours can be specified. If run without a file name, the example generates a random scalar field on a plane.</p>
 <p>'''NOTE:''' The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LabelContours.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkStripper.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkLabeledDataMapper.h&gt;
-#include &lt;vtkPlaneSource.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkActor2D.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStripper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLabeledDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkDataArray.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkMath.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 
-int main (int argc, char *argv[])
-{
-  int pointThreshold = 10;
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">pointThreshold</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  vtkSmartPointer&lt;vtkContourFilter&gt; contours =
-    vtkSmartPointer&lt;vtkContourFilter&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contours</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // If a file is present, read it, otherwise generate some random
-  // scalars on a plane
-  if (argc &gt; 1)
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(argv[1]);
-    reader-&gt;Update();
+  <span class="c1">// If a file is present, read it, otherwise generate some random</span>
+  <span class="c1">// scalars on a plane</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    double range[2];
-    reader-&gt;GetOutput()-&gt;GetScalarRange(range);
-    polyData = reader-&gt;GetOutput();
+    <span class="kt">double</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-    std::cout &lt;&lt; &quot;range: &quot; &lt;&lt; range[0] &lt;&lt; &quot;, &quot; &lt;&lt; range[1] &lt;&lt; std::endl;
-    contours-&gt;SetValue(0, (range[1] + range[0]) / 2.0);
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;range: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
 
-    contours-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-    if (argc == 3)
-    {
-      contours-&gt;SetValue(0, atof(argv[2]));
-    }
-    else if (argc == 4)
-    {
-      contours-&gt;SetValue(0, atof(argv[2]));
-      contours-&gt;SetValue(1, atof(argv[3]));
-    }
-    else if (argc == 5)
-    {
-      contours-&gt;GenerateValues(atoi(argv[2]),
-                               atof(argv[3]),
-                               atof(argv[4]));
-    }
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkPlaneSource&gt; plane =
-      vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-    plane-&gt;SetXResolution(10);
-    plane-&gt;SetYResolution(10);
-    plane-&gt;Update();
+    <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
+      <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]));</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">contours</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                               <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                               <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]));</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">plane</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">plane</span><span class="o">-&gt;</span><span class="n">SetXResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">plane</span><span class="o">-&gt;</span><span class="n">SetYResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">plane</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkDoubleArray&gt; randomScalars =
-      vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-    randomScalars-&gt;SetNumberOfComponents(1);
-    randomScalars-&gt;SetName(&quot;Isovalues&quot;);
-    for (int i = 0; i &lt; plane-&gt;GetOutput()-&gt;GetNumberOfPoints(); i++)
-    {
-      randomScalars-&gt;InsertNextTuple1(vtkMath::Random(-100.0, 100.0));
-    }
-    plane-&gt;GetOutput()-&gt;GetPointData()-&gt;SetScalars(randomScalars);
-    polyData = plane-&gt;GetOutput();
-    contours-&gt;SetInputConnection(plane-&gt;GetOutputPort());
-    contours-&gt;GenerateValues(5, -100, 100);
-    pointThreshold = 0;
-  }
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">randomScalars</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">randomScalars</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">randomScalars</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Isovalues&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">plane</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">randomScalars</span><span class="o">-&gt;</span><span class="n">InsertNextTuple1</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="n">plane</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">randomScalars</span><span class="p">);</span>
+    <span class="n">polyData</span> <span class="o">=</span> <span class="n">plane</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+    <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">plane</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">contours</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="n">pointThreshold</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Connect the segments of the conours into polylines
-  vtkSmartPointer&lt;vtkStripper&gt; contourStripper =
-    vtkSmartPointer&lt;vtkStripper&gt;::New();
-  contourStripper-&gt;SetInputConnection(contours-&gt;GetOutputPort());
-  contourStripper-&gt;Update();
+  <span class="c1">// Connect the segments of the conours into polylines</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;</span> <span class="n">contourStripper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contours</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  int numberOfContourLines = contourStripper-&gt;GetOutput()-&gt;GetNumberOfLines();
+  <span class="kt">int</span> <span class="n">numberOfContourLines</span> <span class="o">=</span> <span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfLines</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;There are &quot;
-            &lt;&lt; numberOfContourLines &lt;&lt; &quot; contours lines.&quot;
-            &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">numberOfContourLines</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; contours lines.&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkPoints *points     =
-    contourStripper-&gt;GetOutput()-&gt;GetPoints();
-  vtkCellArray *cells   =
-    contourStripper-&gt;GetOutput()-&gt;GetLines();
-  vtkDataArray *scalars =
-    contourStripper-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars();
+  <span class="n">vtkPoints</span> <span class="o">*</span><span class="n">points</span>     <span class="o">=</span>
+    <span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPoints</span><span class="p">();</span>
+  <span class="n">vtkCellArray</span> <span class="o">*</span><span class="n">cells</span>   <span class="o">=</span>
+    <span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetLines</span><span class="p">();</span>
+  <span class="n">vtkDataArray</span> <span class="o">*</span><span class="n">scalars</span> <span class="o">=</span>
+    <span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">();</span>
 
-  // Create a polydata that contains point locations for the contour
-  // line labels
-  vtkSmartPointer&lt;vtkPolyData&gt; labelPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  vtkSmartPointer&lt;vtkPoints&gt; labelPoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  vtkSmartPointer&lt;vtkDoubleArray&gt; labelScalars =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  labelScalars-&gt;SetNumberOfComponents(1);
-  labelScalars-&gt;SetName(&quot;Isovalues&quot;);
+  <span class="c1">// Create a polydata that contains point locations for the contour</span>
+  <span class="c1">// line labels</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">labelPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">labelPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">labelScalars</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">labelScalars</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">labelScalars</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Isovalues&quot;</span><span class="p">);</span>
 
-  vtkIdType *indices;
-  vtkIdType numberOfPoints;
-  unsigned int lineCount = 0;
-  for (cells-&gt;InitTraversal();
-       cells-&gt;GetNextCell(numberOfPoints, indices);
-       lineCount++)
-  {
-    if (numberOfPoints &lt; pointThreshold)
-    {
-      continue;
-    }
-    std::cout &lt;&lt; &quot;Line &quot; &lt;&lt; lineCount &lt;&lt; &quot;: &quot; &lt;&lt; std::endl;
+  <span class="n">vtkIdType</span> <span class="o">*</span><span class="n">indices</span><span class="p">;</span>
+  <span class="n">vtkIdType</span> <span class="n">numberOfPoints</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">lineCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">cells</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">();</span>
+       <span class="n">cells</span><span class="o">-&gt;</span><span class="n">GetNextCell</span><span class="p">(</span><span class="n">numberOfPoints</span><span class="p">,</span> <span class="n">indices</span><span class="p">);</span>
+       <span class="n">lineCount</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">numberOfPoints</span> <span class="o">&lt;</span> <span class="n">pointThreshold</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Line &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">lineCount</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-    // Compute the point id to hold the label
-    // Mid point or a random point
-    vtkIdType midPointId = indices[numberOfPoints / 2];
-    midPointId =
-      indices[static_cast&lt;vtkIdType&gt;(vtkMath::Random(0, numberOfPoints))];
+    <span class="c1">// Compute the point id to hold the label</span>
+    <span class="c1">// Mid point or a random point</span>
+    <span class="n">vtkIdType</span> <span class="n">midPointId</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">numberOfPoints</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
+    <span class="n">midPointId</span> <span class="o">=</span>
+      <span class="n">indices</span><span class="p">[</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfPoints</span><span class="p">))];</span>
 
-    double midPoint[3];
-    points-&gt;GetPoint(midPointId, midPoint);
-    std::cout &lt;&lt; &quot;\tmidPoint is &quot; &lt;&lt; midPointId &lt;&lt; &quot; with coordinate &quot;
-              &lt;&lt; &quot;(&quot;
-              &lt;&lt; midPoint[0] &lt;&lt; &quot;, &quot;
-              &lt;&lt; midPoint[1] &lt;&lt; &quot;, &quot;
-              &lt;&lt; midPoint[2] &lt;&lt; &quot;)&quot;
-              &lt;&lt; &quot; and value &quot; &lt;&lt; scalars-&gt;GetTuple1(midPointId)
-              &lt;&lt; std::endl;
-    labelPoints-&gt;InsertNextPoint(midPoint);
-    labelScalars-&gt;InsertNextTuple1(scalars-&gt;GetTuple1(midPointId));
-  }
-  labelPolyData-&gt;SetPoints(labelPoints);
-  labelPolyData-&gt;GetPointData()-&gt;SetScalars(labelScalars);
+    <span class="kt">double</span> <span class="n">midPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">midPointId</span><span class="p">,</span> <span class="n">midPoint</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">midPoint is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">midPointId</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; with coordinate &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot;(&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">midPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">midPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="n">midPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;)&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; and value &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">scalars</span><span class="o">-&gt;</span><span class="n">GetTuple1</span><span class="p">(</span><span class="n">midPointId</span><span class="p">)</span>
+              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">labelPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">midPoint</span><span class="p">);</span>
+    <span class="n">labelScalars</span><span class="o">-&gt;</span><span class="n">InsertNextTuple1</span><span class="p">(</span><span class="n">scalars</span><span class="o">-&gt;</span><span class="n">GetTuple1</span><span class="p">(</span><span class="n">midPointId</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="n">labelPolyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">labelPoints</span><span class="p">);</span>
+  <span class="n">labelPolyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">labelScalars</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; contourMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  contourMapper-&gt;SetInputConnection(contourStripper-&gt;GetOutputPort());
-  contourMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">contourMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contourStripper</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; isolines =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  isolines-&gt;SetMapper(contourMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">isolines</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">isolines</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkLookupTable&gt; surfaceLUT =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  surfaceLUT-&gt;SetRange(
-    polyData-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange());
-  surfaceLUT-&gt;Build();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">surfaceLUT</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surfaceLUT</span><span class="o">-&gt;</span><span class="n">SetRange</span><span class="p">(</span>
+    <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">());</span>
+  <span class="n">surfaceLUT</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; surfaceMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  surfaceMapper-&gt;SetInput(polyData);
-#else
-  surfaceMapper-&gt;SetInputData(polyData);
-#endif
-  surfaceMapper-&gt;ScalarVisibilityOn();
-  surfaceMapper-&gt;SetScalarRange(
-    polyData-&gt;GetPointData()-&gt;GetScalars()-&gt;GetRange());
-  surfaceMapper-&gt;SetLookupTable(surfaceLUT);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">surfaceMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOn</span><span class="p">();</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span>
+    <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRange</span><span class="p">());</span>
+  <span class="n">surfaceMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">surfaceLUT</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; surface =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  surface-&gt;SetMapper(surfaceMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">surface</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">surface</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">surfaceMapper</span><span class="p">);</span>
 
-  // The labeled data mapper will place labels at the points
-  vtkSmartPointer&lt;vtkLabeledDataMapper&gt; labelMapper =
-    vtkSmartPointer&lt;vtkLabeledDataMapper&gt;::New();
-  labelMapper-&gt;SetFieldDataName(&quot;Isovalues&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  labelMapper-&gt;SetInput(labelPolyData);
-#else
-  labelMapper-&gt;SetInputData(labelPolyData);
-#endif
-  labelMapper-&gt;SetLabelModeToLabelScalars();
-  labelMapper-&gt;SetLabelFormat(&quot;%6.2f&quot;);
+  <span class="c1">// The labeled data mapper will place labels at the points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabeledDataMapper</span><span class="o">&gt;</span> <span class="n">labelMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabeledDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">labelMapper</span><span class="o">-&gt;</span><span class="n">SetFieldDataName</span><span class="p">(</span><span class="s">&quot;Isovalues&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">labelMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">labelPolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">labelMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">labelPolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">labelMapper</span><span class="o">-&gt;</span><span class="n">SetLabelModeToLabelScalars</span><span class="p">();</span>
+  <span class="n">labelMapper</span><span class="o">-&gt;</span><span class="n">SetLabelFormat</span><span class="p">(</span><span class="s">&quot;%6.2f&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor2D&gt; isolabels =
-    vtkSmartPointer&lt;vtkActor2D&gt;::New();
-  isolabels-&gt;SetMapper(labelMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">isolabels</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">isolabels</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">labelMapper</span><span class="p">);</span>
 
-  // Create a renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
+  <span class="c1">// Create a renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-      vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // Create an interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create an interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor(isolines);
-  renderer-&gt;AddActor(isolabels);
-//  renderer-&gt;AddActor(surface);
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">isolines</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">isolabels</span><span class="p">);</span>
+<span class="c1">//  renderer-&gt;AddActor(surface);</span>
 
-  // Render the scene (lights and cameras are created automatically)
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render the scene (lights and cameras are created automatically)</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LabelContours)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LabelContours</span><span class="p">)</span>
 
-add_executable(LabelContours MACOSX_BUNDLE LabelContours.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LabelContours ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LabelContours</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LabelContours.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-labelcontours">Download and Build LabelContours</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LabelContours</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-labelcontours">Download and Build LabelContours<a class="headerlink" href="#download-and-build-labelcontours" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LabelContours.tar">here to download LabelContours</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LabelContours.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LabelContours/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LabelContours/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LabelContours
-</code></pre>
+<div class="codehilite"><pre><span></span>./LabelContours
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

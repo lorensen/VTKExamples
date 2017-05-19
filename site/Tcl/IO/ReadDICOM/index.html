@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15521,6 +15521,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15965,33 +15977,33 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Tcl">Tcl</a>/IO/ReadDICOM</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadDICOM.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadDICOM.tcl</strong></p>
-<pre><code class="tcl">package require vtk
+<div class="codehilite"><pre><span></span><span class="nb">package</span> require vtk
 
-if { $argc != 2 } {
-  puts &quot;The command requires 2 arguments.&quot;
-  puts &quot;Please try again.&quot;
-  exit
-}
+<span class="k">if</span> <span class="k">{</span> <span class="nv">$argc</span> <span class="o">!=</span> <span class="nv">2</span> <span class="k">}</span> <span class="k">{</span>
+  <span class="nb">puts</span> <span class="s2">&quot;The command requires 2 arguments.&quot;</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Please try again.&quot;</span>
+  <span class="nb">exit</span>
+<span class="k">}</span>
 
-set folder [lindex $argv 0]
-set outputFile [lindex $argv 1]
+<span class="k">set</span> folder <span class="k">[</span><span class="nb">lindex</span> <span class="nv">$argv</span> <span class="mi">0</span><span class="k">]</span>
+<span class="k">set</span> outputFile <span class="k">[</span><span class="nb">lindex</span> <span class="nv">$argv</span> <span class="mi">1</span><span class="k">]</span>
 
-# Read all the DICOM files in the specified directory.
-vtkDICOMImageReader reader
-reader SetDirectoryName $folder
-reader Update
+<span class="c"># Read all the DICOM files in the specified directory.</span>
+<span class="nv">vtkDICOMImageReader</span> reader
+<span class="nv">reader</span> SetDirectoryName <span class="nv">$folder</span>
+<span class="nv">reader</span> Update
 
-set imagedata [reader GetOutput]
+<span class="k">set</span> imagedata <span class="k">[</span><span class="nv">reader</span> GetOutput<span class="k">]</span>
 
-vtkXMLImageDataWriter writer
-writer SetInput [reader GetOutput]
-writer SetFileName $outputFile
-writer Update
+<span class="nv">vtkXMLImageDataWriter</span> writer
+<span class="nv">writer</span> SetInput <span class="k">[</span><span class="nv">reader</span> GetOutput<span class="k">]</span>
+<span class="nv">writer</span> SetFileName <span class="nv">$outputFile</span>
+<span class="nv">writer</span> Update
 
-puts &quot;Output file ( $outputFile ) has been correctly saved.&quot;
-</code></pre>
+<span class="nb">puts</span> <span class="s2">&quot;Output file ( $outputFile ) has been correctly saved.&quot;</span>
+</pre></div>
                 
                   
                 

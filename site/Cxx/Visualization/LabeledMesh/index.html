@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,247 +16019,254 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/LabeledMesh</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestLabeledMesh.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example was translated into C++ from its TCL counterpart by Jake Nickel from the University of Iowa.  It demonstrates the use of vtkLabeledDataMapper. This class is used for displaying numerical data from an underlying data set. In the case of this example, the underlying data are the point and cell ids.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LabeledMesh.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
-#include &quot;vtkVersion.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkVersion.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkPoints.h&quot;
-#include &quot;vtkCellArray.h&quot;
-#include &quot;vtkPolyData.h&quot;
-#include &quot;vtkPolyDataMapper2D.h&quot;
-#include &quot;vtkActor2D.h&quot;
-#include &quot;vtkSphereSource.h&quot;
-#include &quot;vtkPolyDataMapper.h&quot;
-#include &quot;vtkActor.h&quot;
-#include &quot;vtkIdFilter.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkSelectVisiblePoints.h&quot;
-#include &quot;vtkLabeledDataMapper.h&quot;
-#include &quot;vtkCellCenters.h&quot;
-#include &quot;vtkLabeledDataMapper.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkTextProperty.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPoints.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCellArray.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper2D.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor2D.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSphereSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkIdFilter.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSelectVisiblePoints.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkLabeledDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCellCenters.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkLabeledDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTextProperty.h&quot;</span><span class="cp"></span>
 
-static int xLength;
-static int yLength;
-static vtkSmartPointer&lt;vtkSelectVisiblePoints&gt; visPts;
-static vtkSmartPointer&lt;vtkSelectVisiblePoints&gt; visCells;
-static vtkSmartPointer&lt;vtkPoints&gt; pts;
-static vtkSmartPointer&lt;vtkRenderWindow&gt; renWin;
+<span class="k">static</span> <span class="kt">int</span> <span class="n">xLength</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">yLength</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectVisiblePoints</span><span class="o">&gt;</span> <span class="n">visPts</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectVisiblePoints</span><span class="o">&gt;</span> <span class="n">visCells</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">pts</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span><span class="p">;</span>
 
-// Create a procedure to draw the selection window at each location it
-// is moved to.
-static void PlaceWindow( int xmin, int ymin )
-{
-  int xmax = xmin + xLength;
-  int ymax = ymin + yLength;
+<span class="c1">// Create a procedure to draw the selection window at each location it</span>
+<span class="c1">// is moved to.</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">PlaceWindow</span><span class="p">(</span> <span class="kt">int</span> <span class="n">xmin</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ymin</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">xmin</span> <span class="o">+</span> <span class="n">xLength</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">yLength</span><span class="p">;</span>
 
-  visPts-&gt;SetSelection( xmin, xmax, ymin, ymax );
-  visCells-&gt;SetSelection( xmin, xmax, ymin, ymax );
+  <span class="n">visPts</span><span class="o">-&gt;</span><span class="n">SetSelection</span><span class="p">(</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="p">);</span>
+  <span class="n">visCells</span><span class="o">-&gt;</span><span class="n">SetSelection</span><span class="p">(</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="p">);</span>
 
-  pts-&gt;InsertPoint( 0, xmin, ymin, 0 );
-  pts-&gt;InsertPoint( 1, xmin, ymin, 0 );
-  pts-&gt;InsertPoint( 2, xmin, ymin, 0 );
-  pts-&gt;InsertPoint( 3, xmin, ymin, 0 );
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
 
-  // Call Modified because InsertPoints does not modify vtkPoints
-  // (for performance reasons).
-  pts-&gt;Modified();
+  <span class="c1">// Call Modified because InsertPoints does not modify vtkPoints</span>
+  <span class="c1">// (for performance reasons).</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
 
-  renWin-&gt;Render();
-}
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+<span class="p">}</span>
 
-// Create a procedure to move the selection window across the data set.
-static void MoveWindow()
-{
-  for( int y = 100; y &lt; 300; y += 25 )
-  {
-    for( int x = 100; x &lt; 300; x += 25 )
-    {
-      PlaceWindow( x, y );
-    }
-  }
-}
+<span class="c1">// Create a procedure to move the selection window across the data set.</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">MoveWindow</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">;</span> <span class="n">y</span> <span class="o">+=</span> <span class="mi">25</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">;</span> <span class="n">x</span> <span class="o">+=</span> <span class="mi">25</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">PlaceWindow</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-int main(int argc, char *argv[] )
-{
-  // Create a selection window.  We will display the point and cell ids that
-  // lie within this window.
-  int xmin = 200;
-  xLength = 100;
-  int xmax = xmin + xLength;
-  int ymin = 200;
-  yLength = 100;
-  int ymax = ymin + yLength;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create a selection window.  We will display the point and cell ids that</span>
+  <span class="c1">// lie within this window.</span>
+  <span class="kt">int</span> <span class="n">xmin</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+  <span class="n">xLength</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">xmin</span> <span class="o">+</span> <span class="n">xLength</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">ymin</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+  <span class="n">yLength</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">yLength</span><span class="p">;</span>
 
-  pts = vtkSmartPointer&lt;vtkPoints&gt;::New();
-  pts-&gt;InsertPoint( 0, xmin, ymin, 0 );
-  pts-&gt;InsertPoint( 1, xmax, ymin, 0 );
-  pts-&gt;InsertPoint( 2, xmax, ymax, 0 );
-  pts-&gt;InsertPoint( 3, xmin, ymax, 0 );
+  <span class="n">pts</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">InsertPoint</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCellArray&gt; rect =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  rect-&gt;InsertNextCell( 5 );
-  rect-&gt;InsertCellPoint( 0 );
-  rect-&gt;InsertCellPoint( 1 );
-  rect-&gt;InsertCellPoint( 2 );
-  rect-&gt;InsertCellPoint( 3 );
-  rect-&gt;InsertCellPoint( 0 );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">rect</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rect</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span> <span class="mi">5</span> <span class="p">);</span>
+  <span class="n">rect</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">0</span> <span class="p">);</span>
+  <span class="n">rect</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">rect</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">2</span> <span class="p">);</span>
+  <span class="n">rect</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">3</span> <span class="p">);</span>
+  <span class="n">rect</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span> <span class="mi">0</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; selectRect =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  selectRect-&gt;SetPoints( pts );
-  selectRect-&gt;SetLines( rect );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">selectRect</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectRect</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span> <span class="n">pts</span> <span class="p">);</span>
+  <span class="n">selectRect</span><span class="o">-&gt;</span><span class="n">SetLines</span><span class="p">(</span> <span class="n">rect</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper2D&gt; rectMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper2D&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  rectMapper-&gt;SetInput( selectRect );
-#else
-  rectMapper-&gt;SetInputData( selectRect );
-#endif
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper2D</span><span class="o">&gt;</span> <span class="n">rectMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">rectMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">selectRect</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">rectMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">selectRect</span> <span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor2D&gt; rectActor =
-    vtkSmartPointer&lt;vtkActor2D&gt;::New();
-  rectActor-&gt;SetMapper( rectMapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">rectActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rectActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">rectMapper</span> <span class="p">);</span>
 
-  // Create a sphere and its associated mapper and actor.
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphere =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection(sphere-&gt;GetOutputPort());
-  sphereMapper-&gt;GlobalImmediateModeRenderingOn();
+  <span class="c1">// Create a sphere and its associated mapper and actor.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">GlobalImmediateModeRenderingOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  sphereActor-&gt;SetMapper( sphereMapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">sphereMapper</span> <span class="p">);</span>
 
-  // Generate data arrays containing point and cell ids
-  vtkSmartPointer&lt;vtkIdFilter&gt; ids =
-    vtkSmartPointer&lt;vtkIdFilter&gt;::New();
-  ids-&gt;SetInputConnection( sphere-&gt;GetOutputPort() );
-  ids-&gt;PointIdsOn();
-  ids-&gt;CellIdsOn();
-  ids-&gt;FieldDataOn();
+  <span class="c1">// Generate data arrays containing point and cell ids</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;</span> <span class="n">ids</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">PointIdsOn</span><span class="p">();</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">CellIdsOn</span><span class="p">();</span>
+  <span class="n">ids</span><span class="o">-&gt;</span><span class="n">FieldDataOn</span><span class="p">();</span>
 
-  // Create the renderer here because vtkSelectVisiblePoints needs it.
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
+  <span class="c1">// Create the renderer here because vtkSelectVisiblePoints needs it.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create labels for points
-  visPts = vtkSmartPointer&lt;vtkSelectVisiblePoints&gt;::New();
-  visPts-&gt;SetInputConnection( ids-&gt;GetOutputPort() );
-  visPts-&gt;SetRenderer( ren1 );
-  visPts-&gt;SelectionWindowOn();
-  visPts-&gt;SetSelection( xmin, xmin + xLength, ymin, ymin + yLength );
+  <span class="c1">// Create labels for points</span>
+  <span class="n">visPts</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectVisiblePoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">visPts</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">ids</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">visPts</span><span class="o">-&gt;</span><span class="n">SetRenderer</span><span class="p">(</span> <span class="n">ren1</span> <span class="p">);</span>
+  <span class="n">visPts</span><span class="o">-&gt;</span><span class="n">SelectionWindowOn</span><span class="p">();</span>
+  <span class="n">visPts</span><span class="o">-&gt;</span><span class="n">SetSelection</span><span class="p">(</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">+</span> <span class="n">xLength</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">yLength</span> <span class="p">);</span>
 
-  // Create the mapper to display the point ids.  Specify the
-  // format to use for the labels.  Also create the associated actor.
-  vtkSmartPointer&lt;vtkLabeledDataMapper&gt; ldm =
-    vtkSmartPointer&lt;vtkLabeledDataMapper&gt;::New();
-  ldm-&gt;SetInputConnection( visPts-&gt;GetOutputPort() );
-  ldm-&gt;SetLabelModeToLabelFieldData();
+  <span class="c1">// Create the mapper to display the point ids.  Specify the</span>
+  <span class="c1">// format to use for the labels.  Also create the associated actor.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabeledDataMapper</span><span class="o">&gt;</span> <span class="n">ldm</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabeledDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ldm</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">visPts</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">ldm</span><span class="o">-&gt;</span><span class="n">SetLabelModeToLabelFieldData</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor2D&gt; pointLabels =
-    vtkSmartPointer&lt;vtkActor2D&gt;::New();
-  pointLabels-&gt;SetMapper( ldm );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">pointLabels</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointLabels</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">ldm</span> <span class="p">);</span>
 
-  // Create labels for cells
-  vtkSmartPointer&lt;vtkCellCenters&gt; cc =
-    vtkSmartPointer&lt;vtkCellCenters&gt;::New();
-  cc-&gt;SetInputConnection( ids-&gt;GetOutputPort() );
+  <span class="c1">// Create labels for cells</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellCenters</span><span class="o">&gt;</span> <span class="n">cc</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellCenters</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cc</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">ids</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  visCells = vtkSmartPointer&lt;vtkSelectVisiblePoints&gt;::New();
-  visCells-&gt;SetInputConnection( cc-&gt;GetOutputPort() );
-  visCells-&gt;SetRenderer( ren1 );
-  visCells-&gt;SelectionWindowOn();
-  visCells-&gt;SetSelection( xmin, xmin + xLength, ymin, ymin + yLength );
+  <span class="n">visCells</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectVisiblePoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">visCells</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">cc</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">visCells</span><span class="o">-&gt;</span><span class="n">SetRenderer</span><span class="p">(</span> <span class="n">ren1</span> <span class="p">);</span>
+  <span class="n">visCells</span><span class="o">-&gt;</span><span class="n">SelectionWindowOn</span><span class="p">();</span>
+  <span class="n">visCells</span><span class="o">-&gt;</span><span class="n">SetSelection</span><span class="p">(</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">+</span> <span class="n">xLength</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">yLength</span> <span class="p">);</span>
 
-  // Create the mapper to display the cell ids.  Specify the
-  // format to use for the labels.  Also create the associated actor.
-  vtkSmartPointer&lt;vtkLabeledDataMapper&gt; cellMapper =
-    vtkSmartPointer&lt;vtkLabeledDataMapper&gt;::New();
-  cellMapper-&gt;SetInputConnection( visCells-&gt;GetOutputPort() );
-  cellMapper-&gt;SetLabelModeToLabelFieldData();
-  cellMapper-&gt;GetLabelTextProperty()-&gt;SetColor( 0, 1, 0 );
+  <span class="c1">// Create the mapper to display the cell ids.  Specify the</span>
+  <span class="c1">// format to use for the labels.  Also create the associated actor.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabeledDataMapper</span><span class="o">&gt;</span> <span class="n">cellMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLabeledDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">visCells</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">cellMapper</span><span class="o">-&gt;</span><span class="n">SetLabelModeToLabelFieldData</span><span class="p">();</span>
+  <span class="n">cellMapper</span><span class="o">-&gt;</span><span class="n">GetLabelTextProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor2D&gt; cellLabels =
-    vtkSmartPointer&lt;vtkActor2D&gt;::New();
-  cellLabels-&gt;SetMapper( cellMapper );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">cellLabels</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellLabels</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">cellMapper</span> <span class="p">);</span>
 
-  // Create the RenderWindow and RenderWindowInteractor
-  renWin = vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer( ren1 );
+  <span class="c1">// Create the RenderWindow and RenderWindowInteractor</span>
+  <span class="n">renWin</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">ren1</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow( renWin );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renWin</span> <span class="p">);</span>
 
-  // Add the actors to the renderer; set the background and size; render
-  ren1-&gt;AddActor( sphereActor );
-  ren1-&gt;AddActor2D( rectActor );
-  ren1-&gt;AddActor2D( pointLabels );
-  ren1-&gt;AddActor2D( cellLabels );
+  <span class="c1">// Add the actors to the renderer; set the background and size; render</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span> <span class="n">sphereActor</span> <span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span> <span class="n">rectActor</span> <span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span> <span class="n">pointLabels</span> <span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span> <span class="n">cellLabels</span> <span class="p">);</span>
 
-  ren1-&gt;SetBackground( 1, 1, 1 );
-  renWin-&gt;SetSize( 500, 500 );
-  renWin-&gt;Render();
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span> <span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Move the selection window across the data set.
-  MoveWindow();
+  <span class="c1">// Move the selection window across the data set.</span>
+  <span class="n">MoveWindow</span><span class="p">();</span>
 
-  // Put the selection window in the center of the render window.
-  // This works because the xmin = ymin = 200, xLength = yLength = 100, and
-  // the render window size is 500 x 500.
-  PlaceWindow( xmin, ymin );
+  <span class="c1">// Put the selection window in the center of the render window.</span>
+  <span class="c1">// This works because the xmin = ymin = 200, xLength = yLength = 100, and</span>
+  <span class="c1">// the render window size is 500 x 500.</span>
+  <span class="n">PlaceWindow</span><span class="p">(</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span> <span class="p">);</span>
 
-  iren-&gt;Initialize();
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LabeledMesh)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LabeledMesh</span><span class="p">)</span>
 
-add_executable(LabeledMesh MACOSX_BUNDLE LabeledMesh.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LabeledMesh ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LabeledMesh</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LabeledMesh.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-labeledmesh">Download and Build LabeledMesh</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LabeledMesh</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-labeledmesh">Download and Build LabeledMesh<a class="headerlink" href="#download-and-build-labeledmesh" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LabeledMesh.tar">here to download LabeledMesh</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LabeledMesh.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LabeledMesh/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LabeledMesh/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LabeledMesh
-</code></pre>
+<div class="codehilite"><pre><span></span>./LabeledMesh
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

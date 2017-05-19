@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15566,6 +15566,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15980,421 +15992,421 @@
                   <h1>Cell3DDemonstration</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Cell3DDemonstration</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>==Description==
 This is a demonstration of how to construct and display geometric objects using the classes derived from vtkCell3D. For each object we specify the points and cell Ids. </p>
 <p>From this we create an unstructured grid. In some cases a vtkCellArray is used and the result is added to the unstructured grid, see: '''''MakePolyhedron()''''' and '''''MakeTetrahedron()'''''.</p>
 <p>Also demonstrated is the use of vectors to hold the unstructured grids, mappers, actors and renderers.</p>
 <p>The resultant objects are then displayed in a grid.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cell3DDemonstration.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-
-import vtk
-
-def MakeHexagonalPrism():
-    '''
-      3D: hexagonal prism: a wedge with an hexagonal base.
-      Be careful, the base face ordering is different from wedge.
-    '''
-
-    numberOfVertices = 12
-
-    points = vtk.vtkPoints()
-
-    points.InsertNextPoint(0.0, 0.0, 1.0)
-    points.InsertNextPoint(1.0, 0.0, 1.0)
-    points.InsertNextPoint(1.5, 0.5, 1.0)
-    points.InsertNextPoint(1.0, 1.0, 1.0)
-    points.InsertNextPoint(0.0, 1.0, 1.0)
-    points.InsertNextPoint(-0.5, 0.5, 1.0)
-
-    points.InsertNextPoint(0.0, 0.0, 0.0)
-    points.InsertNextPoint(1.0, 0.0, 0.0)
-    points.InsertNextPoint(1.5, 0.5, 0.0)
-    points.InsertNextPoint(1.0, 1.0, 0.0)
-    points.InsertNextPoint(0.0, 1.0, 0.0)
-    points.InsertNextPoint(-0.5, 0.5, 0.0)
-
-    hexagonalPrism = vtk.vtkHexagonalPrism()
-    for i in range(0, numberOfVertices):
-        hexagonalPrism.GetPointIds().SetId(i, i)
-
-    ug = vtk.vtkUnstructuredGrid()
-    ug.InsertNextCell(hexagonalPrism.GetCellType(),
-                       hexagonalPrism.GetPointIds())
-    ug.SetPoints(points)
-
-    return ug
-
-def MakeHexahedron():
-    '''
-      A regular hexagon (cube) with all faces square and three squares around
-       each vertex is created below.
-
-      Setup the coordinates of eight points
-       (the two faces must be in counter clockwise
-       order as viewed from the outside).
-
-      As an exercise you can modify the coordinates of the points to create
-       seven topologically distinct convex hexahedras.
-    '''
-    numberOfVertices = 8
-
-    # Create the points
-    points = vtk.vtkPoints()
-    points.InsertNextPoint(0.0, 0.0, 0.0)
-    points.InsertNextPoint(1.0, 0.0, 0.0)
-    points.InsertNextPoint(1.0, 1.0, 0.0)
-    points.InsertNextPoint(0.0, 1.0, 0.0)
-    points.InsertNextPoint(0.0, 0.0, 1.0)
-    points.InsertNextPoint(1.0, 0.0, 1.0)
-    points.InsertNextPoint(1.0, 1.0, 1.0)
-    points.InsertNextPoint(0.0, 1.0, 1.0)
-
-    # Create a hexahedron from the points
-    hex_ = vtk.vtkHexahedron()
-    for i in range(0, numberOfVertices):
-        hex_.GetPointIds().SetId(i, i)
-
-    # Add the points and hexahedron to an unstructured grid
-    uGrid = vtk.vtkUnstructuredGrid()
-    uGrid.SetPoints(points)
-    uGrid.InsertNextCell(hex_.GetCellType(), hex_.GetPointIds())
-
-    return uGrid
-
-def MakePentagonalPrism():
-
-    numberOfVertices = 10
-
-    # Create the points
-    points = vtk.vtkPoints()
-    points.InsertNextPoint(11, 10, 10)
-    points.InsertNextPoint(13, 10, 10)
-    points.InsertNextPoint(14, 12, 10)
-    points.InsertNextPoint(12, 14, 10)
-    points.InsertNextPoint(10, 12, 10)
-    points.InsertNextPoint(11, 10, 14)
-    points.InsertNextPoint(13, 10, 14)
-    points.InsertNextPoint(14, 12, 14)
-    points.InsertNextPoint(12, 14, 14)
-    points.InsertNextPoint(10, 12, 14)
-
-    # Pentagonal Prism
-    pentagonalPrism = vtk.vtkPentagonalPrism()
-    for i in range(0, numberOfVertices):
-        pentagonalPrism.GetPointIds().SetId(i, i)
-
-    # Add the points and hexahedron to an unstructured grid
-    uGrid = vtk.vtkUnstructuredGrid()
-    uGrid.SetPoints(points)
-    uGrid.InsertNextCell(pentagonalPrism.GetCellType(),
-                          pentagonalPrism.GetPointIds())
-
-    return uGrid
-
-def MakePolyhedron():
-    '''
-      Make a regular dodecahedron. It consists of twelve regular pentagonal
-      faces with three faces meeting at each vertex.
-    '''
-    # numberOfVertices = 20
-    numberOfFaces = 12
-    # numberOfFaceVertices = 5
-
-    points = vtk.vtkPoints()
-    points.InsertNextPoint(1.21412, 0, 1.58931)
-    points.InsertNextPoint(0.375185, 1.1547, 1.58931)
-    points.InsertNextPoint(-0.982247, 0.713644, 1.58931)
-    points.InsertNextPoint(-0.982247, -0.713644, 1.58931)
-    points.InsertNextPoint(0.375185, -1.1547, 1.58931)
-    points.InsertNextPoint(1.96449, 0, 0.375185)
-    points.InsertNextPoint(0.607062, 1.86835, 0.375185)
-    points.InsertNextPoint(-1.58931, 1.1547, 0.375185)
-    points.InsertNextPoint(-1.58931, -1.1547, 0.375185)
-    points.InsertNextPoint(0.607062, -1.86835, 0.375185)
-    points.InsertNextPoint(1.58931, 1.1547, -0.375185)
-    points.InsertNextPoint(-0.607062, 1.86835, -0.375185)
-    points.InsertNextPoint(-1.96449, 0, -0.375185)
-    points.InsertNextPoint(-0.607062, -1.86835, -0.375185)
-    points.InsertNextPoint(1.58931, -1.1547, -0.375185)
-    points.InsertNextPoint(0.982247, 0.713644, -1.58931)
-    points.InsertNextPoint(-0.375185, 1.1547, -1.58931)
-    points.InsertNextPoint(-1.21412, 0, -1.58931)
-    points.InsertNextPoint(-0.375185, -1.1547, -1.58931)
-    points.InsertNextPoint(0.982247, -0.713644, -1.58931)
-
-    # Dimensions are [numberOfFaces][numberOfFaceVertices]
-    dodechedronFace = [
-        [0, 1, 2, 3, 4],
-        [0, 5, 10, 6, 1],
-        [1, 6, 11, 7, 2],
-        [2, 7, 12, 8, 3],
-        [3, 8, 13, 9, 4],
-        [4, 9, 14, 5, 0],
-        [15, 10, 5, 14, 19],
-        [16, 11, 6, 10, 15],
-        [17, 12, 7, 11, 16],
-        [18, 13, 8, 12, 17],
-        [19, 14, 9, 13, 18],
-        [19, 18, 17, 16, 15]
-        ]
-
-    dodechedronFacesIdList = vtk.vtkIdList()
-    # Number faces that make up the cell.
-    dodechedronFacesIdList.InsertNextId(numberOfFaces)
-    for face in dodechedronFace:
-        # Number of points in the face == numberOfFaceVertices
-        dodechedronFacesIdList.InsertNextId(len(face))
-        # Insert the pointIds for that face.
-        [dodechedronFacesIdList.InsertNextId(i) for i in face]
-
-    uGrid = vtk.vtkUnstructuredGrid()
-    uGrid.InsertNextCell(vtk.VTK_POLYHEDRON, dodechedronFacesIdList)
-    uGrid.SetPoints(points)
-
-    return uGrid
-
-def MakePyramid():
-    '''
-      Make a regular square pyramid.
-    '''
-    numberOfVertices = 5
-
-    points = vtk.vtkPoints()
-
-    p = [
-         [1.0, 1.0, 0.0],
-         [-1.0, 1.0, 0.0],
-         [-1.0, -1.0, 0.0],
-         [1.0, -1.0, 0.0],
-         [0.0, 0.0, 1.0]
-         ]
-    for pt in p:
-        points.InsertNextPoint(pt)
-
-    pyramid = vtk.vtkPyramid()
-    for i in range(0, numberOfVertices):
-        pyramid.GetPointIds().SetId(i, i)
-
-    ug = vtk.vtkUnstructuredGrid()
-    ug.SetPoints(points)
-    ug.InsertNextCell(pyramid.GetCellType(), pyramid.GetPointIds())
-
-    return ug
-
-def MakeTetrahedron():
-    '''
-      Make a tetrahedron.
-    '''
-    numberOfVertices = 4
-
-    points = vtk.vtkPoints()
-    points.InsertNextPoint(0, 0, 0)
-    points.InsertNextPoint(1, 0, 0)
-    points.InsertNextPoint(1, 1, 0)
-    points.InsertNextPoint(0, 1, 1)
-
-    tetra = vtk.vtkTetra()
-    for i in range(0, numberOfVertices):
-        tetra.GetPointIds().SetId(i, i)
-
-    cellArray = vtk.vtkCellArray()
-    cellArray.InsertNextCell(tetra)
-
-    unstructuredGrid = vtk.vtkUnstructuredGrid()
-    unstructuredGrid.SetPoints(points)
-    unstructuredGrid.SetCells(vtk.VTK_TETRA, cellArray)
-
-    return unstructuredGrid
-
-def MakeVoxel():
-    '''
-      A voxel is a representation of a regular grid in 3-D space.
-    '''
-    numberOfVertices = 8
-
-    points = vtk.vtkPoints()
-    points.InsertNextPoint(0, 0, 0)
-    points.InsertNextPoint(1, 0, 0)
-    points.InsertNextPoint(0, 1, 0)
-    points.InsertNextPoint(1, 1, 0)
-    points.InsertNextPoint(0, 0, 1)
-    points.InsertNextPoint(1, 0, 1)
-    points.InsertNextPoint(0, 1, 1)
-    points.InsertNextPoint(1, 1, 1)
-
-    voxel = vtk.vtkVoxel()
-    for i in range(0, numberOfVertices):
-        voxel.GetPointIds().SetId(i, i)
-
-    ug = vtk.vtkUnstructuredGrid()
-    ug.SetPoints(points)
-    ug.InsertNextCell(voxel.GetCellType(), voxel.GetPointIds())
-
-    return ug
-
-def MakeWedge():
-    '''
-      A wedge consists of two triangular ends and three rectangular faces.
-    '''
-
-    numberOfVertices = 6
-
-    points = vtk.vtkPoints()
-
-    points.InsertNextPoint(0, 1, 0)
-    points.InsertNextPoint(0, 0, 0)
-    points.InsertNextPoint(0, .5, .5)
-    points.InsertNextPoint(1, 1, 0)
-    points.InsertNextPoint(1, 0.0, 0.0)
-    points.InsertNextPoint(1, .5, .5)
-
-    wedge = vtk.vtkWedge()
-    for i in range(0, numberOfVertices):
-        wedge.GetPointIds().SetId(i, i)
-
-    ug = vtk.vtkUnstructuredGrid()
-    ug.SetPoints(points)
-    ug.InsertNextCell(wedge.GetCellType(), wedge.GetPointIds())
-
-    return ug
-
-def WritePNG(renWin, fn, magnification=1):
-    '''
-      Screenshot
-
-      Write out a png corresponding to the render window.
-
-      :param: renWin - the render window.
-      :param: fn - the file name.
-      :param: magnification - the magnification.
-    '''
-    windowToImageFilter = vtk.vtkWindowToImageFilter()
-    windowToImageFilter.SetInput(renWin)
-    windowToImageFilter.SetMagnification(magnification)
-    # Record the alpha (transparency) channel
-    # windowToImageFilter.SetInputBufferTypeToRGBA()
-    windowToImageFilter.SetInputBufferTypeToRGB()
-    # Read from the back buffer
-    windowToImageFilter.ReadFrontBufferOff()
-    windowToImageFilter.Update()
-
-    writer = vtk.vtkPNGWriter()
-    writer.SetFileName(fn)
-    writer.SetInputConnection(windowToImageFilter.GetOutputPort())
-    writer.Write()
-
-def DisplayBodies():
-
-    titles = list()
-    textMappers = list()
-    textActors = list()
-
-    uGrids = list()
-    mappers = list()
-    actors = list()
-    renderers = list()
-
-    uGrids.append(MakeHexagonalPrism())
-    titles.append('Hexagonal Prism')
-    uGrids.append(MakeHexahedron())
-    titles.append('Hexahedron')
-    uGrids.append(MakePentagonalPrism())
-    titles.append('Pentagonal Prism')
-
-    uGrids.append(MakePolyhedron())
-    titles.append('Polyhedron')
-    uGrids.append(MakePyramid())
-    titles.append('Pyramid')
-    uGrids.append(MakeTetrahedron())
-    titles.append('Tetrahedron')
-
-    uGrids.append(MakeVoxel())
-    titles.append('Voxel')
-    uGrids.append(MakeWedge())
-    titles.append('Wedge')
-
-    renWin = vtk.vtkRenderWindow()
-    renWin.SetSize(600, 600)
-    renWin.SetWindowName('Cell3D Demonstration')
-
-    iRen = vtk.vtkRenderWindowInteractor()
-    iRen.SetRenderWindow(renWin)
-
-    # Create one text property for all
-    textProperty = vtk.vtkTextProperty()
-    textProperty.SetFontSize(10)
-    textProperty.SetJustificationToCentered()
-
-    # Create and link the mappers actors and renderers together.
-    for i in range(0, len(uGrids)):
-        textMappers.append(vtk.vtkTextMapper())
-        textActors.append(vtk.vtkActor2D())
-
-        mappers.append(vtk.vtkDataSetMapper())
-        actors.append(vtk.vtkActor())
-        renderers.append(vtk.vtkRenderer())
-
-        mappers[i].SetInputData(uGrids[i])
-        actors[i].SetMapper(mappers[i])
-        renderers[i].AddViewProp(actors[i])
-
-        textMappers[i].SetInput(titles[i])
-        textActors[i].SetMapper(textMappers[i])
-        textActors[i].SetPosition(50, 10)
-        renderers[i].AddViewProp(textActors[i])
-
-        renWin.AddRenderer(renderers[i])
-
-    gridDimensions = 3
-    rendererSize = 200
-
-    renWin.SetSize(rendererSize * gridDimensions,
-                   rendererSize * gridDimensions)
-
-    for row in range(0, gridDimensions):
-        for col in range(0, gridDimensions):
-            index = row * gridDimensions + col
-
-            # (xmin, ymin, xmax, ymax)
-            viewport = [
-                float(col) * rendererSize /
-                                     (gridDimensions * rendererSize),
-                float(gridDimensions - (row + 1)) * rendererSize /
-                                     (gridDimensions * rendererSize),
-                float(col + 1) * rendererSize /
-                                     (gridDimensions * rendererSize),
-                float(gridDimensions - row) * rendererSize /
-                                     (gridDimensions * rendererSize)]
-
-            if index &gt; len(actors) - 1:
-                # Add a renderer even if there is no actor.
-                # This makes the render window background all the same color.
-                ren = vtk.vtkRenderer()
-                ren.SetBackground(.2, .3, .4)
-                ren.SetViewport(viewport)
-                renWin.AddRenderer(ren)
-                continue
-
-            renderers[index].SetViewport(viewport)
-            renderers[index].SetBackground(.2, .3, .4)
-            renderers[index].ResetCamera()
-            renderers[index].GetActiveCamera().Azimuth(30)
-            renderers[index].GetActiveCamera().Elevation(-30)
-            renderers[index].GetActiveCamera().Zoom(0.85)
-            renderers[index].ResetCameraClippingRange()
-
-    iRen.Initialize()
-    renWin.Render()
-    return iRen
-
-if __name__ == '__main__':
-    iRen = DisplayBodies()
-    #WritePNG(iRen.GetRenderWindow(), &quot;Cell3DDemonstration.png&quot;)
-    iRen.Start()
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">vtk</span>
+
+<span class="k">def</span> <span class="nf">MakeHexagonalPrism</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      3D: hexagonal prism: a wedge with an hexagonal base.</span>
+<span class="sd">      Be careful, the base face ordering is different from wedge.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">12</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">hexagonalPrism</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkHexagonalPrism</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">hexagonalPrism</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="n">ug</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hexagonalPrism</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span>
+                       <span class="n">hexagonalPrism</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ug</span>
+
+<span class="k">def</span> <span class="nf">MakeHexahedron</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      A regular hexagon (cube) with all faces square and three squares around</span>
+<span class="sd">       each vertex is created below.</span>
+
+<span class="sd">      Setup the coordinates of eight points</span>
+<span class="sd">       (the two faces must be in counter clockwise</span>
+<span class="sd">       order as viewed from the outside).</span>
+
+<span class="sd">      As an exercise you can modify the coordinates of the points to create</span>
+<span class="sd">       seven topologically distinct convex hexahedras.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="c1"># Create the points</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c1"># Create a hexahedron from the points</span>
+    <span class="n">hex_</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkHexahedron</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">hex_</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Add the points and hexahedron to an unstructured grid</span>
+    <span class="n">uGrid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">uGrid</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">uGrid</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hex_</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">hex_</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">uGrid</span>
+
+<span class="k">def</span> <span class="nf">MakePentagonalPrism</span><span class="p">():</span>
+
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="c1"># Create the points</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+
+    <span class="c1"># Pentagonal Prism</span>
+    <span class="n">pentagonalPrism</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPentagonalPrism</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">pentagonalPrism</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Add the points and hexahedron to an unstructured grid</span>
+    <span class="n">uGrid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">uGrid</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">uGrid</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pentagonalPrism</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span>
+                          <span class="n">pentagonalPrism</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">uGrid</span>
+
+<span class="k">def</span> <span class="nf">MakePolyhedron</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      Make a regular dodecahedron. It consists of twelve regular pentagonal</span>
+<span class="sd">      faces with three faces meeting at each vertex.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># numberOfVertices = 20</span>
+    <span class="n">numberOfFaces</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="c1"># numberOfFaceVertices = 5</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.21412</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.375185</span><span class="p">,</span> <span class="mf">1.1547</span><span class="p">,</span> <span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.982247</span><span class="p">,</span> <span class="mf">0.713644</span><span class="p">,</span> <span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.982247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.713644</span><span class="p">,</span> <span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.375185</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span> <span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.96449</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.607062</span><span class="p">,</span> <span class="mf">1.86835</span><span class="p">,</span> <span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.58931</span><span class="p">,</span> <span class="mf">1.1547</span><span class="p">,</span> <span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.58931</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span> <span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.607062</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.86835</span><span class="p">,</span> <span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.58931</span><span class="p">,</span> <span class="mf">1.1547</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.607062</span><span class="p">,</span> <span class="mf">1.86835</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96449</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.607062</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.86835</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">1.58931</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.375185</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.982247</span><span class="p">,</span> <span class="mf">0.713644</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.375185</span><span class="p">,</span> <span class="mf">1.1547</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">1.21412</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">-</span><span class="mf">0.375185</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1547</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.982247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.713644</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.58931</span><span class="p">)</span>
+
+    <span class="c1"># Dimensions are [numberOfFaces][numberOfFaceVertices]</span>
+    <span class="n">dodechedronFace</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">19</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">18</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+        <span class="p">]</span>
+
+    <span class="n">dodechedronFacesIdList</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkIdList</span><span class="p">()</span>
+    <span class="c1"># Number faces that make up the cell.</span>
+    <span class="n">dodechedronFacesIdList</span><span class="o">.</span><span class="n">InsertNextId</span><span class="p">(</span><span class="n">numberOfFaces</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="n">dodechedronFace</span><span class="p">:</span>
+        <span class="c1"># Number of points in the face == numberOfFaceVertices</span>
+        <span class="n">dodechedronFacesIdList</span><span class="o">.</span><span class="n">InsertNextId</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">face</span><span class="p">))</span>
+        <span class="c1"># Insert the pointIds for that face.</span>
+        <span class="p">[</span><span class="n">dodechedronFacesIdList</span><span class="o">.</span><span class="n">InsertNextId</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">face</span><span class="p">]</span>
+
+    <span class="n">uGrid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">uGrid</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">VTK_POLYHEDRON</span><span class="p">,</span> <span class="n">dodechedronFacesIdList</span><span class="p">)</span>
+    <span class="n">uGrid</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">uGrid</span>
+
+<span class="k">def</span> <span class="nf">MakePyramid</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      Make a regular square pyramid.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span>
+         <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+         <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+         <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+         <span class="p">]</span>
+    <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+
+    <span class="n">pyramid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPyramid</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">pyramid</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="n">ug</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pyramid</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">pyramid</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">ug</span>
+
+<span class="k">def</span> <span class="nf">MakeTetrahedron</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      Make a tetrahedron.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">4</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">tetra</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTetra</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">tetra</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="n">cellArray</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+    <span class="n">cellArray</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">tetra</span><span class="p">)</span>
+
+    <span class="n">unstructuredGrid</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">unstructuredGrid</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">unstructuredGrid</span><span class="o">.</span><span class="n">SetCells</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">VTK_TETRA</span><span class="p">,</span> <span class="n">cellArray</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">unstructuredGrid</span>
+
+<span class="k">def</span> <span class="nf">MakeVoxel</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      A voxel is a representation of a regular grid in 3-D space.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">voxel</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVoxel</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">voxel</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="n">ug</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">voxel</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">voxel</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">ug</span>
+
+<span class="k">def</span> <span class="nf">MakeWedge</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      A wedge consists of two triangular ends and three rectangular faces.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">numberOfVertices</span> <span class="o">=</span> <span class="mi">6</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">wedge</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWedge</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numberOfVertices</span><span class="p">):</span>
+        <span class="n">wedge</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="n">ug</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnstructuredGrid</span><span class="p">()</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">ug</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">wedge</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">wedge</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">ug</span>
+
+<span class="k">def</span> <span class="nf">WritePNG</span><span class="p">(</span><span class="n">renWin</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">magnification</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">      Screenshot</span>
+
+<span class="sd">      Write out a png corresponding to the render window.</span>
+
+<span class="sd">      :param: renWin - the render window.</span>
+<span class="sd">      :param: fn - the file name.</span>
+<span class="sd">      :param: magnification - the magnification.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">windowToImageFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkWindowToImageFilter</span><span class="p">()</span>
+    <span class="n">windowToImageFilter</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+    <span class="n">windowToImageFilter</span><span class="o">.</span><span class="n">SetMagnification</span><span class="p">(</span><span class="n">magnification</span><span class="p">)</span>
+    <span class="c1"># Record the alpha (transparency) channel</span>
+    <span class="c1"># windowToImageFilter.SetInputBufferTypeToRGBA()</span>
+    <span class="n">windowToImageFilter</span><span class="o">.</span><span class="n">SetInputBufferTypeToRGB</span><span class="p">()</span>
+    <span class="c1"># Read from the back buffer</span>
+    <span class="n">windowToImageFilter</span><span class="o">.</span><span class="n">ReadFrontBufferOff</span><span class="p">()</span>
+    <span class="n">windowToImageFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">()</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">windowToImageFilter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">DisplayBodies</span><span class="p">():</span>
+
+    <span class="n">titles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">textMappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">textActors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="n">uGrids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">mappers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">actors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">renderers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakeHexagonalPrism</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Hexagonal Prism&#39;</span><span class="p">)</span>
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakeHexahedron</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Hexahedron&#39;</span><span class="p">)</span>
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakePentagonalPrism</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Pentagonal Prism&#39;</span><span class="p">)</span>
+
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakePolyhedron</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Polyhedron&#39;</span><span class="p">)</span>
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakePyramid</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Pyramid&#39;</span><span class="p">)</span>
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakeTetrahedron</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Tetrahedron&#39;</span><span class="p">)</span>
+
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakeVoxel</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Voxel&#39;</span><span class="p">)</span>
+    <span class="n">uGrids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakeWedge</span><span class="p">())</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Wedge&#39;</span><span class="p">)</span>
+
+    <span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s1">&#39;Cell3D Demonstration&#39;</span><span class="p">)</span>
+
+    <span class="n">iRen</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+    <span class="n">iRen</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+
+    <span class="c1"># Create one text property for all</span>
+    <span class="n">textProperty</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextProperty</span><span class="p">()</span>
+    <span class="n">textProperty</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">textProperty</span><span class="o">.</span><span class="n">SetJustificationToCentered</span><span class="p">()</span>
+
+    <span class="c1"># Create and link the mappers actors and renderers together.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">uGrids</span><span class="p">)):</span>
+        <span class="n">textMappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextMapper</span><span class="p">())</span>
+        <span class="n">textActors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor2D</span><span class="p">())</span>
+
+        <span class="n">mappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataSetMapper</span><span class="p">())</span>
+        <span class="n">actors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">())</span>
+        <span class="n">renderers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">())</span>
+
+        <span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">uGrids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mappers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textMappers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">textActors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">gridDimensions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">rendererSize</span> <span class="o">=</span> <span class="mi">200</span>
+
+    <span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">,</span>
+                   <span class="n">rendererSize</span> <span class="o">*</span> <span class="n">gridDimensions</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gridDimensions</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gridDimensions</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">row</span> <span class="o">*</span> <span class="n">gridDimensions</span> <span class="o">+</span> <span class="n">col</span>
+
+            <span class="c1"># (xmin, ymin, xmax, ymax)</span>
+            <span class="n">viewport</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                                     <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                                     <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                                     <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">gridDimensions</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">*</span> <span class="n">rendererSize</span> <span class="o">/</span>
+                                     <span class="p">(</span><span class="n">gridDimensions</span> <span class="o">*</span> <span class="n">rendererSize</span><span class="p">)]</span>
+
+            <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">actors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Add a renderer even if there is no actor.</span>
+                <span class="c1"># This makes the render window background all the same color.</span>
+                <span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+                <span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">4</span><span class="p">)</span>
+                <span class="n">ren</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">)</span>
+                <span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">viewport</span><span class="p">)</span>
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">4</span><span class="p">)</span>
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">0.85</span><span class="p">)</span>
+            <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">ResetCameraClippingRange</span><span class="p">()</span>
+
+    <span class="n">iRen</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">iRen</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">iRen</span> <span class="o">=</span> <span class="n">DisplayBodies</span><span class="p">()</span>
+    <span class="c1">#WritePNG(iRen.GetRenderWindow(), &quot;Cell3DDemonstration.png&quot;)</span>
+    <span class="n">iRen</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15566,6 +15566,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15980,151 +15992,151 @@
                   <h1>MarchingSquares</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../CSharp">CSharp</a>/WishList/Modelling/MarchingSquares</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MarchingSquares.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            MarchingSquares();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void MarchingSquares() { 
-         // Path to vtk data must be set as an environment variable
-         // VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;
-         vtkTesting test = vtkTesting.New();
-         string root = test.GetDataRoot();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">MarchingSquares</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkVolume16Reader v16 = vtkVolume16Reader.New();
-         v16.SetDataDimensions(64, 64); 
 
-         v16.GetOutput().SetOrigin(0.0, 0.0, 0.0);
-         v16.SetDataByteOrderToLittleEndian();
-         v16.SetFilePrefix(System.IO.Path.Combine(root, @&quot;Data\headsq\quarter&quot;));
-         v16.SetImageRange(1, 93);
-         v16.SetDataSpacing(3.2, 3.2, 1.5);
-         v16.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">MarchingSquares</span><span class="p">()</span> <span class="p">{</span> 
+         <span class="c1">// Path to vtk data must be set as an environment variable</span>
+         <span class="c1">// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+         <span class="n">vtkTesting</span> <span class="n">test</span> <span class="p">=</span> <span class="n">vtkTesting</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">root</span> <span class="p">=</span> <span class="n">test</span><span class="p">.</span><span class="n">GetDataRoot</span><span class="p">();</span>
 
-         vtkMergePoints myLocator = vtkMergePoints.New();
+         <span class="n">vtkVolume16Reader</span> <span class="n">v16</span> <span class="p">=</span> <span class="n">vtkVolume16Reader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">v16</span><span class="p">.</span><span class="n">SetDataDimensions</span><span class="p">(</span><span class="m">64</span><span class="p">,</span> <span class="m">64</span><span class="p">);</span> 
 
-         vtkMarchingSquares isoXY = vtkMarchingSquares.New();
+         <span class="n">v16</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">().</span><span class="n">SetOrigin</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">);</span>
+         <span class="n">v16</span><span class="p">.</span><span class="n">SetDataByteOrderToLittleEndian</span><span class="p">();</span>
+         <span class="n">v16</span><span class="p">.</span><span class="n">SetFilePrefix</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\headsq\quarter&quot;</span><span class="p">));</span>
+         <span class="n">v16</span><span class="p">.</span><span class="n">SetImageRange</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">93</span><span class="p">);</span>
+         <span class="n">v16</span><span class="p">.</span><span class="n">SetDataSpacing</span><span class="p">(</span><span class="m">3.2</span><span class="p">,</span> <span class="m">3.2</span><span class="p">,</span> <span class="m">1.5</span><span class="p">);</span>
+         <span class="n">v16</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-#if VTK_MAJOR_VERSION_5
-         isoXY.SetInputConnection(v16.GetOutputPort());
-#else
-         isoXY.SetInputData(v16);
-#endif
-         isoXY.GenerateValues(2, 600, 1200);
-         isoXY.SetImageRange(0, 32, 32, 63, 45, 45);
-         isoXY.SetLocator(myLocator);
+         <span class="n">vtkMergePoints</span> <span class="n">myLocator</span> <span class="p">=</span> <span class="n">vtkMergePoints</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         vtkPolyDataMapper isoXYMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         isoXYMapper.SetInputConnection(isoXY.GetOutputPort());
-#else
-         isoXYMapper.SetInputData(isoXY);
-#endif
-         isoXYMapper.SetScalarRange(600, 1200);
+         <span class="n">vtkMarchingSquares</span> <span class="n">isoXY</span> <span class="p">=</span> <span class="n">vtkMarchingSquares</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
 
-         vtkActor isoXYActor = vtkActor.New();
-         isoXYActor.SetMapper(isoXYMapper);
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">isoXY</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">v16</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">isoXY</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">v16</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">isoXY</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">600</span><span class="p">,</span> <span class="m">1200</span><span class="p">);</span>
+         <span class="n">isoXY</span><span class="p">.</span><span class="n">SetImageRange</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">63</span><span class="p">,</span> <span class="m">45</span><span class="p">,</span> <span class="m">45</span><span class="p">);</span>
+         <span class="n">isoXY</span><span class="p">.</span><span class="n">SetLocator</span><span class="p">(</span><span class="n">myLocator</span><span class="p">);</span>
 
-         vtkMarchingSquares isoYZ = vtkMarchingSquares.New();
-#if VTK_MAJOR_VERSION_5
-         isoYZ.SetInputConnection(v16.GetOutputPort());
-#else
-         isoYZ.SetInputData(v16);
-#endif
-         isoYZ.GenerateValues(2, 600, 1200);
-         isoYZ.SetImageRange(32, 32, 32, 63, 46, 92);
+         <span class="n">vtkPolyDataMapper</span> <span class="n">isoXYMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">isoXYMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">isoXY</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">isoXYMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">isoXY</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">isoXYMapper</span><span class="p">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="m">600</span><span class="p">,</span> <span class="m">1200</span><span class="p">);</span>
 
-         vtkPolyDataMapper isoYZMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         isoYZMapper.SetInputConnection(isoYZ.GetOutputPort());
-#else
-         isoYZMapper.SetInputData(isoYZ);
-#endif
-         isoYZMapper.SetScalarRange(600, 1200);
+         <span class="n">vtkActor</span> <span class="n">isoXYActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">isoXYActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">isoXYMapper</span><span class="p">);</span>
 
-         vtkActor isoYZActor = vtkActor.New();
-         isoYZActor.SetMapper(isoYZMapper);
+         <span class="n">vtkMarchingSquares</span> <span class="n">isoYZ</span> <span class="p">=</span> <span class="n">vtkMarchingSquares</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">isoYZ</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">v16</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">isoYZ</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">v16</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">isoYZ</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">600</span><span class="p">,</span> <span class="m">1200</span><span class="p">);</span>
+         <span class="n">isoYZ</span><span class="p">.</span><span class="n">SetImageRange</span><span class="p">(</span><span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">63</span><span class="p">,</span> <span class="m">46</span><span class="p">,</span> <span class="m">92</span><span class="p">);</span>
 
-         vtkMarchingSquares isoXZ  = vtkMarchingSquares.New();
-#if VTK_MAJOR_VERSION_5
-         isoXZ.SetInputConnection(v16.GetOutputPort());
-#else
-         isoXZ.SetInputData(v16);
-#endif
-         isoXZ.GenerateValues(2, 600, 1200);
-         isoXZ.SetImageRange(0, 32, 32, 32, 0, 46);
+         <span class="n">vtkPolyDataMapper</span> <span class="n">isoYZMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">isoYZMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">isoYZ</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">isoYZMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">isoYZ</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">isoYZMapper</span><span class="p">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="m">600</span><span class="p">,</span> <span class="m">1200</span><span class="p">);</span>
 
-         vtkPolyDataMapper isoXZMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         isoXZMapper.SetInputConnection(isoXZ.GetOutputPort());
-#else
-         isoXZMapper.SetInputData(isoXZ);
-#endif
-         isoXZMapper.SetScalarRange(600, 1200);
+         <span class="n">vtkActor</span> <span class="n">isoYZActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">isoYZActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">isoYZMapper</span><span class="p">);</span>
 
-         vtkActor isoXZActor = vtkActor.New();
-         isoXZActor.SetMapper(isoXZMapper);
+         <span class="n">vtkMarchingSquares</span> <span class="n">isoXZ</span>  <span class="p">=</span> <span class="n">vtkMarchingSquares</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">isoXZ</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">v16</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">isoXZ</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">v16</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">isoXZ</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">600</span><span class="p">,</span> <span class="m">1200</span><span class="p">);</span>
+         <span class="n">isoXZ</span><span class="p">.</span><span class="n">SetImageRange</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">46</span><span class="p">);</span>
 
-         vtkOutlineFilter outline  = vtkOutlineFilter.New();
-#if VTK_MAJOR_VERSION_5
-         outline.SetInputConnection(v16.GetOutputPort());
-#else
-         outline.SetInputData(v16);
-#endif
-         vtkPolyDataMapper outlineMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         outlineMapper.SetInputConnection(outline.GetOutputPort());
-#else
-         outlineMapper.SetInputData(outline);
-#endif
-         vtkActor outlineActor = vtkActor.New();
-         outlineActor.SetMapper(outlineMapper);
-         outlineActor.VisibilityOff();
+         <span class="n">vtkPolyDataMapper</span> <span class="n">isoXZMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">isoXZMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">isoXZ</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">isoXZMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">isoXZ</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">isoXZMapper</span><span class="p">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="m">600</span><span class="p">,</span> <span class="m">1200</span><span class="p">);</span>
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(1.0, 1.0, 1.0);
-         //Add the actors to the renderer, set the background and size 
-         renderer.AddActor(outlineActor);
-         renderer.AddActor(isoXYActor);
-         renderer.AddActor(isoYZActor);
-         renderer.AddActor(isoXZActor);
-         renderer.GetActiveCamera().SetPosition(324.368, 284.266, -19.3293);
-         renderer.GetActiveCamera().SetFocalPoint(73.5683, 120.903, 70.7309);
-         renderer.GetActiveCamera().SetViewAngle(30);
-         renderer.GetActiveCamera().SetViewUp(-0.304692, -0.0563843, -0.950781);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkActor</span> <span class="n">isoXZActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">isoXZActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">isoXZMapper</span><span class="p">);</span>
+
+         <span class="n">vtkOutlineFilter</span> <span class="n">outline</span>  <span class="p">=</span> <span class="n">vtkOutlineFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">outline</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">v16</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">outline</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">v16</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">outlineMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">outlineMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outline</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">outlineMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">outline</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">vtkActor</span> <span class="n">outlineActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">outlineActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outlineMapper</span><span class="p">);</span>
+         <span class="n">outlineActor</span><span class="p">.</span><span class="n">VisibilityOff</span><span class="p">();</span>
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">);</span>
+         <span class="c1">//Add the actors to the renderer, set the background and size </span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">isoXYActor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">isoYZActor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">isoXZActor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">GetActiveCamera</span><span class="p">().</span><span class="n">SetPosition</span><span class="p">(</span><span class="m">324.368</span><span class="p">,</span> <span class="m">284.266</span><span class="p">,</span> <span class="p">-</span><span class="m">19.3293</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">GetActiveCamera</span><span class="p">().</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="m">73.5683</span><span class="p">,</span> <span class="m">120.903</span><span class="p">,</span> <span class="m">70.7309</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">GetActiveCamera</span><span class="p">().</span><span class="n">SetViewAngle</span><span class="p">(</span><span class="m">30</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">GetActiveCamera</span><span class="p">().</span><span class="n">SetViewUp</span><span class="p">(-</span><span class="m">0.304692</span><span class="p">,</span> <span class="p">-</span><span class="m">0.0563843</span><span class="p">,</span> <span class="p">-</span><span class="m">0.950781</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

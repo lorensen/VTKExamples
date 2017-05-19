@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,273 +16005,280 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/StructuredDataTypes</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestStructuredDataTypes.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>StructuredDataTypes.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkRectilinearGrid.h&gt;
-#include &lt;vtkStructuredGrid.h&gt;
-#include &lt;vtkXMLImageDataWriter.h&gt;
-#include &lt;vtkXMLRectilinearGridWriter.h&gt;
-#include &lt;vtkXMLStructuredGridWriter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRectilinearGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLImageDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLRectilinearGridWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLStructuredGridWriter.h&gt;</span><span class="cp"></span>
 
-static void ImageData(vtkImageData* data, const int gridSize);
-static void RectilinearGrid(vtkRectilinearGrid* data, const int gridSize);
-static void StructuredGrid(vtkStructuredGrid* data, const int gridSize);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">ImageData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">gridSize</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">RectilinearGrid</span><span class="p">(</span><span class="n">vtkRectilinearGrid</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">gridSize</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">StructuredGrid</span><span class="p">(</span><span class="n">vtkStructuredGrid</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">gridSize</span><span class="p">);</span>
 
-int main(int, char *[])
-{
-  int gridSize = 5;
-  vtkSmartPointer&lt;vtkImageData&gt; imageData =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  ImageData(imageData, gridSize);
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; imageDataMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  imageDataMapper-&gt;SetInputConnection(imageData-&gt;GetProducerPort());
-#else
-  imageDataMapper-&gt;SetInputData(imageData);
-  imageDataMapper-&gt;ScalarVisibilityOff();
-#endif
-  vtkSmartPointer&lt;vtkActor&gt; imageDataActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  imageDataActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-  imageDataActor-&gt;SetMapper(imageDataMapper);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">gridSize</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">imageData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ImageData</span><span class="p">(</span><span class="n">imageData</span><span class="p">,</span> <span class="n">gridSize</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">imageDataMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">imageDataMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageData</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">imageDataMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
+  <span class="n">imageDataMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">imageDataActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageDataActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+  <span class="n">imageDataActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">imageDataMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRectilinearGrid&gt; rectilinearGrid =
-    vtkSmartPointer&lt;vtkRectilinearGrid&gt;::New();
-  RectilinearGrid(rectilinearGrid, gridSize);
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; rectilinearGridMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  rectilinearGridMapper-&gt;SetInputConnection(rectilinearGrid-&gt;GetProducerPort());
-#else
-  rectilinearGridMapper-&gt;SetInputData(rectilinearGrid);
-#endif
-  vtkSmartPointer&lt;vtkActor&gt; rectilinearGridActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  rectilinearGridActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-  rectilinearGridActor-&gt;SetMapper(rectilinearGridMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRectilinearGrid</span><span class="o">&gt;</span> <span class="n">rectilinearGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRectilinearGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">RectilinearGrid</span><span class="p">(</span><span class="n">rectilinearGrid</span><span class="p">,</span> <span class="n">gridSize</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">rectilinearGridMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">rectilinearGridMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">rectilinearGrid</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">rectilinearGridMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">rectilinearGrid</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">rectilinearGridActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rectilinearGridActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+  <span class="n">rectilinearGridActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">rectilinearGridMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkStructuredGrid&gt; structuredGrid =
-    vtkSmartPointer&lt;vtkStructuredGrid&gt;::New();
-  StructuredGrid(structuredGrid, gridSize);
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; structuredGridMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  structuredGridMapper-&gt;SetInputConnection(structuredGrid-&gt;GetProducerPort());
-#else
-  structuredGridMapper-&gt;SetInputData(structuredGrid);
-#endif
-  vtkSmartPointer&lt;vtkActor&gt; structuredGridActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  structuredGridActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-  structuredGridActor-&gt;SetMapper(structuredGridMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGrid</span><span class="o">&gt;</span> <span class="n">structuredGrid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStructuredGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">StructuredGrid</span><span class="p">(</span><span class="n">structuredGrid</span><span class="p">,</span> <span class="n">gridSize</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">structuredGridMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">structuredGridMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">structuredGrid</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">structuredGridMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">structuredGrid</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">structuredGridActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">structuredGridActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+  <span class="n">structuredGridActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">structuredGridMapper</span><span class="p">);</span>
 
-  // There will be one render window
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(600, 300);
+  <span class="c1">// There will be one render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
-  // And one interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// And one interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Define viewport ranges
-  // (xmin, ymin, xmax, ymax)
-  double leftViewport[4] = {0.0, 0.0, 0.33, 1.0};
-  double centerViewport[4] = {0.33, 0.0, 0.66, 1.0};
-  double rightViewport[4] = {0.66, 0.0, 1.0, 1.0};
+  <span class="c1">// Define viewport ranges</span>
+  <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+  <span class="kt">double</span> <span class="n">leftViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">centerViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">rightViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  // Setup three renderers
-  vtkSmartPointer&lt;vtkRenderer&gt; leftRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(leftRenderer);
-  leftRenderer-&gt;SetViewport(leftViewport);
-  leftRenderer-&gt;SetBackground(.6, .5, .4);
+  <span class="c1">// Setup three renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">leftRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">);</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.6</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; centerRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(centerRenderer);
-  centerRenderer-&gt;SetViewport(centerViewport);
-  centerRenderer-&gt;SetBackground(.4, .5, .6);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">centerRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">centerRenderer</span><span class="p">);</span>
+  <span class="n">centerRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">centerViewport</span><span class="p">);</span>
+  <span class="n">centerRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; rightRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderWindow-&gt;AddRenderer(rightRenderer);
-  rightRenderer-&gt;SetViewport(rightViewport);
-  rightRenderer-&gt;SetBackground(.5, .4, .6);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">rightRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
 
-  // Add the image on the left, rectilinear in the center, structured on the right
-  leftRenderer-&gt;AddActor(imageDataActor);
-  centerRenderer-&gt;AddActor(rectilinearGridActor);
-  rightRenderer-&gt;AddActor(structuredGridActor);
+  <span class="c1">// Add the image on the left, rectilinear in the center, structured on the right</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">imageDataActor</span><span class="p">);</span>
+  <span class="n">centerRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">rectilinearGridActor</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">structuredGridActor</span><span class="p">);</span>
 
-  leftRenderer-&gt;ResetCamera();
-  centerRenderer-&gt;ResetCamera();
-  rightRenderer-&gt;ResetCamera();
-  //rightRenderer-&gt;GetActiveCamera()-&gt;Azimuth(30);
-  //rightRenderer-&gt;GetActiveCamera()-&gt;Elevation(30);
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">centerRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="c1">//rightRenderer-&gt;GetActiveCamera()-&gt;Azimuth(30);</span>
+  <span class="c1">//rightRenderer-&gt;GetActiveCamera()-&gt;Elevation(30);</span>
 
-  renderWindow-&gt;Render();
-  interactor-&gt;Start();
-  return EXIT_SUCCESS;
-}
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void ImageData(vtkImageData* data, const int gridSize)
-{
+<span class="kt">void</span> <span class="nf">ImageData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">gridSize</span><span class="p">)</span>
+<span class="p">{</span>
 
-  data-&gt;SetExtent(0,gridSize-1,0,gridSize-1,0,gridSize-1);
-#if VTK_MAJOR_VERSION &lt;= 5
-  data-&gt;SetNumberOfScalarComponents(1);
-  data-&gt;SetScalarTypeToDouble();
-#else
-  data-&gt;AllocateScalars(VTK_DOUBLE,1);
-#endif
-  vtkSmartPointer&lt;vtkXMLImageDataWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLImageDataWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;imagedata.vti&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInputConnection(data-&gt;GetProducerPort());
-#else
-  writer-&gt;SetInputData(data);
-#endif
-  writer-&gt;Write();
-}
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;imagedata.vti&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
 
-void RectilinearGrid(vtkRectilinearGrid* data, const int gridSize)
-{
+<span class="kt">void</span> <span class="nf">RectilinearGrid</span><span class="p">(</span><span class="n">vtkRectilinearGrid</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">gridSize</span><span class="p">)</span>
+<span class="p">{</span>
 
-  data-&gt;SetExtent(0,gridSize-1,0,gridSize-1,0,gridSize-1);
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDoubleArray&gt; xCoords =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  xCoords-&gt;SetNumberOfComponents(1);
-  vtkSmartPointer&lt;vtkDoubleArray&gt; yCoords =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  yCoords-&gt;SetNumberOfComponents(1);
-  vtkSmartPointer&lt;vtkDoubleArray&gt; zCoords =
-    vtkSmartPointer&lt;vtkDoubleArray&gt;::New();
-  zCoords-&gt;SetNumberOfComponents(1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">xCoords</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">xCoords</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">yCoords</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">yCoords</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;</span> <span class="n">zCoords</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDoubleArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">zCoords</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  for(int i = 0; i &lt; gridSize; i++)
-  {
-    if(i == 0)
-    {
-      xCoords-&gt;InsertNextValue(0);
-      yCoords-&gt;InsertNextValue(0);
-      zCoords-&gt;InsertNextValue(0);
-      continue;
-    }
-    double oldX = xCoords-&gt;GetValue(i-1);
-    double oldY = xCoords-&gt;GetValue(i-1);
-    double oldZ = xCoords-&gt;GetValue(i-1);
-    xCoords-&gt;InsertNextValue(oldX + i*i);
-    yCoords-&gt;InsertNextValue(oldY + i*i);
-    zCoords-&gt;InsertNextValue(oldZ + i*i);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gridSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">xCoords</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="n">yCoords</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="n">zCoords</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">double</span> <span class="n">oldX</span> <span class="o">=</span> <span class="n">xCoords</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">oldY</span> <span class="o">=</span> <span class="n">xCoords</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">oldZ</span> <span class="o">=</span> <span class="n">xCoords</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">xCoords</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">oldX</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">yCoords</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">oldY</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">zCoords</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">oldZ</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  data-&gt;SetXCoordinates(xCoords);
-  data-&gt;SetYCoordinates(yCoords);
-  data-&gt;SetZCoordinates(zCoords);
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetXCoordinates</span><span class="p">(</span><span class="n">xCoords</span><span class="p">);</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetYCoordinates</span><span class="p">(</span><span class="n">yCoords</span><span class="p">);</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetZCoordinates</span><span class="p">(</span><span class="n">zCoords</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkXMLRectilinearGridWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLRectilinearGridWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;rectilineargrid.vtr&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInputConnection(data-&gt;GetProducerPort());
-#else
-  writer-&gt;SetInputData(data);
-#endif
-  writer-&gt;Write();
-}
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLRectilinearGridWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLRectilinearGridWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;rectilineargrid.vtr&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
 
-void StructuredGrid(vtkStructuredGrid* data, const int gridSize)
-{
-  data-&gt;SetExtent(0,gridSize-1,0,gridSize-1,0,gridSize-1);
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+<span class="kt">void</span> <span class="nf">StructuredGrid</span><span class="p">(</span><span class="n">vtkStructuredGrid</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">gridSize</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">gridSize</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; transform =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform-&gt;RotateZ(30);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
 
-  for(int k = 0; k &lt; gridSize; k++)
-  {
-    for(int j = 0; j &lt; gridSize; j++)
-    {
-      for(int i = 0; i &lt; gridSize; i++)
-      {
-        double p[4];
-        p[0] = i;
-        p[1] = j;
-        p[2] = k;
-        p[3] = 1;
-        double pout[4];
-        transform-&gt;MultiplyPoint(p, pout);
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">gridSize</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">gridSize</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gridSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">pout</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+        <span class="n">transform</span><span class="o">-&gt;</span><span class="n">MultiplyPoint</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">pout</span><span class="p">);</span>
 
-        points-&gt;InsertNextPoint(pout[0], pout[1], pout[2]);
-      }
-    }
-  }
+        <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">pout</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pout</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pout</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  data-&gt;SetPoints(points);
+  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkXMLStructuredGridWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLStructuredGridWriter&gt;::New();
-  writer-&gt;SetFileName(&quot;structuredgrid.vts&quot;);
-#if VTK_MAJOR_VERSION &lt;= 5
-  writer-&gt;SetInputConnection(data-&gt;GetProducerPort());
-#else
-  writer-&gt;SetInputData(data);
-#endif
-  writer-&gt;Write();
-}
-</code></pre>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLStructuredGridWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLStructuredGridWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;structuredgrid.vts&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(StructuredDataTypes)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">StructuredDataTypes</span><span class="p">)</span>
 
-add_executable(StructuredDataTypes MACOSX_BUNDLE StructuredDataTypes.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(StructuredDataTypes ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">StructuredDataTypes</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">StructuredDataTypes.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-structureddatatypes">Download and Build StructuredDataTypes</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">StructuredDataTypes</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-structureddatatypes">Download and Build StructuredDataTypes<a class="headerlink" href="#download-and-build-structureddatatypes" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/StructuredDataTypes.tar">here to download StructuredDataTypes</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball StructuredDataTypes.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd StructuredDataTypes/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd StructuredDataTypes/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./StructuredDataTypes
-</code></pre>
+<div class="codehilite"><pre><span></span>./StructuredDataTypes
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

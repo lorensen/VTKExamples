@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,292 +16019,299 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/ImageData/IntersectLine</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/ImageData/TestIntersectLine.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates a (rather manual) way of finding which cells of a vtkImageData a finite line intersects. Note that this is not exact - a cell-centric approach is used. That is, a discrete line (DDA-like http://en.wikipedia.org/wiki/Digital_differential_analyzer_%28graphics_algorithm%29) is followed on the cell grid between the cells that contain the intersection points of the line with the bounding box of the image. These are all not necessarily the exact same cells as the line actually intersects, but it gives a reasonable "path" of cells through the image which might be suitable for some applications.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IntersectLine.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkBox.h&gt;
-#include &lt;vtkCellData.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkIdList.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkShrinkFilter.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkThreshold.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkVersion.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBox.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdList.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkShrinkFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkThreshold.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#include &lt;algorithm&gt;
-#include &lt;cmath&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
 
-static vtkIdType FindCell(vtkImageData* grid, double point[3]);
-static std::vector&lt;vtkIdType&gt; IntersectImage(vtkImageData* image, double p0[3], double p1[3]);
+<span class="k">static</span> <span class="n">vtkIdType</span> <span class="nf">FindCell</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="kt">double</span> <span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span> <span class="n">IntersectImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="kt">double</span> <span class="n">p0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">double</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 
-int main(int, char *[])
-{
-  // Create a 3x4x5 grid of points (60), which will define a 2x3x4
-  // (24) grid of cubes
-  vtkSmartPointer&lt;vtkImageData&gt; grid =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a 3x4x5 grid of points (60), which will define a 2x3x4</span>
+  <span class="c1">// (24) grid of cubes</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">grid</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create the grid data structure
-  grid-&gt;SetDimensions(3, 4, 5);
+  <span class="c1">// Create the grid data structure</span>
+  <span class="n">grid</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;There are &quot;
-            &lt;&lt; grid-&gt;GetNumberOfPoints() &lt;&lt; &quot; points before shrinking.&quot;
-            &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;There are &quot;
-            &lt;&lt; grid-&gt;GetNumberOfCells() &lt;&lt; &quot; cells before shrinking.&quot;
-            &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">grid</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points before shrinking.&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">grid</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; cells before shrinking.&quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  // Define a ray
-  double rayOrigin[3] = {-5.0, 0, 0};
-  double rayDirection[3] = {1.0, 0, 0};
-  double rayEndPoint[3];
-  for(size_t i = 0; i &lt; 3; ++i)
-  {
-    rayEndPoint[i] = rayOrigin[i] + rayDirection[i] * 1000; // 1000 is an arbitrary constant that should be much larger than the size of the scene (to create an &quot;infinite&quot; ray)
-  }
-  std::vector&lt;vtkIdType&gt; intersectedCells = IntersectImage(grid, rayOrigin, rayEndPoint);
+  <span class="c1">// Define a ray</span>
+  <span class="kt">double</span> <span class="n">rayOrigin</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">rayDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">rayEndPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">rayEndPoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rayOrigin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">rayDirection</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span> <span class="c1">// 1000 is an arbitrary constant that should be much larger than the size of the scene (to create an &quot;infinite&quot; ray)</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span> <span class="n">intersectedCells</span> <span class="o">=</span> <span class="n">IntersectImage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">rayOrigin</span><span class="p">,</span> <span class="n">rayEndPoint</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkShrinkFilter&gt; shrinkFilter =
-    vtkSmartPointer&lt;vtkShrinkFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  shrinkFilter-&gt;SetInput(grid);
-#else
-  shrinkFilter-&gt;SetInputData(grid);
-#endif
-  shrinkFilter-&gt;SetShrinkFactor(.8);
-  shrinkFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShrinkFilter</span><span class="o">&gt;</span> <span class="n">shrinkFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShrinkFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">grid</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">grid</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">SetShrinkFactor</span><span class="p">(</span><span class="mf">.8</span><span class="p">);</span>
+  <span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Setup visibility array. Cells with visibility &gt; 1 will be
-  // visible, and &lt; 1 will be invisible.
-  vtkSmartPointer&lt;vtkIntArray&gt; visibilityArray =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  visibilityArray-&gt;SetNumberOfComponents(1);
-  visibilityArray-&gt;SetName(&quot;Visibility&quot;);
+  <span class="c1">// Setup visibility array. Cells with visibility &gt; 1 will be</span>
+  <span class="c1">// visible, and &lt; 1 will be invisible.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">visibilityArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">visibilityArray</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">visibilityArray</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Visibility&quot;</span><span class="p">);</span>
 
-  // Initially, set all cells to visible
-  for(vtkIdType cellId = 0; cellId &lt; shrinkFilter-&gt;GetOutput()-&gt;GetNumberOfCells(); ++cellId)
-  {
-    visibilityArray-&gt;InsertNextValue(10);
-  }
+  <span class="c1">// Initially, set all cells to visible</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">cellId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">cellId</span> <span class="o">&lt;</span> <span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span> <span class="o">++</span><span class="n">cellId</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">visibilityArray</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Set the intersected cells to invisible
-  for(size_t i = 0; i &lt; intersectedCells.size(); ++i)
-  {
-    visibilityArray-&gt;SetTuple1(intersectedCells[i], 0);
-  }
+  <span class="c1">// Set the intersected cells to invisible</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">intersectedCells</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">visibilityArray</span><span class="o">-&gt;</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">intersectedCells</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  shrinkFilter-&gt;GetOutput()-&gt;GetCellData()-&gt;AddArray(visibilityArray);
+  <span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">visibilityArray</span><span class="p">);</span>
 
-  // Threshold
-  vtkSmartPointer&lt;vtkThreshold&gt; threshold =
-    vtkSmartPointer&lt;vtkThreshold&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  threshold-&gt;SetInput(shrinkFilter-&gt;GetOutput());
-#else
-  threshold-&gt;SetInputData(shrinkFilter-&gt;GetOutput());
-#endif
-  threshold-&gt;ThresholdByUpper(1); // Criterion is cells whose scalars are greater or equal to threshold.
+  <span class="c1">// Threshold</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;</span> <span class="n">threshold</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkThreshold</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">shrinkFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+<span class="cp">#endif</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Criterion is cells whose scalars are greater or equal to threshold.</span>
 
-  threshold-&gt;SetInputArrayToProcess(0, 0, 0, vtkDataObject::FIELD_ASSOCIATION_CELLS, &quot;Visibility&quot;);
-  threshold-&gt;Update();
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">FIELD_ASSOCIATION_CELLS</span><span class="p">,</span> <span class="s">&quot;Visibility&quot;</span><span class="p">);</span>
+  <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkUnstructuredGrid* thresholdedPolydata = threshold-&gt;GetOutput();
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; thresholdedPolydata-&gt;GetNumberOfCells()
-            &lt;&lt; &quot; cells after thresholding.&quot; &lt;&lt; std::endl;
+  <span class="n">vtkUnstructuredGrid</span><span class="o">*</span> <span class="n">thresholdedPolydata</span> <span class="o">=</span> <span class="n">threshold</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">thresholdedPolydata</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; cells after thresholding.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  /////////// Standard visualization setup //////////////
-    // Create a mapper and actor
-    vtkSmartPointer&lt;vtkDataSetMapper&gt; mapper =
-      vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-    mapper-&gt;SetInputConnection(threshold-&gt;GetOutputPort());
-    vtkSmartPointer&lt;vtkActor&gt; actor =
-      vtkSmartPointer&lt;vtkActor&gt;::New();
-    actor-&gt;SetMapper(mapper);
+  <span class="c1">/////////// Standard visualization setup //////////////</span>
+    <span class="c1">// Create a mapper and actor</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">threshold</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-    // Create a renderer, render window, and interactor
-    vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-      vtkSmartPointer&lt;vtkRenderer&gt;::New();
-    vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-      vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-    renderWindow-&gt;SetMultiSamples(0);
-    renderWindow-&gt;AddRenderer(renderer);
-    renderWindow-&gt;SetWindowName(&quot;Space Carving&quot;);
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-      vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-    renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+    <span class="c1">// Create a renderer, render window, and interactor</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s">&quot;Space Carving&quot;</span><span class="p">);</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-    // Add the actor to the scene
-    renderer-&gt;AddActor(actor);
-    renderer-&gt;SetBackground(.2, .3, .4);
+    <span class="c1">// Add the actor to the scene</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
 
-    // Render and interact
-    renderWindow-&gt;Render();
-    renderWindowInteractor-&gt;Start();
+    <span class="c1">// Render and interact</span>
+    <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+    <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-    return EXIT_SUCCESS;
-}
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-vtkIdType FindCell(vtkImageData* grid, double point[3])
-{
-  double pcoords[3];
-  double weights[8];
+<span class="n">vtkIdType</span> <span class="nf">FindCell</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="kt">double</span> <span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span>
+  <span class="kt">double</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">weights</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
 
-  int subId;
+  <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span>
 
-  // The third parameter is an &quot;initial guess&quot; of the cellId
-  vtkIdType cellId = grid-&gt;FindCell(point, NULL, 0, .1, subId, pcoords, weights);
-  return cellId;
-}
+  <span class="c1">// The third parameter is an &quot;initial guess&quot; of the cellId</span>
+  <span class="n">vtkIdType</span> <span class="n">cellId</span> <span class="o">=</span> <span class="n">grid</span><span class="o">-&gt;</span><span class="n">FindCell</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">subId</span><span class="p">,</span> <span class="n">pcoords</span><span class="p">,</span> <span class="n">weights</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">cellId</span><span class="p">;</span>
+<span class="p">}</span>
 
-// Intersect a finite line (with end points p0 and p1) with all of the
-// cells of a vtkImageData
-std::vector&lt;vtkIdType&gt; IntersectImage(vtkImageData* image, double p0[3], double p1[3])
-{
-  // Intersect a ray with the bounding box of the grid. There should
-  // be two points (an entrance and an exit)
+<span class="c1">// Intersect a finite line (with end points p0 and p1) with all of the</span>
+<span class="c1">// cells of a vtkImageData</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span> <span class="n">IntersectImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="kt">double</span> <span class="n">p0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">double</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span>
+  <span class="c1">// Intersect a ray with the bounding box of the grid. There should</span>
+  <span class="c1">// be two points (an entrance and an exit)</span>
 
-  // Define a box
-  double bounds[6];
-  image-&gt;GetBounds(bounds);
+  <span class="c1">// Define a box</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-  // The two points of intersection of the bounding box with the line
-  // will be stored here
-  double entrancePoint[3];
-  double exitPoint[3];
+  <span class="c1">// The two points of intersection of the bounding box with the line</span>
+  <span class="c1">// will be stored here</span>
+  <span class="kt">double</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-  // We do not need the results stored in these variables, but they
-  // are required for the function call.
-  int entryPlane[6];
-  int exitPlane[6];
+  <span class="c1">// We do not need the results stored in these variables, but they</span>
+  <span class="c1">// are required for the function call.</span>
+  <span class="kt">int</span> <span class="n">entryPlane</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">exitPlane</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
 
-  double t0, t1; // the [0,1] normalized distances to the intersections along the ray
+  <span class="kt">double</span> <span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">;</span> <span class="c1">// the [0,1] normalized distances to the intersections along the ray</span>
 
-  int hit = vtkBox::IntersectWithLine(bounds,
-                                      p0,
-                                      p1,
-                                      t0,
-                                      t1,
-                                      entrancePoint,
-                                      exitPoint,
-                                      *entryPlane,
-                                      *exitPlane);
+  <span class="kt">int</span> <span class="n">hit</span> <span class="o">=</span> <span class="n">vtkBox</span><span class="o">::</span><span class="n">IntersectWithLine</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span>
+                                      <span class="n">p0</span><span class="p">,</span>
+                                      <span class="n">p1</span><span class="p">,</span>
+                                      <span class="n">t0</span><span class="p">,</span>
+                                      <span class="n">t1</span><span class="p">,</span>
+                                      <span class="n">entrancePoint</span><span class="p">,</span>
+                                      <span class="n">exitPoint</span><span class="p">,</span>
+                                      <span class="o">*</span><span class="n">entryPlane</span><span class="p">,</span>
+                                      <span class="o">*</span><span class="n">exitPlane</span><span class="p">);</span>
 
-  std::vector&lt;vtkIdType&gt; intersectedCells;
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkIdType</span><span class="o">&gt;</span> <span class="n">intersectedCells</span><span class="p">;</span>
 
-  if(!hit)
-  {
-    std::cout &lt;&lt; &quot;Not hit!&quot; &lt;&lt; std::endl;
-    return intersectedCells;
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;Entry point: &quot; &lt;&lt; entrancePoint[0] &lt;&lt; &quot; &quot; &lt;&lt; entrancePoint[1] &lt;&lt; &quot; &quot; &lt;&lt; entrancePoint[2] &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;Exit point: &quot; &lt;&lt; exitPoint[0] &lt;&lt; &quot; &quot; &lt;&lt; exitPoint[1] &lt;&lt; &quot; &quot; &lt;&lt; exitPoint[2] &lt;&lt; std::endl;
-  }
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">hit</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Not hit!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">intersectedCells</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Entry point: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exit point: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // This simple algorithm was adapted from
-  // http://www.cb.uu.se/~cris/blog/index.php/archives/400
+  <span class="c1">// This simple algorithm was adapted from</span>
+  <span class="c1">// http://www.cb.uu.se/~cris/blog/index.php/archives/400</span>
 
-  int dim[3];
-  image-&gt;GetDimensions(dim);
+  <span class="kt">int</span> <span class="n">dim</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">);</span>
 
-  // Make sure to include the first cell that the line hits
-  vtkIdType startCellId = FindCell(image, entrancePoint);
-  intersectedCells.push_back(startCellId);
+  <span class="c1">// Make sure to include the first cell that the line hits</span>
+  <span class="n">vtkIdType</span> <span class="n">startCellId</span> <span class="o">=</span> <span class="n">FindCell</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">entrancePoint</span><span class="p">);</span>
+  <span class="n">intersectedCells</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">startCellId</span><span class="p">);</span>
 
-  double p[3];
-  p[0] = entrancePoint[0];
-  p[1] = entrancePoint[1];
-  p[2] = entrancePoint[2];
+  <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-  double d[3];
-  d[0] = exitPoint[0] - entrancePoint[0];
-  d[1] = exitPoint[1] - entrancePoint[1];
-  d[2] = exitPoint[2] - entrancePoint[2];
+  <span class="kt">double</span> <span class="n">d</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">exitPoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">entrancePoint</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-   double N = std::max(std::max(
-              std::abs(d[0]), std::abs(d[1])),std::abs(d[2]));
+   <span class="kt">double</span> <span class="n">N</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span>
+              <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
 
-  double s[3];
-  s[0] = d[0]/N;
-  s[1] = d[1]/N;
-  s[2] = d[2]/N;
+  <span class="kt">double</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+  <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
+  <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>
 
-  for(size_t i = 0; i &lt; N; ++i)
-  {
-    int ijk[3];
-    ijk[0] = vtkMath::Round(p[0]);
-    ijk[1] = vtkMath::Round(p[1]);
-    ijk[2] = vtkMath::Round(p[2]);
+  <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ijk</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">ijk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Round</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="n">ijk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Round</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">ijk</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Round</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
-    for(unsigned int index = 0; index &lt; 3; ++index)
-    {
-      if(ijk[index] &gt; dim[index] - 2)
-      {
-        ijk[index] = dim[index] - 2;
-      }
-    }
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">index</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">ijk</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dim</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">ijk</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-    vtkIdType cellId = vtkStructuredData::ComputeCellId (dim, ijk);
-    intersectedCells.push_back(cellId);
-    p[0] += s[0];
-    p[1] += s[1];
-    p[2] += s[2];
-  }
+    <span class="n">vtkIdType</span> <span class="n">cellId</span> <span class="o">=</span> <span class="n">vtkStructuredData</span><span class="o">::</span><span class="n">ComputeCellId</span> <span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">ijk</span><span class="p">);</span>
+    <span class="n">intersectedCells</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">cellId</span><span class="p">);</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">}</span>
 
-  // Make sure to include the last cell that the line hits
-  vtkIdType endCellId = FindCell(image, exitPoint);
-  intersectedCells.push_back(endCellId);
+  <span class="c1">// Make sure to include the last cell that the line hits</span>
+  <span class="n">vtkIdType</span> <span class="n">endCellId</span> <span class="o">=</span> <span class="n">FindCell</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">exitPoint</span><span class="p">);</span>
+  <span class="n">intersectedCells</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">endCellId</span><span class="p">);</span>
 
-  return intersectedCells;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">intersectedCells</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(IntersectLine)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">IntersectLine</span><span class="p">)</span>
 
-add_executable(IntersectLine MACOSX_BUNDLE IntersectLine.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(IntersectLine ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">IntersectLine</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">IntersectLine.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-intersectline">Download and Build IntersectLine</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">IntersectLine</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-intersectline">Download and Build IntersectLine<a class="headerlink" href="#download-and-build-intersectline" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/IntersectLine.tar">here to download IntersectLine</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball IntersectLine.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd IntersectLine/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd IntersectLine/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./IntersectLine
-</code></pre>
+<div class="codehilite"><pre><span></span>./IntersectLine
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

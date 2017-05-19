@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,72 +15991,72 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Visualization/Follower</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestFollower.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>The text stays right side up and facing the camera, while the cube does not.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Follower.java</strong></p>
-<pre><code class="java">import vtk.*;
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk.*</span><span class="o">;</span>
 
-public class Follower
-{
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Follower</span>
+<span class="o">{</span>
 
-  static
-  {
-    System.loadLibrary(&quot;vtkCommonJava&quot;);
-    System.loadLibrary(&quot;vtkFilteringJava&quot;);
-    System.loadLibrary(&quot;vtkIOJava&quot;);
-    System.loadLibrary(&quot;vtkImagingJava&quot;);
-    System.loadLibrary(&quot;vtkGraphicsJava&quot;);
-    System.loadLibrary(&quot;vtkRenderingJava&quot;);
-    System.loadLibrary(&quot;vtkHybridJava&quot;);
-  }
+  <span class="kd">static</span>
+  <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkCommonJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkFilteringJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkIOJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkImagingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkGraphicsJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkRenderingJava&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;vtkHybridJava&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  public static void main(String[] args)
-  {
-    //Create some text
-    vtkVectorText textSource = new vtkVectorText();
-    textSource.SetText( &quot;Hello&quot; );
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+  <span class="o">{</span>
+    <span class="c1">//Create some text</span>
+    <span class="n">vtkVectorText</span> <span class="n">textSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkVectorText</span><span class="o">();</span>
+    <span class="n">textSource</span><span class="o">.</span><span class="na">SetText</span><span class="o">(</span> <span class="s">&quot;Hello&quot;</span> <span class="o">);</span>
 
-    //Create a mapper
-    vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-    mapper.SetInputConnection( textSource.GetOutputPort() );
+    <span class="c1">//Create a mapper</span>
+    <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">mapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span> <span class="n">textSource</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">()</span> <span class="o">);</span>
 
-    //Create a subclass of vtkActor: a vtkFollower that remains facing the camera
-    vtkFollower follower = new vtkFollower();
-    follower.SetMapper( mapper );
-    follower.GetProperty().SetColor( 1, 0, 0 ); // red 
+    <span class="c1">//Create a subclass of vtkActor: a vtkFollower that remains facing the camera</span>
+    <span class="n">vtkFollower</span> <span class="n">follower</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkFollower</span><span class="o">();</span>
+    <span class="n">follower</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span> <span class="n">mapper</span> <span class="o">);</span>
+    <span class="n">follower</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetColor</span><span class="o">(</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span> <span class="o">);</span> <span class="c1">// red </span>
 
-    //Create a transparent cube that does not move around to face the camera
-    vtkCubeSource cubeSource = new vtkCubeSource();
-    vtkPolyDataMapper cubeMapper = new vtkPolyDataMapper();
-    cubeMapper.SetInputConnection( cubeSource.GetOutputPort() );
-    vtkActor cubeActor = new vtkActor();
-    cubeActor.SetMapper( cubeMapper );
-    cubeActor.GetProperty().SetColor( 0, 0, 1 ); // blue
-    cubeActor.GetProperty().SetOpacity( 0.3 );
+    <span class="c1">//Create a transparent cube that does not move around to face the camera</span>
+    <span class="n">vtkCubeSource</span> <span class="n">cubeSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkCubeSource</span><span class="o">();</span>
+    <span class="n">vtkPolyDataMapper</span> <span class="n">cubeMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
+    <span class="n">cubeMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span> <span class="n">cubeSource</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">()</span> <span class="o">);</span>
+    <span class="n">vtkActor</span> <span class="n">cubeActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+    <span class="n">cubeActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span> <span class="n">cubeMapper</span> <span class="o">);</span>
+    <span class="n">cubeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetColor</span><span class="o">(</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span> <span class="o">);</span> <span class="c1">// blue</span>
+    <span class="n">cubeActor</span><span class="o">.</span><span class="na">GetProperty</span><span class="o">().</span><span class="na">SetOpacity</span><span class="o">(</span> <span class="mf">0.3</span> <span class="o">);</span>
 
-    //Create a renderer, render window, and interactor
-    vtkRenderer renderer = new vtkRenderer();
-    vtkRenderWindow renderWindow = new vtkRenderWindow();
-    renderWindow.AddRenderer( renderer );
-    vtkRenderWindowInteractor renderWindowInteractor = new vtkRenderWindowInteractor();
-    ((vtkInteractorStyle)renderWindowInteractor.GetInteractorStyle()).AutoAdjustCameraClippingRangeOn();
-    renderWindowInteractor.SetRenderWindow( renderWindow );
+    <span class="c1">//Create a renderer, render window, and interactor</span>
+    <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderer</span><span class="o">();</span>
+    <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindow</span><span class="o">();</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">AddRenderer</span><span class="o">(</span> <span class="n">renderer</span> <span class="o">);</span>
+    <span class="n">vtkRenderWindowInteractor</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkRenderWindowInteractor</span><span class="o">();</span>
+    <span class="o">((</span><span class="n">vtkInteractorStyle</span><span class="o">)</span><span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">GetInteractorStyle</span><span class="o">()).</span><span class="na">AutoAdjustCameraClippingRangeOn</span><span class="o">();</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">SetRenderWindow</span><span class="o">(</span> <span class="n">renderWindow</span> <span class="o">);</span>
 
-    //Add the actor to the scene
-    renderer.AddActor( follower );
-    renderer.AddActor( cubeActor );
-    renderer.SetBackground( 1, 1, 1 ); // Background color white
-    follower.SetCamera( renderer.GetActiveCamera() );
+    <span class="c1">//Add the actor to the scene</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span> <span class="n">follower</span> <span class="o">);</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">AddActor</span><span class="o">(</span> <span class="n">cubeActor</span> <span class="o">);</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">SetBackground</span><span class="o">(</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span> <span class="o">);</span> <span class="c1">// Background color white</span>
+    <span class="n">follower</span><span class="o">.</span><span class="na">SetCamera</span><span class="o">(</span> <span class="n">renderer</span><span class="o">.</span><span class="na">GetActiveCamera</span><span class="o">()</span> <span class="o">);</span>
 
-    //Render and interact
-    renderWindow.Render();
-    renderer.ResetCamera();
-    renderWindow.Render();
-    renderWindowInteractor.Start();
-  }
-}
-</code></pre>
+    <span class="c1">//Render and interact</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
+    <span class="n">renderer</span><span class="o">.</span><span class="na">ResetCamera</span><span class="o">();</span>
+    <span class="n">renderWindow</span><span class="o">.</span><span class="na">Render</span><span class="o">();</span>
+    <span class="n">renderWindowInteractor</span><span class="o">.</span><span class="na">Start</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

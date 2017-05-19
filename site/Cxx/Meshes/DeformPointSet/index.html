@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,219 +16019,226 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/DeformPointSet</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Meshes/TestDeformPointSet.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Deform a point set with a polyhedra. Supply a .vtp file and see it deformed.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DeformPointSet.cxx</strong></p>
-<pre><code class="c++">#include &quot;vtkSmartPointer.h&quot;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
 
-#include &quot;vtkActor.h&quot;
-#include &quot;vtkPolyData.h&quot;
-#include &quot;vtkPolyDataMapper.h&quot;
-#include &quot;vtkRenderWindow.h&quot;
-#include &quot;vtkRenderWindowInteractor.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkRenderer.h&quot;
-#include &quot;vtkSphereSource.h&quot;
-#include &quot;vtkElevationFilter.h&quot;
-#include &quot;vtkProperty.h&quot;
-#include &quot;vtkCellArray.h&quot;
-#include &quot;vtkPoints.h&quot;
-#include &quot;vtkDeformPointSet.h&quot;
-#include &quot;vtkCamera.h&quot;
-#include &quot;vtkXMLPolyDataReader.h&quot;
+<span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataMapper.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSphereSource.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkElevationFilter.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkProperty.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCellArray.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPoints.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDeformPointSet.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCamera.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkXMLPolyDataReader.h&quot;</span><span class="cp"></span>
 
-int main( int argc, char *argv[] )
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; input =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  double bounds[6];
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">input</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
 
-  if(argc == 1)
-  {
-    // Create a sphere to warp
-    vtkSmartPointer&lt;vtkSphereSource&gt; sphere =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    sphere-&gt;SetThetaResolution(51);
-    sphere-&gt;SetPhiResolution(17);
-    sphere-&gt;Update();
-    sphere-&gt;GetOutput()-&gt;GetBounds(bounds);
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Create a sphere to warp</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">51</span><span class="p">);</span>
+    <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">17</span><span class="p">);</span>
+    <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-    // Generate some scalars on the polydata
-    vtkSmartPointer&lt;vtkElevationFilter&gt; ele =
-      vtkSmartPointer&lt;vtkElevationFilter&gt;::New();
-    ele-&gt;SetInputConnection(sphere-&gt;GetOutputPort());
-    ele-&gt;SetLowPoint(0,0,-0.5);
-    ele-&gt;SetHighPoint(0,0,0.5);
-    ele-&gt;SetLowPoint((bounds[1] + bounds[0]) / 2.0,
-                     (bounds[3] + bounds[2]) / 2.0,
-                     -bounds[5]);
-    ele-&gt;SetHighPoint((bounds[1] + bounds[0]) / 2.0,
-                      (bounds[3] + bounds[2]) / 2.0,
-                      bounds[5]);
+    <span class="c1">// Generate some scalars on the polydata</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkElevationFilter</span><span class="o">&gt;</span> <span class="n">ele</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkElevationFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">ele</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">ele</span><span class="o">-&gt;</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ele</span><span class="o">-&gt;</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ele</span><span class="o">-&gt;</span><span class="n">SetLowPoint</span><span class="p">((</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                     <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                     <span class="o">-</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+    <span class="n">ele</span><span class="o">-&gt;</span><span class="n">SetHighPoint</span><span class="p">((</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                      <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                      <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
 
-    ele-&gt;Update();
-    input-&gt;ShallowCopy(ele-&gt;GetOutput());
-  }
-  else
-  {
-    std::string inputFilename = argv[1];
+    <span class="n">ele</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">input</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">ele</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName(inputFilename.c_str());
-    reader-&gt;Update();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    input-&gt;ShallowCopy(reader-&gt;GetOutput());
-    input-&gt;GetBounds(bounds);
-  }
+    <span class="n">input</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+    <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Now create a control mesh, in this case a octagon that encloses
-  // the point set
-  vtkSmartPointer&lt;vtkPoints&gt; pts =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  pts-&gt;SetNumberOfPoints(6);
-  pts-&gt;SetPoint(0,
-                bounds[0] - .1 * (bounds[1] - bounds[0]),
-                (bounds[3] + bounds[2]) / 2.0,
-                (bounds[5] + bounds[4]) / 2.0);
-  pts-&gt;SetPoint(1,
-                bounds[1] + .1 * (bounds[1] - bounds[0]),
-                (bounds[3] + bounds[2]) / 2.0,
-                (bounds[5] + bounds[4]) / 2.0);
-  pts-&gt;SetPoint(2,
-                (bounds[1] + bounds[0]) / 2.0,
-                bounds[2] - .1 * (bounds[3] - bounds[2]),
-                (bounds[5] + bounds[4]) / 2.0);
-  pts-&gt;SetPoint(3,
-                (bounds[1] + bounds[0]) / 2.0,
-                bounds[3] + .1 * (bounds[3] - bounds[2]),
-                (bounds[5] + bounds[4]) / 2.0);
-  pts-&gt;SetPoint(4,
-                (bounds[1] + bounds[0]) / 2.0,
-                (bounds[3] + bounds[2]) / 2.0,
-                bounds[4] - .1 * (bounds[5] - bounds[4]));
-  pts-&gt;SetPoint(5,
-                (bounds[1] + bounds[0]) / 2.0,
-                (bounds[3] + bounds[2]) / 2.0,
-                bounds[5] + .1 * (bounds[5] - bounds[4]));
+  <span class="c1">// Now create a control mesh, in this case a octagon that encloses</span>
+  <span class="c1">// the point set</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">pts</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]));</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]));</span>
 
-  vtkSmartPointer&lt;vtkCellArray&gt; tris =
-    vtkSmartPointer&lt;vtkCellArray&gt;::New();
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(2); tris-&gt;InsertCellPoint(0); tris-&gt;InsertCellPoint(4);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(1); tris-&gt;InsertCellPoint(2); tris-&gt;InsertCellPoint(4);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(3); tris-&gt;InsertCellPoint(1); tris-&gt;InsertCellPoint(4);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(0); tris-&gt;InsertCellPoint(3); tris-&gt;InsertCellPoint(4);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(0); tris-&gt;InsertCellPoint(2); tris-&gt;InsertCellPoint(5);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(2); tris-&gt;InsertCellPoint(1); tris-&gt;InsertCellPoint(5);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(1); tris-&gt;InsertCellPoint(3); tris-&gt;InsertCellPoint(5);
-  tris-&gt;InsertNextCell(3);
-  tris-&gt;InsertCellPoint(3); tris-&gt;InsertCellPoint(0); tris-&gt;InsertCellPoint(5);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;</span> <span class="n">tris</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">tris</span><span class="o">-&gt;</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; pd =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  pd-&gt;SetPoints(pts);
-  pd-&gt;SetPolys(tris);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">pd</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pd</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">);</span>
+  <span class="n">pd</span><span class="o">-&gt;</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">tris</span><span class="p">);</span>
 
-  // Display the control mesh
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; meshMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  meshMapper-&gt;SetInputData(pd);
-  vtkSmartPointer&lt;vtkActor&gt; meshActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  meshActor-&gt;SetMapper(meshMapper);
-  meshActor-&gt;GetProperty()-&gt;SetRepresentationToWireframe();
-  meshActor-&gt;GetProperty()-&gt;SetColor(0,0,0);
+  <span class="c1">// Display the control mesh</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">meshMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">meshMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">meshActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">meshActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">meshMapper</span><span class="p">);</span>
+  <span class="n">meshActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRepresentationToWireframe</span><span class="p">();</span>
+  <span class="n">meshActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  // Do the intitial weight generation
-  vtkSmartPointer&lt;vtkDeformPointSet&gt; deform =
-    vtkSmartPointer&lt;vtkDeformPointSet&gt;::New();
-    deform-&gt;SetInputData(input);
-    deform-&gt;SetControlMeshData(pd);
-    deform-&gt;Update(); // this creates the initial weights
+  <span class="c1">// Do the intitial weight generation</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDeformPointSet</span><span class="o">&gt;</span> <span class="n">deform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDeformPointSet</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">deform</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+    <span class="n">deform</span><span class="o">-&gt;</span><span class="n">SetControlMeshData</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+    <span class="n">deform</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span> <span class="c1">// this creates the initial weights</span>
 
-  // Now move one point and deform
-  double controlPoint[3];
-  pts-&gt;GetPoint(5, controlPoint);
-  pts-&gt;SetPoint(5, controlPoint[0],
-                controlPoint[1],
-                bounds[5] + .8 * (bounds[5] - bounds[4]));
-  pts-&gt;Modified();
+  <span class="c1">// Now move one point and deform</span>
+  <span class="kt">double</span> <span class="n">controlPoint</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">controlPoint</span><span class="p">);</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">controlPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">controlPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.8</span> <span class="o">*</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]));</span>
+  <span class="n">pts</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
 
-  // Display the warped polydata
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; polyMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-    polyMapper-&gt;SetInputConnection(deform-&gt;GetOutputPort());
-  vtkSmartPointer&lt;vtkActor&gt; polyActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-    polyActor-&gt;SetMapper(polyMapper);
+  <span class="c1">// Display the warped polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">polyMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">polyMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">deform</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">polyActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">polyActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">polyMapper</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  renderer-&gt;AddActor(polyActor);
-  renderer-&gt;AddActor(meshActor);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">polyActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">meshActor</span><span class="p">);</span>
 
-  renderer-&gt;GetActiveCamera()-&gt;SetPosition(1,1,1);
-  renderer-&gt;ResetCamera();
-  renderer-&gt;SetBackground(.2, .3, .4);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
 
-  renWin-&gt;SetSize(300,300);
-  renWin-&gt;Render();
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  iren-&gt;Start();
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DeformPointSet)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DeformPointSet</span><span class="p">)</span>
 
-add_executable(DeformPointSet MACOSX_BUNDLE DeformPointSet.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DeformPointSet ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DeformPointSet</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DeformPointSet.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-deformpointset">Download and Build DeformPointSet</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DeformPointSet</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-deformpointset">Download and Build DeformPointSet<a class="headerlink" href="#download-and-build-deformpointset" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DeformPointSet.tar">here to download DeformPointSet</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DeformPointSet.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DeformPointSet/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DeformPointSet/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DeformPointSet
-</code></pre>
+<div class="codehilite"><pre><span></span>./DeformPointSet
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

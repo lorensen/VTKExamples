@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,217 +16019,224 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/ShepardMethod</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Utilities/TestShepardMethod.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example samples unstructured points onto structured points using the Shepard method. The example starts with two points which have associated scalars (0 (black) and 1(white)). The results are displayed by coloring planes between the two points with the corresponding interpolated values. The values are reflected by black (0) to white (1).</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ShepardMethod.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkShepardMethod.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkShepardMethod.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
 
-// For compatibility with new VTK generic data arrays
-#ifdef vtkGenericDataArray_h
-#define InsertNextTupleValue InsertNextTypedTuple
-#endif
+<span class="c1">// For compatibility with new VTK generic data arrays</span>
+<span class="cp">#ifdef vtkGenericDataArray_h</span>
+<span class="cp">#define InsertNextTupleValue InsertNextTypedTuple</span>
+<span class="cp">#endif</span>
 
-int main(int, char *[])
-{
-  // Create a set of vertices (polydata)
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-      vtkSmartPointer&lt;vtkPoints&gt;::New();
-  points-&gt;InsertNextPoint(100.0, 0.0, 0.0);
-  points-&gt;InsertNextPoint(300.0, 0.0, 0.0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a set of vertices (polydata)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">300.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
-  // Setup colors
-  unsigned char white[3] = {255, 255, 255};
-  unsigned char black[3] = {0, 0, 0};
+  <span class="c1">// Setup colors</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">white</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">};</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">black</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkUnsignedCharArray&gt; vertexColors =
-    vtkSmartPointer&lt;vtkUnsignedCharArray&gt;::New();
-  vertexColors-&gt;SetNumberOfComponents(3);
-  vertexColors-&gt;SetName(&quot;Colors&quot;);
-  vertexColors-&gt;InsertNextTupleValue(black);
-  vertexColors-&gt;InsertNextTupleValue(white);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;</span> <span class="n">vertexColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Colors&quot;</span><span class="p">);</span>
+  <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">black</span><span class="p">);</span>
+  <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">white</span><span class="p">);</span>
 
-  // Create a scalar array for the pointdata, each value represents the distance
-  // of the vertices from the first vertex
-  vtkSmartPointer&lt;vtkFloatArray&gt; values =
-      vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  values-&gt;SetNumberOfComponents(1);
-  values-&gt;SetName(&quot;Values&quot;);
-  values-&gt;InsertNextValue(0.0);
-  values-&gt;InsertNextValue(1.0);
+  <span class="c1">// Create a scalar array for the pointdata, each value represents the distance</span>
+  <span class="c1">// of the vertices from the first vertex</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">values</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">values</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Values&quot;</span><span class="p">);</span>
+  <span class="n">values</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">values</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
 
-  // We must make two objects, because the ShepardMethod uses the ActiveScalars, as does the renderer!
-  vtkSmartPointer&lt;vtkPolyData&gt; polydataToProcess =
-      vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydataToProcess-&gt;SetPoints(points);
-  polydataToProcess-&gt;GetPointData()-&gt;SetScalars(values);
+  <span class="c1">// We must make two objects, because the ShepardMethod uses the ActiveScalars, as does the renderer!</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydataToProcess</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydataToProcess</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polydataToProcess</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">values</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; polydataToVisualize =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydataToVisualize-&gt;SetPoints(points);
-  polydataToVisualize-&gt;GetPointData()-&gt;SetScalars(vertexColors);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydataToVisualize</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydataToVisualize</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+  <span class="n">polydataToVisualize</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">vertexColors</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVertexGlyphFilter&gt; vertexGlyphFilter =
-    vtkSmartPointer&lt;vtkVertexGlyphFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  vertexGlyphFilter-&gt;AddInputConnection(polydataToVisualize-&gt;GetProducerPort());
-#else
-  vertexGlyphFilter-&gt;AddInputData(polydataToVisualize);
-#endif
-  vertexGlyphFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;</span> <span class="n">vertexGlyphFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">polydataToVisualize</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">polydataToVisualize</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  //Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; vertsMapper =
-      vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  //vertsMapper-&gt;ScalarVisibilityOff();
-  vertsMapper-&gt;SetInputConnection(vertexGlyphFilter-&gt;GetOutputPort());
+  <span class="c1">//Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">vertsMapper</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="c1">//vertsMapper-&gt;ScalarVisibilityOff();</span>
+  <span class="n">vertsMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; vertsActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  vertsActor-&gt;SetMapper(vertsMapper);
-  vertsActor-&gt;GetProperty()-&gt;SetColor(1,0,0);
-  vertsActor-&gt;GetProperty()-&gt;SetPointSize(3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">vertsActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vertsActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">vertsMapper</span><span class="p">);</span>
+  <span class="n">vertsActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vertsActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  // Create a shepard filter to interpolate the vertices over a regularized image grid
-  vtkSmartPointer&lt;vtkShepardMethod&gt; shepard = vtkSmartPointer&lt;vtkShepardMethod&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  shepard-&gt;SetInputConnection(polydataToProcess-&gt;GetProducerPort());
-#else
-  shepard-&gt;SetInputData(polydataToProcess);
-#endif
-  shepard-&gt;SetSampleDimensions(2,2,2);
-  shepard-&gt;SetModelBounds(100,300,-10,10,-10,10);
-  shepard-&gt;SetMaximumDistance(1);
+  <span class="c1">// Create a shepard filter to interpolate the vertices over a regularized image grid</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShepardMethod</span><span class="o">&gt;</span> <span class="n">shepard</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShepardMethod</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">shepard</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydataToProcess</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+  <span class="n">shepard</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydataToProcess</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">shepard</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">shepard</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">shepard</span><span class="o">-&gt;</span><span class="n">SetMaximumDistance</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  // Contour the shepard generated image at 3 isovalues
-  // The accuracy of the results are highly dependent on how the shepard filter is set up
-  vtkSmartPointer&lt;vtkContourFilter&gt; contourFilter = vtkSmartPointer&lt;vtkContourFilter&gt;::New();
-  contourFilter-&gt;SetNumberOfContours(3);
-  contourFilter-&gt;SetValue(0, 0.25);
-  contourFilter-&gt;SetValue(1, 0.50);
-  contourFilter-&gt;SetValue(2, 0.75);
-  contourFilter-&gt;SetInputConnection(shepard-&gt;GetOutputPort());
-  contourFilter-&gt;Update();
+  <span class="c1">// Contour the shepard generated image at 3 isovalues</span>
+  <span class="c1">// The accuracy of the results are highly dependent on how the shepard filter is set up</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contourFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetNumberOfContours</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">);</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">);</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">);</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">shepard</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  //Create a mapper and actor for the resulting isosurfaces
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; contourMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  contourMapper-&gt;SetInputConnection(contourFilter-&gt;GetOutputPort());
-  contourMapper-&gt;ScalarVisibilityOn();
-  contourMapper-&gt;SetColorModeToMapScalars();
+  <span class="c1">//Create a mapper and actor for the resulting isosurfaces</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">contourMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOn</span><span class="p">();</span>
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">SetColorModeToMapScalars</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; contourActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  contourActor-&gt;SetMapper(contourMapper);
-  contourActor-&gt;GetProperty()-&gt;SetAmbient(1);
-  contourActor-&gt;GetProperty()-&gt;SetSpecular(0);
-  contourActor-&gt;GetProperty()-&gt;SetDiffuse(0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">contourActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">contourActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">);</span>
+  <span class="n">contourActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">contourActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">contourActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  // Report the results of the interpolation
-  double *range = contourFilter-&gt;GetOutput()-&gt;GetScalarRange();
+  <span class="c1">// Report the results of the interpolation</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">range</span> <span class="o">=</span> <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;Shepard interpolation:&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;contour output scalar range: &quot; &lt;&lt; range[0] &lt;&lt; &quot;, &quot; &lt;&lt; range[1] &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Shepard interpolation:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;contour output scalar range: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkIdType nCells = contourFilter-&gt;GetOutput()-&gt;GetNumberOfCells();
-  double bounds[6];
-  for( vtkIdType i = 0; i &lt; nCells; ++i )
-  {
-    if(i%2) // each isosurface value only has 2 cells to report on the odd ones
-    {
-      contourFilter-&gt;GetOutput()-&gt;GetCellBounds(i,bounds);
-      std::cout &lt;&lt; &quot;cell &quot; &lt;&lt; i &lt;&lt; &quot;, x position: &quot; &lt;&lt; bounds[0] &lt;&lt; std::endl;
-    }
-  }
+  <span class="n">vtkIdType</span> <span class="n">nCells</span> <span class="o">=</span> <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">();</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="k">for</span><span class="p">(</span> <span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nCells</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// each isosurface value only has 2 cells to report on the odd ones</span>
+    <span class="p">{</span>
+      <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellBounds</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">bounds</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;cell &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, x position: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Create a transfer function to color the isosurfaces
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt; lut =
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  lut-&gt;SetColorSpaceToRGB();
-  lut-&gt;AddRGBPoint(range[0],0,0,0);//black
-  lut-&gt;AddRGBPoint(range[1],1,1,1);//white
-  lut-&gt;SetScaleToLinear();
+  <span class="c1">// Create a transfer function to color the isosurfaces</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span> <span class="n">lut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetColorSpaceToRGB</span><span class="p">();</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span><span class="c1">//black</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c1">//white</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetScaleToLinear</span><span class="p">();</span>
 
-  contourMapper-&gt;SetLookupTable( lut );
+  <span class="n">contourMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span> <span class="n">lut</span> <span class="p">);</span>
 
-  // Create a renderer, render window and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;GradientBackgroundOn();
-  renderer-&gt;SetBackground(0,0,1);
-  renderer-&gt;SetBackground2(1,0,1);
+  <span class="c1">// Create a renderer, render window and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GradientBackgroundOn</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  renderer-&gt;AddActor(contourActor);
-  renderer-&gt;AddActor(vertsActor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">contourActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">vertsActor</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Position the camera so that the image produced is viewable
-  vtkCamera* camera = renderer-&gt;GetActiveCamera();
-  camera-&gt;SetPosition(450, 100, 100);
-  camera-&gt;SetFocalPoint(200, 0, 0);
-  camera-&gt;SetViewUp(0, 0, 1);
+  <span class="c1">// Position the camera so that the image produced is viewable</span>
+  <span class="n">vtkCamera</span><span class="o">*</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetViewUp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ShepardMethod)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ShepardMethod</span><span class="p">)</span>
 
-add_executable(ShepardMethod MACOSX_BUNDLE ShepardMethod.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ShepardMethod ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ShepardMethod</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ShepardMethod.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-shepardmethod">Download and Build ShepardMethod</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ShepardMethod</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-shepardmethod">Download and Build ShepardMethod<a class="headerlink" href="#download-and-build-shepardmethod" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ShepardMethod.tar">here to download ShepardMethod</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ShepardMethod.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ShepardMethod/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ShepardMethod/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ShepardMethod
-</code></pre>
+<div class="codehilite"><pre><span></span>./ShepardMethod
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

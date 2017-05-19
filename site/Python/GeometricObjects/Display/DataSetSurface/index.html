@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,110 +15978,110 @@
                   <h1>DataSetSurface</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/DataSetSurface</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DataSetSurface.py</strong></p>
-<pre><code class="python">from vtk import*
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span><span class="o">*</span>
 
 
-#Setup the coordinates of eight points
-#(the two faces must be in counter clockwise order as viewd from the outside)
-P0 = [0.0, 0.0, 0.0];
-P1 = [1.0, 0.0, 0.0];
-P2 = [1.0, 1.0, 0.0];
-P3 = [0.0, 1.0, 0.0];
-P4 = [0.0, 0.0, 1.0];
-P5 = [1.0, 0.0, 1.0];
-P6 = [1.0, 1.0, 1.0];
-P7 = [0.0, 1.0, 1.0];
+<span class="c1">#Setup the coordinates of eight points</span>
+<span class="c1">#(the two faces must be in counter clockwise order as viewd from the outside)</span>
+<span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">];</span>
+<span class="n">P1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">];</span>
+<span class="n">P2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">];</span>
+<span class="n">P3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">];</span>
+<span class="n">P4</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">];</span>
+<span class="n">P5</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">];</span>
+<span class="n">P6</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">];</span>
+<span class="n">P7</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">];</span>
 
 
-#Create the points
-points = vtkPoints();
-points.InsertNextPoint(P0);
-points.InsertNextPoint(P1);
-points.InsertNextPoint(P2);
-points.InsertNextPoint(P3);
-points.InsertNextPoint(P4);
-points.InsertNextPoint(P5);
-points.InsertNextPoint(P6);
-points.InsertNextPoint(P7);
+<span class="c1">#Create the points</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtkPoints</span><span class="p">();</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P0</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P1</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P2</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P3</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P4</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P5</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P6</span><span class="p">);</span>
+<span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">P7</span><span class="p">);</span>
 
-#Create a hexahedron from the points
-hexa = vtkHexahedron();
-hexa.GetPointIds().SetId(0,0);
-hexa.GetPointIds().SetId(1,1);
-hexa.GetPointIds().SetId(2,2);
-hexa.GetPointIds().SetId(3,3);
-hexa.GetPointIds().SetId(4,4);
-hexa.GetPointIds().SetId(5,5);
-hexa.GetPointIds().SetId(6,6);
-hexa.GetPointIds().SetId(7,7);
+<span class="c1">#Create a hexahedron from the points</span>
+<span class="n">hexa</span> <span class="o">=</span> <span class="n">vtkHexahedron</span><span class="p">();</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+<span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
 
-#Add the hexahedron to a cell array
-hexs = vtkCellArray();
-hexs.InsertNextCell(hexa);
+<span class="c1">#Add the hexahedron to a cell array</span>
+<span class="n">hexs</span> <span class="o">=</span> <span class="n">vtkCellArray</span><span class="p">();</span>
+<span class="n">hexs</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hexa</span><span class="p">);</span>
 
-#Add the points and hexahedron to an unstructured grid
-uGrid =vtkUnstructuredGrid();
-uGrid.SetPoints(points);
-uGrid.InsertNextCell(hexa.GetCellType(), hexa.GetPointIds());
+<span class="c1">#Add the points and hexahedron to an unstructured grid</span>
+<span class="n">uGrid</span> <span class="o">=</span><span class="n">vtkUnstructuredGrid</span><span class="p">();</span>
+<span class="n">uGrid</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
+<span class="n">uGrid</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hexa</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">());</span>
 
-surface=vtkDataSetSurfaceFilter()
-surface.SetInput(uGrid)
-surface.Update()
-
-
-
-aBeamMapper = vtkDataSetMapper()
-aBeamMapper.SetInput(surface.GetOutput())
-aBeamActor = vtkActor()
-aBeamActor.SetMapper(aBeamMapper)
-aBeamActor.AddPosition(0,0,0)
-aBeamActor.GetProperty().SetColor(1,1,0)
-aBeamActor.GetProperty().SetOpacity(0.60)
-aBeamActor.GetProperty().EdgeVisibilityOn()
-aBeamActor.GetProperty().SetEdgeColor(1,1,1)
-aBeamActor.GetProperty().SetLineWidth(1.5)
-
-#create a plane to cut,here it cuts in the XZ direction (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)
-plane=vtkPlane()
-plane.SetOrigin(0.5,0,0)
-plane.SetNormal(1,0,0)
-
-#create cutter
-cutter=vtkCutter()
-cutter.SetCutFunction(plane)
-cutter.SetInput(aBeamActor.GetMapper().GetInput())
-cutter.Update()
-cutterMapper=vtkDataSetMapper()
-cutterMapper.SetInputConnection( cutter.GetOutputPort())
-
-#create plane actor
-planeActor=vtkActor()
-planeActor.GetProperty().SetColor(1,0.5,0.5)
-planeActor.GetProperty().SetLineWidth(2)
-planeActor.SetMapper(cutterMapper)
+<span class="n">surface</span><span class="o">=</span><span class="n">vtkDataSetSurfaceFilter</span><span class="p">()</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">uGrid</span><span class="p">)</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
 
 
+<span class="n">aBeamMapper</span> <span class="o">=</span> <span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="n">aBeamMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">surface</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">aBeamActor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">aBeamMapper</span><span class="p">)</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">AddPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">0.60</span><span class="p">)</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">EdgeVisibilityOn</span><span class="p">()</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetEdgeColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 
-# Setup a renderer, render window, and interactor
-renderer = vtkRenderer()
-renderWindow = vtkRenderWindow()
-#renderWindow.SetWindowName(&quot;Test&quot;)
+<span class="c1">#create a plane to cut,here it cuts in the XZ direction (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)</span>
+<span class="n">plane</span><span class="o">=</span><span class="n">vtkPlane</span><span class="p">()</span>
+<span class="n">plane</span><span class="o">.</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plane</span><span class="o">.</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-renderWindow.AddRenderer(renderer);
-renderWindowInteractor = vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1">#create cutter</span>
+<span class="n">cutter</span><span class="o">=</span><span class="n">vtkCutter</span><span class="p">()</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">SetCutFunction</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">.</span><span class="n">GetInput</span><span class="p">())</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="n">cutterMapper</span><span class="o">=</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
+<span class="n">cutterMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">cutter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-#Add the actor to the scene
-renderer.AddActor(aBeamActor)
-renderer.AddActor(planeActor)
-renderer.SetBackground(0,0,0) # Background color white
+<span class="c1">#create plane actor</span>
+<span class="n">planeActor</span><span class="o">=</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">planeActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">planeActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">planeActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">cutterMapper</span><span class="p">)</span>
 
-#Render and interact
-renderWindow.Render()
-</code></pre>
+
+
+
+<span class="c1"># Setup a renderer, render window, and interactor</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="c1">#renderWindow.SetWindowName(&quot;Test&quot;)</span>
+
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
+
+<span class="c1">#Add the actor to the scene</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">aBeamActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">planeActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Background color white</span>
+
+<span class="c1">#Render and interact</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

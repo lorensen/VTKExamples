@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15585,6 +15585,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16020,356 +16032,363 @@
                   <h1>1DTupleInterpolation</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Math/1DTupleInterpolation</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Contributed by: Lars Friedrich</li>
 </ul>
 <p>A simple example that shows how to use vtkTupleInterpolator for the purpose of interpolating 1D functions. Internally the program investigates two functions: <em>sine</em> and <em>Runge</em> function with sparsely distributed supporting points. The application uses different interpolation modes: '''linear''', '''cardinal spline''' and '''Kochanek spline'''. Moreover, the example offers the "--csv-output" (or "-co") option which causes the program to generate CSV-sheets reflecting the interpolated data. In order to demonstrate the spline interpolation behavior at the edge regions, we use the '''open''' and '''closed''' interval spline options as well. For example, a Kochanek-interpolation of the Runge function:
 <a href="../[Image:Tuple1D_Kochanek_interpolation.png]"></a></p>
-<h3 id="program-usage">Program Usage</h3>
+<h3 id="program-usage">Program Usage<a class="headerlink" href="#program-usage" title="Permanent link">&para;</a></h3>
 <p>./1DTupleInterpolation <a href="../options"></a></p>
 <p>-h or --help ... print this short help
   -nv or --no-verbose ... no verbose messages to std::cout
   -co or --csv-output ... CSV (comma separated values) file outputs</p>
 <p><strong>NOTE:</strong> optional arguments are case-sensitive!</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>1DTupleInterpolation.cxx</strong></p>
-<pre><code class="c++">//
-#include &lt;cstdlib&gt;
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;fstream&gt;
-#include &lt;cmath&gt;
-#ifndef M_PI
-  #define M_PI 3.14159265358979323846
-#endif
-#include &lt;ctime&gt;
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
+<span class="cp">#ifndef M_PI</span>
+  <span class="cp">#define M_PI 3.14159265358979323846</span>
+<span class="cp">#endif</span>
+<span class="cp">#include</span> <span class="cpf">&lt;ctime&gt;</span><span class="cp"></span>
 
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTupleInterpolator.h&gt;
-#include &lt;vtkCardinalSpline.h&gt;
-#include &lt;vtkKochanekSpline.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTupleInterpolator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCardinalSpline.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkKochanekSpline.h&gt;</span><span class="cp"></span>
 
-#define VERBOSE(x) \
-{ \
-  if (Verbose) \
-  {\
-    std::cout x; \
-    std::cout.flush(); \
-  }\
-}
+<span class="cp">#define VERBOSE(x) \</span>
+<span class="cp">{ \</span>
+<span class="cp">  if (Verbose) \</span>
+<span class="cp">  {\</span>
+<span class="cp">    std::cout x; \</span>
+<span class="cp">    std::cout.flush(); \</span>
+<span class="cp">  }\</span>
+<span class="cp">}</span>
 
-// verbose flag
-bool Verbose = true;
-// CSV output flag
-bool CSVOutput = false;
+<span class="c1">// verbose flag</span>
+<span class="kt">bool</span> <span class="n">Verbose</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="c1">// CSV output flag</span>
+<span class="kt">bool</span> <span class="n">CSVOutput</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 
-/**
- * Print example usage information.
- **/
-void PrintUsage(char *binname)
-{
-  std::string progname = &quot;&lt;binary-name&gt;&quot;;
-  if (binname)
-    progname = std::string(binname);
-  std::cout &lt;&lt; &quot;\n&quot;;
-  std::cout &lt;&lt; &quot;   *** E X A M P L E   U S A G E ***\n&quot;;
-  std::cout &lt;&lt; &quot;\n&quot;;
-  std::cout &lt;&lt; progname &lt;&lt; &quot; [options]\n&quot;;
-  std::cout &lt;&lt; &quot;\n&quot;;
-  std::cout &lt;&lt; &quot;  -h or --help ... print this short help\n&quot;;
-  std::cout &lt;&lt; &quot;  -nv or --no-verbose ... no verbose messages to std::cout\n&quot;;
-  std::cout &lt;&lt; &quot;  -co or --csv-output ... CSV (comma separated values) file outputs\n&quot;;
-  std::cout &lt;&lt; &quot;\n&quot;;
-  std::cout &lt;&lt; &quot;  NOTE: optional arguments are case-sensitive!\n&quot;;
-  std::cout &lt;&lt; &quot;\n&quot;;
-  std::cout &lt;&lt; &quot;  Author: ---\n&quot;;
-  std::cout &lt;&lt; &quot;  Affiliation: ---\n&quot;;
-  std::cout &lt;&lt; &quot;\n&quot;;
-}
+<span class="cm">/**</span>
+<span class="cm"> * Print example usage information.</span>
+<span class="cm"> **/</span>
+<span class="kt">void</span> <span class="nf">PrintUsage</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">binname</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">progname</span> <span class="o">=</span> <span class="s">&quot;&lt;binary-name&gt;&quot;</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">binname</span><span class="p">)</span>
+    <span class="n">progname</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">binname</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;   *** E X A M P L E   U S A G E ***</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">progname</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; [options]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;  -h or --help ... print this short help</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;  -nv or --no-verbose ... no verbose messages to std::cout</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;  -co or --csv-output ... CSV (comma separated values) file outputs</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;  NOTE: optional arguments are case-sensitive!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;  Author: ---</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;  Affiliation: ---</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
 
-/** Runge function. **/
-double FRunge(double x)
-{
-  return 1.0 / (1.0 + x * x);
-}
+<span class="cm">/** Runge function. **/</span>
+<span class="kt">double</span> <span class="nf">FRunge</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
 
-/** Sine function. **/
-double FSin(double x)
-{
-  return sin(x);
-}
+<span class="cm">/** Sine function. **/</span>
+<span class="kt">double</span> <span class="nf">FSin</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
 
-/** Execute a specific tuple interpolation method with pre-initialized tuple interpolator. **/
-bool TestInterpolation(vtkSmartPointer&lt;vtkTupleInterpolator&gt; tupInt, double
-    tolerance, const char *csvFileName, double (*mathFunc)(double), double *x,
-    double *y, double N, double symmetricIntervalWidth)
-{
-  bool ok = true;
-  std::ofstream csvint;
-  if (CSVOutput)
-  {
-    csvint.open(csvFileName, std::ios::out);
-    if (csvint.is_open())
-      csvint &lt;&lt; &quot;x;y;e\n&quot;;
-    else
-      ok = false;
-  }
-  double yt[1];
-  for (int i = 0; i &lt; N; i++) // re-define supporting points
-  {
-    yt[0] = y[i];
-    tupInt-&gt;AddTuple(x[i], yt);
-  }
-  // draw random samples from interval and test against mathFunc:
-  for (int i = 0; i &lt; 1000; i++)
-  {
-    double f = (double) (rand() % 100001) / 100000.;
-    double xi = (f * 2.0 - 1.0) * symmetricIntervalWidth;
-    double yi[1];
-    tupInt-&gt;InterpolateTuple(xi, yi);
-    double ei = std::abs(yi[0] - mathFunc(xi));
-    // we have a tolerance within [-PI;+PI] - empirical!
-    if (xi &gt;= -symmetricIntervalWidth &amp;&amp; xi &lt;= symmetricIntervalWidth &amp;&amp;
-        ei &gt; tolerance)
-      ok = false;
-    if (CSVOutput &amp;&amp; csvint.is_open())
-      csvint &lt;&lt; xi &lt;&lt; &quot;;&quot; &lt;&lt; yi[0] &lt;&lt; &quot;;&quot; &lt;&lt; ei &lt;&lt; &quot;\n&quot;;
-  }
-  if (CSVOutput &amp;&amp; csvint.is_open())
-    csvint.close();
-  return ok;
-}
+<span class="cm">/** Execute a specific tuple interpolation method with pre-initialized tuple interpolator. **/</span>
+<span class="kt">bool</span> <span class="nf">TestInterpolation</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTupleInterpolator</span><span class="o">&gt;</span> <span class="n">tupInt</span><span class="p">,</span> <span class="kt">double</span>
+    <span class="n">tolerance</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">csvFileName</span><span class="p">,</span> <span class="kt">double</span> <span class="p">(</span><span class="o">*</span><span class="n">mathFunc</span><span class="p">)(</span><span class="kt">double</span><span class="p">),</span> <span class="kt">double</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">N</span><span class="p">,</span> <span class="kt">double</span> <span class="n">symmetricIntervalWidth</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">ok</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">csvint</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">csvint</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">csvFileName</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">csvint</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+      <span class="n">csvint</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;x;y;e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="n">ok</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">double</span> <span class="n">yt</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">// re-define supporting points</span>
+  <span class="p">{</span>
+    <span class="n">yt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">AddTuple</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yt</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// draw random samples from interval and test against mathFunc:</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100001</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100000.</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">xi</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">symmetricIntervalWidth</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">yi</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">InterpolateTuple</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">ei</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">yi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">mathFunc</span><span class="p">(</span><span class="n">xi</span><span class="p">));</span>
+    <span class="c1">// we have a tolerance within [-PI;+PI] - empirical!</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">xi</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">symmetricIntervalWidth</span> <span class="o">&amp;&amp;</span> <span class="n">xi</span> <span class="o">&lt;=</span> <span class="n">symmetricIntervalWidth</span> <span class="o">&amp;&amp;</span>
+        <span class="n">ei</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">)</span>
+      <span class="n">ok</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span> <span class="o">&amp;&amp;</span> <span class="n">csvint</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+      <span class="n">csvint</span> <span class="o">&lt;&lt;</span> <span class="n">xi</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">yi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ei</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span> <span class="o">&amp;&amp;</span> <span class="n">csvint</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+    <span class="n">csvint</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">ok</span><span class="p">;</span>
+<span class="p">}</span>
 
-/** \brief Demonstrate base functionality of VTK-based tuple interpolation (1D).
- * Demonstrate base functionality of VTK-based tuple interpolation (1D).
- *
- * Application result is 0 if SUCCESSFUL.
- *
- * Arguments: &lt;br&gt;
- * -h or --help ... print short help &lt;br&gt;
- * -nv or --no-verbose ... message output (verbose) &lt;br&gt;
- * -co or --csv-output ... CSV (comma separated values) file outputs &lt;br&gt;
- *
- * @author ---
- * @version 1.2
- */
-int main(int argc, char *argv[])
-{
-  // arguments check
-  for (int i = 1; i &lt; argc; i++)
-  {
-    if (std::string(argv[i]) == &quot;-nv&quot; || std::string(argv[i]) == &quot;--no-verbose&quot;)
-      Verbose = false;
-    if (std::string(argv[i]) == &quot;-h&quot; || std::string(argv[i]) == &quot;--help&quot;)
-    {
-      if (argc &gt; 0)
-        PrintUsage(argv[0]);
-      else
-        PrintUsage(NULL);
-      return EXIT_FAILURE;
-    }
-    if (std::string(argv[i]) == &quot;-co&quot; || std::string(argv[i]) == &quot;--csv-output&quot;)
-      CSVOutput = true;
-  }
+<span class="cm">/** \brief Demonstrate base functionality of VTK-based tuple interpolation (1D).</span>
+<span class="cm"> * Demonstrate base functionality of VTK-based tuple interpolation (1D).</span>
+<span class="cm"> *</span>
+<span class="cm"> * Application result is 0 if SUCCESSFUL.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Arguments: &lt;br&gt;</span>
+<span class="cm"> * -h or --help ... print short help &lt;br&gt;</span>
+<span class="cm"> * -nv or --no-verbose ... message output (verbose) &lt;br&gt;</span>
+<span class="cm"> * -co or --csv-output ... CSV (comma separated values) file outputs &lt;br&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * @author ---</span>
+<span class="cm"> * @version 1.2</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// arguments check</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">argc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="s">&quot;-nv&quot;</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="s">&quot;--no-verbose&quot;</span><span class="p">)</span>
+      <span class="n">Verbose</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="s">&quot;-h&quot;</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="s">&quot;--help&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">PrintUsage</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+      <span class="k">else</span>
+        <span class="n">PrintUsage</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="s">&quot;-co&quot;</span> <span class="o">||</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="s">&quot;--csv-output&quot;</span><span class="p">)</span>
+      <span class="n">CSVOutput</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  VERBOSE(&lt;&lt; &quot;\nDemonstrating VTK-based 1-tuple interpolation capabilities.\n&quot;)
-  bool ok = true;
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Demonstrating VTK-based 1-tuple interpolation capabilities.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+  <span class="kt">bool</span> <span class="n">ok</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 
-  VERBOSE(&lt;&lt; &quot;  * Generate supporting points ... &quot;)
-  bool lok = true; // local OK
-  // - SINE -
-  const int N1 = 13;
-  double *xs = new double[N1];
-  double *ys = new double[N1];
-  std::ofstream csv;
-  if (CSVOutput)
-  {
-    csv.open(&quot;sine.csv&quot;, std::ios::out);
-    if (csv.is_open())
-      csv &lt;&lt; &quot;x;y\n&quot;;
-    else
-      lok = false;
-  }
-  // prepare the supporting points (sine):
-  for (int i = 0; i &lt; N1; i++)
-  {
-    xs[i] = -M_PI + (double) i / (double) (N1 - 1) * (2. * M_PI);
-    ys[i] = FSin(xs[i]);
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Generate supporting points ... &quot;</span><span class="p">)</span>
+  <span class="kt">bool</span> <span class="n">lok</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// local OK</span>
+  <span class="c1">// - SINE -</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N1</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">xs</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">N1</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">ys</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">N1</span><span class="p">];</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">csv</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">csv</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;sine.csv&quot;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">csv</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+      <span class="n">csv</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;x;y</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="n">lok</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// prepare the supporting points (sine):</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">M_PI</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">N1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+    <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">FSin</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
-    if (CSVOutput &amp;&amp; csv.is_open())
-      csv &lt;&lt; xs[i] &lt;&lt; &quot;;&quot; &lt;&lt; ys[i] &lt;&lt; &quot;\n&quot;;
-  }
-  if (CSVOutput &amp;&amp; csv.is_open())
-    csv.close();
-  // - RUNGE -
-  const int N2 = 10;
-  double *xr = new double[N2];
-  double *yr = new double[N2];
-  if (CSVOutput)
-  {
-    csv.open(&quot;runge.csv&quot;, std::ios::out);
-    if (csv.is_open())
-      csv &lt;&lt; &quot;x;y\n&quot;;
-    else
-      lok = false;
-  }
-  // prepare the supporting points (sine):
-  for (int i = 0; i &lt; N2; i++)
-  {
-    xr[i] = -5.0 + (double) i / (double) (N2 - 1) * (2. * 5.0);
-    yr[i] = FRunge(xr[i]);
+    <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span> <span class="o">&amp;&amp;</span> <span class="n">csv</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+      <span class="n">csv</span> <span class="o">&lt;&lt;</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span> <span class="o">&amp;&amp;</span> <span class="n">csv</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+    <span class="n">csv</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+  <span class="c1">// - RUNGE -</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">N2</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">xr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">N2</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="o">*</span><span class="n">yr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="n">N2</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">csv</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;runge.csv&quot;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">csv</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+      <span class="n">csv</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;x;y</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="n">lok</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// prepare the supporting points (sine):</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">xr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.0</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">N2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="mf">5.0</span><span class="p">);</span>
+    <span class="n">yr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">FRunge</span><span class="p">(</span><span class="n">xr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
-    if (CSVOutput &amp;&amp; csv.is_open())
-      csv &lt;&lt; xr[i] &lt;&lt; &quot;;&quot; &lt;&lt; yr[i] &lt;&lt; &quot;\n&quot;;
-  }
-  if (CSVOutput &amp;&amp; csv.is_open())
-    csv.close();
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
+    <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span> <span class="o">&amp;&amp;</span> <span class="n">csv</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+      <span class="n">csv</span> <span class="o">&lt;&lt;</span> <span class="n">xr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;;&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">yr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CSVOutput</span> <span class="o">&amp;&amp;</span> <span class="n">csv</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span>
+    <span class="n">csv</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of sine using linear method ... &quot;)
-  // initialize the tuple interpolator (1D):
-  vtkSmartPointer&lt;vtkTupleInterpolator&gt; tupInt = vtkSmartPointer&lt;vtkTupleInterpolator&gt;::New();
-  tupInt-&gt;SetInterpolationTypeToLinear(); // linear
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.04, &quot;sin_linear_int.csv&quot;, FSin, xs, ys, N1, M_PI);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of sine using linear method ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTupleInterpolator</span><span class="o">&gt;</span> <span class="n">tupInt</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTupleInterpolator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">();</span> <span class="c1">// linear</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="s">&quot;sin_linear_int.csv&quot;</span><span class="p">,</span> <span class="n">FSin</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">N1</span><span class="p">,</span> <span class="n">M_PI</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of sine using cardinal spline method (open interval) ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;SetInterpolationTypeToSpline(); // spline (implicit reset!)
-  vtkSmartPointer&lt;vtkCardinalSpline&gt; cardSpline = vtkSmartPointer&lt;vtkCardinalSpline&gt;::New();
-  cardSpline-&gt;SetClosed(false);
-  tupInt-&gt;SetInterpolatingSpline(cardSpline);
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.1, &quot;sin_card_spline_open_int.csv&quot;, FSin, xs, ys, N1, M_PI);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of sine using cardinal spline method (open interval) ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToSpline</span><span class="p">();</span> <span class="c1">// spline (implicit reset!)</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCardinalSpline</span><span class="o">&gt;</span> <span class="n">cardSpline</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCardinalSpline</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cardSpline</span><span class="o">-&gt;</span><span class="n">SetClosed</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolatingSpline</span><span class="p">(</span><span class="n">cardSpline</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s">&quot;sin_card_spline_open_int.csv&quot;</span><span class="p">,</span> <span class="n">FSin</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">N1</span><span class="p">,</span> <span class="n">M_PI</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of sine using cardinal spline method (closed interval) ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;Initialize(); // reset
-  tupInt-&gt;SetInterpolationTypeToSpline(); // spline
-  cardSpline-&gt;SetClosed(true);
-  tupInt-&gt;SetInterpolatingSpline(cardSpline);
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.05, &quot;sin_card_spline_closed_int.csv&quot;, FSin, xs, ys, N1, M_PI);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of sine using cardinal spline method (closed interval) ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span> <span class="c1">// reset</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToSpline</span><span class="p">();</span> <span class="c1">// spline</span>
+  <span class="n">cardSpline</span><span class="o">-&gt;</span><span class="n">SetClosed</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolatingSpline</span><span class="p">(</span><span class="n">cardSpline</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s">&quot;sin_card_spline_closed_int.csv&quot;</span><span class="p">,</span> <span class="n">FSin</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">N1</span><span class="p">,</span> <span class="n">M_PI</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of sine using Kochanek spline (default setup) method (open interval) ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;Initialize(); // reset
-  tupInt-&gt;SetInterpolationTypeToSpline(); // spline
-  vtkSmartPointer&lt;vtkKochanekSpline&gt; kochSpline = vtkSmartPointer&lt;vtkKochanekSpline&gt;::New();
-  kochSpline-&gt;SetClosed(false);
-  tupInt-&gt;SetInterpolatingSpline(kochSpline);
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.1, &quot;sin_koch_spline_open_int.csv&quot;, FSin, xs, ys, N1, M_PI);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of sine using Kochanek spline (default setup) method (open interval) ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span> <span class="c1">// reset</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToSpline</span><span class="p">();</span> <span class="c1">// spline</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKochanekSpline</span><span class="o">&gt;</span> <span class="n">kochSpline</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkKochanekSpline</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">kochSpline</span><span class="o">-&gt;</span><span class="n">SetClosed</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolatingSpline</span><span class="p">(</span><span class="n">kochSpline</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s">&quot;sin_koch_spline_open_int.csv&quot;</span><span class="p">,</span> <span class="n">FSin</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">N1</span><span class="p">,</span> <span class="n">M_PI</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of sine using Kochanek spline (default setup) method (closed interval) ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;Initialize(); // reset
-  tupInt-&gt;SetInterpolationTypeToSpline(); // spline
-  kochSpline-&gt;SetClosed(true);
-  tupInt-&gt;SetInterpolatingSpline(kochSpline);
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.06, &quot;sin_koch_spline_closed_int.csv&quot;, FSin, xs, ys, N1, M_PI);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
-
-
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of Runge using linear method ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;Initialize();
-  tupInt-&gt;SetInterpolationTypeToLinear(); // linear
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.25 /* around 0! */, &quot;runge_linear_int.csv&quot;, FRunge, xr, yr, N2, 5.0);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
-
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of Runge using cardinal spline method ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;SetInterpolationTypeToSpline(); // spline (implicit reset!)
-  cardSpline-&gt;SetClosed(false);
-  tupInt-&gt;SetInterpolatingSpline(cardSpline);
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.15 /* around 0! */, &quot;runge_card_spline_int.csv&quot;, FRunge, xr, yr, N2, 5.0);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
-
-  VERBOSE(&lt;&lt; &quot;  * Interpolation of Runge using Kochanek spline method ... &quot;)
-  // initialize the tuple interpolator (1D):
-  tupInt-&gt;Initialize(); // reset
-  tupInt-&gt;SetInterpolationTypeToSpline(); // spline (implicit reset!)
-  kochSpline-&gt;SetClosed(false);
-  tupInt-&gt;SetInterpolatingSpline(kochSpline);
-  tupInt-&gt;SetNumberOfComponents(1); // 1D (NOTE: set #components AFTER interpolation-type!)
-  lok = TestInterpolation(tupInt, 0.18 /* around 0! */, &quot;runge_koch_spline_int.csv&quot;, FRunge, xr, yr, N2, 5.0);
-  ok = ok &amp;&amp; lok;
-  VERBOSE(&lt;&lt; (lok ? &quot;OK&quot; : &quot;FAILURE&quot;) &lt;&lt; &quot;\n&quot;)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of sine using Kochanek spline (default setup) method (closed interval) ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span> <span class="c1">// reset</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToSpline</span><span class="p">();</span> <span class="c1">// spline</span>
+  <span class="n">kochSpline</span><span class="o">-&gt;</span><span class="n">SetClosed</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolatingSpline</span><span class="p">(</span><span class="n">kochSpline</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="s">&quot;sin_koch_spline_closed_int.csv&quot;</span><span class="p">,</span> <span class="n">FSin</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">N1</span><span class="p">,</span> <span class="n">M_PI</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 
-  delete[] xs;
-  delete[] ys;
-  delete[] xr;
-  delete[] yr;
-  cardSpline = NULL;
-  kochSpline = NULL;
-  tupInt = NULL;
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of Runge using linear method ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToLinear</span><span class="p">();</span> <span class="c1">// linear</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.25</span> <span class="cm">/* around 0! */</span><span class="p">,</span> <span class="s">&quot;runge_linear_int.csv&quot;</span><span class="p">,</span> <span class="n">FRunge</span><span class="p">,</span> <span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-  VERBOSE(&lt;&lt; &quot;Application result: &quot;)
-  if (ok)
-  {
-    VERBOSE(&lt;&lt; &quot;OK\n\n&quot;)
-    return EXIT_SUCCESS;
-  }
-  else
-  {
-    VERBOSE(&lt;&lt; &quot;FAILURE\n\n&quot;)
-    return EXIT_FAILURE;
-  }
-}
-</code></pre>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of Runge using cardinal spline method ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToSpline</span><span class="p">();</span> <span class="c1">// spline (implicit reset!)</span>
+  <span class="n">cardSpline</span><span class="o">-&gt;</span><span class="n">SetClosed</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolatingSpline</span><span class="p">(</span><span class="n">cardSpline</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.15</span> <span class="cm">/* around 0! */</span><span class="p">,</span> <span class="s">&quot;runge_card_spline_int.csv&quot;</span><span class="p">,</span> <span class="n">FRunge</span><span class="p">,</span> <span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;  * Interpolation of Runge using Kochanek spline method ... &quot;</span><span class="p">)</span>
+  <span class="c1">// initialize the tuple interpolator (1D):</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span> <span class="c1">// reset</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToSpline</span><span class="p">();</span> <span class="c1">// spline (implicit reset!)</span>
+  <span class="n">kochSpline</span><span class="o">-&gt;</span><span class="n">SetClosed</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetInterpolatingSpline</span><span class="p">(</span><span class="n">kochSpline</span><span class="p">);</span>
+  <span class="n">tupInt</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1D (NOTE: set #components AFTER interpolation-type!)</span>
+  <span class="n">lok</span> <span class="o">=</span> <span class="n">TestInterpolation</span><span class="p">(</span><span class="n">tupInt</span><span class="p">,</span> <span class="mf">0.18</span> <span class="cm">/* around 0! */</span><span class="p">,</span> <span class="s">&quot;runge_koch_spline_int.csv&quot;</span><span class="p">,</span> <span class="n">FRunge</span><span class="p">,</span> <span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">ok</span> <span class="o">=</span> <span class="n">ok</span> <span class="o">&amp;&amp;</span> <span class="n">lok</span><span class="p">;</span>
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">lok</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAILURE&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-PROJECT(1DTupleInterpolation)
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">xs</span><span class="p">;</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">ys</span><span class="p">;</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">xr</span><span class="p">;</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">yr</span><span class="p">;</span>
+  <span class="n">cardSpline</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">kochSpline</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">tupInt</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
-add_executable(1DTupleInterpolation MACOSX_BUNDLE 1DTupleInterpolation.cxx)
+  <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;Application result: &quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ok</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;OK</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">VERBOSE</span><span class="p">(</span><span class="o">&lt;&lt;</span> <span class="s">&quot;FAILURE</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
-target_link_libraries(1DTupleInterpolation ${VTK_LIBRARIES})
-</code></pre>
 
-<h3 id="download-and-build-1dtupleinterpolation">Download and Build 1DTupleInterpolation</h3>
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">1DTupleInterpolation</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">1DTupleInterpolation</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">1DTupleInterpolation.cxx</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">1DTupleInterpolation</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-1dtupleinterpolation">Download and Build 1DTupleInterpolation<a class="headerlink" href="#download-and-build-1dtupleinterpolation" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/1DTupleInterpolation.tar">here to download 1DTupleInterpolation</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball 1DTupleInterpolation.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd 1DTupleInterpolation/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd 1DTupleInterpolation/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./1DTupleInterpolation
-</code></pre>
+<div class="codehilite"><pre><span></span>./1DTupleInterpolation
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

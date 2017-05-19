@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,262 +15991,262 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/ImplicitFunctions/IsoContours</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/ImplicitFunctions/TestIsoContours.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a>
 <p>Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
 <p>Note: To use this example create a Windows Forms Application, delete Form1.Designer.cs and replace the content of Form1.cs with this:</p></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IsoContours.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Drawing</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public class Form1 : Form {
-      private System.ComponentModel.IContainer components = null;
-      private vtkContourFilter _ContourFilter;
-      private vtkRenderWindow _RenderWindow;
-
-
-      public Form1() {
-         InitializeComponent();
-         this.Size = new Size(620, 400);
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">private</span> <span class="n">System</span><span class="p">.</span><span class="n">ComponentModel</span><span class="p">.</span><span class="n">IContainer</span> <span class="n">components</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">vtkContourFilter</span> <span class="n">_ContourFilter</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">vtkRenderWindow</span> <span class="n">_RenderWindow</span><span class="p">;</span>
 
 
-      private void Form1_Load(object sender, EventArgs e) {
-         try {
-            IsoContours();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Size</span><span class="p">(</span><span class="m">620</span><span class="p">,</span> <span class="m">400</span><span class="p">);</span>
+      <span class="p">}</span>
 
 
-      private void sliderContourValue_Scroll(object sender, EventArgs e) {
-         TrackBar slider = sender as TrackBar;
-         if(slider != null) {
-            _ContourFilter.GenerateValues(1, slider.Value, slider.Value);
-            _RenderWindow.Render();
-         }
-      }
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">Form1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">IsoContours</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-      private void IsoContours() {
-         vtkImageData data = vtkImageData.New();
-         CreateData(ref data);
-
-         // Create an isosurface
-         _ContourFilter = vtkContourFilter.New();
-#if VTK_MAJOR_VERSION_5
-         _ContourFilter.SetInput(data);
-#else
-         contourFilter.SetInputData(data);
-#endif
-         _ContourFilter.GenerateValues(1, 10, 10); // (numContours, rangeStart, rangeEnd)
-
-         // Map the contours to graphical primitives
-         vtkPolyDataMapper contourMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         contourMapper.SetInputConnection(_ContourFilter.GetOutputPort());
-#else
-         contourMapper.SetInputData(contourFilter);
-#endif
-         // Create an actor for the contours
-         vtkActor contourActor = vtkActor.New();
-         contourActor.SetMapper(contourMapper);
-
-         // Create the outline
-         vtkOutlineFilter outlineFilter = vtkOutlineFilter.New();
-         vtkPolyDataMapper outlineMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         outlineFilter.SetInput(data);
-         outlineMapper.SetInputConnection(outlineFilter.GetOutputPort());
-#else
-         outlineFilter.SetInputData(data);
-         outlineMapper.SetInputData(outlineFilter);
-#endif
-         vtkActor outlineActor = vtkActor.New();
-         outlineActor.SetMapper(outlineMapper);
-
-         // get a reference to the renderwindow of our renderWindowControl1
-         _RenderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = _RenderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(.2, .3, .4);
-         // add our actor to the renderer
-         renderer.AddActor(contourActor);
-         renderer.AddActor(outlineActor);
-      }
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">sliderContourValue_Scroll</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">TrackBar</span> <span class="n">slider</span> <span class="p">=</span> <span class="n">sender</span> <span class="k">as</span> <span class="n">TrackBar</span><span class="p">;</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">slider</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_ContourFilter</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">slider</span><span class="p">.</span><span class="n">Value</span><span class="p">,</span> <span class="n">slider</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+            <span class="n">_RenderWindow</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-      void CreateData(ref vtkImageData data) {
-         data.SetExtent(-25, 25, -25, 25, 0, 0);
-#if VTK_MAJOR_VERSION_5
-         data.SetNumberOfScalarComponents(1);
-         data.SetScalarTypeToDouble();
-#else
-         data.AllocateScalars(VTK_DOUBLE,1);
-#endif
-         int[] extent = data.GetExtent();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">IsoContours</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">vtkImageData</span> <span class="n">data</span> <span class="p">=</span> <span class="n">vtkImageData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">CreateData</span><span class="p">(</span><span class="k">ref</span> <span class="n">data</span><span class="p">);</span>
 
-         for(int y = extent[2]; y &lt;= extent[3]; y++) {
-            for(int x = extent[0]; x &lt;= extent[1]; x++) {
-               IntPtr ptr = data.GetScalarPointer(x, y, 0);
-               double[] pixel = new double[] { Math.Sqrt(Math.Pow(x, 2.0) + Math.Pow(y, 2.0)) };
-               Marshal.Copy(pixel, 0, ptr, 1);
-            }
-         }
+         <span class="c1">// Create an isosurface</span>
+         <span class="n">_ContourFilter</span> <span class="p">=</span> <span class="n">vtkContourFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">_ContourFilter</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#else</span>
+         <span class="n">contourFilter</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">_ContourFilter</span><span class="p">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">10</span><span class="p">);</span> <span class="c1">// (numContours, rangeStart, rangeEnd)</span>
 
-         vtkXMLImageDataWriter writer = vtkXMLImageDataWriter.New();
-         writer.SetFileName(@&quot;c:\vtk\vtkdata-5.8.0\Data\testIsoContours.vti&quot;);
-#if VTK_MAJOR_VERSION_5
-         writer.SetInputConnection(data.GetProducerPort());
-#else
-         writer.SetInputData(data);
-#endif
-         writer.Write();
-      }
+         <span class="c1">// Map the contours to graphical primitives</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">contourMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">contourMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">_ContourFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">contourMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">contourFilter</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="c1">// Create an actor for the contours</span>
+         <span class="n">vtkActor</span> <span class="n">contourActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">contourActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">);</span>
+
+         <span class="c1">// Create the outline</span>
+         <span class="n">vtkOutlineFilter</span> <span class="n">outlineFilter</span> <span class="p">=</span> <span class="n">vtkOutlineFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">outlineMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">outlineFilter</span><span class="p">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+         <span class="n">outlineMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outlineFilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">outlineFilter</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+         <span class="n">outlineMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">outlineFilter</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">vtkActor</span> <span class="n">outlineActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">outlineActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outlineMapper</span><span class="p">);</span>
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">_RenderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">_RenderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">2</span><span class="p">,</span> <span class="p">.</span><span class="m">3</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">contourActor</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">);</span>
+      <span class="p">}</span>
+
+
+      <span class="k">void</span> <span class="nf">CreateData</span><span class="p">(</span><span class="k">ref</span> <span class="n">vtkImageData</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">data</span><span class="p">.</span><span class="n">SetExtent</span><span class="p">(-</span><span class="m">25</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="p">-</span><span class="m">25</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">data</span><span class="p">.</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">data</span><span class="p">.</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+<span class="cp">#else</span>
+         <span class="n">data</span><span class="p">.</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span><span class="m">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="kt">int</span><span class="p">[]</span> <span class="n">extent</span> <span class="p">=</span> <span class="n">data</span><span class="p">.</span><span class="n">GetExtent</span><span class="p">();</span>
+
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="p">=</span> <span class="n">extent</span><span class="p">[</span><span class="m">2</span><span class="p">];</span> <span class="n">y</span> <span class="p">&lt;=</span> <span class="n">extent</span><span class="p">[</span><span class="m">3</span><span class="p">];</span> <span class="n">y</span><span class="p">++)</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="n">extent</span><span class="p">[</span><span class="m">0</span><span class="p">];</span> <span class="n">x</span> <span class="p">&lt;=</span> <span class="n">extent</span><span class="p">[</span><span class="m">1</span><span class="p">];</span> <span class="n">x</span><span class="p">++)</span> <span class="p">{</span>
+               <span class="n">IntPtr</span> <span class="n">ptr</span> <span class="p">=</span> <span class="n">data</span><span class="p">.</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+               <span class="kt">double</span><span class="p">[]</span> <span class="n">pixel</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="m">2.0</span><span class="p">)</span> <span class="p">+</span> <span class="n">Math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="m">2.0</span><span class="p">))</span> <span class="p">};</span>
+               <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pixel</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+
+         <span class="n">vtkXMLImageDataWriter</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">vtkXMLImageDataWriter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">@&quot;c:\vtk\vtkdata-5.8.0\Data\testIsoContours.vti&quot;</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
 
-      /// &lt;summary&gt;
-      /// Clean up any resources being used.
-      /// &lt;/summary&gt;
-      /// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;
-      protected override void Dispose(bool disposing) {
-         if(disposing &amp;&amp; ( components != null )) {
-            components.Dispose();
-         }
-         base.Dispose(disposing);
-      }
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// Clean up any resources being used.</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="c1">/// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;</span>
+      <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Dispose</span><span class="p">(</span><span class="kt">bool</span> <span class="n">disposing</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">disposing</span> <span class="p">&amp;&amp;</span> <span class="p">(</span> <span class="n">components</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">))</span> <span class="p">{</span>
+            <span class="n">components</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">base</span><span class="p">.</span><span class="n">Dispose</span><span class="p">(</span><span class="n">disposing</span><span class="p">);</span>
+      <span class="p">}</span>
 
-      #region Windows Form Designer generated code
+      <span class="cp">#region Windows Form Designer generated code</span>
 
-      /// &lt;summary&gt;
-      /// Required method for Designer support - do not modify
-      /// the contents of this method with the code editor.
-      /// &lt;/summary&gt;
-      private void InitializeComponent() {
-         this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-         this.lblSliderMaxValue = new System.Windows.Forms.Label();
-         this.lblSliderMinValue = new System.Windows.Forms.Label();
-         this.lblSliderTitle = new System.Windows.Forms.Label();
-         this.sliderContourValue = new System.Windows.Forms.TrackBar();
-         this.renderWindowControl1 = new Kitware.VTK.RenderWindowControl();
-         this.splitContainer1.Panel1.SuspendLayout();
-         this.splitContainer1.Panel2.SuspendLayout();
-         this.splitContainer1.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.sliderContourValue)).BeginInit();
-         this.SuspendLayout();
-         // 
-         // splitContainer1
-         // 
-         this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-         this.splitContainer1.IsSplitterFixed = true;
-         this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-         this.splitContainer1.Name = &quot;splitContainer1&quot;;
-         // 
-         // splitContainer1.Panel1
-         // 
-         this.splitContainer1.Panel1.Controls.Add(this.lblSliderMaxValue);
-         this.splitContainer1.Panel1.Controls.Add(this.lblSliderMinValue);
-         this.splitContainer1.Panel1.Controls.Add(this.lblSliderTitle);
-         this.splitContainer1.Panel1.Controls.Add(this.sliderContourValue);
-         // 
-         // splitContainer1.Panel2
-         // 
-         this.splitContainer1.Panel2.Controls.Add(this.renderWindowControl1);
-         this.splitContainer1.Size = new System.Drawing.Size(604, 362);
-         this.splitContainer1.SplitterDistance = 213;
-         this.splitContainer1.SplitterWidth = 1;
-         this.splitContainer1.TabIndex = 0;
-         // 
-         // lblSliderMaxValue
-         // 
-         this.lblSliderMaxValue.AutoSize = true;
-         this.lblSliderMaxValue.Location = new System.Drawing.Point(176, 69);
-         this.lblSliderMaxValue.Name = &quot;lblSliderMaxValue&quot;;
-         this.lblSliderMaxValue.Size = new System.Drawing.Size(19, 13);
-         this.lblSliderMaxValue.TabIndex = 1;
-         this.lblSliderMaxValue.Text = &quot;30&quot;;
-         // 
-         // lblSliderMinValue
-         // 
-         this.lblSliderMinValue.AutoSize = true;
-         this.lblSliderMinValue.Location = new System.Drawing.Point(21, 69);
-         this.lblSliderMinValue.Name = &quot;lblSliderMinValue&quot;;
-         this.lblSliderMinValue.Size = new System.Drawing.Size(13, 13);
-         this.lblSliderMinValue.TabIndex = 1;
-         this.lblSliderMinValue.Text = &quot;1&quot;;
-         // 
-         // lblSliderTitle
-         // 
-         this.lblSliderTitle.AutoSize = true;
-         this.lblSliderTitle.Location = new System.Drawing.Point(18, 11);
-         this.lblSliderTitle.Name = &quot;lblSliderTitle&quot;;
-         this.lblSliderTitle.Size = new System.Drawing.Size(74, 13);
-         this.lblSliderTitle.TabIndex = 1;
-         this.lblSliderTitle.Text = &quot;Contour Value&quot;;
-         // 
-         // sliderContourValue
-         // 
-         this.sliderContourValue.Location = new System.Drawing.Point(12, 37);
-         this.sliderContourValue.Maximum = 30;
-         this.sliderContourValue.Minimum = 1;
-         this.sliderContourValue.Name = &quot;sliderContourValue&quot;;
-         this.sliderContourValue.Size = new System.Drawing.Size(186, 45);
-         this.sliderContourValue.TabIndex = 0;
-         this.sliderContourValue.TickFrequency = 5;
-         this.sliderContourValue.Value = 10;
-         this.sliderContourValue.Scroll += new System.EventHandler(this.sliderContourValue_Scroll);
-         // 
-         // renderWindowControl1
-         // 
-         this.renderWindowControl1.AddTestActors = false;
-         this.renderWindowControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.renderWindowControl1.Location = new System.Drawing.Point(0, 0);
-         this.renderWindowControl1.Name = &quot;renderWindowControl1&quot;;
-         this.renderWindowControl1.Size = new System.Drawing.Size(390, 362);
-         this.renderWindowControl1.TabIndex = 0;
-         this.renderWindowControl1.TestText = null;
-         // 
-         // Form1
-         // 
-         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(604, 362);
-         this.Controls.Add(this.splitContainer1);
-         this.Name = &quot;Form1&quot;;
-         this.Text = &quot;IsoContours&quot;;
-         this.Load += new System.EventHandler(this.Form1_Load);
-         this.splitContainer1.Panel1.ResumeLayout(false);
-         this.splitContainer1.Panel1.PerformLayout();
-         this.splitContainer1.Panel2.ResumeLayout(false);
-         this.splitContainer1.ResumeLayout(false);
-         ((System.ComponentModel.ISupportInitialize)(this.sliderContourValue)).EndInit();
-         this.ResumeLayout(false);
+      <span class="c1">/// &lt;summary&gt;</span>
+      <span class="c1">/// Required method for Designer support - do not modify</span>
+      <span class="c1">/// the contents of this method with the code editor.</span>
+      <span class="c1">/// &lt;/summary&gt;</span>
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">InitializeComponent</span><span class="p">()</span> <span class="p">{</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">SplitContainer</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Label</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Label</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Label</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">TrackBar</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Kitware</span><span class="p">.</span><span class="n">VTK</span><span class="p">.</span><span class="n">RenderWindowControl</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">SuspendLayout</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel2</span><span class="p">.</span><span class="n">SuspendLayout</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">SuspendLayout</span><span class="p">();</span>
+         <span class="p">((</span><span class="n">System</span><span class="p">.</span><span class="n">ComponentModel</span><span class="p">.</span><span class="n">ISupportInitialize</span><span class="p">)(</span><span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">)).</span><span class="n">BeginInit</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">SuspendLayout</span><span class="p">();</span>
+         <span class="c1">// </span>
+         <span class="c1">// splitContainer1</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Dock</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">DockStyle</span><span class="p">.</span><span class="n">Fill</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">FixedPanel</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">FixedPanel</span><span class="p">.</span><span class="n">Panel1</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">IsSplitterFixed</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Location</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Point</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;splitContainer1&quot;</span><span class="p">;</span>
+         <span class="c1">// </span>
+         <span class="c1">// splitContainer1.Panel1</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">);</span>
+         <span class="c1">// </span>
+         <span class="c1">// splitContainer1.Panel2</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel2</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">604</span><span class="p">,</span> <span class="m">362</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">SplitterDistance</span> <span class="p">=</span> <span class="m">213</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">SplitterWidth</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">TabIndex</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+         <span class="c1">// </span>
+         <span class="c1">// lblSliderMaxValue</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">.</span><span class="n">AutoSize</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">.</span><span class="n">Location</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Point</span><span class="p">(</span><span class="m">176</span><span class="p">,</span> <span class="m">69</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;lblSliderMaxValue&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">19</span><span class="p">,</span> <span class="m">13</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">.</span><span class="n">TabIndex</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMaxValue</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="s">&quot;30&quot;</span><span class="p">;</span>
+         <span class="c1">// </span>
+         <span class="c1">// lblSliderMinValue</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">.</span><span class="n">AutoSize</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">.</span><span class="n">Location</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Point</span><span class="p">(</span><span class="m">21</span><span class="p">,</span> <span class="m">69</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;lblSliderMinValue&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="m">13</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">.</span><span class="n">TabIndex</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderMinValue</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+         <span class="c1">// </span>
+         <span class="c1">// lblSliderTitle</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">.</span><span class="n">AutoSize</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">.</span><span class="n">Location</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Point</span><span class="p">(</span><span class="m">18</span><span class="p">,</span> <span class="m">11</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;lblSliderTitle&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">74</span><span class="p">,</span> <span class="m">13</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">.</span><span class="n">TabIndex</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">lblSliderTitle</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="s">&quot;Contour Value&quot;</span><span class="p">;</span>
+         <span class="c1">// </span>
+         <span class="c1">// sliderContourValue</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Location</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Point</span><span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="m">37</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Maximum</span> <span class="p">=</span> <span class="m">30</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Minimum</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;sliderContourValue&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">186</span><span class="p">,</span> <span class="m">45</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">TabIndex</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">TickFrequency</span> <span class="p">=</span> <span class="m">5</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">.</span><span class="n">Scroll</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">EventHandler</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue_Scroll</span><span class="p">);</span>
+         <span class="c1">// </span>
+         <span class="c1">// renderWindowControl1</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">AddTestActors</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">Dock</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">DockStyle</span><span class="p">.</span><span class="n">Fill</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">Location</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Point</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;renderWindowControl1&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">390</span><span class="p">,</span> <span class="m">362</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">TabIndex</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">TestText</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+         <span class="c1">// </span>
+         <span class="c1">// Form1</span>
+         <span class="c1">// </span>
+         <span class="k">this</span><span class="p">.</span><span class="n">AutoScaleDimensions</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">SizeF</span><span class="p">(</span><span class="m">6F</span><span class="p">,</span> <span class="m">13F</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">AutoScaleMode</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">AutoScaleMode</span><span class="p">.</span><span class="n">Font</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">ClientSize</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">604</span><span class="p">,</span> <span class="m">362</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;Form1&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="s">&quot;IsoContours&quot;</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Load</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">EventHandler</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">Form1_Load</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">ResumeLayout</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel1</span><span class="p">.</span><span class="n">PerformLayout</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">Panel2</span><span class="p">.</span><span class="n">ResumeLayout</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">splitContainer1</span><span class="p">.</span><span class="n">ResumeLayout</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+         <span class="p">((</span><span class="n">System</span><span class="p">.</span><span class="n">ComponentModel</span><span class="p">.</span><span class="n">ISupportInitialize</span><span class="p">)(</span><span class="k">this</span><span class="p">.</span><span class="n">sliderContourValue</span><span class="p">)).</span><span class="n">EndInit</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">ResumeLayout</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
 
-      }
+      <span class="p">}</span>
 
-      #endregion
+      <span class="cp">#endregion</span>
 
-      private System.Windows.Forms.SplitContainer splitContainer1;
-      private System.Windows.Forms.Label lblSliderTitle;
-      private System.Windows.Forms.TrackBar sliderContourValue;
-      private Kitware.VTK.RenderWindowControl renderWindowControl1;
-      private System.Windows.Forms.Label lblSliderMaxValue;
-      private System.Windows.Forms.Label lblSliderMinValue;
-   }
-}
-</code></pre>
+      <span class="k">private</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">SplitContainer</span> <span class="n">splitContainer1</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Label</span> <span class="n">lblSliderTitle</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">TrackBar</span> <span class="n">sliderContourValue</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">Kitware</span><span class="p">.</span><span class="n">VTK</span><span class="p">.</span><span class="n">RenderWindowControl</span> <span class="n">renderWindowControl1</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Label</span> <span class="n">lblSliderMaxValue</span><span class="p">;</span>
+      <span class="k">private</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Label</span> <span class="n">lblSliderMinValue</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

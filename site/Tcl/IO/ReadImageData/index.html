@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15521,6 +15521,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15965,34 +15977,34 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Tcl">Tcl</a>/IO/ReadImageData</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadImageData.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadImageData.tcl</strong></p>
-<pre><code class="tcl">package require vtk
+<div class="codehilite"><pre><span></span><span class="nb">package</span> require vtk
 
-if { $argc != 1 } {
-    puts &quot;The command requires 1 argument: InputFileName&quot;
-    puts &quot;Please try again.&quot;
-    exit
-}
+<span class="k">if</span> <span class="k">{</span> <span class="nv">$argc</span> <span class="o">!=</span> <span class="nv">1</span> <span class="k">}</span> <span class="k">{</span>
+    <span class="nb">puts</span> <span class="s2">&quot;The command requires 1 argument: InputFileName&quot;</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Please try again.&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">}</span>
 
-set inputFile [lindex $argv 0]
+<span class="k">set</span> inputFile <span class="k">[</span><span class="nb">lindex</span> <span class="nv">$argv</span> <span class="mi">0</span><span class="k">]</span>
 
-# Read the iamge data from a VTI file
-vtkXMLImageDataReader reader
-reader SetFileName $inputFile
-reader Update
+<span class="c"># Read the iamge data from a VTI file</span>
+<span class="nv">vtkXMLImageDataReader</span> reader
+<span class="nv">reader</span> SetFileName <span class="nv">$inputFile</span>
+<span class="nv">reader</span> Update
 
-# Check for number of points
-set imagedata [reader GetOutput]
-set numPoints [$imagedata GetNumberOfPoints]
+<span class="c"># Check for number of points</span>
+<span class="k">set</span> imagedata <span class="k">[</span><span class="nv">reader</span> GetOutput<span class="k">]</span>
+<span class="k">set</span> numPoints <span class="k">[</span><span class="nv">$imagedata</span> <span class="nv">GetNumberOfPoints</span><span class="k">]</span>
 
-if { $numPoints == 0 } {
-    puts &quot;Input Image has zero points.&quot;
-    exit
-} else {
-    puts &quot;Input Image has $numPoints points&quot;
-}
-</code></pre>
+<span class="k">if</span> <span class="k">{</span> <span class="nv">$numPoints</span> <span class="o">==</span> <span class="nv">0</span> <span class="k">}</span> <span class="k">{</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Input Image has zero points.&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">}</span> <span class="k">else</span> <span class="k">{</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Input Image has $numPoints points&quot;</span>
+<span class="k">}</span>
+</pre></div>
                 
                   
                 

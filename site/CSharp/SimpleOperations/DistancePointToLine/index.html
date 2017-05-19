@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,65 +15990,65 @@
                   <h1>DistancePointToLine</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/SimpleOperations/DistancePointToLine</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example computes the distance from a point to a line. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DistancePointToLine.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Kitware.VTK;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.InteropServices</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-void DistancePointToLine() {
-   double[] lineP0 = new double[] { 0.0, 0.0, 0.0 };
-   double[] lineP1 = new double[] { 2.0, 0.0, 0.0 };
+<span class="k">void</span> <span class="nf">DistancePointToLine</span><span class="p">()</span> <span class="p">{</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">lineP0</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">lineP1</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">2.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span> <span class="p">};</span>
 
-   double[] p0 = new double[] { 1.0, 0, 0 };
-   double[] p1 = new double[] { 1.0, 2.0, 0 };
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">p0</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">p1</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
 
-   // Don't worry, fortunately only a few functions in ActiViz.NET need 
-   // Marshaling between Managed and Unmanaged Code
-   IntPtr pP0 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   IntPtr pP1 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   IntPtr pLineP0 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   IntPtr pLineP1 = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   Marshal.Copy(p0, 0, pP0, 3);
-   Marshal.Copy(p1, 0, pP1, 3);
-   Marshal.Copy(lineP0, 0, pLineP0, 3);
-   Marshal.Copy(lineP1, 0, pLineP1, 3);
+   <span class="c1">// Don&#39;t worry, fortunately only a few functions in ActiViz.NET need </span>
+   <span class="c1">// Marshaling between Managed and Unmanaged Code</span>
+   <span class="n">IntPtr</span> <span class="n">pP0</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">IntPtr</span> <span class="n">pP1</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">IntPtr</span> <span class="n">pLineP0</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">IntPtr</span> <span class="n">pLineP1</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pP1</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">lineP0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pLineP0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">lineP1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pLineP1</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
 
-   double dist0 = vtkLine.DistanceToLine(pP0, pLineP0, pLineP1);
-   Console.WriteLine(&quot;Dist0: &quot; + dist0);
+   <span class="kt">double</span> <span class="n">dist0</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">DistanceToLine</span><span class="p">(</span><span class="n">pP0</span><span class="p">,</span> <span class="n">pLineP0</span><span class="p">,</span> <span class="n">pLineP1</span><span class="p">);</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Dist0: &quot;</span> <span class="p">+</span> <span class="n">dist0</span><span class="p">);</span>
 
-   double dist1 = vtkLine.DistanceToLine(pP1, pLineP0, pLineP1);
-   Console.WriteLine(&quot;Dist1: &quot; + dist1);
+   <span class="kt">double</span> <span class="n">dist1</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">DistanceToLine</span><span class="p">(</span><span class="n">pP1</span><span class="p">,</span> <span class="n">pLineP0</span><span class="p">,</span> <span class="n">pLineP1</span><span class="p">);</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Dist1: &quot;</span> <span class="p">+</span> <span class="n">dist1</span><span class="p">);</span>
 
-   double parametricCoord = 0.0; // must be initialized because this var is passed by reference
-   double[] closest = new double[3];
-   IntPtr pClosest = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * 3);
-   Marshal.Copy(closest, 0, pClosest, 3);
+   <span class="kt">double</span> <span class="n">parametricCoord</span> <span class="p">=</span> <span class="m">0.0</span><span class="p">;</span> <span class="c1">// must be initialized because this var is passed by reference</span>
+   <span class="kt">double</span><span class="p">[]</span> <span class="n">closest</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+   <span class="n">IntPtr</span> <span class="n">pClosest</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">AllocHGlobal</span><span class="p">(</span><span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">))</span> <span class="p">*</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">closest</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">pClosest</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
 
-   dist0 = vtkLine.DistanceToLine(pP0, pLineP0, pLineP1, ref parametricCoord, pClosest);
-   Marshal.Copy(pClosest, closest, 0, 3);
-   Console.WriteLine(
-      &quot;Dist0: &quot; + dist0 
-      + &quot; closest point: &quot; + closest[0] + &quot; &quot; + closest[1] + &quot; &quot; + closest[2] 
-      + &quot; parametricCoord: &quot; + parametricCoord);
+   <span class="n">dist0</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">DistanceToLine</span><span class="p">(</span><span class="n">pP0</span><span class="p">,</span> <span class="n">pLineP0</span><span class="p">,</span> <span class="n">pLineP1</span><span class="p">,</span> <span class="k">ref</span> <span class="n">parametricCoord</span><span class="p">,</span> <span class="n">pClosest</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pClosest</span><span class="p">,</span> <span class="n">closest</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span>
+      <span class="s">&quot;Dist0: &quot;</span> <span class="p">+</span> <span class="n">dist0</span> 
+      <span class="p">+</span> <span class="s">&quot; closest point: &quot;</span> <span class="p">+</span> <span class="n">closest</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">closest</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">closest</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> 
+      <span class="p">+</span> <span class="s">&quot; parametricCoord: &quot;</span> <span class="p">+</span> <span class="n">parametricCoord</span><span class="p">);</span>
 
-   dist1 = vtkLine.DistanceToLine(pP1, pLineP0, pLineP1, ref parametricCoord, pClosest);
-   Marshal.Copy(pClosest, closest, 0, 3);
-   Console.WriteLine(
-      &quot;Dist1: &quot; + dist1 
-      + &quot; closest point: &quot; + closest[0] + &quot; &quot; + closest[1] + &quot; &quot; + closest[2]
-      + &quot; parametricCoord: &quot; + parametricCoord);
+   <span class="n">dist1</span> <span class="p">=</span> <span class="n">vtkLine</span><span class="p">.</span><span class="n">DistanceToLine</span><span class="p">(</span><span class="n">pP1</span><span class="p">,</span> <span class="n">pLineP0</span><span class="p">,</span> <span class="n">pLineP1</span><span class="p">,</span> <span class="k">ref</span> <span class="n">parametricCoord</span><span class="p">,</span> <span class="n">pClosest</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">pClosest</span><span class="p">,</span> <span class="n">closest</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+   <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span>
+      <span class="s">&quot;Dist1: &quot;</span> <span class="p">+</span> <span class="n">dist1</span> 
+      <span class="p">+</span> <span class="s">&quot; closest point: &quot;</span> <span class="p">+</span> <span class="n">closest</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">closest</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">closest</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
+      <span class="p">+</span> <span class="s">&quot; parametricCoord: &quot;</span> <span class="p">+</span> <span class="n">parametricCoord</span><span class="p">);</span>
 
-   Marshal.FreeHGlobal(pP0);
-   Marshal.FreeHGlobal(pP1);
-   Marshal.FreeHGlobal(pLineP0);
-   Marshal.FreeHGlobal(pLineP1);
-   Marshal.FreeHGlobal(pClosest);
-}
-</code></pre>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP0</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pP1</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pLineP0</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pLineP1</span><span class="p">);</span>
+   <span class="n">Marshal</span><span class="p">.</span><span class="n">FreeHGlobal</span><span class="p">(</span><span class="n">pClosest</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,171 +16005,178 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Graphs/DepthFirstSearchAnimation</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Graphs/TestDepthFirstSearchAnimation.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DepthFirstSearchAnimation.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkDataSetAttributes.h&gt;
-#include &lt;vtkGraphLayoutView.h&gt;
-#include &lt;vtkIntArray.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkMutableDirectedGraph.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRendererCollection.h&gt;
-#include &lt;vtkTree.h&gt;
-#include &lt;vtkTreeDFSIterator.h&gt;
-#include &lt;vtkUnsignedCharArray.h&gt;
-#include &lt;vtkViewTheme.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetAttributes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGraphLayoutView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMutableDirectedGraph.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRendererCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTree.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTreeDFSIterator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnsignedCharArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkViewTheme.h&gt;</span><span class="cp"></span>
 
-class vtkTimerCallback : public vtkCommand
-{
-public:
-  static vtkTimerCallback *New()
-  {
-    vtkTimerCallback *cb = new vtkTimerCallback;
-    return cb;
-  }
-  virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long eventId,
-                         void *vtkNotUsed(callData))
-  {
-    if (eventId != vtkCommand::TimerEvent)
-    {
-      return;
-    }
+<span class="k">class</span> <span class="nc">vtkTimerCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkTimerCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">vtkTimerCallback</span> <span class="o">*</span><span class="n">cb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkTimerCallback</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">cb</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">eventId</span><span class="p">,</span>
+                         <span class="kt">void</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">eventId</span> <span class="o">!=</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">TimerEvent</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    if(this-&gt;DFS-&gt;HasNext())
-    {
-      vtkIdType nextVertex = this-&gt;DFS-&gt;Next();
-      std::cout &lt;&lt; &quot;Next vertex: &quot; &lt;&lt; nextVertex &lt;&lt; std::endl;
-      vtkIntArray::SafeDownCast(
-        this-&gt;Tree-&gt;GetVertexData()-&gt;GetArray(&quot;color&quot;))-&gt;SetValue(nextVertex, 10);
-      this-&gt;Tree-&gt;Modified();
-      this-&gt;GraphLayoutView-&gt;AddRepresentationFromInput(this-&gt;Tree);
-      this-&gt;GraphLayoutView-&gt;Render();
-    }
-  }
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">DFS</span><span class="o">-&gt;</span><span class="n">HasNext</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">vtkIdType</span> <span class="n">nextVertex</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">DFS</span><span class="o">-&gt;</span><span class="n">Next</span><span class="p">();</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Next vertex: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">nextVertex</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="n">vtkIntArray</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tree</span><span class="o">-&gt;</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="s">&quot;color&quot;</span><span class="p">))</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">nextVertex</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Tree</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">GraphLayoutView</span><span class="o">-&gt;</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Tree</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">GraphLayoutView</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  void SetDFS(vtkTreeDFSIterator *dfs) {this-&gt;DFS = dfs;}
-  void SetTree(vtkTree *tree) {this-&gt;Tree = tree;}
-  void SetGraphLayoutView(vtkGraphLayoutView *view) {this-&gt;GraphLayoutView = view;}
+  <span class="kt">void</span> <span class="n">SetDFS</span><span class="p">(</span><span class="n">vtkTreeDFSIterator</span> <span class="o">*</span><span class="n">dfs</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">DFS</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">;}</span>
+  <span class="kt">void</span> <span class="n">SetTree</span><span class="p">(</span><span class="n">vtkTree</span> <span class="o">*</span><span class="n">tree</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Tree</span> <span class="o">=</span> <span class="n">tree</span><span class="p">;}</span>
+  <span class="kt">void</span> <span class="n">SetGraphLayoutView</span><span class="p">(</span><span class="n">vtkGraphLayoutView</span> <span class="o">*</span><span class="n">view</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GraphLayoutView</span> <span class="o">=</span> <span class="n">view</span><span class="p">;}</span>
 
-private:
-  vtkTreeDFSIterator *DFS;
-  vtkTree            *Tree;
-  vtkGraphLayoutView *GraphLayoutView;
-};
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkTreeDFSIterator</span> <span class="o">*</span><span class="n">DFS</span><span class="p">;</span>
+  <span class="n">vtkTree</span>            <span class="o">*</span><span class="n">Tree</span><span class="p">;</span>
+  <span class="n">vtkGraphLayoutView</span> <span class="o">*</span><span class="n">GraphLayoutView</span><span class="p">;</span>
+<span class="p">};</span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkMutableDirectedGraph&gt; graph =
-    vtkSmartPointer&lt;vtkMutableDirectedGraph&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;</span> <span class="n">graph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableDirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Create a tree
-  vtkIdType v1 = graph-&gt;AddVertex();
-  vtkIdType v2 = graph-&gt;AddChild(v1);
-  graph-&gt;AddChild(v1);
-  graph-&gt;AddChild(v2);
+  <span class="c1">// Create a tree</span>
+  <span class="n">vtkIdType</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddChild</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+  <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddChild</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+  <span class="n">graph</span><span class="o">-&gt;</span><span class="n">AddChild</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTree&gt; tree =
-    vtkSmartPointer&lt;vtkTree&gt;::New();
-  tree-&gt;CheckedShallowCopy(graph);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTree</span><span class="o">&gt;</span> <span class="n">tree</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTree</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tree</span><span class="o">-&gt;</span><span class="n">CheckedShallowCopy</span><span class="p">(</span><span class="n">graph</span><span class="p">);</span>
 
-  // Create the color array
-  vtkSmartPointer&lt;vtkIntArray&gt; vertexColors =
-    vtkSmartPointer&lt;vtkIntArray&gt;::New();
-  vertexColors-&gt;SetNumberOfComponents(1);
-  vertexColors-&gt;SetName(&quot;color&quot;);
+  <span class="c1">// Create the color array</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;</span> <span class="n">vertexColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIntArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;color&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkLookupTable&gt; lookupTable =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lookupTable</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  lookupTable-&gt;SetTableRange(0.0, 10.0);
-  lookupTable-&gt;Build();
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">SetTableRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">);</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  for(vtkIdType i = 0; i &lt; tree-&gt;GetNumberOfVertices(); i++)
-  {
-    vertexColors-&gt;InsertNextValue(0);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetNumberOfVertices</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vertexColors</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Add the color array to the tree
-  tree-&gt;GetVertexData()-&gt;AddArray(vertexColors);
+  <span class="c1">// Add the color array to the tree</span>
+  <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetVertexData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">vertexColors</span><span class="p">);</span>
 
-  // Create a depth first search iterator
-  vtkSmartPointer&lt;vtkTreeDFSIterator&gt; DFS =
-    vtkSmartPointer&lt;vtkTreeDFSIterator&gt;::New();
-  vtkIdType root = tree-&gt;GetRoot();
-  DFS-&gt;SetStartVertex(root);
-  DFS-&gt;SetTree(tree);
+  <span class="c1">// Create a depth first search iterator</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeDFSIterator</span><span class="o">&gt;</span> <span class="n">DFS</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeDFSIterator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkIdType</span> <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">GetRoot</span><span class="p">();</span>
+  <span class="n">DFS</span><span class="o">-&gt;</span><span class="n">SetStartVertex</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+  <span class="n">DFS</span><span class="o">-&gt;</span><span class="n">SetTree</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkGraphLayoutView&gt; graphLayoutView =
-    vtkSmartPointer&lt;vtkGraphLayoutView&gt;::New();
-  graphLayoutView-&gt;AddRepresentationFromInput(tree);
-  graphLayoutView-&gt;SetLayoutStrategyToTree();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;</span> <span class="n">graphLayoutView</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGraphLayoutView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">AddRepresentationFromInput</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">SetLayoutStrategyToTree</span><span class="p">();</span>
 
-  graphLayoutView-&gt;SetVertexColorArrayName(&quot;color&quot;);
-  graphLayoutView-&gt;ColorVerticesOn();
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">SetVertexColorArrayName</span><span class="p">(</span><span class="s">&quot;color&quot;</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ColorVerticesOn</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkViewTheme&gt; theme =
-    vtkSmartPointer&lt;vtkViewTheme&gt;::New();
-  theme-&gt;SetPointLookupTable(lookupTable);
-  theme-&gt;ScalePointLookupTableOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkViewTheme</span><span class="o">&gt;</span> <span class="n">theme</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkViewTheme</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">theme</span><span class="o">-&gt;</span><span class="n">SetPointLookupTable</span><span class="p">(</span><span class="n">lookupTable</span><span class="p">);</span>
+  <span class="n">theme</span><span class="o">-&gt;</span><span class="n">ScalePointLookupTableOff</span><span class="p">();</span>
 
-  graphLayoutView-&gt;ApplyViewTheme(theme);
-  graphLayoutView-&gt;ResetCamera();
-  graphLayoutView-&gt;Render();
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ApplyViewTheme</span><span class="p">(</span><span class="n">theme</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Sign up to receive TimerEvent
-  vtkSmartPointer&lt;vtkTimerCallback&gt; cb =
-    vtkSmartPointer&lt;vtkTimerCallback&gt;::New();
-  cb-&gt;SetDFS(DFS);
-  cb-&gt;SetTree(tree);
-  cb-&gt;SetGraphLayoutView(graphLayoutView);
+  <span class="c1">// Sign up to receive TimerEvent</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerCallback</span><span class="o">&gt;</span> <span class="n">cb</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cb</span><span class="o">-&gt;</span><span class="n">SetDFS</span><span class="p">(</span><span class="n">DFS</span><span class="p">);</span>
+  <span class="n">cb</span><span class="o">-&gt;</span><span class="n">SetTree</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+  <span class="n">cb</span><span class="o">-&gt;</span><span class="n">SetGraphLayoutView</span><span class="p">(</span><span class="n">graphLayoutView</span><span class="p">);</span>
 
-  graphLayoutView-&gt;GetInteractor()-&gt;CreateRepeatingTimer(1000);
-  graphLayoutView-&gt;GetInteractor()-&gt;AddObserver(vtkCommand::TimerEvent, cb);
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">CreateRepeatingTimer</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">TimerEvent</span><span class="p">,</span> <span class="n">cb</span><span class="p">);</span>
 
-  graphLayoutView-&gt;GetInteractor()-&gt;Start();
+  <span class="n">graphLayoutView</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(DepthFirstSearchAnimation)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">DepthFirstSearchAnimation</span><span class="p">)</span>
 
-add_executable(DepthFirstSearchAnimation MACOSX_BUNDLE DepthFirstSearchAnimation.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(DepthFirstSearchAnimation ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">DepthFirstSearchAnimation</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">DepthFirstSearchAnimation.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-depthfirstsearchanimation">Download and Build DepthFirstSearchAnimation</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">DepthFirstSearchAnimation</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-depthfirstsearchanimation">Download and Build DepthFirstSearchAnimation<a class="headerlink" href="#download-and-build-depthfirstsearchanimation" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/DepthFirstSearchAnimation.tar">here to download DepthFirstSearchAnimation</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball DepthFirstSearchAnimation.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd DepthFirstSearchAnimation/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd DepthFirstSearchAnimation/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./DepthFirstSearchAnimation
-</code></pre>
+<div class="codehilite"><pre><span></span>./DepthFirstSearchAnimation
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

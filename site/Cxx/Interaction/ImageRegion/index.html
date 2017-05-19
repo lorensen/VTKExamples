@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,243 +16019,250 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Interaction/ImageRegion</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Interaction/TestImageRegion.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example shows how to get the image coordinates of the corners of a BorderWidget.</p>
 <p>It currently says the pick for the lower left corner of the border widget is valid even when it is off the image.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageRegion.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkAssemblyNode.h&gt;
-#include &lt;vtkAssemblyPath.h&gt;
-#include &lt;vtkBorderRepresentation.h&gt;
-#include &lt;vtkBorderWidget.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkCoordinate.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPropPicker.h&gt;
-#include &lt;vtkProperty2D.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAssemblyNode.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAssemblyPath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBorderRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBorderWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCoordinate.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPropPicker.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 
-class vtkBorderCallback : public vtkCommand
-{
-public:
-  vtkBorderCallback(){}
+<span class="k">class</span> <span class="nc">vtkBorderCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">vtkBorderCallback</span><span class="p">(){}</span>
 
-  static vtkBorderCallback *New()
-  {
-    return new vtkBorderCallback;
-  }
+  <span class="k">static</span> <span class="n">vtkBorderCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">vtkBorderCallback</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  virtual void Execute(vtkObject *caller, unsigned long, void*)
-  {
-    vtkBorderWidget *borderWidget =
-      reinterpret_cast&lt;vtkBorderWidget*&gt;(caller);
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">caller</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkBorderWidget</span> <span class="o">*</span><span class="n">borderWidget</span> <span class="o">=</span>
+      <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">vtkBorderWidget</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">caller</span><span class="p">);</span>
 
-    // Get the display coordinates of the two corners of the box
-    vtkCoordinate* lowerLeftCoordinate = static_cast&lt;vtkBorderRepresentation*&gt;
-       (borderWidget-&gt;GetRepresentation())-&gt;GetPositionCoordinate();
-    double* lowerLeft;
-    lowerLeft = lowerLeftCoordinate -&gt;GetComputedWorldValue(this-&gt;Renderer);
-    std::cout &lt;&lt; &quot;Lower left coordinate: &quot; &lt;&lt; lowerLeft[0] &lt;&lt; &quot;, &quot; &lt;&lt; lowerLeft[1] &lt;&lt; std::endl;
-    lowerLeft[2] = 0;
+    <span class="c1">// Get the display coordinates of the two corners of the box</span>
+    <span class="n">vtkCoordinate</span><span class="o">*</span> <span class="n">lowerLeftCoordinate</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkBorderRepresentation</span><span class="o">*&gt;</span>
+       <span class="p">(</span><span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetPositionCoordinate</span><span class="p">();</span>
+    <span class="kt">double</span><span class="o">*</span> <span class="n">lowerLeft</span><span class="p">;</span>
+    <span class="n">lowerLeft</span> <span class="o">=</span> <span class="n">lowerLeftCoordinate</span> <span class="o">-&gt;</span><span class="n">GetComputedWorldValue</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Lower left coordinate: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">lowerLeft</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">lowerLeft</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">lowerLeft</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    vtkCoordinate* upperRightCoordinate = static_cast&lt;vtkBorderRepresentation*&gt;
-       (borderWidget-&gt;GetRepresentation())-&gt;GetPosition2Coordinate();
-    double* upperRight;
-    upperRight = upperRightCoordinate -&gt;GetComputedWorldValue(this-&gt;Renderer);
-    std::cout &lt;&lt; &quot;Upper right coordinate: &quot; &lt;&lt; upperRight[0] &lt;&lt; &quot;, &quot; &lt;&lt; upperRight[1] &lt;&lt; std::endl;
-    upperRight[2] = 0;
+    <span class="n">vtkCoordinate</span><span class="o">*</span> <span class="n">upperRightCoordinate</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkBorderRepresentation</span><span class="o">*&gt;</span>
+       <span class="p">(</span><span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">GetPosition2Coordinate</span><span class="p">();</span>
+    <span class="kt">double</span><span class="o">*</span> <span class="n">upperRight</span><span class="p">;</span>
+    <span class="n">upperRight</span> <span class="o">=</span> <span class="n">upperRightCoordinate</span> <span class="o">-&gt;</span><span class="n">GetComputedWorldValue</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Upper right coordinate: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">upperRight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">upperRight</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">upperRight</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    // Pick at the two corners of the box
-    vtkSmartPointer&lt;vtkPropPicker&gt; picker =
-      vtkSmartPointer&lt;vtkPropPicker&gt;::New();
+    <span class="c1">// Pick at the two corners of the box</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;</span> <span class="n">picker</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-//    int valid1 = picker-&gt;Pick( lowerLeft[0],
-    picker-&gt;Pick( lowerLeft[0],
-                  lowerLeft[1], 0.0, this-&gt;Renderer );
+<span class="c1">//    int valid1 = picker-&gt;Pick( lowerLeft[0],</span>
+    <span class="n">picker</span><span class="o">-&gt;</span><span class="n">Pick</span><span class="p">(</span> <span class="n">lowerLeft</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                  <span class="n">lowerLeft</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span> <span class="p">);</span>
 
-    vtkAssemblyPath* path = picker-&gt;GetPath();
+    <span class="n">vtkAssemblyPath</span><span class="o">*</span> <span class="n">path</span> <span class="o">=</span> <span class="n">picker</span><span class="o">-&gt;</span><span class="n">GetPath</span><span class="p">();</span>
 
-    vtkProp* pickedProp = NULL;
+    <span class="n">vtkProp</span><span class="o">*</span> <span class="n">pickedProp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
-    bool validPick = false;
-    if( path )
-    {
-      std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; path-&gt;GetNumberOfItems() &lt;&lt; &quot; items in the path.&quot; &lt;&lt; std::endl;
-      vtkCollectionSimpleIterator sit;
-      path-&gt;InitTraversal( sit );
-      vtkAssemblyNode *node;
-      for( int i = 0; i &lt; path-&gt;GetNumberOfItems(); ++i )
-      {
-        node = path-&gt;GetNextNode( sit );
-        pickedProp = node-&gt;GetViewProp();
-        if( this-&gt;ImageActor == vtkImageActor::SafeDownCast( pickedProp ) )
-        {
-          std::cout &lt;&lt; &quot;Correct actor picked.&quot; &lt;&lt; std::endl;
-          validPick = true;
-          break;
-        }
-      }
-    }
+    <span class="kt">bool</span> <span class="n">validPick</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">path</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">path</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; items in the path.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="n">vtkCollectionSimpleIterator</span> <span class="n">sit</span><span class="p">;</span>
+      <span class="n">path</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">(</span> <span class="n">sit</span> <span class="p">);</span>
+      <span class="n">vtkAssemblyNode</span> <span class="o">*</span><span class="n">node</span><span class="p">;</span>
+      <span class="k">for</span><span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">path</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">path</span><span class="o">-&gt;</span><span class="n">GetNextNode</span><span class="p">(</span> <span class="n">sit</span> <span class="p">);</span>
+        <span class="n">pickedProp</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">GetViewProp</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ImageActor</span> <span class="o">==</span> <span class="n">vtkImageActor</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span> <span class="n">pickedProp</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Correct actor picked.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+          <span class="n">validPick</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 
-    if(!validPick)
-    {
-      std::cout &lt;&lt; &quot;Off Image&quot; &lt;&lt; std::endl;
-    }
-    else
-    {
-      double pos1[3];
-      picker-&gt;GetPickPosition( pos1 );
-      std::cout &lt;&lt; &quot;Lower Left Pick: &quot; &lt;&lt; pos1[0] &lt;&lt; &quot; &quot; &lt;&lt; pos1[1] &lt;&lt; std::endl;
-    }
-    /*
-      if(valid1 != 0)
-        {
-        std::cout &lt;&lt; &quot;Valid1: &quot; &lt;&lt; valid1 &lt;&lt; std::endl;
-        double pos1[3];
-        picker-&gt;GetPickPosition( pos1 );
-        std::cout &lt;&lt; &quot;Lower Left Pick: &quot; &lt;&lt; pos1[0] &lt;&lt; &quot; &quot; &lt;&lt; pos1[1] &lt;&lt; std::endl;
-        }
-      else
-        {
-        std::cout &lt;&lt; &quot;Left - nothing was picked&quot; &lt;&lt; std::endl;
-        }
-      */
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">validPick</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Off Image&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">pos1</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">picker</span><span class="o">-&gt;</span><span class="n">GetPickPosition</span><span class="p">(</span> <span class="n">pos1</span> <span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Lower Left Pick: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pos1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">      if(valid1 != 0)</span>
+<span class="cm">        {</span>
+<span class="cm">        std::cout &lt;&lt; &quot;Valid1: &quot; &lt;&lt; valid1 &lt;&lt; std::endl;</span>
+<span class="cm">        double pos1[3];</span>
+<span class="cm">        picker-&gt;GetPickPosition( pos1 );</span>
+<span class="cm">        std::cout &lt;&lt; &quot;Lower Left Pick: &quot; &lt;&lt; pos1[0] &lt;&lt; &quot; &quot; &lt;&lt; pos1[1] &lt;&lt; std::endl;</span>
+<span class="cm">        }</span>
+<span class="cm">      else</span>
+<span class="cm">        {</span>
+<span class="cm">        std::cout &lt;&lt; &quot;Left - nothing was picked&quot; &lt;&lt; std::endl;</span>
+<span class="cm">        }</span>
+<span class="cm">      */</span>
 
-      /*
-      int valid2 = picker-&gt;Pick( upperRight[0],
-                    upperRight[1], 0.0, this-&gt;Renderer );
-      if(valid2 != 0)
-        {
-        std::cout &lt;&lt; &quot;Valid2: &quot; &lt;&lt; valid2 &lt;&lt; std::endl;
-        double pos2[3];
-        picker-&gt;GetPickPosition( pos2 );
-        std::cout &lt;&lt; &quot;Upper right Pick: &quot; &lt;&lt; pos2[0] &lt;&lt; &quot; &quot; &lt;&lt; pos2[1] &lt;&lt; std::endl;
-        }
-      else
-        {
-        std::cout &lt;&lt; &quot;Right - nothing was picked&quot; &lt;&lt; std::endl;
-        }
-      */
-    std::cout &lt;&lt; std::endl;
-  }
+      <span class="cm">/*</span>
+<span class="cm">      int valid2 = picker-&gt;Pick( upperRight[0],</span>
+<span class="cm">                    upperRight[1], 0.0, this-&gt;Renderer );</span>
+<span class="cm">      if(valid2 != 0)</span>
+<span class="cm">        {</span>
+<span class="cm">        std::cout &lt;&lt; &quot;Valid2: &quot; &lt;&lt; valid2 &lt;&lt; std::endl;</span>
+<span class="cm">        double pos2[3];</span>
+<span class="cm">        picker-&gt;GetPickPosition( pos2 );</span>
+<span class="cm">        std::cout &lt;&lt; &quot;Upper right Pick: &quot; &lt;&lt; pos2[0] &lt;&lt; &quot; &quot; &lt;&lt; pos2[1] &lt;&lt; std::endl;</span>
+<span class="cm">        }</span>
+<span class="cm">      else</span>
+<span class="cm">        {</span>
+<span class="cm">        std::cout &lt;&lt; &quot;Right - nothing was picked&quot; &lt;&lt; std::endl;</span>
+<span class="cm">        }</span>
+<span class="cm">      */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  void SetRenderer(vtkSmartPointer&lt;vtkRenderer&gt; ren) {this-&gt;Renderer = ren;}
-  void SetImageActor(vtkSmartPointer&lt;vtkImageActor&gt; im) {this-&gt;ImageActor = im;}
+  <span class="kt">void</span> <span class="n">SetRenderer</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Renderer</span> <span class="o">=</span> <span class="n">ren</span><span class="p">;}</span>
+  <span class="kt">void</span> <span class="n">SetImageActor</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">im</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ImageActor</span> <span class="o">=</span> <span class="n">im</span><span class="p">;}</span>
 
-private:
-  vtkSmartPointer&lt;vtkRenderer&gt; Renderer;
-  vtkSmartPointer&lt;vtkImageActor&gt; ImageActor;
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">Renderer</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">ImageActor</span><span class="p">;</span>
 
-};
+<span class="p">};</span>
 
-int main (int argc, char *argv[])
-{
-  // Parse input arguments
-  if ( argc != 2 )
-  {
-    std::cout &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt;&quot; Filename(.jpg)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Parse input arguments</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span><span class="s">&quot; Filename(.jpg)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  std::string InputFilename = argv[1];
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">InputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-  // Read the image
-  vtkSmartPointer&lt;vtkJPEGReader&gt; jPEGReader =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  jPEGReader-&gt;SetFileName ( InputFilename.c_str() );
+  <span class="c1">// Read the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">InputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; actor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  actor-&gt;GetMapper()-&gt;SetInputConnection(jPEGReader-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // A renderer and render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="c1">// A renderer and render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  // An interactor
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// An interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleImage&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkBorderWidget&gt; borderWidget =
-    vtkSmartPointer&lt;vtkBorderWidget&gt;::New();
-  borderWidget-&gt;SetInteractor(renderWindowInteractor);
-  static_cast&lt;vtkBorderRepresentation*&gt;(borderWidget-&gt;GetRepresentation())-&gt;
-     GetBorderProperty()-&gt;SetColor(1,0,0);
-  borderWidget-&gt;SelectableOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBorderWidget</span><span class="o">&gt;</span> <span class="n">borderWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBorderWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkBorderRepresentation</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">())</span><span class="o">-&gt;</span>
+     <span class="n">GetBorderProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">SelectableOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkBorderCallback&gt; borderCallback =
-    vtkSmartPointer&lt;vtkBorderCallback&gt;::New();
-  borderCallback-&gt;SetRenderer(renderer);
-  borderCallback-&gt;SetImageActor(actor);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBorderCallback</span><span class="o">&gt;</span> <span class="n">borderCallback</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBorderCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">borderCallback</span><span class="o">-&gt;</span><span class="n">SetRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">borderCallback</span><span class="o">-&gt;</span><span class="n">SetImageActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
-  borderWidget-&gt;AddObserver(vtkCommand::InteractionEvent,borderCallback);
+  <span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">InteractionEvent</span><span class="p">,</span><span class="n">borderCallback</span><span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;SetBackground(1,1,1);
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Initialize();
-  renderWindow-&gt;Render();
-  borderWidget-&gt;On();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">borderWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageRegion)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageRegion</span><span class="p">)</span>
 
-add_executable(ImageRegion MACOSX_BUNDLE ImageRegion.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageRegion ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageRegion</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageRegion.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imageregion">Download and Build ImageRegion</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageRegion</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imageregion">Download and Build ImageRegion<a class="headerlink" href="#download-and-build-imageregion" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageRegion.tar">here to download ImageRegion</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageRegion.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageRegion/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageRegion/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageRegion
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageRegion
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

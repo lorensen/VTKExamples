@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,64 +15991,64 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Filtering/CombinePolyData</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Filtering/TestCombinePolyData.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example combines Polydata objects, and displays the result to the screen.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CombinePolyData.py</strong></p>
-<pre><code class="python">import vtk
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
 
-input1 = vtk.vtkPolyData()
-input2 = vtk.vtkPolyData()
+<span class="n">input1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">input2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
 
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(5,0,0)
-sphereSource.Update()
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-input1.ShallowCopy(sphereSource.GetOutput())
+<span class="n">input1</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-coneSource =vtk.vtkConeSource()
-coneSource.Update()
+<span class="n">coneSource</span> <span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">()</span>
+<span class="n">coneSource</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-input2.ShallowCopy(coneSource.GetOutput())
+<span class="n">input2</span><span class="o">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">coneSource</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
-# Append the two meshes 
-appendFilter = vtk.vtkAppendPolyData()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    appendFilter.AddInputConnection(input1.GetProducerPort())
-    appendFilter.AddInputConnection(input2.GetProducerPort())
-else:
-    appendFilter.AddInputData(input1)
-    appendFilter.AddInputData(input2)
+<span class="c1"># Append the two meshes </span>
+<span class="n">appendFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkAppendPolyData</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">appendFilter</span><span class="o">.</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">input1</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+    <span class="n">appendFilter</span><span class="o">.</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">input2</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">appendFilter</span><span class="o">.</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">input1</span><span class="p">)</span>
+    <span class="n">appendFilter</span><span class="o">.</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">input2</span><span class="p">)</span>
 
-appendFilter.Update()
+<span class="n">appendFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-#  Remove any duplicate points.
-cleanFilter = vtk.vtkCleanPolyData()
-cleanFilter.SetInputConnection(appendFilter.GetOutputPort())
-cleanFilter.Update()
+<span class="c1">#  Remove any duplicate points.</span>
+<span class="n">cleanFilter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCleanPolyData</span><span class="p">()</span>
+<span class="n">cleanFilter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">appendFilter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">cleanFilter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# Create a mapper and actor
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(cleanFilter.GetOutputPort())
+<span class="c1"># Create a mapper and actor</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cleanFilter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-# Create a renderer, render window, and interactor
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># Create a renderer, render window, and interactor</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-# Add the actors to the scene
-renderer.AddActor(actor)
-renderer.SetBackground(.3, .2, .1) #  Background color dark red
+<span class="c1"># Add the actors to the scene</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#  Background color dark red</span>
 
-# Render and interact
-renderWindow.Render()
-renderWindowInteractor.Start()
-</code></pre>
+<span class="c1"># Render and interact</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

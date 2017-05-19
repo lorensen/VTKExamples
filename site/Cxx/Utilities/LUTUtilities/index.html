@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,576 +16018,583 @@
                   <h1>LUTUtilities</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Utilities/LUTUtilities</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>A class called LUTUtilities is demonstrated along with a test harness that shows you how to use the class.</p>
 <p>This class allows you to:
 <em> Print the contents of the lookup table
 </em> Compare two lookup tables to see if they are the same.</p>
 <p>The test harness is a function called: TestLookupTables that tests pairs of lookup tables against each other.</p>
 <p>The program will not display any output if all tests are successful.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LUTUtilities.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkColorSeries.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkVariantArray.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkColorSeries.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVariantArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;map&gt;
-#include &lt;iostream&gt;
-#include &lt;iomanip&gt;
-#include &lt;sstream&gt;
-#include &lt;cstdlib&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iomanip&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
 
-//! Utilities for displaying and comparing lookup tables.
-class LUTUtilities
-{
-  public:
-    //-----------------------------------------------------------------------------
-    //! Constructor.
-    LUTUtilities(){};
+<span class="c1">//! Utilities for displaying and comparing lookup tables.</span>
+<span class="k">class</span> <span class="nc">LUTUtilities</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Constructor.</span>
+    <span class="n">LUTUtilities</span><span class="p">(){};</span>
 
-    //-----------------------------------------------------------------------------
-    //! Destructor.
-    ~LUTUtilities(){};
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Destructor.</span>
+    <span class="o">~</span><span class="n">LUTUtilities</span><span class="p">(){};</span>
 
-    //-----------------------------------------------------------------------------
-    //! Display the contents of the lookup table.
-    /*!
-     * @param lut - the lookup table.
-     * @return a string containing the table data.
-     */
-    std::string DisplayLUTAsString(vtkLookupTable *lut)
-    {
-      vtkIdType tv = lut-&gt;GetNumberOfTableValues();
-      double dR[2];
-      lut-&gt;GetTableRange(dR);
-      std::ostringstream os;
-      if (lut-&gt;GetIndexedLookup())
-      {
-        vtkIdType av = lut-&gt;GetNumberOfAnnotatedValues();
-        os &lt;&lt; &quot;Categorical Lookup Table\nNumber of annotated values: &quot; &lt;&lt; av
-          &lt;&lt; &quot; Number of table values: &quot; &lt;&lt; tv
-          &lt;&lt; &quot;\nTable Range: &quot; &lt;&lt; std::fixed
-           &lt;&lt; std::setw(8) &lt;&lt; std::setprecision(6)
-          &lt;&lt; dR[0] &lt;&lt; &quot; to &quot; &lt;&lt; dR[1] &lt;&lt; std::endl;
-        if (av &gt; 0)
-        {
-          for (vtkIdType i = 0; i &lt; av; ++i)
-          {
-            double rgba[4];
-            lut-&gt;GetAnnotationColor(lut-&gt;GetAnnotatedValue(i), rgba);
-            os &lt;&lt; std::setw(5) &lt;&lt; lut-&gt;GetAnnotation(i) &lt;&lt; &quot;: &quot;;
-            os &lt;&lt; this-&gt;AssembleRGBAString(rgba);
-            os &lt;&lt; std::endl;
-          }
-        }
-        else
-        {
-          for (vtkIdType i = 0; i &lt; tv; ++i)
-          {
-            double rgba[4];
-            lut-&gt;GetTableValue(i, rgba);
-            os &lt;&lt; std::setw(5) &lt;&lt; i &lt;&lt; &quot;: &quot;;
-            os &lt;&lt; this-&gt;AssembleRGBAString(rgba);
-            os &lt;&lt; std::endl;
-          }
-        }
-      }
-      else
-      {
-        os &lt;&lt; &quot;Ordinal Lookup Table\nNumber of table values : &quot; &lt;&lt; tv
-          &lt;&lt; &quot;\nTable Range: &quot; &lt;&lt; std::fixed
-           &lt;&lt; std::setw(8) &lt;&lt; std::setprecision(6)
-          &lt;&lt; dR[0] &lt;&lt; &quot; to &quot; &lt;&lt; dR[1] &lt;&lt; std::endl;
-        std::vector&lt;double&gt; indices;
-        for (int i = 0; i &lt; tv; ++i)
-        {
-          indices.push_back((dR[1] - dR[0]) * i / tv + dR[0]);
-        }
-        for (std::vector&lt;double&gt;::const_iterator p = indices.begin();
-            p != indices.end(); ++p)
-        {
-          double rgba[4];
-          lut-&gt;GetColor(*p, rgba);
-          rgba[3] = lut-&gt;GetOpacity(*p);
-          os &lt;&lt; std::fixed &lt;&lt; std::setw(5) &lt;&lt; std::setprecision(2)
-             &lt;&lt; *p &lt;&lt; &quot;: &quot;;
-          os &lt;&lt; this-&gt;AssembleRGBAString(rgba);
-          os &lt;&lt; std::endl;
-        }
-      }
-      return os.str();
-    }
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Display the contents of the lookup table.</span>
+    <span class="cm">/*!</span>
+<span class="cm">     * @param lut - the lookup table.</span>
+<span class="cm">     * @return a string containing the table data.</span>
+<span class="cm">     */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">DisplayLUTAsString</span><span class="p">(</span><span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">vtkIdType</span> <span class="n">tv</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span>
+      <span class="kt">double</span> <span class="n">dR</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetTableRange</span><span class="p">(</span><span class="n">dR</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetIndexedLookup</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">vtkIdType</span> <span class="n">av</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">();</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Categorical Lookup Table</span><span class="se">\n</span><span class="s">Number of annotated values: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">av</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot; Number of table values: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">tv</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Table Range: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span>
+           <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+          <span class="o">&lt;&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; to &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">av</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">av</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="kt">double</span> <span class="n">rgba</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+            <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetAnnotationColor</span><span class="p">(</span><span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetAnnotatedValue</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">rgba</span><span class="p">);</span>
+            <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span><span class="p">;</span>
+            <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">AssembleRGBAString</span><span class="p">(</span><span class="n">rgba</span><span class="p">);</span>
+            <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+          <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tv</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="kt">double</span> <span class="n">rgba</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+            <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rgba</span><span class="p">);</span>
+            <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span><span class="p">;</span>
+            <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">AssembleRGBAString</span><span class="p">(</span><span class="n">rgba</span><span class="p">);</span>
+            <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Ordinal Lookup Table</span><span class="se">\n</span><span class="s">Number of table values : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">tv</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Table Range: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span>
+           <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+          <span class="o">&lt;&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; to &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tv</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">indices</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">dR</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">tv</span> <span class="o">+</span> <span class="n">dR</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">indices</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+            <span class="n">p</span> <span class="o">!=</span> <span class="n">indices</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="kt">double</span> <span class="n">rgba</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+          <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">rgba</span><span class="p">);</span>
+          <span class="n">rgba</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetOpacity</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+             <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: &quot;</span><span class="p">;</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">AssembleRGBAString</span><span class="p">(</span><span class="n">rgba</span><span class="p">);</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    //-----------------------------------------------------------------------------
-    //! Compare two lookup tables.
-    /*!
-     * @param lut1 - the lookup table.
-     * @param lut2 - the lookup table.
-     * @return true if the tables are the same.
-     */
-    std::pair&lt;bool, std::string&gt; CompareLUTs(vtkLookupTable *lut1,
-    vtkLookupTable *lut2)
-    {
-      std::pair&lt;bool, std::string&gt; res(true, &quot;&quot;);
-      if (lut1-&gt;GetIndexedLookup() != lut2-&gt;GetIndexedLookup())
-      {
-        res.first = false;
-        res.second = &quot;One table is ordinal and the other is categorical.&quot;;
-        return res;
-      }
-      if (lut1-&gt;GetIndexedLookup() &amp;&amp;
-          lut1-&gt;GetNumberOfAnnotatedValues()
-          != lut2-&gt;GetNumberOfAnnotatedValues())
-      {
-        res.first = false;
-        res.second = &quot;The number of annotated values do not match.&quot;;
-        return res;
-      }
-      if (lut1-&gt;GetNumberOfTableValues() != lut2-&gt;GetNumberOfTableValues())
-      {
-        res.first = false;
-        res.second = &quot;Table values do not match.&quot;;
-        return res;
-      }
-      double dR1[2];
-      lut1-&gt;GetTableRange(dR1);
-      double dR2[2];
-      lut2-&gt;GetTableRange(dR2);
-      if (dR1[0] != dR2[0] &amp;&amp; dR2[1] != dR1[1])
-      {
-        res.first = false;
-        res.second = &quot;Table ranges do not match.&quot;;
-      }
-      if (lut1-&gt;GetIndexedLookup())
-      {
-        vtkIdType av = lut1-&gt;GetNumberOfAnnotatedValues();
-        if (av &gt; 0)
-        {
-          for (vtkIdType i = 0; i &lt; av; ++i)
-          {
-            if (lut1-&gt;GetAnnotation(i) != lut1-&gt;GetAnnotation(i))
-            {
-              res.first = false;
-              res.second = &quot;Annotations do not match.&quot;;
-              return res;
-            }
-          }
-          for (vtkIdType i = 0; i &lt; av; ++i)
-          {
-            double rgba1[4];
-            lut1-&gt;GetAnnotationColor(lut1-&gt;GetAnnotatedValue(i), rgba1);
-            double rgba2[4];
-            lut2-&gt;GetAnnotationColor(lut2-&gt;GetAnnotatedValue(i), rgba2);
-            if (!this-&gt;CompareRGBA(rgba1, rgba2))
-            {
-              res.first = false;
-              res.second = &quot;Colors do not match.&quot;;
-              return res;
-            }
-          }
-        }
-        else
-        {
-          for (vtkIdType i = 0; i &lt; av; ++i)
-          {
-            double rgba1[4];
-            lut1-&gt;GetTableValue(i, rgba1);
-            double rgba2[4];
-            lut2-&gt;GetTableValue(i, rgba2);
-            if (!this-&gt;CompareRGBA(rgba1, rgba2))
-            {
-              res.first = false;
-              res.second = &quot;Colors do not match.&quot;;
-              return res;
-            }
-          }
-        }
-      }
-      else
-      {
-        vtkIdType tv = lut1-&gt;GetNumberOfTableValues();
-        std::vector&lt;double&gt; indices;
-        for (int i = 0; i &lt; tv; ++i)
-        {
-          indices.push_back((dR1[1] - dR1[0]) * i / tv + dR1[0]);
-        }
-        for (std::vector&lt;double&gt;::const_iterator p = indices.begin();
-          p != indices.end(); ++p)
-        {
-          double rgba1[4];
-          lut1-&gt;GetColor(*p, rgba1);
-          rgba1[3] = lut1-&gt;GetOpacity(*p);
-          double rgba2[4];
-          lut2-&gt;GetColor(*p, rgba2);
-          rgba2[3] = lut2-&gt;GetOpacity(*p);
-          if (!this-&gt;CompareRGBA(rgba1, rgba2))
-          {
-            res.first = false;
-            res.second = &quot;Colors do not match.&quot;;
-            return res;
-          }
-        }
-      }
-      return res;
-    }
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Compare two lookup tables.</span>
+    <span class="cm">/*!</span>
+<span class="cm">     * @param lut1 - the lookup table.</span>
+<span class="cm">     * @param lut2 - the lookup table.</span>
+<span class="cm">     * @return true if the tables are the same.</span>
+<span class="cm">     */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">CompareLUTs</span><span class="p">(</span><span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut1</span><span class="p">,</span>
+    <span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut2</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetIndexedLookup</span><span class="p">()</span> <span class="o">!=</span> <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetIndexedLookup</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;One table is ordinal and the other is categorical.&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetIndexedLookup</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
+          <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">()</span>
+          <span class="o">!=</span> <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;The number of annotated values do not match.&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">()</span> <span class="o">!=</span> <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;Table values do not match.&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="kt">double</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetTableRange</span><span class="p">(</span><span class="n">dR1</span><span class="p">);</span>
+      <span class="kt">double</span> <span class="n">dR2</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetTableRange</span><span class="p">(</span><span class="n">dR2</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">dR1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dR2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">dR2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+      <span class="p">{</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;Table ranges do not match.&quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetIndexedLookup</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">vtkIdType</span> <span class="n">av</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfAnnotatedValues</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">av</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">av</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="p">{</span>
+              <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+              <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;Annotations do not match.&quot;</span><span class="p">;</span>
+              <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+          <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">av</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="kt">double</span> <span class="n">rgba1</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+            <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetAnnotationColor</span><span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetAnnotatedValue</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">rgba1</span><span class="p">);</span>
+            <span class="kt">double</span> <span class="n">rgba2</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+            <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetAnnotationColor</span><span class="p">(</span><span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetAnnotatedValue</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">rgba2</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CompareRGBA</span><span class="p">(</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">))</span>
+            <span class="p">{</span>
+              <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+              <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;Colors do not match.&quot;</span><span class="p">;</span>
+              <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+          <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">av</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+          <span class="p">{</span>
+            <span class="kt">double</span> <span class="n">rgba1</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+            <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rgba1</span><span class="p">);</span>
+            <span class="kt">double</span> <span class="n">rgba2</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+            <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CompareRGBA</span><span class="p">(</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">))</span>
+            <span class="p">{</span>
+              <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+              <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;Colors do not match.&quot;</span><span class="p">;</span>
+              <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+        <span class="n">vtkIdType</span> <span class="n">tv</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tv</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">indices</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">dR1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">tv</span> <span class="o">+</span> <span class="n">dR1</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">indices</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+          <span class="n">p</span> <span class="o">!=</span> <span class="n">indices</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="kt">double</span> <span class="n">rgba1</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+          <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">rgba1</span><span class="p">);</span>
+          <span class="n">rgba1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetOpacity</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+          <span class="kt">double</span> <span class="n">rgba2</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+          <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">);</span>
+          <span class="n">rgba2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetOpacity</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">CompareRGBA</span><span class="p">(</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">rgba2</span><span class="p">))</span>
+          <span class="p">{</span>
+            <span class="n">res</span><span class="p">.</span><span class="n">first</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="n">res</span><span class="p">.</span><span class="n">second</span> <span class="o">=</span> <span class="s">&quot;Colors do not match.&quot;</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+    <span class="p">}</span>
 
 
-  private:
-    //-----------------------------------------------------------------------------
-    //! Get a string of [R, G, B, A] as double.
-    std::string RGBAToDoubleString(double *rgba)
-    {
-      std::ostringstream os;
-      os &lt;&lt; &quot;[&quot;;
-      for (int i = 0; i &lt; 4; ++i)
-      {
-        if (i == 0)
-        {
-          os &lt;&lt; std::fixed &lt;&lt; std::setw(8) &lt;&lt; std::setprecision(6) &lt;&lt; rgba[i];
-        }
-        else
-        {
-          os &lt;&lt; std::fixed &lt;&lt; std::setw(9) &lt;&lt; std::setprecision(6) &lt;&lt; rgba[i];
-        }
-        if (i &lt; 3)
-        {
-          os &lt;&lt; &quot;,&quot;;
-        }
-      }
-      os &lt;&lt; &quot;]&quot;;
-      return os.str();
-    }
+  <span class="k">private</span><span class="o">:</span>
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Get a string of [R, G, B, A] as double.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">RGBAToDoubleString</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">rgba</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">rgba</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">rgba</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    //-----------------------------------------------------------------------------
-    //! Get a string of [R, G, B, A] as unsigned char.
-    std::string RGBAToCharString(double *rgba)
-    {
-      std::ostringstream os;
-      os &lt;&lt; &quot;[&quot;;
-      for (int i = 0; i &lt; 4; ++i)
-      {
-        if (i == 0)
-        {
-          os &lt;&lt; std::setw(3) &lt;&lt; static_cast&lt;int&gt;(rgba[i] * 255);
-        }
-        else
-        {
-          os &lt;&lt; std::setw(4) &lt;&lt; static_cast&lt;int&gt;(rgba[i] * 255);
-        }
-        if (i &lt; 3)
-        {
-          os &lt;&lt; &quot;,&quot;;
-        }
-      }
-      os &lt;&lt; &quot;]&quot;;
-      return os.str();
-    }
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Get a string of [R, G, B, A] as unsigned char.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">RGBAToCharString</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">rgba</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    //-----------------------------------------------------------------------------
-    //! Get a hexadecimal string of the RGB colors.
-    std::string RGBToHexString(double *rgba)
-    {
-      std::ostringstream os;
-      for (int i = 0; i &lt; 3; ++i)
-      {
-        os &lt;&lt; std::setw(2) &lt;&lt; std::setfill('0') &lt;&lt; std::hex
-           &lt;&lt; static_cast&lt;int&gt;(rgba[i] * 255);
-      }
-      return os.str();
-    }
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Get a hexadecimal string of the RGB colors.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">RGBToHexString</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">rgba</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">hex</span>
+           <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rgba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">255</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    //-----------------------------------------------------------------------------
-    //! Get a string of [R, G, B, A] as double, unsigned char and hex.
-    std::string AssembleRGBAString(double *rgba)
-    {
-      std::ostringstream os;
-      os &lt;&lt; this-&gt;RGBAToDoubleString(rgba);
-      os &lt;&lt; &quot; &quot;;
-      os &lt;&lt; this-&gt;RGBAToCharString(rgba);
-      os &lt;&lt; &quot; 0x&quot;;
-      os &lt;&lt; this-&gt;RGBToHexString(rgba);
-      return os.str();
-    }
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Get a string of [R, G, B, A] as double, unsigned char and hex.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">AssembleRGBAString</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">rgba</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RGBAToDoubleString</span><span class="p">(</span><span class="n">rgba</span><span class="p">);</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RGBAToCharString</span><span class="p">(</span><span class="n">rgba</span><span class="p">);</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; 0x&quot;</span><span class="p">;</span>
+      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RGBToHexString</span><span class="p">(</span><span class="n">rgba</span><span class="p">);</span>
+      <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    //-----------------------------------------------------------------------------
-    //! Compare two rgba colors.
-    template &lt;typename T&gt;
-    bool CompareRGBA(T *rgba1, T *rgba2)
-    {
-      bool areEquivalent = true;
-      for (int i = 0; i &lt; 4; ++i)
-      {
-        areEquivalent &amp;= rgba1[i] == rgba2[i];
-        if (!areEquivalent)
-        {
-          return false;
-        }
-      }
-      return true;
-    }
-};
+    <span class="c1">//-----------------------------------------------------------------------------</span>
+    <span class="c1">//! Compare two rgba colors.</span>
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+    <span class="kt">bool</span> <span class="n">CompareRGBA</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span><span class="n">rgba1</span><span class="p">,</span> <span class="n">T</span> <span class="o">*</span><span class="n">rgba2</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">bool</span> <span class="n">areEquivalent</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">areEquivalent</span> <span class="o">&amp;=</span> <span class="n">rgba1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">rgba2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">areEquivalent</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-//-----------------------------------------------------------------------------
-//! Get all the color scheme names.
-/*!
- * @return a map of the names keyed on their index.
- */
-std::map&lt;int, std::string&gt; GetAllColorSchemes()
-{
-  std::map&lt;int, std::string&gt; colorSchemes;
-  vtkSmartPointer&lt;vtkColorSeries&gt; colorSeries =
-    vtkSmartPointer&lt;vtkColorSeries&gt;::New();
-  for (int i = 0; i &lt; colorSeries-&gt;GetNumberOfColorSchemes(); ++i)
-  {
-    colorSeries-&gt;SetColorScheme(i);
-    colorSchemes[i] = colorSeries-&gt;GetColorSchemeName();
-  }
-  return colorSchemes;
-}
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! Get all the color scheme names.</span>
+<span class="cm">/*!</span>
+<span class="cm"> * @return a map of the names keyed on their index.</span>
+<span class="cm"> */</span>
+<span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">GetAllColorSchemes</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">colorSchemes</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;</span> <span class="n">colorSeries</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">GetNumberOfColorSchemes</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">colorSchemes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">GetColorSchemeName</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">colorSchemes</span><span class="p">;</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-//! The available color scheme indexes and names.
-/*!
-  * @param colorSchemes - a map of the names keyed on their index.
-  * @return a string if the indexes and names.
-  */
-std::string AvailableColorSchemes(std::map&lt;int, std::string&gt; &amp; colorSchemes)
-{
-  std::ostringstream os;
-  for (std::map&lt;int, std::string&gt;::const_iterator p = colorSchemes.begin();
-       p != colorSchemes.end(); ++p)
-  {
-    os &lt;&lt; std::setw(3) &lt;&lt; p-&gt;first &lt;&lt; &quot;\t&quot; &lt;&lt; p-&gt;second &lt;&lt; std::endl;
-  }
-  return os.str();
-}
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! The available color scheme indexes and names.</span>
+<span class="cm">/*!</span>
+<span class="cm">  * @param colorSchemes - a map of the names keyed on their index.</span>
+<span class="cm">  * @return a string if the indexes and names.</span>
+<span class="cm">  */</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">AvailableColorSchemes</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">colorSchemes</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">os</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">p</span> <span class="o">=</span> <span class="n">colorSchemes</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+       <span class="n">p</span> <span class="o">!=</span> <span class="n">colorSchemes</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-//! Display the available color schemes.
-void DisplayAvailableColorSchemes()
-{
-  std::string line(&quot;-----------------------------------------------------------------------------\n&quot;);
-  std::map&lt;int, std::string&gt; colorSchemes;
-  colorSchemes = GetAllColorSchemes();
-  std::cout &lt;&lt; line &lt;&lt; AvailableColorSchemes(colorSchemes) &lt;&lt; line &lt;&lt; std::endl;
-}
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! Display the available color schemes.</span>
+<span class="kt">void</span> <span class="n">DisplayAvailableColorSchemes</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">(</span><span class="s">&quot;-----------------------------------------------------------------------------</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">colorSchemes</span><span class="p">;</span>
+  <span class="n">colorSchemes</span> <span class="o">=</span> <span class="n">GetAllColorSchemes</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">line</span> <span class="o">&lt;&lt;</span> <span class="n">AvailableColorSchemes</span><span class="p">(</span><span class="n">colorSchemes</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">line</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-//! Display the lookup tables and reason for failure.
-/*!
- * @param reason - the reason.
- * @param lut1 - the first lookup table.
- * @param lut2 - the second lookup table.
- */
-void DisplayResults(std::string &amp; reason,
-  vtkLookupTable *lut1, vtkLookupTable *lut2)
-{
-  LUTUtilities lutUtilities;
-  std::string line(&quot;-----------------------------------------------------------------------------\n&quot;);
-  std::cout &lt;&lt; line;
-  std::cout &lt;&lt; reason &lt;&lt; std::endl;
-  std::cout &lt;&lt; lutUtilities.DisplayLUTAsString(lut1) &lt;&lt; std::endl;
-  std::cout &lt;&lt; lutUtilities.DisplayLUTAsString(lut2) &lt;&lt; std::endl;
-  std::cout &lt;&lt; line;
-}
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! Display the lookup tables and reason for failure.</span>
+<span class="cm">/*!</span>
+<span class="cm"> * @param reason - the reason.</span>
+<span class="cm"> * @param lut1 - the first lookup table.</span>
+<span class="cm"> * @param lut2 - the second lookup table.</span>
+<span class="cm"> */</span>
+<span class="kt">void</span> <span class="n">DisplayResults</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">reason</span><span class="p">,</span>
+  <span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut1</span><span class="p">,</span> <span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">LUTUtilities</span> <span class="n">lutUtilities</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">(</span><span class="s">&quot;-----------------------------------------------------------------------------</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">line</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">reason</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lutUtilities</span><span class="p">.</span><span class="n">DisplayLUTAsString</span><span class="p">(</span><span class="n">lut1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lutUtilities</span><span class="p">.</span><span class="n">DisplayLUTAsString</span><span class="p">(</span><span class="n">lut2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">line</span><span class="p">;</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-//! Test pairs of lookup tables.
-/*!
- * @param lut1 - the first lookup table.
- * @param lut2 - the second lookup table.
- * @param expected - if false a fail is expected.
- * @return true/false.
- */
-bool TestTables(vtkLookupTable *lut1, vtkLookupTable *lut2,
-                bool const expected = true)
-{
-  LUTUtilities lutUtilities;
-  std::pair&lt;bool, std::string&gt; comparison = lutUtilities.CompareLUTs(lut1, lut2);
-  if (comparison.first != expected)
-  {
-    DisplayResults(comparison.second, lut1, lut2);
-  }
-  return (expected) ? comparison.first : !comparison.first;
-}
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! Test pairs of lookup tables.</span>
+<span class="cm">/*!</span>
+<span class="cm"> * @param lut1 - the first lookup table.</span>
+<span class="cm"> * @param lut2 - the second lookup table.</span>
+<span class="cm"> * @param expected - if false a fail is expected.</span>
+<span class="cm"> * @return true/false.</span>
+<span class="cm"> */</span>
+<span class="kt">bool</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut1</span><span class="p">,</span> <span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut2</span><span class="p">,</span>
+                <span class="kt">bool</span> <span class="k">const</span> <span class="n">expected</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">LUTUtilities</span> <span class="n">lutUtilities</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">comparison</span> <span class="o">=</span> <span class="n">lutUtilities</span><span class="p">.</span><span class="n">CompareLUTs</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">comparison</span><span class="p">.</span><span class="n">first</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">DisplayResults</span><span class="p">(</span><span class="n">comparison</span><span class="p">.</span><span class="n">second</span><span class="p">,</span> <span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">expected</span><span class="p">)</span> <span class="o">?</span> <span class="n">comparison</span><span class="p">.</span><span class="nl">first</span> <span class="p">:</span> <span class="o">!</span><span class="n">comparison</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-//! Test various combinations of lookup tables.
-/*!
- * @param lutMode - if true the tables are ordinal, categorical otherwise.
- * @return true if all tests passed.
- */
-bool TestLookupTables(bool const &amp; lutMode)
-{
-  LUTUtilities lutUtilities;
-  vtkSmartPointer&lt;vtkLookupTable&gt; lut1 = vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  vtkSmartPointer&lt;vtkLookupTable&gt; lut2 = vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  vtkSmartPointer&lt;vtkColorSeries&gt; colorSeries =
-    vtkSmartPointer&lt;vtkColorSeries&gt;::New();
-  int colorSeriesEnum = colorSeries-&gt;SPECTRUM;
-  colorSeries-&gt;SetColorScheme(colorSeriesEnum);
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="c1">//! Test various combinations of lookup tables.</span>
+<span class="cm">/*!</span>
+<span class="cm"> * @param lutMode - if true the tables are ordinal, categorical otherwise.</span>
+<span class="cm"> * @return true if all tests passed.</span>
+<span class="cm"> */</span>
+<span class="kt">bool</span> <span class="n">TestLookupTables</span><span class="p">(</span><span class="kt">bool</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">lutMode</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">LUTUtilities</span> <span class="n">lutUtilities</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;</span> <span class="n">colorSeries</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SPECTRUM</span><span class="p">;</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">);</span>
 
-  colorSeries-&gt;BuildLookupTable(lut1);
-  colorSeries-&gt;BuildLookupTable(lut2);
-  if (lutMode)
-  {
-    lut1-&gt;IndexedLookupOff();
-    lut2-&gt;IndexedLookupOff();
-  }
-  lut1-&gt;SetNanColor(1, 0, 0, 1);
-  lut2-&gt;SetNanColor(1, 0, 0, 1);
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut1</span><span class="p">);</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut2</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">lutMode</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">IndexedLookupOff</span><span class="p">();</span>
+    <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">IndexedLookupOff</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">SetNanColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetNanColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  if (!lutMode)
-  {
-    //  For the annotation just use a letter of the alphabet.
-    vtkSmartPointer &lt;vtkVariantArray&gt; values1 =
-      vtkSmartPointer &lt;vtkVariantArray&gt;::New();
-    vtkSmartPointer &lt;vtkVariantArray&gt; values2 =
-      vtkSmartPointer &lt;vtkVariantArray&gt;::New();
-    std::string str = &quot;abcdefghijklmnopqrstuvwxyz&quot;;
-    for (int i = 0; i &lt; lut1-&gt;GetNumberOfTableValues(); ++i)
-    {
-      values1-&gt;InsertNextValue(vtkVariant(str.substr(i, 1)));
-    }
-    for (int i = 0; i &lt; lut2-&gt;GetNumberOfTableValues(); ++i)
-    {
-      values2-&gt;InsertNextValue(vtkVariant(str.substr(i, 1)));
-    }
-    for (int i = 0; i &lt; values1-&gt;GetNumberOfTuples(); ++i)
-    {
-      lut1-&gt;SetAnnotation(i, values1-&gt;GetValue(i).ToString());
-    }
-    for (int i = 0; i &lt; values2-&gt;GetNumberOfTuples(); ++i)
-    {
-        lut2-&gt;SetAnnotation(i, values2-&gt;GetValue(i).ToString());
-    }
-  }
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">lutMode</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">//  For the annotation just use a letter of the alphabet.</span>
+    <span class="n">vtkSmartPointer</span> <span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;</span> <span class="n">values1</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span> <span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span> <span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;</span> <span class="n">values2</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span> <span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">values1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)));</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">values2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)));</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">values1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values1</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">values2</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values2</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Are they the same?
-  bool res = true;
-  res &amp;= TestTables(lut1, lut2);
+  <span class="c1">// Are they the same?</span>
+  <span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
 
-  // Different size
-  lut2-&gt;SetNumberOfTableValues(5);
-  res &amp;= TestTables(lut1, lut2, false);
-  lut2-&gt;SetNumberOfTableValues(lut1-&gt;GetNumberOfTableValues());
-  res &amp;= TestTables(lut1, lut2);
+  <span class="c1">// Different size</span>
+  <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+  <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">());</span>
+  <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
 
-  if (lutMode)
-  {
-    // Different range
-    lut2-&gt;SetTableRange(1, 2);
-    res &amp;= TestTables(lut1, lut2, false);
-    double tr[2];
-    lut1-&gt;GetTableRange(tr);
-    lut2-&gt;SetTableRange(tr);
-    res &amp;= TestTables(lut1, lut2);
+  <span class="k">if</span> <span class="p">(</span><span class="n">lutMode</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Different range</span>
+    <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetTableRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">tr</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetTableRange</span><span class="p">(</span><span class="n">tr</span><span class="p">);</span>
+    <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetTableRange</span><span class="p">(</span><span class="n">tr</span><span class="p">);</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
 
-    // Different color
-    colorSeriesEnum = colorSeries-&gt;COOL;
-    colorSeries-&gt;SetColorScheme(colorSeriesEnum);
-    vtkSmartPointer&lt;vtkLookupTable&gt; lut3 = vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-    colorSeries-&gt;BuildLookupTable(lut3);
-    lut3-&gt;IndexedLookupOff();
-    res &amp;= TestTables(lut1, lut3, false);
+    <span class="c1">// Different color</span>
+    <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">COOL</span><span class="p">;</span>
+    <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">);</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut3</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut3</span><span class="p">);</span>
+    <span class="n">lut3</span><span class="o">-&gt;</span><span class="n">IndexedLookupOff</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 
-    // One indexed, the other ordinal.
-    lut1-&gt;IndexedLookupOn();
-    res &amp;= TestTables(lut1, lut2, false);
-  }
-  else
-  {
-    // Different color
-    colorSeriesEnum = colorSeries-&gt;COOL;
-    colorSeries-&gt;SetColorScheme(colorSeriesEnum);
-    vtkSmartPointer&lt;vtkLookupTable&gt; lut3 = vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-    //  For the annotation just use a letter of the alphabet.
-    vtkSmartPointer &lt;vtkVariantArray&gt; values =
-      vtkSmartPointer &lt;vtkVariantArray&gt;::New();
-    std::string str = &quot;abcdefghijklmnopqrstuvwxyz&quot;;
-    for (int i = 0; i &lt; lut1-&gt;GetNumberOfTableValues(); ++i)
-    {
-      values-&gt;InsertNextValue(vtkVariant(str.substr(i, 1)));
-    }
-    for (int i = 0; i &lt; values-&gt;GetNumberOfTuples(); ++i)
-    {
-      lut3-&gt;SetAnnotation(i, values-&gt;GetValue(i).ToString());
-    }
-    colorSeries-&gt;BuildLookupTable(lut3);
-    res &amp;= TestTables(lut1, lut3, false);
+    <span class="c1">// One indexed, the other ordinal.</span>
+    <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">IndexedLookupOn</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// Different color</span>
+    <span class="n">colorSeriesEnum</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">COOL</span><span class="p">;</span>
+    <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">colorSeriesEnum</span><span class="p">);</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut3</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="c1">//  For the annotation just use a letter of the alphabet.</span>
+    <span class="n">vtkSmartPointer</span> <span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span> <span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">values</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)));</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">values</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">lut3</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">BuildLookupTable</span><span class="p">(</span><span class="n">lut3</span><span class="p">);</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 
-    // Different annotations.
-    lut2-&gt;ResetAnnotations();
-    for (int i = 0; i &lt; values-&gt;GetNumberOfTuples(); ++i)
-    {
-      if (i % 3 == 0)
-        continue;
-      lut2-&gt;SetAnnotation(i, values-&gt;GetValue(i).ToString());
-    }
-    res &amp;= TestTables(lut1, lut2, false);
+    <span class="c1">// Different annotations.</span>
+    <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">ResetAnnotations</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">values</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">continue</span><span class="p">;</span>
+      <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">SetAnnotation</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 
-    // No annotations.
-    lut1-&gt;ResetAnnotations();
-    lut2-&gt;ResetAnnotations();
-    res &amp;= TestTables(lut1, lut2);
+    <span class="c1">// No annotations.</span>
+    <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">ResetAnnotations</span><span class="p">();</span>
+    <span class="n">lut2</span><span class="o">-&gt;</span><span class="n">ResetAnnotations</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">);</span>
 
-    // One indexed, the other ordinal.
-    lut1-&gt;IndexedLookupOff();
-    res &amp;= TestTables(lut1, lut2, false);
-  }
+    <span class="c1">// One indexed, the other ordinal.</span>
+    <span class="n">lut1</span><span class="o">-&gt;</span><span class="n">IndexedLookupOff</span><span class="p">();</span>
+    <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestTables</span><span class="p">(</span><span class="n">lut1</span><span class="p">,</span> <span class="n">lut2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  return res;
-}
+  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
 
-//-----------------------------------------------------------------------------
-int main(int, char *[])
-{
-  //DisplayAvailableColorSchemes();
-  // Test ordinal LUTS.
-  bool res = TestLookupTables(true);
-  // Test categorical LUTs.
-  res &amp;= TestLookupTables(false);
-  return (res) ? EXIT_SUCCESS : EXIT_FAILURE;
-}
-</code></pre>
+<span class="c1">//-----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">//DisplayAvailableColorSchemes();</span>
+  <span class="c1">// Test ordinal LUTS.</span>
+  <span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="n">TestLookupTables</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="c1">// Test categorical LUTs.</span>
+  <span class="n">res</span> <span class="o">&amp;=</span> <span class="n">TestLookupTables</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">?</span> <span class="nl">EXIT_SUCCESS</span> <span class="p">:</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(LUTUtilities)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">LUTUtilities</span><span class="p">)</span>
 
-add_executable(LUTUtilities MACOSX_BUNDLE LUTUtilities.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(LUTUtilities ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">LUTUtilities</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">LUTUtilities.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-lututilities">Download and Build LUTUtilities</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">LUTUtilities</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-lututilities">Download and Build LUTUtilities<a class="headerlink" href="#download-and-build-lututilities" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/LUTUtilities.tar">here to download LUTUtilities</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball LUTUtilities.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd LUTUtilities/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd LUTUtilities/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./LUTUtilities
-</code></pre>
+<div class="codehilite"><pre><span></span>./LUTUtilities
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

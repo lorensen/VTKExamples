@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,193 +16019,200 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/DataStructures/OctreeTimingDemo</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/DataStructures/TestOctreeTimingDemo.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example runs several closest point queries on octrees with varying MaxPointsPerRegion and plots the result.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OctreeTimingDemo.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkAxis.h&gt;
-#include &lt;vtkTimerLog.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkXMLPolyDataReader.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkIdList.h&gt;
-#include &lt;vtkOctreePointLocator.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkChartXY.h&gt;
-#include &lt;vtkPlot.h&gt;
-#include &lt;vtkTable.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkContextView.h&gt;
-#include &lt;vtkContextScene.h&gt;
-#include &lt;vtkSphereSource.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAxis.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTimerLog.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdList.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOctreePointLocator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartXY.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlot.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-#include &lt;vector&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
-static void RandomPointInBounds(vtkPolyData* polydata, double p[3]);
-static double TimeOctree(vtkPolyData* polydata, int maxPoints, int numberOfTrials);
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">RandomPointInBounds</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">,</span> <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<span class="k">static</span> <span class="kt">double</span> <span class="nf">TimeOctree</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxPoints</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numberOfTrials</span><span class="p">);</span>
 
-int main(int, char *[])
-{
-  /*
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader-&gt;SetFileName(argv[1]);
-  reader-&gt;Update();
-  */
-  vtkSmartPointer&lt;vtkSphereSource&gt; reader =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  reader-&gt;SetThetaResolution(30);
-  reader-&gt;SetPhiResolution(30);
-  reader-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="cm">/*</span>
+<span class="cm">  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =</span>
+<span class="cm">    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();</span>
+<span class="cm">  reader-&gt;SetFileName(argv[1]);</span>
+<span class="cm">  reader-&gt;Update();</span>
+<span class="cm">  */</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;Timing octree...&quot; &lt;&lt; std::endl;
-  std::vector&lt;std::pair&lt;int, double&gt; &gt; results;
-  int numberOfTrials = 1000;
-  for(int i = 1; i &lt; 100; i++)
-  {
-    double t = TimeOctree(reader-&gt;GetOutput(), i, numberOfTrials);
-    std::pair&lt;int, double&gt; result(i,t);
-    results.push_back(result);
-  }
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Timing octree...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">results</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">numberOfTrials</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="n">TimeOctree</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">i</span><span class="p">,</span> <span class="n">numberOfTrials</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+    <span class="n">results</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Create a table with some points in it
-  vtkSmartPointer&lt;vtkTable&gt; table =
-    vtkSmartPointer&lt;vtkTable&gt;::New();
+  <span class="c1">// Create a table with some points in it</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;</span> <span class="n">table</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; maxPointsPerRegion =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  maxPointsPerRegion-&gt;SetName(&quot;MaxPointsPerRegion&quot;);
-  table-&gt;AddColumn(maxPointsPerRegion);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">maxPointsPerRegion</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">maxPointsPerRegion</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;MaxPointsPerRegion&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">maxPointsPerRegion</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; runtime =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  runtime-&gt;SetName(&quot;Run time&quot;);
-  table-&gt;AddColumn(runtime);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">runtime</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">runtime</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Run time&quot;</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">runtime</span><span class="p">);</span>
 
-  // Fill in the table with some example values
-  size_t numPoints = results.size();
-  table-&gt;SetNumberOfRows(numPoints);
-  for(size_t i = 0; i &lt; numPoints; ++i)
-  {
-    table-&gt;SetValue(i, 0, results[i].first);
-    table-&gt;SetValue(i, 1, results[i].second);
-    std::cout &lt;&lt; &quot;Put &quot; &lt;&lt; results[i].first &lt;&lt; &quot; &quot; &lt;&lt; results[i].second &lt;&lt; &quot; in the table.&quot; &lt;&lt; std::endl;
-  }
+  <span class="c1">// Fill in the table with some example values</span>
+  <span class="kt">size_t</span> <span class="n">numPoints</span> <span class="o">=</span> <span class="n">results</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetNumberOfRows</span><span class="p">(</span><span class="n">numPoints</span><span class="p">);</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numPoints</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Put &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; in the table.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Set up the view
-  vtkSmartPointer&lt;vtkContextView&gt; view =
-    vtkSmartPointer&lt;vtkContextView&gt;::New();
+  <span class="c1">// Set up the view</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContextView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Add multiple line plots, setting the colors etc
-  vtkSmartPointer&lt;vtkChartXY&gt; chart =
-    vtkSmartPointer&lt;vtkChartXY&gt;::New();
-  view-&gt;GetScene()-&gt;AddItem(chart);
-  vtkPlot *line = chart-&gt;AddPlot(vtkChart::LINE);
-#if VTK_MAJOR_VERSION &lt;= 5
-  line-&gt;SetInput(table, 0, 1);
-#else
-  line-&gt;SetInputData(table, 0, 1);
-#endif
-  line-&gt;SetColor(0, 255, 0, 255);
-  line-&gt;SetWidth(3.0);
-  line-&gt;GetXAxis()-&gt;SetTitle(&quot;Max Points Per Region&quot;);
-  line-&gt;GetYAxis()-&gt;SetTitle(&quot;Run time&quot;);
+  <span class="c1">// Add multiple line plots, setting the colors etc</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartXY</span><span class="o">&gt;</span> <span class="n">chart</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkChartXY</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetScene</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">chart</span><span class="p">);</span>
+  <span class="n">vtkPlot</span> <span class="o">*</span><span class="n">line</span> <span class="o">=</span> <span class="n">chart</span><span class="o">-&gt;</span><span class="n">AddPlot</span><span class="p">(</span><span class="n">vtkChart</span><span class="o">::</span><span class="n">LINE</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">SetWidth</span><span class="p">(</span><span class="mf">3.0</span><span class="p">);</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">GetXAxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Max Points Per Region&quot;</span><span class="p">);</span>
+  <span class="n">line</span><span class="o">-&gt;</span><span class="n">GetYAxis</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">&quot;Run time&quot;</span><span class="p">);</span>
 
-  // Set up an interactor and start
-  view-&gt;Render();
-  view-&gt;GetInteractor()-&gt;SetRenderWindow(view-&gt;GetRenderWindow());
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="c1">// Set up an interactor and start</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">());</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void RandomPointInBounds(vtkPolyData* polydata, double p[3])
-{
-  double bounds[6];
-  polydata-&gt;GetBounds(bounds);
+<span class="kt">void</span> <span class="nf">RandomPointInBounds</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">,</span> <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="p">{</span>
+  <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-  double x = bounds[0] + (bounds[1] - bounds[0]) * vtkMath::Random(0.0,1.0);
-  double y = bounds[2] + (bounds[3] - bounds[2]) * vtkMath::Random(0.0,1.0);
-  double z = bounds[4] + (bounds[5] - bounds[4]) * vtkMath::Random(0.0,1.0);
+  <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">*</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
 
-  p[0] = x;
-  p[1] = y;
-  p[2] = z;
-}
+  <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+  <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+  <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>
+<span class="p">}</span>
 
-double TimeOctree(vtkPolyData* polydata, int maxPoints, int numberOfTrials)
-{
-  vtkSmartPointer&lt;vtkTimerLog&gt; timer =
-    vtkSmartPointer&lt;vtkTimerLog&gt;::New();
-  timer-&gt;StartTimer();
+<span class="kt">double</span> <span class="nf">TimeOctree</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxPoints</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numberOfTrials</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerLog</span><span class="o">&gt;</span> <span class="n">timer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTimerLog</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">timer</span><span class="o">-&gt;</span><span class="n">StartTimer</span><span class="p">();</span>
 
-  vtkMath::RandomSeed(0); // this should be changed to time(NULL) to get random behavior
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">RandomSeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// this should be changed to time(NULL) to get random behavior</span>
 
-  // Create the tree
-  vtkSmartPointer&lt;vtkOctreePointLocator&gt; octree =
-    vtkSmartPointer&lt;vtkOctreePointLocator&gt;::New();
-  octree-&gt;SetDataSet(polydata);
-  octree-&gt;SetMaximumPointsPerRegion(maxPoints);
-  octree-&gt;BuildLocator();
+  <span class="c1">// Create the tree</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOctreePointLocator</span><span class="o">&gt;</span> <span class="n">octree</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOctreePointLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">octree</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+  <span class="n">octree</span><span class="o">-&gt;</span><span class="n">SetMaximumPointsPerRegion</span><span class="p">(</span><span class="n">maxPoints</span><span class="p">);</span>
+  <span class="n">octree</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;With maxPoints = &quot; &lt;&lt; maxPoints &lt;&lt; &quot; there are &quot; &lt;&lt; octree-&gt;GetNumberOfLeafNodes() &lt;&lt; &quot; leaf nodes.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;With maxPoints = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">maxPoints</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; there are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">octree</span><span class="o">-&gt;</span><span class="n">GetNumberOfLeafNodes</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; leaf nodes.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  for(int i = 0; i &lt; numberOfTrials; i++)
-  {
-    double p[3];
-    RandomPointInBounds(polydata, p);
-    //vtkIdType iD = octree-&gt;FindClosestPoint(p);
-    octree-&gt;FindClosestPoint(p);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfTrials</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">RandomPointInBounds</span><span class="p">(</span><span class="n">polydata</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="c1">//vtkIdType iD = octree-&gt;FindClosestPoint(p);</span>
+    <span class="n">octree</span><span class="o">-&gt;</span><span class="n">FindClosestPoint</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  timer-&gt;StopTimer();
+  <span class="n">timer</span><span class="o">-&gt;</span><span class="n">StopTimer</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;Octree took &quot; &lt;&lt; timer-&gt;GetElapsedTime() &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Octree took &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">timer</span><span class="o">-&gt;</span><span class="n">GetElapsedTime</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return timer-&gt;GetElapsedTime();
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">timer</span><span class="o">-&gt;</span><span class="n">GetElapsedTime</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(OctreeTimingDemo)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">OctreeTimingDemo</span><span class="p">)</span>
 
-add_executable(OctreeTimingDemo MACOSX_BUNDLE OctreeTimingDemo.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(OctreeTimingDemo ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">OctreeTimingDemo</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">OctreeTimingDemo.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-octreetimingdemo">Download and Build OctreeTimingDemo</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">OctreeTimingDemo</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-octreetimingdemo">Download and Build OctreeTimingDemo<a class="headerlink" href="#download-and-build-octreetimingdemo" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/OctreeTimingDemo.tar">here to download OctreeTimingDemo</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball OctreeTimingDemo.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd OctreeTimingDemo/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd OctreeTimingDemo/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./OctreeTimingDemo
-</code></pre>
+<div class="codehilite"><pre><span></span>./OctreeTimingDemo
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15551,6 +15551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15958,24 +15970,24 @@
                   <h1>DistanceBetweenPoints</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//DistanceBetweenPoints</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DistanceBetweenPoints.py</strong></p>
-<pre><code class="python">from __future__ import print_function
-import vtk
-import math
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-p0 = (0,0,0)
-p1 = (1,1,1)
+<span class="n">p0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-distSquared = vtk.vtkMath.Distance2BetweenPoints(p0,p1)
+<span class="n">distSquared</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkMath</span><span class="o">.</span><span class="n">Distance2BetweenPoints</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">)</span>
 
-dist = math.sqrt(distSquared)
+<span class="n">dist</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">distSquared</span><span class="p">)</span>
 
-print(&quot;p0 = &quot;, p0)
-print(&quot;p1 = &quot;, p1)
-print(&quot;distance squared = &quot;, distSquared)
-print(&quot;distance = &quot;, dist)
-</code></pre>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;p0 = &quot;</span><span class="p">,</span> <span class="n">p0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;p1 = &quot;</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;distance squared = &quot;</span><span class="p">,</span> <span class="n">distSquared</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;distance = &quot;</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+</pre></div>
                 
                   
                 

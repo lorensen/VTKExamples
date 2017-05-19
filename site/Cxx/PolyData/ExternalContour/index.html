@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,242 +16019,249 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ExternalContour</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestExternalContour.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Compute the external contour of a polydata.<br />
 At first, it creates a black and white image of a scene containing the polydata and then extracts the contour of the black shape from the image.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExternalContour.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkWindowToImageFilter.h&gt;
-#include &lt;vtkContourFilter.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkTransformPolyDataFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWindowToImageFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransformPolyDataFilter.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkXMLPolyDataReader.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 
 
-int main(int argc, char *argv[])
-{
-  vtkSmartPointer&lt;vtkPolyData&gt; data3d;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">data3d</span><span class="p">;</span>
 
-  if ( argc &gt; 1 )
-  {
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-      vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-    reader-&gt;SetFileName (argv[1]);
-    reader-&gt;Update();
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    data3d = reader-&gt;GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer&lt;vtkSphereSource&gt; source =
-      vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-    source-&gt;SetCenter(0.0, 0.0, 5.0);
-    source-&gt;SetRadius(2.0);
-    source-&gt;SetPhiResolution(20.);
-    source-&gt;SetThetaResolution(20.);
-    source-&gt;Update();
+    <span class="n">data3d</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">);</span>
+    <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
+    <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mf">20.</span><span class="p">);</span>
+    <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mf">20.</span><span class="p">);</span>
+    <span class="n">source</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    data3d = source-&gt;GetOutput();
-  }
+    <span class="n">data3d</span> <span class="o">=</span> <span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  double bounds_data[6], center_data[3];
-  data3d-&gt;GetBounds(bounds_data);
-  data3d-&gt;GetCenter(center_data);
+  <span class="kt">double</span> <span class="n">bounds_data</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">center_data</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">data3d</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds_data</span><span class="p">);</span>
+  <span class="n">data3d</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">(</span><span class="n">center_data</span><span class="p">);</span>
 
-  // Black and white scene with the data in order to print the view
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper_data =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  mapper_data-&gt;SetInput(data3d);    
-#else
-  mapper_data-&gt;SetInputData(data3d);    
-#endif
+  <span class="c1">// Black and white scene with the data in order to print the view</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper_data</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">mapper_data</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">data3d</span><span class="p">);</span>    
+<span class="cp">#else</span>
+  <span class="n">mapper_data</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data3d</span><span class="p">);</span>    
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor_data =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor_data-&gt;SetMapper(mapper_data);
-  actor_data-&gt;GetProperty()-&gt;SetColor(0,0,0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor_data</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor_data</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper_data</span><span class="p">);</span>
+  <span class="n">actor_data</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; tmp_rend =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  tmp_rend-&gt;SetBackground(1,1,1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">tmp_rend</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tmp_rend</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-  tmp_rend-&gt;AddActor(actor_data);
-  tmp_rend-&gt;ResetCamera();
-  tmp_rend-&gt;GetActiveCamera()-&gt;SetParallelProjection(1);
+  <span class="n">tmp_rend</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor_data</span><span class="p">);</span>
+  <span class="n">tmp_rend</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">tmp_rend</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetParallelProjection</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; tmp_rW =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  tmp_rW-&gt;SetOffScreenRendering( 1 );
-  tmp_rW-&gt;AddRenderer(tmp_rend);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">tmp_rW</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">tmp_rW</span><span class="o">-&gt;</span><span class="n">SetOffScreenRendering</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="n">tmp_rW</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">tmp_rend</span><span class="p">);</span>
 
-  tmp_rW-&gt;Render();
+  <span class="n">tmp_rW</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  // Get a print of the window
-  vtkSmartPointer&lt;vtkWindowToImageFilter&gt; windowToImageFilter =
-    vtkSmartPointer&lt;vtkWindowToImageFilter&gt;::New();
-  windowToImageFilter-&gt;SetInput(tmp_rW);
-  windowToImageFilter-&gt;SetMagnification(2); //image quality
-  windowToImageFilter-&gt;Update();
+  <span class="c1">// Get a print of the window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWindowToImageFilter</span><span class="o">&gt;</span> <span class="n">windowToImageFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWindowToImageFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">windowToImageFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">tmp_rW</span><span class="p">);</span>
+  <span class="n">windowToImageFilter</span><span class="o">-&gt;</span><span class="n">SetMagnification</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">//image quality</span>
+  <span class="n">windowToImageFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Extract the silhouette corresponding to the black limit of the image
-  vtkSmartPointer&lt;vtkContourFilter&gt; ContFilter = vtkSmartPointer&lt;vtkContourFilter&gt;::New();
-  ContFilter-&gt;SetInputConnection(windowToImageFilter-&gt;GetOutputPort());
-  ContFilter-&gt;SetValue(0,255);
-  ContFilter-&gt;Update();
+  <span class="c1">// Extract the silhouette corresponding to the black limit of the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">ContFilter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ContFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">windowToImageFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">ContFilter</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">);</span>
+  <span class="n">ContFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Make the contour coincide with the data.
-  vtkSmartPointer&lt;vtkPolyData&gt; contour = ContFilter-&gt;GetOutput();
+  <span class="c1">// Make the contour coincide with the data.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">contour</span> <span class="o">=</span> <span class="n">ContFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  double bounds_contour[6], center_contour[3];
-  double trans_x=0., trans_y=0., trans_z=0., ratio_x=0., ratio_y=0.;
-  contour-&gt;GetBounds(bounds_contour);
+  <span class="kt">double</span> <span class="n">bounds_contour</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">center_contour</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">trans_x</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">trans_y</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">trans_z</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ratio_x</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ratio_y</span><span class="o">=</span><span class="mf">0.</span><span class="p">;</span>
+  <span class="n">contour</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds_contour</span><span class="p">);</span>
 
-  ratio_x = (bounds_data[1]-bounds_data[0])/(bounds_contour[1]-bounds_contour[0]);
-  ratio_y = (bounds_data[3]-bounds_data[2])/(bounds_contour[3]-bounds_contour[2]);
+  <span class="n">ratio_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">bounds_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">bounds_contour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">bounds_contour</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">ratio_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">bounds_data</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">bounds_contour</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">bounds_contour</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
-  // Rescale the contour so that it shares the same bounds as the
-  // input data
-  vtkSmartPointer&lt;vtkTransform&gt;transform1 =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform1-&gt;Scale( ratio_x, ratio_y, 1.);
+  <span class="c1">// Rescale the contour so that it shares the same bounds as the</span>
+  <span class="c1">// input data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span><span class="n">transform1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform1</span><span class="o">-&gt;</span><span class="n">Scale</span><span class="p">(</span> <span class="n">ratio_x</span><span class="p">,</span> <span class="n">ratio_y</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt; tfilter1 =
-    vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  tfilter1-&gt;SetInput(contour);
-#else
-  tfilter1-&gt;SetInputData(contour);
-#endif
-  tfilter1-&gt;SetTransform(transform1);
-  tfilter1-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;</span> <span class="n">tfilter1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">tfilter1</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">contour</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">tfilter1</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">contour</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">tfilter1</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform1</span><span class="p">);</span>
+  <span class="n">tfilter1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  contour = tfilter1-&gt;GetOutput();
+  <span class="n">contour</span> <span class="o">=</span> <span class="n">tfilter1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Translate the contour so that it shares the same center as the
-  // input data
-  contour-&gt;GetCenter(center_contour);
-  trans_x = center_data[0]-center_contour[0];
-  trans_y = center_data[1]-center_contour[1];
-  trans_z = center_data[2]-center_contour[2];
+  <span class="c1">// Translate the contour so that it shares the same center as the</span>
+  <span class="c1">// input data</span>
+  <span class="n">contour</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">(</span><span class="n">center_contour</span><span class="p">);</span>
+  <span class="n">trans_x</span> <span class="o">=</span> <span class="n">center_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">center_contour</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="n">trans_y</span> <span class="o">=</span> <span class="n">center_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">center_contour</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">trans_z</span> <span class="o">=</span> <span class="n">center_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">center_contour</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; transform2 =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  transform2-&gt;Translate( trans_x, trans_y, trans_z);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">transform2</span><span class="o">-&gt;</span><span class="n">Translate</span><span class="p">(</span> <span class="n">trans_x</span><span class="p">,</span> <span class="n">trans_y</span><span class="p">,</span> <span class="n">trans_z</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt; tfilter2 =
-    vtkSmartPointer&lt;vtkTransformPolyDataFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  tfilter2-&gt;SetInput(contour);
-#else
-  tfilter2-&gt;SetInputData(contour);
-#endif
-  tfilter2-&gt;SetTransform(transform2);
-  tfilter2-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;</span> <span class="n">tfilter2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">tfilter2</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">contour</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">tfilter2</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">contour</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">tfilter2</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform2</span><span class="p">);</span>
+  <span class="n">tfilter2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  contour = tfilter2-&gt;GetOutput();
+  <span class="n">contour</span> <span class="o">=</span> <span class="n">tfilter2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
-  // Render the result : Input data + resulting silhouette
+  <span class="c1">// Render the result : Input data + resulting silhouette</span>
 
-  // Updating the color of the data
-  actor_data-&gt;GetProperty()-&gt;SetColor(0.9,0.9,0.8);
+  <span class="c1">// Updating the color of the data</span>
+  <span class="n">actor_data</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
 
-  // Create a mapper and actor of the silhouette
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper_contour =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  mapper_contour-&gt;SetInput(contour);
-#else
-  mapper_contour-&gt;SetInputData(contour);
-#endif
+  <span class="c1">// Create a mapper and actor of the silhouette</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper_contour</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">mapper_contour</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">contour</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">mapper_contour</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">contour</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor_contour =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor_contour-&gt;SetMapper(mapper_contour);
-  actor_contour-&gt;GetProperty()-&gt;SetLineWidth(2.);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor_contour</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor_contour</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper_contour</span><span class="p">);</span>
+  <span class="n">actor_contour</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mf">2.</span><span class="p">);</span>
 
-  // 2 renderers and a render window
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer1-&gt;AddActor(actor_data);
+  <span class="c1">// 2 renderers and a render window</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor_data</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer2 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer2-&gt;AddActor(actor_contour);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer2</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor_contour</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderwindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderwindow-&gt;SetSize(400,400);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderwindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderwindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span>
 
-  renderwindow-&gt;AddRenderer(renderer1);
-  renderer1-&gt;SetViewport(0., 0., 0.5, 1.);
+  <span class="n">renderwindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer1</span><span class="p">);</span>
+  <span class="n">renderer1</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
 
-  renderwindow-&gt;AddRenderer(renderer2);
-  renderer2-&gt;SetViewport(0.5, 0., 1., 1.);
+  <span class="n">renderwindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer2</span><span class="p">);</span>
+  <span class="n">renderer2</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  iren-&gt;SetRenderWindow( renderwindow);
-  iren-&gt;SetInteractorStyle(style);
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renderwindow</span><span class="p">);</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  renderwindow-&gt;Render();
-  iren-&gt;Start();
+  <span class="n">renderwindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ExternalContour)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ExternalContour</span><span class="p">)</span>
 
-add_executable(ExternalContour MACOSX_BUNDLE ExternalContour.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ExternalContour ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ExternalContour</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ExternalContour.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-externalcontour">Download and Build ExternalContour</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ExternalContour</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-externalcontour">Download and Build ExternalContour<a class="headerlink" href="#download-and-build-externalcontour" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ExternalContour.tar">here to download ExternalContour</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ExternalContour.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ExternalContour/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ExternalContour/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ExternalContour
-</code></pre>
+<div class="codehilite"><pre><span></span>./ExternalContour
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

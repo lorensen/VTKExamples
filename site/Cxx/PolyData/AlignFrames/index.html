@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,254 +16004,261 @@
                   <h1>AlignFrames</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/AlignFrames</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>AlignFrames.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkLandmarkTransform.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTransform.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkTransformFilter.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLandmarkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTransformFilter.h&gt;</span><span class="cp"></span>
 
-struct Frame
-{
-  Frame(float o[3], float x[3], float y[3], float z[3])
-  {
-    this-&gt;SetOrigin(o);
-    this-&gt;SetXDirection(x);
-    this-&gt;SetYDirection(y);
-    this-&gt;SetZDirection(z);
+<span class="k">struct</span> <span class="n">Frame</span>
+<span class="p">{</span>
+  <span class="n">Frame</span><span class="p">(</span><span class="kt">float</span> <span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">float</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">float</span> <span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">float</span> <span class="n">z</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetXDirection</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetYDirection</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetZDirection</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
 
-    std::cout &lt;&lt; &quot;Origin: &quot; &lt;&lt; this-&gt;origin[0] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;origin[1] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;origin[2] &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;xDirection: &quot;&lt;&lt; this-&gt;xDirection[0] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;xDirection[1] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;xDirection[2] &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;yDirection: &quot;&lt;&lt; this-&gt;yDirection[0] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;yDirection[1] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;yDirection[2] &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;zDirection: &quot;&lt;&lt; this-&gt;zDirection[0] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;zDirection[1] &lt;&lt; &quot; &quot; &lt;&lt; this-&gt;zDirection[2] &lt;&lt; std::endl;
-  }
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Origin: &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;xDirection: &quot;</span><span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;yDirection: &quot;</span><span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;zDirection: &quot;</span><span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  void ApplyTransform(vtkTransform* transform, std::string filename)
-  {
-    vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-      vtkSmartPointer&lt;vtkPolyData&gt;::New();
-    CreatePolydata(polydata);
+  <span class="kt">void</span> <span class="n">ApplyTransform</span><span class="p">(</span><span class="n">vtkTransform</span><span class="o">*</span> <span class="n">transform</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">CreatePolydata</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkTransformFilter&gt; transformFilter =
-      vtkSmartPointer&lt;vtkTransformFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-    transformFilter-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-    transformFilter-&gt;SetInputData(polydata);
-#endif
-    transformFilter-&gt;SetTransform(transform);
-    transformFilter-&gt;Update();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformFilter</span><span class="o">&gt;</span> <span class="n">transformFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransformFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+    <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+    <span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-      vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-    writer-&gt;SetFileName(filename.c_str());
-    writer-&gt;SetInputConnection(transformFilter-&gt;GetOutputPort());
-    writer-&gt;Write();
-  }
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">transformFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  void CreatePolydata(vtkPolyData* polydata)
-  {
-    vtkSmartPointer&lt;vtkPoints&gt; points =
-      vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="kt">void</span> <span class="n">CreatePolydata</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">polydata</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-    points-&gt;InsertNextPoint(this-&gt;origin);
-    float x[3];
-    vtkMath::Add(this-&gt;origin, this-&gt;xDirection, x);
-    points-&gt;InsertNextPoint(x);
-    float y[3];
-    vtkMath::Add(this-&gt;origin, this-&gt;yDirection, y);
-    points-&gt;InsertNextPoint(y);
-    float z[3];
-    vtkMath::Add(this-&gt;origin, this-&gt;zDirection, z);
-    points-&gt;InsertNextPoint(z);
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">z</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
 
-    polydata-&gt;SetPoints(points);
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkVertexGlyphFilter&gt; vertexGlyphFilter =
-      vtkSmartPointer&lt;vtkVertexGlyphFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-    vertexGlyphFilter-&gt;AddInput(polydata);
-#else
-    vertexGlyphFilter-&gt;AddInputData(polydata);
-#endif
-    vertexGlyphFilter-&gt;Update();
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;</span> <span class="n">vertexGlyphFilter</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVertexGlyphFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">AddInput</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">AddInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    polydata-&gt;ShallowCopy(vertexGlyphFilter-&gt;GetOutput());
-  }
+    <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">vertexGlyphFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="p">}</span>
 
-  void Write(std::string filename)
-  {
-    vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-      vtkSmartPointer&lt;vtkPolyData&gt;::New();
-    CreatePolydata(polydata);
+  <span class="kt">void</span> <span class="n">Write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">CreatePolydata</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
 
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-      vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-    writer-&gt;SetFileName(filename.c_str());
-#if VTK_MAJOR_VERSION &lt;= 5
-    writer-&gt;SetInputConnection(polydata-&gt;GetProducerPort());
-#else
-    writer-&gt;SetInputData(polydata);
-#endif
-    writer-&gt;Write();
-  }
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polydata</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polydata</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  float origin[3];
-  float xDirection[3];
-  float yDirection[3];
-  float zDirection[3];
+  <span class="kt">float</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">xDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">yDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">zDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-  void SetOrigin(float o[3])
-  {
-    this-&gt;origin[0] = o[0];
-    this-&gt;origin[1] = o[1];
-    this-&gt;origin[2] = o[2];
-  }
+  <span class="kt">void</span> <span class="nf">SetOrigin</span><span class="p">(</span><span class="kt">float</span> <span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">}</span>
 
-  void SetXDirection(float direction[3])
-  {
-    vtkMath::Normalize(direction);
-    this-&gt;xDirection[0] = direction[0];
-    this-&gt;xDirection[1] = direction[1];
-    this-&gt;xDirection[2] = direction[2];
-  }
+  <span class="kt">void</span> <span class="nf">SetXDirection</span><span class="p">(</span><span class="kt">float</span> <span class="n">direction</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="n">vtkMath</span><span class="o">::</span><span class="n">Normalize</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">xDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">}</span>
 
-  void SetYDirection(float direction[3])
-  {
-    vtkMath::Normalize(direction);
-    this-&gt;yDirection[0] = direction[0];
-    this-&gt;yDirection[1] = direction[1];
-    this-&gt;yDirection[2] = direction[2];
-  }
+  <span class="kt">void</span> <span class="nf">SetYDirection</span><span class="p">(</span><span class="kt">float</span> <span class="n">direction</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="n">vtkMath</span><span class="o">::</span><span class="n">Normalize</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">yDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">}</span>
 
-  void SetZDirection(float direction[3])
-  {
-    vtkMath::Normalize(direction);
-    this-&gt;zDirection[0] = direction[0];
-    this-&gt;zDirection[1] = direction[1];
-    this-&gt;zDirection[2] = direction[2];
-  }
+  <span class="kt">void</span> <span class="nf">SetZDirection</span><span class="p">(</span><span class="kt">float</span> <span class="n">direction</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+  <span class="p">{</span>
+    <span class="n">vtkMath</span><span class="o">::</span><span class="n">Normalize</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">zDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="p">}</span>
 
-};
+<span class="p">};</span>
 
-void AlignFrames(Frame sourceFrame, Frame destinationFrame, vtkTransform* transform);
+<span class="kt">void</span> <span class="nf">AlignFrames</span><span class="p">(</span><span class="n">Frame</span> <span class="n">sourceFrame</span><span class="p">,</span> <span class="n">Frame</span> <span class="n">destinationFrame</span><span class="p">,</span> <span class="n">vtkTransform</span><span class="o">*</span> <span class="n">transform</span><span class="p">);</span>
 
-int main(int, char *[])
-{
-  float frame1origin[3] = {0,0,0};
-  float frame1XDirection[3] = {1,0,0};
-  float frame1YDirection[3] = {0,1,0};
-  std::cout &lt;&lt; frame1YDirection[0] &lt;&lt; &quot; &quot; &lt;&lt; frame1YDirection[1] &lt;&lt; &quot; &quot; &lt;&lt; frame1YDirection[2] &lt;&lt; std::endl;
-  float frame1ZDirection[3] = {0,0,1};
-  Frame frame1(frame1origin, frame1XDirection, frame1YDirection, frame1ZDirection);
-  frame1.Write(&quot;frame1.vtp&quot;);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">float</span> <span class="n">frame1origin</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">frame1XDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">frame1YDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">frame1YDirection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">frame1YDirection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">frame1YDirection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">frame1ZDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+  <span class="n">Frame</span> <span class="n">frame1</span><span class="p">(</span><span class="n">frame1origin</span><span class="p">,</span> <span class="n">frame1XDirection</span><span class="p">,</span> <span class="n">frame1YDirection</span><span class="p">,</span> <span class="n">frame1ZDirection</span><span class="p">);</span>
+  <span class="n">frame1</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;frame1.vtp&quot;</span><span class="p">);</span>
 
-  float frame2origin[3] = {0,0,0};
-  float frame2XDirection[3] = {.707f,.707f,0};
-  float frame2YDirection[3] = {-.707f,.707f,0};
-  float frame2ZDirection[3] = {0,0,1};
-  Frame frame2(frame2origin, frame2XDirection, frame2YDirection, frame2ZDirection);
-  frame2.Write(&quot;frame2.vtp&quot;);
+  <span class="kt">float</span> <span class="n">frame2origin</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">frame2XDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">.707f</span><span class="p">,</span><span class="mf">.707f</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">frame2YDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mf">.707f</span><span class="p">,</span><span class="mf">.707f</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">float</span> <span class="n">frame2ZDirection</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+  <span class="n">Frame</span> <span class="n">frame2</span><span class="p">(</span><span class="n">frame2origin</span><span class="p">,</span> <span class="n">frame2XDirection</span><span class="p">,</span> <span class="n">frame2YDirection</span><span class="p">,</span> <span class="n">frame2ZDirection</span><span class="p">);</span>
+  <span class="n">frame2</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;frame2.vtp&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTransform&gt; transform =
-    vtkSmartPointer&lt;vtkTransform&gt;::New();
-  AlignFrames(frame2, frame1, transform); // Brings frame2 to frame1
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">AlignFrames</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">frame1</span><span class="p">,</span> <span class="n">transform</span><span class="p">);</span> <span class="c1">// Brings frame2 to frame1</span>
 
-  //std::cout &lt;&lt; *transform &lt;&lt; std::endl;
+  <span class="c1">//std::cout &lt;&lt; *transform &lt;&lt; std::endl;</span>
 
-  frame2.ApplyTransform(transform, &quot;transformed.vtp&quot;);
+  <span class="n">frame2</span><span class="p">.</span><span class="n">ApplyTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="s">&quot;transformed.vtp&quot;</span><span class="p">);</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-void AlignFrames(Frame sourceFrame, Frame targetFrame, vtkTransform* transform)
-{
-  // This function takes two frames and finds the matrix M between them.
+<span class="kt">void</span> <span class="nf">AlignFrames</span><span class="p">(</span><span class="n">Frame</span> <span class="n">sourceFrame</span><span class="p">,</span> <span class="n">Frame</span> <span class="n">targetFrame</span><span class="p">,</span> <span class="n">vtkTransform</span><span class="o">*</span> <span class="n">transform</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// This function takes two frames and finds the matrix M between them.</span>
 
-  vtkSmartPointer&lt;vtkLandmarkTransform&gt; landmarkTransform =
-    vtkSmartPointer&lt;vtkLandmarkTransform&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLandmarkTransform</span><span class="o">&gt;</span> <span class="n">landmarkTransform</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLandmarkTransform</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  // Setup source points
-  vtkSmartPointer&lt;vtkPoints&gt; sourcePoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="c1">// Setup source points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">sourcePoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  sourcePoints-&gt;InsertNextPoint(sourceFrame.origin);
-  float sourceX[3];
-  vtkMath::Add(sourceFrame.origin, sourceFrame.xDirection, sourceX);
-  sourcePoints-&gt;InsertNextPoint(sourceX);
-  float sourceY[3];
-  vtkMath::Add(sourceFrame.origin, sourceFrame.yDirection, sourceY);
-  sourcePoints-&gt;InsertNextPoint(sourceY);
-  float sourceZ[3];
-  vtkMath::Add(sourceFrame.origin, sourceFrame.zDirection, sourceZ);
-  sourcePoints-&gt;InsertNextPoint(sourceZ);
+  <span class="n">sourcePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">sourceX</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">sourceFrame</span><span class="p">.</span><span class="n">xDirection</span><span class="p">,</span> <span class="n">sourceX</span><span class="p">);</span>
+  <span class="n">sourcePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceX</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">sourceY</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">sourceFrame</span><span class="p">.</span><span class="n">yDirection</span><span class="p">,</span> <span class="n">sourceY</span><span class="p">);</span>
+  <span class="n">sourcePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceY</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">sourceZ</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="n">sourceFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">sourceFrame</span><span class="p">.</span><span class="n">zDirection</span><span class="p">,</span> <span class="n">sourceZ</span><span class="p">);</span>
+  <span class="n">sourcePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">sourceZ</span><span class="p">);</span>
 
-  // Setup target points
-  vtkSmartPointer&lt;vtkPoints&gt; targetPoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+  <span class="c1">// Setup target points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">targetPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  targetPoints-&gt;InsertNextPoint(targetFrame.origin);
-  float targetX[3];
-  vtkMath::Add(targetFrame.origin, targetFrame.xDirection, targetX);
-  targetPoints-&gt;InsertNextPoint(targetX);
-  float targetY[3];
-  vtkMath::Add(targetFrame.origin, targetFrame.yDirection, targetY);
-  targetPoints-&gt;InsertNextPoint(targetY);
-  float targetZ[3];
-  vtkMath::Add(targetFrame.origin, targetFrame.zDirection, targetZ);
-  targetPoints-&gt;InsertNextPoint(targetZ);
+  <span class="n">targetPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">targetX</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">xDirection</span><span class="p">,</span> <span class="n">targetX</span><span class="p">);</span>
+  <span class="n">targetPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetX</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">targetY</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">yDirection</span><span class="p">,</span> <span class="n">targetY</span><span class="p">);</span>
+  <span class="n">targetPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetY</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">targetZ</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Add</span><span class="p">(</span><span class="n">targetFrame</span><span class="p">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">targetFrame</span><span class="p">.</span><span class="n">zDirection</span><span class="p">,</span> <span class="n">targetZ</span><span class="p">);</span>
+  <span class="n">targetPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">targetZ</span><span class="p">);</span>
 
-  landmarkTransform-&gt;SetSourceLandmarks(sourcePoints);
-  landmarkTransform-&gt;SetTargetLandmarks(targetPoints);
-  landmarkTransform-&gt;SetModeToRigidBody();
-  landmarkTransform-&gt;Update();
+  <span class="n">landmarkTransform</span><span class="o">-&gt;</span><span class="n">SetSourceLandmarks</span><span class="p">(</span><span class="n">sourcePoints</span><span class="p">);</span>
+  <span class="n">landmarkTransform</span><span class="o">-&gt;</span><span class="n">SetTargetLandmarks</span><span class="p">(</span><span class="n">targetPoints</span><span class="p">);</span>
+  <span class="n">landmarkTransform</span><span class="o">-&gt;</span><span class="n">SetModeToRigidBody</span><span class="p">();</span>
+  <span class="n">landmarkTransform</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkMatrix4x4* M = landmarkTransform-&gt;GetMatrix();
+  <span class="n">vtkMatrix4x4</span><span class="o">*</span> <span class="n">M</span> <span class="o">=</span> <span class="n">landmarkTransform</span><span class="o">-&gt;</span><span class="n">GetMatrix</span><span class="p">();</span>
 
-  transform-&gt;SetMatrix(M);
-}
-</code></pre>
+  <span class="n">transform</span><span class="o">-&gt;</span><span class="n">SetMatrix</span><span class="p">(</span><span class="n">M</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(AlignFrames)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">AlignFrames</span><span class="p">)</span>
 
-add_executable(AlignFrames MACOSX_BUNDLE AlignFrames.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(AlignFrames ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AlignFrames</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AlignFrames.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-alignframes">Download and Build AlignFrames</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AlignFrames</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-alignframes">Download and Build AlignFrames<a class="headerlink" href="#download-and-build-alignframes" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/AlignFrames.tar">here to download AlignFrames</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball AlignFrames.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd AlignFrames/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd AlignFrames/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./AlignFrames
-</code></pre>
+<div class="codehilite"><pre><span></span>./AlignFrames
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15523,6 +15523,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,66 +15991,66 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Widgets/BalloonWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestBalloonWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>[<a href="../[File:VTK_Examples_Python_Widgets_BalloonWidget-1.png]]">[File:VTK_Examples_Python_Widgets_BalloonWidget-2.png?]</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BalloonWidget.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-import vtk
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Sphere
-sphereSource = vtk.vtkSphereSource()
-sphereSource.SetCenter(-4.0, 0.0, 0.0)
-sphereSource.SetRadius(4.0)
+<span class="c1"># Sphere</span>
+<span class="n">sphereSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSphereSource</span><span class="p">()</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">sphereSource</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
 
-sphereMapper = vtk.vtkPolyDataMapper()
-sphereMapper.SetInputConnection(sphereSource.GetOutputPort())
+<span class="n">sphereMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">sphereMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-sphereActor = vtk.vtkActor()
-sphereActor.SetMapper(sphereMapper)
+<span class="n">sphereActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">sphereActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">)</span>
 
-# Regular Polygon
-regularPolygonSource = vtk.vtkRegularPolygonSource()
-regularPolygonSource.SetCenter(4.0, 0.0, 0.0)
-regularPolygonSource.SetRadius(4.0)
+<span class="c1"># Regular Polygon</span>
+<span class="n">regularPolygonSource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRegularPolygonSource</span><span class="p">()</span>
+<span class="n">regularPolygonSource</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">regularPolygonSource</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
 
-regularPolygonMapper = vtk.vtkPolyDataMapper()
-regularPolygonMapper.SetInputConnection(regularPolygonSource.GetOutputPort())
+<span class="n">regularPolygonMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">regularPolygonMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">regularPolygonSource</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-regularPolygonActor = vtk.vtkActor()
-regularPolygonActor.SetMapper(regularPolygonMapper)
+<span class="n">regularPolygonActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">regularPolygonActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">regularPolygonMapper</span><span class="p">)</span>
 
-# A renderer and render window
-renderer = vtk.vtkRenderer()
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
+<span class="c1"># A renderer and render window</span>
+<span class="n">renderer</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renderWindow</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
 
-# An interactor
-renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-renderWindowInteractor.SetRenderWindow(renderWindow)
+<span class="c1"># An interactor</span>
+<span class="n">renderWindowInteractor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">)</span>
 
-# Create the widget
-balloonRep = vtk.vtkBalloonRepresentation()
-balloonRep.SetBalloonLayoutToImageRight()
+<span class="c1"># Create the widget</span>
+<span class="n">balloonRep</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBalloonRepresentation</span><span class="p">()</span>
+<span class="n">balloonRep</span><span class="o">.</span><span class="n">SetBalloonLayoutToImageRight</span><span class="p">()</span>
 
-balloonWidget = vtk.vtkBalloonWidget()
-balloonWidget.SetInteractor(renderWindowInteractor)
-balloonWidget.SetRepresentation(balloonRep)
-balloonWidget.AddBalloon(sphereActor,&quot;This is a sphere&quot;)
-balloonWidget.AddBalloon(regularPolygonActor,&quot;This is a regular polygon&quot;)
+<span class="n">balloonWidget</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkBalloonWidget</span><span class="p">()</span>
+<span class="n">balloonWidget</span><span class="o">.</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">)</span>
+<span class="n">balloonWidget</span><span class="o">.</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">balloonRep</span><span class="p">)</span>
+<span class="n">balloonWidget</span><span class="o">.</span><span class="n">AddBalloon</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">,</span><span class="s2">&quot;This is a sphere&quot;</span><span class="p">)</span>
+<span class="n">balloonWidget</span><span class="o">.</span><span class="n">AddBalloon</span><span class="p">(</span><span class="n">regularPolygonActor</span><span class="p">,</span><span class="s2">&quot;This is a regular polygon&quot;</span><span class="p">)</span>
 
-# Add the actors to the scene
-renderer.AddActor(sphereActor)
-renderer.AddActor(regularPolygonActor)
+<span class="c1"># Add the actors to the scene</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">)</span>
+<span class="n">renderer</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">regularPolygonActor</span><span class="p">)</span>
 
-# Render an image (lights and cameras are created automatically)
-renderWindow.Render()
-balloonWidget.EnabledOn()
+<span class="c1"># Render an image (lights and cameras are created automatically)</span>
+<span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">balloonWidget</span><span class="o">.</span><span class="n">EnabledOn</span><span class="p">()</span>
 
-# Begin mouse interaction
-renderWindowInteractor.Start()
-renderWindowInteractor.Initialize()
-</code></pre>
+<span class="c1"># Begin mouse interaction</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

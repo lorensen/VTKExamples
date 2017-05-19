@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15559,6 +15559,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15966,97 +15978,97 @@
                   <h1>Polyline</h1>
                 
                 <p><a href="../../../../">VTKExamples</a>/<a href="../../../../Python">Python</a>/GeometricObjects/Display/Polyline</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Polyline.py</strong></p>
-<pre><code class="python"># This example demonstrates how to create a polyline through several ordered points.
+<div class="codehilite"><pre><span></span><span class="c1"># This example demonstrates how to create a polyline through several ordered points.</span>
 
-import vtk
-import math
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
-# vtkPoints represents 3D points. The data model for vtkPoints is an array of
-# vx-vy-vz triplets accessible by (point or cell) id.
-points = vtk.vtkPoints()
-points.SetNumberOfPoints(6)
-c = math.cos(math.pi/6) # helper variable
-points.SetPoint(0, 0.0, -1.0, 0.0)
-points.SetPoint(1,   c, -0.5, 0.0)
-points.SetPoint(2,   c,  0.5, 0.0)
-points.SetPoint(3, 0.0,  1.0, 0.0)
-points.SetPoint(4,  -c,  0.5, 0.0)
-points.SetPoint(5,  -c, -0.5, 0.0)
+<span class="c1"># vtkPoints represents 3D points. The data model for vtkPoints is an array of</span>
+<span class="c1"># vx-vy-vz triplets accessible by (point or cell) id.</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># helper variable</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span>   <span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span>   <span class="n">c</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span>  <span class="o">-</span><span class="n">c</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span>  <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-# vtkCellArray is a supporting object that explicitly represents cell connectivity.
-# The cell array structure is a raw integer list of the form:
-# (n,id1,id2,...,idn, n,id1,id2,...,idn, ...) where n is the number of points in
-# the cell, and id is a zero-offset index into an associated point list.
-lines = vtk.vtkCellArray()
-lines.InsertNextCell(7)
-lines.InsertCellPoint(0)
-lines.InsertCellPoint(1)
-lines.InsertCellPoint(2)
-lines.InsertCellPoint(3)
-lines.InsertCellPoint(4)
-lines.InsertCellPoint(5)
-lines.InsertCellPoint(0)
+<span class="c1"># vtkCellArray is a supporting object that explicitly represents cell connectivity.</span>
+<span class="c1"># The cell array structure is a raw integer list of the form:</span>
+<span class="c1"># (n,id1,id2,...,idn, n,id1,id2,...,idn, ...) where n is the number of points in</span>
+<span class="c1"># the cell, and id is a zero-offset index into an associated point list.</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-# vtkPolyData is a data object that is a concrete implementation of vtkDataSet.
-# vtkPolyData represents a geometric structure consisting of vertices, lines,
-# polygons, and/or triangle strips
-polygon = vtk.vtkPolyData()
-polygon.SetPoints(points)
-polygon.SetLines(lines)
+<span class="c1"># vtkPolyData is a data object that is a concrete implementation of vtkDataSet.</span>
+<span class="c1"># vtkPolyData represents a geometric structure consisting of vertices, lines,</span>
+<span class="c1"># polygons, and/or triangle strips</span>
+<span class="n">polygon</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<span class="n">polygon</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="n">polygon</span><span class="o">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
 
-# vtkPolyDataMapper is a class that maps polygonal data (i.e., vtkPolyData)
-# to graphics primitives
-polygonMapper = vtk.vtkPolyDataMapper()
-if vtk.VTK_MAJOR_VERSION &lt;= 5:
-    polygonMapper.SetInputConnection(polygon.GetProducerPort())
-else:
-    polygonMapper.SetInputData(polygon)
-    polygonMapper.Update()
+<span class="c1"># vtkPolyDataMapper is a class that maps polygonal data (i.e., vtkPolyData)</span>
+<span class="c1"># to graphics primitives</span>
+<span class="n">polygonMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">VTK_MAJOR_VERSION</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="n">polygonMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">polygon</span><span class="o">.</span><span class="n">GetProducerPort</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">polygonMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polygon</span><span class="p">)</span>
+    <span class="n">polygonMapper</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-# Create an actor to represent the polygon. The actor orchestrates rendering of
-# the mapper's graphics primitives. An actor also refers to properties via a
-# vtkProperty instance, and includes an internal transformation matrix. We
-# set this actor's mapper to be polygonMapper which we created above.
-polygonActor = vtk.vtkActor()
-polygonActor.SetMapper(polygonMapper)
+<span class="c1"># Create an actor to represent the polygon. The actor orchestrates rendering of</span>
+<span class="c1"># the mapper&#39;s graphics primitives. An actor also refers to properties via a</span>
+<span class="c1"># vtkProperty instance, and includes an internal transformation matrix. We</span>
+<span class="c1"># set this actor&#39;s mapper to be polygonMapper which we created above.</span>
+<span class="n">polygonActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">polygonActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">polygonMapper</span><span class="p">)</span>
 
-# Create the Renderer and assign actors to it. A renderer is like a
-# viewport. It is part or all of a window on the screen and it is
-# responsible for drawing the actors it has.  We also set the
-# background color here.
-ren1 = vtk.vtkRenderer()
-ren1.AddActor(polygonActor)
-ren1.SetBackground(0.1, 0.2, 0.4)
+<span class="c1"># Create the Renderer and assign actors to it. A renderer is like a</span>
+<span class="c1"># viewport. It is part or all of a window on the screen and it is</span>
+<span class="c1"># responsible for drawing the actors it has.  We also set the</span>
+<span class="c1"># background color here.</span>
+<span class="n">ren1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">polygonActor</span><span class="p">)</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
 
-# Automatically set up the camera based on the visible actors.
-# The camera will reposition itself to view the center point of the actors,
-# and move along its initial view plane normal
-# (i.e., vector defined from camera position to focal point) so that all of the
-# actors can be seen.
-ren1.ResetCamera()
+<span class="c1"># Automatically set up the camera based on the visible actors.</span>
+<span class="c1"># The camera will reposition itself to view the center point of the actors,</span>
+<span class="c1"># and move along its initial view plane normal</span>
+<span class="c1"># (i.e., vector defined from camera position to focal point) so that all of the</span>
+<span class="c1"># actors can be seen.</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
 
-# Finally we create the render window which will show up on the screen
-# We put our renderer into the render window using AddRenderer. We
-# also set the size to be 300 pixels by 300.
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren1)
-renWin.SetSize(300, 300)
+<span class="c1"># Finally we create the render window which will show up on the screen</span>
+<span class="c1"># We put our renderer into the render window using AddRenderer. We</span>
+<span class="c1"># also set the size to be 300 pixels by 300.</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
 
-# The vtkRenderWindowInteractor class watches for events (e.g., keypress,
-# mouse) in the vtkRenderWindow. These events are translated into
-# event invocations that VTK understands (see VTK/Common/vtkCommand.h
-# for all events that VTK processes). Then observers of these VTK
-# events can process them as appropriate.
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-iren.Initialize()
-iren.Start()
+<span class="c1"># The vtkRenderWindowInteractor class watches for events (e.g., keypress,</span>
+<span class="c1"># mouse) in the vtkRenderWindow. These events are translated into</span>
+<span class="c1"># event invocations that VTK understands (see VTK/Common/vtkCommand.h</span>
+<span class="c1"># for all events that VTK processes). Then observers of these VTK</span>
+<span class="c1"># events can process them as appropriate.</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
-# There is no explicit need to free any objects at this point.
-# Once Python exits, memory is automatically freed.
-</code></pre>
+<span class="c1"># There is no explicit need to free any objects at this point.</span>
+<span class="c1"># Once Python exits, memory is automatically freed.</span>
+</pre></div>
                 
                   
                 

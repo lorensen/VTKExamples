@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15534,6 +15534,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15927,176 +15939,183 @@
                 
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/InterpolateTerrain</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example samples a "terrain map" using two approaches.</p>
-<h1 id="creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights">Creates an image from the x,y points of the terrian and then uses vtkProbeFilter to interpolate the heights.</h1>
-<h1 id="uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata">Uses vtkCellLocator to directly interpolate the terrain polydata.</h1>
+<h1 id="creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights">Creates an image from the x,y points of the terrian and then uses vtkProbeFilter to interpolate the heights.<a class="headerlink" href="#creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights" title="Permanent link">&para;</a></h1>
+<h1 id="uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata">Uses vtkCellLocator to directly interpolate the terrain polydata.<a class="headerlink" href="#uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata" title="Permanent link">&para;</a></h1>
 <p>Note that the results differ when the point is not one of the original terrain points. This is because the image has quadrilateral elements and the polydata has triangles. As the resolution of the grid increases, the two results converge.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>InterpolateTerrain.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkLine.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkProbeFilter.h&gt;
-#include &lt;vtkDelaunay2D.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkCellLocator.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLine.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProbeFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDelaunay2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellLocator.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkImageData&gt; image =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  image-&gt;SetExtent(0, 9, 0, 9, 0, 0);
-#if VTK_MAJOR_VERSION &lt;= 5
-  image-&gt;SetScalarTypeToDouble();
-  image-&gt;SetNumberOfScalarComponents(1);
-#else
-  image-&gt;AllocateScalars(VTK_DOUBLE,1);
-#endif
-  //Create a random set of heights on a grid. This is often called a
-  //&quot;terrain map&quot;
-  vtkSmartPointer&lt;vtkPoints&gt; points =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="c1">//Create a random set of heights on a grid. This is often called a</span>
+  <span class="c1">//&quot;terrain map&quot;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  unsigned int GridSize = 10;
-  for ( unsigned int x = 0; x &lt; GridSize; x++ )
-  {
-    for ( unsigned int y = 0; y &lt; GridSize; y++ )
-    {
-      double val = vtkMath::Random(-1.0, 1.0);
-      points-&gt;InsertNextPoint ( x, y, val);
-      image-&gt;SetScalarComponentFromDouble(x,y,0,0,val);
-    }
-  }
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">GridSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">GridSize</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">GridSize</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+      <span class="n">points</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>
+      <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarComponentFromDouble</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">val</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  //add the grid points to a polydata object
-  vtkSmartPointer&lt;vtkPolyData&gt; polydata =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  polydata-&gt;SetPoints ( points );
+  <span class="c1">//add the grid points to a polydata object</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polydata</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">polydata</span><span class="o">-&gt;</span><span class="n">SetPoints</span> <span class="p">(</span> <span class="n">points</span> <span class="p">);</span>
 
-  //triangulate the grid points
-  vtkSmartPointer&lt;vtkDelaunay2D&gt; delaunay =
-    vtkSmartPointer&lt;vtkDelaunay2D&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  delaunay-&gt;SetInput ( polydata );
-#else
-  delaunay-&gt;SetInputData ( polydata );
-#endif
-  delaunay-&gt;Update();
+  <span class="c1">//triangulate the grid points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;</span> <span class="n">delaunay</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">SetInput</span> <span class="p">(</span> <span class="n">polydata</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">SetInputData</span> <span class="p">(</span> <span class="n">polydata</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; writer =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  writer-&gt;SetFileName ( &quot;surface.vtp&quot; );
-  writer-&gt;SetInputConnection ( delaunay-&gt;GetOutputPort() );
-  writer-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="s">&quot;surface.vtp&quot;</span> <span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span> <span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  // Add some points to interpolate
-  vtkSmartPointer&lt;vtkPoints&gt; probePoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  probePoints-&gt;InsertNextPoint(5.2, 3.2, 0);
-  probePoints-&gt;InsertNextPoint(5.0, 3.0, 0);
-  probePoints-&gt;InsertNextPoint(0.0, 0.0, 0);
+  <span class="c1">// Add some points to interpolate</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">probePoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">probePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">probePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">probePoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyData&gt; probePolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  probePolyData-&gt;SetPoints(probePoints);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">probePolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">probePolyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">probePoints</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkProbeFilter&gt; probe =
-    vtkSmartPointer&lt;vtkProbeFilter&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  probe-&gt;SetSource(image);
-  probe-&gt;SetInput(probePolyData);
-#else
-  probe-&gt;SetSourceData(image);
-  probe-&gt;SetInputData(probePolyData);
-#endif
-  probe-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;</span> <span class="n">probe</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetSource</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">probePolyData</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetSourceData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">probePolyData</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">probe</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkDataArray* data = probe-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars();
-  vtkDoubleArray* doubleData = vtkDoubleArray::SafeDownCast (data);
+  <span class="n">vtkDataArray</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">probe</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">();</span>
+  <span class="n">vtkDoubleArray</span><span class="o">*</span> <span class="n">doubleData</span> <span class="o">=</span> <span class="n">vtkDoubleArray</span><span class="o">::</span><span class="n">SafeDownCast</span> <span class="p">(</span><span class="n">data</span><span class="p">);</span>
 
-  for(int i = 0; i &lt; doubleData-&gt;GetNumberOfTuples(); i++)
-  {
-    double val = doubleData-&gt;GetValue(i);
-    cout &lt;&lt; &quot;Interpolation using ProbeFilter &quot;;
-    cout &lt;&lt; &quot;doubleData-&gt;GetValue(&quot; &lt;&lt; i &lt;&lt; &quot;): &quot; &lt;&lt; val &lt;&lt; endl;
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">doubleData</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">doubleData</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Interpolation using ProbeFilter &quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;doubleData-&gt;GetValue(&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;): &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Now find the elevation with a CellLocator
-  vtkSmartPointer&lt;vtkCellLocator&gt; cellLocator =
-    vtkSmartPointer&lt;vtkCellLocator&gt;::New();
-  cellLocator-&gt;SetDataSet(delaunay-&gt;GetOutput());
-  cellLocator-&gt;BuildLocator();
+  <span class="c1">// Now find the elevation with a CellLocator</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;</span> <span class="n">cellLocator</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCellLocator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">SetDataSet</span><span class="p">(</span><span class="n">delaunay</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">BuildLocator</span><span class="p">();</span>
 
-  for(int i = 0; i &lt; doubleData-&gt;GetNumberOfTuples(); i++)
-  {
-    int subId;
-    double t, xyz[3], pcoords[3];
-    double rayStart[3], rayEnd[3];
-    probePoints-&gt;GetPoint(i, rayStart);
-    rayStart[2] += 1000.0;
-    probePoints-&gt;GetPoint(i, rayEnd);
-    rayEnd[2] -= 1000.0;
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">doubleData</span><span class="o">-&gt;</span><span class="n">GetNumberOfTuples</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">subId</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">t</span><span class="p">,</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">pcoords</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">rayStart</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">rayEnd</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">probePoints</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rayStart</span><span class="p">);</span>
+    <span class="n">rayStart</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1000.0</span><span class="p">;</span>
+    <span class="n">probePoints</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rayEnd</span><span class="p">);</span>
+    <span class="n">rayEnd</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">1000.0</span><span class="p">;</span>
 
-    if (cellLocator-&gt;IntersectWithLine(
-          rayStart,
-          rayEnd,
-          0.0001,
-          t,
-          xyz,
-          pcoords,
-          subId))
-    {
-      cout &lt;&lt; &quot;Interpolation using CellLocator &quot;;
-      cout &lt;&lt; &quot;Elevation at &quot; &lt;&lt; rayStart[0] &lt;&lt; &quot;, &quot; &lt;&lt; rayStart[1] &lt;&lt; &quot; is &quot; &lt;&lt; xyz[2] &lt;&lt; endl;
-    }
-  }
-  return EXIT_SUCCESS;
-}
-</code></pre>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cellLocator</span><span class="o">-&gt;</span><span class="n">IntersectWithLine</span><span class="p">(</span>
+          <span class="n">rayStart</span><span class="p">,</span>
+          <span class="n">rayEnd</span><span class="p">,</span>
+          <span class="mf">0.0001</span><span class="p">,</span>
+          <span class="n">t</span><span class="p">,</span>
+          <span class="n">xyz</span><span class="p">,</span>
+          <span class="n">pcoords</span><span class="p">,</span>
+          <span class="n">subId</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Interpolation using CellLocator &quot;</span><span class="p">;</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Elevation at &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rayStart</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rayStart</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(InterpolateTerrain)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">InterpolateTerrain</span><span class="p">)</span>
 
-add_executable(InterpolateTerrain MACOSX_BUNDLE InterpolateTerrain.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(InterpolateTerrain ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">InterpolateTerrain</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">InterpolateTerrain.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-interpolateterrain">Download and Build InterpolateTerrain</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">InterpolateTerrain</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-interpolateterrain">Download and Build InterpolateTerrain<a class="headerlink" href="#download-and-build-interpolateterrain" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/InterpolateTerrain.tar">here to download InterpolateTerrain</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball InterpolateTerrain.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd InterpolateTerrain/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd InterpolateTerrain/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./InterpolateTerrain
-</code></pre>
+<div class="codehilite"><pre><span></span>./InterpolateTerrain
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

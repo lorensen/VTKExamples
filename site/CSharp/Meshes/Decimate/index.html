@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,112 +15990,112 @@
                   <h1>Decimate</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Meshes/Decimate</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><p>This example decimates a mesh. The SetTargetReduction function specifies how many triangles should reduced by specifying the percentage ([of triangles to be removed. For example, if the mesh contains 100 triangles and SetTargetReduction(.90) is called, after the decimation there will be approximately 10 triangles - a 90% reduction.</p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="../0,1]">http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET Setup a Windows Forms Application to use ActiViz.NET</a>)<br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Decimate.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            Decimate();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void Decimation() { 
-         vtkSphereSource sphereSource = vtkSphereSource.New();
-         sphereSource.Update();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">Decimate</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         vtkPolyData input = vtkPolyData.New();
-         input.ShallowCopy(sphereSource.GetOutput());
 
-         Debug.WriteLine(&quot;Before decimation&quot; + Environment.NewLine + &quot;------------&quot; );
-         Debug.WriteLine(&quot;There are &quot; + input.GetNumberOfPoints() + &quot; points.&quot; );
-         Debug.WriteLine(&quot;There are &quot; + input.GetNumberOfPolys() + &quot; polygons.&quot; );
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">Decimation</span><span class="p">()</span> <span class="p">{</span> 
+         <span class="n">vtkSphereSource</span> <span class="n">sphereSource</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphereSource</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         vtkDecimatePro decimate = vtkDecimatePro.New();
-#if VTK_MAJOR_VERSION_5
-         decimate.SetInputConnection(input.GetProducerPort());
-#else
-         decimate.SetInputData(input);
-#endif
-         //decimate.SetTargetReduction(.99); //99% reduction (if there was 100 triangles, now there will be 1)
-         decimate.SetTargetReduction(.10); //10% reduction (if there was 100 triangles, now there will be 90)
-         decimate.Update();
+         <span class="n">vtkPolyData</span> <span class="n">input</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">input</span><span class="p">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
 
-         vtkPolyData decimated = vtkPolyData.New();
-         decimated.ShallowCopy(decimate.GetOutput());
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Before decimation&quot;</span> <span class="p">+</span> <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span> <span class="p">+</span> <span class="s">&quot;------------&quot;</span> <span class="p">);</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;There are &quot;</span> <span class="p">+</span> <span class="n">input</span><span class="p">.</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; points.&quot;</span> <span class="p">);</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;There are &quot;</span> <span class="p">+</span> <span class="n">input</span><span class="p">.</span><span class="n">GetNumberOfPolys</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; polygons.&quot;</span> <span class="p">);</span>
 
-         Debug.WriteLine(&quot;After decimation&quot; + Environment.NewLine + &quot;------------&quot; );
+         <span class="n">vtkDecimatePro</span> <span class="n">decimate</span> <span class="p">=</span> <span class="n">vtkDecimatePro</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">decimate</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">decimate</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="c1">//decimate.SetTargetReduction(.99); //99% reduction (if there was 100 triangles, now there will be 1)</span>
+         <span class="n">decimate</span><span class="p">.</span><span class="n">SetTargetReduction</span><span class="p">(.</span><span class="m">10</span><span class="p">);</span> <span class="c1">//10% reduction (if there was 100 triangles, now there will be 90)</span>
+         <span class="n">decimate</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
 
-         Debug.WriteLine(&quot;There are &quot; + decimated.GetNumberOfPoints() + &quot; points.&quot; );
-         Debug.WriteLine(&quot;There are &quot; + decimated.GetNumberOfPolys() + &quot; polygons.&quot; );
+         <span class="n">vtkPolyData</span> <span class="n">decimated</span> <span class="p">=</span> <span class="n">vtkPolyData</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">decimated</span><span class="p">.</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">decimate</span><span class="p">.</span><span class="n">GetOutput</span><span class="p">());</span>
 
-         vtkPolyDataMapper inputMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         inputMapper.SetInputConnection(input.GetProducerPort());
-#else
-         inputMapper.SetInputData(input);
-#endif
-         vtkActor inputActor = vtkActor.New();
-         inputActor.SetMapper(inputMapper);
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;After decimation&quot;</span> <span class="p">+</span> <span class="n">Environment</span><span class="p">.</span><span class="n">NewLine</span> <span class="p">+</span> <span class="s">&quot;------------&quot;</span> <span class="p">);</span>
 
-         vtkPolyDataMapper decimatedMapper = vtkPolyDataMapper.New();
-#if VTK_MAJOR_VERSION_5
-         decimatedMapper.SetInputConnection(decimated.GetProducerPort());
-#else
-         decimatedMapper.SetInputData(decimated);
-#endif
-         vtkActor decimatedActor = vtkActor.New();
-         decimatedActor.SetMapper(decimatedMapper);
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;There are &quot;</span> <span class="p">+</span> <span class="n">decimated</span><span class="p">.</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; points.&quot;</span> <span class="p">);</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;There are &quot;</span> <span class="p">+</span> <span class="n">decimated</span><span class="p">.</span><span class="n">GetNumberOfPolys</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot; polygons.&quot;</span> <span class="p">);</span>
 
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         this.Size = new System.Drawing.Size(612, 352);
+         <span class="n">vtkPolyDataMapper</span> <span class="n">inputMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">inputMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">inputMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">vtkActor</span> <span class="n">inputActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">inputActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">inputMapper</span><span class="p">);</span>
 
-         // Define viewport ranges
-         // (xmin, ymin, xmax, ymax)
-         double[] leftViewport = new double[] { 0.0, 0.0, 0.5, 1.0 };
-         double[] rightViewport = new double[] { 0.5, 0.0, 1.0, 1.0 };
+         <span class="n">vtkPolyDataMapper</span> <span class="n">decimatedMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION_5</span>
+         <span class="n">decimatedMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">decimated</span><span class="p">.</span><span class="n">GetProducerPort</span><span class="p">());</span>
+<span class="cp">#else</span>
+         <span class="n">decimatedMapper</span><span class="p">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">decimated</span><span class="p">);</span>
+<span class="cp">#endif</span>
+         <span class="n">vtkActor</span> <span class="n">decimatedActor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">decimatedActor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">decimatedMapper</span><span class="p">);</span>
 
-         // Setup both renderers
-         vtkRenderer leftRenderer = vtkRenderer.New();
-         renderWindow.AddRenderer(leftRenderer);
-         leftRenderer.SetViewport(leftViewport[0], leftViewport[1], leftViewport[2], leftViewport[3]);
-         leftRenderer.SetBackground(.6, .5, .4);
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="k">this</span><span class="p">.</span><span class="n">Size</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span><span class="p">(</span><span class="m">612</span><span class="p">,</span> <span class="m">352</span><span class="p">);</span>
 
-         vtkRenderer rightRenderer = vtkRenderer.New();
-         renderWindow.AddRenderer(rightRenderer);
-         rightRenderer.SetViewport(rightViewport[0], rightViewport[1], rightViewport[2], rightViewport[3]);
-         rightRenderer.SetBackground(.4, .5, .6);
+         <span class="c1">// Define viewport ranges</span>
+         <span class="c1">// (xmin, ymin, xmax, ymax)</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">leftViewport</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">1.0</span> <span class="p">};</span>
+         <span class="kt">double</span><span class="p">[]</span> <span class="n">rightViewport</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">double</span><span class="p">[]</span> <span class="p">{</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">0.0</span><span class="p">,</span> <span class="m">1.0</span><span class="p">,</span> <span class="m">1.0</span> <span class="p">};</span>
 
-         // Add the sphere to the left and the cube to the right
-         leftRenderer.AddActor(inputActor);
-         rightRenderer.AddActor(decimatedActor);
-         leftRenderer.ResetCamera();
-         rightRenderer.ResetCamera();
-         renderWindow.Render();
-      }
-   }
-}
-</code></pre>
+         <span class="c1">// Setup both renderers</span>
+         <span class="n">vtkRenderer</span> <span class="n">leftRenderer</span> <span class="p">=</span> <span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">leftRenderer</span><span class="p">);</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">leftViewport</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">leftViewport</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">leftViewport</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="n">leftViewport</span><span class="p">[</span><span class="m">3</span><span class="p">]);</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">6</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">,</span> <span class="p">.</span><span class="m">4</span><span class="p">);</span>
+
+         <span class="n">vtkRenderer</span> <span class="n">rightRenderer</span> <span class="p">=</span> <span class="n">vtkRenderer</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">rightRenderer</span><span class="p">);</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">rightViewport</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">rightViewport</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">rightViewport</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="n">rightViewport</span><span class="p">[</span><span class="m">3</span><span class="p">]);</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(.</span><span class="m">4</span><span class="p">,</span> <span class="p">.</span><span class="m">5</span><span class="p">,</span> <span class="p">.</span><span class="m">6</span><span class="p">);</span>
+
+         <span class="c1">// Add the sphere to the left and the cube to the right</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">inputActor</span><span class="p">);</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">decimatedActor</span><span class="p">);</span>
+         <span class="n">leftRenderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+         <span class="n">rightRenderer</span><span class="p">.</span><span class="n">ResetCamera</span><span class="p">();</span>
+         <span class="n">renderWindow</span><span class="p">.</span><span class="n">Render</span><span class="p">();</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

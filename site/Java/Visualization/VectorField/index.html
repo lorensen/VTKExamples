@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15557,6 +15557,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15965,125 +15977,125 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Java">Java</a>/Visualization/VectorField</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestVectorField.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VectorField.java</strong></p>
-<pre><code class="java">package eu.mihosoft.vtk;
+<div class="codehilite"><pre><span></span><span class="kn">package</span> <span class="nn">eu.mihosoft.vtk</span><span class="o">;</span>
 
-import java.awt.BorderLayout;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import vtk.vtkActor;
-import vtk.vtkArrowSource;
-import vtk.vtkCubeSource;
-import vtk.vtkGlyph3D;
-import vtk.vtkObject;
-import vtk.vtkPanel;
-import vtk.vtkPolyData;
-import vtk.vtkPolyDataMapper;
-import vtk.vtkThresholdPoints;
-import vtk.vtkUnstructuredGrid;
-import vtk.vtkXMLUnstructuredGridReader;
-
-
-public class VectorFieldExample implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    public static vtkPanel showVectorField(
-            File file,
-            int elementInFile,
-            double threshold,
-            double scaleFactor) {
-
-        vtkXMLUnstructuredGridReader reader = new vtkXMLUnstructuredGridReader();
-
-        reader.SetFileName(file.getAbsolutePath());
-        reader.Update();
-        vtkUnstructuredGrid image = reader.GetOutput();
-        image.GetPointData().SetVectors(image.GetPointData().GetArray(elementInFile));
-
-        vtkThresholdPoints thresholdVector = new vtkThresholdPoints();
-        thresholdVector.SetInput(image);
-        thresholdVector.SetInputArrayToProcess(
-                elementInFile,
-                image.GetInformation());
-
-        thresholdVector.ThresholdByUpper(threshold);
-        thresholdVector.Update();
+<span class="kn">import</span> <span class="nn">java.awt.BorderLayout</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.JFrame</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.swing.SwingUtilities</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkActor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkArrowSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkCubeSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkGlyph3D</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkObject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkPanel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkPolyData</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkPolyDataMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkThresholdPoints</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkUnstructuredGrid</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">vtk.vtkXMLUnstructuredGridReader</span><span class="o">;</span>
 
 
-        // represent vector field
-        vtkGlyph3D vectorGlyph = new vtkGlyph3D();
-        vtkArrowSource arrowSource = new vtkArrowSource();
-        vtkPolyDataMapper vectorGlyphMapper = new vtkPolyDataMapper();
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VectorFieldExample</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
 
-        int n = image.GetPointData().GetNumberOfArrays();
-        for (int i = 0; i &lt; n; i++) {
-            System.out.println(&quot;name of array[&quot; + i + &quot;]: &quot; + image.GetPointData().GetArrayName(i));
-        }
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 
-        vtkPolyData tmp = thresholdVector.GetOutput();
-        System.out.println(&quot;number of thresholded points: &quot; + tmp.GetNumberOfPoints());
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">vtkPanel</span> <span class="nf">showVectorField</span><span class="o">(</span>
+            <span class="n">File</span> <span class="n">file</span><span class="o">,</span>
+            <span class="kt">int</span> <span class="n">elementInFile</span><span class="o">,</span>
+            <span class="kt">double</span> <span class="n">threshold</span><span class="o">,</span>
+            <span class="kt">double</span> <span class="n">scaleFactor</span><span class="o">)</span> <span class="o">{</span>
 
-        vectorGlyph.SetInputConnection(image.GetProducerPort());
-        vectorGlyph.SetSourceConnection(arrowSource.GetOutputPort());
-        vectorGlyph.SetScaleModeToScaleByVector();
-        vectorGlyph.SetVectorModeToUseVector();
-        vectorGlyph.ScalingOn();
-        vectorGlyph.OrientOn();
-        vectorGlyph.SetInputArrayToProcess(
-                elementInFile,
-                image.GetInformation());
+        <span class="n">vtkXMLUnstructuredGridReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkXMLUnstructuredGridReader</span><span class="o">();</span>
 
-        vectorGlyph.SetScaleFactor(scaleFactor);
+        <span class="n">reader</span><span class="o">.</span><span class="na">SetFileName</span><span class="o">(</span><span class="n">file</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+        <span class="n">reader</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
+        <span class="n">vtkUnstructuredGrid</span> <span class="n">image</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">();</span>
+        <span class="n">image</span><span class="o">.</span><span class="na">GetPointData</span><span class="o">().</span><span class="na">SetVectors</span><span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">GetPointData</span><span class="o">().</span><span class="na">GetArray</span><span class="o">(</span><span class="n">elementInFile</span><span class="o">));</span>
 
-        vectorGlyph.Update();
+        <span class="n">vtkThresholdPoints</span> <span class="n">thresholdVector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkThresholdPoints</span><span class="o">();</span>
+        <span class="n">thresholdVector</span><span class="o">.</span><span class="na">SetInput</span><span class="o">(</span><span class="n">image</span><span class="o">);</span>
+        <span class="n">thresholdVector</span><span class="o">.</span><span class="na">SetInputArrayToProcess</span><span class="o">(</span>
+                <span class="n">elementInFile</span><span class="o">,</span>
+                <span class="n">image</span><span class="o">.</span><span class="na">GetInformation</span><span class="o">());</span>
 
-        vectorGlyphMapper.SetInputConnection(vectorGlyph.GetOutputPort());
-        vectorGlyphMapper.Update();
-
-        vtkActor vectorActor = new vtkActor();
-        vectorActor.SetMapper(vectorGlyphMapper);
+        <span class="n">thresholdVector</span><span class="o">.</span><span class="na">ThresholdByUpper</span><span class="o">(</span><span class="n">threshold</span><span class="o">);</span>
+        <span class="n">thresholdVector</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
 
 
+        <span class="c1">// represent vector field</span>
+        <span class="n">vtkGlyph3D</span> <span class="n">vectorGlyph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkGlyph3D</span><span class="o">();</span>
+        <span class="n">vtkArrowSource</span> <span class="n">arrowSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkArrowSource</span><span class="o">();</span>
+        <span class="n">vtkPolyDataMapper</span> <span class="n">vectorGlyphMapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPolyDataMapper</span><span class="o">();</span>
 
-        vtkPanel vis = new vtkPanel();
-        vis.GetRenderer().AddActor(vectorActor);
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="na">GetPointData</span><span class="o">().</span><span class="na">GetNumberOfArrays</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;name of array[&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;]: &quot;</span> <span class="o">+</span> <span class="n">image</span><span class="o">.</span><span class="na">GetPointData</span><span class="o">().</span><span class="na">GetArrayName</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+        <span class="o">}</span>
 
-        return vis;
-    }
+        <span class="n">vtkPolyData</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">thresholdVector</span><span class="o">.</span><span class="na">GetOutput</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;number of thresholded points: &quot;</span> <span class="o">+</span> <span class="n">tmp</span><span class="o">.</span><span class="na">GetNumberOfPoints</span><span class="o">());</span>
 
-    public static void main(String s[]) throws IOException {
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">GetProducerPort</span><span class="o">());</span>
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">SetSourceConnection</span><span class="o">(</span><span class="n">arrowSource</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">SetScaleModeToScaleByVector</span><span class="o">();</span>
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">SetVectorModeToUseVector</span><span class="o">();</span>
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">ScalingOn</span><span class="o">();</span>
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">OrientOn</span><span class="o">();</span>
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">SetInputArrayToProcess</span><span class="o">(</span>
+                <span class="n">elementInFile</span><span class="o">,</span>
+                <span class="n">image</span><span class="o">.</span><span class="na">GetInformation</span><span class="o">());</span>
+
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">SetScaleFactor</span><span class="o">(</span><span class="n">scaleFactor</span><span class="o">);</span>
+
+        <span class="n">vectorGlyph</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
+
+        <span class="n">vectorGlyphMapper</span><span class="o">.</span><span class="na">SetInputConnection</span><span class="o">(</span><span class="n">vectorGlyph</span><span class="o">.</span><span class="na">GetOutputPort</span><span class="o">());</span>
+        <span class="n">vectorGlyphMapper</span><span class="o">.</span><span class="na">Update</span><span class="o">();</span>
+
+        <span class="n">vtkActor</span> <span class="n">vectorActor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkActor</span><span class="o">();</span>
+        <span class="n">vectorActor</span><span class="o">.</span><span class="na">SetMapper</span><span class="o">(</span><span class="n">vectorGlyphMapper</span><span class="o">);</span>
 
 
-        SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
+        <span class="n">vtkPanel</span> <span class="n">vis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vtkPanel</span><span class="o">();</span>
+        <span class="n">vis</span><span class="o">.</span><span class="na">GetRenderer</span><span class="o">().</span><span class="na">AddActor</span><span class="o">(</span><span class="n">vectorActor</span><span class="o">);</span>
 
-                JFrame frame = new JFrame(&quot;VTKJPanel Demo&quot;);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        <span class="k">return</span> <span class="n">vis</span><span class="o">;</span>
+    <span class="o">}</span>
 
-                File file = new File(&quot;PATH/TO/FILE.vtu&quot;); // needs to be replaced
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">[])</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
 
-                vtkPanel panel = showVectorField(file, 2, 0.001, 0.05); // values need to be replaced
 
-                frame.add(panel, BorderLayout.CENTER);
-                frame.setSize(600, 600);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+        <span class="n">SwingUtilities</span><span class="o">.</span><span class="na">invokeLater</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
 
-                panel.repaint();
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
 
-            }
-        });
-    }
-}
-</code></pre>
+                <span class="n">JFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFrame</span><span class="o">(</span><span class="s">&quot;VTKJPanel Demo&quot;</span><span class="o">);</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span>
+
+                <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;PATH/TO/FILE.vtu&quot;</span><span class="o">);</span> <span class="c1">// needs to be replaced</span>
+
+                <span class="n">vtkPanel</span> <span class="n">panel</span> <span class="o">=</span> <span class="n">showVectorField</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mf">0.001</span><span class="o">,</span> <span class="mf">0.05</span><span class="o">);</span> <span class="c1">// values need to be replaced</span>
+
+                <span class="n">frame</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">panel</span><span class="o">,</span> <span class="n">BorderLayout</span><span class="o">.</span><span class="na">CENTER</span><span class="o">);</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">setSize</span><span class="o">(</span><span class="mi">600</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">setLocationRelativeTo</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+                <span class="n">panel</span><span class="o">.</span><span class="na">repaint</span><span class="o">();</span>
+
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
                 
                   
                 

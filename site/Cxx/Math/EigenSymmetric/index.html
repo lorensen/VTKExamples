@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16006,115 +16018,122 @@
                   <h1>EigenSymmetric</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Math/EigenSymmetric</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>At the moment, this is a pretty messy process, so here are some helper functions that will hopefully eventually be wrapped into a class/interface.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>EigenSymmetric.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkMath.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 
-/* allocate memory for an nrow x ncol matrix */
-template&lt;class TReal&gt;
-TReal **create_matrix ( long nrow, long ncol )
-{
-  typedef TReal* TRealPointer;
-  TReal **m = new TRealPointer[nrow];
+<span class="cm">/* allocate memory for an nrow x ncol matrix */</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">TReal</span><span class="o">&gt;</span>
+<span class="n">TReal</span> <span class="o">**</span><span class="n">create_matrix</span> <span class="p">(</span> <span class="kt">long</span> <span class="n">nrow</span><span class="p">,</span> <span class="kt">long</span> <span class="n">ncol</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">typedef</span> <span class="n">TReal</span><span class="o">*</span> <span class="n">TRealPointer</span><span class="p">;</span>
+  <span class="n">TReal</span> <span class="o">**</span><span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TRealPointer</span><span class="p">[</span><span class="n">nrow</span><span class="p">];</span>
 
-  TReal* block = ( TReal* ) calloc ( nrow*ncol, sizeof ( TReal ) );
-  m[0] = block;
-  for ( int row = 1; row &lt; nrow; ++row )
-  {
-    m[ row ] = &amp;block[ row * ncol ];
-  }
-  return m;
-}
+  <span class="n">TReal</span><span class="o">*</span> <span class="n">block</span> <span class="o">=</span> <span class="p">(</span> <span class="n">TReal</span><span class="o">*</span> <span class="p">)</span> <span class="n">calloc</span> <span class="p">(</span> <span class="n">nrow</span><span class="o">*</span><span class="n">ncol</span><span class="p">,</span> <span class="k">sizeof</span> <span class="p">(</span> <span class="n">TReal</span> <span class="p">)</span> <span class="p">);</span>
+  <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">nrow</span><span class="p">;</span> <span class="o">++</span><span class="n">row</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">m</span><span class="p">[</span> <span class="n">row</span> <span class="p">]</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">[</span> <span class="n">row</span> <span class="o">*</span> <span class="n">ncol</span> <span class="p">];</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">m</span><span class="p">;</span>
+<span class="p">}</span>
 
-/* free a TReal matrix allocated with matrix() */
-template&lt;class TReal&gt;
-    void free_matrix ( TReal **m )
-{
-  free ( m[0] );
-  delete[] m;
-}
+<span class="cm">/* free a TReal matrix allocated with matrix() */</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">TReal</span><span class="o">&gt;</span>
+    <span class="kt">void</span> <span class="n">free_matrix</span> <span class="p">(</span> <span class="n">TReal</span> <span class="o">**</span><span class="n">m</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">free</span> <span class="p">(</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">);</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">m</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-int main(int, char *[])
-{
-// Create this matrix
-// 1 2 3
-// 2 5 9
-// 3 9 8
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="c1">// Create this matrix</span>
+<span class="c1">// 1 2 3</span>
+<span class="c1">// 2 5 9</span>
+<span class="c1">// 3 9 8</span>
 
-  double **a = create_matrix&lt;double&gt; ( 3,3 );
-  a[0][0] = 1; a[0][1] = 2;  a[0][2] = 3;
-  a[1][0] = 2; a[1][1] = 5;  a[1][2] = 9;
-  a[2][0] = 3; a[2][1] = 9;  a[2][2] = 8;
+  <span class="kt">double</span> <span class="o">**</span><span class="n">a</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span> <span class="mi">3</span><span class="p">,</span><span class="mi">3</span> <span class="p">);</span>
+  <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>  <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>  <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+  <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>  <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
 
-  //create a matrix for the eigenvectors to be stored in
-  double **w = create_matrix&lt;double&gt; ( 3,3 );
+  <span class="c1">//create a matrix for the eigenvectors to be stored in</span>
+  <span class="kt">double</span> <span class="o">**</span><span class="n">w</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span> <span class="mi">3</span><span class="p">,</span><span class="mi">3</span> <span class="p">);</span>
 
-  //create a vector for the eigenvalues to be stored in
-  double v[3];
+  <span class="c1">//create a vector for the eigenvalues to be stored in</span>
+  <span class="kt">double</span> <span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
-  //compute the eigenvalues/vectors
-  vtkMath::Jacobi ( a,v,w );
+  <span class="c1">//compute the eigenvalues/vectors</span>
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">Jacobi</span> <span class="p">(</span> <span class="n">a</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span> <span class="p">);</span>
 
-  //output eigen values
-  std::cout &lt;&lt; &quot;Eigen values (decreasing order): &quot; &lt;&lt; std::endl;
-  for ( int i=0; i&lt;3; i++ )
-  {
-    std::cout &lt;&lt; v[i] &lt;&lt; &quot; &quot;;
-  }
+  <span class="c1">//output eigen values</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Eigen values (decreasing order): &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  //output eigenvectors
-  std::cout &lt;&lt; &quot;Eigen vectors (same order as eigen values): &quot; &lt;&lt; std::endl;
-  for ( int i=0; i&lt;3; i++ )
-  {
-    //the columns of w are the eigenvectors
-    std::cout &lt;&lt; &quot;Eigen vector &quot; &lt;&lt; i &lt;&lt; &quot; : &quot; &lt;&lt; w[0][i] &lt;&lt; &quot; &quot; &lt;&lt; w[1][i] &lt;&lt; &quot; &quot; &lt;&lt; w[2][i] &lt;&lt; std::endl;
-  }
+  <span class="c1">//output eigenvectors</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Eigen vectors (same order as eigen values): &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">//the columns of w are the eigenvectors</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Eigen vector &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; : &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  //clean up
-  free_matrix ( w );
-  free_matrix ( a );
+  <span class="c1">//clean up</span>
+  <span class="n">free_matrix</span> <span class="p">(</span> <span class="n">w</span> <span class="p">);</span>
+  <span class="n">free_matrix</span> <span class="p">(</span> <span class="n">a</span> <span class="p">);</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(EigenSymmetric)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">EigenSymmetric</span><span class="p">)</span>
 
-add_executable(EigenSymmetric MACOSX_BUNDLE EigenSymmetric.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(EigenSymmetric ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">EigenSymmetric</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">EigenSymmetric.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-eigensymmetric">Download and Build EigenSymmetric</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">EigenSymmetric</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-eigensymmetric">Download and Build EigenSymmetric<a class="headerlink" href="#download-and-build-eigensymmetric" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/EigenSymmetric.tar">here to download EigenSymmetric</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball EigenSymmetric.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd EigenSymmetric/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd EigenSymmetric/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./EigenSymmetric
-</code></pre>
+<div class="codehilite"><pre><span></span>./EigenSymmetric
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

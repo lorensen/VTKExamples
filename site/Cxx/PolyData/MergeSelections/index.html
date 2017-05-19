@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,246 +16019,253 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/MergeSelections</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestMergeSelections.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed by Mirko Heuegger</li>
 </ul>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MergeSelections.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkInformation.h&gt;
-#include &lt;vtkPointSource.h&gt;
-#include &lt;vtkExtractSelection.h&gt;
-#include &lt;vtkSelection.h&gt;
-#include &lt;vtkSelectionNode.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkUnstructuredGrid.h&gt;
-#include &lt;vtkIdTypeArray.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkExtractSelection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSelectionNode.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIdTypeArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkPointSource&gt; pointSource =
-    vtkSmartPointer&lt;vtkPointSource&gt;::New();
-  pointSource-&gt;SetNumberOfPoints(50);
-  pointSource-&gt;Update();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">pointSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; pointSource-&gt;GetOutput()-&gt;GetNumberOfPoints()
-            &lt;&lt; &quot; input points.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; input points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkIdTypeArray&gt; ids1 =
-    vtkSmartPointer&lt;vtkIdTypeArray&gt;::New();
-  ids1-&gt;SetNumberOfComponents(1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdTypeArray</span><span class="o">&gt;</span> <span class="n">ids1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdTypeArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ids1</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  // Set values
-  for(unsigned int i = 10; i &lt; 20; i++)
-  {
-    ids1-&gt;InsertNextValue(i);
-  }
+  <span class="c1">// Set values</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">ids1</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkIdTypeArray&gt; ids2 =
-    vtkSmartPointer&lt;vtkIdTypeArray&gt;::New();
-  ids2-&gt;SetNumberOfComponents(1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdTypeArray</span><span class="o">&gt;</span> <span class="n">ids2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkIdTypeArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ids2</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  for(unsigned int i = 15; i &lt; 30; i++)
-  {
-    ids2-&gt;InsertNextValue(i);
-  }
+  <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">ids2</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkSelectionNode&gt; selectionNode1 =
-    vtkSmartPointer&lt;vtkSelectionNode&gt;::New();
-  selectionNode1-&gt;SetFieldType(vtkSelectionNode::POINT);
-  selectionNode1-&gt;SetContentType(vtkSelectionNode::INDICES);
-  selectionNode1-&gt;SetSelectionList(ids1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectionNode</span><span class="o">&gt;</span> <span class="n">selectionNode1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectionNode</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectionNode1</span><span class="o">-&gt;</span><span class="n">SetFieldType</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">POINT</span><span class="p">);</span>
+  <span class="n">selectionNode1</span><span class="o">-&gt;</span><span class="n">SetContentType</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">INDICES</span><span class="p">);</span>
+  <span class="n">selectionNode1</span><span class="o">-&gt;</span><span class="n">SetSelectionList</span><span class="p">(</span><span class="n">ids1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSelectionNode&gt; selectionNode2 =
-    vtkSmartPointer&lt;vtkSelectionNode&gt;::New();
-  selectionNode2-&gt;SetFieldType(vtkSelectionNode::POINT);
-  selectionNode2-&gt;SetContentType(vtkSelectionNode::INDICES);
-  selectionNode2-&gt;SetSelectionList(ids2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectionNode</span><span class="o">&gt;</span> <span class="n">selectionNode2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelectionNode</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectionNode2</span><span class="o">-&gt;</span><span class="n">SetFieldType</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">POINT</span><span class="p">);</span>
+  <span class="n">selectionNode2</span><span class="o">-&gt;</span><span class="n">SetContentType</span><span class="p">(</span><span class="n">vtkSelectionNode</span><span class="o">::</span><span class="n">INDICES</span><span class="p">);</span>
+  <span class="n">selectionNode2</span><span class="o">-&gt;</span><span class="n">SetSelectionList</span><span class="p">(</span><span class="n">ids2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSelection&gt; selection1 =
-    vtkSmartPointer&lt;vtkSelection&gt;::New();
-  selection1-&gt;AddNode(selectionNode1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;</span> <span class="n">selection1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selection1</span><span class="o">-&gt;</span><span class="n">AddNode</span><span class="p">(</span><span class="n">selectionNode1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSelection&gt; selection2 =
-    vtkSmartPointer&lt;vtkSelection&gt;::New();
-  selection2-&gt;AddNode(selectionNode2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;</span> <span class="n">selection2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selection2</span><span class="o">-&gt;</span><span class="n">AddNode</span><span class="p">(</span><span class="n">selectionNode2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSelection&gt; selectionCombined =
-    vtkSmartPointer&lt;vtkSelection&gt;::New();
-  selectionCombined-&gt;AddNode(selectionNode1);
-  selectionCombined-&gt;Union(selectionNode2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;</span> <span class="n">selectionCombined</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectionCombined</span><span class="o">-&gt;</span><span class="n">AddNode</span><span class="p">(</span><span class="n">selectionNode1</span><span class="p">);</span>
+  <span class="n">selectionCombined</span><span class="o">-&gt;</span><span class="n">Union</span><span class="p">(</span><span class="n">selectionNode2</span><span class="p">);</span>
 
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; selectionCombined-&gt;GetNumberOfNodes() &lt;&lt; &quot; nodes.&quot; &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">selectionCombined</span><span class="o">-&gt;</span><span class="n">GetNumberOfNodes</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; nodes.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkExtractSelection&gt; extractSelection1 =
-    vtkSmartPointer&lt;vtkExtractSelection&gt;::New();
-  extractSelection1-&gt;SetInputConnection(0, pointSource-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  extractSelection1-&gt;SetInput(1, selection1);
-#else
-  extractSelection1-&gt;SetInputData(1, selection1);
-#endif
-  extractSelection1-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;</span> <span class="n">extractSelection1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractSelection1</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">extractSelection1</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection1</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">extractSelection1</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection1</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">extractSelection1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkExtractSelection&gt; extractSelection2 =
-    vtkSmartPointer&lt;vtkExtractSelection&gt;::New();
-  extractSelection2-&gt;SetInputConnection(0, pointSource-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  extractSelection2-&gt;SetInput(1, selection2);
-#else
-  extractSelection2-&gt;SetInputData(1, selection2);
-#endif
-  extractSelection2-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;</span> <span class="n">extractSelection2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractSelection2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">extractSelection2</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection2</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">extractSelection2</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection2</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">extractSelection2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkExtractSelection&gt; extractSelectionCombined =
-    vtkSmartPointer&lt;vtkExtractSelection&gt;::New();
-  extractSelectionCombined-&gt;SetInputConnection(0, pointSource-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  extractSelectionCombined-&gt;SetInput(1, selectionCombined);
-#else
-  extractSelectionCombined-&gt;SetInputData(1, selectionCombined);
-#endif
-  extractSelectionCombined-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;</span> <span class="n">extractSelectionCombined</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkExtractSelection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">extractSelectionCombined</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">extractSelectionCombined</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selectionCombined</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">extractSelectionCombined</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">selectionCombined</span><span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">extractSelectionCombined</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // In selection
-  vtkDataSet* ds = vtkDataSet::SafeDownCast(extractSelectionCombined-&gt;GetOutput());
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; ds-&gt;GetNumberOfPoints() &lt;&lt; &quot; points in the selection.&quot; &lt;&lt; std::endl;
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; ds-&gt;GetNumberOfCells() &lt;&lt; &quot; cells in the selection.&quot; &lt;&lt; std::endl;
+  <span class="c1">// In selection</span>
+  <span class="n">vtkDataSet</span><span class="o">*</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">extractSelectionCombined</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ds</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points in the selection.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ds</span><span class="o">-&gt;</span><span class="n">GetNumberOfCells</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; cells in the selection.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  /*
-  // Not in selection
-  selectionNode1-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection
-  selectionNode2-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection
-  extractSelection-&gt;Update();
-  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; vtkDataSet::SafeDownCast (extractSelection-&gt;GetOutput())-&gt;GetNumberOfPoints()
-            &lt;&lt; &quot; points not in the selection.&quot; &lt;&lt; std::endl;
-  */
+  <span class="cm">/*</span>
+<span class="cm">  // Not in selection</span>
+<span class="cm">  selectionNode1-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection</span>
+<span class="cm">  selectionNode2-&gt;GetProperties()-&gt;Set(vtkSelectionNode::INVERSE(), 1); //invert the selection</span>
+<span class="cm">  extractSelection-&gt;Update();</span>
+<span class="cm">  std::cout &lt;&lt; &quot;There are &quot; &lt;&lt; vtkDataSet::SafeDownCast (extractSelection-&gt;GetOutput())-&gt;GetNumberOfPoints()</span>
+<span class="cm">            &lt;&lt; &quot; points not in the selection.&quot; &lt;&lt; std::endl;</span>
+<span class="cm">  */</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapperOriginal =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapperOriginal-&gt;SetInputConnection(pointSource-&gt;GetOutputPort());
-  mapperOriginal-&gt;ScalarVisibilityOff();
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapperOriginal</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapperOriginal</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapperOriginal</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapper1 =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapper1-&gt;SetInputConnection(extractSelection1-&gt;GetOutputPort());
-  mapper1-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper1</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractSelection1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper1</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapper2 =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapper2-&gt;SetInputConnection(extractSelection2-&gt;GetOutputPort());
-  mapper2-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractSelection2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper2</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; mapperCombined =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  mapperCombined-&gt;SetInputConnection(extractSelectionCombined-&gt;GetOutputPort());
-  mapperCombined-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapperCombined</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapperCombined</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extractSelectionCombined</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapperCombined</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; originalActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  originalActor-&gt;SetMapper(mapperOriginal);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapperOriginal</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor1 =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor1-&gt;SetMapper(mapper1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor1</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor2 =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor2-&gt;SetMapper(mapper2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor2</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actorCombined =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actorCombined-&gt;SetMapper(mapperCombined);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actorCombined</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actorCombined</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapperCombined</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(1000,250);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">250</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  double originalViewport[4] = {0.0, 0.0, 0.25, 1.0};
-  double selection1Viewport[4] = {0.25, 0.0, 0.5, 1.0};
-  double selection2Viewport[4] = {0.5, 0.0, 0.75, 1.0};
-  double selectionCombinedViewport[4] = {0.75, 0.0, 1.0, 1.0};
+  <span class="kt">double</span> <span class="n">originalViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">selection1Viewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">selection2Viewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">selectionCombinedViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; originalRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  originalRenderer-&gt;SetViewport(originalViewport);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">originalRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">originalViewport</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; selection1Renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  selection1Renderer-&gt;SetViewport(selection1Viewport);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">selection1Renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selection1Renderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">selection1Viewport</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; selection2Renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  selection2Renderer-&gt;SetViewport(selection2Viewport);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">selection2Renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selection2Renderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">selection2Viewport</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; selectionCombinedRenderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  selectionCombinedRenderer-&gt;SetViewport(selectionCombinedViewport);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">selectionCombinedRenderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">selectionCombinedRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">selectionCombinedViewport</span><span class="p">);</span>
 
-  renderWindow-&gt;AddRenderer(originalRenderer);
-  renderWindow-&gt;AddRenderer(selection1Renderer);
-  renderWindow-&gt;AddRenderer(selection2Renderer);
-  renderWindow-&gt;AddRenderer(selectionCombinedRenderer);
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">originalRenderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">selection1Renderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">selection2Renderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">selectionCombinedRenderer</span><span class="p">);</span>
 
-  originalRenderer-&gt;AddActor(originalActor);
-  selection1Renderer-&gt;AddActor(actor1);
-  selection2Renderer-&gt;AddActor(actor2);
-  selectionCombinedRenderer-&gt;AddActor(actorCombined);
-  //renderer-&gt;SetBackground(1,1,1); // Background color white
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
+  <span class="n">selection1Renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor1</span><span class="p">);</span>
+  <span class="n">selection2Renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor2</span><span class="p">);</span>
+  <span class="n">selectionCombinedRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actorCombined</span><span class="p">);</span>
+  <span class="c1">//renderer-&gt;SetBackground(1,1,1); // Background color white</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;Start();
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(MergeSelections)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">MergeSelections</span><span class="p">)</span>
 
-add_executable(MergeSelections MACOSX_BUNDLE MergeSelections.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(MergeSelections ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">MergeSelections</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">MergeSelections.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-mergeselections">Download and Build MergeSelections</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MergeSelections</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-mergeselections">Download and Build MergeSelections<a class="headerlink" href="#download-and-build-mergeselections" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/MergeSelections.tar">here to download MergeSelections</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball MergeSelections.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd MergeSelections/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd MergeSelections/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./MergeSelections
-</code></pre>
+<div class="codehilite"><pre><span></span>./MergeSelections
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

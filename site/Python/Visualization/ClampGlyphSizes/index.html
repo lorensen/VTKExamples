@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15557,6 +15557,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15964,107 +15976,107 @@
                   <h1>ClampGlyphSizes</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/ClampGlyphSizes</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ClampGlyphSizes.py</strong></p>
-<pre><code class="python"># Example of how to use range clamping with vtkGlyph3D filter.
-#
-# Note that the internal algorithm does this to figure out the eventual scale
-# of your data (say, if you're scaling by a scalar or vector magnitude):
-#
-#   scale = (scalar value of that particular data index);
-#   denominator = Range[1] - Range[0];
-#   scale = (scale &lt; Range[0] ? Range[0] : (scale &gt; Range[1] ? Range[1] : scale));
-#   scale = (scale - Range[0]) / denominator;
-#   scale *= scaleFactor;
-#
-# So, step 4 is the unintuitive one. Say your data varies from [0, 1] and you set the
-# Range to [0.5, 1]. Everything below 0.5 will be mapped to 0. If you want to set a
-# minimum size to your glyphs, then you can set the Range as something like [-0.5, 1]
+<div class="codehilite"><pre><span></span><span class="c1"># Example of how to use range clamping with vtkGlyph3D filter.</span>
+<span class="c1">#</span>
+<span class="c1"># Note that the internal algorithm does this to figure out the eventual scale</span>
+<span class="c1"># of your data (say, if you&#39;re scaling by a scalar or vector magnitude):</span>
+<span class="c1">#</span>
+<span class="c1">#   scale = (scalar value of that particular data index);</span>
+<span class="c1">#   denominator = Range[1] - Range[0];</span>
+<span class="c1">#   scale = (scale &lt; Range[0] ? Range[0] : (scale &gt; Range[1] ? Range[1] : scale));</span>
+<span class="c1">#   scale = (scale - Range[0]) / denominator;</span>
+<span class="c1">#   scale *= scaleFactor;</span>
+<span class="c1">#</span>
+<span class="c1"># So, step 4 is the unintuitive one. Say your data varies from [0, 1] and you set the</span>
+<span class="c1"># Range to [0.5, 1]. Everything below 0.5 will be mapped to 0. If you want to set a</span>
+<span class="c1"># minimum size to your glyphs, then you can set the Range as something like [-0.5, 1]</span>
 
 
-import vtk
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-# Generate an image data set with multiple attribute arrays to probe and view
-# We will glyph these points with cones and scale/orient/color them with the 
-# various attributes
+<span class="c1"># Generate an image data set with multiple attribute arrays to probe and view</span>
+<span class="c1"># We will glyph these points with cones and scale/orient/color them with the </span>
+<span class="c1"># various attributes</span>
 
-# The Wavelet Source is nice for generating a test vtkImageData set
-rt = vtk.vtkRTAnalyticSource()
-rt.SetWholeExtent(-2,2,-2,2,0,0)
+<span class="c1"># The Wavelet Source is nice for generating a test vtkImageData set</span>
+<span class="n">rt</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRTAnalyticSource</span><span class="p">()</span>
+<span class="n">rt</span><span class="o">.</span><span class="n">SetWholeExtent</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-# Take the gradient of the only scalar 'RTData' to get a vector attribute
-grad = vtk.vtkImageGradient()
-grad.SetDimensionality(3)
-grad.SetInputConnection(rt.GetOutputPort())
+<span class="c1"># Take the gradient of the only scalar &#39;RTData&#39; to get a vector attribute</span>
+<span class="n">grad</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkImageGradient</span><span class="p">()</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">SetDimensionality</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">grad</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">rt</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# Elevation just to generate another scalar attribute that varies nicely over the data range
-elev = vtk.vtkElevationFilter()
-# Elevation values will range from 0 to 1 between the Low and High Points
-elev.SetLowPoint(-2,0,0)
-elev.SetHighPoint(2,0,0)
-elev.SetInputConnection(grad.GetOutputPort())
+<span class="c1"># Elevation just to generate another scalar attribute that varies nicely over the data range</span>
+<span class="n">elev</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkElevationFilter</span><span class="p">()</span>
+<span class="c1"># Elevation values will range from 0 to 1 between the Low and High Points</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">elev</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# Generate the cone for the glyphs
-sph = vtk.vtkConeSource()
-sph.SetRadius(0.1)
-sph.SetHeight(0.5)
+<span class="c1"># Generate the cone for the glyphs</span>
+<span class="n">sph</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">()</span>
+<span class="n">sph</span><span class="o">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">sph</span><span class="o">.</span><span class="n">SetHeight</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-# Set up the glyph filter
-glyph = vtk.vtkGlyph3D()
-glyph.SetInputConnection(elev.GetOutputPort())
-glyph.SetSourceConnection(sph.GetOutputPort())
-glyph.ScalingOn()
-glyph.SetScaleModeToScaleByScalar()
-glyph.SetVectorModeToUseVector()
-glyph.OrientOn()
+<span class="c1"># Set up the glyph filter</span>
+<span class="n">glyph</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkGlyph3D</span><span class="p">()</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">elev</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sph</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">ScalingOn</span><span class="p">()</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetScaleModeToScaleByScalar</span><span class="p">()</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetVectorModeToUseVector</span><span class="p">()</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">OrientOn</span><span class="p">()</span>
 
-# Tell the filter to &quot;clamp&quot; the scalar range
-glyph.ClampingOn()  
+<span class="c1"># Tell the filter to &quot;clamp&quot; the scalar range</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">ClampingOn</span><span class="p">()</span>  
 
-# Set the overall (multiplicative) scaling factor
-glyph.SetScaleFactor(1)
+<span class="c1"># Set the overall (multiplicative) scaling factor</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-# Set the Range to &quot;clamp&quot; the data to 
-#   -- see equations above for nonintuitive definition of &quot;clamping&quot;
-# The fact that I'm setting the minimum value of the range below
-#   the minimum of my data (real min=0.0) with the equations above
-#   forces a minimum non-zero glyph size.
+<span class="c1"># Set the Range to &quot;clamp&quot; the data to </span>
+<span class="c1">#   -- see equations above for nonintuitive definition of &quot;clamping&quot;</span>
+<span class="c1"># The fact that I&#39;m setting the minimum value of the range below</span>
+<span class="c1">#   the minimum of my data (real min=0.0) with the equations above</span>
+<span class="c1">#   forces a minimum non-zero glyph size.</span>
 
-glyph.SetRange(-0.5, 1)    # Change these values to see effect on cone sizes
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetRange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># Change these values to see effect on cone sizes</span>
 
-# Tell glyph which attribute arrays to use for what
-glyph.SetInputArrayToProcess(0,0,0,0,'Elevation')       # scalars
-glyph.SetInputArrayToProcess(1,0,0,0,'RTDataGradient')      # vectors
-# glyph.SetInputArrayToProcess(2,0,0,0,'nothing')       # normals
-glyph.SetInputArrayToProcess(3,0,0,0,'RTData')      # colors
+<span class="c1"># Tell glyph which attribute arrays to use for what</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>       <span class="c1"># scalars</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;RTDataGradient&#39;</span><span class="p">)</span>      <span class="c1"># vectors</span>
+<span class="c1"># glyph.SetInputArrayToProcess(2,0,0,0,&#39;nothing&#39;)       # normals</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetInputArrayToProcess</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;RTData&#39;</span><span class="p">)</span>      <span class="c1"># colors</span>
 
-# Calling update because I'm going to use the scalar range to set the color map range
-glyph.Update()
+<span class="c1"># Calling update because I&#39;m going to use the scalar range to set the color map range</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
-coloring_by = 'RTData'
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(glyph.GetOutputPort())
-mapper.SetScalarModeToUsePointFieldData()
-mapper.SetColorModeToMapScalars()
-mapper.ScalarVisibilityOn()
-mapper.SetScalarRange(glyph.GetOutputDataObject(0).GetPointData().GetArray(coloring_by).GetRange())
-mapper.SelectColorArray(coloring_by)
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+<span class="n">coloring_by</span> <span class="o">=</span> <span class="s1">&#39;RTData&#39;</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetScalarModeToUsePointFieldData</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetColorModeToMapScalars</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">ScalarVisibilityOn</span><span class="p">()</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">glyph</span><span class="o">.</span><span class="n">GetOutputDataObject</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">GetArray</span><span class="p">(</span><span class="n">coloring_by</span><span class="p">)</span><span class="o">.</span><span class="n">GetRange</span><span class="p">())</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SelectColorArray</span><span class="p">(</span><span class="n">coloring_by</span><span class="p">)</span>
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
 
-ren = vtk.vtkRenderer()
-ren.AddActor(actor)
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-iren = vtk.vtkRenderWindowInteractor()
-istyle = vtk.vtkInteractorStyleTrackballCamera()
-iren.SetInteractorStyle(istyle)
-iren.SetRenderWindow(renWin)
-ren.ResetCamera()
-renWin.Render()
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">istyle</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">istyle</span><span class="p">)</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-iren.Start()
-</code></pre>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

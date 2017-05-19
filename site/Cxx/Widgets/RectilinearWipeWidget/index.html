@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,7 +16019,7 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/RectilinearWipeWidget</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Widgets/TestRectilinearWipeWidget.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example illustrates the Rectilinear Wipe widget. This widget is
 useful for comparing two images. There are 7 different image
 comparison modes.  A rectilinear wipe is a 2x2 checkerboard pattern
@@ -16018,194 +16030,201 @@ point, moving the horizontal separator, or moving the vertical
 separator.</p>
 <p>Pressing keys 0-6 select the various wipe modes.</p>
 <p>For an alternative image comparison widget try the <a href="../CheckerboardWidget">Checkerboard widget</a>. </p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>RectilinearWipeWidget.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkRectilinearWipeWidget.h&gt;
-#include &lt;vtkRectilinearWipeRepresentation.h&gt;
-#include &lt;vtkJPEGReader.h&gt;
-#include &lt;vtkImageRectilinearWipe.h&gt;
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkProperty2D.h&gt;
-#include &lt;vtkCommand.h&gt;
-#include &lt;vtkObjectFactory.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRectilinearWipeWidget.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRectilinearWipeRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageRectilinearWipe.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
 
-// Define interaction style
-class WipeInteractorStyle : public vtkInteractorStyleImage
-{
-public:
-  static WipeInteractorStyle* New();
-  vtkTypeMacro(WipeInteractorStyle, vtkInteractorStyleImage);
+<span class="c1">// Define interaction style</span>
+<span class="k">class</span> <span class="nc">WipeInteractorStyle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleImage</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">WipeInteractorStyle</span><span class="o">*</span> <span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">WipeInteractorStyle</span><span class="p">,</span> <span class="n">vtkInteractorStyleImage</span><span class="p">);</span>
 
-  virtual void OnChar()
-  {
-    if (this-&gt;Wipe)
-    {
-      vtkRenderWindowInteractor *rwi = this-&gt;Interactor;
-      switch (rwi-&gt;GetKeyCode())
-      {
-        case '0':
-          this-&gt;Wipe-&gt;SetWipe(0);
-          break;
-        case '1':
-          this-&gt;Wipe-&gt;SetWipe(1);
-          break;
-        case '2':
-          this-&gt;Wipe-&gt;SetWipe(2);
-          break;
-        case '3':
-          this-&gt;Wipe-&gt;SetWipe(3);
-          break;
-        case '4':
-          this-&gt;Wipe-&gt;SetWipe(4);
-          break;
-        case '5':
-          this-&gt;Wipe-&gt;SetWipe(5);
-          break;
-        case '6':
-          this-&gt;Wipe-&gt;SetWipe(6);
-          break;
-        default:
-          this-&gt;Superclass::OnChar();
-          break;
-      }
-    }
-  }
-  void SetWipe(vtkImageRectilinearWipe *wipe)
-  {
-    this-&gt;Wipe = wipe;
-  }
-protected:
-  WipeInteractorStyle()
-  {
-    this-&gt;Wipe = NULL;
-  }
-private:
-  vtkImageRectilinearWipe *Wipe;
-};
-vtkStandardNewMacro(WipeInteractorStyle);
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnChar</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">vtkRenderWindowInteractor</span> <span class="o">*</span><span class="n">rwi</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Interactor</span><span class="p">;</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="n">rwi</span><span class="o">-&gt;</span><span class="n">GetKeyCode</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;1&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;2&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;3&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;4&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;5&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;6&#39;</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">OnChar</span><span class="p">();</span>
+          <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetWipe</span><span class="p">(</span><span class="n">vtkImageRectilinearWipe</span> <span class="o">*</span><span class="n">wipe</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span> <span class="o">=</span> <span class="n">wipe</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">WipeInteractorStyle</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Wipe</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkImageRectilinearWipe</span> <span class="o">*</span><span class="n">Wipe</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">WipeInteractorStyle</span><span class="p">);</span>
 
-int main( int argc, char *argv[] )
-{
-  if ( argc &lt; 3 )
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0]
-              &lt;&lt; &quot; Input1Filename(jpg) Input2Filename(jpg)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Input1Filename(jpg) Input2Filename(jpg)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  int wipeMode = 0;
-  //Read the images
-  vtkSmartPointer&lt;vtkJPEGReader&gt; reader1 =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  reader1-&gt;SetFileName ( argv[1] );
+  <span class="kt">int</span> <span class="n">wipeMode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">//Read the images</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkJPEGReader&gt; reader2 =
-    vtkSmartPointer&lt;vtkJPEGReader&gt;::New();
-  reader2-&gt;SetFileName ( argv[2] );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">);</span>
 
-  // Create a wipe pipeline
-  vtkSmartPointer&lt;vtkImageRectilinearWipe&gt; wipe =
-    vtkSmartPointer&lt;vtkImageRectilinearWipe&gt;::New();
-  wipe-&gt;SetInputConnection(0,reader1-&gt;GetOutputPort());
-  wipe-&gt;SetInputConnection(1,reader2-&gt;GetOutputPort());
-  wipe-&gt;SetPosition(256,256);
-  wipe-&gt;SetWipe(wipeMode);
+  <span class="c1">// Create a wipe pipeline</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRectilinearWipe</span><span class="o">&gt;</span> <span class="n">wipe</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRectilinearWipe</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">wipe</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">reader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">wipe</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">wipe</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">);</span>
+  <span class="n">wipe</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="n">wipeMode</span><span class="p">);</span>
 
-  // Create the RenderWindow, Renderer and both Actors
-  //
-  vtkSmartPointer&lt;vtkRenderer&gt; ren1 =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renWin =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renWin-&gt;AddRenderer(ren1);
+  <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
+  <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; iren =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  iren-&gt;SetRenderWindow(renWin);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;WipeInteractorStyle&gt; style =
-    vtkSmartPointer&lt;WipeInteractorStyle&gt;::New();
-  iren-&gt;SetInteractorStyle( style );
-  style-&gt;SetWipe(wipe);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">WipeInteractorStyle</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">WipeInteractorStyle</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
+  <span class="n">style</span><span class="o">-&gt;</span><span class="n">SetWipe</span><span class="p">(</span><span class="n">wipe</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkImageActor&gt; wipeActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  wipeActor-&gt;GetMapper()-&gt;SetInputConnection(wipe-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">wipeActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">wipeActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">wipe</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  // VTK widgets consist of two parts: the widget part that handles
-  // event processing; and the widget representation that defines how
-  // the widget appears in the scene
-  // (i.e., matters pertaining to geometry).
-  vtkSmartPointer&lt;vtkRectilinearWipeWidget&gt; wipeWidget =
-    vtkSmartPointer&lt;vtkRectilinearWipeWidget&gt;::New();
-  wipeWidget-&gt;SetInteractor(iren);
+  <span class="c1">// VTK widgets consist of two parts: the widget part that handles</span>
+  <span class="c1">// event processing; and the widget representation that defines how</span>
+  <span class="c1">// the widget appears in the scene</span>
+  <span class="c1">// (i.e., matters pertaining to geometry).</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRectilinearWipeWidget</span><span class="o">&gt;</span> <span class="n">wipeWidget</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRectilinearWipeWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">wipeWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">iren</span><span class="p">);</span>
 
-  vtkRectilinearWipeRepresentation *wipeWidgetRep=
-    static_cast&lt;vtkRectilinearWipeRepresentation *&gt;(wipeWidget-&gt;GetRepresentation());
+  <span class="n">vtkRectilinearWipeRepresentation</span> <span class="o">*</span><span class="n">wipeWidgetRep</span><span class="o">=</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkRectilinearWipeRepresentation</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">wipeWidget</span><span class="o">-&gt;</span><span class="n">GetRepresentation</span><span class="p">());</span>
 
-  wipeWidgetRep-&gt;SetImageActor(wipeActor);
-  wipeWidgetRep-&gt;SetRectilinearWipe(wipe);
-  wipeWidgetRep-&gt;GetProperty()-&gt;SetLineWidth(2.0);
-  wipeWidgetRep-&gt;GetProperty()-&gt;SetOpacity(0.75);
+  <span class="n">wipeWidgetRep</span><span class="o">-&gt;</span><span class="n">SetImageActor</span><span class="p">(</span><span class="n">wipeActor</span><span class="p">);</span>
+  <span class="n">wipeWidgetRep</span><span class="o">-&gt;</span><span class="n">SetRectilinearWipe</span><span class="p">(</span><span class="n">wipe</span><span class="p">);</span>
+  <span class="n">wipeWidgetRep</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">wipeWidgetRep</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">0.75</span><span class="p">);</span>
 
-  // Add the actors to the renderer, set the background and size
-  //
-  ren1-&gt;AddActor(wipeActor);
-  ren1-&gt;SetBackground(0.1, 0.2, 0.4);
-  renWin-&gt;SetSize(300, 300);
+  <span class="c1">// Add the actors to the renderer, set the background and size</span>
+  <span class="c1">//</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">wipeActor</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
-  // render the image
-  //
-  iren-&gt;Initialize();
-  renWin-&gt;Render();
-  wipeWidget-&gt;On();
-  iren-&gt;Start();
+  <span class="c1">// render the image</span>
+  <span class="c1">//</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">wipeWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(RectilinearWipeWidget)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">RectilinearWipeWidget</span><span class="p">)</span>
 
-add_executable(RectilinearWipeWidget MACOSX_BUNDLE RectilinearWipeWidget.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(RectilinearWipeWidget ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">RectilinearWipeWidget</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">RectilinearWipeWidget.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-rectilinearwipewidget">Download and Build RectilinearWipeWidget</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">RectilinearWipeWidget</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-rectilinearwipewidget">Download and Build RectilinearWipeWidget<a class="headerlink" href="#download-and-build-rectilinearwipewidget" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/RectilinearWipeWidget.tar">here to download RectilinearWipeWidget</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball RectilinearWipeWidget.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd RectilinearWipeWidget/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd RectilinearWipeWidget/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./RectilinearWipeWidget
-</code></pre>
+<div class="codehilite"><pre><span></span>./RectilinearWipeWidget
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,222 +16019,229 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/InterpolateMeshOnGrid</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestInterpolateMeshOnGrid.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example resamples a mesh on a grid of points.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>InterpolateMeshOnGrid.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkVersion.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkDataSetMapper.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkCellArray.h&gt;
-#include &lt;vtkPoints.h&gt;
-#include &lt;vtkTriangle.h&gt;
-#include &lt;vtkPolyData.h&gt;
-#include &lt;vtkPointData.h&gt;
-#include &lt;vtkLine.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkProbeFilter.h&gt;
-#include &lt;vtkDelaunay2D.h&gt;
-#include &lt;vtkXMLPolyDataWriter.h&gt;
-#include &lt;vtkDoubleArray.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkCellLocator.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkFloatArray.h&gt;
-#include &lt;vtkWarpScalar.h&gt;
-#include &lt;vtkVertexGlyphFilter.h&gt;
-#include &lt;vtkInteractorStyleTrackballCamera.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangle.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLine.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProbeFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDelaunay2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCellLocator.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFloatArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkWarpScalar.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVertexGlyphFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  // Create a random set of 100 points in the xy-plane in (0,10)x(0,10).
-  // If you had instead started with a set of (x,y,z) points, you must copy
-  // the zvalues into a FloatArray and set it as the data set's scalars,
-  // and then set the z-coordinates to zero
-  vtkSmartPointer&lt;vtkPoints&gt; randomPoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a random set of 100 points in the xy-plane in (0,10)x(0,10).</span>
+  <span class="c1">// If you had instead started with a set of (x,y,z) points, you must copy</span>
+  <span class="c1">// the zvalues into a FloatArray and set it as the data set&#39;s scalars,</span>
+  <span class="c1">// and then set the z-coordinates to zero</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">randomPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkFloatArray&gt; zvalues =
-    vtkSmartPointer&lt;vtkFloatArray&gt;::New();
-  zvalues-&gt;SetName(&quot;ZValues&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;</span> <span class="n">zvalues</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFloatArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">zvalues</span><span class="o">-&gt;</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;ZValues&quot;</span><span class="p">);</span>
 
-  unsigned int gridSize = 10;
-  float maxHeight = 5;
-  for ( unsigned int i = 0; i &lt; 100; ++i )
-  {
-    double x = vtkMath::Random(0, gridSize);
-    double y = vtkMath::Random(0, gridSize);
-    double z = vtkMath::Random(0, maxHeight);
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">gridSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">maxHeight</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gridSize</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gridSize</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxHeight</span><span class="p">);</span>
 
-    //randomPoints-&gt;InsertNextPoint ( x, y, z);
-    randomPoints-&gt;InsertNextPoint ( x, y, 0);
-    zvalues-&gt;InsertNextValue(z);
-  }
+    <span class="c1">//randomPoints-&gt;InsertNextPoint ( x, y, z);</span>
+    <span class="n">randomPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">zvalues</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // Add the grid points to a polydata object
-  vtkSmartPointer&lt;vtkPolyData&gt; randomPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  randomPolyData-&gt;SetPoints ( randomPoints );
-  randomPolyData-&gt;GetPointData()-&gt;SetScalars(zvalues);
+  <span class="c1">// Add the grid points to a polydata object</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">randomPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">randomPolyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span> <span class="p">(</span> <span class="n">randomPoints</span> <span class="p">);</span>
+  <span class="n">randomPolyData</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">zvalues</span><span class="p">);</span>
 
-  // Triangulate the grid points. If you do not have a mesh (points
-  // only), the output will not be interpolated!
-  vtkSmartPointer&lt;vtkDelaunay2D&gt; randomDelaunay =
-    vtkSmartPointer&lt;vtkDelaunay2D&gt;::New();
-#if VTK_MAJOR_VERSION &lt;= 5
-  randomDelaunay-&gt;SetInput ( randomPolyData );
-#else
-  randomDelaunay-&gt;SetInputData ( randomPolyData );
-#endif
-  randomDelaunay-&gt;Update();
+  <span class="c1">// Triangulate the grid points. If you do not have a mesh (points</span>
+  <span class="c1">// only), the output will not be interpolated!</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;</span> <span class="n">randomDelaunay</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">randomDelaunay</span><span class="o">-&gt;</span><span class="n">SetInput</span> <span class="p">(</span> <span class="n">randomPolyData</span> <span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">randomDelaunay</span><span class="o">-&gt;</span><span class="n">SetInputData</span> <span class="p">(</span> <span class="n">randomPolyData</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+  <span class="n">randomDelaunay</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Create a grid of points to interpolate over
-  vtkSmartPointer&lt;vtkPoints&gt; gridPoints =
-    vtkSmartPointer&lt;vtkPoints&gt;::New();
-  for ( unsigned int x = 0; x &lt; gridSize; x++ )
-  {
-    for ( unsigned int y = 0; y &lt; gridSize; y++ )
-    {
-      gridPoints-&gt;InsertNextPoint ( x, y, 0);
-    }
-  }
+  <span class="c1">// Create a grid of points to interpolate over</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">gridPoints</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">gridSize</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">gridSize</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">gridPoints</span><span class="o">-&gt;</span><span class="n">InsertNextPoint</span> <span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Create a dataset from the grid points
-  vtkSmartPointer&lt;vtkPolyData&gt; gridPolyData =
-    vtkSmartPointer&lt;vtkPolyData&gt;::New();
-  gridPolyData-&gt;SetPoints(gridPoints);
+  <span class="c1">// Create a dataset from the grid points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">gridPolyData</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gridPolyData</span><span class="o">-&gt;</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">gridPoints</span><span class="p">);</span>
 
-  // Perform the interpolation
-  vtkSmartPointer&lt;vtkProbeFilter&gt; probeFilter =
-    vtkSmartPointer&lt;vtkProbeFilter&gt;::New();
-  probeFilter-&gt;SetSourceConnection(randomDelaunay-&gt;GetOutputPort());
-#if VTK_MAJOR_VERSION &lt;= 5
-  probeFilter-&gt;SetInput(gridPolyData); //
-                                      // Interpolate 'Source' at these points
-#else
-  probeFilter-&gt;SetInputData(gridPolyData); //
-                                           // Interpolate 'Source' at these points
-#endif
-  probeFilter-&gt;Update();
+  <span class="c1">// Perform the interpolation</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;</span> <span class="n">probeFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProbeFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">probeFilter</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">randomDelaunay</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">probeFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">gridPolyData</span><span class="p">);</span> <span class="c1">//</span>
+                                      <span class="c1">// Interpolate &#39;Source&#39; at these points</span>
+<span class="cp">#else</span>
+  <span class="n">probeFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">gridPolyData</span><span class="p">);</span> <span class="c1">//</span>
+                                           <span class="c1">// Interpolate &#39;Source&#39; at these points</span>
+<span class="cp">#endif</span>
+  <span class="n">probeFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Map the output zvalues to the z-coordinates of the data so that
-  // we get a surface, rather than a flat grid with interpolated
-  // scalars.
-  vtkSmartPointer&lt;vtkWarpScalar&gt; gridWarpScalar =
-    vtkSmartPointer&lt;vtkWarpScalar&gt;::New();
-  gridWarpScalar-&gt;SetInputConnection(probeFilter-&gt;GetOutputPort());
-  gridWarpScalar-&gt;Update();
+  <span class="c1">// Map the output zvalues to the z-coordinates of the data so that</span>
+  <span class="c1">// we get a surface, rather than a flat grid with interpolated</span>
+  <span class="c1">// scalars.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWarpScalar</span><span class="o">&gt;</span> <span class="n">gridWarpScalar</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWarpScalar</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gridWarpScalar</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">probeFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">gridWarpScalar</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  //////// Setup outputs ////////
-  // Output random points
-  // Map the output zvalues to the z-coordinates of the data
-  vtkSmartPointer&lt;vtkWarpScalar&gt; randomWarpScalar =
-    vtkSmartPointer&lt;vtkWarpScalar&gt;::New();
-  randomWarpScalar-&gt;SetInputConnection(randomDelaunay-&gt;GetOutputPort());
-  randomWarpScalar-&gt;Update();
+  <span class="c1">//////// Setup outputs ////////</span>
+  <span class="c1">// Output random points</span>
+  <span class="c1">// Map the output zvalues to the z-coordinates of the data</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWarpScalar</span><span class="o">&gt;</span> <span class="n">randomWarpScalar</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkWarpScalar</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">randomWarpScalar</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">randomDelaunay</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">randomWarpScalar</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; randomWriter =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  randomWriter-&gt;SetFileName ( &quot;randomSurface.vtp&quot; );
-  randomWriter-&gt;SetInputConnection(randomWarpScalar-&gt;GetOutputPort());
-  randomWriter-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">randomWriter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">randomWriter</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="s">&quot;randomSurface.vtp&quot;</span> <span class="p">);</span>
+  <span class="n">randomWriter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">randomWarpScalar</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">randomWriter</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  // Mesh the output grid points
-  vtkSmartPointer&lt;vtkDelaunay2D&gt; gridDelaunay =
-    vtkSmartPointer&lt;vtkDelaunay2D&gt;::New();
-  gridDelaunay-&gt;SetInputConnection ( gridWarpScalar-&gt;GetOutputPort() );
+  <span class="c1">// Mesh the output grid points</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;</span> <span class="n">gridDelaunay</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gridDelaunay</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span> <span class="n">gridWarpScalar</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt; gridWriter =
-    vtkSmartPointer&lt;vtkXMLPolyDataWriter&gt;::New();
-  gridWriter-&gt;SetFileName ( &quot;gridSurface.vtp&quot; );
-  gridWriter-&gt;SetInputConnection ( gridDelaunay-&gt;GetOutputPort() );
-  gridWriter-&gt;Write();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">gridWriter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gridWriter</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="s">&quot;gridSurface.vtp&quot;</span> <span class="p">);</span>
+  <span class="n">gridWriter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span> <span class="n">gridDelaunay</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">gridWriter</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
 
-  ////////// Setup visualization ////////
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; randomMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  randomMapper-&gt;SetInputConnection(randomWarpScalar-&gt;GetOutputPort());
-  randomMapper-&gt;ScalarVisibilityOff();
+  <span class="c1">////////// Setup visualization ////////</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">randomMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">randomMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">randomWarpScalar</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">randomMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; randomActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  randomActor-&gt;SetMapper(randomMapper);
-  randomActor-&gt;GetProperty()-&gt;SetColor(1.0, 0.0, 0.0); //(R,G,B)
-  randomActor-&gt;GetProperty()-&gt;SetPointSize(3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">randomActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">randomActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">randomMapper</span><span class="p">);</span>
+  <span class="n">randomActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span> <span class="c1">//(R,G,B)</span>
+  <span class="n">randomActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDataSetMapper&gt; gridMapper =
-    vtkSmartPointer&lt;vtkDataSetMapper&gt;::New();
-  gridMapper-&gt;SetInputConnection(gridDelaunay-&gt;GetOutputPort());
-  gridMapper-&gt;ScalarVisibilityOff();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">gridMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gridMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">gridDelaunay</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">gridMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; gridActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  gridActor-&gt;SetMapper(gridMapper);
-  gridActor-&gt;GetProperty()-&gt;SetColor(0.0, 0.0, 1.0); //(R,G,B)
-  gridActor-&gt;GetProperty()-&gt;SetPointSize(3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">gridActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">gridActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">gridMapper</span><span class="p">);</span>
+  <span class="n">gridActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span> <span class="c1">//(R,G,B)</span>
+  <span class="n">gridActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleTrackballCamera&gt;::New();
-  renderWindowInteractor-&gt;SetInteractorStyle( style );
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span> <span class="n">style</span> <span class="p">);</span>
 
-  renderer-&gt;AddActor(randomActor);
-  renderer-&gt;AddActor(gridActor);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">randomActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">gridActor</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(InterpolateMeshOnGrid)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">InterpolateMeshOnGrid</span><span class="p">)</span>
 
-add_executable(InterpolateMeshOnGrid MACOSX_BUNDLE InterpolateMeshOnGrid.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(InterpolateMeshOnGrid ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">InterpolateMeshOnGrid</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">InterpolateMeshOnGrid.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-interpolatemeshongrid">Download and Build InterpolateMeshOnGrid</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">InterpolateMeshOnGrid</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-interpolatemeshongrid">Download and Build InterpolateMeshOnGrid<a class="headerlink" href="#download-and-build-interpolatemeshongrid" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/InterpolateMeshOnGrid.tar">here to download InterpolateMeshOnGrid</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball InterpolateMeshOnGrid.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd InterpolateMeshOnGrid/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd InterpolateMeshOnGrid/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./InterpolateMeshOnGrid
-</code></pre>
+<div class="codehilite"><pre><span></span>./InterpolateMeshOnGrid
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

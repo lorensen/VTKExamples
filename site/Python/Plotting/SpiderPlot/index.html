@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,93 +15990,93 @@
                   <h1>SpiderPlot</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Plotting/SpiderPlot</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Translated from the c plus plus test</p>
 <p><a href="../[File:SpiderPlot.jpg]"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>SpiderPlot.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-import vtk
-import random
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-numTuples = 12
+<span class="n">numTuples</span> <span class="o">=</span> <span class="mi">12</span>
 
-bitter = vtk.vtkFloatArray()
-bitter.SetNumberOfTuples(numTuples)
+<span class="n">bitter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">bitter</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">numTuples</span><span class="p">)</span>
 
-crispy = vtk.vtkFloatArray()
-crispy.SetNumberOfTuples(numTuples)
+<span class="n">crispy</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">crispy</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">numTuples</span><span class="p">)</span>
 
-crunchy = vtk.vtkFloatArray()
-crunchy.SetNumberOfTuples(numTuples)
+<span class="n">crunchy</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">crunchy</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">numTuples</span><span class="p">)</span>
 
-salty = vtk.vtkFloatArray()
-salty.SetNumberOfTuples(numTuples)
+<span class="n">salty</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">salty</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">numTuples</span><span class="p">)</span>
 
-oily = vtk.vtkFloatArray()
-oily.SetNumberOfTuples(numTuples)
+<span class="n">oily</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">()</span>
+<span class="n">oily</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">numTuples</span><span class="p">)</span>
 
-for i in range(numTuples):
-    bitter.SetTuple1(i, random.randint(1, 10))
-    crispy.SetTuple1(i, random.randint(-1, 1))
-    crunchy.SetTuple1(i, random.randint(1, 100))
-    salty.SetTuple1(i, random.randint(0, 10))
-    oily.SetTuple1(i, random.randint(5, 25))
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numTuples</span><span class="p">):</span>
+    <span class="n">bitter</span><span class="o">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">crispy</span><span class="o">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">crunchy</span><span class="o">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="n">salty</span><span class="o">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">oily</span><span class="o">.</span><span class="n">SetTuple1</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
 
-dobj = vtk.vtkDataObject()
-dobj.GetFieldData().AddArray(bitter)
-dobj.GetFieldData().AddArray(crispy)
-dobj.GetFieldData().AddArray(crunchy)
-dobj.GetFieldData().AddArray(salty)
-dobj.GetFieldData().AddArray(oily)
+<span class="n">dobj</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDataObject</span><span class="p">()</span>
+<span class="n">dobj</span><span class="o">.</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">bitter</span><span class="p">)</span>
+<span class="n">dobj</span><span class="o">.</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">crispy</span><span class="p">)</span>
+<span class="n">dobj</span><span class="o">.</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">crunchy</span><span class="p">)</span>
+<span class="n">dobj</span><span class="o">.</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">salty</span><span class="p">)</span>
+<span class="n">dobj</span><span class="o">.</span><span class="n">GetFieldData</span><span class="p">()</span><span class="o">.</span><span class="n">AddArray</span><span class="p">(</span><span class="n">oily</span><span class="p">)</span>
 
-actor = vtk.vtkSpiderPlotActor()
-actor.SetInputData(dobj)
-actor.SetTitle(&quot;spider plot&quot;)
-actor.SetIndependentVariablesToColumns()
-actor.GetPositionCoordinate().SetValue(0.05, 0.1, 0.0)
-actor.GetPosition2Coordinate().SetValue(0.95, 0.85, 0.0)
-actor.GetProperty().SetColor(1, 0, 0)
+<span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSpiderPlotActor</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">dobj</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s2">&quot;spider plot&quot;</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetIndependentVariablesToColumns</span><span class="p">()</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">GetPositionCoordinate</span><span class="p">()</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">GetPosition2Coordinate</span><span class="p">()</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-actor.SetAxisLabel(0, &quot;Bitter&quot;)
-actor.SetAxisRange(0, 1, 10)
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisLabel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Bitter&quot;</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
-actor.SetAxisLabel(1, &quot;Crispy&quot;)
-actor.SetAxisRange(1, -1, 1)
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisLabel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Crispy&quot;</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-actor.SetAxisLabel(2, &quot;Crunchy&quot;)
-actor.SetAxisRange(2, 1, 100)
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisLabel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Crunchy&quot;</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
-actor.SetAxisLabel(3, &quot;Salty&quot;)
-actor.SetAxisRange(3, 0, 10)
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisLabel</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Salty&quot;</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisRange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
-actor.SetAxisLabel(4, &quot;Oily&quot;)
-actor.SetAxisRange(4, 5, 25)
-actor.GetLegendActor().SetNumberOfEntries(numTuples)
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisLabel</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Oily&quot;</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">SetAxisRange</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">GetLegendActor</span><span class="p">()</span><span class="o">.</span><span class="n">SetNumberOfEntries</span><span class="p">(</span><span class="n">numTuples</span><span class="p">)</span>
 
-for i in range(numTuples):
-    actor.SetPlotColor(i, random.random(), random.random(), random.random())
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numTuples</span><span class="p">):</span>
+    <span class="n">actor</span><span class="o">.</span><span class="n">SetPlotColor</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
 
-actor.LegendVisibilityOn()
+<span class="n">actor</span><span class="o">.</span><span class="n">LegendVisibilityOn</span><span class="p">()</span>
 
-#  // Set text colors (same as actor for backward compat with test)
-#  actor.GetTitleTextProperty().SetColor(1, 1, 0)
-#  actor.GetLabelTextProperty().SetColor(1, 0, 0)
+<span class="c1">#  // Set text colors (same as actor for backward compat with test)</span>
+<span class="c1">#  actor.GetTitleTextProperty().SetColor(1, 1, 0)</span>
+<span class="c1">#  actor.GetLabelTextProperty().SetColor(1, 0, 0)</span>
 
-ren1 = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren1)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
-ren1.AddActor(actor)
-ren1.SetBackground(0, 0, 0)
-renWin.SetSize(500, 500)
+<span class="n">ren1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+<span class="n">ren1</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
 
-iren.Initialize()
-renWin.Render()
-iren.Start()
-</code></pre>
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

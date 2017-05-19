@@ -1,16 +1,16 @@
+# C++ Examples
+
 These are fully independent, compilable examples. There is significant overlap in the examples, but they are each intended to illustrate a different concept and be fully stand alone compilable.
 
 Please add examples in your areas of expertise!
 
-[TOC]
-
-#Hello World
+## Hello World
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [A hello world example](/Cxx/Rendering/CylinderRenderingProperties)  | [vtkPolyDataMapper](http://www.vtk.org/doc/nightly/html/classvtkPolyDataMapper.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html)| Cylinder example from the VTK Textbook and source code.
 
-#Simple Operations
+## Simple Operations
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -24,10 +24,10 @@ Please add examples in your areas of expertise!
 [PerspectiveTransform](/Cxx/SimpleOperations/PerspectiveTransform) | [vtkPerspectiveTransform](http://www.vtk.org/doc/nightly/html/classvtkPerspectiveTransform.html) |Apply a perspective transformation to a point.
 
 
-#Input and Output
-##Graph Formats
+## Input and Output
+### Graph Formats
 
-##3D File Formats
+### 3D File Formats
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -35,8 +35,8 @@ Please add examples in your areas of expertise!
 [XGMLReader](/Cxx/InfoVis/XGMLReader)   | [vtkXGMLReader](http://www.vtk.org/doc/nightly/html/classvtkXGMLReader.html) |Read a .gml file
 
 
-###Standard Formats
-####Input
+#### Standard Formats
+##### Input
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -58,7 +58,7 @@ Please add examples in your areas of expertise!
 [VRML](/Cxx/IO/VRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html) |Read a VRML (WRL) file.
 
 
-####Output
+##### Output
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -68,8 +68,8 @@ Please add examples in your areas of expertise!
 [WriteSTL](/Cxx/IO/WriteSTL)   | [vtkSTLWriter](http://www.vtk.org/doc/nightly/html/classvtkSTLWriter.html) |Write stereo lithography STL (.stl) files
 
 
-###VTK Formats
-####Input
+#### VTK Formats
+##### Input
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -82,7 +82,7 @@ Please add examples in your areas of expertise!
 [ReadUnstructuredGrid](/Cxx/IO/ReadUnstructuredGrid) | [vtkXMLUnstructuredGridReader](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridReader.html) |Read an unstructured grid (.vtu) file
 
 
-####Output
+##### Output
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -95,7 +95,7 @@ Please add examples in your areas of expertise!
 [WriteVTU](/Cxx/IO/WriteVTU) | [vtkXMLUnstructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridWriter.html) | Write a .vtu file. VTU is an "Unstructured Grid". This format allows for 3D data to be stored.
 [XMLStructuredGridWriter](/Cxx/IO/XMLStructuredGridWriter) | [vtkXMLStructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLStructuredGridWriter.html) | Write a .vts file from a [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html).
 
-###Legacy VTK Formats
+#### Legacy VTK Formats
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -105,9 +105,9 @@ Please add examples in your areas of expertise!
 [StructuredPointsReader](/Cxx/IO/StructuredPointsReader)   | [vtkStructuredPointsReader](http://www.vtk.org/doc/nightly/html/classvtkStructuredPointsReader.html) |Read a structured points (.vtk) file.
 
 
-##Image Format
+### Image Format
 
-###Input
+#### Input
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -119,7 +119,7 @@ Please add examples in your areas of expertise!
 [ReadPNM](/Cxx/IO/ReadPNM) | [vtkPNMReader](http://www.vtk.org/doc/nightly/html/classvtkPNMReader.html) |Read PNM (.pnm) files.
 [ReadTIFF](/Cxx/IO/ReadTIFF) | [vtkTIFFReader](http://www.vtk.org/doc/nightly/html/classvtkTIFFReader.html) |Read TIFF (.tif) files.
 
-###Output
+#### Output
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -132,7 +132,7 @@ Please add examples in your areas of expertise!
 [WriteTIFF](/Cxx/IO/WriteTIFF)   | [vtkTIFFWriter](http://www.vtk.org/doc/nightly/html/classvtkTIFFWriter.html) |Write a TIFF (.tif) file.
 
 
-#Geometric Objects
+## Geometric Objects
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -171,7 +171,7 @@ Please add examples in your areas of expertise!
 [Vertex](/Cxx/GeometricObjects/Vertex)   | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html) |
 
 
-##Parametric Objects
+## Parametric Objects
 
 These examples demonstrate how to create an display one of the many [vtkParametric](http://www.vtk.org/doc/nightly/html/classvtkParametric.html) objects. All of the classes listed can be used in an identical fashion.
 
@@ -185,7 +185,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ParametricSuperEllipsoidDemo](/Cxx/GeometricObjects/ParametricSuperEllipsoidDemo) | [vtkParametricSuperEllipsoid](http://www.vtk.org/doc/nightly/html/classvtkParametricSuperEllipsoid.html) | Interactively change the parameters for a SuperEllipsoid Surface.
 [ParametricSuperToroidDemo](/Cxx/GeometricObjects/ParametricSuperToroidDemo)   | [vtkParametricSuperToroid](http://www.vtk.org/doc/nightly/html/classvtkParametricSuperToroid.html)| Interactively change the parameters for a SuperToroid Surface.
 
-#Implicit Functions and Iso-surfaces
+## Implicit Functions and Iso-surfaces
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -204,7 +204,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | [vtkSampleFunction](http://www.vtk.org/doc/nightly/html/classvtkSampleFunction.html) |Sample and visualize an implicit function.
 
 
-#Working with 3D Data
+## Working with 3D Data
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -318,7 +318,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [WarpVector](/Cxx/PolyData/WarpVector) | [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector.html) | 
 
 
-##Data Types
+### Data Types
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -327,7 +327,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [OverlappingAMR](/Cxx/CompositeData/OverlappingAMR) | [vtkOverlappingAMR](http://www.vtk.org/doc/nightly/html/classvtkOverlappingAMR.html) |Demonstrates how to create and populate a VTK's Overlapping AMR Grid type Data
 
 
-##Data Type Conversions
+### Data Type Conversions
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -335,7 +335,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [PolyDataToUnstructuredGrid](/Cxx/PolyData/PolyDataToUnstructuredGrid) | [vtkAppendFilter](http://www.vtk.org/doc/nightly/html/classvtkAppendFilter.html) |Convert a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) to a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html).
 
 
-##Point cloud operations
+### Point cloud operations
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -356,7 +356,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [UnsignedDistance](/Cxx/Points/UnsignedDistance) | [vtkUnsignedDistance](http://www.vtk.org/doc/nightly/html/classvtkUnsignedDistance.html) |Compute unsigned distance to a point cloud.
 
 
-##Working with Meshes
+### Working with Meshes
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -393,7 +393,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [WeightedTransformFilter ](/Cxx/PolyData/WeightedTransformFilter)  | [vtkWeightedTransformFilter](http://www.vtk.org/doc/nightly/html/classvtkWeightedTransformFilter.html) |
 [WindowedSincPolyDataFilter](/Cxx/Meshes/WindowedSincPolyDataFilter) | [vtkWindowedSincPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowedSincPolyDataFilter.html) | Smooth a mesh (windowed sinc filter).
 
-###Clipping
+#### Clipping
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -408,7 +408,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [TableBasedClipDataSetWithPolyData](/Cxx/Meshes/TableBasedClipDataSetWithPolyData) | [vtkTableBasedClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkTableBasedClipDataSet.html), [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html), [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) |Clip a [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) with arbitrary polydata. In this example, use a [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html) to generate polydata to slice the grid, resulting in an unstructured grid. Contrast this with the previous example.
 
 
-##Working with Structured 3D Data
+### Working with Structured 3D Data
 This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html), [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html), and [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html).
 
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
@@ -416,7 +416,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 * [[/Cxx/Visualization/StructuredDataTypes|Demonstration of structured data types]]
 * [[/Cxx/StructuredData/GetLinearPointId|Get the linear point id of a point in a grid]]
 
-###[vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html)
+#### [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html)
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -432,14 +432,14 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [ImageIterator](/Cxx/ImageData/ImageIterator)| [vtkImageIterator](http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html) |
 
 
-###Conversions
+#### Conversions
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [ImageDataGeometryFilter](/Cxx/ImageData/ImageDataGeometryFilter) | [vtkImageDataGeometryFilter](http://www.vtk.org/doc/nightly/html/classvtkImageDataGeometryFilter.html) |Convert a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) to a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)
 [ImageDataToPointSet](/Cxx/ImageData/ImageDataToPointSet) | [vtkImageDataToPointSet](http://www.vtk.org/doc/nightly/html/classvtkImageDataToPointSet.html) |Convert a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) to a [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html).
 
-###[vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html)
+#### [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html)
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -450,7 +450,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [VisualizeStructuredGridCells](/Cxx/StructuredGrid/VisualizeStructuredGridCells) | [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html) |Visualize the cells of a structured grid.
 [VisualizeStructuredGrid](/Cxx/StructuredGrid/VisualizeStructuredGrid) | [vtkStructuredGridGeometryFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridGeometryFilter.html) |Visualize the points of a structured grid.
 
-###[vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html)
+#### [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html)
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -458,7 +458,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [StructuredPointsToUnstructuredGrid](/Cxx/StructuredPoints/StructuredPointsToUnstructuredGrid) | [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html), [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html)|Convert a [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html) to a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html).
 
 
-###[vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html)
+#### [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html)
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -467,14 +467,14 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [RectilinearGrid](/Cxx/RectilinearGrid/RectilinearGrid) | [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) |Rectilinear grid
 [VisualizeRectilinearGridCells](/Cxx/RectilinearGrid/VisualizeRectilinearGridCells) | [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html), [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html)|Visualize the cells of a rectilinear grid
 
-##Registration
+### Registration
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [IterativeClosestPointsTransform](/Cxx/Filters/IterativeClosestPointsTransform) | [vtkIterativeClosestPointTransform](http://www.vtk.org/doc/nightly/html/classvtkIterativeClosestPointTransform.html) | Iterative Closest Points (ICP) Transform.
 [LandmarkTransform](/Cxx/Filters/LandmarkTransform) | [vtkLandmarkTransform](http://www.vtk.org/doc/nightly/html/classvtkLandmarkTransform.html) |Landmark Transform.
 
-##Medical
+### Medical
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -484,7 +484,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [MedicalDemo4](/Cxx/Medical/MedicalDemo4) | [vtkFixedPointVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkFixedPointVolumeRayCastMapper.html) |Create a volume rendering
 [TissueLens](/Cxx/Medical/TissueLens) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html)  [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) |Cut a volume with a sphere
 
-##Surface reconstruction
+### Surface reconstruction
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -498,7 +498,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [SurfaceFromUnorganizedPoints](/Cxx/Filtering/SurfaceFromUnorganizedPoints) | [vtkSurfaceReconstructionFilter](http://www.vtk.org/doc/nightly/html/classvtkSurfaceReconstructionFilter.html) |Create a surface from Unorganized Points.
 [TriangulateTerrainMap](/Cxx/Filtering/TriangulateTerrainMap) | [vtkDelaunay2D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay2D.html) | Generate heights (z values) on a 10x10 grid (a terrain map) and then triangulate the points to form a surface.
 
-#Utilities
+## Utilities
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -548,7 +548,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [VisualDebugging](/Cxx/Utilities/VisualDebugging) | | Update the screen from inside an algorithm.
 [ZBuffer](/Cxx/Utilities/ZBuffer) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | zbuffer.
 
-##Arrays
+### Arrays
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -571,7 +571,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [UnknownLengthArrayOfVectors](/Cxx/Utilities/UnknownLengthArrayOfVectors) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Array of Vectors (Unknown Length).
 [UnknownLengthArray](/Cxx/Utilities/UnknownLengthArray) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Unknown Length Array.
 
-##Events
+### Events
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -579,7 +579,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [ObserveError](/Cxx/Utilities/ObserveError) | [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) | Catch errors and warnings.
 [WindowModifiedEvent](/Cxx/Utilities/WindowModifiedEvent) | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) | Catch the window modified event.
 
-#CMake Techniques
+## CMake Techniques
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -587,7 +587,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [Check VTK Version in CMake](/Cxx/Utilities/CMake[VTKVersionCheck](http://www.vtk.org/doc/nightly/html/classVTKVersionCheck.html)) |  | 
 
 
-#Math Operations
+## Math Operations
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -605,7 +605,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [VectorNorm](/Cxx/Math/VectorNorm) |[vtkVectorNorm](http://www.vtk.org/doc/nightly/html/classvtkVectorNorm.html) |Get the lengths of an array of vectors.
 
 
-#Graphs
+## Graphs
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -643,7 +643,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [VisualizeDirectedGraph](/Cxx/Graphs/VisualizeDirectedGraph)| [vtkGlyphSource2D](http://www.vtk.org/doc/nightly/html/classvtkGlyphSource2D.html) |Visualize a directed graph.
 [VisualizeGraph](/Cxx/Graphs/VisualizeGraph)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html), [vtkGraphLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutStrategy.html), [vtkSimple2DLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkSimple2DLayoutStrategy.html)|Visualize a graph.
 
-##Graph Conversions
+### Graph Conversions
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -651,7 +651,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/Conversions/MutableDirectedGraphToDirectedGraph)| [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html), [vtkDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkDirectedGraph.html) |[vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html) to [vtkDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkDirectedGraph.html).
 [TreeToMutableDirectedGraph](/Cxx/Graphs/Conversions/TreeToMutableDirectedGraph)| [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html), [vtkTree](http://www.vtk.org/doc/nightly/html/classvtkTree.html) | [vtkTree](http://www.vtk.org/doc/nightly/html/classvtkTree.html) to [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html)
 
-#Data Structures
+## Data Structures
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -664,7 +664,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [Radius](/Cxx/PolyData/PointLocator_Radius)| [vtkPointLocator](http://www.vtk.org/doc/nightly/html/classvtkPointLocator.html) |Find all points within a radius of a specified point.
 
 
-##Timing Demonstrations
+### Timing Demonstrations
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -673,7 +673,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [OBBTreeTimingDemo](/Cxx/DataStructures/OBBTreeTimingDemo)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) | Plot the runtime vs MaxLevel
 [OctreeTimingDemo](/Cxx/DataStructures/OctreeTimingDemo)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) | Plot the runtime vs MaxPointsPerRegionOctree timing demo.
 
-##KD-Tree
+### KD-Tree
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -688,7 +688,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [VisualizeKDTree](/Cxx/DataStructures/VisualizeKDTree)| [vtkKdTreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkKdTreePointLocator.html) |Visualize levels of the tree.
 
 
-##Oriented Bounding Box (OBB) Tree
+### Oriented Bounding Box (OBB) Tree
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -697,7 +697,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [OBBTreeExtractCells](/Cxx/DataStructures/OBBTreeExtractCells)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with an OBB Tree and display all intersected cells.
 [VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree) | [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Visualize levels of the tree.
 
-##Octree
+### Octree
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -709,7 +709,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)|[vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Visualize levels of the tree.
 
 
-##Modified BSP Tree
+### Modified BSP Tree
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -719,7 +719,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [VisualizeModifiedBSPTree](/Cxx/DataStructures/ModifiedBSPTree/VisualizeModifiedBSPTree)| [vtkModifiedBSPTree](http://www.vtk.org/doc/nightly/html/classvtkModifiedBSPTree.html) |Visualize levels of the tree.
 
 
-#VTK Concepts
+## VTK Concepts
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -727,7 +727,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [Scalars](/Cxx/[VTKConcepts](http://www.vtk.org/doc/nightly/html/classVTKConcepts.html)/Scalars)| |Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
 
 
-#Rendering
+## Rendering
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -737,7 +737,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties)| [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Change the properties of a cylinder.
 
 
-#Lighting
+## Lighting
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -747,7 +747,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [LightActor](/Cxx/Lighting/LightActor)| [vtkLightActor](http://www.vtk.org/doc/nightly/html/classvtkLightActor.html) |Display the location and direction of a light.
 
 
-#Visualization
+## Visualization
 See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a brief explanation of the VTK terminology of mappers, actors, etc.
 
 
@@ -853,7 +853,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Wireframe](/Cxx/Visualization/Wireframe)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetRepresentationToWireframe |
 [a KochSnowflake](/Cxx/Visualization/KochSnowflake) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html), [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html),| Use recursion to represent a Koch snowflake fractal.
 
-#Volume Rendering
+## Volume Rendering
 
 
 | Example Name | Classes Demonstrated | Description |
@@ -864,7 +864,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [itk[VtkImageConvert](http://www.vtk.org/doc/nightly/html/classVtkImageConvert.html)](/Cxx/VolumeRendering/itk[VtkImageConvert](http://www.vtk.org/doc/nightly/html/classVtkImageConvert.html))|  | Conversion maintaining DICOM orientation and positionITK->VTK conversion.
 
 
-#User Interaction
+## User Interaction
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -907,7 +907,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [WorldPointPicker](/Cxx/Interaction/WorldPointPicker)| [vtkWorldPointPicker](http://www.vtk.org/doc/nightly/html/classvtkWorldPointPicker.html) |Get world coordinates of mouse click.
 
 
-#Working with Images
+## Working with Images
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -964,7 +964,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Transparency](/Cxx/Images/Transparency)| [vtkImageMapToColors](http://www.vtk.org/doc/nightly/html/classvtkImageMapToColors.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Make part of an image transparent.
 
 
-#Image Processing
+## Image Processing
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -1001,7 +1001,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ResizeImage](/Cxx/Images/ResizeImage)| [vtkImageResize](http://www.vtk.org/doc/nightly/html/classvtkImageResize.html) [vtkImageSincInterpolator](http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html)| Resize an image using a sinc interpolator.
 
 
-#Widgets
+## Widgets
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -1043,7 +1043,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [TextWidget](/Cxx/Widgets/TextWidget)| [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html) || [vtkTextWidget](http://www.vtk.org/doc/nightly/html/classvtkTextWidget.html) |Draw movable text.
 [TexturedButtonWidget](/Cxx/Widgets/TexturedButtonWidget) | [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html),[vtkTexturedButtonRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkTexturedButtonRepresentation2D.html) |Create a textured 2D buttonx.
 
-#Plotting
+## Plotting
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -1058,7 +1058,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [StackedPlot](/Cxx/Plotting/StackedPlot)| [vtkPlotStacked](http://www.vtk.org/doc/nightly/html/classvtkPlotStacked.html) |Stacked plot.
 
 
-#Animation
+## Animation
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -1068,7 +1068,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DataAnimation](/Cxx/Utilities/DataAnimation) | [vtkCallbackCommand](http://www.vtk.org/doc/nightly/html/classvtkCallbackCommand.html), [vtkProgrammableFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableFilter.html) | Data Animation. Update points in a dataset every specified interval.
 [DataAnimationSubclass](/Cxx/Utilities/DataAnimationSubclass) | [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html), [vtkProgrammableFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableFilter.html)| Update points in a dataset every specified interval (using a [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) subclass instead of a callback function.
 
-#Geographic Visualization (Geovis)
+## Geographic Visualization (Geovis)
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -1076,7 +1076,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [EarthSource](/Cxx/Geovis/EarthSource) | [vtkEarthSource](http://www.vtk.org/doc/nightly/html/classvtkEarthSource.html) | Create the Earth.
 [GeoAssignCoordinates](/Cxx/Geovis/GeoAssignCoordinates) | [vtkGeoAssignCoordinates](http://www.vtk.org/doc/nightly/html/classvtkGeoAssignCoordinates.html) | Convert lat/long coordinates to world coordinates.
 
-#Information Visualization (Infovis)
+## Information Visualization (Infovis)
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
@@ -1084,7 +1084,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [TreeMapView](/Cxx/InfoVis/TreeMapView) | [vtkTreeMapView](http://www.vtk.org/doc/nightly/html/classvtkTreeMapView.html) | Tree map.
 
 
-#Qt
+## Qt
 Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on how to setup Qt.
 
 
@@ -1103,7 +1103,7 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 [SideBySideRenderWindows](/Cxx/Qt/SideBySideRenderWindows) | QApplication | Side by side render windows.
 
 
-#Matlab
+## Matlab
 You must turn on VTK_USE_MATLAB_MEX to use these.
 
 | Example Name | Classes Demonstrated | Description |
@@ -1111,8 +1111,8 @@ You must turn on VTK_USE_MATLAB_MEX to use these.
 [MatlabEngineFilter](/Cxx/Matlab/MatlabEngineFilter)  | [vtkMatlabEngineFilter](http://www.vtk.org/doc/nightly/html/classvtkMatlabEngineFilter.html) |
 
 
-#Databases
-##SQL
+## Databases
+### SQL
 If you have any trouble or errors with the following examples, please troubleshoot using [these instructions](http://www.vtk.org/Wiki/Tutorials/SQLSetup).
 
 
@@ -1123,14 +1123,14 @@ If you have any trouble or errors with the following examples, please troublesho
 [WriteToDatabase](/Cxx/Databases/SQL/MySQL/WriteToDatabase) | [vtkSQLQuery](http://www.vtk.org/doc/nightly/html/classvtkSQLQuery.html), [vtkMySQLDatabase](http://www.vtk.org/doc/nightly/html/classvtkMySQLDatabase.html) |  Write to a MySQL database.
 
 
-#RenderMan
+## RenderMan
 RenderMan is a high quality rendering system created by [Pixar](https://renderman.pixar.com/view/renderman). VTK can export RenderMan RIB files for rendering by [prman](http://renderman.pixar.com/view/renderman-prman-the-rispec-and-renderman-studio). In the spring of 2015, Pixar released a [non-commercial version](http://renderman.pixar.com/view/PR-NCR) of its RenderMan products.
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [PolyDataRIB](/Cxx/RenderMan/PolyDataRIB) | [vtkRIBExporter](http://www.vtk.org/doc/nightly/html/classvtkRIBExporter.html)|Apply a RenderMan Shader to a PolyData.
 
-#Remote Modules
+## Remote Modules
 Remote modules are user contributed code that is not distributed with VTK. A description of a remote module and the location of its repository is listed in the VTK/Remote directory with the extension .remote.cmake. Once enabled, a remote module is treated like any other VTK module. Each of the remote module examples describes how to enable the example. More information about remote modules is [here](http://www.vtk.org/Wiki/VTK/Remote_Modules).
 
 | Example Name | Classes Demonstrated | Description |

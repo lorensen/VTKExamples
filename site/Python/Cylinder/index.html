@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15558,6 +15558,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15972,68 +15984,68 @@
                   <h1>Cylinder</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//Cylinder</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrate a minimal visualization created with VTK.
 See also [C++]], [[VTK/Examples/Java/Cylinder| Java]] and <a href="../[VTK/Examples/Cxx/Rendering/Cylinder|">[VTK/Examples/Tcl/Cylinder| Tcl]</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cylinder.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-# This simple example shows how to do basic rendering and pipeline
-# creation.
+<span class="c1"># This simple example shows how to do basic rendering and pipeline</span>
+<span class="c1"># creation.</span>
 
-import vtk
-# The colors module defines various useful colors.
-from vtk.util.colors import tomato
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="c1"># The colors module defines various useful colors.</span>
+<span class="kn">from</span> <span class="nn">vtk.util.colors</span> <span class="kn">import</span> <span class="n">tomato</span>
 
-# This creates a polygonal cylinder model with eight circumferential
-# facets.
-cylinder = vtk.vtkCylinderSource()
-cylinder.SetResolution(8)
+<span class="c1"># This creates a polygonal cylinder model with eight circumferential</span>
+<span class="c1"># facets.</span>
+<span class="n">cylinder</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCylinderSource</span><span class="p">()</span>
+<span class="n">cylinder</span><span class="o">.</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 
-# The mapper is responsible for pushing the geometry into the graphics
-# library. It may also do color mapping, if scalars or other
-# attributes are defined.
-cylinderMapper = vtk.vtkPolyDataMapper()
-cylinderMapper.SetInputConnection(cylinder.GetOutputPort())
+<span class="c1"># The mapper is responsible for pushing the geometry into the graphics</span>
+<span class="c1"># library. It may also do color mapping, if scalars or other</span>
+<span class="c1"># attributes are defined.</span>
+<span class="n">cylinderMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+<span class="n">cylinderMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cylinder</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
-# The actor is a grouping mechanism: besides the geometry (mapper), it
-# also has a property, transformation matrix, and/or texture map.
-# Here we set its color and rotate it -22.5 degrees.
-cylinderActor = vtk.vtkActor()
-cylinderActor.SetMapper(cylinderMapper)
-cylinderActor.GetProperty().SetColor(tomato)
-cylinderActor.RotateX(30.0)
-cylinderActor.RotateY(-45.0)
+<span class="c1"># The actor is a grouping mechanism: besides the geometry (mapper), it</span>
+<span class="c1"># also has a property, transformation matrix, and/or texture map.</span>
+<span class="c1"># Here we set its color and rotate it -22.5 degrees.</span>
+<span class="n">cylinderActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+<span class="n">cylinderActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">cylinderMapper</span><span class="p">)</span>
+<span class="n">cylinderActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">tomato</span><span class="p">)</span>
+<span class="n">cylinderActor</span><span class="o">.</span><span class="n">RotateX</span><span class="p">(</span><span class="mf">30.0</span><span class="p">)</span>
+<span class="n">cylinderActor</span><span class="o">.</span><span class="n">RotateY</span><span class="p">(</span><span class="o">-</span><span class="mf">45.0</span><span class="p">)</span>
 
-# Create the graphics structure. The renderer renders into the render
-# window. The render window interactor captures mouse events and will
-# perform appropriate camera or actor manipulation depending on the
-# nature of the events.
-ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer(ren)
-iren = vtk.vtkRenderWindowInteractor()
-iren.SetRenderWindow(renWin)
+<span class="c1"># Create the graphics structure. The renderer renders into the render</span>
+<span class="c1"># window. The render window interactor captures mouse events and will</span>
+<span class="c1"># perform appropriate camera or actor manipulation depending on the</span>
+<span class="c1"># nature of the events.</span>
+<span class="n">ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+<span class="n">renWin</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
+<span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">)</span>
 
-# Add the actors to the renderer, set the background and size
-ren.AddActor(cylinderActor)
-ren.SetBackground(0.1, 0.2, 0.4)
-renWin.SetSize(200, 200)
+<span class="c1"># Add the actors to the renderer, set the background and size</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">cylinderActor</span><span class="p">)</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 
-# This allows the interactor to initalize itself. It has to be
-# called before an event loop.
-iren.Initialize()
+<span class="c1"># This allows the interactor to initalize itself. It has to be</span>
+<span class="c1"># called before an event loop.</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
 
-# We'll zoom in a little by accessing the camera and invoking a &quot;Zoom&quot;
-# method on it.
-ren.ResetCamera()
-ren.GetActiveCamera().Zoom(1.5)
-renWin.Render()
+<span class="c1"># We&#39;ll zoom in a little by accessing the camera and invoking a &quot;Zoom&quot;</span>
+<span class="c1"># method on it.</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+<span class="n">ren</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">.</span><span class="n">Zoom</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 
-# Start the event loop.
-iren.Start()
-</code></pre>
+<span class="c1"># Start the event loop.</span>
+<span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

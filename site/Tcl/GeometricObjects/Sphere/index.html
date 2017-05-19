@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15521,6 +15521,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15965,25 +15977,25 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Tcl">Tcl</a>/GeometricObjects/Sphere</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/GeometricObjects/TestSphere.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Sphere.tcl</strong></p>
-<pre><code class="tcl">package require vtk
+<div class="codehilite"><pre><span></span><span class="nb">package</span> require vtk
 
-vtkXMLPolyDataWriter writer
+<span class="nv">vtkXMLPolyDataWriter</span> writer
 
-#Generate a synthetic sphere
-vtkSphereSource sphere
-sphere SetThetaResolution 12
-sphere SetPhiResolution 12
-sphere SetRadius 5.0
-sphere Update
+<span class="c">#Generate a synthetic sphere</span>
+<span class="nv">vtkSphereSource</span> sphere
+<span class="nv">sphere</span> SetThetaResolution <span class="mi">12</span>
+<span class="nv">sphere</span> SetPhiResolution <span class="mi">12</span>
+<span class="nv">sphere</span> SetRadius <span class="mf">5.0</span>
+<span class="nv">sphere</span> Update
 
-#Write polydata file
-writer SetInput [sphere GetOutput]
-set filename &quot;sphere.vtp&quot;
-writer SetFileName $filename
-writer Update
-</code></pre>
+<span class="c">#Write polydata file</span>
+<span class="nv">writer</span> SetInput <span class="k">[</span><span class="nv">sphere</span> GetOutput<span class="k">]</span>
+<span class="k">set</span> filename <span class="s2">&quot;sphere.vtp&quot;</span>
+<span class="nv">writer</span> SetFileName <span class="nv">$filename</span>
+<span class="nv">writer</span> Update
+</pre></div>
                 
                   
                 

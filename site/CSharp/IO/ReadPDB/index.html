@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15979,134 +15991,134 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/IO/ReadPDB</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/IO/TestReadPDB.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example reads <a href="http://www.pdb.org/pdb/home/home.do">Protein Data Bank</a> files. The example expects a file in .pdb format.</p>
 <p><a href="http://gitorious.org/vtkwikiexamples/wikiexamples/blobs/raw/master/Testing/Data/lys.pdb">Here</a> is a sample file.<br />
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadPDB.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            ReadPDB();
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void ReadPDB() {
-         // Path to vtk data must be set as an environment variable
-         // VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;
-         vtkTesting test = vtkTesting.New();
-         string root = test.GetDataRoot();
-         string filePath = System.IO.Path.Combine(root, @&quot;Data\caffeine.pdb&quot;);
-
-         vtkPDBReader pdb = vtkPDBReader.New();
-         pdb.SetFileName(filePath);
-         pdb.SetHBScale(1.0);
-         pdb.SetBScale(1.0);
-         pdb.Update();
-         Debug.WriteLine(&quot;# of atoms is: &quot; + pdb.GetNumberOfAtoms());
-         // if molecule contains a lot of atoms, reduce the resolution of the sphere (represents an atom) for faster rendering
-         int resolution = (int)Math.Floor(Math.Sqrt(300000.0 / pdb.GetNumberOfAtoms())); // 300000.0 is an empriric value
-         if(resolution &gt; 20)
-            resolution = 20;
-         else if(resolution &lt; 4)
-            resolution = 4;
-
-         Debug.WriteLine(&quot;Resolution is: &quot; + resolution);
-         vtkSphereSource sphere = vtkSphereSource.New();
-         sphere.SetCenter(0, 0, 0);
-         sphere.SetRadius(1);
-         sphere.SetThetaResolution(resolution);
-         sphere.SetPhiResolution(resolution);
-
-         vtkGlyph3D glyph = vtkGlyph3D.New();
-         glyph.SetInputConnection(pdb.GetOutputPort());
-         glyph.SetOrient(1);
-         glyph.SetColorMode(1);
-         // glyph.ScalingOn();
-         glyph.SetScaleMode(2);
-         glyph.SetScaleFactor(.25);
-         glyph.SetSourceConnection(sphere.GetOutputPort());
-
-         vtkPolyDataMapper atomMapper = vtkPolyDataMapper.New();
-         atomMapper.SetInputConnection(glyph.GetOutputPort());
-         atomMapper.ImmediateModeRenderingOn();
-         atomMapper.UseLookupTableScalarRangeOff();
-         atomMapper.ScalarVisibilityOn();
-         atomMapper.SetScalarModeToDefault();
-
-         vtkLODActor atom = vtkLODActor.New();
-         atom.SetMapper(atomMapper);
-         atom.GetProperty().SetRepresentationToSurface();
-         atom.GetProperty().SetInterpolationToGouraud();
-         atom.GetProperty().SetAmbient(0.15);
-         atom.GetProperty().SetDiffuse(0.85);
-         atom.GetProperty().SetSpecular(0.1);
-         atom.GetProperty().SetSpecularPower(30);
-         atom.GetProperty().SetSpecularColor(1, 1, 1);
-         atom.SetNumberOfCloudPoints(30000);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="n">ReadPDB</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
 
-         vtkTubeFilter tube = vtkTubeFilter.New();
-         tube.SetInputConnection(pdb.GetOutputPort());
-         tube.SetNumberOfSides(resolution);
-         tube.CappingOff();
-         tube.SetRadius(0.2);
-         // turn off variation of tube radius with scalar values
-         tube.SetVaryRadius(0);
-         tube.SetRadiusFactor(10);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">ReadPDB</span><span class="p">()</span> <span class="p">{</span>
+         <span class="c1">// Path to vtk data must be set as an environment variable</span>
+         <span class="c1">// VTK_DATA_ROOT = &quot;C:\VTK\vtkdata-5.8.0&quot;</span>
+         <span class="n">vtkTesting</span> <span class="n">test</span> <span class="p">=</span> <span class="n">vtkTesting</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">root</span> <span class="p">=</span> <span class="n">test</span><span class="p">.</span><span class="n">GetDataRoot</span><span class="p">();</span>
+         <span class="kt">string</span> <span class="n">filePath</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">@&quot;Data\caffeine.pdb&quot;</span><span class="p">);</span>
 
-         vtkPolyDataMapper bondMapper = vtkPolyDataMapper.New();
-         bondMapper.SetInputConnection(tube.GetOutputPort());
-         bondMapper.ImmediateModeRenderingOn();
-         bondMapper.UseLookupTableScalarRangeOff();
-         bondMapper.ScalarVisibilityOff();
-         bondMapper.SetScalarModeToDefault();
+         <span class="n">vtkPDBReader</span> <span class="n">pdb</span> <span class="p">=</span> <span class="n">vtkPDBReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">pdb</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+         <span class="n">pdb</span><span class="p">.</span><span class="n">SetHBScale</span><span class="p">(</span><span class="m">1.0</span><span class="p">);</span>
+         <span class="n">pdb</span><span class="p">.</span><span class="n">SetBScale</span><span class="p">(</span><span class="m">1.0</span><span class="p">);</span>
+         <span class="n">pdb</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;# of atoms is: &quot;</span> <span class="p">+</span> <span class="n">pdb</span><span class="p">.</span><span class="n">GetNumberOfAtoms</span><span class="p">());</span>
+         <span class="c1">// if molecule contains a lot of atoms, reduce the resolution of the sphere (represents an atom) for faster rendering</span>
+         <span class="kt">int</span> <span class="n">resolution</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="m">300000.0</span> <span class="p">/</span> <span class="n">pdb</span><span class="p">.</span><span class="n">GetNumberOfAtoms</span><span class="p">()));</span> <span class="c1">// 300000.0 is an empriric value</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">resolution</span> <span class="p">&gt;</span> <span class="m">20</span><span class="p">)</span>
+            <span class="n">resolution</span> <span class="p">=</span> <span class="m">20</span><span class="p">;</span>
+         <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">resolution</span> <span class="p">&lt;</span> <span class="m">4</span><span class="p">)</span>
+            <span class="n">resolution</span> <span class="p">=</span> <span class="m">4</span><span class="p">;</span>
 
-         vtkLODActor bond = vtkLODActor.New();
-         bond.SetMapper(bondMapper);
-         bond.GetProperty().SetRepresentationToSurface();
-         bond.GetProperty().SetInterpolationToGouraud();
-         bond.GetProperty().SetAmbient(0.15);
-         bond.GetProperty().SetDiffuse(0.85);
-         bond.GetProperty().SetSpecular(0.1);
-         bond.GetProperty().SetSpecularPower(30);
-         bond.GetProperty().SetSpecularColor(1, 1, 1);
-         bond.GetProperty().SetDiffuseColor(1.0000, 0.8941, 0.70981);
+         <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Resolution is: &quot;</span> <span class="p">+</span> <span class="n">resolution</span><span class="p">);</span>
+         <span class="n">vtkSphereSource</span> <span class="n">sphere</span> <span class="p">=</span> <span class="n">vtkSphereSource</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">sphere</span><span class="p">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+         <span class="n">sphere</span><span class="p">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">sphere</span><span class="p">.</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
+         <span class="n">sphere</span><span class="p">.</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
+
+         <span class="n">vtkGlyph3D</span> <span class="n">glyph</span> <span class="p">=</span> <span class="n">vtkGlyph3D</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pdb</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetOrient</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetColorMode</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+         <span class="c1">// glyph.ScalingOn();</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetScaleMode</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetScaleFactor</span><span class="p">(.</span><span class="m">25</span><span class="p">);</span>
+         <span class="n">glyph</span><span class="p">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sphere</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+
+         <span class="n">vtkPolyDataMapper</span> <span class="n">atomMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">atomMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">atomMapper</span><span class="p">.</span><span class="n">ImmediateModeRenderingOn</span><span class="p">();</span>
+         <span class="n">atomMapper</span><span class="p">.</span><span class="n">UseLookupTableScalarRangeOff</span><span class="p">();</span>
+         <span class="n">atomMapper</span><span class="p">.</span><span class="n">ScalarVisibilityOn</span><span class="p">();</span>
+         <span class="n">atomMapper</span><span class="p">.</span><span class="n">SetScalarModeToDefault</span><span class="p">();</span>
+
+         <span class="n">vtkLODActor</span> <span class="n">atom</span> <span class="p">=</span> <span class="n">vtkLODActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">atomMapper</span><span class="p">);</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetRepresentationToSurface</span><span class="p">();</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetInterpolationToGouraud</span><span class="p">();</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetAmbient</span><span class="p">(</span><span class="m">0.15</span><span class="p">);</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="m">0.85</span><span class="p">);</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetSpecular</span><span class="p">(</span><span class="m">0.1</span><span class="p">);</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="m">30</span><span class="p">);</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">atom</span><span class="p">.</span><span class="n">SetNumberOfCloudPoints</span><span class="p">(</span><span class="m">30000</span><span class="p">);</span>
 
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // set background color
-         renderer.SetBackground(0.2, 0.3, 0.4);
-         // add our actor to the renderer
-         renderer.AddActor(atom);
-         renderer.AddActor(bond);
-      }
-   }
-}
-</code></pre>
+         <span class="n">vtkTubeFilter</span> <span class="n">tube</span> <span class="p">=</span> <span class="n">vtkTubeFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">tube</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pdb</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">tube</span><span class="p">.</span><span class="n">SetNumberOfSides</span><span class="p">(</span><span class="n">resolution</span><span class="p">);</span>
+         <span class="n">tube</span><span class="p">.</span><span class="n">CappingOff</span><span class="p">();</span>
+         <span class="n">tube</span><span class="p">.</span><span class="n">SetRadius</span><span class="p">(</span><span class="m">0.2</span><span class="p">);</span>
+         <span class="c1">// turn off variation of tube radius with scalar values</span>
+         <span class="n">tube</span><span class="p">.</span><span class="n">SetVaryRadius</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+         <span class="n">tube</span><span class="p">.</span><span class="n">SetRadiusFactor</span><span class="p">(</span><span class="m">10</span><span class="p">);</span>
+
+         <span class="n">vtkPolyDataMapper</span> <span class="n">bondMapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">bondMapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tube</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">bondMapper</span><span class="p">.</span><span class="n">ImmediateModeRenderingOn</span><span class="p">();</span>
+         <span class="n">bondMapper</span><span class="p">.</span><span class="n">UseLookupTableScalarRangeOff</span><span class="p">();</span>
+         <span class="n">bondMapper</span><span class="p">.</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+         <span class="n">bondMapper</span><span class="p">.</span><span class="n">SetScalarModeToDefault</span><span class="p">();</span>
+
+         <span class="n">vtkLODActor</span> <span class="n">bond</span> <span class="p">=</span> <span class="n">vtkLODActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">bondMapper</span><span class="p">);</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetRepresentationToSurface</span><span class="p">();</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetInterpolationToGouraud</span><span class="p">();</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetAmbient</span><span class="p">(</span><span class="m">0.15</span><span class="p">);</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="m">0.85</span><span class="p">);</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetSpecular</span><span class="p">(</span><span class="m">0.1</span><span class="p">);</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="m">30</span><span class="p">);</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">bond</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="m">1.0000</span><span class="p">,</span> <span class="m">0.8941</span><span class="p">,</span> <span class="m">0.70981</span><span class="p">);</span>
+
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// set background color</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="m">0.2</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">0.4</span><span class="p">);</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">atom</span><span class="p">);</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">bond</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15575,6 +15575,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15996,110 +16008,117 @@
                   <h1>ConnectAndRead</h1>
                 
                 <p><a href="../../../../../">VTKExamples</a>/<a href="../../../../../Cxx">Cxx</a>/Databases/SQL/MySQL/ConnectAndRead</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConnectAndRead.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkMySQLDatabase.h&gt;
-#include &lt;vtkSQLQuery.h&gt;
-#include &lt;vtkVariant.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMySQLDatabase.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSQLQuery.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVariant.h&gt;</span><span class="cp"></span>
 
-/*
-If you get the error:
-Unsupported protocol: mysql
-It means you must recompile VTK with VTK_USE_MYSQL = ON
+<span class="cm">/*</span>
+<span class="cm">If you get the error:</span>
+<span class="cm">Unsupported protocol: mysql</span>
+<span class="cm">It means you must recompile VTK with VTK_USE_MYSQL = ON</span>
 
-If you get the error:
-vtkMySQLDatabase::New() is not defined
-It means that cmake did not find your mysql include and library
-path correctly (ie.  MYSQL_INCLUDE_DIRECTORIES, etc)
-*/
+<span class="cm">If you get the error:</span>
+<span class="cm">vtkMySQLDatabase::New() is not defined</span>
+<span class="cm">It means that cmake did not find your mysql include and library</span>
+<span class="cm">path correctly (ie.  MYSQL_INCLUDE_DIRECTORIES, etc)</span>
+<span class="cm">*/</span>
 
-int main(int, char *[])
-{
-  // url syntax:
-  // mysql://'[[username[':'password]'@']hostname[':'port]]'/'[dbname]
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// url syntax:</span>
+  <span class="c1">// mysql://&#39;[[username[&#39;:&#39;password]&#39;@&#39;]hostname[&#39;:&#39;port]]&#39;/&#39;[dbname]</span>
 
-  vtkSmartPointer&lt;vtkMySQLDatabase&gt; db =
-    vtkSmartPointer&lt;vtkMySQLDatabase&gt;::Take(vtkMySQLDatabase::SafeDownCast(
-            vtkSQLDatabase::CreateFromURL( &quot;mysql://root@localhost/TestDatabase&quot; ) ));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMySQLDatabase</span><span class="o">&gt;</span> <span class="n">db</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMySQLDatabase</span><span class="o">&gt;::</span><span class="n">Take</span><span class="p">(</span><span class="n">vtkMySQLDatabase</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+            <span class="n">vtkSQLDatabase</span><span class="o">::</span><span class="n">CreateFromURL</span><span class="p">(</span> <span class="s">&quot;mysql://root@localhost/TestDatabase&quot;</span> <span class="p">)</span> <span class="p">));</span>
 
-  bool status = db-&gt;Open();
+  <span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">();</span>
 
-  std::cout &lt;&lt; &quot;Database open? &quot; &lt;&lt; status &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Database open? &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">status</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  if(!status)
-  {
-    return EXIT_FAILURE;
-  }
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">status</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkSQLQuery&gt; query =
-    vtkSmartPointer&lt;vtkSQLQuery&gt;::Take(db-&gt;GetQueryInstance());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSQLQuery</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSQLQuery</span><span class="o">&gt;::</span><span class="n">Take</span><span class="p">(</span><span class="n">db</span><span class="o">-&gt;</span><span class="n">GetQueryInstance</span><span class="p">());</span>
 
-  std::string createQuery( &quot;SELECT PointId FROM TestTable&quot;);
-  std::cout &lt;&lt; createQuery &lt;&lt; std::endl;
-  query-&gt;SetQuery( createQuery.c_str() );
-  query-&gt;Execute();
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">createQuery</span><span class="p">(</span> <span class="s">&quot;SELECT PointId FROM TestTable&quot;</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">createQuery</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">query</span><span class="o">-&gt;</span><span class="n">SetQuery</span><span class="p">(</span> <span class="n">createQuery</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">query</span><span class="o">-&gt;</span><span class="n">Execute</span><span class="p">();</span>
 
-  for ( int col = 0; col &lt; query-&gt;GetNumberOfFields(); ++ col )
-  {
-    if ( col &gt; 0 )
-    {
-      cerr &lt;&lt; &quot;, &quot;;
-    }
-    cerr &lt;&lt; query-&gt;GetFieldName( col );
-  }
-  cerr &lt;&lt; endl;
-  while ( query-&gt;NextRow() )
-  {
-    for ( int field = 0; field &lt; query-&gt;GetNumberOfFields(); ++ field )
-    {
-      if ( field &gt; 0 )
-      {
-        cerr &lt;&lt; &quot;, &quot;;
-      }
-      cerr &lt;&lt; query-&gt;DataValue( field ).ToString().c_str();
-    }
-    cerr &lt;&lt; endl;
-  }
+  <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">query</span><span class="o">-&gt;</span><span class="n">GetNumberOfFields</span><span class="p">();</span> <span class="o">++</span> <span class="n">col</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">col</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">query</span><span class="o">-&gt;</span><span class="n">GetFieldName</span><span class="p">(</span> <span class="n">col</span> <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span> <span class="n">query</span><span class="o">-&gt;</span><span class="n">NextRow</span><span class="p">()</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">field</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">field</span> <span class="o">&lt;</span> <span class="n">query</span><span class="o">-&gt;</span><span class="n">GetNumberOfFields</span><span class="p">();</span> <span class="o">++</span> <span class="n">field</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="n">field</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">query</span><span class="o">-&gt;</span><span class="n">DataValue</span><span class="p">(</span> <span class="n">field</span> <span class="p">).</span><span class="n">ToString</span><span class="p">().</span><span class="n">c_str</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ConnectAndRead)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ConnectAndRead</span><span class="p">)</span>
 
-add_executable(ConnectAndRead MACOSX_BUNDLE ConnectAndRead.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ConnectAndRead ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ConnectAndRead</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ConnectAndRead.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-connectandread">Download and Build ConnectAndRead</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ConnectAndRead</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-connectandread">Download and Build ConnectAndRead<a class="headerlink" href="#download-and-build-connectandread" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConnectAndRead.tar">here to download ConnectAndRead</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConnectAndRead.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ConnectAndRead/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ConnectAndRead/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ConnectAndRead
-</code></pre>
+<div class="codehilite"><pre><span></span>./ConnectAndRead
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

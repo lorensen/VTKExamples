@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,7 +15990,7 @@
                   <h1>ExtractLargestIsoSurface</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../CSharp">CSharp</a>/Modelling/ExtractLargestIsoSurface</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Contributed by: Jinyoung Hwang</li>
 </ul>
@@ -16000,77 +16012,77 @@ and compare the results to
  ExtractLargestIsosurface test.vtk 50 0</p>
 <p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
 Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExtractLargestIsoSurface.cs</strong></p>
-<pre><code class="csharp">using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Diagnostics;
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Windows.Forms</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
 
-using Kitware.VTK;
+<span class="k">using</span> <span class="nn">Kitware.VTK</span><span class="p">;</span>
 
-namespace ActiViz.Examples {
-   public partial class Form1 : Form {
-      public Form1() {
-         InitializeComponent();
-      }
-
-
-      private void renderWindowControl1_Load(object sender, EventArgs e) {
-         try {
-            // don't forget to adapt the file path
-            ExtractLargestIsoSurface(&quot;test.vtk&quot;, 50, true);
-         }
-         catch(Exception ex) {
-            MessageBox.Show(ex.Message, &quot;Exception&quot;, MessageBoxButtons.OK);
-         }
-      }
+<span class="k">namespace</span> <span class="nn">ActiViz.Examples</span> <span class="p">{</span>
+   <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Form1</span> <span class="p">:</span> <span class="n">Form</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="nf">Form1</span><span class="p">()</span> <span class="p">{</span>
+         <span class="n">InitializeComponent</span><span class="p">();</span>
+      <span class="p">}</span>
 
 
-      private void ExtractLargestIsoSurface(string filePath, double threshold, bool extractLargest) { 
-         // Load data
-         vtkStructuredPointsReader reader = vtkStructuredPointsReader.New();
-         reader.SetFileName(filePath);
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">renderWindowControl1_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">try</span> <span class="p">{</span>
+            <span class="c1">// don&#39;t forget to adapt the file path</span>
+            <span class="n">ExtractLargestIsoSurface</span><span class="p">(</span><span class="s">&quot;test.vtk&quot;</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="k">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="s">&quot;Exception&quot;</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
 
-         // Create a 3D model using marching cubes
-         vtkMarchingCubes mc = vtkMarchingCubes.New();
-         mc.SetInputConnection(reader.GetOutputPort());
-         mc.ComputeNormalsOn();
-         mc.ComputeGradientsOn();
-         mc.SetValue(0, threshold);  // second value acts as threshold
 
-         // To remain largest region
-         vtkPolyDataConnectivityFilter confilter = vtkPolyDataConnectivityFilter.New();
-         confilter.SetInputConnection(mc.GetOutputPort());
-         confilter.SetExtractionModeToLargestRegion();
+      <span class="k">private</span> <span class="k">void</span> <span class="nf">ExtractLargestIsoSurface</span><span class="p">(</span><span class="kt">string</span> <span class="n">filePath</span><span class="p">,</span> <span class="kt">double</span> <span class="n">threshold</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">extractLargest</span><span class="p">)</span> <span class="p">{</span> 
+         <span class="c1">// Load data</span>
+         <span class="n">vtkStructuredPointsReader</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">vtkStructuredPointsReader</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">reader</span><span class="p">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
 
-         // Create a mapper
-         vtkPolyDataMapper mapper = vtkPolyDataMapper.New();
-         if(extractLargest) {
-            mapper.SetInputConnection(confilter.GetOutputPort());
-         }
-         else {
-            mapper.SetInputConnection(mc.GetOutputPort());
-         }
+         <span class="c1">// Create a 3D model using marching cubes</span>
+         <span class="n">vtkMarchingCubes</span> <span class="n">mc</span> <span class="p">=</span> <span class="n">vtkMarchingCubes</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">mc</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">mc</span><span class="p">.</span><span class="n">ComputeNormalsOn</span><span class="p">();</span>
+         <span class="n">mc</span><span class="p">.</span><span class="n">ComputeGradientsOn</span><span class="p">();</span>
+         <span class="n">mc</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">threshold</span><span class="p">);</span>  <span class="c1">// second value acts as threshold</span>
 
-         mapper.ScalarVisibilityOff();    // utilize actor's property I set
+         <span class="c1">// To remain largest region</span>
+         <span class="n">vtkPolyDataConnectivityFilter</span> <span class="n">confilter</span> <span class="p">=</span> <span class="n">vtkPolyDataConnectivityFilter</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">confilter</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">mc</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="n">confilter</span><span class="p">.</span><span class="n">SetExtractionModeToLargestRegion</span><span class="p">();</span>
 
-         // Visualize
-         vtkActor actor = vtkActor.New();
-         actor.GetProperty().SetColor(1, 1, 1);
-         actor.SetMapper(mapper);
+         <span class="c1">// Create a mapper</span>
+         <span class="n">vtkPolyDataMapper</span> <span class="n">mapper</span> <span class="p">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">extractLargest</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">confilter</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+            <span class="n">mapper</span><span class="p">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">mc</span><span class="p">.</span><span class="n">GetOutputPort</span><span class="p">());</span>
+         <span class="p">}</span>
 
-         // get a reference to the renderwindow of our renderWindowControl1
-         vtkRenderWindow renderWindow = renderWindowControl1.RenderWindow;
-         // renderer
-         vtkRenderer renderer = renderWindow.GetRenderers().GetFirstRenderer();
-         // add our actor to the renderer
-         renderer.AddActor(actor);
-      }
-   }
-}
-</code></pre>
+         <span class="n">mapper</span><span class="p">.</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>    <span class="c1">// utilize actor&#39;s property I set</span>
+
+         <span class="c1">// Visualize</span>
+         <span class="n">vtkActor</span> <span class="n">actor</span> <span class="p">=</span> <span class="n">vtkActor</span><span class="p">.</span><span class="n">New</span><span class="p">();</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">GetProperty</span><span class="p">().</span><span class="n">SetColor</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+         <span class="n">actor</span><span class="p">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+
+         <span class="c1">// get a reference to the renderwindow of our renderWindowControl1</span>
+         <span class="n">vtkRenderWindow</span> <span class="n">renderWindow</span> <span class="p">=</span> <span class="n">renderWindowControl1</span><span class="p">.</span><span class="n">RenderWindow</span><span class="p">;</span>
+         <span class="c1">// renderer</span>
+         <span class="n">vtkRenderer</span> <span class="n">renderer</span> <span class="p">=</span> <span class="n">renderWindow</span><span class="p">.</span><span class="n">GetRenderers</span><span class="p">().</span><span class="n">GetFirstRenderer</span><span class="p">();</span>
+         <span class="c1">// add our actor to the renderer</span>
+         <span class="n">renderer</span><span class="p">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

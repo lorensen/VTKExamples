@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15992,88 +16004,95 @@
                   <h1>ConcatenateArray</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/TextAnalysis/ConcatenateArray</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConcatenateArray.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkConcatenateArray.h&gt;
-#include &lt;vtkDenseArray.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkConcatenateArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDenseArray.h&gt;</span><span class="cp"></span>
 
-int main(int, char *[])
-{
-  vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt; array0 =
-    vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt;::New();
-  array0-&gt;Resize(2);
-  array0-&gt;SetValue(0, 0);
-  array0-&gt;SetValue(1, 1);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">array0</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">array0</span><span class="o">-&gt;</span><span class="n">Resize</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">array0</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">array0</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt; array1 =
-    vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt;::New();
-  array1-&gt;Resize(2);
-  array1-&gt;SetValue(0, 2);
-  array1-&gt;SetValue(1, 3);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">array1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">array1</span><span class="o">-&gt;</span><span class="n">Resize</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="n">array1</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="n">array1</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkArrayData&gt; arrayData0 =
-    vtkSmartPointer&lt;vtkArrayData&gt;::New();
-  arrayData0-&gt;AddArray(array0);
-  arrayData0-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;</span> <span class="n">arrayData0</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrayData0</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">array0</span><span class="p">);</span>
+  <span class="n">arrayData0</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkArrayData&gt; arrayData1 =
-    vtkSmartPointer&lt;vtkArrayData&gt;::New();
-  arrayData1-&gt;AddArray(array1);
-  arrayData1-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;</span> <span class="n">arrayData1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">arrayData1</span><span class="o">-&gt;</span><span class="n">AddArray</span><span class="p">(</span><span class="n">array1</span><span class="p">);</span>
+  <span class="n">arrayData1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkConcatenateArray&gt; concatenateArray =
-    vtkSmartPointer&lt;vtkConcatenateArray&gt;::New();
-  concatenateArray-&gt;SetInput(0, arrayData0);
-  concatenateArray-&gt;SetInput(1, arrayData1);
-  concatenateArray-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConcatenateArray</span><span class="o">&gt;</span> <span class="n">concatenateArray</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConcatenateArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">concatenateArray</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">arrayData0</span><span class="p">);</span>
+  <span class="n">concatenateArray</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">arrayData1</span><span class="p">);</span>
+  <span class="n">concatenateArray</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkArrayData&gt; outputArrayData = concatenateArray-&gt;GetOutput();
-  vtkSmartPointer&lt;vtkDenseArray&lt;double&gt; &gt; outputArray = vtkDenseArray&lt;double&gt;::SafeDownCast(outputArrayData-&gt;GetArray(0));
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrayData</span><span class="o">&gt;</span> <span class="n">outputArrayData</span> <span class="o">=</span> <span class="n">concatenateArray</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">outputArray</span> <span class="o">=</span> <span class="n">vtkDenseArray</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">outputArrayData</span><span class="o">-&gt;</span><span class="n">GetArray</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
 
-  std::cout &lt;&lt; outputArray-&gt;GetValue(0) &lt;&lt; std::endl;
-  std::cout &lt;&lt; outputArray-&gt;GetValue(1) &lt;&lt; std::endl;
-  std::cout &lt;&lt; outputArray-&gt;GetValue(2) &lt;&lt; std::endl;
-  std::cout &lt;&lt; outputArray-&gt;GetValue(3) &lt;&lt; std::endl;
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">outputArray</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">outputArray</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">outputArray</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">outputArray</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ConcatenateArray)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ConcatenateArray</span><span class="p">)</span>
 
-add_executable(ConcatenateArray MACOSX_BUNDLE ConcatenateArray.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ConcatenateArray ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ConcatenateArray</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ConcatenateArray.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-concatenatearray">Download and Build ConcatenateArray</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ConcatenateArray</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-concatenatearray">Download and Build ConcatenateArray<a class="headerlink" href="#download-and-build-concatenatearray" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ConcatenateArray.tar">here to download ConcatenateArray</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ConcatenateArray.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ConcatenateArray/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ConcatenateArray/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ConcatenateArray
-</code></pre>
+<div class="codehilite"><pre><span></span>./ConcatenateArray
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

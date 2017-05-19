@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,137 +16005,144 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageMapToColors</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageMapToColors.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageMapToColors.cxx</strong></p>
-<pre><code class="c++">//
-// Displays a &quot;grayscale&quot; image as a full color image via the
-// vtkImageMapToColors filter, which uses a lookup table to
-// map scalar values to colors
-//
-#include &lt;vtkImageActor.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageMapper3D.h&gt;
-#include &lt;vtkImageMapToColors.h&gt;
-#include &lt;vtkImageProperty.h&gt;
-#include &lt;vtkInteractorStyleImage.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="c1">//</span>
+<span class="c1">// Displays a &quot;grayscale&quot; image as a full color image via the</span>
+<span class="c1">// vtkImageMapToColors filter, which uses a lookup table to</span>
+<span class="c1">// map scalar values to colors</span>
+<span class="c1">//</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapToColors.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-int main(int, char*[])
-{
-  // Create a &quot;grayscale&quot; 16x16 image, 1-component pixels of type &quot;double&quot;
-  vtkSmartPointer&lt;vtkImageData&gt; image =
-    vtkSmartPointer&lt;vtkImageData&gt;::New();
-  int imageExtent[6] = { 0, 15, 0, 15, 0, 0 };
-  image-&gt;SetExtent(imageExtent);
-#if VTK_MAJOR_VERSION &lt;= 5
-  image-&gt;SetNumberOfScalarComponents(1);
-  image-&gt;SetScalarTypeToDouble();
-#else
-  image-&gt;AllocateScalars(VTK_DOUBLE, 1);
-#endif
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Create a &quot;grayscale&quot; 16x16 image, 1-component pixels of type &quot;double&quot;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">imageExtent</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="n">imageExtent</span><span class="p">);</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  double scalarvalue = 0.0;
+  <span class="kt">double</span> <span class="n">scalarvalue</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
 
-  for (int y = imageExtent[2]; y &lt;= imageExtent[3]; y++)
-  {
-    for (int x = imageExtent[0]; x &lt;= imageExtent[1]; x++)
-    {
-      double* pixel = static_cast&lt;double*&gt;(image-&gt;GetScalarPointer(x, y, 0));
-      pixel[0] = scalarvalue;
-      scalarvalue += 1.0;
-    }
-  }
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">imageExtent</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">imageExtent</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">imageExtent</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">imageExtent</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">double</span><span class="o">*</span> <span class="n">pixel</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">image</span><span class="o">-&gt;</span><span class="n">GetScalarPointer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+      <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalarvalue</span><span class="p">;</span>
+      <span class="n">scalarvalue</span> <span class="o">+=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // Map the scalar values in the image to colors with a lookup table:
-  vtkSmartPointer&lt;vtkLookupTable&gt; lookupTable =
-    vtkSmartPointer&lt;vtkLookupTable&gt;::New();
-  lookupTable-&gt;SetNumberOfTableValues(256);
-  lookupTable-&gt;SetRange(0.0, 255.0);
-  lookupTable-&gt;Build();
+  <span class="c1">// Map the scalar values in the image to colors with a lookup table:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lookupTable</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">256</span><span class="p">);</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">SetRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">);</span>
+  <span class="n">lookupTable</span><span class="o">-&gt;</span><span class="n">Build</span><span class="p">();</span>
 
-  // Pass the original image and the lookup table to a filter to create
-  // a color image:
-  vtkSmartPointer&lt;vtkImageMapToColors&gt; scalarValuesToColors =
-    vtkSmartPointer&lt;vtkImageMapToColors&gt;::New();
-  scalarValuesToColors-&gt;SetLookupTable(lookupTable);
-  scalarValuesToColors-&gt;PassAlphaToOutputOn();
-#if VTK_MAJOR_VERSION &lt;= 5
-  scalarValuesToColors-&gt;SetInput(image);
-#else
-  scalarValuesToColors-&gt;SetInputData(image);
-#endif
+  <span class="c1">// Pass the original image and the lookup table to a filter to create</span>
+  <span class="c1">// a color image:</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMapToColors</span><span class="o">&gt;</span> <span class="n">scalarValuesToColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageMapToColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">scalarValuesToColors</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lookupTable</span><span class="p">);</span>
+  <span class="n">scalarValuesToColors</span><span class="o">-&gt;</span><span class="n">PassAlphaToOutputOn</span><span class="p">();</span>
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">scalarValuesToColors</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#else</span>
+  <span class="n">scalarValuesToColors</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
-  // Create an image actor
-  vtkSmartPointer&lt;vtkImageActor&gt; imageActor =
-    vtkSmartPointer&lt;vtkImageActor&gt;::New();
-  imageActor-&gt;GetMapper()-&gt;SetInputConnection(
-    scalarValuesToColors-&gt;GetOutputPort());
-  imageActor-&gt;GetProperty()-&gt;SetInterpolationTypeToNearest();
+  <span class="c1">// Create an image actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">imageActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span>
+    <span class="n">scalarValuesToColors</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationTypeToNearest</span><span class="p">();</span>
 
-  // Visualize
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  renderer-&gt;AddActor(imageActor);
-  renderer-&gt;ResetCamera();
+  <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">imageActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkInteractorStyleImage&gt; style =
-    vtkSmartPointer&lt;vtkInteractorStyleImage&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;</span> <span class="n">style</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInteractorStyleImage</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  renderWindowInteractor-&gt;SetInteractorStyle(style);
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetInteractorStyle</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>
 
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
-  renderWindowInteractor-&gt;Initialize();
-  renderWindowInteractor-&gt;Start();
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(ImageMapToColors)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">ImageMapToColors</span><span class="p">)</span>
 
-add_executable(ImageMapToColors MACOSX_BUNDLE ImageMapToColors.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(ImageMapToColors ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ImageMapToColors</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ImageMapToColors.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-imagemaptocolors">Download and Build ImageMapToColors</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ImageMapToColors</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-imagemaptocolors">Download and Build ImageMapToColors<a class="headerlink" href="#download-and-build-imagemaptocolors" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/ImageMapToColors.tar">here to download ImageMapToColors</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball ImageMapToColors.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd ImageMapToColors/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd ImageMapToColors/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./ImageMapToColors
-</code></pre>
+<div class="codehilite"><pre><span></span>./ImageMapToColors
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

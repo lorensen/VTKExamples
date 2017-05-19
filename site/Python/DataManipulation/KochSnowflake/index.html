@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15564,6 +15564,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15978,178 +15990,178 @@
                   <h1>KochSnowflake</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/DataManipulation/KochSnowflake</p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>==Description==
 This script draws a Koch snowflake using the VTK. The general idea is to exercise some of the components of a vtkPolyData to produce something interesting rather than a boring old cube. Not that I have anything against cubes. There is also a C++ version of this example: http://www.vtk.org/Wiki/VTK/Examples/Cxx/Visualization/KochSnowflake</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>KochSnowflake.py</strong></p>
-<pre><code class="python">#!/usr/bin/env python
-#------------------------------------------------------------------------------#
-#                                   Imports                                    #
-#------------------------------------------------------------------------------#
-from math import pi, cos, sin, sqrt
-import vtk
+<div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="c1">#                                   Imports                                    #</span>
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">sqrt</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
 
-LEVEL = 6
+<span class="n">LEVEL</span> <span class="o">=</span> <span class="mi">6</span>
 
-#------------------------------------------------------------------------------#
-#                        Koch Snowflake as vtkPolyLine                         #
-#------------------------------------------------------------------------------#
-def as_polyline(points, level):
-  # Use the points from the previous iteration to create the points of the next
-  # level. There is an assumption on my part that the curve is traversed in a
-  # counterclockwise fashion. If the initial triangle above is written to
-  # describe clockwise motion, the points will face inward instead of outward.
-  for i in range(level):
-    temp = vtk.vtkPoints()
-    # The first point of the previous vtkPoints is the first point of the next vtkPoints.
-    temp.InsertNextPoint(*points.GetPoint(0))
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="c1">#                        Koch Snowflake as vtkPolyLine                         #</span>
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="k">def</span> <span class="nf">as_polyline</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+  <span class="c1"># Use the points from the previous iteration to create the points of the next</span>
+  <span class="c1"># level. There is an assumption on my part that the curve is traversed in a</span>
+  <span class="c1"># counterclockwise fashion. If the initial triangle above is written to</span>
+  <span class="c1"># describe clockwise motion, the points will face inward instead of outward.</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="c1"># The first point of the previous vtkPoints is the first point of the next vtkPoints.</span>
+    <span class="n">temp</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="o">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
-    # Iterate over &quot;edges&quot; in the vtkPoints
-    for i in range(1, points.GetNumberOfPoints()):
-      x0, y0, z0 = points.GetPoint(i - 1)
-      x1, y1, z1 = points.GetPoint(i)
-      t = sqrt((x1 - x0)**2 + (y1 - y0)**2)
-      nx = (x1 - x0)/t # x-component of edge unit tangent
-      ny = (y1 - y0)/t # y-component of edge unit tangent
+    <span class="c1"># Iterate over &quot;edges&quot; in the vtkPoints</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">points</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()):</span>
+      <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">nx</span> <span class="o">=</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">t</span> <span class="c1"># x-component of edge unit tangent</span>
+      <span class="n">ny</span> <span class="o">=</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span><span class="o">/</span><span class="n">t</span> <span class="c1"># y-component of edge unit tangent</span>
 
-      # the points describing the Koch snowflake edge
-      temp.InsertNextPoint(x0 + nx*t/3, y0 + ny*t/3, 0.)
-      temp.InsertNextPoint(x0 + nx*t/2 + ny*t*sqrt(3)/6, y0 + ny*t/2 - nx*t*sqrt(3)/6, 0.)
-      temp.InsertNextPoint(x0 + nx*2*t/3, y0 + ny*2*t/3, 0.)
-      temp.InsertNextPoint(x0 + nx*t, y0 + ny*t, 0.)
+      <span class="c1"># the points describing the Koch snowflake edge</span>
+      <span class="n">temp</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+      <span class="n">temp</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+      <span class="n">temp</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">nx</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+      <span class="n">temp</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">nx</span><span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">ny</span><span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
 
-    points = temp
+    <span class="n">points</span> <span class="o">=</span> <span class="n">temp</span>
 
-  # draw the outline
-  lines = vtk.vtkCellArray()
-  pl = vtk.vtkPolyLine()
-  pl.GetPointIds().SetNumberOfIds(points.GetNumberOfPoints())
-  for i in range(points.GetNumberOfPoints()):
-    pl.GetPointIds().SetId(i, i)
-  lines.InsertNextCell(pl)
+  <span class="c1"># draw the outline</span>
+  <span class="n">lines</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+  <span class="n">pl</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyLine</span><span class="p">()</span>
+  <span class="n">pl</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">())</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()):</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+  <span class="n">lines</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pl</span><span class="p">)</span>
 
-  # complete the polydata
-  polydata = vtk.vtkPolyData()
-  polydata.SetLines(lines)
-  polydata.SetPoints(points)
+  <span class="c1"># complete the polydata</span>
+  <span class="n">polydata</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+  <span class="n">polydata</span><span class="o">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+  <span class="n">polydata</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 
-  return polydata
+  <span class="k">return</span> <span class="n">polydata</span>
 
-#------------------------------------------------------------------------------#
-#                 Koch Snowflake as collection of vtkTriangles                 #
-#------------------------------------------------------------------------------#
-def as_triangles(indices, cellarray, level, data):
-  if len(indices) &gt;= 3:
-    stride = len(indices)//4
-    indices.append(indices[-1] + 1)
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="c1">#                 Koch Snowflake as collection of vtkTriangles                 #</span>
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="k">def</span> <span class="nf">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">cellarray</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="o">//</span><span class="mi">4</span>
+    <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
-    triangle = vtk.vtkTriangle()
-    triangle.GetPointIds().SetId(0, indices[ stride])
-    triangle.GetPointIds().SetId(1, indices[2*stride])
-    triangle.GetPointIds().SetId(2, indices[3*stride])
+    <span class="n">triangle</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangle</span><span class="p">()</span>
+    <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span> <span class="n">stride</span><span class="p">])</span>
+    <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">])</span>
+    <span class="n">triangle</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">])</span>
 
-    cellarray.InsertNextCell(triangle)
-    data.InsertNextValue(level)
+    <span class="n">cellarray</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">triangle</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
 
-    as_triangles(indices[       0:   stride], cellarray, level + 1, data)
-    as_triangles(indices[  stride: 2*stride], cellarray, level + 1, data)
-    as_triangles(indices[2*stride: 3*stride], cellarray, level + 1, data)
-    as_triangles(indices[3*stride:       -1], cellarray, level + 1, data)
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span>       <span class="mi">0</span><span class="p">:</span>   <span class="n">stride</span><span class="p">],</span> <span class="n">cellarray</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span>  <span class="n">stride</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">],</span> <span class="n">cellarray</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">:</span> <span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">],</span> <span class="n">cellarray</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">stride</span><span class="p">:</span>       <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">cellarray</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
-#------------------------------------------------------------------------------#
-#                                 Main Method                                  #
-#------------------------------------------------------------------------------#
-if __name__ == &quot;__main__&quot;:
-  # Initially, set up the points to be an equilateral triangle. Note that the
-  # first point is the same as the last point to make this a closed curve when
-  # I create the vtkPolyLine.
-  points = vtk.vtkPoints()
-  for i in range(4):
-    points.InsertNextPoint(cos(2.*pi*i/3), sin(2*pi*i/3.), 0.)
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="c1">#                                 Main Method                                  #</span>
+<span class="c1">#------------------------------------------------------------------------------#</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+  <span class="c1"># Initially, set up the points to be an equilateral triangle. Note that the</span>
+  <span class="c1"># first point is the same as the last point to make this a closed curve when</span>
+  <span class="c1"># I create the vtkPolyLine.</span>
+  <span class="n">points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mf">3.</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
 
-  outline_pd  = as_polyline(points, LEVEL)
-  # You have already gone through the trouble of putting the points in the
-  # right places - so &quot;all&quot; you need todo now is to create polygons from the
-  # points that are in the vtkPoints.
+  <span class="n">outline_pd</span>  <span class="o">=</span> <span class="n">as_polyline</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">LEVEL</span><span class="p">)</span>
+  <span class="c1"># You have already gone through the trouble of putting the points in the</span>
+  <span class="c1"># right places - so &quot;all&quot; you need todo now is to create polygons from the</span>
+  <span class="c1"># points that are in the vtkPoints.</span>
 
-  # The points that are passed in, have an overlap of the beginning and the
-  # end. For this next trick, I will need a list of the indices in the
-  # vtkPoints. They're consecutive, so thats pretty straightforward.
+  <span class="c1"># The points that are passed in, have an overlap of the beginning and the</span>
+  <span class="c1"># end. For this next trick, I will need a list of the indices in the</span>
+  <span class="c1"># vtkPoints. They&#39;re consecutive, so thats pretty straightforward.</span>
 
-  indices = [i for i in range(outline_pd.GetPoints().GetNumberOfPoints() + 1)]
-  triangles   = vtk.vtkCellArray()
+  <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">outline_pd</span><span class="o">.</span><span class="n">GetPoints</span><span class="p">()</span><span class="o">.</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+  <span class="n">triangles</span>   <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
 
-  # Set this up for each of the initial sides, then call the recursive function.
-  stride = (len(indices) - 1)//3
+  <span class="c1"># Set this up for each of the initial sides, then call the recursive function.</span>
+  <span class="n">stride</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span>
 
-  # The cell data will allow us to color the triangles based on the level of
-  # the iteration of the Koch snowflake.
-  data = vtk.vtkIntArray()
-  data.SetNumberOfComponents(0)
-  data.SetName(&quot;Iteration Level&quot;)
+  <span class="c1"># The cell data will allow us to color the triangles based on the level of</span>
+  <span class="c1"># the iteration of the Koch snowflake.</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkIntArray</span><span class="p">()</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s2">&quot;Iteration Level&quot;</span><span class="p">)</span>
 
-  # This is the starting triangle.
-  t = vtk.vtkTriangle()
-  t.GetPointIds().SetId(0,        0)
-  t.GetPointIds().SetId(1,   stride)
-  t.GetPointIds().SetId(2, 2*stride)
-  triangles.InsertNextCell(t)
-  data.InsertNextValue(0)
+  <span class="c1"># This is the starting triangle.</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTriangle</span><span class="p">()</span>
+  <span class="n">t</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>        <span class="mi">0</span><span class="p">)</span>
+  <span class="n">t</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span>   <span class="n">stride</span><span class="p">)</span>
+  <span class="n">t</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">)</span>
+  <span class="n">triangles</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-  as_triangles(indices[       0:   stride + 1], triangles, 1, data)
-  as_triangles(indices[  stride: 2*stride + 1], triangles, 1, data)
-  as_triangles(indices[2*stride:           -1], triangles, 1, data)
+  <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span>       <span class="mi">0</span><span class="p">:</span>   <span class="n">stride</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">triangles</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+  <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span>  <span class="n">stride</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">stride</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">triangles</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+  <span class="n">as_triangles</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">stride</span><span class="p">:</span>           <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">triangles</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
-  triangle_pd = vtk.vtkPolyData()
-  triangle_pd.SetPoints(outline_pd.GetPoints())
-  triangle_pd.SetPolys(triangles)
-  triangle_pd.GetCellData().SetScalars(data)
+  <span class="n">triangle_pd</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+  <span class="n">triangle_pd</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">outline_pd</span><span class="o">.</span><span class="n">GetPoints</span><span class="p">())</span>
+  <span class="n">triangle_pd</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">triangles</span><span class="p">)</span>
+  <span class="n">triangle_pd</span><span class="o">.</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">.</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-  #-----------------#
-  # rendering stuff #
-  #-----------------#
-  outline_mapper = vtk.vtkPolyDataMapper()
-  outline_mapper.SetInputData(outline_pd)
+  <span class="c1">#-----------------#</span>
+  <span class="c1"># rendering stuff #</span>
+  <span class="c1">#-----------------#</span>
+  <span class="n">outline_mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+  <span class="n">outline_mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">outline_pd</span><span class="p">)</span>
 
-  lut = vtk.vtkLookupTable()
-  lut.SetNumberOfTableValues(256)
-  lut.SetHueRange(0.6, 0.6)
-  lut.SetSaturationRange(0., 1.)
-  lut.Build()
+  <span class="n">lut</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLookupTable</span><span class="p">()</span>
+  <span class="n">lut</span><span class="o">.</span><span class="n">SetNumberOfTableValues</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+  <span class="n">lut</span><span class="o">.</span><span class="n">SetHueRange</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+  <span class="n">lut</span><span class="o">.</span><span class="n">SetSaturationRange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+  <span class="n">lut</span><span class="o">.</span><span class="n">Build</span><span class="p">()</span>
 
-  triangle_mapper = vtk.vtkPolyDataMapper()
-  triangle_mapper.SetInputData(triangle_pd)
-  triangle_mapper.SetScalarRange(0.0, LEVEL)
-  triangle_mapper.SetLookupTable(lut)
+  <span class="n">triangle_mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+  <span class="n">triangle_mapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">triangle_pd</span><span class="p">)</span>
+  <span class="n">triangle_mapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">LEVEL</span><span class="p">)</span>
+  <span class="n">triangle_mapper</span><span class="o">.</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">)</span>
 
-  outline_actor = vtk.vtkActor()
-  outline_actor.SetMapper(outline_mapper)
+  <span class="n">outline_actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+  <span class="n">outline_actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outline_mapper</span><span class="p">)</span>
 
-  triangle_actor = vtk.vtkActor()
-  triangle_actor.SetMapper(triangle_mapper)
+  <span class="n">triangle_actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
+  <span class="n">triangle_actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">triangle_mapper</span><span class="p">)</span>
 
-  outline_ren = vtk.vtkRenderer()
-  outline_ren.AddActor(outline_actor)
-  outline_ren.SetViewport(0.0, 0.0, 0.5, 1.0)
+  <span class="n">outline_ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+  <span class="n">outline_ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outline_actor</span><span class="p">)</span>
+  <span class="n">outline_ren</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-  triangle_ren = vtk.vtkRenderer()
-  triangle_ren.AddActor(triangle_actor)
-  triangle_ren.SetViewport(0.5, 0.0, 1.0, 1.0)
-  triangle_ren.SetActiveCamera(outline_ren.GetActiveCamera())
+  <span class="n">triangle_ren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+  <span class="n">triangle_ren</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">triangle_actor</span><span class="p">)</span>
+  <span class="n">triangle_ren</span><span class="o">.</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+  <span class="n">triangle_ren</span><span class="o">.</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">outline_ren</span><span class="o">.</span><span class="n">GetActiveCamera</span><span class="p">())</span>
 
-  renw = vtk.vtkRenderWindow()
-  renw.AddRenderer(outline_ren)
-  renw.AddRenderer(triangle_ren)
-  renw.SetSize(800, 400)
+  <span class="n">renw</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+  <span class="n">renw</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">outline_ren</span><span class="p">)</span>
+  <span class="n">renw</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">triangle_ren</span><span class="p">)</span>
+  <span class="n">renw</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 
-  iren = vtk.vtkRenderWindowInteractor()
-  iren.SetRenderWindow(renw)
+  <span class="n">iren</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+  <span class="n">iren</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renw</span><span class="p">)</span>
 
-  outline_ren.ResetCamera()
-  renw.Render()
-  iren.Start()
-</code></pre>
+  <span class="n">outline_ren</span><span class="o">.</span><span class="n">ResetCamera</span><span class="p">()</span>
+  <span class="n">renw</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+  <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+</pre></div>
                 
                   
                 

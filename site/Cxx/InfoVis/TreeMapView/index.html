@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15578,6 +15578,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16007,120 +16019,127 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/InfoVis/TreeMapView</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/InfoVis/TestTreeMapView.png?raw=true" width="256" /></p>
-<h3 id="description">Description</h3>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Fix: use a much simpler tree and generate the tree in the code instead of reading files.</p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TreeMapView.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkDataRepresentation.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRegressionTestImage.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkTestUtilities.h&gt;
-#include &lt;vtkTreeMapView.h&gt;
-#include &lt;vtkViewTheme.h&gt;
-#include &lt;vtkXMLTreeReader.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkTesting.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkDataRepresentation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRegressionTestImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTestUtilities.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTreeMapView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkViewTheme.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLTreeReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTesting.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char* argv[])
-{
-  vtkSmartPointer&lt;vtkTesting&gt; testHelper =
-    vtkSmartPointer&lt;vtkTesting&gt;::New();
-  testHelper-&gt;AddArguments(argc,const_cast&lt;const char **&gt;(argv));
-  std::string dataRoot = testHelper-&gt;GetDataRoot();
-  std::string treeFileName = dataRoot + &quot;/Data/Infovis/XML/vtkclasses.xml&quot;;
-  std::string graphFileName = dataRoot + &quot;/Data/Infovis/XML/vtklibrary.xml&quot;;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTesting</span><span class="o">&gt;</span> <span class="n">testHelper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTesting</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">testHelper</span><span class="o">-&gt;</span><span class="n">AddArguments</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">char</span> <span class="o">**&gt;</span><span class="p">(</span><span class="n">argv</span><span class="p">));</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">dataRoot</span> <span class="o">=</span> <span class="n">testHelper</span><span class="o">-&gt;</span><span class="n">GetDataRoot</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">treeFileName</span> <span class="o">=</span> <span class="n">dataRoot</span> <span class="o">+</span> <span class="s">&quot;/Data/Infovis/XML/vtkclasses.xml&quot;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">graphFileName</span> <span class="o">=</span> <span class="n">dataRoot</span> <span class="o">+</span> <span class="s">&quot;/Data/Infovis/XML/vtklibrary.xml&quot;</span><span class="p">;</span>
 
-  if (argc &gt; 2)
-  {
-    treeFileName = argv[1];  // vtkclasses.xml
-    graphFileName = argv[2]; // vtklibrary.xml
-  }
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">treeFileName</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>  <span class="c1">// vtkclasses.xml</span>
+    <span class="n">graphFileName</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// vtklibrary.xml</span>
+  <span class="p">}</span>
 
-  // We need to put the graph and tree edges in different domains.
-  vtkSmartPointer&lt;vtkXMLTreeReader&gt; reader1 =
-    vtkSmartPointer&lt;vtkXMLTreeReader&gt;::New();
-  reader1-&gt;SetFileName(treeFileName.c_str());
-  reader1-&gt;SetEdgePedigreeIdArrayName(&quot;tree edge&quot;);
-  reader1-&gt;GenerateVertexPedigreeIdsOff();
-  reader1-&gt;SetVertexPedigreeIdArrayName(&quot;id&quot;);
+  <span class="c1">// We need to put the graph and tree edges in different domains.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLTreeReader</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLTreeReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">treeFileName</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetEdgePedigreeIdArrayName</span><span class="p">(</span><span class="s">&quot;tree edge&quot;</span><span class="p">);</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">GenerateVertexPedigreeIdsOff</span><span class="p">();</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetVertexPedigreeIdArrayName</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkXMLTreeReader&gt; reader2 =
-    vtkSmartPointer&lt;vtkXMLTreeReader&gt;::New();
-  reader2-&gt;SetFileName(graphFileName.c_str());
-  reader2-&gt;SetEdgePedigreeIdArrayName(&quot;graph edge&quot;);
-  reader2-&gt;GenerateVertexPedigreeIdsOff();
-  reader2-&gt;SetVertexPedigreeIdArrayName(&quot;id&quot;);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLTreeReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLTreeReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">graphFileName</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetEdgePedigreeIdArrayName</span><span class="p">(</span><span class="s">&quot;graph edge&quot;</span><span class="p">);</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GenerateVertexPedigreeIdsOff</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetVertexPedigreeIdArrayName</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">);</span>
 
-  reader1-&gt;Update();
-  reader2-&gt;Update();
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkTreeMapView&gt; view =
-    vtkSmartPointer&lt;vtkTreeMapView&gt;::New();
-  view-&gt;DisplayHoverTextOff();
-  view-&gt;SetTreeFromInputConnection(reader2-&gt;GetOutputPort());
-  view-&gt;SetGraphFromInputConnection(reader1-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeMapView</span><span class="o">&gt;</span> <span class="n">view</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTreeMapView</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">DisplayHoverTextOff</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetTreeFromInputConnection</span><span class="p">(</span><span class="n">reader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetGraphFromInputConnection</span><span class="p">(</span><span class="n">reader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  view-&gt;SetAreaColorArrayName(&quot;level&quot;);
-  view-&gt;SetEdgeColorToSplineFraction();
-  view-&gt;SetColorEdges(true);
-  view-&gt;SetAreaLabelArrayName(&quot;id&quot;);
-  view-&gt;SetAreaHoverArrayName(&quot;id&quot;);
-  view-&gt;SetAreaLabelVisibility(true);
-  view-&gt;SetAreaSizeArrayName(&quot;VertexDegree&quot;);
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetAreaColorArrayName</span><span class="p">(</span><span class="s">&quot;level&quot;</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetEdgeColorToSplineFraction</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetColorEdges</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetAreaLabelArrayName</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetAreaHoverArrayName</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetAreaLabelVisibility</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">SetAreaSizeArrayName</span><span class="p">(</span><span class="s">&quot;VertexDegree&quot;</span><span class="p">);</span>
 
-  // Apply a theme to the views
-  vtkViewTheme* const theme = vtkViewTheme::CreateMellowTheme();
-  view-&gt;ApplyViewTheme(theme);
-  theme-&gt;Delete();
+  <span class="c1">// Apply a theme to the views</span>
+  <span class="n">vtkViewTheme</span><span class="o">*</span> <span class="k">const</span> <span class="n">theme</span> <span class="o">=</span> <span class="n">vtkViewTheme</span><span class="o">::</span><span class="n">CreateMellowTheme</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">ApplyViewTheme</span><span class="p">(</span><span class="n">theme</span><span class="p">);</span>
+  <span class="n">theme</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
 
-  view-&gt;GetRenderWindow()-&gt;SetMultiSamples(0);
-  view-&gt;GetRenderWindow()-&gt;SetAlphaBitPlanes(1);
-  view-&gt;Update();
-  view-&gt;ResetCamera();
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAlphaBitPlanes</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  view-&gt;GetInteractor()-&gt;Initialize();
-  view-&gt;GetInteractor()-&gt;Start();
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
+  <span class="n">view</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(TreeMapView)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">TreeMapView</span><span class="p">)</span>
 
-add_executable(TreeMapView MACOSX_BUNDLE TreeMapView.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(TreeMapView ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">TreeMapView</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">TreeMapView.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-treemapview">Download and Build TreeMapView</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">TreeMapView</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-treemapview">Download and Build TreeMapView<a class="headerlink" href="#download-and-build-treemapview" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/TreeMapView.tar">here to download TreeMapView</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball TreeMapView.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd TreeMapView/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd TreeMapView/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./TreeMapView
-</code></pre>
+<div class="codehilite"><pre><span></span>./TreeMapView
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,172 +16005,179 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/Curvatures</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/PolyData/TestCurvatures.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Curvatures.cxx</strong></p>
-<pre><code class="c++">#include &lt;vtkSmartPointer.h&gt;
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkCurvatures.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCurvatures.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkXMLPolyDataReader.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkColorTransferFunction.h&gt;
-#include &lt;vtkColorSeries.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorTransferFunction.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorSeries.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkScalarBarActor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkRenderer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkScalarBarActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
-int main(int argc, char *argv[])
-{
-  // Parse command line arguments
-  if(argc &lt; 2)
-  {
-    std::cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; Filename(.vtp)&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="c1">// Parse command line arguments</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename(.vtp)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  // Create a polydata
-  vtkSmartPointer&lt;vtkXMLPolyDataReader&gt; reader =
-    vtkSmartPointer&lt;vtkXMLPolyDataReader&gt;::New();
-  reader-&gt;SetFileName(argv[1]);
+  <span class="c1">// Create a polydata</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  vtkSmartPointer&lt;vtkCurvatures&gt; curvaturesFilter =
-    vtkSmartPointer&lt;vtkCurvatures&gt;::New();
-  curvaturesFilter-&gt;SetInputConnection(reader-&gt;GetOutputPort());
-  curvaturesFilter-&gt;SetCurvatureTypeToMinimum();
-  curvaturesFilter-&gt;SetCurvatureTypeToMaximum();
-  curvaturesFilter-&gt;SetCurvatureTypeToGaussian();
-  curvaturesFilter-&gt;SetCurvatureTypeToMean();
-  curvaturesFilter-&gt;Update();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCurvatures</span><span class="o">&gt;</span> <span class="n">curvaturesFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCurvatures</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">SetCurvatureTypeToMinimum</span><span class="p">();</span>
+  <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">SetCurvatureTypeToMaximum</span><span class="p">();</span>
+  <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">SetCurvatureTypeToGaussian</span><span class="p">();</span>
+  <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">SetCurvatureTypeToMean</span><span class="p">();</span>
+  <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  // Get scalar range from command line if present, otherwise use
-  // range of computed curvature
-  double scalarRange[2];
-  if (argc &gt;= 4)
-  {
-    scalarRange[0] = atof(argv[2]);
-    scalarRange[1] = atof(argv[3]);
-  }
-  else
-  {
-    curvaturesFilter-&gt;GetOutput()-&gt;GetScalarRange(scalarRange);
-  }
+  <span class="c1">// Get scalar range from command line if present, otherwise use</span>
+  <span class="c1">// range of computed curvature</span>
+  <span class="kt">double</span> <span class="n">scalarRange</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">scalarRange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="n">scalarRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalarRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  int scheme = 16;
-  if (argc &gt;= 5)
-  {
-    scheme = atoi(argv[4]);
-  }
+  <span class="kt">int</span> <span class="n">scheme</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">scheme</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  // Build a lookup table
-  vtkSmartPointer&lt;vtkColorSeries&gt; colorSeries =
-    vtkSmartPointer&lt;vtkColorSeries&gt;::New();
-  colorSeries-&gt;SetColorScheme(scheme);
-  std::cout &lt;&lt; &quot;Using color scheme #: &quot;
-            &lt;&lt; colorSeries-&gt;GetColorScheme() &lt;&lt; &quot; is &quot;
-            &lt;&lt; colorSeries-&gt;GetColorSchemeName() &lt;&lt; std::endl;
+  <span class="c1">// Build a lookup table</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;</span> <span class="n">colorSeries</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">SetColorScheme</span><span class="p">(</span><span class="n">scheme</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Using color scheme #: &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">GetColorScheme</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">GetColorSchemeName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-  vtkSmartPointer&lt;vtkColorTransferFunction&gt; lut =
-    vtkSmartPointer&lt;vtkColorTransferFunction&gt;::New();
-  lut-&gt;SetColorSpaceToHSV();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;</span> <span class="n">lut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorTransferFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">lut</span><span class="o">-&gt;</span><span class="n">SetColorSpaceToHSV</span><span class="p">();</span>
 
-  // Use a color series to create a transfer function
-  int numColors = colorSeries-&gt;GetNumberOfColors();
-  for (int i = 0; i &lt; numColors; i++)
-  {
-      vtkColor3ub color = colorSeries-&gt;GetColor(i);
-    double dColor[3];
-    dColor[0] = static_cast&lt;double&gt; (color[0]) / 255.0;
-    dColor[1] = static_cast&lt;double&gt; (color[1]) / 255.0;
-    dColor[2] = static_cast&lt;double&gt; (color[2]) / 255.0;
-    double t = scalarRange[0] + (scalarRange[1] - scalarRange[0])
-      / (numColors - 1) * i;
-    lut-&gt;AddRGBPoint(t, dColor[0], dColor[1], dColor[2]);
-  }
+  <span class="c1">// Use a color series to create a transfer function</span>
+  <span class="kt">int</span> <span class="n">numColors</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">GetNumberOfColors</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numColors</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">vtkColor3ub</span> <span class="n">color</span> <span class="o">=</span> <span class="n">colorSeries</span><span class="o">-&gt;</span><span class="n">GetColor</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">dColor</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">dColor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">;</span>
+    <span class="n">dColor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">;</span>
+    <span class="n">dColor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="n">scalarRange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">scalarRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">scalarRange</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+      <span class="o">/</span> <span class="p">(</span><span class="n">numColors</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">lut</span><span class="o">-&gt;</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dColor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dColor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dColor</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="p">}</span>
 
-  // Create a mapper and actor
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; mapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  mapper-&gt;SetInputConnection(curvaturesFilter-&gt;GetOutputPort());
-  mapper-&gt;SetLookupTable(lut);
-  mapper-&gt;SetScalarRange(scalarRange);
+  <span class="c1">// Create a mapper and actor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; actor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  actor-&gt;SetMapper(mapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
-  // Create a scalar bar
-  vtkSmartPointer&lt;vtkScalarBarActor&gt; scalarBar =
-    vtkSmartPointer&lt;vtkScalarBarActor&gt;::New();
-  scalarBar-&gt;SetLookupTable(mapper-&gt;GetLookupTable());
-  scalarBar-&gt;SetTitle(
-    curvaturesFilter-&gt;GetOutput()-&gt;GetPointData()-&gt;GetScalars()-&gt;GetName());
-  scalarBar-&gt;SetNumberOfLabels(5);
+  <span class="c1">// Create a scalar bar</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkScalarBarActor</span><span class="o">&gt;</span> <span class="n">scalarBar</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkScalarBarActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">scalarBar</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetLookupTable</span><span class="p">());</span>
+  <span class="n">scalarBar</span><span class="o">-&gt;</span><span class="n">SetTitle</span><span class="p">(</span>
+    <span class="n">curvaturesFilter</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetScalars</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">());</span>
+  <span class="n">scalarBar</span><span class="o">-&gt;</span><span class="n">SetNumberOfLabels</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 
-  // Create a renderer, render window, and interactor
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;AddRenderer(renderer);
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  renderWindowInteractor-&gt;SetRenderWindow(renderWindow);
+  <span class="c1">// Create a renderer, render window, and interactor</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-  // Add the actors to the scene
-  renderer-&gt;AddActor(actor);
-  renderer-&gt;AddActor2D(scalarBar);
+  <span class="c1">// Add the actors to the scene</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor2D</span><span class="p">(</span><span class="n">scalarBar</span><span class="p">);</span>
 
-  renderer-&gt;SetBackground(.1, .2, .3); // Background color blue
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color blue</span>
 
-  // Render and interact
-  renderWindow-&gt;Render();
-  renderWindowInteractor-&gt;Start();
+  <span class="c1">// Render and interact</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
-</code></pre>
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Curvatures)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Curvatures</span><span class="p">)</span>
 
-add_executable(Curvatures MACOSX_BUNDLE Curvatures.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Curvatures ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Curvatures</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Curvatures.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-curvatures">Download and Build Curvatures</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Curvatures</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-curvatures">Download and Build Curvatures<a class="headerlink" href="#download-and-build-curvatures" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Curvatures.tar">here to download Curvatures</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Curvatures.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Curvatures/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Curvatures/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Curvatures
-</code></pre>
+<div class="codehilite"><pre><span></span>./Curvatures
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 

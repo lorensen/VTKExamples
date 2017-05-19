@@ -11,7 +11,7 @@
       
       
       
-        <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+        <link rel="shortcut icon" href="../../..//assets/images/favicon.ico">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.6.1">
     
@@ -15571,6 +15571,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Python/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Python/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -15993,376 +16005,383 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/Shadows</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestShadows.png?raw=true" width="256" /></p>
-<h3 id="code">Code</h3>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Shadows.cxx</strong></p>
-<pre><code class="c++">// The scene consists of
-// * 4 actors: a rectangle, a box, a cone and a sphere. The box, the cone and
-// the sphere are above the rectangle.
-// * 2 spotlights: one in the direction of the box, another one in the
-// direction of the sphere. Both lights are above the box, the cone and
-// the sphere.
-#include &lt;vtkActor.h&gt;
-#include &lt;vtkSmartPointer.h&gt;
-#include &lt;vtkRenderWindowInteractor.h&gt;
-#include &lt;vtkRenderWindow.h&gt;
-#include &lt;vtkVersion.h&gt;
+<div class="codehilite"><pre><span></span><span class="c1">// The scene consists of</span>
+<span class="c1">// * 4 actors: a rectangle, a box, a cone and a sphere. The box, the cone and</span>
+<span class="c1">// the sphere are above the rectangle.</span>
+<span class="c1">// * 2 spotlights: one in the direction of the box, another one in the</span>
+<span class="c1">// direction of the sphere. Both lights are above the box, the cone and</span>
+<span class="c1">// the sphere.</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-#include &lt;vtkRenderer.h&gt;
-#else
-#include &lt;vtkOpenGLRenderer.h&gt;
-#endif
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#else</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOpenGLRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#endif</span>
 
-#include &lt;vtkLightActor.h&gt;
-#include &lt;vtkFrameBufferObject.h&gt;
-#include &lt;vtkImageSinusoidSource.h&gt;
-#include &lt;vtkImageData.h&gt;
-#include &lt;vtkImageDataGeometryFilter.h&gt;
-#include &lt;vtkDataSetSurfaceFilter.h&gt;
-#include &lt;vtkPolyDataMapper.h&gt;
-#include &lt;vtkLookupTable.h&gt;
-#include &lt;vtkCamera.h&gt;
-#include &lt;vtkCameraPass.h&gt;
-#include &lt;vtkLightsPass.h&gt;
-#include &lt;vtkSequencePass.h&gt;
-#include &lt;vtkOpaquePass.h&gt;
-#include &lt;vtkDepthPeelingPass.h&gt;
-#include &lt;vtkTranslucentPass.h&gt;
-#include &lt;vtkVolumetricPass.h&gt;
-#include &lt;vtkOverlayPass.h&gt;
-#include &lt;vtkRenderPassCollection.h&gt;
-#include &lt;vtkShadowMapBakerPass.h&gt;
-#include &lt;vtkShadowMapPass.h&gt;
-#include &lt;vtkConeSource.h&gt;
-#include &lt;vtkPlaneSource.h&gt;
-#include &lt;vtkCubeSource.h&gt;
-#include &lt;vtkSphereSource.h&gt;
-#include &lt;vtkInformation.h&gt;
-#include &lt;vtkProperty.h&gt;
-#include &lt;vtkLight.h&gt;
-#include &lt;vtkLightCollection.h&gt;
-#include &lt;assert.h&gt;
-#include &lt;vtkMath.h&gt;
-#include &lt;vtkFrustumSource.h&gt;
-#include &lt;vtkPlanes.h&gt;
-#include &lt;vtkActorCollection.h&gt;
-#include &lt;vtkPolyDataNormals.h&gt;
-#include &lt;vtkPointData.h&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLightActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFrameBufferObject.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageSinusoidSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageDataGeometryFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetSurfaceFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLookupTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCameraPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLightsPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSequencePass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOpaquePass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDepthPeelingPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTranslucentPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkVolumetricPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOverlayPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderPassCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkShadowMapBakerPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkShadowMapPass.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkConeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlaneSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCubeSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLight.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkLightCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkFrustumSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlanes.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActorCollection.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataNormals.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 
 
-// For each spotlight, add a light frustum wireframe representation and a cone
-// wireframe representation, colored with the light color.
-void AddLightActors(vtkRenderer *r);
+<span class="c1">// For each spotlight, add a light frustum wireframe representation and a cone</span>
+<span class="c1">// wireframe representation, colored with the light color.</span>
+<span class="kt">void</span> <span class="nf">AddLightActors</span><span class="p">(</span><span class="n">vtkRenderer</span> <span class="o">*</span><span class="n">r</span><span class="p">);</span>
 
-int main(int, char*[])
-{
-  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor =
-    vtkSmartPointer&lt;vtkRenderWindowInteractor&gt;::New();
-  vtkSmartPointer&lt;vtkRenderWindow&gt; renderWindow =
-    vtkSmartPointer&lt;vtkRenderWindow&gt;::New();
-  renderWindow-&gt;SetSize(400,400);
-  renderWindow-&gt;SetMultiSamples(0);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetMultiSamples</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  renderWindow-&gt;SetAlphaBitPlanes(1);
-  interactor-&gt;SetRenderWindow(renderWindow);
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetAlphaBitPlanes</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
-#if VTK_MAJOR_VERSION &lt;= 5
-  vtkSmartPointer&lt;vtkRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkRenderer&gt;::New();
-#else
-  vtkSmartPointer&lt;vtkOpenGLRenderer&gt; renderer =
-    vtkSmartPointer&lt;vtkOpenGLRenderer&gt;::New();
-#endif
-  renderWindow-&gt;AddRenderer(renderer);
+<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#else</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOpenGLRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOpenGLRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+<span class="cp">#endif</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  bool supported = vtkFrameBufferObject::IsSupported(renderWindow); // adapted from line 182 of vtkShadowMapPass.cxx
+  <span class="kt">bool</span> <span class="n">supported</span> <span class="o">=</span> <span class="n">vtkFrameBufferObject</span><span class="o">::</span><span class="n">IsSupported</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span> <span class="c1">// adapted from line 182 of vtkShadowMapPass.cxx</span>
 
-  if(!supported)
-  {
-    std::cerr &lt;&lt; &quot;Shadow rendering is not supported by the current video&quot;
-              &lt;&lt; &quot; driver!&quot; &lt;&lt; std::endl;
-    return EXIT_FAILURE;
-  }
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">supported</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Shadow rendering is not supported by the current video&quot;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; driver!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  vtkSmartPointer&lt;vtkCameraPass&gt; cameraP =
-    vtkSmartPointer&lt;vtkCameraPass&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCameraPass</span><span class="o">&gt;</span> <span class="n">cameraP</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCameraPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkOpaquePass&gt; opaque =
-    vtkSmartPointer&lt;vtkOpaquePass&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOpaquePass</span><span class="o">&gt;</span> <span class="n">opaque</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOpaquePass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkDepthPeelingPass&gt; peeling =
-    vtkSmartPointer&lt;vtkDepthPeelingPass&gt;::New();
-  peeling-&gt;SetMaximumNumberOfPeels(200);
-  peeling-&gt;SetOcclusionRatio(0.1);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDepthPeelingPass</span><span class="o">&gt;</span> <span class="n">peeling</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDepthPeelingPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">peeling</span><span class="o">-&gt;</span><span class="n">SetMaximumNumberOfPeels</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+  <span class="n">peeling</span><span class="o">-&gt;</span><span class="n">SetOcclusionRatio</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkTranslucentPass&gt; translucent =
-    vtkSmartPointer&lt;vtkTranslucentPass&gt;::New();
-  peeling-&gt;SetTranslucentPass(translucent);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTranslucentPass</span><span class="o">&gt;</span> <span class="n">translucent</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTranslucentPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">peeling</span><span class="o">-&gt;</span><span class="n">SetTranslucentPass</span><span class="p">(</span><span class="n">translucent</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkVolumetricPass&gt; volume =
-    vtkSmartPointer&lt;vtkVolumetricPass&gt;::New();
-  vtkSmartPointer&lt;vtkOverlayPass&gt; overlay =
-    vtkSmartPointer&lt;vtkOverlayPass&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumetricPass</span><span class="o">&gt;</span> <span class="n">volume</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVolumetricPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOverlayPass</span><span class="o">&gt;</span> <span class="n">overlay</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOverlayPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkLightsPass&gt; lights =
-    vtkSmartPointer&lt;vtkLightsPass&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLightsPass</span><span class="o">&gt;</span> <span class="n">lights</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLightsPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkSequencePass&gt; opaqueSequence =
-    vtkSmartPointer&lt;vtkSequencePass&gt;::New();
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSequencePass</span><span class="o">&gt;</span> <span class="n">opaqueSequence</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSequencePass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-  vtkSmartPointer&lt;vtkRenderPassCollection&gt; passes2 =
-    vtkSmartPointer&lt;vtkRenderPassCollection&gt;::New();
-  passes2-&gt;AddItem(lights);
-  passes2-&gt;AddItem(opaque);
-  opaqueSequence-&gt;SetPasses(passes2);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderPassCollection</span><span class="o">&gt;</span> <span class="n">passes2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderPassCollection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">passes2</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">lights</span><span class="p">);</span>
+  <span class="n">passes2</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">opaque</span><span class="p">);</span>
+  <span class="n">opaqueSequence</span><span class="o">-&gt;</span><span class="n">SetPasses</span><span class="p">(</span><span class="n">passes2</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCameraPass&gt; opaqueCameraPass =
-    vtkSmartPointer&lt;vtkCameraPass&gt;::New();
-  opaqueCameraPass-&gt;SetDelegatePass(opaqueSequence);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCameraPass</span><span class="o">&gt;</span> <span class="n">opaqueCameraPass</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCameraPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">opaqueCameraPass</span><span class="o">-&gt;</span><span class="n">SetDelegatePass</span><span class="p">(</span><span class="n">opaqueSequence</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkShadowMapBakerPass&gt; shadowsBaker =
-    vtkSmartPointer&lt;vtkShadowMapBakerPass&gt;::New();
-  shadowsBaker-&gt;SetOpaquePass(opaqueCameraPass);
-  shadowsBaker-&gt;SetResolution(1024);
-  // To cancel self-shadowing.
-  shadowsBaker-&gt;SetPolygonOffsetFactor(3.1f);
-  shadowsBaker-&gt;SetPolygonOffsetUnits(10.0f);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShadowMapBakerPass</span><span class="o">&gt;</span> <span class="n">shadowsBaker</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShadowMapBakerPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shadowsBaker</span><span class="o">-&gt;</span><span class="n">SetOpaquePass</span><span class="p">(</span><span class="n">opaqueCameraPass</span><span class="p">);</span>
+  <span class="n">shadowsBaker</span><span class="o">-&gt;</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>
+  <span class="c1">// To cancel self-shadowing.</span>
+  <span class="n">shadowsBaker</span><span class="o">-&gt;</span><span class="n">SetPolygonOffsetFactor</span><span class="p">(</span><span class="mf">3.1f</span><span class="p">);</span>
+  <span class="n">shadowsBaker</span><span class="o">-&gt;</span><span class="n">SetPolygonOffsetUnits</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkShadowMapPass&gt; shadows =
-    vtkSmartPointer&lt;vtkShadowMapPass&gt;::New();
-  shadows-&gt;SetShadowMapBakerPass(shadowsBaker);
-  shadows-&gt;SetOpaquePass(opaqueSequence);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShadowMapPass</span><span class="o">&gt;</span> <span class="n">shadows</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkShadowMapPass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">shadows</span><span class="o">-&gt;</span><span class="n">SetShadowMapBakerPass</span><span class="p">(</span><span class="n">shadowsBaker</span><span class="p">);</span>
+  <span class="n">shadows</span><span class="o">-&gt;</span><span class="n">SetOpaquePass</span><span class="p">(</span><span class="n">opaqueSequence</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkSequencePass&gt; seq =
-    vtkSmartPointer&lt;vtkSequencePass&gt;::New();
-  vtkSmartPointer&lt;vtkRenderPassCollection&gt; passes =
-    vtkSmartPointer&lt;vtkRenderPassCollection&gt;::New();
-  passes-&gt;AddItem(shadowsBaker);
-  passes-&gt;AddItem(shadows);
-  passes-&gt;AddItem(lights);
-  passes-&gt;AddItem(peeling);
-  passes-&gt;AddItem(volume);
-  passes-&gt;AddItem(overlay);
-  seq-&gt;SetPasses(passes);
-  cameraP-&gt;SetDelegatePass(seq);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSequencePass</span><span class="o">&gt;</span> <span class="n">seq</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSequencePass</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderPassCollection</span><span class="o">&gt;</span> <span class="n">passes</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderPassCollection</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">passes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">shadowsBaker</span><span class="p">);</span>
+  <span class="n">passes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">shadows</span><span class="p">);</span>
+  <span class="n">passes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">lights</span><span class="p">);</span>
+  <span class="n">passes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">peeling</span><span class="p">);</span>
+  <span class="n">passes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">volume</span><span class="p">);</span>
+  <span class="n">passes</span><span class="o">-&gt;</span><span class="n">AddItem</span><span class="p">(</span><span class="n">overlay</span><span class="p">);</span>
+  <span class="n">seq</span><span class="o">-&gt;</span><span class="n">SetPasses</span><span class="p">(</span><span class="n">passes</span><span class="p">);</span>
+  <span class="n">cameraP</span><span class="o">-&gt;</span><span class="n">SetDelegatePass</span><span class="p">(</span><span class="n">seq</span><span class="p">);</span>
 
-  renderer-&gt;SetPass(cameraP);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetPass</span><span class="p">(</span><span class="n">cameraP</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPlaneSource&gt; rectangleSource =
-    vtkSmartPointer&lt;vtkPlaneSource&gt;::New();
-  rectangleSource-&gt;SetOrigin(-5.0,0.0,5.0);
-  rectangleSource-&gt;SetPoint1(5.0,0.0,5.0);
-  rectangleSource-&gt;SetPoint2(-5.0,0.0,-5.0);
-  rectangleSource-&gt;SetResolution(100,100);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;</span> <span class="n">rectangleSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlaneSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rectangleSource</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">rectangleSource</span><span class="o">-&gt;</span><span class="n">SetPoint1</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">rectangleSource</span><span class="o">-&gt;</span><span class="n">SetPoint2</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="o">-</span><span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">rectangleSource</span><span class="o">-&gt;</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; rectangleMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  rectangleMapper-&gt;SetInputConnection(rectangleSource-&gt;GetOutputPort());
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">rectangleMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rectangleMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">rectangleSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  rectangleMapper-&gt;SetScalarVisibility(0);
+  <span class="n">rectangleMapper</span><span class="o">-&gt;</span><span class="n">SetScalarVisibility</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; rectangleActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  vtkSmartPointer&lt;vtkInformation&gt; rectangleKeyProperties =
-    vtkSmartPointer&lt;vtkInformation&gt;::New();
-  rectangleKeyProperties-&gt;Set(vtkShadowMapBakerPass::OCCLUDER(),0); // dummy val.
-  rectangleKeyProperties-&gt;Set(vtkShadowMapBakerPass::RECEIVER(),0); // dummy val.
-  rectangleActor-&gt;SetPropertyKeys(rectangleKeyProperties);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">rectangleActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;</span> <span class="n">rectangleKeyProperties</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">rectangleKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">OCCLUDER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">rectangleKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">RECEIVER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">rectangleActor</span><span class="o">-&gt;</span><span class="n">SetPropertyKeys</span><span class="p">(</span><span class="n">rectangleKeyProperties</span><span class="p">);</span>
 
-  rectangleActor-&gt;SetMapper(rectangleMapper);
-  rectangleActor-&gt;SetVisibility(1);
-  rectangleActor-&gt;GetProperty()-&gt;SetColor(1.0,1.0,1.0);
+  <span class="n">rectangleActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">rectangleMapper</span><span class="p">);</span>
+  <span class="n">rectangleActor</span><span class="o">-&gt;</span><span class="n">SetVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">rectangleActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkCubeSource&gt; boxSource =
-    vtkSmartPointer&lt;vtkCubeSource&gt;::New();
-  boxSource-&gt;SetXLength(2.0);
-  vtkSmartPointer&lt;vtkPolyDataNormals&gt; boxNormals =
-    vtkSmartPointer&lt;vtkPolyDataNormals&gt;::New();
-  boxNormals-&gt;SetInputConnection(boxSource-&gt;GetOutputPort());
-  boxNormals-&gt;SetComputePointNormals(0);
-  boxNormals-&gt;SetComputeCellNormals(1);
-  boxNormals-&gt;Update();
-  boxNormals-&gt;GetOutput()-&gt;GetPointData()-&gt;SetNormals(0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;</span> <span class="n">boxSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCubeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxSource</span><span class="o">-&gt;</span><span class="n">SetXLength</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">boxNormals</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxNormals</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">boxSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">boxNormals</span><span class="o">-&gt;</span><span class="n">SetComputePointNormals</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">boxNormals</span><span class="o">-&gt;</span><span class="n">SetComputeCellNormals</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">boxNormals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">boxNormals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetNormals</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; boxMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  boxMapper-&gt;SetInputConnection(boxNormals-&gt;GetOutputPort());
-  boxMapper-&gt;SetScalarVisibility(0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">boxMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">boxNormals</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">boxMapper</span><span class="o">-&gt;</span><span class="n">SetScalarVisibility</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; boxActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  vtkSmartPointer&lt;vtkInformation&gt; boxKeyProperties =
-    vtkSmartPointer&lt;vtkInformation&gt;::New();
-  boxKeyProperties-&gt;Set(vtkShadowMapBakerPass::OCCLUDER(),0); // dummy val.
-  boxKeyProperties-&gt;Set(vtkShadowMapBakerPass::RECEIVER(),0); // dummy val.
-  boxActor-&gt;SetPropertyKeys(boxKeyProperties);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">boxActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;</span> <span class="n">boxKeyProperties</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">boxKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">OCCLUDER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">boxKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">RECEIVER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">boxActor</span><span class="o">-&gt;</span><span class="n">SetPropertyKeys</span><span class="p">(</span><span class="n">boxKeyProperties</span><span class="p">);</span>
 
-  boxActor-&gt;SetMapper(boxMapper);
-  boxActor-&gt;SetVisibility(1);
-  boxActor-&gt;SetPosition(-2.0,2.0,0.0);
-  boxActor-&gt;GetProperty()-&gt;SetColor(1.0,0.0,0.0);
+  <span class="n">boxActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">boxMapper</span><span class="p">);</span>
+  <span class="n">boxActor</span><span class="o">-&gt;</span><span class="n">SetVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">boxActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
+  <span class="n">boxActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkConeSource&gt; coneSource =
-    vtkSmartPointer&lt;vtkConeSource&gt;::New();
-  coneSource-&gt;SetResolution(24);
-  coneSource-&gt;SetDirection(1.0,1.0,1.0);
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; coneMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  coneMapper-&gt;SetInputConnection(coneSource-&gt;GetOutputPort());
-  coneMapper-&gt;SetScalarVisibility(0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;</span> <span class="n">coneSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkConeSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+  <span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">SetDirection</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">coneMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">coneSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">coneMapper</span><span class="o">-&gt;</span><span class="n">SetScalarVisibility</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; coneActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  vtkSmartPointer&lt;vtkInformation&gt; coneKeyProperties=
-    vtkSmartPointer&lt;vtkInformation&gt;::New();
-  coneKeyProperties-&gt;Set(vtkShadowMapBakerPass::OCCLUDER(),0); // dummy val.
-  coneKeyProperties-&gt;Set(vtkShadowMapBakerPass::RECEIVER(),0); // dummy val.
-  coneActor-&gt;SetPropertyKeys(coneKeyProperties);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">coneActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;</span> <span class="n">coneKeyProperties</span><span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">coneKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">OCCLUDER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">coneKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">RECEIVER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">SetPropertyKeys</span><span class="p">(</span><span class="n">coneKeyProperties</span><span class="p">);</span>
 
-  coneActor-&gt;SetMapper(coneMapper);
-  coneActor-&gt;SetVisibility(1);
-  coneActor-&gt;SetPosition(0.0,1.0,1.0);
-  coneActor-&gt;GetProperty()-&gt;SetColor(0.0,0.0,1.0);
-//  coneActor-&gt;GetProperty()-&gt;SetLighting(false);
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">coneMapper</span><span class="p">);</span>
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">SetVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">coneActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="c1">//  coneActor-&gt;GetProperty()-&gt;SetLighting(false);</span>
 
-  vtkSmartPointer&lt;vtkSphereSource&gt; sphereSource =
-    vtkSmartPointer&lt;vtkSphereSource&gt;::New();
-  sphereSource-&gt;SetThetaResolution(32);
-  sphereSource-&gt;SetPhiResolution(32);
-  vtkSmartPointer&lt;vtkPolyDataMapper&gt; sphereMapper =
-    vtkSmartPointer&lt;vtkPolyDataMapper&gt;::New();
-  sphereMapper-&gt;SetInputConnection(sphereSource-&gt;GetOutputPort());
-  sphereMapper-&gt;SetScalarVisibility(0);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sphereMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">sphereMapper</span><span class="o">-&gt;</span><span class="n">SetScalarVisibility</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkSmartPointer&lt;vtkActor&gt; sphereActor =
-    vtkSmartPointer&lt;vtkActor&gt;::New();
-  vtkSmartPointer&lt;vtkInformation&gt; sphereKeyProperties =
-    vtkSmartPointer&lt;vtkInformation&gt;::New();
-  sphereKeyProperties-&gt;Set(vtkShadowMapBakerPass::OCCLUDER(),0); // dummy val.
-  sphereKeyProperties-&gt;Set(vtkShadowMapBakerPass::RECEIVER(),0); // dummy val.
-  sphereActor-&gt;SetPropertyKeys(sphereKeyProperties);
-  sphereActor-&gt;SetMapper(sphereMapper);
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">sphereActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;</span> <span class="n">sphereKeyProperties</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkInformation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">OCCLUDER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">sphereKeyProperties</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkShadowMapBakerPass</span><span class="o">::</span><span class="n">RECEIVER</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// dummy val.</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetPropertyKeys</span><span class="p">(</span><span class="n">sphereKeyProperties</span><span class="p">);</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">sphereMapper</span><span class="p">);</span>
 
-  sphereActor-&gt;SetVisibility(1);
-  sphereActor-&gt;SetPosition(2.0,2.0,-1.0);
-  sphereActor-&gt;GetProperty()-&gt;SetColor(1.0,1.0,0.0);
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
 
-  renderer-&gt;AddViewProp(rectangleActor);
-  renderer-&gt;AddViewProp(boxActor);
-  renderer-&gt;AddViewProp(coneActor);
-  renderer-&gt;AddViewProp(sphereActor);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">rectangleActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">boxActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">coneActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
 
-  // Spotlights.
+  <span class="c1">// Spotlights.</span>
 
-  // lighting the box.
-  vtkSmartPointer&lt;vtkLight&gt; l1 =
-    vtkSmartPointer&lt;vtkLight&gt;::New();
-  l1-&gt;SetPosition(-4.0,4.0,-1.0);
-  l1-&gt;SetFocalPoint(boxActor-&gt;GetPosition());
-  l1-&gt;SetColor(1.0,1.0,1.0);
-  l1-&gt;SetPositional(1);
-  renderer-&gt;AddLight(l1);
-  l1-&gt;SetSwitch(1);
+  <span class="c1">// lighting the box.</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLight</span><span class="o">&gt;</span> <span class="n">l1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLight</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">l1</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">l1</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">boxActor</span><span class="o">-&gt;</span><span class="n">GetPosition</span><span class="p">());</span>
+  <span class="n">l1</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">l1</span><span class="o">-&gt;</span><span class="n">SetPositional</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddLight</span><span class="p">(</span><span class="n">l1</span><span class="p">);</span>
+  <span class="n">l1</span><span class="o">-&gt;</span><span class="n">SetSwitch</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  // lighting the sphere
-  vtkSmartPointer&lt;vtkLight&gt; l2 =
-    vtkSmartPointer&lt;vtkLight&gt;::New();
-  l2-&gt;SetPosition(4.0,5.0,1.0);
-  l2-&gt;SetFocalPoint(sphereActor-&gt;GetPosition());
-  l2-&gt;SetColor(1.0,0.0,1.0);
-//  l2-&gt;SetColor(1.0,1.0,1.0);
-  l2-&gt;SetPositional(1);
-  renderer-&gt;AddLight(l2);
-  l2-&gt;SetSwitch(1);
+  <span class="c1">// lighting the sphere</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLight</span><span class="o">&gt;</span> <span class="n">l2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLight</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">l2</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">l2</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">sphereActor</span><span class="o">-&gt;</span><span class="n">GetPosition</span><span class="p">());</span>
+  <span class="n">l2</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="c1">//  l2-&gt;SetColor(1.0,1.0,1.0);</span>
+  <span class="n">l2</span><span class="o">-&gt;</span><span class="n">SetPositional</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddLight</span><span class="p">(</span><span class="n">l2</span><span class="p">);</span>
+  <span class="n">l2</span><span class="o">-&gt;</span><span class="n">SetSwitch</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-  AddLightActors(renderer);
+  <span class="n">AddLightActors</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
 
-  renderer-&gt;SetBackground(0.66,0.66,0.66);
-  renderer-&gt;SetBackground2(157.0/255.0*0.66,186/255.0*0.66,192.0/255.0*0.66);
-  renderer-&gt;SetGradientBackground(true);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.66</span><span class="p">,</span><span class="mf">0.66</span><span class="p">,</span><span class="mf">0.66</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground2</span><span class="p">(</span><span class="mf">157.0</span><span class="o">/</span><span class="mf">255.0</span><span class="o">*</span><span class="mf">0.66</span><span class="p">,</span><span class="mi">186</span><span class="o">/</span><span class="mf">255.0</span><span class="o">*</span><span class="mf">0.66</span><span class="p">,</span><span class="mf">192.0</span><span class="o">/</span><span class="mf">255.0</span><span class="o">*</span><span class="mf">0.66</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetGradientBackground</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
-  if(peeling-&gt;GetLastRenderingUsedDepthPeeling())
-  {
-    std::cout &lt;&lt; &quot;depth peeling was used&quot; &lt;&lt; std::endl;
-  }
-  else
-  {
-    std::cout &lt;&lt; &quot;depth peeling was not used (alpha blending instead)&quot; &lt;&lt; std::endl;
-  }
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">peeling</span><span class="o">-&gt;</span><span class="n">GetLastRenderingUsedDepthPeeling</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;depth peeling was used&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;depth peeling was not used (alpha blending instead)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  renderer-&gt;ResetCamera();
-  vtkSmartPointer&lt;vtkCamera&gt; camera = renderer-&gt;GetActiveCamera();
-  camera-&gt;Azimuth(40.0);
-  camera-&gt;Elevation(10.0);
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mf">40.0</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mf">10.0</span><span class="p">);</span>
 
-  renderWindow-&gt;Render();
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
-  interactor-&gt;Start();
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
-  return EXIT_SUCCESS;
-}
+  <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
 
-// For each spotlight, add a light frustum wireframe representation and a cone
-// wireframe representation, colored with the light color.
-void AddLightActors(vtkRenderer *r)
-{
-  assert(&quot;pre: r_exists&quot; &amp;&amp; r!=0);
+<span class="c1">// For each spotlight, add a light frustum wireframe representation and a cone</span>
+<span class="c1">// wireframe representation, colored with the light color.</span>
+<span class="kt">void</span> <span class="nf">AddLightActors</span><span class="p">(</span><span class="n">vtkRenderer</span> <span class="o">*</span><span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="s">&quot;pre: r_exists&quot;</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">!=</span><span class="mi">0</span><span class="p">);</span>
 
-  vtkLightCollection *lights=r-&gt;GetLights();
+  <span class="n">vtkLightCollection</span> <span class="o">*</span><span class="n">lights</span><span class="o">=</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">GetLights</span><span class="p">();</span>
 
-  lights-&gt;InitTraversal();
-  vtkLight *l=lights-&gt;GetNextItem();
-  while(l!=0)
-  {
-    double angle=l-&gt;GetConeAngle();
-    if(l-&gt;LightTypeIsSceneLight() &amp;&amp; l-&gt;GetPositional()
-       &amp;&amp; angle&lt;180.0) // spotlight
-    {
-      vtkLightActor *la=vtkLightActor::New();
-      la-&gt;SetLight(l);
-      r-&gt;AddViewProp(la);
-      la-&gt;Delete();
-    }
-    l=lights-&gt;GetNextItem();
-  }
-}
-</code></pre>
+  <span class="n">lights</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">();</span>
+  <span class="n">vtkLight</span> <span class="o">*</span><span class="n">l</span><span class="o">=</span><span class="n">lights</span><span class="o">-&gt;</span><span class="n">GetNextItem</span><span class="p">();</span>
+  <span class="k">while</span><span class="p">(</span><span class="n">l</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">angle</span><span class="o">=</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">GetConeAngle</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">LightTypeIsSceneLight</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">GetPositional</span><span class="p">()</span>
+       <span class="o">&amp;&amp;</span> <span class="n">angle</span><span class="o">&lt;</span><span class="mf">180.0</span><span class="p">)</span> <span class="c1">// spotlight</span>
+    <span class="p">{</span>
+      <span class="n">vtkLightActor</span> <span class="o">*</span><span class="n">la</span><span class="o">=</span><span class="n">vtkLightActor</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">la</span><span class="o">-&gt;</span><span class="n">SetLight</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
+      <span class="n">r</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">la</span><span class="p">);</span>
+      <span class="n">la</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">lights</span><span class="o">-&gt;</span><span class="n">GetNextItem</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
-<h3 id="cmakeliststxt">CMakeLists.txt</h3>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
 
-PROJECT(Shadows)
+<h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">Shadows</span><span class="p">)</span>
 
-add_executable(Shadows MACOSX_BUNDLE Shadows.cxx)
+<span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-target_link_libraries(Shadows ${VTK_LIBRARIES})
-</code></pre>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">Shadows</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">Shadows.cxx</span><span class="p">)</span>
 
-<h3 id="download-and-build-shadows">Download and Build Shadows</h3>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">Shadows</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="download-and-build-shadows">Download and Build Shadows<a class="headerlink" href="#download-and-build-shadows" title="Permanent link">&para;</a></h3>
 <p>Click <a href="https://github.com/lorensen/VTKWikiExamplesTarballs/raw/master/Shadows.tar">here to download Shadows</a> and its <em>CMakeLists.txt</em> file.
 Once the <em>tarball Shadows.tar</em> has been downloaded and extracted,</p>
-<pre><code>cd Shadows/build 
-</code></pre>
+<div class="codehilite"><pre><span></span>cd Shadows/build 
+</pre></div>
+
 
 <p>If VTK is installed:</p>
-<pre><code>cmake ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake ..
+</pre></div>
+
 
 <p>If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build:</p>
-<pre><code>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
-</code></pre>
+<div class="codehilite"><pre><span></span>cmake -DVTK_DIR:PATH=/home/me/vtk_build ..
+</pre></div>
+
 
 <p>Build the project:</p>
-<pre><code>make
-</code></pre>
+<div class="codehilite"><pre><span></span>make
+</pre></div>
+
 
 <p>and run it:</p>
-<pre><code>./Shadows
-</code></pre>
+<div class="codehilite"><pre><span></span>./Shadows
+</pre></div>
+
 
 <p><strong>WINDOWS USERS PLEASE NOTE:</strong> Be sure to add the VTK bin directory to your path. This will resolve the VTK dll's at run time.</p>
                 
