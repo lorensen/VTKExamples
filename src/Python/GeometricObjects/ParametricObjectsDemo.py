@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
 import vtk
-import random
 
-class ParametricObjects():
 
+class ParametricObjects(object):
     def ParametricObjects(self):
 
         parametricObjects = list()
@@ -40,9 +39,9 @@ class ParametricObjects():
         inputPoints = vtk.vtkPoints()
         vtk.vtkMath.RandomSeed(8775070)
         for i in range(10):
-            x = vtk.vtkMath.Random(0.0,1.0)
-            y = vtk.vtkMath.Random(0.0,1.0)
-            z = vtk.vtkMath.Random(0.0,1.0)
+            x = vtk.vtkMath.Random(0.0, 1.0)
+            y = vtk.vtkMath.Random(0.0, 1.0)
+            z = vtk.vtkMath.Random(0.0, 1.0)
             inputPoints.InsertNextPoint(x, y, z)
         parametricObjects[-1].SetPoints(inputPoints)
 
@@ -103,8 +102,8 @@ class ParametricObjects():
 
                 viewport[:] = []
                 viewport.append(float(col) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(gridDimensions - (row+1)) * rendererSize / (gridDimensions * rendererSize))
-                viewport.append(float(col+1)*rendererSize / (gridDimensions * rendererSize))
+                viewport.append(float(gridDimensions - (row + 1)) * rendererSize / (gridDimensions * rendererSize))
+                viewport.append(float(col + 1) * rendererSize / (gridDimensions * rendererSize))
                 viewport.append(float(gridDimensions - row) * rendererSize / (gridDimensions * rendererSize))
 
                 if idx > (len(parametricObjects) - 1):
@@ -115,7 +114,7 @@ class ParametricObjects():
 
                 renderers[idx].AddActor(actors[idx])
                 renderers[idx].AddActor(textactors[idx])
-                renderers[idx].SetBackground(0.2,0.3,0.4)
+                renderers[idx].SetBackground(0.2, 0.3, 0.4)
                 renderers[idx].ResetCamera()
                 renderers[idx].GetActiveCamera().Azimuth(30)
                 renderers[idx].GetActiveCamera().Elevation(-30)
@@ -128,6 +127,7 @@ class ParametricObjects():
         renderWindow.Render()
 
         interactor.Start()
+
 
 if __name__ == "__main__":
     po = ParametricObjects()

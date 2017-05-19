@@ -1,29 +1,26 @@
 #!/usr/bin/env python
 
 import vtk
-import random
 
-class ParametricObjects():
 
+class ParametricObjects(object):
     def ParametricObjects(self):
-
         # Select one of the following functions.
+        # parametricObject = vtk.vtkParametricBoy()
+        # parametricObject = vtk.vtkParametricConicSpiral()
+        # parametricObject = vtk.vtkParametricCrossCap()
+        # parametricObject = vtk.vtkParametricDini()
+        # parametricObject = vtk.vtkParametricEllipsoid()
+        # parametricObject = vtk.vtkParametricEnneper()
+        # parametricObject = vtk.vtkParametricFigure8Klein()
+        # parametricObject = vtk.vtkParametricKlein()
+        # parametricObject = vtk.vtkParametricMobius()
+        # parametricObject = vtk.vtkParametricRandomHills()
+        # parametricObject = vtk.vtkParametricRoman()
+        # parametricObject = vtk.vtkParametricSpline()
+        # parametricObject = vtk.vtkParametricSuperEllipsoid()
+        # parametricObject = vtk.vtkParametricSuperToroid()
         parametricObject = vtk.vtkParametricTorus()
-#         parametricObject = vtk.vtkParametricBoy()
-#         parametricObject = vtk.vtkParametricConicSpiral()
-#         parametricObject = vtk.vtkParametricCrossCap()
-#         parametricObject = vtk.vtkParametricDini()
-#         parametricObject = vtk.vtkParametricEllipsoid()
-#         parametricObject = vtk.vtkParametricEnneper()
-#         parametricObject = vtk.vtkParametricFigure8Klein()
-#         parametricObject = vtk.vtkParametricKlein()
-#         parametricObject = vtk.vtkParametricMobius()
-#         parametricObject = vtk.vtkParametricRandomHills()
-#         parametricObject = vtk.vtkParametricRoman()
-#         parametricObject = vtk.vtkParametricSpline()
-#         parametricObject = vtk.vtkParametricSuperEllipsoid()
-#         parametricObject = vtk.vtkParametricSuperToroid()
-#         parametricObject = vtk.vtkParametricTorus()
 
         parametricSource = vtk.vtkParametricFunctionSource()
         parametricSource.SetParametricFunction(parametricObject)
@@ -48,12 +45,13 @@ class ParametricObjects():
 
         # add actors
         ren.AddViewProp(actor)
-        ren.SetBackground(1,1,1) # Background color white
+        ren.SetBackground(1, 1, 1)  # Background color white
 
         # enable user interface interactor
         iren.Initialize()
         renWin.Render()
         iren.Start()
+
 
 if __name__ == "__main__":
     po = ParametricObjects()
