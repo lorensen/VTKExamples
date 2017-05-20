@@ -6,4 +6,6 @@ markdown_extensions:
   - admonition
   - codehilite(guess_lang=false)
   - toc(permalink=true)
-google_analytics: ['UA-3660134-4', 'lorensen.github.io']
+google_analytics:
+  -  'UA-3660134-4'
+  -  'auto'
