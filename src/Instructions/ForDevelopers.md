@@ -140,7 +140,7 @@ Depending on the language of your example, edit the file *Cxx.md*, *Python.md*, 
 
 Find the section for your topic and add a line for your new example. The format of the line is:
 
-\[**MyNewExample**\]\(**LANG**/**TOPIC**/**MyNewExample**\) | doxygen | short description
+\[**MyNewExample**\]\(/**LANG**/**TOPIC**/**MyNewExample**\) | doxygen | short description
 
 where **LANG** is one of Cxx, Python, CSharp, Java, Tcl.
 

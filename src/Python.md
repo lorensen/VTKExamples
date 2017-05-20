@@ -2,7 +2,7 @@
 
 Please see [this page](http://www.vtk.org/Wiki/VTK/Tutorials/PythonEnvironmentSetup) to learn how to setup your environment to use VTK in Python.
 
-It would be appreciated if there are any Python VTK experts who could convert any of the [c++ examples](Cxx) to Python!
+It would be appreciated if there are any Python VTK experts who could convert any of the [c++ examples](/Cxx) to Python!
 
 ## Hello World
 
