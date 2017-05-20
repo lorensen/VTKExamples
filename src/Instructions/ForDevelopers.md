@@ -78,7 +78,7 @@ When you write an example, please follow the [coding guidelines](../Instructions
     ```
 
     ```
-    cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ../src
+    cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..
     ```
 
     ```
@@ -117,7 +117,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
     ```
 
     ```
-    cmake ../src
+    cmake ..
     ```
 
     ```
