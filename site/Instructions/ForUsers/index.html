@@ -16074,10 +16074,10 @@
 <p>If you are really getting excited about learning VTK and are tried of
 downloading individual examples you can build them all.</p>
 <ol>
-<li>
-<p>As a VTK Remote module
-   When you configure your VTK build, set Module_WikiExamples:BOOL=ON and rebuild VTK.</p>
-</li>
+<li>As a VTK Remote module</li>
+</ol>
+<p>When you configure your VTK build, set Module_WikiExamples:BOOL=ON and rebuild VTK.</p>
+<ol>
 <li>
 <p>Download a <a href="https://github.com/lorensen/VTKExamples/archive/master.zip">zip</a> containing the source.</p>
 </li>
@@ -16085,12 +16085,20 @@ downloading individual examples you can build them all.</p>
 <p>Clone the VTK examples repository</p>
 </li>
 </ol>
-<p><code>git clone https://github.com/lorensen/VTKExamples.git</code></p>
+<div class="codehilite"><pre><span></span>   git clone https://github.com/lorensen/VTKExamples.git
+   <span class="nb">cd</span> VTKExamples
+   <span class="nb">cd</span> build
+   cmake -DVTK_DIR:PATH<span class="o">=</span>YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL<span class="o">=</span>ON ..
+   make
+</pre></div>
+
+
+<p>where <strong>YOUR_VTK_BIN_DIR</strong> is the location of your VTK build.</p>
 <h3 id="update-the-examples-repository">Update the examples repository<a class="headerlink" href="#update-the-examples-repository" title="Permanent link">&para;</a></h3>
 <p>If you cloned the examples repository, you can get the latest updates:</p>
 <div class="codehilite"><pre><span></span><span class="nb">cd</span> VTKExamples
 git pull
-<span class="nb">cd</span> ../VTKExamples-build
+<span class="nb">cd</span> build
 cmake ../VTKExamples
 make
 </pre></div>

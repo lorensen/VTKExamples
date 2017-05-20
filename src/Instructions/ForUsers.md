@@ -10,14 +10,21 @@ If you are really getting excited about learning VTK and are tried of
 downloading individual examples you can build them all.
 
 1. As a VTK Remote module
+
    When you configure your VTK build, set Module_WikiExamples:BOOL=ON and rebuild VTK.
 
 2. Download a [zip](https://github.com/lorensen/VTKExamples/archive/master.zip) containing the source.
 
 3. Clone the VTK examples repository
 
-   `   git clone https://github.com/lorensen/VTKExamples.git
-   `
+```bash
+   git clone https://github.com/lorensen/VTKExamples.git
+   cd VTKExamples
+   cd build
+   cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..
+   make
+```
+   where **YOUR_VTK_BIN_DIR** is the location of your VTK build.
 
 ### Update the examples repository
 
@@ -26,7 +33,7 @@ If you cloned the examples repository, you can get the latest updates:
 ``` bash
 cd VTKExamples
 git pull
-cd ../VTKExamples-build
+cd build
 cmake ../VTKExamples
 make
 ```
