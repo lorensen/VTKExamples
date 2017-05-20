@@ -1,5 +1,5 @@
 ### Description
-This example shows how to produce a HTML page called [VTKNamedColorPatches](VTKNamedColorPatches_html) showing the available
+This example shows how to produce a HTML page called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) showing the available
 colors in [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html).
 
 It also shows how to select the text color based on luminance.
