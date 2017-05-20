@@ -1,6 +1,6 @@
 Click [hear](http://www.vtk.org/Wiki/VTK/Tutorials/JavaEnvironmentSetup) for a tutorial on setting up your Java environment.
 
-It would be appreciated if there are any Python VTK experts who could convert any of the [c++ examples](../Cxx) to Java!
+It would be appreciated if there are any Java VTK experts who could convert any of the [c++ examples](/Cxx) to Java!
 
 #Input and Output
 | Example Name | Classes Demonstrated | Description |
