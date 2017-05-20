@@ -812,7 +812,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MoveActor](/Cxx/Visualization/MoveActor)| [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html) |Moving an Actor.
 [MoveCamera](/Cxx/Visualization/MoveCamera)| [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) |Moving the Camera.
 [MultipleActors](/Cxx/Visualization/MultipleActors)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Multiple Actors.
-[NamedColorPatches ](Cxx/Visualization/NamedColorPatches) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Creates a HTML file called [VTKNamedColorPatches.html](Python/Visualization/VTKNamedColorPatches.html) showing the available colors in the vtkNamedColors class.
+[NamedColorPatches ](Cxx/Visualization/NamedColorPatches) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Creates a HTML file called [VTKNamedColorPatches](Python/Visualization/VTKNamedColorPatches_html) showing the available colors in the vtkNamedColors class.
 [NamedColors ](Cxx/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the [vtkNamedColor](http://www.vtk.org/doc/nightly/html/classvtkNamedColor.html) class.
 [Opacity](/Cxx/Visualization/Opacity)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetOpacity | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|Create oriented glyphs from vector data.
