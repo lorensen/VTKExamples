@@ -2,6 +2,8 @@ site_name: VTKExamples
 theme: material
 site_url: https://lorensen.github.io/VTKExamples/site/
 site_favicon: /assets/images/favicon.ico
+repo_name: lorensen/VTKExamples
+repo_url: https://github.com/lorensen/VTKExamples
 markdown_extensions:
   - admonition
   - codehilite(guess_lang=false)
