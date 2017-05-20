@@ -16002,7 +16002,7 @@ illustrate a single concept.</p>
 <p>Build the VTKExamples</p>
 <p><code>cd VTKExamples</code></p>
 <p><code>cd build</code></p>
-<p><code>cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ../src</code></p>
+<p><code>cmake -DVTK_DIR:PATH=YOUR_VTK_BIN_DIR -DBUILD_TESTING:BOOL=ON ..</code></p>
 <p><code>make</code></p>
 <p>where <strong>YOUR_VTK_BIN_DIR</strong> is the location of your VTK build.</p>
 </li>
@@ -16026,7 +16026,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <li>
 <p>Build and test your example (<strong>NOTE:</strong> only for cxx examples)</p>
 <p><code>cd VTKExamples/build</code></p>
-<p><code>cmake ../src</code></p>
+<p><code>cmake ..</code></p>
 <p><code>make</code></p>
 <p><code>ctest -V -R MyNewExample</code></p>
 </li>
