@@ -1,3 +1,7 @@
 ### Description
-Connect several points with a line. See also [ColoredLines](ColoredLines).
+
+Connect several points with a line.
+
+!!! seealso
+    [ColoredLines](/Cxx/GeometricObjects/ColoredLines).
 

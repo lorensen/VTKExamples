@@ -1,2 +1,5 @@
 ### Description
-:''See also: []([../../Visualization/DrawText])''
+
+!!! seealso
+    [DrawText](/Cxx/Visualization/DrawText)
+

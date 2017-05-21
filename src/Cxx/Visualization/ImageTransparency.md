@@ -1,2 +1,5 @@
 ### Description
-:''See also: [and [[../../Images/ImageStencil]]([../../Images/Transparency]])''
+
+!!! seealso
+    [ImageStencil](/Cxx//Images/ImageStencil) and [Transparency](/Cxx//Images/Transparency)
+
