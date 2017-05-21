@@ -28,6 +28,7 @@ Requires_Version(NamedColorPatches ${VERSION_MIN} ALL_FILES)
 Requires_Version(Legend ${VERSION_MIN} ALL_FILES)
 Requires_Version(ElevationBandsWithGlyphs ${VERSION_MIN} ALL_FILES)
 Requires_Version(CurvatureBandsWithGlyphs ${VERSION_MIN} ALL_FILES)
+Requires_Version(PointDataSubdivision ${VERSION_MIN} ALL_FILES)
 Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
 Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
 Requires_Module(Shadows vtkRenderingOpenGL)
@@ -54,6 +55,7 @@ SET(NEEDS_ARGS
   DepthSortPolyData
   Glyph3DMapper
   HedgeHog
+  PointDataSubdivision
   RenderLargeImage
   SelectWindowRegion
   StreamLines
@@ -95,6 +97,9 @@ ADD_TEST(${KIT}-Glyph3DMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHedgeHog -E 50)
+
+ADD_TEST(${KIT}-PointDataSubdivision ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  PointDataSubdivision 6)
 
 ADD_TEST(${KIT}-RenderLargeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRenderLargeImage ${DATA}/Bunny.vtp ${TEMP}/Bunny.png 4)
