@@ -10,7 +10,7 @@ import vtk
 SURFACE_TYPE = {"PLANE", "SPHERE", "PARAMETRIC_SURFACE"}
 
 
-def WritePMG(ren, fn, magnification=1):
+def WritePNG(ren, fn, magnification=1):
     """
     Save the image as a PNG
     :param: ren - the renderer.
@@ -391,5 +391,5 @@ if __name__ == '__main__':
     iren = DisplaySurface("PARAMETRIC_SURFACE")
     iren.Render()
     iren.Start()
-    # WritePMG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
+    # WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),
     #               "ElevationBandsWithGlyphs.png")
