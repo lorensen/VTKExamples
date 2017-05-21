@@ -3,6 +3,7 @@
 #include <vtkArrowSource.h>
 #include <vtkAxesActor.h>
 #include <vtkButterflySubdivisionFilter.h>
+#include <vtkCamera.h>
 #include <vtkCaptionActor2D.h>
 #include <vtkCleanPolyData.h>
 #include <vtkColor.h>
@@ -96,7 +97,7 @@ public:
     torusSource->SetScalarModeToZ();
     torusSource->Update();
 
-    src = torusSource->GetOutput();
+    src->ShallowCopy(torusSource->GetOutput());
    }
 
   static void EllipsoidSource(vtkPolyData* src)
@@ -115,7 +116,7 @@ public:
     ellipsoidSource->SetScalarModeToZ();
     ellipsoidSource->Update();
 
-    src = ellipsoidSource->GetOutput();
+    src->ShallowCopy(ellipsoidSource->GetOutput());
   }
 
   static void BoySource(vtkPolyData* src)
@@ -130,8 +131,7 @@ public:
     boySource->SetParametricFunction(boy);
     boySource->SetScalarModeToZ();
     boySource->Update();
-
-    src = boySource->GetOutput();
+    src->ShallowCopy(boySource->GetOutput());
   }
 
   static void MobiusSource(vtkPolyData* src)
@@ -149,7 +149,7 @@ public:
     mobiusSource->SetScalarModeToX();
     mobiusSource->Update();
 
-    src = mobiusSource->GetOutput();
+    src->ShallowCopy(mobiusSource->GetOutput());
   }
 
   static void ParametricRandomHills(vtkPolyData* src)
@@ -168,7 +168,7 @@ public:
     randomHillsSource->SetVResolution(10);
     randomHillsSource->Update();
 
-    src = randomHillsSource->GetOutput();
+    src->ShallowCopy(randomHillsSource->GetOutput());
   }
 
   static void SphereSource(vtkPolyData* src)
@@ -187,7 +187,7 @@ public:
     elev->SetHighPoint(0, sphereBounds[3], 0);
     elev->Update();
 
-    src->DeepCopy(elev->GetPolyDataOutput());
+    src->ShallowCopy(elev->GetPolyDataOutput());
   }
 
   /**
@@ -229,7 +229,7 @@ public:
     elev->SetHighPoint(0, cleanerBounds[3], 0);
     elev->Update();
 
-    src->DeepCopy(elev->GetPolyDataOutput());
+    src->ShallowCopy(elev->GetPolyDataOutput());
   }
 
   static void ConeSource(vtkPolyData* src)
@@ -257,7 +257,7 @@ public:
     tf->SetInputConnection(elev->GetOutputPort());
     tf->Update();
 
-    src = tf->GetOutput();
+    src->ShallowCopy(tf->GetOutput());
    }
 };
 
@@ -270,7 +270,7 @@ vtkStandardNewMacro(Sources);
  *
  * @return A lookup table.
 */
-vtkColorTransferFunction* MakeLUT(double *scalarRange)
+vtkSmartPointer<vtkColorTransferFunction> MakeLUT(double *scalarRange)
 {
   vtkSmartPointer<vtkColorSeries> colorSeries =
     vtkSmartPointer<vtkColorSeries>::New();
@@ -292,7 +292,7 @@ vtkColorTransferFunction* MakeLUT(double *scalarRange)
   {
     vtkColor3ub color = colorSeries->GetColor(i);
     std::vector<double> c;
-    for(unsigned int j = 0; i < 3; ++i)
+    for(unsigned int j = 0; j < 3; ++j)
     {
       c.push_back(color[j] / 255.0);
     }
@@ -314,7 +314,7 @@ vtkColorTransferFunction* MakeLUT(double *scalarRange)
  * @return The glyph actor.
 */
 
-vtkActor* GlyphActor(vtkPolyData* source, int glyphPoints, double *scalarRange,
+vtkSmartPointer<vtkActor> GlyphActor(vtkPolyData* source, int glyphPoints, double *scalarRange,
   double scaleFactor, vtkColorTransferFunction* lut)
 {
   vtkSmartPointer<vtkArrowSource> arrowSource =
@@ -323,7 +323,7 @@ vtkActor* GlyphActor(vtkPolyData* source, int glyphPoints, double *scalarRange,
   vtkSmartPointer<vtkMaskPoints> maskPts =
     vtkSmartPointer<vtkMaskPoints>::New();
   maskPts->SetInputData(source);
-  maskPts->SetOnRatio(source->GetNumberOfPoints()); // glyphPoints);
+  maskPts->SetOnRatio(source->GetNumberOfPoints() / glyphPoints);
   maskPts->SetRandomMode(1);
 
   vtkSmartPointer<vtkGlyph3D> arrowGlyph =
@@ -361,7 +361,7 @@ vtkActor* GlyphActor(vtkPolyData* source, int glyphPoints, double *scalarRange,
  *
  * @return The actor for the surface.
 */
-vtkActor* MakeSurfaceActor(vtkPolyData* surface, double *scalarRange, vtkColorTransferFunction* lut)
+vtkSmartPointer<vtkActor> MakeSurfaceActor(vtkPolyData* surface, double *scalarRange, vtkColorTransferFunction* lut)
 {
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -384,7 +384,7 @@ vtkActor* MakeSurfaceActor(vtkPolyData* surface, double *scalarRange, vtkColorTr
  *
  * @return The actor for the text label.
 */
-vtkActor2D* MakeLabel(char* textLabel, int renWinSize)
+vtkSmartPointer<vtkActor2D> MakeLabel(const char* textLabel, int renWinSize)
 {
   // Create one text property for all
   vtkSmartPointer<vtkTextProperty> textProperty =
@@ -400,7 +400,7 @@ vtkActor2D* MakeLabel(char* textLabel, int renWinSize)
   vtkSmartPointer<vtkActor2D> actor =
     vtkSmartPointer<vtkActor2D>::New();
   actor->SetMapper(mapper);
-  actor->SetPosition(renWinSize / 2.0, 16);
+  actor->SetPosition(renWinSize / 2.0, renWinSize / 20);
   return actor;
 }
 
@@ -409,7 +409,7 @@ vtkActor2D* MakeLabel(char* textLabel, int renWinSize)
  *
  * @return The axis actor.
 */
-vtkAxesActor* MakeAxesActor()
+vtkSmartPointer<vtkAxesActor> MakeAxesActor()
 {
   vtkSmartPointer<vtkAxesActor> axes =
     vtkSmartPointer<vtkAxesActor>::New();
@@ -438,7 +438,7 @@ vtkAxesActor* MakeAxesActor()
  *
  * @return: The orientation marker.
 */
-vtkOrientationMarkerWidget* MakeOrientationMarker(vtkRenderer* renderer,
+vtkSmartPointer<vtkOrientationMarkerWidget> MakeOrientationMarker(vtkRenderer* renderer,
   vtkRenderWindowInteractor* iren)
 {
   vtkSmartPointer<vtkOrientationMarkerWidget> om =
@@ -450,7 +450,6 @@ vtkOrientationMarkerWidget* MakeOrientationMarker(vtkRenderer* renderer,
   om->SetDefaultRenderer(renderer);
   om->EnabledOn();
   om->InteractiveOn();
-  renderer->ResetCamera();
   return om;
 }
 
@@ -510,7 +509,7 @@ int main(int argc, char * argv[])
       Sources::EllipsoidSource(polyData);
       break;
     case Sources::BOY:
-      Sources::BoySource(polyData);
+      Sources::BoySource(polyData.GetPointer());
       break;
     case Sources::SPHERE:
       Sources::SphereSource(polyData);
@@ -529,7 +528,7 @@ int main(int argc, char * argv[])
       break;
     default:
       std::cout << "The source " << sourceToUse << " is not available" << std::endl
-        << "Available sources are: PARAMETRIC_TORUS; PARAMETRIC_ELLIPSOID; BOY; SPHERE; MOBIUS; CONE; RANDOM_HILLS; SUPERQUADRIC";
+                << "Available sources are: PARAMETRIC_TORUS; PARAMETRIC_ELLIPSOID; BOY; SPHERE; MOBIUS; CONE; RANDOM_HILLS; SUPERQUADRIC" << std::endl;
       return EXIT_FAILURE;
   }
 
@@ -552,8 +551,8 @@ int main(int argc, char * argv[])
   }
 
   // The size of the render window.
-  int renWinXSize = 1200;
-  int renWinYSize = renWinXSize; // 3
+  int renWinXSize = 600;
+  int renWinYSize = renWinXSize / 3;
   int minRenWinDim = std::min(renWinXSize, renWinYSize);
 
   // [xMin, xMax, yMin, yMax, zMin, zMax]
@@ -564,6 +563,7 @@ int main(int argc, char * argv[])
   dims.push_back(std::abs(bounds[3] - bounds[2]));
   dims.push_back(std::abs(bounds[5] - bounds[4]));
   double scaleFactor = *std::min_element(dims.begin(), dims.end()) * 0.2;
+
   polyData->GetPointData()->GetScalars()->SetName("Elevation");
   double *scalarRange = polyData->GetScalarRange();
 
@@ -579,15 +579,15 @@ int main(int argc, char * argv[])
   linear->SetNumberOfSubdivisions(3);
   linear->Update();
 
-  vtkColorTransferFunction *lut = MakeLUT(scalarRange);
+  vtkSmartPointer<vtkColorTransferFunction> lut = MakeLUT(scalarRange);
 
-  std::vector<vtkActor*> actors;
+  std::vector<vtkSmartPointer<vtkActor> > actors;
   actors.push_back(MakeSurfaceActor(butterfly->GetOutput(), scalarRange, lut));
   actors.push_back(MakeSurfaceActor(linear->GetOutput(), scalarRange, lut));
   actors.push_back(MakeSurfaceActor(polyData, scalarRange, lut));
 
   // Let's visualise the normals.
-  std::vector<vtkActor*> glyphActors;
+  std::vector<vtkSmartPointer<vtkActor> > glyphActors;
   if (displayNormals)
   {
     glyphActors.push_back(GlyphActor(butterfly->GetOutput(), glyphPoints, scalarRange, scaleFactor, lut));
@@ -595,12 +595,12 @@ int main(int argc, char * argv[])
     glyphActors.push_back(GlyphActor(polyData, glyphPoints, scalarRange, scaleFactor, lut));
   }
 
-  std::vector<vtkActor2D*> labelActors;
+  std::vector<vtkSmartPointer<vtkActor2D> > labelActors;
   labelActors.push_back(MakeLabel("Butterfly Subdivision", minRenWinDim));
   labelActors.push_back(MakeLabel("Linear Subdivision", minRenWinDim));
   labelActors.push_back(MakeLabel("Original", minRenWinDim));
 
-  std::vector<vtkRenderer*> ren;
+  std::vector<vtkSmartPointer<vtkRenderer> > ren;
   ren.push_back(vtkSmartPointer<vtkRenderer>::New());
   ren.push_back(vtkSmartPointer<vtkRenderer>::New());
   ren.push_back(vtkSmartPointer<vtkRenderer>::New());
@@ -618,7 +618,12 @@ int main(int argc, char * argv[])
     vtkSmartPointer<vtkNamedColors>::New();
 
   // Orientation markers.
-  std::vector<vtkOrientationMarkerWidget*> om;
+  std::vector<vtkSmartPointer<vtkOrientationMarkerWidget> > om;
+
+  // Shared camera
+  vtkSmartPointer<vtkCamera> camera =
+    vtkSmartPointer<vtkCamera>::New();
+
   // Make the imaging pipelines.
   for(unsigned int i = 0; i < ren.size(); ++i)
   {
@@ -627,7 +632,7 @@ int main(int argc, char * argv[])
     ren[i]->AddActor(actors[i]);
     ren[i]->AddActor(labelActors[i]);
     ren[i]->SetBackground(nc->GetColor3d("SlateGray").GetData());
-
+    ren[i]->SetActiveCamera(camera);
     if (displayNormals)
     {
       ren[i]->AddActor(glyphActors[i]);
@@ -635,9 +640,8 @@ int main(int argc, char * argv[])
 
     om.push_back(MakeOrientationMarker(ren[i], iren));
   }
-
   renWin->SetSize(renWinXSize, renWinYSize);
-
+  
   iren->Initialize();
 
   if (gouraudInterpolation)
@@ -646,7 +650,6 @@ int main(int argc, char * argv[])
     {
       actors[i]->GetProperty()->SetInterpolationToGouraud();
     }
-    renWin->Render();
   }
   else
   {
@@ -654,8 +657,10 @@ int main(int argc, char * argv[])
     {
       actors[i]->GetProperty()->SetInterpolationToFlat();
     }
-    renWin->Render();
   }
+  renWin->Render();
+  ren[0]->ResetCamera();
+  renWin->Render();
 
   iren->Start();
 

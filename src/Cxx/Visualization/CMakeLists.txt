@@ -99,7 +99,7 @@ ADD_TEST(${KIT}-HedgeHog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHedgeHog -E 50)
 
 ADD_TEST(${KIT}-PointDataSubdivision ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  PointDataSubdivision 6)
+  PointDataSubdivision 2)
 
 ADD_TEST(${KIT}-RenderLargeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRenderLargeImage ${DATA}/Bunny.vtp ${TEMP}/Bunny.png 4)
