@@ -48,7 +48,7 @@ Style](https://en.wikipedia.org/wiki/Indent_style#Allman_style). The curly brace
 * The main program must have the following signature:
 
     ```
-    int main (int argc, char *argv{})
+    int main (int argc, char *argv[])
     ```
 
     or, if argc and argv are not referenced in the code,
