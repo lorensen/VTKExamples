@@ -12001,6 +12001,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../Cxx/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Cxx/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16091,7 +16103,7 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="n">SURFACE_TYPE</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;PLANE&quot;</span><span class="p">,</span> <span class="s2">&quot;SPHERE&quot;</span><span class="p">,</span> <span class="s2">&quot;PARAMETRIC_SURFACE&quot;</span><span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">WritePMG</span><span class="p">(</span><span class="n">ren</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">magnification</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">WritePNG</span><span class="p">(</span><span class="n">ren</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">magnification</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save the image as a PNG</span>
 <span class="sd">    :param: ren - the renderer.</span>
@@ -16472,7 +16484,7 @@ get an idea of the distribution of the scalars in each band.</p>
     <span class="n">iren</span> <span class="o">=</span> <span class="n">DisplaySurface</span><span class="p">(</span><span class="s2">&quot;PARAMETRIC_SURFACE&quot;</span><span class="p">)</span>
     <span class="n">iren</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
     <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
-    <span class="c1"># WritePMG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),</span>
+    <span class="c1"># WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(),</span>
     <span class="c1">#               &quot;ElevationBandsWithGlyphs.png&quot;)</span>
 </pre></div>
                 

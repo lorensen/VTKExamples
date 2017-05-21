@@ -11997,6 +11997,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../Cxx/Visualization/PointDataSubdivision/" title="PointDataSubdivision" class="md-nav__link">
+      PointDataSubdivision
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Cxx/Visualization/PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16027,14 +16039,8 @@
                 
                   <h1>Guidelines</h1>
                 
-                <div class="toc">
-<ul>
-<li><a href="#requirements">Requirements</a></li>
-<li><a href="#guidelines">Guidelines</a></li>
-</ul>
-</div>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
-<p>Although education of new users in the main motivation, the VTK wiki examples should also:</p>
+                <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>Although education of new users is the main motivation, the VTK wiki examples should also:</p>
 <ol>
 <li>Encourage good programming style</li>
 <li>Promote the proper and modern way to use VTK and write VTK programs</li>
@@ -16048,54 +16054,97 @@
 <p>The indentation style can be characterized as the <a href="https://en.wikipedia.org/wiki/Indent_style#Allman_style">Allmann
 Style</a>. The curly brace (scope delimiter) is on a separate line and aligns with the control statement, The control block is indented by two spaces (<strong>no tabs</strong>).</p>
 <p>Example:</p>
-<p><code>if (this-&gt;Locator == locator)
-{
-  return;
-}
-for (i = 0; i &lt; this-&gt;Source-&gt;GetNumberOfPoints(); i++)
-{
-  p1 = this-&gt;Source-&gt;GetPoint(i);
-  [...]
-}</code></p>
 </li>
-<li>
-<p>Where appropriate, explicitly use the std:: namespace:</p>
-<p><code>std::cout &lt;&lt; "Print something" &lt;&lt; std::endl;</code>
-rather than</p>
-<p><code>cout &lt;&lt; "Print something" &lt;&lt; endl;</code></p>
-</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Locator</span> <span class="o">==</span> <span class="n">locator</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Source</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">p1</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Source</span><span class="o">-&gt;</span><span class="n">GetPoint</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+  <span class="p">[...]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>Where appropriate, explicitly use the std:: namespace:</li>
+</ul>
+<div class="codehilite"><pre><span></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Print something&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>rather than
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Print something&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</pre></div>
+
+
+<ul>
 <li>
 <p>All includes from the toolkit should use &lt;&gt; notation. This follows C++ programming conventions.</p>
 <p>For example: <code>#include &lt;vtkContourFilter.h&gt;</code> is preferred over <code>#include "vtkContourFilter.h"</code></p>
 </li>
 <li>
 <p>The main program must have the following signature:</p>
-<p><code>int main (int argc, char *argv{})</code></p>
+<p><code>int main (int argc, char *argv[])</code></p>
 <p>or, if argc and argv are not referenced in the code,</p>
 <p><code>int main (int, char *[])</code></p>
 </li>
 <li>
 <p>If arguments are required, a check similar to the following should be made at the start of the main program.</p>
-<p><code>if (argc != 3)
-{
-  std::cerr &lt;&lt; "Usage: " &lt;&lt; argv[0] &lt;&lt; "Alpha InputFile OutputFile" &lt;&lt; std::endl;
-  return EXIT_FAILURE;
-}</code></p>
 </li>
-<li>
-<p>An example should <strong>never call exit()</strong>. If the main program executes successfully, it should</p>
-<p><code>return EXIT_SUCCESS;</code></p>
-<p>otherwise</p>
-<p><code>return EXIT_FAILURE;</code></p>
-</li>
-<li>
-<p>The use of SmartPointers is preferred in VTK examples.</p>
-<p><code>vtkSmartPointer&lt;vtkCutter&gt; cutter = vtkSmartPointer&lt;vtkCutter&gt;::New();</code>
-or</p>
-<p><code>vtkNew(vtkCutter&gt; cutter;</code></p>
-<p>is preferred over</p>
-<p><code>vtkCutter *cutter = vtkCutter::New();</code></p>
-</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Alpha InputFile OutputFile&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<ul>
+<li>An example should <strong>never call exit()</strong>. If the main program executes successfully, it should</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>otherwise
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+</pre></div>
+
+
+<ul>
+<li>The use of SmartPointers is preferred in VTK examples.</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;</span> <span class="n">cutter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>or
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="n">vtkNew</span><span class="p">(</span><span class="n">vtkCutter</span><span class="o">&gt;</span> <span class="n">cutter</span><span class="p">;</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>is preferred over
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="n">vtkCutter</span> <span class="o">*</span><span class="n">cutter</span> <span class="o">=</span> <span class="n">vtkCutter</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+</pre></div>
+
+
+<ul>
 <li>
 <p>When building pipelines, the new <code>SetInputConnection()</code>, <code>GetOutputPort()</code> methods should be used instead of <code>SetInput()</code>, <code>GetOutput()</code></p>
 </li>
@@ -16106,13 +16155,20 @@ or</p>
 <li>
 <p>If there are just a few parameters for the example, these should be passed in as arguments. This increases the utility of the example and facilitates testing.</p>
 <p>For example, this program</p>
-<p><code>Delaunay3DAlpha Alpha InputPolydataFileName(.vtp) OutputUnstructuredGridFilename(.vtu)</code></p>
-<p>would use the arguments in this manner</p>
-<p><code>reader-&gt;SetFileName (argv[2]);
-delaunay3D-&gt;SetAlpha(atof(argv[1]));
-writer-&gt;SetFileName ( argv[3] );</code></p>
 </li>
 </ul>
+<div class="codehilite"><pre><span></span><span class="n">Delaunay3DAlpha</span> <span class="n">Alpha</span> <span class="n">InputPolydataFileName</span><span class="p">(.</span><span class="n">vtp</span><span class="p">)</span> <span class="n">OutputUnstructuredGridFilename</span><span class="p">(.</span><span class="n">vtu</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>would use the arguments in this manner
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="n">delaunay3D</span><span class="o">-&gt;</span><span class="n">SetAlpha</span><span class="p">(</span><span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+<span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">);</span>
+</pre></div>
                 
                   
                 
