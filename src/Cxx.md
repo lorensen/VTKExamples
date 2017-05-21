@@ -816,6 +816,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [NamedColors ](Cxx/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the [vtkNamedColor](http://www.vtk.org/doc/nightly/html/classvtkNamedColor.html) class.
 [Opacity](/Cxx/Visualization/Opacity)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetOpacity | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|Create oriented glyphs from vector data.
+[PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
 [PolyDataDepthSorting](/Cxx/Visualization/PolyDataDepthSorting)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Poly Data Depth Sorting.
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) |Generate a custom glyph at each point.
 [QuadraticSurface](/Cxx/Visualization/QuadraticSurface)| [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) |Display a quadratic surface.
