@@ -1,7 +1,5 @@
-[TOC]
-
 ## Requirements
-Although education of new users in the main motivation, the VTK wiki examples should also:
+Although education of new users is the main motivation, the VTK wiki examples should also:
 
 1. Encourage good programming style
 2. Promote the proper and modern way to use VTK and write VTK programs
@@ -18,28 +16,30 @@ Style](https://en.wikipedia.org/wiki/Indent_style#Allman_style). The curly brace
 
     Example:
 
-    ```
-    if (this->Locator == locator)
-    {
-      return;
-    }
-    for (i = 0; i < this->Source->GetNumberOfPoints(); i++)
-    {
-      p1 = this->Source->GetPoint(i);
-      [...]
-    }
-    ```
+```c++
+if (this->Locator == locator)
+{
+  return;
+}
+for (i = 0; i < this->Source->GetNumberOfPoints(); i++)
+{
+  p1 = this->Source->GetPoint(i);
+  [...]
+}
+```
 
 * Where appropriate, explicitly use the std:: namespace:
 
-    ```
+```c++
     std::cout << "Print something" << std::endl;
-    ```
+```
+
     rather than
 
-    ```
+
+```c++
     cout << "Print something" << endl;
-    ```
+```
 
 * All includes from the toolkit should use <> notation. This follows C++ programming conventions.
 
@@ -59,42 +59,43 @@ Style](https://en.wikipedia.org/wiki/Indent_style#Allman_style). The curly brace
 
 * If arguments are required, a check similar to the following should be made at the start of the main program.
 
-    ```
-    if (argc != 3)
-    {
-      std::cerr << "Usage: " << argv[0] << "Alpha InputFile OutputFile" << std::endl;
-      return EXIT_FAILURE;
-    }
-    ```
+```c++
+if (argc != 3)
+{
+  std::cerr << "Usage: " << argv[0] << "Alpha InputFile OutputFile" << std::endl;
+  return EXIT_FAILURE;
+}
+```
 
 * An example should **never call exit()**. If the main program executes successfully, it should
 
-    ```
-    return EXIT_SUCCESS;
-    ```
+```c++
+return EXIT_SUCCESS;
+```
 
     otherwise
 
-    ```
-    return EXIT_FAILURE;
-    ```
+```c++
+return EXIT_FAILURE;
+```
 
 * The use of SmartPointers is preferred in VTK examples.
 
-    ```
-    vtkSmartPointer<vtkCutter> cutter = vtkSmartPointer<vtkCutter>::New();
-    ```
+```c++
+vtkSmartPointer<vtkCutter> cutter = vtkSmartPointer<vtkCutter>::New();
+```
+
     or
 
-    ```
-    vtkNew(vtkCutter> cutter;
-    ```
+```c++
+vtkNew(vtkCutter> cutter;
+```
 
     is preferred over
 
-    ```
-    vtkCutter *cutter = vtkCutter::New();
-    ```
+```c++
+vtkCutter *cutter = vtkCutter::New();
+```
 
 * When building pipelines, the new `SetInputConnection()`, `GetOutputPort()` methods should be used instead of `SetInput()`, `GetOutput()`
 
@@ -106,14 +107,16 @@ Style](https://en.wikipedia.org/wiki/Indent_style#Allman_style). The curly brace
 
     For example, this program
 
-    ```
-    Delaunay3DAlpha Alpha InputPolydataFileName(.vtp) OutputUnstructuredGridFilename(.vtu)
-    ```
+
+```c++
+Delaunay3DAlpha Alpha InputPolydataFileName(.vtp) OutputUnstructuredGridFilename(.vtu)
+```
 
     would use the arguments in this manner
 
-    ```
-    reader->SetFileName (argv[2]);
-    delaunay3D->SetAlpha(atof(argv[1]));
-    writer->SetFileName ( argv[3] );
-    ```
+
+```c++
+reader->SetFileName (argv[2]);
+delaunay3D->SetAlpha(atof(argv[1]));
+writer->SetFileName ( argv[3] );
+```
