@@ -12028,6 +12028,33 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-more-sources" title="Adding more sources." class="md-nav__link">
+    Adding more sources.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -16022,6 +16049,33 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-more-sources" title="Adding more sources." class="md-nav__link">
+    Adding more sources.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -16061,6 +16115,20 @@
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/PointDataSubdivision</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Visualization/TestPointDataSubdivision.png?raw=true" width="256" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<h4 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h4>
+<p>This example demonstrates the use of the <a href="http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html">vtkLinearSubdivisionFilter</a> and <a href="http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html">vtkButterflySubdivisionFilter</a> .</p>
+<p>In order to see the effects of these filters a triptych is created that demonstrates the effect of applying the filter.</p>
+<p>The user can select from a list of sources to render, specify whether normals are displayed, what type of shading to use and the number of normals to glyph.</p>
+<p>A representative set of sources to render are provided in the class called <strong>Sources</strong>. The user is encouraged to experiment with different sources to see the effect of the filters.</p>
+<h4 id="adding-more-sources">Adding more sources.<a class="headerlink" href="#adding-more-sources" title="Permanent link">&para;</a></h4>
+<p>If you add more sources, you may need to provide one or all of these filters:
+ - A Triangle filter
+ - A Normal filter
+ - An elevation filter.
+ - A CleanPolyData filter.
+ - For parametric sources, you may need to apply one of both of <strong>JoinUOff()</strong> or <strong>JoinVOff()</strong>.</p>
+<p>The representative sources provided in the class <strong>Sources</strong> should provide good templates.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PointDataSubdivision.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
