@@ -183,7 +183,7 @@ If your example requires arguments, you will need to edit the *CMakeLists.txt* i
 
 ## Review changes in a browser
 
-If you want to preview your changes in a browser (**NOTE:** You must have python nstalled on your system)
+If you want to preview your changes in a browser (**NOTE:** You must have python installed on your system)
 
   1. Install the markdown package for python. Go [here](https://pythonhosted.org/Markdown/install.html)
 
