@@ -1095,7 +1095,7 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 [RenderWindowNoUiFile](/Cxx/Qt/RenderWindowNoUiFile) | Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html)| This is a very basic example that shows how to create a Qt window. Typically, one would want to design a form in the QtDesigner (this is shown in [[/Qt/RenderWindowUi|RenderWindowUi]]).
 [RenderWindowUIMultipleInheritance](/Cxx/Qt/RenderWindowUIMultipleInheritance) | QMainWindow | Using a Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html) with the Qt Multiple Inheritance model.
 [RenderWindowUISingleInheritance](/Cxx/Qt/RenderWindowUISingleInheritance) | QMainWindow | Using a Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html) with the Qt Single Inheritance model.
-[ShareCameraBetweenQVTKWidgets](/Cxx/Qt/ShareCameraBetweenQVTKWidgets) | (http://www.vtk.org/doc/nightly/html/classVTKWidgets.html)] |  Share the camera between Q[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html).
+[ShareCameraQt](/Cxx/Qt/ShareCameraQt) | (http://www.vtk.org/doc/nightly/html/classVTKWidgets.html)] |  Share the camera between Q[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html).
 [SideBySideRenderWindows](/Cxx/Qt/SideBySideRenderWindows) | QApplication | Side by side render windows.
 
 

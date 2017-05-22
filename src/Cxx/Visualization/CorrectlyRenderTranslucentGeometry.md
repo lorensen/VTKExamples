@@ -22,7 +22,7 @@ and maximum number of iterative peels).
 
 However if depth peeling is not available on a certain machine, depth
 sorting can be accomplished on the CPU using
-[vktDepthSortPolyData]([Cxx/Visualization/PolyDataDepthSorting). This
+[DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData). This
 is usually much slower than the GPU-implementation and furthermore
 brings additional restrictions with it (e.g. poly data must be merged
 within one set).
