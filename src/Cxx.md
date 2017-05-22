@@ -40,19 +40,19 @@ Please add examples in your areas of expertise!
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
+[DelimitedTextReader](/Cxx/InfoVis/DelimitedTextReader)   | [vtkDelimitedTextReader](http://www.vtk.org/doc/nightly/html/classvtkDelimitedTextReader.html) |Read a delimited file into a polydata.
 [DEMReader](/Cxx/IO/DEMReader)   | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html) | Read DEM (elevation map) files
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | [vtkDataSetReader](http://www.vtk.org/doc/nightly/html/classvtkDataSetReader.html) |Report the contents of a VTK XML or legacy file
 [IndividualVRML](/Cxx/IO/IndividualVRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html) | This example is used to get each actor and object from a scene and verify axes correspondence 
 [ParticleReader](/Cxx/IO/ParticleReader) | [vtkParticleReader](http://www.vtk.org/doc/nightly/html/classvtkParticleReader.html) | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadDICOMSeries](/Cxx/IO/ReadDICOMSeries)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html) | This example demonstrates how to read a series of DICOM images and scroll through slices
 [ReadDICOM](/Cxx/IO/ReadDICOM)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html) |Read DICOM file
-[ReadDelimitedFile](/Cxx/InfoVis/ReadDelimitedFile)   | [vtkDelimitedTextReader](http://www.vtk.org/doc/nightly/html/classvtkDelimitedTextReader.html) |Read a delimited file into a polydata.
 [ReadOBJ](/Cxx/IO/ReadOBJ)   | [vtkOBJReader](http://www.vtk.org/doc/nightly/html/classvtkOBJReader.html) |Read an OBJ (.obj) file.
 [ReadPDB](/Cxx/IO/ReadPDB)   | [vtkPDBReader](http://www.vtk.org/doc/nightly/html/classvtkPDBReader.html) | Read Protein Data Bank Files.
 [ReadPLOT3D](/Cxx/IO/ReadPLOT3D)   | [vtkPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkPLOT3DReader.html) | Read CFD (computational fluid dynamics) data produced by PLOT3D.
 [ReadPLY](/Cxx/IO/ReadPLY)   | [vtkPLYReader](http://www.vtk.org/doc/nightly/html/classvtkPLYReader.html) |Read PLY (.ply) files
 [ReadPlainTextTriangles](/Cxx/IO/ReadPlainTextTriangles)   | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) [vtkSmartPointer](http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html) [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html) [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html) [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html) | Read a plain text file into a polydata.
-[ReadPlainText](/Cxx/IO/ReadPlainText)   | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) | Read a plain text file into a polydata.
+[ReadTextFile](/Cxx/IO/ReadTextFile)   | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) | Read a plain text file into a polydata.
 [ReadSTL](/Cxx/IO/ReadSTL)   | [vtkSTLReader](http://www.vtk.org/doc/nightly/html/classvtkSTLReader.html) |Read stereo lithography STL (.stl) files
 [SimplePointsReader ](/Cxx/IO/SimplePointsReader)  | [vtkSimplePointsReader](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsReader.html) |Read a simple "xyz" file of points.
 [VRML](/Cxx/IO/VRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html) |Read a VRML (WRL) file.
@@ -126,8 +126,8 @@ Please add examples in your areas of expertise!
 |--------------|----------------------|-------------|
 [JPEGWriter](/Cxx/IO/JPEGWriter)   | [vtkJPEGWriter](http://www.vtk.org/doc/nightly/html/classvtkJPEGWriter.html) |Write a JPEG (.jpg) file.
 [MetaImageWriter](/Cxx/IO/MetaImageWriter)   | [vtkMetaImageWriter](http://www.vtk.org/doc/nightly/html/classvtkMetaImageWriter.html) |Write a .mha/.mhd + .raw file.
+[PNGWriter](/Cxx/IO/PNGWriter)   | [vtkPNGWriter](http://www.vtk.org/doc/nightly/html/classvtkPNGWriter.html) |Write a PNG (.png) file.
 [WriteBMP](/Cxx/IO/WriteBMP)   | [vtkBMPWriter](http://www.vtk.org/doc/nightly/html/classvtkBMPWriter.html) |Write a BMP (.bmp) file.
-[WritePNG](/Cxx/IO/WritePNG)   | [vtkPNGWriter](http://www.vtk.org/doc/nightly/html/classvtkPNGWriter.html) |Write a PNG (.png) file.
 [WritePNM](/Cxx/IO/WritePNM)   | [vtkPNMWriter](http://www.vtk.org/doc/nightly/html/classvtkPNMWriter.html) |Write a PNM (.pnm) file.
 [WriteTIFF](/Cxx/IO/WriteTIFF)   | [vtkTIFFWriter](http://www.vtk.org/doc/nightly/html/classvtkTIFFWriter.html) |Write a TIFF (.tif) file.
 
@@ -196,7 +196,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [CutWithScalars](/Cxx/VisualizationAlgorithms/CutWithScalars) | [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html) | Cut a surface with scalars.
 [ExtractLargestIsosurface](/Cxx/Modelling/ExtractLargestIsosurface) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract largest isosurface.
 [FilledContours](/Cxx/VisualizationAlgorithms/FilledContours) | [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html) |Create filled contours (using [vtkClipPolyData](http://www.vtk.org/doc/nightly/html/classvtkClipPolyData.html)).
-[ImplicitDataSet](/ImplicitFunctions/ImplicitDataSet) | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html) | Convert an imagedata to an implicit function.
+[ImplicitDataSet](/Cxx/ImplicitFunctions/ImplicitDataSet) | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html) | Convert an imagedata to an implicit function.
 [ImplicitSphere](/Cxx/ImplicitFunctions/ImplicitSphere) | [vtkSphere](http://www.vtk.org/doc/nightly/html/classvtkSphere.html) | An implicit representation of a sphere.
 [IsoContours](/Cxx/ImplicitFunctions/IsoContours) | [vtkContourFunction](http://www.vtk.org/doc/nightly/html/classvtkContourFunction.html) | Visualize different isocontours using a slider.
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) | Create a voxelized sphere.
@@ -209,7 +209,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [AlignFrames](/Cxx/PolyData/AlignFrames) | [vtkLandmarkTransform](http://www.vtk.org/doc/nightly/html/classvtkLandmarkTransform.html) | Align coordinate frames.
-[AppendFilter](/Cxx/Filters/AppendFilter) | [vtkAppendFilter](http://www.vtk.org/doc/nightly/html/classvtkAppendFilter.html) | Append different types of data,
+[AppendFilter](/Cxx/Filtering/AppendFilter) | [vtkAppendFilter](http://www.vtk.org/doc/nightly/html/classvtkAppendFilter.html) | Append different types of data,
 [BooleanOperationPolyDataFilter](/Cxx/PolyData/BooleanOperationPolyDataFilter) | [vtkBooleanOperationPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkBooleanOperationPolyDataFilter.html)|Perform boolean operations on two [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) objects.
 [CellCenters](/Cxx/PolyData/CellCenters) | [vtkCellCenters](http://www.vtk.org/doc/nightly/html/classvtkCellCenters.html) |Compute points at the center of every cell.
 [CellEdgeNeighbors](/Cxx/PolyData/CellEdgeNeighbors) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)::GetCellNeighbors |Determine which cells share an edge with a specific cell.
@@ -220,17 +220,17 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ColorCellsWithRGB](/Cxx/PolyData/ColorCellsWithRGB) |[vtkCellData](http://www.vtk.org/doc/nightly/html/classvtkCellData.html) | Color individual cells of a polydata with rgb colors.
 [ColorCells](/Cxx/PolyData/ColorCells) | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Color individual cells of a polydata with scalar index.
 [Colored Points](/Cxx/PolyData/ColoredPoints) | [vtkUnsignedCharArray](http://www.vtk.org/doc/nightly/html/classvtkUnsignedCharArray.html) | Add three points to a polydata and associate a color with each of them.
-[CombinePolydata](/Cxx/Filters/CombinePolydata) | [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html) | Combine/Append PolyData.
-[ConnectivityFilter](/Cxx/Filters/ConnectivityFilter) | [vtkConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkConnectivityFilter.html) | Color any dataset type based on connectivity.
+[CombinePolydata](/Cxx/Filtering/CombinePolydata) | [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html) | Combine/Append PolyData.
+[ConnectivityFilter](/Cxx/Filtering/ConnectivityFilter) | [vtkConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkConnectivityFilter.html) | Color any dataset type based on connectivity.
 [ContoursFromPolyData](/Cxx/Filtering/ContoursFromPolyData) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) | Create contours from PolyData.
 [ContoursToSurface](/Cxx/PolyData/ContoursToSurface) | [vtkVoxelContoursToSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkVoxelContoursToSurfaceFilter.html) | Convert contours to a surface.
-[ConvexHull_ShrinkWrap](/Cxx/PolyData/ConvexHull_ShrinkWrap) | [vtkSmoothPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkSmoothPolyDataFilter.html) | Convex hull using shrink wrapping.
-[ConvexHull_vtkHull](/Cxx/PolyData/ConvexHull_vtkHull) | [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html) |Convex hull using [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html).
+[ConvexHullShrinkWrap](/Cxx/PolyData/ConvexHullShrinkWrap) | [vtkSmoothPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkSmoothPolyDataFilter.html) | Convex hull using shrink wrapping.
+[Hull](/Cxx/PolyData/Hull) | [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html) |Convex hull using [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html).
 [CopyAllArrays](/Cxx/PolyData/CopyAllArrays)| [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |Copy all arrays from one [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) to another.
 [Data Bounds](/Cxx/PolyData/DataBounds) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)::GetBounds | Get the minimum and maximum value in each dimension. (Axis aligned bounding box)
 [DataSetSurfaceFilter](/Cxx/PolyData/DataSetSurfaceFilter) | [vtkDataSetSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkDataSetSurfaceFilter.html) |Convert [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html) to [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [DecimatePolyline](/Cxx/PolyData/DecimatePolyline) | [vtkDecimatePolylineFilter](http://www.vtk.org/doc/nightly/html/classvtkDecimatePolylineFilter.html) |Decimate polyline.
-[Delete cells](/Cxx/Broken/PolyData/DeleteCells) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) | Delete a cell from a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)
+[DeleteCells](/Cxx/PolyData/DeleteCells) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) | Delete a cell from a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)
 [DeletePoint](/Cxx/PolyData/DeletePoint) | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
 [DetermineArrayDataTypes](/Cxx/PolyData/DetermineArrayDataTypes)| [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |Determine data types of arrays.
 [DistancePolyDataFilter](/Cxx/PolyData/DistancePolyDataFilter) | [vtkDistancePolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkDistancePolyDataFilter.html)|Compute the distance function from one [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) to another.
@@ -251,7 +251,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [GetMiscCellData](/Cxx/PolyData/GetMiscCellData) | [vtkCellData](http://www.vtk.org/doc/nightly/html/classvtkCellData.html) |Get Miscellaneous Data from Cells in a Polydata.
 [GetMiscPointData](/Cxx/PolyData/GetMiscPointData) | [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html) |Get Miscellaneous Data from Points in a Polydata.
 [GradientFilter](/Cxx/PolyData/GradientFilter) | [vtkGradientFilter](http://www.vtk.org/doc/nightly/html/classvtkGradientFilter.html) |Compute the gradient of a scalar field on a data set.
-[ImplicitBoolean](/Cxx/Filters/ImplicitBoolean) | [vtkImplicitBoolean](http://www.vtk.org/doc/nightly/html/classvtkImplicitBoolean.html) | Operations include intersection and union.
+[ImplicitBoolean](/Cxx/Filtering/ImplicitBoolean) | [vtkImplicitBoolean](http://www.vtk.org/doc/nightly/html/classvtkImplicitBoolean.html) | Operations include intersection and union.
 [ImplicitModeller](/Cxx/PolyData/ImplicitModeller) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) |Compute the distance from an object to every point on a uniform grid.
 [ImplicitPolyDataDistance](/Cxx/PolyData/ImplicitPolyDataDistance) | [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html)|Compute the distance function in a space around a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [InterpolateMeshOnGrid](/Cxx/PolyData/InterpolateMeshOnGrid) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) | Interpolate a mesh over a grid.
@@ -270,7 +270,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [Outline](/Cxx/PolyData/Outline) | [vtkOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkOutlineFilter.html) | Draw the bounding box of the data
 [PKMeansClustering](/Cxx/InfoVis/PKMeansClustering) | [vtkPKMeansStatistics](http://www.vtk.org/doc/nightly/html/classvtkPKMeansStatistics.html) |Parallel KMeans Clustering.
 [ParametricSpline](/Cxx/PolyData/ParametricSpline) | [vtkCardinalSpline](http://www.vtk.org/doc/nightly/html/classvtkCardinalSpline.html), [vtkParametricSpline](http://www.vtk.org/doc/nightly/html/classvtkParametricSpline.html), [vtkParametricFunctionSource](http://www.vtk.org/doc/nightly/html/classvtkParametricFunctionSource.html) |Create a Cardinal spline on a set of points.
-[Perlin Noise](/Cxx/Filters/PerlinNoise) | [vtkPerlinNoise](http://www.vtk.org/doc/nightly/html/classvtkPerlinNoise.html) |
+[Perlin Noise](/Cxx/Filtering/PerlinNoise) | [vtkPerlinNoise](http://www.vtk.org/doc/nightly/html/classvtkPerlinNoise.html) |
 [PointCellIds](/Cxx/PolyData/PointCellIds) | [vtkIdFilter](http://www.vtk.org/doc/nightly/html/classvtkIdFilter.html) |Generate point and cell id arrays.
 [PointInsideObject2](/Cxx/PolyData/PointInsideObject2) | [vtkDelaunay3D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)::FindCell | This uses a Delaunay triangulation to compute a volume. This gives more of an "is inside convex hull" effect than an "is inside object".
 [PointInsideObject](/Cxx/PolyData/PointInsideObject) | [vtkSelectEnclosedPoints](http://www.vtk.org/doc/nightly/html/classvtkSelectEnclosedPoints.html) | Check if a point is inside an object.
@@ -284,7 +284,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [PolyDataPointSampler](/Cxx/PolyData/PolyDataPointSampler) | [vtkPolyDataPointSampler](http://www.vtk.org/doc/nightly/html/classvtkPolyDataPointSampler.html) | Sample the edges or surfaces of a polydata.
 [PolyDataToImageData](/Cxx/PolyData/PolyDataToImageData) | [vtkPolyDataToImageStencil](http://www.vtk.org/doc/nightly/html/classvtkPolyDataToImageStencil.html) |Generate a binarized volume from a closed surface.
 [ProcrustesAlignmentFilter](/Cxx/PolyData/ProcrustesAlignmentFilter) | [vtkProcrustesAlignmentFilter](http://www.vtk.org/doc/nightly/html/classvtkProcrustesAlignmentFilter.html) |Align point sets.
-[ProgrammableFilter](/Cxx/Filters/ProgrammableFilter) | [vtkProgrammableFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableFilter.html) | Create a custom filter without subclassing.
+[ProgrammableFilter](/Cxx/Filtering/ProgrammableFilter) | [vtkProgrammableFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableFilter.html) | Create a custom filter without subclassing.
 [ProgrammableSource](/Cxx/Filtering/ProgrammableSource) |[vtkProgrammableSource](http://www.vtk.org/doc/nightly/html/classvtkProgrammableSource.html) |Create points using a programmable source. Generates points for a strange attractor.
 [ProjectSphere](/Cxx/Visualization/ProjectSphere) |[vtkProjectSphereFilter](http://www.vtk.org/doc/nightly/html/classvtkProjectSphereFilter.html) |Unroll a sphere or spherical-like model.
 [QuantizePolyDataPoints](/Cxx/PolyData/QuantizePolyDataPoints) | [vtkQuantizePolyDataPoints](http://www.vtk.org/doc/nightly/html/classvtkQuantizePolyDataPoints.html) |Snap (quantize) points to a grid.
@@ -300,10 +300,10 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [Silhouette](/Cxx/PolyData/Silhouette) | [vtkPolyDataSilhouette](http://www.vtk.org/doc/nightly/html/classvtkPolyDataSilhouette.html) |
 [Stripper](/Cxx/PolyData/Stripper) | [vtkStripper](http://www.vtk.org/doc/nightly/html/classvtkStripper.html) |Convert triangles to triangle strips.
 [ThinPlateSplineTransform](/Cxx/PolyData/ThinPlateSplineTransform) | [vtkThinPlateSplineTransform](http://www.vtk.org/doc/nightly/html/classvtkThinPlateSplineTransform.html) |
-[ThresholdingCells](/Cxx/PolyData/ThresholdingCells) | [vtkThreshold](http://www.vtk.org/doc/nightly/html/classvtkThreshold.html) |Thresholding Cells.
-[ThresholdingPoints](/Cxx/PolyData/ThresholdingPoints) | [vtkThresholdPoints](http://www.vtk.org/doc/nightly/html/classvtkThresholdPoints.html) |Thresholding Points.
+[ThresholdCells](/Cxx/PolyData/ThresholdCells) | [vtkThreshold](http://www.vtk.org/doc/nightly/html/classvtkThreshold.html) |Thresholding Cells.
+[ThresholdPoints](/Cxx/PolyData/ThresholdPoints) | [vtkThresholdPoints](http://www.vtk.org/doc/nightly/html/classvtkThresholdPoints.html) |Thresholding Points.
 [TransformFilter](/Cxx/PolyData/TransformFilter) | [vtkTransformFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformFilter.html) |Transform a data set.
-[TransformOrder](/Cxx/PolyData/TransformOrder) | [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html) |Demonstrate how the order of applying transforms affects the result.
+[TransformOrderDemo](/Cxx/PolyData/TransformOrderDemo) | [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html) |Demonstrate how the order of applying transforms affects the result.
 [TransformPipeline](/Cxx/PolyData/TransformPipeline) | [vtkTransform](http://www.vtk.org/doc/nightly/html/classvtkTransform.html) |Combining the transformation, in order to manipulate a group of [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html). Shown in the example robot arm motion.
 [TransformPolyData](/Cxx/Filtering/TransformPolyData) | [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html) | Apply a Transformation to a PolyData.
 [TriangleArea](/Cxx/PolyData/TriangleArea) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html)::TriangleArea | Compute the area of all triangles in a polydata.
@@ -342,7 +342,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 |--------------|----------------------|-------------|
 [DensifyPoints](/Cxx/Points/DensifyPoints) | [vtkDensifyPointCloudFilter](http://www.vtk.org/doc/nightly/html/classvtkDensifyPointCloudFilter.html) | Add points to a point cloud.
 [DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | [vtkCleanPolyData](http://www.vtk.org/doc/nightly/html/classvtkCleanPolyData.html) | Downsample a point cloud. Remove points so that there are no points within a tolerance of any point.
-[ExtractCluster](/Cxx/Points/ExtractCluster) | [vtkEuclideanClusterExtraction](http://www.vtk.org/doc/nightly/html/classvtkEuclideanClusterExtraction.html) | From a set of randomly distributed spheres, extract connected clusters.
+[ExtractClusters](/Cxx/Points/ExtractClusters) | [vtkEuclideanClusterExtraction](http://www.vtk.org/doc/nightly/html/classvtkEuclideanClusterExtraction.html) | From a set of randomly distributed spheres, extract connected clusters.
 [ExtractPointsDemo](/Cxx/Points/ExtractPointsDemo) | [vtkExtractPoints](http://www.vtk.org/doc/nightly/html/classvtkExtractPoints.html) |Extract points inside an implicit function.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html),[vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html),[vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Create a surface from Unorganized Points using Point filters (DEMO).
 [ExtractSurface](/Cxx/Points/ExtractSurface) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html),[vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html),[vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Create a surface from Unorganized Points using Point filters.
@@ -424,7 +424,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [CellIdFromGridCoordinates](/Cxx/ImageData/CellIdFromGridCoordinates) | [vtkStructuredData](http://www.vtk.org/doc/nightly/html/classvtkStructuredData.html)|Get the id of a cell from its grid coordinates.
 [IterateImageData](/Cxx/ImageData/IterateImageData) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) | Iterating over a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html).
 [ImageNormalize](/Cxx/ImageData/ImageNormalize) | [vtkImageNormalize](http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html) |Normalize an image.
-[ExtractVOI](e/Cxx/ImageData/ExtractVOI) | [vtkExtractVOI](http://www.vtk.org/doc/nightly/html/classvtkExtractVOI.html) | Extract a volume of interest (subvolume).
+[ExtractVOI](/Cxx/ImageData/ExtractVOI) | [vtkExtractVOI](http://www.vtk.org/doc/nightly/html/classvtkExtractVOI.html) | Extract a volume of interest (subvolume).
 [ImageWeightedSum](/Cxx/ImageData/ImageWeightedSum) | [vtkImageWeightedSum](http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html) |Add two or more images.
 [ImageReslice](/Cxx/ImageData/ImageReslice) | [vtkImageReslice](http://www.vtk.org/doc/nightly/html/classvtkImageReslice.html) |Resize a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html).
 [ImageTranslateExtent](/Cxx/ImageData/ImageTranslateExtent) | [vtkImageTranslateExtent](http://www.vtk.org/doc/nightly/html/classvtkImageTranslateExtent.html) |Change the extent of a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html).
@@ -445,7 +445,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [BlankPoint](/Cxx/StructuredGrid/BlankPoint) | [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html) |Blank a point of a [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html).
-[OutlineStructuredGrid](/Cxx/StructuredGrid/OutlineStructuredGrid) | [vtkStructuredGridOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridOutlineFilter.html) |Visualize the outline of a structured grid.
+[StructuredGridOutline](/Cxx/StructuredGrid/StructuredGridOutline) | [vtkStructuredGridOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridOutlineFilter.html) |Visualize the outline of a structured grid.
 [StructuredGrid](/Cxx/StructuredGrid/StructuredGrid) | [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html) |Structured Grid.
 [VisualizeStructuredGridCells](/Cxx/StructuredGrid/VisualizeStructuredGridCells) | [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html) |Visualize the cells of a structured grid.
 [VisualizeStructuredGrid](/Cxx/StructuredGrid/VisualizeStructuredGrid) | [vtkStructuredGridGeometryFilter](http://www.vtk.org/doc/nightly/html/classvtkStructuredGridGeometryFilter.html) |Visualize the points of a structured grid.
@@ -465,14 +465,14 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 |--------------|----------------------|-------------|
 [RectilinearGridToTetrahedra](/Cxx/RectilinearGrid/RectilinearGridToTetrahedra) | [vtkRectilinearGridToTetrahedra](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGridToTetrahedra.html) |Convert a [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) to a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html) mesh
 [RectilinearGrid](/Cxx/RectilinearGrid/RectilinearGrid) | [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) |Rectilinear grid
-[VisualizeRectilinearGridCells](/Cxx/RectilinearGrid/VisualizeRectilinearGridCells) | [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html), [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html)|Visualize the cells of a rectilinear grid
+[VisualizeRectilinearGrid](/Cxx/RectilinearGrid/VisualizeRectilinearGrid) | [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html), [vtkShrinkFilter](http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html)|Visualize the cells of a rectilinear grid
 
 ### Registration
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[IterativeClosestPointsTransform](/Cxx/Filters/IterativeClosestPointsTransform) | [vtkIterativeClosestPointTransform](http://www.vtk.org/doc/nightly/html/classvtkIterativeClosestPointTransform.html) | Iterative Closest Points (ICP) Transform.
-[LandmarkTransform](/Cxx/Filters/LandmarkTransform) | [vtkLandmarkTransform](http://www.vtk.org/doc/nightly/html/classvtkLandmarkTransform.html) |Landmark Transform.
+[IterativeClosestPointsTransform](/Cxx/Filtering/IterativeClosestPointsTransform) | [vtkIterativeClosestPointTransform](http://www.vtk.org/doc/nightly/html/classvtkIterativeClosestPointTransform.html) | Iterative Closest Points (ICP) Transform.
+[LandmarkTransform](/Cxx/Filtering/LandmarkTransform) | [vtkLandmarkTransform](http://www.vtk.org/doc/nightly/html/classvtkLandmarkTransform.html) |Landmark Transform.
 
 ### Medical
 
@@ -507,7 +507,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [BrownianPoints](/Cxx/Utilities/BrownianPoints) | [vtkBrownianPoints](http://www.vtk.org/doc/nightly/html/classvtkBrownianPoints.html) |Produce a random vector at each point in a dataset.
 [CardinalSpline](/Cxx/Utilities/CardinalSpline) | [vtkCardinalSpline](http://www.vtk.org/doc/nightly/html/classvtkCardinalSpline.html) |Cardinal spline Interpolation.
 [Casting](/Cxx/PolyData/Casting)| [vtkObject](http://www.vtk.org/doc/nightly/html/classvtkObject.html)::SafeDownCast | Casting VTK objects.
-[CheckVTKVersion](/Cxx/Utilities/Check[VTKVersion](http://www.vtk.org/doc/nightly/html/classVTKVersion.html)) | [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html) | Check VTK Version.
+[CheckVTKVersion](/Cxx/Utilities/CheckVTKVersion) | [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html) | Check VTK Version.
 [ColorLookupTable](/Cxx/Utilities/ColorLookupTable) | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) |Color Lookup Table.
 [ColorTransferFunction](/Cxx/Utilities/ColorTransferFunction) | [vtkColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html) |Color Transfer Function.
 [CommandSubclass](/Cxx/Utilities/CommandSubclass) | [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) | Instead of using a callback function, it is more powerful to subclass [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html).
@@ -516,14 +516,14 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [DeepCopy](/Cxx/Utilities/DeepCopy) |  | Deep copy a VTK object.
 [Delaunay2D](/Cxx/Filtering/Delaunay2D) | [vtkDelaunay2D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay2D.html) | Perform a 2D Delaunay triangulation on a point set.
 [DetermineActorType](/Cxx/Utilities/DetermineActorType) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html), [vtkActorCollection](http://www.vtk.org/doc/nightly/html/classvtkActorCollection.html) |Determine the type of an actor.
-[DetermineVariableType](/Cxx/Utilities/DetermineVariableType) | GetClassName() |Determine the type of a VTK variable.
 [DiscretizableColorTransferFunction](/Cxx/Utilities/DiscretizableColorTransferFunction) | [vtkDiscretizableColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkDiscretizableColorTransferFunction.html) |Discretizable Color Transfer Function.
 [FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | [vtkFileOutputWindow](http://www.vtk.org/doc/nightly/html/classvtkFileOutputWindow.html) | Write errors to a log file instead of the screen.
 [FilenameFunctions](/Cxx/Utilities/FilenameFunctions) | [vtkDirectory](http://www.vtk.org/doc/nightly/html/classvtkDirectory.html), [vtksys](http://www.vtk.org/doc/nightly/html/classvtksys.html)/SystemTools | Do things like get the file extension, strip the file extension, etc.
-[FilterProgress](/Cxx/Utilities/FilterProgress) |  |Monitor a filters progress.
+[FilterSelfress](/Cxx/Utilities/FilterSelfProgress) |  |Monitor a filters progress.
 [FrameRate](/Cxx/Utilities/FrameRate) | | Get the frame rate of the rendering.
 [FullScreen](/Cxx/Utilities/FullScreen) | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) | Maximize/full screen a [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html).
 [FunctionParser](/Cxx/Utilities/FunctionParser) | [vtkFunctionParser](http://www.vtk.org/doc/nightly/html/classvtkFunctionParser.html) |String function parser.
+[GetClassName](/Cxx/Utilities/GetClassName) | GetClassName() |Determine the type of a VTK variable.
 [GetDataRoot](/Cxx/Utilities/GetDataRoot) | [vtkTesting](http://www.vtk.org/doc/nightly/html/classvtkTesting.html) | Find the path of VTK_DATA_ROOT.
 [LUTUtilities](/Cxx/Utilities/LUTUtilities) | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html) | A utility class for [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) allowing you to output the table contents or to compare tables.|
 [MultipleRenderWindows](/Cxx/Visualization/MultipleRenderWindows) | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) | Multiple Render Windows
@@ -545,7 +545,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [Variant](/Cxx/Utilities/Variant) | [vtkVariant](http://www.vtk.org/doc/nightly/html/classvtkVariant.html) |Convert between data types.
 [Vector](/Cxx/Utilities/Vector) | [vtkVector](http://www.vtk.org/doc/nightly/html/classvtkVector.html) |Mathematical vector class.
 [VersionMacros](/Cxx/Utilities/VersionMacros) | Macro/#define's | Check VTK Version.
-[VisualDebugging](/Cxx/Utilities/VisualDebugging) | | Update the screen from inside an algorithm.
+[VisualDebugging](/Cxx/Demos/VisualDebugging) | | Update the screen from inside an algorithm.
 [ZBuffer](/Cxx/Utilities/ZBuffer) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | zbuffer.
 
 ### Arrays
@@ -564,12 +564,12 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [CustomDenseArray](/Cxx/Utilities/CustomDenseArray) | [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html) |Custom type Dense (2D) Array.
 [DenseArrayRange](/Cxx/Utilities/DenseArrayRange) | [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html), [vtkArrayRange](http://www.vtk.org/doc/nightly/html/classvtkArrayRange.html) |Get the bounds of a [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html).
 [ExtractArrayComponent](/Cxx/Utilities/ExtractArrayComponent) | [vtkArrayCalculator](http://www.vtk.org/doc/nightly/html/classvtkArrayCalculator.html) |Extract a component of an array.
-[KnownLengthArrayOfVectors](/Cxx/Utilities/KnownLengthArrayOfVectors) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Array of Vectors (Known Length).
 [KnownLengthArray](/Cxx/Utilities/KnownLengthArray) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Known Length Array.
 [SortDataArray](/Cxx/Utilities/SortDataArray) | [vtkSortDataArray](http://www.vtk.org/doc/nightly/html/classvtkSortDataArray.html) | Reorder array values based on an ordering (key) array.
 [SparseArray](/Cxx/Utilities/SparseArray) | [vtkSparseArray](http://www.vtk.org/doc/nightly/html/classvtkSparseArray.html) |Sparse Array.
-[UnknownLengthArrayOfVectors](/Cxx/Utilities/UnknownLengthArrayOfVectors) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Array of Vectors (Unknown Length).
 [UnknownLengthArray](/Cxx/Utilities/UnknownLengthArray) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Unknown Length Array.
+[VectorArrayKnownLength](/Cxx/Utilities/VectorArrayKnownLength) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Array of Vectors (Known Length).
+[VectorArrayUnknownLength](/Cxx/Utilities/VectorArrayUnknownLength) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html) |Array of Vectors (Unknown Length).
 
 ### Events
 
@@ -584,7 +584,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [Check if a specific module is present](/Cxx/CMakeTechniques/CheckForModule) |  |
-[Check VTK Version in CMake](/Cxx/Utilities/CMake[VTKVersionCheck](http://www.vtk.org/doc/nightly/html/classVTKVersionCheck.html)) |  | 
+[Check VTK Version in CMake](/Cxx/Utilities/CMakeVTKVersionCheck) | (http://www.vtk.org/doc/nightly/html/classVTKVersionCheck.html)) |  | 
 
 
 ## Math Operations
@@ -611,22 +611,21 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 |--------------|----------------------|-------------|
 [AdjacencyMatrixToEdgeTable](/Cxx/Graphs/AdjacencyMatrixToEdgeTable)| [vtkAdjacencyMatrixToEdgeTable](http://www.vtk.org/doc/nightly/html/classvtkAdjacencyMatrixToEdgeTable.html) | Convert an adjacency matrix to an edge table.
 [AdjacentVertexIterator](/Cxx/Graphs/AdjacentVertexIterator)| [vtkAdjacentVertexIterator](http://www.vtk.org/doc/nightly/html/classvtkAdjacentVertexIterator.html) |Get all vertices connected to a specified vertex.
-[BFSTree](/Cxx/Graphs/BFSTree)| [vtkBoostBreadthFirstSearchTree](http://www.vtk.org/doc/nightly/html/classvtkBoostBreadthFirstSearchTree.html) | Breadth first search tree. Can also be used to convert a graph to a tree.
+[BoostBreadthFirstSearchTree](/Cxx/Graphs/BoostBreadthFirstSearchTree)| [vtkBoostBreadthFirstSearchTree](http://www.vtk.org/doc/nightly/html/classvtkBoostBreadthFirstSearchTree.html) | Breadth first search tree. Can also be used to convert a graph to a tree.
 [BreadthFirstDistance](/Cxx/Graphs/BreadthFirstDistance)| [vtkBoostBreadthFirstSearch](http://www.vtk.org/doc/nightly/html/classvtkBoostBreadthFirstSearch.html) |Distance from origin.
-[BreadthFirstSearchIterator](/Cxx/Graphs/BreadthFirstSearchIterator)| [vtkTreeBFSIterator](http://www.vtk.org/doc/nightly/html/classvtkTreeBFSIterator.html) |Breadth First Search iterator.
 [ColorEdges](/Cxx/Graphs/ColorEdges)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) |Color edges.
 [ColorVertexLabels](/Cxx/Graphs/ColorVertexLabels)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html), [vtkRenderedGraphRepresentation](http://www.vtk.org/doc/nightly/html/classvtkRenderedGraphRepresentation.html) |Set the color of vertex labels.
 [ColorVerticesLookupTable](/Cxx/Graphs/ColorVerticesLookupTable)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) |Color vertices.
 [ConnectedComponents](/Cxx/Graphs/ConnectedComponents)| [vtkBoostConnectedComponents](http://www.vtk.org/doc/nightly/html/classvtkBoostConnectedComponents.html) |Find connected components of a graph.
 [ConstructGraph](/Cxx/Graphs/ConstructGraph)| [vtkMutableUndirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableUndirectedGraph.html) |Construct a graph.
 [ConstructTree](/Cxx/Graphs/ConstructTree)| [vtkTree](http://www.vtk.org/doc/nightly/html/classvtkTree.html), [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html)  |Construct a tree.
-[DFSAnimation](/Cxx/Graphs/DFSAnimation)| [vtkTreeDFSIterator](http://www.vtk.org/doc/nightly/html/classvtkTreeDFSIterator.html) |Depth First Search Animation.
+[DepthFirstSearchAnimation](/Cxx/Graphs/DepthFirstSearchAnimation)| [vtkTreeDFSIterator](http://www.vtk.org/doc/nightly/html/classvtkTreeDFSIterator.html) |Depth First Search Animation.
 [DepthFirstSearchIterator](/Cxx/Graphs/DepthFirstSearchIterator)| [vtkTreeDFSIterator](http://www.vtk.org/doc/nightly/html/classvtkTreeDFSIterator.html) |Depth First Search iterator.
+[EdgeListIterator](/Cxx/Graphs/EdgeListIterator)| [vtkEdgeListIterator](http://www.vtk.org/doc/nightly/html/classvtkEdgeListIterator.html) |Iterate over edges of a graph.
 [EdgeWeights](/Cxx/Graphs/EdgeWeights)| [vtkGraph](http://www.vtk.org/doc/nightly/html/classvtkGraph.html)::GetEdgeData::AddArray |Edge weights.
 [GraphPoints](/Cxx/InfoVis/GraphPoints)| [vtkGraph](http://www.vtk.org/doc/nightly/html/classvtkGraph.html)::SetPoints, [vtkPassThroughLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkPassThroughLayoutStrategy.html) |Manually set coordinates of vertices in a graph.
 [GraphToPolyData](/Cxx/Graphs/GraphToPolyData)| [vtkGraphToPolyData](http://www.vtk.org/doc/nightly/html/classvtkGraphToPolyData.html) |Convert a graph to a PolyData.
 [InEdgeIterator](/Cxx/Graphs/InEdgeIterator)| [vtkInEdgeIterator](http://www.vtk.org/doc/nightly/html/classvtkInEdgeIterator.html) |Iterate over edges incoming to a vertex.
-[IterateEdges](/Cxx/Graphs/IterateEdges)| [vtkEdgeListIterator](http://www.vtk.org/doc/nightly/html/classvtkEdgeListIterator.html) |Iterate over edges of a graph.
 [LabelVerticesAndEdges](/Cxx/Graphs/LabelVerticesAndEdges)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html)::SetEdgeLabelArrayName, [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html)::SetVertexLabelArrayName|Label vertices and edges.
 [MinimumSpanningTree](/Cxx/Graphs/MinimumSpanningTree)| [vtkBoostPrimMinimumSpanningTree](http://www.vtk.org/doc/nightly/html/classvtkBoostPrimMinimumSpanningTree.html) |Minimum spanning tree of a graph.
 [MutableGraphHelper](/Cxx/InfoVis/MutableGraphHelper)| [vtkMutableGraphHelper](http://www.vtk.org/doc/nightly/html/classvtkMutableGraphHelper.html) |Create either a [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html) or [vtkMutableUndirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableUndirectedGraph.html).
@@ -639,6 +638,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [SelectedVerticesAndEdgesObserver](/Cxx/Graphs/SelectedVerticesAndEdgesObserver)| [vtkAnnotationLink](http://www.vtk.org/doc/nightly/html/classvtkAnnotationLink.html) |Get a list of selected vertices and edges using an observer of AnnotationChangedEvent.
 [ShortestPath](/Cxx/Graphs/ShortestPath)| [vtkDijkstraGraphGeodesicPath](http://www.vtk.org/doc/nightly/html/classvtkDijkstraGraphGeodesicPath.html) |Find the shortest path on a graph.
 [SideBySideGraphs](/Cxx/Graphs/SideBySideGraphs)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) |Display two graphs side by side.
+[TreeBFSIterator](/Cxx/Graphs/TreeBFSIterator)| [vtkTreeBFSIterator](http://www.vtk.org/doc/nightly/html/classvtkTreeBFSIterator.html) |Breadth First Search iterator.
 [VertexSize](/Cxx/Graphs/VertexSize)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html), [vtkRenderedGraphRepresentation](http://www.vtk.org/doc/nightly/html/classvtkRenderedGraphRepresentation.html) | Set the size of vertices.
 [VisualizeDirectedGraph](/Cxx/Graphs/VisualizeDirectedGraph)| [vtkGlyphSource2D](http://www.vtk.org/doc/nightly/html/classvtkGlyphSource2D.html) |Visualize a directed graph.
 [VisualizeGraph](/Cxx/Graphs/VisualizeGraph)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html), [vtkGraphLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutStrategy.html), [vtkSimple2DLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkSimple2DLayoutStrategy.html)|Visualize a graph.
@@ -661,7 +661,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [CellTreeLocator](/Cxx/PolyData/CellTreeLocator)| [vtkCellTreeLocator](http://www.vtk.org/doc/nightly/html/classvtkCellTreeLocator.html) |Points inside an object using [vtkCellTreeLocator](http://www.vtk.org/doc/nightly/html/classvtkCellTreeLocator.html).
 [PointLocatorVisualization](/Cxx/PolyData/PointLocatorVisualization)| [vtkPointLocator](http://www.vtk.org/doc/nightly/html/classvtkPointLocator.html) |Visualization of the tree of a [vtkPointLocator](http://www.vtk.org/doc/nightly/html/classvtkPointLocator.html).
 [PointLocator](/Cxx/PolyData/PointLocator)| [vtkPointLocator](http://www.vtk.org/doc/nightly/html/classvtkPointLocator.html) |Efficient 3D point query.
-[Radius](/Cxx/PolyData/PointLocator_Radius)| [vtkPointLocator](http://www.vtk.org/doc/nightly/html/classvtkPointLocator.html) |Find all points within a radius of a specified point.
+[PointLocatorRadius](/Cxx/PolyData/PointLocatorRadius)| [vtkPointLocator](http://www.vtk.org/doc/nightly/html/classvtkPointLocator.html) |Find all points within a radius of a specified point.
 
 
 ### Timing Demonstrations
@@ -693,7 +693,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[IntersectWithLine](/Cxx/DataStructures/OBBTree_IntersectWithLine)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with a [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html).
+[IntersectWithLine](/Cxx/DataStructures/IntersectWithLine)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with a [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html).
 [OBBTreeExtractCells](/Cxx/DataStructures/OBBTreeExtractCells)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with an OBB Tree and display all intersected cells.
 [VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree) | [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Visualize levels of the tree.
 
@@ -701,11 +701,11 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[BuildTree](/Cxx/DataStructures/Octree/BuildTree)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Create an octree.
-[ClosestPoint](/Cxx/DataStructures/Octree/ClosestPoint)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the closest point to a query point.
-[FindPointsWithinRadius](/Cxx/DataStructures/Octree/FindPointsWithinRadius)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the points within a sphere of specified radius to a query point.
+[BuildOctree](/Cxx/DataStructures/Octree/BuildOctree)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Create an octree.
+[OctreeFindPointsWithinRadius](/Cxx/DataStructures/Octree/OctreeFindPointsWithinRadius)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the points within a sphere of specified radius to a query point.
 [IncrementalOctreePointLocator](/Cxx/DataStructures/IncrementalOctreePointLocator)|[vtkIncrementalOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkIncrementalOctreePointLocator.html) | Insert points into an octree without rebuilding it.
-[KClosestPoints](/Cxx/DataStructures/Octree/KClosestPoints)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the K closest points to a query point.
+[OctreeKClosestPoints](/Cxx/DataStructures/Octree/OctreeKClosestPoints)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the K closest points to a query point.
+[OctreeClosestPoint](/Cxx/DataStructures/Octree/OctreeClosestPoint)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the closest point to a query point.
 [OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)|[vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Visualize levels of the tree.
 
 
@@ -724,7 +724,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[Scalars](/Cxx/[VTKConcepts](http://www.vtk.org/doc/nightly/html/classVTKConcepts.html)/Scalars)| |Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
+[Scalars](/Cxx/VTKConcepts/Scalars)](http://www.vtk.org/doc/nightly/html/classVTKConcepts.html)/Scalars)| |Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
 
 
 ## Rendering
@@ -775,7 +775,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ColorAnActor ](/Cxx/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetColor | Color an Actor.
 [ColorGlyphs](/Cxx/Visualization/ColorGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)::SetColorModeToColorByScalar |Color glyphs.
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation)| [vtkCornerAnnotation](http://www.vtk.org/doc/nightly/html/classvtkCornerAnnotation.html) | Write text in the corners of a window.
-[CorrectlyRenderingTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderingTranslucentGeometry)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Correctly Rendering Translucent Geometry.
+[CorrectlyRenderTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderTranslucentGeometry)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Correctly Rendering Translucent Geometry.
 [CubeAxesActor2D](/Cxx/Visualization/CubeAxesActor2D)| [vtkCubeAxesActor2D](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor2D.html) | This example uses the [vtkCubeAxesActor2D](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor2D.html) to show your scene with axes to indicate the spatial extent of your data.
 [CubeAxesActor](/Cxx/Visualization/CubeAxesActor)| [vtkCubeAxesActor](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor.html) |Display three orthogonal axes with labels.
 [Cursor3D](/Cxx/Visualization/Cursor3D)| [vtkCursor3D](http://www.vtk.org/doc/nightly/html/classvtkCursor3D.html) |
@@ -783,9 +783,10 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CurvatureBandsWithGlyphs](Cxx/Visualization/CurvatureBandsWithGlyphs)| [vtkCurvatures](http://www.vtk.org/doc/nightly/html/classvtkCurvatures.html), [vtkBandedPolyDataContourFilter](http://www.vtk.org/doc/nightly/html/classvtkBandedPolyDataContourFilter.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html), [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html), [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | Demonstrates the coloring of a surface by partitioning the gaussian curvature of a surface into bands and using arrows to display the normals on the surface.
 [CurvedReformation ](/Cxx/Visualization/CurvedReformation) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html)| Sample a volume with a curved surface. In medical imaging, this is often called curved multi planar reformation.
 [Cutter](/Cxx/VisualizationAlgorithms/Cutter)| [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) |
+[DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Poly Data Depth Sorting.
 [DisplayCoordinateAxes](/Cxx/Visualization/DisplayCoordinateAxes)| [vtkOrientationMarkerWidget](http://www.vtk.org/doc/nightly/html/classvtkOrientationMarkerWidget.html) |Display coordinate axes.
 [DisplayQuadraticSurfaces](/Cxx/Visualization/DisplayQuadraticSurfaces)| [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html), [vtkSampleFunction](http://www.vtk.org/doc/nightly/html/classvtkSampleFunction.html), [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html) |Display Quadratic Surfaces.
-[DisplayText](/Cxx/Visualization/DisplayText)| [vtkTextActor](http://www.vtk.org/doc/nightly/html/classvtkTextActor.html), [vtkTextProperty](http://www.vtk.org/doc/nightly/html/classvtkTextProperty.html) |Display Text.
+[DrawText](/Cxx/Visualization/DrawText)| [vtkTextActor](http://www.vtk.org/doc/nightly/html/classvtkTextActor.html), [vtkTextProperty](http://www.vtk.org/doc/nightly/html/classvtkTextProperty.html) |Display Text.
 [ElevationBandsWithGlyphs](Cxx/Visualization/ElevationBandsWithGlyphs)| [vtkBandedPolyDataContourFilter](http://www.vtk.org/doc/nightly/html/classvtkBandedPolyDataContourFilter.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html), [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html), [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
 [FastSplatter](/Cxx/Visualization/FastSplatter)| [vtkFastSplatter](http://www.vtk.org/doc/nightly/html/classvtkFastSplatter.html) |Convolve a splat image with every point in an input image.
 [Follower ](/Cxx/Visualization/Follower) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html) | Draw text that stays right side up.
@@ -802,10 +803,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [IsosurfaceSampling ](/Cxx/Visualization/IsosurfaceSampling) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html)|Demonstrates how to create point data on an isosurface.
 [LODProp3D ](/Cxx/Visualization/LODProp3D) | [vtkLODProp3D](http://www.vtk.org/doc/nightly/html/classvtkLODProp3D.html) | Level of detail rendering.
 [LabelContours](/Cxx/Visualization/LabelContours)| [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) |Label Contours.
-[LabelMesh ](/Cxx/Visualization/LabelMesh) | [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) | Label Mesh.
+[LabeledMesh ](/Cxx/Visualization/LabeledMesh) | [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) | Label Mesh.
 [LabelPlacementMapper](/Cxx/Visualization/LabelPlacementMapper)| [vtkPointSetToLabelHierarchy](http://www.vtk.org/doc/nightly/html/classvtkPointSetToLabelHierarchy.html), [vtkLabelPlacementMapper](http://www.vtk.org/doc/nightly/html/classvtkLabelPlacementMapper.html) | Display a non-overlapping text label at each point.
 [LabeledDataMapper](/Cxx/Visualization/LabeledDataMapper)| [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) |Display the point ID at each point.
-[LayeredRenderers](/Cxx/WishList/Visualization/LayeredRenderers)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Layered renderers.
 [LegendScaleActor](/Cxx/Visualization/LegendScaleActor)| [vtkLegendScaleActor](http://www.vtk.org/doc/nightly/html/classvtkLegendScaleActor.html) |Display the scale of a scene.
 [LineWidth](/Cxx/Visualization/LineWidth)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html), [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Change the width/thickness of lines in an actor.
 [MovableAxes ](/Cxx/Visualization/MovableAxes) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html), [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor.html), [vtkAssembly](http://www.vtk.org/doc/nightly/html/classvtkAssembly.html) | Movable axes.
@@ -817,7 +817,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Opacity](/Cxx/Visualization/Opacity)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetOpacity | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|Create oriented glyphs from vector data.
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
-[PolyDataDepthSorting](/Cxx/Visualization/PolyDataDepthSorting)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Poly Data Depth Sorting.
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) |Generate a custom glyph at each point.
 [QuadraticSurface](/Cxx/Visualization/QuadraticSurface)| [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) |Display a quadratic surface.
 [QuadricLODActor](/Cxx/Visualization/QuadricLODActor)| [vtkQuadricLODActor](http://www.vtk.org/doc/nightly/html/classvtkQuadricLODActor.html) | Level of detail adjustment.
@@ -833,7 +832,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SceneBounds](/Cxx/Visualization/SceneBounds)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)|[vtkInteractorStyleRubberBand2D](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBand2D.html) |Select a region of a window.
 [StreamLines](/Cxx/Visualization/StreamLines)| [vtkStreamLine](http://www.vtk.org/doc/nightly/html/classvtkStreamLine.html) |Stream Lines.
-[TensorGlyph](Visualization/TensorGlyph)| [vtkTensorGlyph](http://www.vtk.org/doc/nightly/html/classvtkTensorGlyph.html) | Draw a rotated/scaled glyph at each point.
+[TensorGlyph](/Cxx/Visualization/TensorGlyph)| [vtkTensorGlyph](http://www.vtk.org/doc/nightly/html/classvtkTensorGlyph.html) | Draw a rotated/scaled glyph at each point.
 [TextSource](/Cxx/Visualization/TextSource)| [vtkTextSource](http://www.vtk.org/doc/nightly/html/classvtkTextSource.html) |Display text.
 [TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) |Texture map a plane.
@@ -842,7 +841,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [TransformActor](/Cxx/Visualization/TransformActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::SetUserTransform |Transform an Actor.
 [TubesFromSplines](/Cxx/VisualizationAlgorithms/TubesFromSplines)| [vtkTubeFilter](http://www.vtk.org/doc/nightly/html/classvtkTubeFilter.html), [vtkParametricFunctionSource](http://www.vtk.org/doc/nightly/html/classvtkParametricFunctionSource.html)  [vtkTupleInterpolator](http://www.vtk.org/doc/nightly/html/classvtkTupleInterpolator.html)|Create tubes from interpolated points and scalars.
 [TubesWithVaryingRadiusAndColors](/Cxx/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors)| [vtkTubeFilter](http://www.vtk.org/doc/nightly/html/classvtkTubeFilter.html) |Create tubes with varying radius and colors.
-[VectorField ](/Cxx/WishList/Visualization/VectorField) | [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | Visualize a vector field.
 [VectorOfActors](/Cxx/Visualization/VectorOfActors)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Multiple Actors in a Vector.
 [VectorText](/Cxx/Visualization/VectorText)| [vtkVectorText](http://www.vtk.org/doc/nightly/html/classvtkVectorText.html) |Display high resolution text.
 [VertexGlyphFilter ](/Cxx/Filtering/VertexGlyphFilter) | [vtkVertexGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkVertexGlyphFilter.html) | Add a vertex to each point.
@@ -862,7 +860,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [HAVS](/Cxx/VolumeRendering/HAVSVolumeMapper)| [vtkHAVSVolumeMapper](http://www.vtk.org/doc/nightly/html/classvtkHAVSVolumeMapper.html) |
 [MinIntensityRendering](/Cxx/VolumeRendering/MinIntensityRendering)| [vtkFixedPointVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkFixedPointVolumeRayCastMapper.html) |Min intensity rendering.
 [SmartVolumeMapper](/Cxx/VolumeRendering/SmartVolumeMapper)| [vtkSmartVolumeMapper](http://www.vtk.org/doc/nightly/html/classvtkSmartVolumeMapper.html) |Smart volume mapper.
-[itk[VtkImageConvert](http://www.vtk.org/doc/nightly/html/classVtkImageConvert.html)](/Cxx/VolumeRendering/itk[VtkImageConvert](http://www.vtk.org/doc/nightly/html/classVtkImageConvert.html))|  | Conversion maintaining DICOM orientation and positionITK->VTK conversion.
 
 
 ## User Interaction
@@ -889,7 +886,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MouseEventsObserver ](/Cxx/Interaction/MouseEventsObserver) | [vtkCallbackCommand](http://www.vtk.org/doc/nightly/html/classvtkCallbackCommand.html) | Use an observer. Handle mouse events (light weight).
 [MoveAGlyph](/Cxx/Interaction/MoveAGlyph)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | Drag a glyph around.
 [MoveAVertexUnstructuredGrid](/Cxx/Interaction/MoveAVertexUnstructuredGrid)| [vtkPointPicker](http://www.vtk.org/doc/nightly/html/classvtkPointPicker.html) | Click and drag a vertex of a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html).
-[MoveAVertex](/Cxx/Interaction/MoveAVertex)| [vtkPointPicker](http://www.vtk.org/doc/nightly/html/classvtkPointPicker.html) | Click and drag a vertex of a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [ObserverMemberFunction](/Cxx/Interaction/ObserverMemberFunction)|  | Set observers to be class member functions.
 [PickableOff](/Cxx/Interaction/PickableOff)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::PickableOff |Disallow interaction with a specific actor.
 [Picking](/Cxx/Interaction/Picking)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) | Get the world coordinate of the mouse click (if you clicked an actor)
@@ -900,6 +896,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RubberBandPick](/Cxx/Interaction/RubberBandPick)| [vtkInteractorStyleRubberBandPick](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBandPick.html) |
 [RubberBandZoom](/Cxx/Interaction/RubberBandZoom)| [vtkInteractorStyleRubberBandZoom](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBandZoom.html) |
 [SelectAnActor](/Cxx/Interaction/SelectAnActor)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Select an actor.
+[SelectAVertex](/Cxx/Interaction/SelectAVertex)| [vtkPointPicker](http://www.vtk.org/doc/nightly/html/classvtkPointPicker.html) | Click and drag a vertex of a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [ShiftAndControl](/Cxx/Interaction/ShiftAndControl)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html)::GetControlKey() | Hold/holding down a key. Check if shift or control is being held.
 [StyleSwitch](/Cxx/Interaction/StyleSwitch)| [vtkInteractorStyleSwitch](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleSwitch.html) |Choose between multiple interaction modes.
 [TrackballActor](/Cxx/Interaction/TrackballActor)| [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html) |Trackball actor mode.
@@ -950,7 +947,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageSlice](/Cxx/Images/ImageSlice)| [vtkImageSlice](http://www.vtk.org/doc/nightly/html/classvtkImageSlice.html), [vtkImageResliceMapper](http://www.vtk.org/doc/nightly/html/classvtkImageResliceMapper.html) | Visualize and interact with an image. This is even more powerful than [vtkImageSliceMapper](http://www.vtk.org/doc/nightly/html/classvtkImageSliceMapper.html). It can also do oblique slices.
 [ImageStack](/Cxx/Images/ImageStack)| [vtkImageStack](http://www.vtk.org/doc/nightly/html/classvtkImageStack.html) |Display layers of images.
 [ImageStencil](/Cxx/Images/ImageStencil)| [vtkImageStencil](http://www.vtk.org/doc/nightly/html/classvtkImageStencil.html), [vtkImageToImageStencil](http://www.vtk.org/doc/nightly/html/classvtkImageToImageStencil.html) | Copy one image into another image.
-[ImageText](/Cxx/Broken/Images/ImageText)| [vtkFreeTypeUtilities](http://www.vtk.org/doc/nightly/html/classvtkFreeTypeUtilities.html), [vtkImageBlend](http://www.vtk.org/doc/nightly/html/classvtkImageBlend.html) | Draw text in an image.
+[ImageText](/Cxx/Images/ImageText)| [vtkFreeTypeUtilities](http://www.vtk.org/doc/nightly/html/classvtkFreeTypeUtilities.html), [vtkImageBlend](http://www.vtk.org/doc/nightly/html/classvtkImageBlend.html) | Draw text in an image.
 [ImageThreshold](/Cxx/Images/ImageThreshold)| [vtkImageThreshold](http://www.vtk.org/doc/nightly/html/classvtkImageThreshold.html) |Threshold an image.
 [ImageToPolyDataFilter](/Cxx/Images/ImageToPolyDataFilter)| [vtkImageToPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkImageToPolyDataFilter.html), [vtkImageQuantizeRGBToIndex](http://www.vtk.org/doc/nightly/html/classvtkImageQuantizeRGBToIndex.html) | Convert a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) to a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [ImageToStructuredPoints](/Cxx/Images/ImageToStructuredPoints)| [vtkImageToStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkImageToStructuredPoints.html) | Convert a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) to a [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html).
@@ -958,8 +955,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Interpolation](/Cxx/Images/Interpolation)| [vtkImageSlice](http://www.vtk.org/doc/nightly/html/classvtkImageSlice.html), [vtkImageProperty](http://www.vtk.org/doc/nightly/html/classvtkImageProperty.html) | Set the interpolation type for the display of an image. If pixels look blurry instead of sharp when zoomed in, change this.
 [MarkKeypoints](/Cxx/Images/MarkKeypoints)| [vtkVectorText](http://www.vtk.org/doc/nightly/html/classvtkVectorText.html), [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html) |Mark keypoints in an image.
 [NegativeIndices](/Cxx/Images/NegativeIndices)| [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) | A very powerful feature of [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) is that you can use negative indices.
-[PickingAPixel2](/Cxx/Images/PickingAPixel2)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Picking a pixel 2 - modified version for exact pixel values.
-[PickingAPixel](/Cxx/Images/PickingAPixel)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Picking a pixel.
+[PickPixel2](/Cxx/Images/PickPixel2)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Picking a pixel 2 - modified version for exact pixel values.
+[PickPixel](/Cxx/Images/PickPixel)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Picking a pixel.
 [RTAnalyticSource](/Cxx/Images/RTAnalyticSource)| [vtkRTAnalyticSource](http://www.vtk.org/doc/nightly/html/classvtkRTAnalyticSource.html) | An image source that can be used for regression testing
 [StaticImage](/Cxx/Images/StaticImage)|  v[vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html) | This will display the image, but not allow you to interact with it.
 [Transparency](/Cxx/Images/Transparency)| [vtkImageMapToColors](http://www.vtk.org/doc/nightly/html/classvtkImageMapToColors.html), [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Make part of an image transparent.
@@ -969,11 +966,11 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[Blending2DImagesWithDifferentColorMaps](/Cxx/Images/Blending2DImagesWithDifferentColorMaps)| [vtkImageMapToColors](http://www.vtk.org/doc/nightly/html/classvtkImageMapToColors.html) |Blending 2D images with different color maps.
+[Colored2DImageFusion](/Cxx/Images/Colored2DImageFusion)| [vtkImageMapToColors](http://www.vtk.org/doc/nightly/html/classvtkImageMapToColors.html) |Blending 2D images with different color maps.
 [CenterAnImage](/Cxx/Images/CenterAnImage)| [vtkImageChangeInformation](http://www.vtk.org/doc/nightly/html/classvtkImageChangeInformation.html) |Center an image.
 [CombineImages](/Cxx/Images/CombineImages)| [vtkImageBlend](http://www.vtk.org/doc/nightly/html/classvtkImageBlend.html) |Combine two images.
 [CombiningRGBChannels](/Cxx/Images/CombiningRGBChannels)| [vtkImageAppendComponents](http://www.vtk.org/doc/nightly/html/classvtkImageAppendComponents.html) |Combine layers into an RGB image.
-[ConvertToGreyScale](/Cxx/Images/ConvertToGreyScale)| [vtkImageMagnitude](http://www.vtk.org/doc/nightly/html/classvtkImageMagnitude.html) | grayscaleConvert RGB image to greyscale.
+[ImageMagnitude](/Cxx/Images/ImageMagnitude)| [vtkImageMagnitude](http://www.vtk.org/doc/nightly/html/classvtkImageMagnitude.html) | grayscaleConvert RGB image to greyscale.
 [Flip](/Cxx/Images/Flip)| [vtkImageFlip](http://www.vtk.org/doc/nightly/html/classvtkImageFlip.html) | Flip an image.
 [Gradient](/Cxx/Images/Gradient)| [vtkImageGradient](http://www.vtk.org/doc/nightly/html/classvtkImageGradient.html) | Compute the gradient vector at every pixel.
 [ImageAccumulate](/Cxx/Images/ImageAccumulate)| [vtkImageAccumulate](http://www.vtk.org/doc/nightly/html/classvtkImageAccumulate.html) | Histogram
@@ -1012,11 +1009,10 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [AngleWidget](/Cxx/Widgets/AngleWidget)| [vtkAngleWidget](http://www.vtk.org/doc/nightly/html/classvtkAngleWidget.html) |
 [BalloonWidget](/Cxx/Widgets/BalloonWidget)| [vtkBalloonWidget](http://www.vtk.org/doc/nightly/html/classvtkBalloonWidget.html) |
 [BiDimensionalWidget](/Cxx/Widgets/BiDimensionalWidget) |  [vtkBiDimensionalWidget](http://www.vtk.org/doc/nightly/html/classvtkBiDimensionalWidget.html) |  When would you use this?
-[BorderWorldCoords](Broken/Cxx/Widgets/BorderWorldCoords)| [vtkBorderWidget](http://www.vtk.org/doc/nightly/html/classvtkBorderWidget.html) | 2D selection box in world coordinates.
-[Border](/Cxx/Widgets/Border)| [vtkBorderWidget](http://www.vtk.org/doc/nightly/html/classvtkBorderWidget.html) | 2D selection, 2D box.
+[BorderWidget](/Cxx/Widgets/BorderWidget)| [vtkBorderWidget](http://www.vtk.org/doc/nightly/html/classvtkBorderWidget.html) | 2D selection, 2D box.
 [BoxWidget2](/Cxx/Widgets/BoxWidget2)| [vtkBoxWidget2](http://www.vtk.org/doc/nightly/html/classvtkBoxWidget2.html) |
 [BoxWidget](/Cxx/Widgets/BoxWidget)| [vtkBoxWidget](http://www.vtk.org/doc/nightly/html/classvtkBoxWidget.html) |
-[Caption](/Cxx/Widgets/Caption)| [vtkCaptionWidget](http://www.vtk.org/doc/nightly/html/classvtkCaptionWidget.html) |
+[CaptionWidget](/Cxx/Widgets/CaptionWidget)| [vtkCaptionWidget](http://www.vtk.org/doc/nightly/html/classvtkCaptionWidget.html) |
 [CheckerboardWidget](/Cxx/Widgets/CheckerboardWidget)| [vtkCheckerboardWidget](http://www.vtk.org/doc/nightly/html/classvtkCheckerboardWidget.html), [vtkCheckerboardRepresentation](http://www.vtk.org/doc/nightly/html/classvtkCheckerboardRepresentation.html) | Compare two images using a checkerboard.
 [ContourWidget ](/Cxx/Widgets/ContourWidget) | [vtkContourWidget](http://www.vtk.org/doc/nightly/html/classvtkContourWidget.html) | Create a contour from a set of points and dynamically change the contour using the points as control points.
 [Cursor2D](/Cxx/Visualization/Cursor2D)| [vtkCursor2D](http://www.vtk.org/doc/nightly/html/classvtkCursor2D.html) |
@@ -1031,16 +1027,15 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LogoWidget](/Cxx/Widgets/LogoWidget)| [vtkLogoWidget](http://www.vtk.org/doc/nightly/html/classvtkLogoWidget.html) |Logo widget.
 [OrientationMarkerWidget](/Cxx/Widgets/OrientationMarkerWidget)| [vtkOrientationMarkerWidget](http://www.vtk.org/doc/nightly/html/classvtkOrientationMarkerWidget.html) | Display a polydata as an orientation icon.
 [PlaneWidget ](/Cxx/Widgets/PlaneWidget) | [vtkPlaneWidget](http://www.vtk.org/doc/nightly/html/classvtkPlaneWidget.html) | Interact with a plane.
-[PointWidget](Broken/Widgets/PointWidget)| [vtkPointWidget](http://www.vtk.org/doc/nightly/html/classvtkPointWidget.html) | 
 [RectilinearWipeWidget](/Cxx/Widgets/RectilinearWipeWidget)| [vtkImageRectilinearWipe](http://www.vtk.org/doc/nightly/html/classvtkImageRectilinearWipe.html), [vtkRectilinearWipeWidget](http://www.vtk.org/doc/nightly/html/classvtkRectilinearWipeWidget.html), [vtkRectilinearWipeRepresentation](http://www.vtk.org/doc/nightly/html/classvtkRectilinearWipeRepresentation.html) | Compare two images.
-[SeedWidgetImage](Widgets/SeedWidgetImage)| [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html), [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html) | How to start the interaction? 
+[SeedWidgetImage](/Cxx/Widgets/SeedWidgetImage)| [vtkImageViewer2](http://www.vtk.org/doc/nightly/html/classvtkImageViewer2.html), [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html) | How to start the interaction? 
 [SeedWidget](/Cxx/Widgets/SeedWidget)| [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html) |Seed widget.
 [Slider2D](/Cxx/Widgets/Slider2D)| [vtkSliderWidget](http://www.vtk.org/doc/nightly/html/classvtkSliderWidget.html), [vtkSliderRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkSliderRepresentation2D.html)|2D Slider.
 [Slider](/Cxx/Widgets/Slider)| [vtkSliderWidget](http://www.vtk.org/doc/nightly/html/classvtkSliderWidget.html), [vtkSliderRepresentation3D](http://www.vtk.org/doc/nightly/html/classvtkSliderRepresentation3D.html) |3D Slider.
 [SphereWidget2](/Cxx/Widgets/SphereWidget2)| [vtkSphereWidget2](http://www.vtk.org/doc/nightly/html/classvtkSphereWidget2.html) |
 [SphereWidgetEvents ](/Cxx/Widgets/SphereWidgetEvents)| [vtkSphereWidget](http://www.vtk.org/doc/nightly/html/classvtkSphereWidget.html) |Sphere widget events.
 [SphereWidget](/Cxx/Widgets/SphereWidget)| [vtkSphereWidget](http://www.vtk.org/doc/nightly/html/classvtkSphereWidget.html) |Sphere widget.
-[SplineWidget](/Cxx/Widgets/Spline)| [vtkSplineWidget](http://www.vtk.org/doc/nightly/html/classvtkSplineWidget.html) |
+[SplineWidget](/Cxx/Widgets/SplineWidget)| [vtkSplineWidget](http://www.vtk.org/doc/nightly/html/classvtkSplineWidget.html) |
 [TextWidget](/Cxx/Widgets/TextWidget)| [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html) || [vtkTextWidget](http://www.vtk.org/doc/nightly/html/classvtkTextWidget.html) |Draw movable text.
 [TexturedButtonWidget](/Cxx/Widgets/TexturedButtonWidget) | [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html),[vtkTexturedButtonRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkTexturedButtonRepresentation2D.html) |Create a textured 2D buttonx.
 
@@ -1091,7 +1086,7 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[ Border Widget](/Cxx/Qt/BorderWidget) | [vtkBorderWidget](http://www.vtk.org/doc/nightly/html/classvtkBorderWidget.html), QApplication |
+[BorderWidgetQt](/Cxx/Qt/BorderWidgetQt) | [vtkBorderWidget](http://www.vtk.org/doc/nightly/html/classvtkBorderWidget.html), QApplication |
 [ QtBarChart](/Cxx/Qt/QtBarChart) | [vtkQtBarChart](http://www.vtk.org/doc/nightly/html/classvtkQtBarChart.html) |
 [ ShowEvent ](/Cxx/Qt/ShowEvent) |  | Use QMainWindow::showEvent event to do things that you might want to do in the constructor 
 [EventQtSlotConnect](/Cxx/Qt/EventQtSlotConnect) | [vtkEventQtSlotConnect](http://www.vtk.org/doc/nightly/html/classvtkEventQtSlotConnect.html)|  Connect a VTK event to a Qt slot.
@@ -1100,7 +1095,7 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 [RenderWindowNoUiFile](/Cxx/Qt/RenderWindowNoUiFile) | Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html)| This is a very basic example that shows how to create a Qt window. Typically, one would want to design a form in the QtDesigner (this is shown in [[/Qt/RenderWindowUi|RenderWindowUi]]).
 [RenderWindowUIMultipleInheritance](/Cxx/Qt/RenderWindowUIMultipleInheritance) | QMainWindow | Using a Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html) with the Qt Multiple Inheritance model.
 [RenderWindowUISingleInheritance](/Cxx/Qt/RenderWindowUISingleInheritance) | QMainWindow | Using a Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html) with the Qt Single Inheritance model.
-[ShareCameraBetweenQ[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html)](/Cxx/Qt/ShareCameraBetweenQ[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html)) | |  Share the camera between Q[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html).
+[ShareCameraBetweenQVTKWidgets](/Cxx/Qt/ShareCameraBetweenQVTKWidgets) | (http://www.vtk.org/doc/nightly/html/classVTKWidgets.html)] |  Share the camera between Q[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html).
 [SideBySideRenderWindows](/Cxx/Qt/SideBySideRenderWindows) | QApplication | Side by side render windows.
 
 

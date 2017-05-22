@@ -15,7 +15,6 @@ Over time we hope that the examples will answer many of the users' questions. So
 * [Java](Java/)
 * [Tcl](Tcl/)
 * [C#](CSharp/)
-* [C](C/)
 
 The above examples demonstrate how to *use* VTK functionalities. There are also examples specifically to demonstrate how to write code as a VTK filter using VTK techniques. This is helpful so that your custom code can be called in a fashion that other people are already familiar with. It is also necessary if you plan to contribute your classes to VTK.
 
