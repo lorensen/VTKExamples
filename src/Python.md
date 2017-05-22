@@ -65,7 +65,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [PlatonicSolid](/Python/GeometricObjects/Display/PlatonicSolid) | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html) | All five platonic solids are displayed.
 [PointSource](/Python/GeometricObjects/Display/PointSource) | [vtkPointSource](http://www.vtk.org/doc/nightly/html/classvtkPointSource.html) |
 [Point](/Python/GeometricObjects/Display/Point) | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html) |
-[PolyLine](/Python/GeometricObjects/Display/PolyLine) | [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) | This example demonstrates how to create a polygon through several ordered points.
+[Polyline](/Python/GeometricObjects/Display/Polyline) | [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) | This example demonstrates how to create a polygon through several ordered points.
 [PolygonIntersection](/Python/GeometricObjects/Display/PolygonIntersection) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) | IntersectWithLine()
 [Polygon](/Python/GeometricObjects/Display/Polygon) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) |
 [Pyramid](/Python/GeometricObjects/Display/Pyramid) | [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html) |
@@ -106,23 +106,22 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [FilledPolygon](/Python/FilledPolygon) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) |
 [ImplicitPolyDataDistance](/Python/PolyData/ImplicitPolyDataDistance) | [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html) |
 [IterativeClosestPoints](/Python/IterativeClosestPoints) | [vtkIterativeClosestPointTransform](http://www.vtk.org/doc/nightly/html/classvtkIterativeClosestPointTransform.html) |
-[KochSnowflake](/Python/DataManipulation/KochSnowflake.py) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html), [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html), [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) | This example draws a Koch snowflake fractal using recursive functions and some of the convenient tools in the toolkit.
+[KochSnowflake](/Python/DataManipulation/KochSnowflake) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html), [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html), [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) | This example draws a Koch snowflake fractal using recursive functions and some of the convenient tools in the toolkit.
 [LineOnMesh](/Python/DataManipulation/LineOnMesh) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html), [vtkParametricSpline](http://www.vtk.org/doc/nightly/html/classvtkParametricSpline.html) |
 [MeshLabelImageColor](/Python/MeshLabelImageColor) | [vtkDiscreteMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkDiscreteMarchingCubes.html) |
-[MeshLabelImage](/Python/MeshLabelImage) | [vtkDiscreteMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkDiscreteMarchingCubes.html) |
 [Outline](/Python/Outline) | [vtkOutlineFilter](http://www.vtk.org/doc/nightly/html/classvtkOutlineFilter.html)|
 [PolyDataContourToImageData](/Python/PolyData/PolyDataContourToImageData) | [vtkLinearExtrusionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearExtrusionFilter.html),[vtkPolyDataToImageStencil](http://www.vtk.org/doc/nightly/html/classvtkPolyDataToImageStencil.html) |
 [PolyDataToImageDataStencil](/Python/PolyData/PolyDataToImageDataStencil) | [vtkPolyDataToImageStencil](http://www.vtk.org/doc/nightly/html/classvtkPolyDataToImageStencil.html) |
 [RotationAroundLine](/Python/RotationAroundLine) | [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html)  |
 [RuledSurfaceFilter](/Python/PolyData/RuledSurfaceFilter) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) |
 [SolidColoredTriangle](/Python/SolidColoredTriangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
-[SubdivisionFilters](/Python/PolyData/SubdivisionFilters) | [vtkLoopSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLoopSubdivisionFilter.html) | [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) |
+[SmoothMeshGrid](/Python/PolyData/SmoothMeshGrid) | [vtkLoopSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLoopSubdivisionFilter.html) | [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) |
 [TriangleColoredPoints](/Python/TriangleColoredPoints) | [vtkUnsignedCharArray](http://www.vtk.org/doc/nightly/html/classvtkUnsignedCharArray.html) |
 [TriangleCornerVertices](/Python/TriangleCornerVertices) | [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html) |
 [TriangleCorners](/Python/TriangleCorners) | [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html) |
-[WarpVectorpy](/Python/PolyData/WarpVector.py) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html), [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector.html) | This example warps/deflects a line.
+[WarpVectorpy](/Python/PolyData/WarpVector) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html), [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector.html) | This example warps/deflects a line.
 [WriteTriangleToFile](/Python/WriteTriangleToFile) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
-[py](/Python/DataManipulation/Cube.py) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
+[py](/Python/DataManipulation/Cube) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
 
 ## Working with 3D Data
 
