@@ -705,7 +705,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [OctreeFindPointsWithinRadius](/Cxx/DataStructures/Octree/OctreeFindPointsWithinRadius)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the points within a sphere of specified radius to a query point.
 [IncrementalOctreePointLocator](/Cxx/DataStructures/IncrementalOctreePointLocator)|[vtkIncrementalOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkIncrementalOctreePointLocator.html) | Insert points into an octree without rebuilding it.
 [OctreeKClosestPoints](/Cxx/DataStructures/OctreeKClosestPoints)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the K closest points to a query point.
-[OctreeClosestPoint](/Cxx/DataStructures/Octree/OctreeClosestPoint)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the closest point to a query point.
+[OctreeClosestPoint](/Cxx/DataStructures/OctreeClosestPoint)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the closest point to a query point.
 [OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)|[vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Visualize levels of the tree.
 
 
