@@ -220,7 +220,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ColorCellsWithRGB](/Cxx/PolyData/ColorCellsWithRGB) |[vtkCellData](http://www.vtk.org/doc/nightly/html/classvtkCellData.html) | Color individual cells of a polydata with rgb colors.
 [ColorCells](/Cxx/PolyData/ColorCells) | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Color individual cells of a polydata with scalar index.
 [Colored Points](/Cxx/PolyData/ColoredPoints) | [vtkUnsignedCharArray](http://www.vtk.org/doc/nightly/html/classvtkUnsignedCharArray.html) | Add three points to a polydata and associate a color with each of them.
-[CombinePolydata](/Cxx/Filtering/CombinePolydata) | [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html) | Combine/Append PolyData.
+[CombinePolyData](/Cxx/Filtering/CombinePolyData) | [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html) | Combine/Append PolyData.
 [ConnectivityFilter](/Cxx/Filtering/ConnectivityFilter) | [vtkConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkConnectivityFilter.html) | Color any dataset type based on connectivity.
 [ContoursFromPolyData](/Cxx/Filtering/ContoursFromPolyData) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) | Create contours from PolyData.
 [ContoursToSurface](/Cxx/PolyData/ContoursToSurface) | [vtkVoxelContoursToSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkVoxelContoursToSurfaceFilter.html) | Convert contours to a surface.
@@ -519,7 +519,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [DiscretizableColorTransferFunction](/Cxx/Utilities/DiscretizableColorTransferFunction) | [vtkDiscretizableColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkDiscretizableColorTransferFunction.html) |Discretizable Color Transfer Function.
 [FileOutputWindow](/Cxx/Utilities/FileOutputWindow) | [vtkFileOutputWindow](http://www.vtk.org/doc/nightly/html/classvtkFileOutputWindow.html) | Write errors to a log file instead of the screen.
 [FilenameFunctions](/Cxx/Utilities/FilenameFunctions) | [vtkDirectory](http://www.vtk.org/doc/nightly/html/classvtkDirectory.html), [vtksys](http://www.vtk.org/doc/nightly/html/classvtksys.html)/SystemTools | Do things like get the file extension, strip the file extension, etc.
-[FilterSelfress](/Cxx/Utilities/FilterSelfProgress) |  |Monitor a filters progress.
+[FilterSelfProgress](/Cxx/Developers/FilterSelfProgress) |  |Monitor a filters progress.
 [FrameRate](/Cxx/Utilities/FrameRate) | | Get the frame rate of the rendering.
 [FullScreen](/Cxx/Utilities/FullScreen) | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) | Maximize/full screen a [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html).
 [FunctionParser](/Cxx/Utilities/FunctionParser) | [vtkFunctionParser](http://www.vtk.org/doc/nightly/html/classvtkFunctionParser.html) |String function parser.
@@ -693,7 +693,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[IntersectWithLine](/Cxx/DataStructures/IntersectWithLine)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with a [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html).
+[OBBTreeIntersectWithLine](/Cxx/DataStructures/OBBTreeIntersectWithLine)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with a [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html).
 [OBBTreeExtractCells](/Cxx/DataStructures/OBBTreeExtractCells)| [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Intersect a line with an OBB Tree and display all intersected cells.
 [VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree) | [vtkOBBTree](http://www.vtk.org/doc/nightly/html/classvtkOBBTree.html) |Visualize levels of the tree.
 
@@ -701,10 +701,10 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[BuildOctree](/Cxx/DataStructures/Octree/BuildOctree)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Create an octree.
+[BuildOctree](/Cxx/DataStructures/BuildOctree)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Create an octree.
 [OctreeFindPointsWithinRadius](/Cxx/DataStructures/Octree/OctreeFindPointsWithinRadius)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the points within a sphere of specified radius to a query point.
 [IncrementalOctreePointLocator](/Cxx/DataStructures/IncrementalOctreePointLocator)|[vtkIncrementalOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkIncrementalOctreePointLocator.html) | Insert points into an octree without rebuilding it.
-[OctreeKClosestPoints](/Cxx/DataStructures/Octree/OctreeKClosestPoints)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the K closest points to a query point.
+[OctreeKClosestPoints](/Cxx/DataStructures/OctreeKClosestPoints)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the K closest points to a query point.
 [OctreeClosestPoint](/Cxx/DataStructures/Octree/OctreeClosestPoint)| [vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Find the closest point to a query point.
 [OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)|[vtkOctreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkOctreePointLocator.html) |Visualize levels of the tree.
 
