@@ -5,7 +5,7 @@ A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [DistancePointToLine](/CSharp/SimpleOperations/DistancePointToLine) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) | Distance between a point and a line
-[DistanceBetweenPoints](/CSharp/SimpleOperations/DistanceBetweenPoints) | [http://www.vtk.org/doc/nightly/html/classvtkMath.html#a11944eda4bd17e4e57bcd1e49c2f9446 vtkMath::Distance2BetweenPoints] | Computes the distance between two point Distance between two points
+[DistanceBetweenPoints](/CSharp/SimpleOperations/DistanceBetweenPoints) | [vtkMath](http://www.vtk.org/doc/nightly/html/classvtkMath.html) | Computes the distance between two point Distance between two points
 [UniformRandomNumber](/CSharp/SimpleOperations/UniformRandomNumber) | [vtkMath](http://www.vtk.org/doc/nightly/html/classvtkMath.html) | Generates uniform random number Random number (uniform distribution)
 [GaussianRandomNumber](/CSharp/SimpleOperations/GaussianRandomNumber) | [vtkMath](http://www.vtk.org/doc/nightly/html/classvtkMath.html) | Generates Gaussian random number Random number (Gaussian distribution)
 [RandomSequence](/CSharp/SimpleOperations/RandomSequence)|[vtkMinimalStandardRandomSequence](http://www.vtk.org/doc/nightly/html/classvtkMinimalStandardRandomSequence.html) | This is the preferred way to generate random numbers Random sequence
@@ -28,7 +28,6 @@ Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
 [SimplePointsReader](/CSharp/IO/SimplePointsReader) | [vtkSimplePointsReader](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsReader.html) | Read a simple "xyz" file of points
 [ParticleReader](/CSharp/IO/ParticleReader)| [vtkParticleReader](http://www.vtk.org/doc/nightly/html/classvtkParticleReader.html) | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file forma Read an "xyza" file
-
 [ReadPlainText](/CSharp/IO/ReadPlainText) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) | Manually read a file using a streamreade Read a plain text file into a polydata
 [ReadOBJ](/CSharp/IO/ReadOBJ) | [vtkOBJReader](http://www.vtk.org/doc/nightly/html/classvtkOBJReader.html) | Read an OBJ (.obj) File
 [ReadDICOMSeries](/CSharp/IO/ReadDICOMSeries) | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html) | This example demonstates how to read a series of DICOM images and scroll through slice Convert a series of DICOM files into a VTI File
@@ -43,7 +42,6 @@ Example Name | Classes Demonstrated | Description |
 ##### Output
 Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-
 [SimplePointsWriter](/CSharp/IO/SimplePointsWriter) | [vtkSimplePointsWriter](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsWriter.html) | Write a simple ".xyz" file
 [WriteSTL](/CSharp/IO/WriteSTL) | [vtkSTLWriter](http://www.vtk.org/doc/nightly/html/classvtkSTLWriter.html) | Write stereo lithography STL (.stl) files
 [WritePLY](/CSharp/IO/WritePLY) | [vtkPLYWriter](http://www.vtk.org/doc/nightly/html/classvtkPLYWriter.html) | Write PLY (.ply) files
@@ -111,11 +109,11 @@ Example Name | Classes Demonstrated | Description |
 [Frustum](/CSharp/GeometricObjects/Frustum) | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html) | Frustum
 [Line](/CSharp/GeometricObjects/Line) | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html) | Line
 [LongLine](/CSharp/GeometricObjects/LongLine) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) | Manually create a polyline
-[Hexahedron](/CSharp/GeometricObjects/Hexahedron) | {VTKDoxygenURL|vtkHexahedron}} | Hexahedron
+[Hexahedron](/CSharp/GeometricObjects/Hexahedron) | [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html) | Hexahedron
 [OrientedArrow](/CSharp/GeometricObjects/OrientedArrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html) | Oriented Arrow
-[Plane](/CSharp/GeometricObjects/Plane) | {VTKDoxygenURL|vtkPlaneSource}} | Plane
-[Planes](/CSharp/GeometricObjects/Planes) | {VTKDoxygenURL|vtkPlanes}} | Planes
-[PlanesIntersection](/CSharp/GeometricObjects/PlanesIntersection) | {VTKDoxygenURL|vtkPlanesIntersection}} | PlanesIntersection
+[Plane](/CSharp/GeometricObjects/Plane) | [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html) | Plane
+[Planes](/CSharp/GeometricObjects/Planes) | [vtkPlanes](http://www.vtk.org/doc/nightly/html/classvtkPlanes.html) | Planes
+[PlanesIntersection](/CSharp/GeometricObjects/PlanesIntersection) | [vtkPlanesIntersection](http://www.vtk.org/doc/nightly/html/classvtkPlanesIntersection.html) | PlanesIntersection
 [PlatonicSolid](/CSharp/GeometricObjects/PlatonicSolid) | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html) | PlatonicSolid
 [Point](/CSharp/GeometricObjects/Point) | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html) | Point
 [Polygon](/CSharp/GeometricObjects/Polygon) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) | Polygon
@@ -134,9 +132,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-
-
-[ParametricObjects](/CSharp/GeometricObjects/ParametricObjects) | [vtkParametricBoy](http://www.vtk.org/doc/nightly/html/classvtkParametricBoy.html), [vtkParametricConicSpiral](http://www.vtk.org/doc/nightly/html/classvtkParametricConicSpiral.html), {{VTKDoxygenURL|vtkParametricCrossCap}}, {{VTKDoxygenURL|vtkParametricDini}}, {{VTKDoxygenURL|vtkParametricEllipsoid}}, {{VTKDoxygenURL|vtkParametricEnneper}}, {{VTKDoxygenURL|vtkParametricFigure8Klein}}, {{VTKDoxygenURL|vtkParametricKlein}}, {{VTKDoxygenURL|vtkParametricMobius}}, {{VTKDoxygenURL|vtkParametricRandomHills}}, {{VTKDoxygenURL|vtkParametricRoman}}, {{VTKDoxygenURL|vtkParametricSpline}}, {{VTKDoxygenURL|vtkParametricSuperEllipsoid}}, {{VTKDoxygenURL|vtkParametricSuperToroid}}, {{VTKDoxygenURL|vtkParametricTorus}} | Create and display a parametric object
+[ParametricObjects](/CSharp/GeometricObjects/ParametricObjects) | [vtkParametricBoy](http://www.vtk.org/doc/nightly/html/classvtkParametricBoy.html), [vtkParametricConicSpiral](http://www.vtk.org/doc/nightly/html/classvtkParametricConicSpiral.html), [vtkParametricCrossCap](http://www.vtk.org/doc/nightly/html/classvtkParametricCrossCap.html), [vtkParametricDini](http://www.vtk.org/doc/nightly/html/classvtkParametricDini.html), [vtkParametricEllipsoid](http://www.vtk.org/doc/nightly/html/classvtkParametricEllipsoid.html), [vtkParametricEnneper](http://www.vtk.org/doc/nightly/html/classvtkParametricEnneper.html), [vtkParametricFigure8Klein](http://www.vtk.org/doc/nightly/html/classvtkParametricFigure8Klein.html), [vtkParametricKlein](http://www.vtk.org/doc/nightly/html/classvtkParametricKlein.html), [vtkParametricMobius](http://www.vtk.org/doc/nightly/html/classvtkParametricMobius.html), [vtkParametricRandomHills](http://www.vtk.org/doc/nightly/html/classvtkParametricRandomHills.html), [vtkParametricRoman](http://www.vtk.org/doc/nightly/html/classvtkParametricRoman.html), [vtkParametricSpline](http://www.vtk.org/doc/nightly/html/classvtkParametricSpline.html), [vtkParametricSuperEllipsoid](http://www.vtk.org/doc/nightly/html/classvtkParametricSuperEllipsoid.html), [vtkParametricSuperToroid](http://www.vtk.org/doc/nightly/html/classvtkParametricSuperToroid.html), [vtkParametricTorus](http://www.vtk.org/doc/nightly/html/classvtkParametricTorus.html) | Create and display a parametric object
 [ParametricObjectsDemo](/CSharp/GeometricObjects/ParametricObjectsDemo) |  | Demonstration of all of the vtkParametric* classes
 
 ## Implicit Functions and Iso-surfaces
@@ -182,8 +178,7 @@ Example Name | Classes Demonstrated | Description |
 [LargestRegion](/CSharp/PolyData/vtkPolyDataConnectivityFilter_LargestRegion) |  [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract the largest connected region in a polydata
 [SpecifiedRegion](/CSharp/PolyData/vtkPolyDataConnectivityFilter_SpecifiedRegion) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract a specific (specified) connected region in a polydata
 [ColorDisconnectedRegions](/CSharp/PolyData/ColorDisconnectedRegions) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Color each disconnected region of a vtkPolyData a different color
-[Curvatures](/CSharp/PolyData/Curvatures)|[vtkCurvatures](http://www.vtk.org/doc/nightly/html/classvtkCurvatures.html) | Compute Gaussian, Mean, Min, and Max Curvatures
-[MeshQuality](/CSharp/PolyData/MeshQuality)|[vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) | Mesh Quality
+[Curvature](/CSharp/PolyData/Curvature)|[vtkCurvatures](http://www.vtk.org/doc/nightly/html/classvtkCurvatures.html) | Compute Gaussian, Mean, Min, and Max Curvatures
 [HighlightBadCells](/CSharp/PolyData/HighlightBadCells)|[vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) | Highlight Bad Cells
 [PolygonalSurfaceContourLineInterpolator](/CSharp/PolyData/PolygonalSurfaceContourLineInterpolator)|[vtkPolygonalSurfaceContourLineInterpolator](http://www.vtk.org/doc/nightly/html/classvtkPolygonalSurfaceContourLineInterpolator.html) | Interactively find the shortest path between two points on a mesh
 [DijkstraGraphGeodesicPath](/CSharp/PolyData/DijkstraGraphGeodesicPath)|[vtkDijkstraGraphGeodesicPath](http://www.vtk.org/doc/nightly/html/classvtkDijkstraGraphGeodesicPath.html) | Find the shortest path between two points on a mesh
@@ -193,11 +188,11 @@ Example Name | Classes Demonstrated | Description |
 [Decimation](/CSharp/Meshes/Decimation)|[vtkDecimatePro](http://www.vtk.org/doc/nightly/html/classvtkDecimatePro.html) | Reduce the number of triangles in a mesh Decimation
 [QuadricDecimation](/CSharp/Meshes/QuadricDecimation)|[vtkQuadricDecimation](http://www.vtk.org/doc/nightly/html/classvtkQuadricDecimation.html) | Reduce the number of triangles in a mesh Decimation (quadric decimation)
 [QuadricClustering](/CSharp/Meshes/QuadricClustering)|[vtkQuadricClustering](http://www.vtk.org/doc/nightly/html/classvtkQuadricClustering.html) | Reduce the number of triangles in a mesh Decimation (quadric clustering)
-[Subdivision](/CSharp/Meshes/Subdivision)|[vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html), [vtkLoopSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLoopSubdivisionFilter.html), {{VTKDoxygenURL|vtkLinearSubdivisionFilter}} | Increase the number of triangles in a mesh Subdivision
+[Subdivision](/CSharp/Meshes/Subdivision)|[vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html), [vtkLoopSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLoopSubdivisionFilter.html), [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) | Increase the number of triangles in a mesh Subdivision
 [BoundaryEdges](/CSharp/Meshes/BoundaryEdges)|[vtkFeatureEdges](http://www.vtk.org/doc/nightly/html/classvtkFeatureEdges.html) | Find the edges that are used by only one face Finding Boundary Edges
 [FillHoles](/CSharp/Meshes/FillHoles)|[vtkFillHolesFilter](http://www.vtk.org/doc/nightly/html/classvtkFillHolesFilter.html) | Close holes in a mesh Fill Holes
 [WindowedSincPolyDataFilter](/CSharp/Meshes/WindowedSincPolyDataFilter)|[vtkWindowedSincPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowedSincPolyDataFilter.html) | Smooth a mesh Windowed Sinc PolyData Filter|Smooth a mesh (windowed sinc filter)
-[height](/CSharp/Meshes/Color a mesh by height)|{VTKDoxygenURL|vtkLookupTable}} | Colormap, color ma Color a mesh by height
+[height](/CSharp/Meshes/height)|[vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Colormap, color ma Color a mesh by height
 [ElevationFilter](/CSharp/Meshes/ElevationFilter)|[vtkElevationFilter](http://www.vtk.org/doc/nightly/html/classvtkElevationFilter.html) | Color a mesh by height
 [SimpleElevationFilter](/CSharp/Meshes/SimpleElevationFilter)|[vtkSimpleElevationFilter](http://www.vtk.org/doc/nightly/html/classvtkSimpleElevationFilter.html) | Color a mesh by dotting a vector from the origin to each point with a specified vector
 [mesh](/CSharp/Meshes/Triangulate a mesh)|[vtkTriangleFilter](http://www.vtk.org/doc/nightly/html/classvtkTriangleFilter.html) | Convert all polygons in a mesh to triangles Triangulate a mesh
