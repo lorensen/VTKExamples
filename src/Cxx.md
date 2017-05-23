@@ -1050,6 +1050,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ParallelCoordinates](/Cxx/Plotting/ParallelCoordinates)| [vtkChartParallelCoordinates](http://www.vtk.org/doc/nightly/html/classvtkChartParallelCoordinates.html) |Parallel coordinates.
 [PieChart](/Cxx/Plotting/PieChart)| [vtkChartPie](http://www.vtk.org/doc/nightly/html/classvtkChartPie.html), [vtkPlotPie](http://www.vtk.org/doc/nightly/html/classvtkPlotPie.html) |Pie chart.
 [ScatterPlot](/Cxx/Plotting/ScatterPlot)| [vtkPlotPoints](http://www.vtk.org/doc/nightly/html/classvtkPlotPoints.html) |Scatter plot.
+[SpiderPlot](/Cxx/Plotting/SpiderPlot)| [vtkSpiderPlotActor](http://www.vtk.org/doc/nightly/html/classvtkSpiderPlotActor.html) |Spider plot.
 [StackedBar](/Cxx/Plotting/StackedBar)| [vtkPlotBar](http://www.vtk.org/doc/nightly/html/classvtkPlotBar.html) |Stacked bar.
 [StackedPlot](/Cxx/Plotting/StackedPlot)| [vtkPlotStacked](http://www.vtk.org/doc/nightly/html/classvtkPlotStacked.html) |Stacked plot.
 
