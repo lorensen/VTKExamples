@@ -16292,9 +16292,15 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/CombiningRGBChannels</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestCombiningRGBChannels.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>This example creates three images of a square. Each square slightly overlaps the previous square. These three layers are then interpreted as the R, G, and B channel of an RGB image, by the use of {{class|vtkImageAppendComponents}}.</p>
-<p>Note that you MUST add 3 inputs or no output will be produced.</p>
-<p>For the reverse operation, see <a href="../[../ExtractComponents]"></a>.</p>
+<p>This example creates three images of a square. Each square slightly overlaps the previous square. These three layers are then interpreted as the R, G, and B channel of an RGB image, by the use of vtkImageAppendComponents.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You MUST add 3 inputs or no output will be produced.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p>For the reverse operation, see <a href="../../../Cxx/Images/ExtractComponents">ExtractComponents</a>.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CombiningRGBChannels.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
