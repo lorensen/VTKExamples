@@ -1,503 +1,221 @@
 I just started to maintain this page. So stay tuned. In the near future you will find useful examples here from time to time.<br />
 A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET Setup a Windows Forms Application to use ActiViz.NET]
 
-==Simple Operations==
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/DistancePointToLine | Distance between a point and a line]] || {{DoxygenURL|vtkLine}} ||
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/DistanceBetweenPoints | Distance between two points]] || [http://www.vtk.org/doc/nightly/html/classvtkMath.html#a11944eda4bd17e4e57bcd1e49c2f9446 vtkMath::Distance2BetweenPoints] || Computes the distance between two points
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/UniformRandomNumber | Random number (uniform distribution)]] || {{DoxygenURL|vtkMath}} || Generates uniform random numbers
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/GaussianRandomNumber | Random number (Gaussian distribution)]] || {{DoxygenURL|vtkMath}} || Generates Gaussian random numbers
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/RandomSequence|Random sequence]] || {{DoxygenURL|vtkMinimalStandardRandomSequence}} || This is the preferred way to generate random numbers.
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/ProjectPointPlane|Project a point onto a plane]] || {{DoxygenURL|vtkPlane}} || Project a point onto a plane
-|-
-| [[VTK/Examples/CSharp/SimpleOperations/PerspectiveTransform|Apply a perspective transformation to a point]] || {{VTKDoxygenURL|vtkPerspectiveTransform}} ||
-|}
+## Simple Operations
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [DistancePointToLine](/CSharp/SimpleOperations/DistancePointToLine) | {{DoxygenURL|vtkLine}} | Distance between a point and a line
+| [DistanceBetweenPoints](/CSharp/SimpleOperations/DistanceBetweenPoints) | [http://www.vtk.org/doc/nightly/html/classvtkMath.html#a11944eda4bd17e4e57bcd1e49c2f9446 vtkMath::Distance2BetweenPoints] || Computes the distance between two point Distance between two points
+| [UniformRandomNumber](/CSharp/SimpleOperations/UniformRandomNumber) | {{DoxygenURL|vtkMath}} || Generates uniform random number Random number (uniform distribution)
+| [GaussianRandomNumber](/CSharp/SimpleOperations/GaussianRandomNumber) | {{DoxygenURL|vtkMath}} || Generates Gaussian random number Random number (Gaussian distribution)
+| [RandomSequence](/CSharp/SimpleOperations/RandomSequence)|{{DoxygenURL|vtkMinimalStandardRandomSequence}} || This is the preferred way to generate random numbers Random sequence
+| [ProjectPointPlane](/CSharp/SimpleOperations/ProjectPointPlane)|{{DoxygenURL|vtkPlane}} || Project a point onto a plan Project a point onto a plane
+| [PerspectiveTransform](/CSharp/SimpleOperations/PerspectiveTransform)|{{VTKDoxygenURL|vtkPerspectiveTransform}} | Apply a perspective transformation to a point
 
-==Input and Output==
-===Graph Formats===
+## Input and Output
+### Graph Formats
 
-===3D File Formats===
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/ConvertFile | Convert a file from one type to another]] ||  ||
-|-
-| [[VTK/Examples/CSharp/InfoVis/XGMLReader | Read a .gml file]] || {{VTKDoxygenURL|vtkXGMLReader}} ||
-|}
+### 3D File Formats
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [ConvertFile](/CSharp/IO/ConvertFile) |  | Convert a file from one type to another
+| [XGMLReader](/CSharp/InfoVis/XGMLReader) | {{VTKDoxygenURL|vtkXGMLReader}} | Read a .gml file
 
 
-====Standard Formats====
-=====Input=====
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/SimplePointsReader | Read a simple "xyz" file of points]] || {{VTKDoxygenURL|vtkSimplePointsReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ParticleReader|Read an "xyza" file]] || {{VTKDoxygenURL|vtkParticleReader}} || This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format
-|-
-| [[VTK/Examples/CSharp/IO/ReadPlainText | Read a plain text file into a polydata]] || {{VTKDoxygenURL|vtkPolyData}} || Manually read a file using a streamreader
-|-
-| [[VTK/Examples/CSharp/IO/ReadOBJ | Read an OBJ (.obj) File]] || {{VTKDoxygenURL|vtkOBJReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadDICOMSeries | Convert a series of DICOM files into a VTI File]] || {{VTKDoxygenURL|vtkDICOMImageReader}} || This example demonstates how to read a series of DICOM images and scroll through slices
-|-
-| [[VTK/Examples/CSharp/IO/VRML|Read a VRML (WRL) file]] || {{VTKDoxygenURL|vtkVRMLImporter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/DumpXMLFile|Report the contents of a VTK XML or legacy file]] || {{VTKDoxygenURL|vtkDataSetReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/DEMReader | Read DEM (elevation map) files]] || {{VTKDoxygenURL|vtkDEMReader}} || 
-|-
-| [[VTK/Examples/CSharp/IO/ReadSTL | Read stereo lithography STL (.stl) files]] || {{VTKDoxygenURL|vtkSTLReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadPLY | Read PLY (.ply) files]] || {{VTKDoxygenURL|vtkPLYReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadPLOT3D | Read PLOT3D (.bin) files]] || {{VTKDoxygenURL|vtkPLOT3DReader}} || Read CFD (computational fluid dynamics) data produced by PLOT3D.
-|-
-| [[VTK/Examples/CSharp/IO/ReadPDB | Read Protein Data Bank files (.pdb) files]] || {{VTKDoxygenURL|vtkPDBReader}} || Read Protein Data Bank Files.
-|}
+#### Standard Formats
+##### Input
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
 
-=====Output=====
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/SimplePointsWriter | Write a simple ".xyz" file]] || {{VTKDoxygenURL|vtkSimplePointsWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/WriteSTL | Write stereo lithography STL (.stl) files]] || {{VTKDoxygenURL|vtkSTLWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/WritePLY | Write PLY (.ply) files]] || {{VTKDoxygenURL|vtkPLYWriter}} ||
-|-
-| [[VTK/Examples/CSharp/InfoVis/DelimitedTextWriter | Write data to a delimited file]] || {{VTKDoxygenURL|vtkDelimitedTextWriter}} ||
-|}
+| [SimplePointsReader](/CSharp/IO/SimplePointsReader) | {{VTKDoxygenURL|vtkSimplePointsReader}} | Read a simple "xyz" file of points
+| [ParticleReader](/CSharp/IO/ParticleReader)|{{VTKDoxygenURL|vtkParticleReader}} || This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file forma Read an "xyza" file
 
-====VTK Formats====
-=====Input=====
+| [ReadPlainText](/CSharp/IO/ReadPlainText) | {{VTKDoxygenURL|vtkPolyData}} || Manually read a file using a streamreade Read a plain text file into a polydata
+| [ReadOBJ](/CSharp/IO/ReadOBJ) | {{VTKDoxygenURL|vtkOBJReader}} | Read an OBJ (.obj) File
+| [ReadDICOMSeries](/CSharp/IO/ReadDICOMSeries) | {{VTKDoxygenURL|vtkDICOMImageReader}} || This example demonstates how to read a series of DICOM images and scroll through slice Convert a series of DICOM files into a VTI File
+| [VRML](/CSharp/IO/VRML)|{{VTKDoxygenURL|vtkVRMLImporter}} | Read a VRML (WRL) file
+| [DumpXMLFile](/CSharp/IO/DumpXMLFile)|{{VTKDoxygenURL|vtkDataSetReader}} | Report the contents of a VTK XML or legacy file
+| [DEMReader](/CSharp/IO/DEMReader) | {{VTKDoxygenURL|vtkDEMReader}} || Read DEM (elevation map) files
+| [ReadSTL](/CSharp/IO/ReadSTL) | {{VTKDoxygenURL|vtkSTLReader}} | Read stereo lithography STL (.stl) files
+| [ReadPLY](/CSharp/IO/ReadPLY) | {{VTKDoxygenURL|vtkPLYReader}} | Read PLY (.ply) files
+| [ReadPLOT3D](/CSharp/IO/ReadPLOT3D) | {{VTKDoxygenURL|vtkPLOT3DReader}} || Read CFD (computational fluid dynamics) data produced by PLOT3D Read PLOT3D (.bin) files
+| [ReadPDB](/CSharp/IO/ReadPDB) | {{VTKDoxygenURL|vtkPDBReader}} || Read Protein Data Bank Files Read Protein Data Bank files (.pdb) files
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/ReadUnstructuredGrid|Read an unstructured grid (.vtu) file]] || {{VTKDoxygenURL|vtkXMLUnstructuredGridReader}} ||Demonstrates how to read a .vtu file
-|-
-| [[VTK/Examples/CSharp/IO/ReadPolyData|Read a polygonal data (.vtp) file]] || {{VTKDoxygenURL|vtkXMLPolyDataReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadImageData|Read a image data (.vti) file]] || {{VTKDoxygenURL|vtkXMLImageDataReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadStructuredGrid|Read a structured grid (.vts) file]] || {{VTKDoxygenURL|vtkXMLStructuredGridReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadRectilinearGrid|Read a rectilinear grid (.vtr) file]] || {{VTKDoxygenURL|vtkXMLRectilinearGridReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadUnknownTypeXMLFile|Read an XML file and later decide what kind it is]] || {{VTKDoxygenURL|vtkXMLGenericDataObjectReader}} ||
-|}
+##### Output
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
 
-=====Output=====
+| [SimplePointsWriter](/CSharp/IO/SimplePointsWriter) | {{VTKDoxygenURL|vtkSimplePointsWriter}} | Write a simple ".xyz" file
+| [WriteSTL](/CSharp/IO/WriteSTL) | {{VTKDoxygenURL|vtkSTLWriter}} | Write stereo lithography STL (.stl) files
+| [WritePLY](/CSharp/IO/WritePLY) | {{VTKDoxygenURL|vtkPLYWriter}} | Write PLY (.ply) files
+| [DelimitedTextWriter](/CSharp/InfoVis/DelimitedTextWriter) | {{VTKDoxygenURL|vtkDelimitedTextWriter}} | Write data to a delimited file
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/WriteVTU|Write a .vtu file]] || {{VTKDoxygenURL|vtkXMLUnstructuredGridWriter}} || VTU is an "Unstructured Grid". This format allows for 3D data to be stored.
-|-
-| [[VTK/Examples/CSharp/IO/WriteVTP|Write a .vtp file]] || {{VTKDoxygenURL|vtkXMLPolyDataWriter}} || VTP is a "PolyData". This format allows for the most complex geometric objects to be stored.
-|-
-| [[VTK/Examples/CSharp/IO/WriteVTI|Write a .vti file]] || {{VTKDoxygenURL|vtkXMLImageDataWriter}} || VTI is an "ImageData".
-|-
-| [[VTK/Examples/CSharp/IO/XMLStructuredGridWriter|Write a .vts file from a vtkStructuredGrid]] || {{VTKDoxygenURL|vtkXMLStructuredGridWriter}} || 
-|}
+#### VTK Formats
+##### Input 
 
-====Legacy VTK Formats====
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [ReadUnstructuredGrid](/CSharp/IO/ReadUnstructuredGrid)|{{VTKDoxygenURL|vtkXMLUnstructuredGridReader}} ||Demonstrates how to read a .vtu fil Read an unstructured grid (.vtu) file
+| [ReadPolyData](/CSharp/IO/ReadPolyData)|{{VTKDoxygenURL|vtkXMLPolyDataReader}} | Read a polygonal data (.vtp) file
+| [ReadImageData](/CSharp/IO/ReadImageData)|{{VTKDoxygenURL|vtkXMLImageDataReader}} | Read a image data (.vti) file
+| [ReadStructuredGrid](/CSharp/IO/ReadStructuredGrid)|{{VTKDoxygenURL|vtkXMLStructuredGridReader}} | Read a structured grid (.vts) file
+| [ReadRectilinearGrid](/CSharp/IO/ReadRectilinearGrid)|{{VTKDoxygenURL|vtkXMLRectilinearGridReader}} | Read a rectilinear grid (.vtr) file
+| [ReadUnknownTypeXMLFile](/CSharp/IO/ReadUnknownTypeXMLFile)|{{VTKDoxygenURL|vtkXMLGenericDataObjectReader}} | Read an XML file and later decide what kind it is
 
-{{VTKExamplesTable}}
-|}
+##### Output
 
-===Image Formats===
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [WriteVTU](/CSharp/IO/WriteVTU)|{{VTKDoxygenURL|vtkXMLUnstructuredGridWriter}} || VTU is an "Unstructured Grid". This format allows for 3D data to be stored Write a .vtu file
+| [WriteVTP](/CSharp/IO/WriteVTP)|{{VTKDoxygenURL|vtkXMLPolyDataWriter}} || VTP is a "PolyData". This format allows for the most complex geometric objects to be stored Write a .vtp file
+| [WriteVTI](/CSharp/IO/WriteVTI)|{{VTKDoxygenURL|vtkXMLImageDataWriter}} || VTI is an "ImageData" Write a .vti file
+| [XMLStructuredGridWriter](/CSharp/IO/XMLStructuredGridWriter)|{{VTKDoxygenURL|vtkXMLStructuredGridWriter}} || Write a .vts file from a vtkStructuredGrid
 
-====Input====
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/ReadBMP | Read BMP (.bmp) files]] || {{VTKDoxygenURL|vtkBMPReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/JPEGReader|Read a JPG image]] || {{VTKDoxygenURL|vtkJPEGReader}}||
-|-
-| [[VTK/Examples/CSharp/IO/PNGReader|Read a PNG image]] || {{VTKDoxygenURL|vtkPNGReader}}||
-|-
-| [[VTK/Examples/CSharp/IO/ReadPNM | Read PNM (.pnm) files]] || {{VTKDoxygenURL|vtkPNMReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ReadTIFF | Read TIFF (.tif) files]] || {{VTKDoxygenURL|vtkTIFFReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/MetaImageReader | Read .mha files]] || {{VTKDoxygenURL|vtkMetaImageReader}} ||
-|-
-| [[VTK/Examples/CSharp/IO/ImageReader2Factory|Read most standard image formats.]] || {{VTKDoxygenURL|vtkImageReader2Factory}} || This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect.
-|}
 
-====Output====
+### Image Formats
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/IO/WriteBMP | Write a BMP (.bmp) file]] || {{VTKDoxygenURL|vtkBMPWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/JPEGWriter | Write a JPEG (.jpg) file]] || {{VTKDoxygenURL|vtkJPEGWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/WritePNG | Write a PNG (.png) file]] || {{VTKDoxygenURL|vtkPNGWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/WritePNM | Write a PNM (.pnm) file]] || {{VTKDoxygenURL|vtkPNMWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/WriteTIFF | Write a TIFF (.tif) file]] || {{VTKDoxygenURL|vtkTIFFWriter}} ||
-|-
-| [[VTK/Examples/CSharp/IO/MetaImageWriter | Write a .mha/.mhd + .raw file]] || {{VTKDoxygenURL|vtkMetaImageWriter}} ||
-|}
+#### Input
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [ReadBMP](/CSharp/IO/ReadBMP) | {{VTKDoxygenURL|vtkBMPReader}} | Read BMP (.bmp) files
+| [JPEGReader](/CSharp/IO/JPEGReader)|{{VTKDoxygenURL|vtkJPEGReader}}| Read a JPG image
+| [PNGReader](/CSharp/IO/PNGReader)|{{VTKDoxygenURL|vtkPNGReader}}| Read a PNG image
+| [ReadPNM](/CSharp/IO/ReadPNM) | {{VTKDoxygenURL|vtkPNMReader}} | Read PNM (.pnm) files
+| [ReadTIFF](/CSharp/IO/ReadTIFF) | {{VTKDoxygenURL|vtkTIFFReader}} | Read TIFF (.tif) files
+| [MetaImageReader](/CSharp/IO/MetaImageReader) | {{VTKDoxygenURL|vtkMetaImageReader}} | Read .mha files
+| [ImageReader2Factory](/CSharp/IO/ImageReader2Factory)|{{VTKDoxygenURL|vtkImageReader2Factory}} || This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect Read most standard image formats.
 
-==Geometric Objects==
+#### Output
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/PolygonIntersection| Compute the intersection of a line segment with a polygon]] || {{VTKDoxygenURL|vtkPolygon}} || IntersectWithLine()
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/GeometricObjectsDemo| A demonstration of all geometric objects that work the same way]] ||  ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Arrow| Arrow]] || {{VTKDoxygenURL|vtkArrowSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Axes| Axes]] || {{VTKDoxygenURL|vtkAxesActor}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/ColoredLines  |Colored Lines]] || {{VTKDoxygenURL|vtkCellData}} {{VTKDoxygenURL|vtkLine}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Cone | Cone]] || {{VTKDoxygenURL|vtkConeSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Cube | Cube]] || {{VTKDoxygenURL|vtkCubeSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Cylinder | Cylinder]] || {{VTKDoxygenURL|vtkCylinderSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Disk | Disk]] || {{VTKDoxygenURL|vtkDiskSource}} || A circle with a hole in it.
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Frustum | Frustum]] || {{VTKDoxygenURL|vtkFrustumSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Line | Line]] || {{VTKDoxygenURL|vtkLineSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/LongLine | Manually create a polyline]] || {{VTKDoxygenURL|vtkLine}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Hexahedron | Hexahedron]]|| {{VTKDoxygenURL|vtkHexahedron}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/OrientedArrow | Oriented Arrow]] || {{VTKDoxygenURL|vtkArrowSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Plane | Plane]]|| {{VTKDoxygenURL|vtkPlaneSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Planes | Planes]]|| {{VTKDoxygenURL|vtkPlanes}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/PlanesIntersection | PlanesIntersection]]|| {{VTKDoxygenURL|vtkPlanesIntersection}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/PlatonicSolid | PlatonicSolid]] || {{VTKDoxygenURL|vtkPlatonicSolidSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Point | Point]] || {{VTKDoxygenURL|vtkPoints}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Polygon | Polygon]] || {{VTKDoxygenURL|vtkPolygon}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Pyramid | Pyramid]] || {{VTKDoxygenURL|vtkPyramid}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/PolyLine | PolyLine]] || {{VTKDoxygenURL|vtkPolyLine}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Quad | Quad]] || {{VTKDoxygenURL|vtkQuad}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/RegularPolygonSource | Regular Polygon]] || {{VTKDoxygenURL|vtkRegularPolygonSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Sphere | Sphere]] || {{VTKDoxygenURL|vtkSphereSource}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Triangle | Triangle]] || {{VTKDoxygenURL|vtkTriangle}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/TriangleStrip|Triangle strip]] || {{VTKDoxygenURL|vtkTriangleStrip}} || 
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Tetrahedron | Tetrahedron]] || {{VTKDoxygenURL|vtkTetra}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/Vertex | Vertex]] || {{VTKDoxygenURL|vtkVertex}} ||
-|}
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [WriteBMP](/CSharp/IO/WriteBMP) | {{VTKDoxygenURL|vtkBMPWriter}} | Write a BMP (.bmp) file
+| [JPEGWriter](/CSharp/IO/JPEGWriter) | {{VTKDoxygenURL|vtkJPEGWriter}} | Write a JPEG (.jpg) file
+| [WritePNG](/CSharp/IO/WritePNG) | {{VTKDoxygenURL|vtkPNGWriter}} | Write a PNG (.png) file
+| [WritePNM](/CSharp/IO/WritePNM) | {{VTKDoxygenURL|vtkPNMWriter}} | Write a PNM (.pnm) file
+| [WriteTIFF](/CSharp/IO/WriteTIFF) | {{VTKDoxygenURL|vtkTIFFWriter}} | Write a TIFF (.tif) file
+| [MetaImageWriter](/CSharp/IO/MetaImageWriter) | {{VTKDoxygenURL|vtkMetaImageWriter}} | Write a .mha/.mhd + .raw file
 
-===Parametric Objects===
+## Geometric Objects
+
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [PolygonIntersection](/CSharp/GeometricObjects/PolygonIntersection)| {{VTKDoxygenURL|vtkPolygon}} || IntersectWithLine( Compute the intersection of a line segment with a polygon
+| [GeometricObjectsDemo](/CSharp/GeometricObjects/GeometricObjectsDemo)|  | A demonstration of all geometric objects that work the same way
+| [Arrow](/CSharp/GeometricObjects/Arrow)| {{VTKDoxygenURL|vtkArrowSource}} | Arrow
+| [Axes](/CSharp/GeometricObjects/Axes)| {{VTKDoxygenURL|vtkAxesActor}} | Axes
+| [ColoredLines](/CSharp/GeometricObjects/ColoredLines)  |{{VTKDoxygenURL|vtkCellData}} {{VTKDoxygenURL|vtkLine}} | Colored Lines
+| [Cone](/CSharp/GeometricObjects/Cone) | {{VTKDoxygenURL|vtkConeSource}} | Cone
+| [Cube](/CSharp/GeometricObjects/Cube) | {{VTKDoxygenURL|vtkCubeSource}} | Cube
+| [Cylinder](/CSharp/GeometricObjects/Cylinder) | {{VTKDoxygenURL|vtkCylinderSource}} | Cylinder
+| [Disk](/CSharp/GeometricObjects/Disk) | {{VTKDoxygenURL|vtkDiskSource}} || A circle with a hole in it Disk
+| [Frustum](/CSharp/GeometricObjects/Frustum) | {{VTKDoxygenURL|vtkFrustumSource}} | Frustum
+| [Line](/CSharp/GeometricObjects/Line) | {{VTKDoxygenURL|vtkLineSource}} | Line
+| [LongLine](/CSharp/GeometricObjects/LongLine) | {{VTKDoxygenURL|vtkLine}} | Manually create a polyline
+| [Hexahedron](/CSharp/GeometricObjects/Hexahedron) | {VTKDoxygenURL|vtkHexahedron}} | Hexahedron
+| [OrientedArrow](/CSharp/GeometricObjects/OrientedArrow) | {{VTKDoxygenURL|vtkArrowSource}} | Oriented Arrow
+| [Plane](/CSharp/GeometricObjects/Plane) | {VTKDoxygenURL|vtkPlaneSource}} | Plane
+| [Planes](/CSharp/GeometricObjects/Planes) | {VTKDoxygenURL|vtkPlanes}} | Planes
+| [PlanesIntersection](/CSharp/GeometricObjects/PlanesIntersection) | {VTKDoxygenURL|vtkPlanesIntersection}} | PlanesIntersection
+| [PlatonicSolid](/CSharp/GeometricObjects/PlatonicSolid) | {{VTKDoxygenURL|vtkPlatonicSolidSource}} | PlatonicSolid
+| [Point](/CSharp/GeometricObjects/Point) | {{VTKDoxygenURL|vtkPoints}} | Point
+| [Polygon](/CSharp/GeometricObjects/Polygon) | {{VTKDoxygenURL|vtkPolygon}} | Polygon
+| [Pyramid](/CSharp/GeometricObjects/Pyramid) | {{VTKDoxygenURL|vtkPyramid}} | Pyramid
+| [PolyLine](/CSharp/GeometricObjects/PolyLine) | {{VTKDoxygenURL|vtkPolyLine}} | PolyLine
+| [Quad](/CSharp/GeometricObjects/Quad) | {{VTKDoxygenURL|vtkQuad}} | Quad
+| [RegularPolygonSource](/CSharp/GeometricObjects/RegularPolygonSource) | {{VTKDoxygenURL|vtkRegularPolygonSource}} | Regular Polygon
+| [Sphere](/CSharp/GeometricObjects/Sphere) | {{VTKDoxygenURL|vtkSphereSource}} | Sphere
+| [Triangle](/CSharp/GeometricObjects/Triangle) | {{VTKDoxygenURL|vtkTriangle}} | Triangle
+| [TriangleStrip](/CSharp/GeometricObjects/TriangleStrip)|{{VTKDoxygenURL|vtkTriangleStrip}} || Triangle strip
+| [Tetrahedron](/CSharp/GeometricObjects/Tetrahedron) | {{VTKDoxygenURL|vtkTetra}} | Tetrahedron
+| [Vertex](/CSharp/GeometricObjects/Vertex) | {{VTKDoxygenURL|vtkVertex}} | Vertex
+
+### Parametric Objects
 These examples demonstrate how to create an display one of the many vtkParametric* objects. All of the classes listed can be used in an identical fashion.
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/ParametricObjects | Create and display a parametric object]] || {{VTKDoxygenURL|vtkParametricBoy}}, {{VTKDoxygenURL|vtkParametricConicSpiral}}, {{VTKDoxygenURL|vtkParametricCrossCap}}, {{VTKDoxygenURL|vtkParametricDini}}, {{VTKDoxygenURL|vtkParametricEllipsoid}}, {{VTKDoxygenURL|vtkParametricEnneper}}, {{VTKDoxygenURL|vtkParametricFigure8Klein}}, {{VTKDoxygenURL|vtkParametricKlein}}, {{VTKDoxygenURL|vtkParametricMobius}}, {{VTKDoxygenURL|vtkParametricRandomHills}}, {{VTKDoxygenURL|vtkParametricRoman}}, {{VTKDoxygenURL|vtkParametricSpline}}, {{VTKDoxygenURL|vtkParametricSuperEllipsoid}}, {{VTKDoxygenURL|vtkParametricSuperToroid}}, {{VTKDoxygenURL|vtkParametricTorus}} ||
-|-
-| [[VTK/Examples/CSharp/GeometricObjects/ParametricObjectsDemo | Demonstration of all of the vtkParametric* classes]] ||  ||
-|}
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
 
-----
 
-==Implicit Functions and Iso-surfaces==
+| [ParametricObjects](/CSharp/GeometricObjects/ParametricObjects) | {{VTKDoxygenURL|vtkParametricBoy}}, {{VTKDoxygenURL|vtkParametricConicSpiral}}, {{VTKDoxygenURL|vtkParametricCrossCap}}, {{VTKDoxygenURL|vtkParametricDini}}, {{VTKDoxygenURL|vtkParametricEllipsoid}}, {{VTKDoxygenURL|vtkParametricEnneper}}, {{VTKDoxygenURL|vtkParametricFigure8Klein}}, {{VTKDoxygenURL|vtkParametricKlein}}, {{VTKDoxygenURL|vtkParametricMobius}}, {{VTKDoxygenURL|vtkParametricRandomHills}}, {{VTKDoxygenURL|vtkParametricRoman}}, {{VTKDoxygenURL|vtkParametricSpline}}, {{VTKDoxygenURL|vtkParametricSuperEllipsoid}}, {{VTKDoxygenURL|vtkParametricSuperToroid}}, {{VTKDoxygenURL|vtkParametricTorus}} | Create and display a parametric object
+| [ParametricObjectsDemo](/CSharp/GeometricObjects/ParametricObjectsDemo) |  | Demonstration of all of the vtkParametric* classes
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/ImplicitFunctions/IsoContours|Visualize different isocontours using a slider]] || {{VTKDoxygenURL|vtkContourFunction}} ||
-|-
-| [[VTK/Examples/CSharp/ImplicitFunctions/SampleFunction|Sample and visualize an implicit function]] || {{VTKDoxygenURL|vtkSampleFunction}} ||
-|-
-| [[VTK/Examples/CSharp/Modelling/ExtractLargestIsosurface|Extract largest isosurface]] || {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} ||
-|-
-| [[VTK/Examples/CSharp/VisualizationAlgorithms/BandedPolyDataContourFilter|BandedPolyDataContourFilter]] || {{VTKDoxygenURL|vtkBandedPolyDataContourFilter}} ||
-|-
-| [[VTK/Examples/CSharp/VisualizationAlgorithms/FilledContours|Create filled contours (vtkClipPolyData)]] || {{VTKDoxygenURL|vtkContourFilter}} ||
-|-
-| [[VTK/Examples/CSharp/ImplicitFunctions/ImplicitSphere|An implicit representation of a sphere]] || {{VTKDoxygenURL|vtkSphere}} || 
-|-
-| [[VTK/Examples/CSharp/Modelling/MarchingCubes|Marching cubes]] || {{VTKDoxygenURL|vtkMarchingCubes}} || Create a voxelized sphere
-|-
-| [[VTK/Examples/CSharp/WishList/Modelling/MarchingSquares|Marching squares]] || {{VTKDoxygenURL|vtkMarchingSquares}} || Create a contour from a structured point set (image)
-|}
+## Implicit Functions and Iso-surfaces
 
-==Working with 3D Data==
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/PolyData/CenterOfMass|Compute the center of mass of the points]] || {{VTKDoxygenURL|CenterOfMass}}|| vtkCenterOfMass not implemented yet in ActiViz.NET
-|-
-| [[VTK/Examples/CSharp/PolyData/BooleanOperationPolyDataFilter|Perform boolean operations on two vtkPolyData objects]] || {{VTKDoxygenURL|BooleanOperationPolyDataFilter}}|| vtkBooleanOperationPolyDataFilter not implemented yet in ActiViz.NET
-|-
-| [[VTK/Examples/CSharp/PolyData/DistancePolyDataFilter|Compute the distance function from one vtkPolyData to another]] || {{VTKDoxygenURL|DistancePolyDataFilter}}|| vtkDistancePolyDataFilter not implemented yet in ActiViz.NET
-|-
-| [[VTK/Examples/CSharp/PolyData/ImplicitPolyDataDistance|Compute the distance function in a space around a vtkPolyData]] || {{VTKDoxygenURL|ImplicitPolyDataDistance}}|| vtkImplicitPolyDataDistance not implemented yet in ActiViz.NET
-|-
-| [[VTK/Examples/CSharp/PolyData/IntersectionPolyDataFilter|Compute the intersection of two vtkPolyData objects]] || {{VTKDoxygenURL|IntersectionPolyDataFilter}}|| vtkIntersectionPolyDataFilter not implemented yet in ActiViz.NET
-|-
-| [[VTK/Examples/CSharp/PolyData/ShrinkPolyData|Move all items in a PolyData towards their centroid]] || {{VTKDoxygenURL|vtkShrinkPolyData}}||
-|-
-| [[VTK/Examples/CSharp/PolyData/VectorFieldNonZeroExtraction|Extract non-zero vectors from a vtkImageData]] || {{VTKDoxygenURL|vtkExtractSelectedThresholds}}|| This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar values
-|-
-| [[VTK/Examples/CSharp/PolyData/MultiBlockMergeFilter|Combine MultiBlockDataSets]] || {{VTKDoxygenURL|vtkMultiBlockMergeFilter}}, {{VTKDoxygenURL|vtkMultiBlockDataSet}} || 
-|-
-| [[VTK/Examples/CSharp/PolyData/IterateOverLines|Iterate through the lines of a PolyData]] || {{VTKDoxygenURL|vtkCellArray}} || 
-|-
-| [[VTK/Examples/CSharp/PolyData/AlignFrames|Align coordinate frames]] || {{VTKDoxygenURL|vtkLandmarkTransform}} || 
-|-
-| [[VTK/Examples/CSharp/PolyData/WarpVector|vtkWarpVector]] || {{VTKDoxygenURL|vtkWarpVector}} || 
-|-
-| [[VTK/Examples/CSharp/IO/FindAllArrayNames|Get the names of all of the data arrays]] || {{VTKDoxygenURL|vtkPolyData}} || 
-|-
-| [[VTK/Examples/CSharp/PolyData/PolyDataGetPoint|Get point locations/coordinates from a vtkPolyData]] || {{VTKDoxygenURL|vtkPolyData}} || 
-|-
-| [[VTK/Examples/CSharp/PolyData/NullPoint|NullPoint]] || {{VTKDoxygenURL|vtkPointData}} || Set everything in PointData at a specified index to NULL
-|-
-| [[VTK/Examples/CSharp/Filtering/ContoursFromPolyData | Create contours from PolyData]] || {{VTKDoxygenURL|vtkCutter}} ||
-|-
-| [[VTK/Examples/CSharp/Filters/ImplicitBoolean | OperationsOnImplicitFunctions]] || {{VTKDoxygenURL|vtkImplicitBoolean}} || Operations include intersection and union. ||
-|}
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [IsoContours](/CSharp/ImplicitFunctions/IsoContours)|{{VTKDoxygenURL|vtkContourFunction}} | Visualize different isocontours using a slider
+| [SampleFunction](/CSharp/ImplicitFunctions/SampleFunction)|{{VTKDoxygenURL|vtkSampleFunction}} | Sample and visualize an implicit function
+| [ExtractLargestIsosurface](/CSharp/Modelling/ExtractLargestIsosurface)|{{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} | Extract largest isosurface
+| [BandedPolyDataContourFilter](/CSharp/VisualizationAlgorithms/BandedPolyDataContourFilter)|{{VTKDoxygenURL|vtkBandedPolyDataContourFilter}} | BandedPolyDataContourFilter
+| [FilledContours](/CSharp/VisualizationAlgorithms/FilledContours)|{{VTKDoxygenURL|vtkContourFilter}} | Create filled contours (vtkClipPolyData)
+| [ImplicitSphere](/CSharp/ImplicitFunctions/ImplicitSphere)|{{VTKDoxygenURL|vtkSphere}} || An implicit representation of a sphere
+| [MarchingCubes](/CSharp/Modelling/MarchingCubes)|{{VTKDoxygenURL|vtkMarchingCubes}} || Create a voxelized spher Marching cubes
+| [MarchingSquares](/CSharp/WishList/Modelling/MarchingSquares)|{{VTKDoxygenURL|vtkMarchingSquares}} || Create a contour from a structured point set (image Marching squares
 
-===Point cloud operations===
+## Working with 3D Data
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [CenterOfMass](/CSharp/PolyData/CenterOfMass)|{{VTKDoxygenURL|CenterOfMass}}|| vtkCenterOfMass not implemented yet in ActiViz.NE Compute the center of mass of the points
+| [BooleanOperationPolyDataFilter](/CSharp/PolyData/BooleanOperationPolyDataFilter)|{{VTKDoxygenURL|BooleanOperationPolyDataFilter}}|| vtkBooleanOperationPolyDataFilter not implemented yet in ActiViz.NE Perform boolean operations on two vtkPolyData objects
+| [DistancePolyDataFilter](/CSharp/PolyData/DistancePolyDataFilter)|{{VTKDoxygenURL|DistancePolyDataFilter}}|| vtkDistancePolyDataFilter not implemented yet in ActiViz.NE Compute the distance function from one vtkPolyData to another
+| [ImplicitPolyDataDistance](/CSharp/PolyData/ImplicitPolyDataDistance)|{{VTKDoxygenURL|ImplicitPolyDataDistance}}|| vtkImplicitPolyDataDistance not implemented yet in ActiViz.NE Compute the distance function in a space around a vtkPolyData
+| [IntersectionPolyDataFilter](/CSharp/PolyData/IntersectionPolyDataFilter)|{{VTKDoxygenURL|IntersectionPolyDataFilter}}|| vtkIntersectionPolyDataFilter not implemented yet in ActiViz.NE Compute the intersection of two vtkPolyData objects
+| [ShrinkPolyData](/CSharp/PolyData/ShrinkPolyData)|{{VTKDoxygenURL|vtkShrinkPolyData}}| Move all items in a PolyData towards their centroid
+| [VectorFieldNonZeroExtraction](/CSharp/PolyData/VectorFieldNonZeroExtraction)|{{VTKDoxygenURL|vtkExtractSelectedThresholds}}|| This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar value Extract non-zero vectors from a vtkImageData
+| [MultiBlockMergeFilter](/CSharp/PolyData/MultiBlockMergeFilter)|{{VTKDoxygenURL|vtkMultiBlockMergeFilter}}, {{VTKDoxygenURL|vtkMultiBlockDataSet}} || Combine MultiBlockDataSets
+| [IterateOverLines](/CSharp/PolyData/IterateOverLines)|{{VTKDoxygenURL|vtkCellArray}} || Iterate through the lines of a PolyData
+| [AlignFrames](/CSharp/PolyData/AlignFrames)|{{VTKDoxygenURL|vtkLandmarkTransform}} || Align coordinate frames
+| [WarpVector](/CSharp/PolyData/WarpVector)|{{VTKDoxygenURL|vtkWarpVector}} || vtkWarpVector
+| [FindAllArrayNames](/CSharp/IO/FindAllArrayNames)|{{VTKDoxygenURL|vtkPolyData}} || Get the names of all of the data arrays
+| [PolyDataGetPoint](/CSharp/PolyData/PolyDataGetPoint)|{{VTKDoxygenURL|vtkPolyData}} || Get point locations/coordinates from a vtkPolyData
+| [NullPoint](/CSharp/PolyData/NullPoint)|{{VTKDoxygenURL|vtkPointData}} || Set everything in PointData at a specified index to NUL NullPoint
+| [ContoursFromPolyData](/CSharp/Filtering/ContoursFromPolyData) | {{VTKDoxygenURL|vtkCutter}} | Create contours from PolyData
+| [ImplicitBoolean](/CSharp/Filters/ImplicitBoolean) | {{VTKDoxygenURL|vtkImplicitBoolean}} || Operations include intersection and union. | OperationsOnImplicitFunctions
 
-{{VTKExamplesTable}}
-|}
+### Working with Meshes
 
-===Working with Meshes===
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+| [MatrixMathFilter](/CSharp/Meshes/MatrixMathFilter)|{{VTKDoxygenURL|vtkMatrixMathFilter}} || Compute various quantities on cell and points in a mesh Matrix math filter
+| [WeightedTransformFilter](/CSharp/PolyData/WeightedTransformFilter) |  {{VTKDoxygenURL|vtkWeightedTransformFilter}} | vtkWeightedTransformFilter 
+| [GreedyTerrainDecimation](/CSharp/PolyData/GreedyTerrainDecimation) |  {{VTKDoxygenURL|vtkGreedyTerrainDecimation}} | Create a mesh from an ImageData 
+| [LargestRegion](/CSharp/PolyData/vtkPolyDataConnectivityFilter_LargestRegion) |  {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} | Extract the largest connected region in a polydata
+| [SpecifiedRegion](/CSharp/PolyData/vtkPolyDataConnectivityFilter_SpecifiedRegion) | {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} | Extract a specific (specified) connected region in a polydata
+| [ColorDisconnectedRegions](/CSharp/PolyData/ColorDisconnectedRegions) | {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} | Color each disconnected region of a vtkPolyData a different color
+| [Curvatures](/CSharp/PolyData/Curvatures)|{{VTKDoxygenURL|vtkCurvatures}} | Compute Gaussian, Mean, Min, and Max Curvatures
+| [MeshQuality](/CSharp/PolyData/MeshQuality)|{{VTKDoxygenURL|vtkMeshQuality}} | Mesh Quality
+| [HighlightBadCells](/CSharp/PolyData/HighlightBadCells)|{{VTKDoxygenURL|vtkMeshQuality}} | Highlight Bad Cells
+| [PolygonalSurfaceContourLineInterpolator](/CSharp/PolyData/PolygonalSurfaceContourLineInterpolator)|{{VTKDoxygenURL|vtkPolygonalSurfaceContourLineInterpolator}} | Interactively find the shortest path between two points on a mesh
+| [DijkstraGraphGeodesicPath](/CSharp/PolyData/DijkstraGraphGeodesicPath)|{{VTKDoxygenURL|vtkDijkstraGraphGeodesicPath}} | Find the shortest path between two points on a mesh
+| [SelectPolyData](/CSharp/PolyData/SelectPolyData)|{{VTKDoxygenURL|vtkSelectPolyData}} | Select a region of a mesh
+| [SmoothPolyDataFilter](/CSharp/PolyData/SmoothPolyDataFilter)|{{VTKDoxygenURL|vtkSmoothPolyDataFilter}} | Laplacian smoothing
+| [ClosedSurface](/CSharp/PolyData/ClosedSurface)|{{VTKDoxygenURL|vtkFeatureEdges}} | Check if a surface is closed
+| [Decimation](/CSharp/Meshes/Decimation)|{{VTKDoxygenURL|vtkDecimatePro}} || Reduce the number of triangles in a mesh Decimation
+| [QuadricDecimation](/CSharp/Meshes/QuadricDecimation)|{{VTKDoxygenURL|vtkQuadricDecimation}} || Reduce the number of triangles in a mesh Decimation (quadric decimation)
+| [QuadricClustering](/CSharp/Meshes/QuadricClustering)|{{VTKDoxygenURL|vtkQuadricClustering}} || Reduce the number of triangles in a mesh Decimation (quadric clustering)
+| [Subdivision](/CSharp/Meshes/Subdivision)|{{VTKDoxygenURL|vtkButterflySubdivisionFilter}}, {{VTKDoxygenURL|vtkLoopSubdivisionFilter}}, {{VTKDoxygenURL|vtkLinearSubdivisionFilter}} || Increase the number of triangles in a mesh Subdivision
+| [BoundaryEdges](/CSharp/Meshes/BoundaryEdges)|{{VTKDoxygenURL|vtkFeatureEdges}} || Find the edges that are used by only one face Finding Boundary Edges
+| [FillHoles](/CSharp/Meshes/FillHoles)|{{VTKDoxygenURL|vtkFillHolesFilter}} || Close holes in a mesh Fill Holes
+| [WindowedSincPolyDataFilter](/CSharp/Meshes/WindowedSincPolyDataFilter)|{{VTKDoxygenURL|vtkWindowedSincPolyDataFilter}} || Smooth a mesh Windowed Sinc PolyData Filter|Smooth a mesh (windowed sinc filter)
+| [height](/CSharp/Meshes/Color a mesh by height)|{VTKDoxygenURL|vtkLookupTable}} || Colormap, color ma Color a mesh by height
+| [ElevationFilter](/CSharp/Meshes/ElevationFilter)|{{VTKDoxygenURL|vtkElevationFilter}} | Color a mesh by height
+| [SimpleElevationFilter](/CSharp/Meshes/SimpleElevationFilter)|{{VTKDoxygenURL|vtkSimpleElevationFilter}} | Color a mesh by dotting a vector from the origin to each point with a specified vector
+| [mesh](/CSharp/Meshes/Triangulate a mesh)|{{VTKDoxygenURL|vtkTriangleFilter}} || Convert all polygons in a mesh to triangles Triangulate a mesh
+| [ExtractEdges](/CSharp/Meshes/ExtractEdges)|{{VTKDoxygenURL|vtkExtractEdges}} | Extract Edges
+| [CellEdges](/CSharp/Meshes/CellEdges)|{{VTKDoxygenURL|vtkCell}} | Get edges of cells
+| [SolidClip](/CSharp/Meshes/SolidClip)|{{VTKDoxygenURL|vtkClipPolyData}} | Create a "solid" clip
+| [CapClip](/CSharp/Meshes/CapClip)|{{VTKDoxygenURL|vtkClipPolyData}} | Cap a clipped polydata with a polygon
+| [OBBDicer](/CSharp/Meshes/OBBDicer)|{{VTKDoxygenURL|vtkOBBDicer}} || Breakup a mesh into pieces OBBDicer
 
-{{VTKExamplesTable}}
-|-
-| [[VTK/Examples/CSharp/Meshes/MatrixMathFilter|Matrix math filter]] || {{VTKDoxygenURL|vtkMatrixMathFilter}} || Compute various quantities on cell and points in a mesh.
-|-
-| [[VTK/Examples/CSharp/PolyData/WeightedTransformFilter | vtkWeightedTransformFilter ]]  || {{VTKDoxygenURL|vtkWeightedTransformFilter}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/GreedyTerrainDecimation | Create a mesh from an ImageData ]]  || {{VTKDoxygenURL|vtkGreedyTerrainDecimation}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/vtkPolyDataConnectivityFilter_LargestRegion | Extract the largest connected region in a polydata]]  || {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/vtkPolyDataConnectivityFilter_SpecifiedRegion | Extract a specific (specified) connected region in a polydata]] || {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/ColorDisconnectedRegions | Color each disconnected region of a vtkPolyData a different color]] || {{VTKDoxygenURL|vtkPolyDataConnectivityFilter}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/Curvatures|Compute Gaussian, Mean, Min, and Max Curvatures]] || {{VTKDoxygenURL|vtkCurvatures}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/MeshQuality|Mesh Quality]] || {{VTKDoxygenURL|vtkMeshQuality}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/HighlightBadCells|Highlight Bad Cells]] || {{VTKDoxygenURL|vtkMeshQuality}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/PolygonalSurfaceContourLineInterpolator|Interactively find the shortest path between two points on a mesh]] || {{VTKDoxygenURL|vtkPolygonalSurfaceContourLineInterpolator}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/DijkstraGraphGeodesicPath|Find the shortest path between two points on a mesh]] || {{VTKDoxygenURL|vtkDijkstraGraphGeodesicPath}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/SelectPolyData|Select a region of a mesh]] || {{VTKDoxygenURL|vtkSelectPolyData}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/SmoothPolyDataFilter|Laplacian smoothing]] || {{VTKDoxygenURL|vtkSmoothPolyDataFilter}} ||
-|-
-| [[VTK/Examples/CSharp/PolyData/ClosedSurface|Check if a surface is closed]] || {{VTKDoxygenURL|vtkFeatureEdges}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/Decimation|Decimation]] || {{VTKDoxygenURL|vtkDecimatePro}} || Reduce the number of triangles in a mesh.
-|-
-| [[VTK/Examples/CSharp/Meshes/QuadricDecimation|Decimation (quadric decimation)]] || {{VTKDoxygenURL|vtkQuadricDecimation}} || Reduce the number of triangles in a mesh.
-|-
-| [[VTK/Examples/CSharp/Meshes/QuadricClustering|Decimation (quadric clustering)]] || {{VTKDoxygenURL|vtkQuadricClustering}} || Reduce the number of triangles in a mesh.
-|-
-| [[VTK/Examples/CSharp/Meshes/Subdivision|Subdivision]] || {{VTKDoxygenURL|vtkButterflySubdivisionFilter}}, {{VTKDoxygenURL|vtkLoopSubdivisionFilter}}, {{VTKDoxygenURL|vtkLinearSubdivisionFilter}} || Increase the number of triangles in a mesh.
-|-
-| [[VTK/Examples/CSharp/Meshes/BoundaryEdges|Finding Boundary Edges]] || {{VTKDoxygenURL|vtkFeatureEdges}} || Find the edges that are used by only one face.
-|-
-| [[VTK/Examples/CSharp/Meshes/FillHoles|Fill Holes]] || {{VTKDoxygenURL|vtkFillHolesFilter}} || Close holes in a mesh.
-|-
-| [[VTK/Examples/CSharp/Meshes/WindowedSincPolyDataFilter|Windowed Sinc PolyData Filter|Smooth a mesh (windowed sinc filter)]] || {{VTKDoxygenURL|vtkWindowedSincPolyDataFilter}} || Smooth a mesh.
-|-
-| [[VTK/Examples/CSharp/Meshes/Color a mesh by height|Color a mesh by height]]|| {{VTKDoxygenURL|vtkLookupTable}} || Colormap, color map
-|-
-| [[VTK/Examples/CSharp/Meshes/ElevationFilter|Color a mesh by height]] || {{VTKDoxygenURL|vtkElevationFilter}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/SimpleElevationFilter|Color a mesh by dotting a vector from the origin to each point with a specified vector]] || {{VTKDoxygenURL|vtkSimpleElevationFilter}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/Triangulate a mesh|Triangulate a mesh]] || {{VTKDoxygenURL|vtkTriangleFilter}} || Convert all polygons in a mesh to triangles.
-|-
-| [[VTK/Examples/CSharp/Meshes/ExtractEdges|Extract Edges]] || {{VTKDoxygenURL|vtkExtractEdges}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/CellEdges|Get edges of cells]] || {{VTKDoxygenURL|vtkCell}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/SolidClip|Create a "solid" clip]] || {{VTKDoxygenURL|vtkClipPolyData}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/CapClip|Cap a clipped polydata with a polygon]] || {{VTKDoxygenURL|vtkClipPolyData}} ||
-|-
-| [[VTK/Examples/CSharp/Meshes/OBBDicer|OBBDicer]] || {{VTKDoxygenURL|vtkOBBDicer}} || Breakup a mesh into pieces.
-|-
-|}
 
-===Working with Structured 3D Data===
+### Working with Structured 3D Data
+
 This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
 
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. Here is an overview of these data structures: [http://vtk.org/Wiki/VTK/Tutorials/3DDataTypes]. Image data can represent at typical 2D image, but also, a 3D volume.
 
-* [[VTK/Examples/CSharp/Visualization/StructuredDataTypes|Demonstration of structured data types]]
-* [[VTK/Examples/CSharp/StructuredData/GetLinearPointId|Get the linear point id of a point in a grid]]
-
-====vtkImageData====
-{{VTKExamplesTable}}
-|}
-
-====vtkStructuredGrid====
-
-{{VTKExamplesTable}}
-|}
-
-====vtkStructuredPoints====
-
-{{VTKExamplesTable}}
-|}
-
-====vtkRectilinearGrid====
-
-{{VTKExamplesTable}}
-|}
-
-===Registration===
-
-{{VTKExamplesTable}}
-|}
-
-===Surface reconstruction===
-
-{{VTKExamplesTable}}
-|}
-
-==Utilities==
-{{VTKExamplesTable}}
-|}
-
-==Math Operations==
-
-{{VTKExamplesTable}}
-|}
-
-==Graphs==
-{{VTKExamplesTable}}
-|}
-
-===Graph Conversions===
-{{VTKExamplesTable}}
-|}
-
-===Graph Conversions That Don't Work===
-{{VTKExamplesTable}}
-|}
-
-==Data Structures==
-{{VTKExamplesTable}}
-|}
-
-===Timing Demonstrations===
-{{VTKExamplesTable}}
-|}
-
-===KD-Tree===
-
-{{VTKExamplesTable}}
-|}
-
-===Oriented Bounding Box (OBB) Tree===
-
-{{VTKExamplesTable}}
-|}
-
-===Octree===
-
-{{VTKExamplesTable}}
-|}
-
-===Modified BSP Tree===
-
-{{VTKExamplesTable}}
-|}
-
-==VTK Concepts==
-
-{{VTKExamplesTable}}
-|}
-
-==Visualization==
-See [[VTK/Tutorials/VTK_Terminology| this tutorial]] for a brief explanation of the VTK terminology of mappers, actors, etc.
-
-{{VTKExamplesTable}}
-|}
-
-==Volume Rendering==
-
-{{VTKExamplesTable}}
-|}
-
-==User Interaction==
-{{VTKExamplesTable}}
-|}
-
-==Working with Images==
-{{VTKExamplesTable}}
-|}
-
-==Image Processing==
-{{VTKExamplesTable}}
-|}
-
-==Widgets==
-{{VTKExamplesTable}}
-|}
-
-==Plotting==
-
-{{VTKExamplesTable}}
-|}
-
-==Animation==
-{{VTKExamplesTable}}
-|}
-
-==Geographic Visualization (Geovis)==
-{{VTKExamplesTable}}
-|}
-
-==Information Visualization (Infovis)==
-{{VTKExamplesTable}}
-|}
-
-==Qt==
-Click [[VTK/Tutorials/QtSetup | here]] for a tutorial on how to setup Qt.
-
-{{VTKExamplesTable}}
-|}
-
-==Matlab==
-You must turn on VTK_USE_MATLAB_MEX to use these.
-{{VTKExamplesTable}}
-|}
-
-==Databases==
-===SQL===
-If you have any trouble or errors with the following examples, please troubleshoot using [[VTK/Tutorials/SQLSetup | these instructions]].
-
-{{VTKExamplesTable}}
-|-
-|}
+| Example Name | Classes Demonstrated | Description |
+|--------------|----------------------|-------------|
+[StructuredDataTypes](/CSharp/Visualization/StructuredDataTypes) | | Demonstration of structured data types
+[GetLinearPointId](/CSharp/StructuredData/GetLinearPointId) | | Get the linear point id of a point in a grid
