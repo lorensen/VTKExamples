@@ -560,6 +560,12 @@
     </url>
         
     <url>
+     <loc>https://lorensen.github.io/VTKExamples/site//Python/Cutter/</loc>
+     <lastmod>2017-05-23</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>https://lorensen.github.io/VTKExamples/site//Python/Cylinder/</loc>
      <lastmod>2017-05-23</lastmod>
      <changefreq>daily</changefreq>
@@ -716,6 +722,12 @@
     </url>
         
     <url>
+     <loc>https://lorensen.github.io/VTKExamples/site//Python/UnstructuredTransientVolumeRendering/</loc>
+     <lastmod>2017-05-23</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>https://lorensen.github.io/VTKExamples/site//Python/VTPReader/</loc>
      <lastmod>2017-05-23</lastmod>
      <changefreq>daily</changefreq>
@@ -735,6 +747,12 @@
         
     <url>
      <loc>https://lorensen.github.io/VTKExamples/site//Python/WindowTitle/</loc>
+     <lastmod>2017-05-23</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://lorensen.github.io/VTKExamples/site//Python/WriteReadVtkImageData/</loc>
      <lastmod>2017-05-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
