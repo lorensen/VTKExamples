@@ -16184,22 +16184,35 @@
 </ul>
 <p>This example reads a structured points dataset stored in a .vtk file and constructs a 3D model using vtkMarchingCubes.
 vtkPolyDataConnectivityFilter is used to extract the largest isosurface.</p>
-<p>Data is available at:
- 1. test.vtk: http://web.kaist.ac.kr/~hjy/test.vtk
- 2. brainweb.img: http://web.kaist.ac.kr/~hjy/brainweb.img
- 3. brainweb.hdr: http://web.kaist.ac.kr/~hjy/brainweb.hdr
-Second and third datasets can be downloaded from BrainWeb (http://www.bic.mni.mcgill.ca/brainweb/), which is free of charge in use for a research.
+<p>Data is available at:</p>
+<ol>
+<li>
+<p>test.vtk: http://web.kaist.ac.kr/~hjy/test.vtk</p>
+</li>
+<li>
+<p>brainweb.img: http://web.kaist.ac.kr/~hjy/brainweb.img</p>
+</li>
+<li>
+<p>brainweb.hdr: http://web.kaist.ac.kr/~hjy/brainweb.hdr</p>
+</li>
+</ol>
+<p>Second and third datasets can be downloaded from <a href="http://www.bic.mni.mcgill.ca/brainweb/">BrainWeb</a>, which is free of charge in use for a research.
 "test.vtk" was converted from "brainweb.img" using a program by Erik Vidholm (http://www.cb.uu.se/~erik/vtk/rawToVTK.cpp).</p>
 <p>The examples expects 2 or 3 argments:</p>
 <p>ExtractLargestIsosurface InputFilename Threshold <a href="../ExtractLargest"></a>
   if ExtractLargest is omitted or 1, the largest isosurface is extracted
   if ExtractLargest is 0, all of the isosurfaces are extracted</p>
-<p>Try
- ExtractLargestIsosurface test.vtk 50 1
-and compare the results to
- ExtractLargestIsosurface test.vtk 50 0</p>
-<p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a><br />
-Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.</p>
+<p>Try</p>
+<div class="codehilite"><pre><span></span>ExtractLargestIsosurface test.vtk 50 1
+</pre></div>
+
+
+<p>and compare the results to</p>
+<div class="codehilite"><pre><span></span> ExtractLargestIsosurface test.vtk 50 0
+</pre></div>
+
+
+<p>A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: <a href="http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET">Setup a Windows Forms Application to use ActiViz.NET</a></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExtractLargestIsoSurface.cs</strong></p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>

@@ -176,7 +176,7 @@ This section includes examples of manipulating meshes.
 [NamedColors](/Python/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the vtkNamedColor class
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
 [PointSize](/Python/Visualization/PointSize) | vtkActor::GetProperty()::SetPointSize |
-[ProgGlyph](/Python/Visualization/ProgGlyph) | [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) | Vary the shapes of glyphed points using a programmable glyph filter
+[ProgrammableGlyphs](/Python/Visualization/ProgrammableGlyphs) | [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) | Vary the shapes of glyphed points using a programmable glyph filter
 [QuadraticSurface](/Python/Visualization/QuadraticSurface) | [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) |
 [SphereTexture](/Python/Visualization/SphereTexture) | [vtkTextureMapToSphere](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToSphere.html) | Apply an ImageData texture to an sphere
 [Streamlines](/Python/Visualization/Streamlines) | [vtkStreamLine](http://www.vtk.org/doc/nightly/html/classvtkStreamLine.html) | Seed streamlines with vectors from a structured grid
@@ -197,7 +197,7 @@ weights.
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[Read](/Python/ExodusII/Read) | [vtkExodusIIReader](http://www.vtk.org/doc/nightly/html/classvtkExodusIIReader.html) | A simple script for reading and viewing ExodusII data interactively.
+[ReadExodusData](/Python/ExodusII/ReadExodusData) | [vtkExodusIIReader](http://www.vtk.org/doc/nightly/html/classvtkExodusIIReader.html) | A simple script for reading and viewing ExodusII data interactively.
 
 ## Graphs
 
@@ -212,7 +212,7 @@ weights.
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[HighlightAPickedActor](/Python/Interaction/HighlightAPickedActor) | [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html), [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) | Pick and highlight an actor based on mouse clicks.
+[HighlightPickedActor](/Python/Interaction/HighlightPickedActor) | [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html), [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) | Pick and highlight an actor based on mouse clicks.
 [MouseEventsObserver](/Python/Interaction/MouseEventsObserver) | [vtkCallbackCommand](http://www.vtk.org/doc/nightly/html/classvtkCallbackCommand.html) | Use an observer.
 [MouseEvents](/Python/Interaction/MouseEvents) | [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) | Subclass the interactor style.
 
@@ -252,15 +252,9 @@ weights.
 [Delaunay2D](/Python/Filtering/Delaunay2D) | [vtkDelaunay2D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay2D.html) |
 [LUTUtilities](/Python/Utilities/LUTUtilities) | [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html) | A utility class for vtkLookupTable allowing you to output the table contents or to compare tables.|
 
-## Web
-
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[RemoteRenderer](/Python/Web/RemoteRenderer) | Web/Python | Use vtk to show an interactive visualization on a web page. Remote rendering. |
-
 ## PyQt
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[EmbedPyQt](/Python/Widgets/EmbedPyQt) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Shows how to easily embed VTK in PyQt with QVTKRenderWindowInteractor, first example
-[EmbedPyQt2](/Python/Widgets/EmbedPyQt2) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Shows how to embed VTK in PyQt with QVTKRenderWindowInteractor, second example
+[EmbedInPyQt](/Python/Widgets/EmbedInPyQt) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Shows how to easily embed VTK in PyQt with QVTKRenderWindowInteractor, first example
+[EmbedInPyQt2](/Python/Widgets/EmbedInPyQt2) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Shows how to embed VTK in PyQt with QVTKRenderWindowInteractor, second example

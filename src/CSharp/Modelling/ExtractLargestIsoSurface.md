@@ -1,14 +1,19 @@
 ### Description
+
 * Contributed by: Jinyoung Hwang
 
 This example reads a structured points dataset stored in a .vtk file and constructs a 3D model using vtkMarchingCubes.
 vtkPolyDataConnectivityFilter is used to extract the largest isosurface.
 
 Data is available at:
- 1. test.vtk: http://web.kaist.ac.kr/~hjy/test.vtk
- 2. brainweb.img: http://web.kaist.ac.kr/~hjy/brainweb.img
- 3. brainweb.hdr: http://web.kaist.ac.kr/~hjy/brainweb.hdr
-Second and third datasets can be downloaded from BrainWeb (http://www.bic.mni.mcgill.ca/brainweb/), which is free of charge in use for a research.
+
+1. test.vtk: http://web.kaist.ac.kr/~hjy/test.vtk
+
+2. brainweb.img: http://web.kaist.ac.kr/~hjy/brainweb.img
+
+3. brainweb.hdr: http://web.kaist.ac.kr/~hjy/brainweb.hdr
+
+Second and third datasets can be downloaded from [BrainWeb](http://www.bic.mni.mcgill.ca/brainweb/), which is free of charge in use for a research.
 "test.vtk" was converted from "brainweb.img" using a program by Erik Vidholm (http://www.cb.uu.se/~erik/vtk/rawToVTK.cpp).
 
 The examples expects 2 or 3 argments:
@@ -18,9 +23,15 @@ The examples expects 2 or 3 argments:
   if ExtractLargest is 0, all of the isosurfaces are extracted
 
 Try
- ExtractLargestIsosurface test.vtk 50 1
-and compare the results to
- ExtractLargestIsosurface test.vtk 50 0
 
-A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)<br />
-Note: As long as ActiViz.NET is not build with VTK version 6.0 or higher you must define the preprocessor directive VTK_MAJOR_VERSION_5.
+```
+ExtractLargestIsosurface test.vtk 50 1
+```
+
+and compare the results to
+
+```
+ ExtractLargestIsosurface test.vtk 50 0
+```
+
+A tutorial on how to setup a Windows Forms Application utilizing ActiViz.NET can be found here: [Setup a Windows Forms Application to use ActiViz.NET](http://www.vtk.org/Wiki/VTK/CSharp/ActiViz.NET)
