@@ -32,20 +32,11 @@ Example Name | Classes Demonstrated | Description |
 [ReadOBJ](/CSharp/IO/ReadOBJ) | [vtkOBJReader](http://www.vtk.org/doc/nightly/html/classvtkOBJReader.html) | Read an OBJ (.obj) File
 [ReadDICOMSeries](/CSharp/IO/ReadDICOMSeries) | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html) | This example demonstates how to read a series of DICOM images and scroll through slice Convert a series of DICOM files into a VTI File
 [VRML](/CSharp/IO/VRML)|[vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html) | Read a VRML (WRL) file
-[DumpXMLFile](/CSharp/IO/DumpXMLFile)|[vtkDataSetReader](http://www.vtk.org/doc/nightly/html/classvtkDataSetReader.html) | Report the contents of a VTK XML or legacy file
 [DEMReader](/CSharp/IO/DEMReader) | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html) | Read DEM (elevation map) files
 [ReadSTL](/CSharp/IO/ReadSTL) | [vtkSTLReader](http://www.vtk.org/doc/nightly/html/classvtkSTLReader.html) | Read stereo lithography STL (.stl) files
 [ReadPLY](/CSharp/IO/ReadPLY) | [vtkPLYReader](http://www.vtk.org/doc/nightly/html/classvtkPLYReader.html) | Read PLY (.ply) files
 [ReadPLOT3D](/CSharp/IO/ReadPLOT3D) | [vtkPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkPLOT3DReader.html) | Read CFD (computational fluid dynamics) data produced by PLOT3D Read PLOT3D (.bin) files
 [ReadPDB](/CSharp/IO/ReadPDB) | [vtkPDBReader](http://www.vtk.org/doc/nightly/html/classvtkPDBReader.html) | Read Protein Data Bank Files Read Protein Data Bank files (.pdb) files
-
-##### Output
-Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[SimplePointsWriter](/CSharp/IO/SimplePointsWriter) | [vtkSimplePointsWriter](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsWriter.html) | Write a simple ".xyz" file
-[WriteSTL](/CSharp/IO/WriteSTL) | [vtkSTLWriter](http://www.vtk.org/doc/nightly/html/classvtkSTLWriter.html) | Write stereo lithography STL (.stl) files
-[WritePLY](/CSharp/IO/WritePLY) | [vtkPLYWriter](http://www.vtk.org/doc/nightly/html/classvtkPLYWriter.html) | Write PLY (.ply) files
-[DelimitedTextWriter](/CSharp/InfoVis/DelimitedTextWriter) | [vtkDelimitedTextWriter](http://www.vtk.org/doc/nightly/html/classvtkDelimitedTextWriter.html) | Write data to a delimited file
 
 #### VTK Formats
 ##### Input 
@@ -151,11 +142,6 @@ Example Name | Classes Demonstrated | Description |
 ## Working with 3D Data
 Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[CenterOfMass](/CSharp/PolyData/CenterOfMass)|[CenterOfMass](http://www.vtk.org/doc/nightly/html/classCenterOfMass.html)| vtkCenterOfMass not implemented yet in ActiViz.NE Compute the center of mass of the points
-[BooleanOperationPolyDataFilter](/CSharp/PolyData/BooleanOperationPolyDataFilter)|[BooleanOperationPolyDataFilter](http://www.vtk.org/doc/nightly/html/classBooleanOperationPolyDataFilter.html)| vtkBooleanOperationPolyDataFilter not implemented yet in ActiViz.NE Perform boolean operations on two vtkPolyData objects
-[DistancePolyDataFilter](/CSharp/PolyData/DistancePolyDataFilter)|[DistancePolyDataFilter](http://www.vtk.org/doc/nightly/html/classDistancePolyDataFilter.html)| vtkDistancePolyDataFilter not implemented yet in ActiViz.NE Compute the distance function from one vtkPolyData to another
-[ImplicitPolyDataDistance](/CSharp/PolyData/ImplicitPolyDataDistance)|[ImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classImplicitPolyDataDistance.html)| vtkImplicitPolyDataDistance not implemented yet in ActiViz.NE Compute the distance function in a space around a vtkPolyData
-[IntersectionPolyDataFilter](/CSharp/PolyData/IntersectionPolyDataFilter)|[IntersectionPolyDataFilter](http://www.vtk.org/doc/nightly/html/classIntersectionPolyDataFilter.html)| vtkIntersectionPolyDataFilter not implemented yet in ActiViz.NE Compute the intersection of two vtkPolyData objects
 [ShrinkPolyData](/CSharp/PolyData/ShrinkPolyData)|[vtkShrinkPolyData](http://www.vtk.org/doc/nightly/html/classvtkShrinkPolyData.html)| Move all items in a PolyData towards their centroid
 [VectorFieldNonZeroExtraction](/CSharp/PolyData/VectorFieldNonZeroExtraction)|[vtkExtractSelectedThresholds](http://www.vtk.org/doc/nightly/html/classvtkExtractSelectedThresholds.html)| This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar value Extract non-zero vectors from a vtkImageData
 [MultiBlockMergeFilter](/CSharp/PolyData/MultiBlockMergeFilter)|[vtkMultiBlockMergeFilter](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockMergeFilter.html), [vtkMultiBlockDataSet](http://www.vtk.org/doc/nightly/html/classvtkMultiBlockDataSet.html) | Combine MultiBlockDataSets
@@ -175,27 +161,26 @@ Example Name | Classes Demonstrated | Description |
 [MatrixMathFilter](/CSharp/Meshes/MatrixMathFilter)|[vtkMatrixMathFilter](http://www.vtk.org/doc/nightly/html/classvtkMatrixMathFilter.html) | Compute various quantities on cell and points in a mesh Matrix math filter
 [WeightedTransformFilter](/CSharp/PolyData/WeightedTransformFilter) |  [vtkWeightedTransformFilter](http://www.vtk.org/doc/nightly/html/classvtkWeightedTransformFilter.html) | vtkWeightedTransformFilter 
 [GreedyTerrainDecimation](/CSharp/PolyData/GreedyTerrainDecimation) |  [vtkGreedyTerrainDecimation](http://www.vtk.org/doc/nightly/html/classvtkGreedyTerrainDecimation.html) | Create a mesh from an ImageData 
-[LargestRegion](/CSharp/PolyData/vtkPolyDataConnectivityFilter_LargestRegion) |  [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract the largest connected region in a polydata
-[SpecifiedRegion](/CSharp/PolyData/vtkPolyDataConnectivityFilter_SpecifiedRegion) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract a specific (specified) connected region in a polydata
+[LargestRegion](/CSharp/PolyData/PolyDataConnectivityFilter_LargestRegion) |  [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract the largest connected region in a polydata
+[SpecifiedRegion](/CSharp/PolyData/PolyDataConnectivityFilter_SpecifiedRegion) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract a specific (specified) connected region in a polydata
 [ColorDisconnectedRegions](/CSharp/PolyData/ColorDisconnectedRegions) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Color each disconnected region of a vtkPolyData a different color
 [Curvature](/CSharp/PolyData/Curvature)|[vtkCurvatures](http://www.vtk.org/doc/nightly/html/classvtkCurvatures.html) | Compute Gaussian, Mean, Min, and Max Curvatures
 [HighlightBadCells](/CSharp/PolyData/HighlightBadCells)|[vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) | Highlight Bad Cells
 [PolygonalSurfaceContourLineInterpolator](/CSharp/PolyData/PolygonalSurfaceContourLineInterpolator)|[vtkPolygonalSurfaceContourLineInterpolator](http://www.vtk.org/doc/nightly/html/classvtkPolygonalSurfaceContourLineInterpolator.html) | Interactively find the shortest path between two points on a mesh
 [DijkstraGraphGeodesicPath](/CSharp/PolyData/DijkstraGraphGeodesicPath)|[vtkDijkstraGraphGeodesicPath](http://www.vtk.org/doc/nightly/html/classvtkDijkstraGraphGeodesicPath.html) | Find the shortest path between two points on a mesh
 [SelectPolyData](/CSharp/PolyData/SelectPolyData)|[vtkSelectPolyData](http://www.vtk.org/doc/nightly/html/classvtkSelectPolyData.html) | Select a region of a mesh
-[SmoothPolyDataFilter](/CSharp/PolyData/SmoothPolyDataFilter)|[vtkSmoothPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkSmoothPolyDataFilter.html) | Laplacian smoothing
 [ClosedSurface](/CSharp/PolyData/ClosedSurface)|[vtkFeatureEdges](http://www.vtk.org/doc/nightly/html/classvtkFeatureEdges.html) | Check if a surface is closed
-[Decimation](/CSharp/Meshes/Decimation)|[vtkDecimatePro](http://www.vtk.org/doc/nightly/html/classvtkDecimatePro.html) | Reduce the number of triangles in a mesh Decimation
+[Decimate](/CSharp/Meshes/Decimate)|[vtkDecimatePro](http://www.vtk.org/doc/nightly/html/classvtkDecimatePro.html) | Reduce the number of triangles in a mesh Decimation
 [QuadricDecimation](/CSharp/Meshes/QuadricDecimation)|[vtkQuadricDecimation](http://www.vtk.org/doc/nightly/html/classvtkQuadricDecimation.html) | Reduce the number of triangles in a mesh Decimation (quadric decimation)
 [QuadricClustering](/CSharp/Meshes/QuadricClustering)|[vtkQuadricClustering](http://www.vtk.org/doc/nightly/html/classvtkQuadricClustering.html) | Reduce the number of triangles in a mesh Decimation (quadric clustering)
 [Subdivision](/CSharp/Meshes/Subdivision)|[vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html), [vtkLoopSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLoopSubdivisionFilter.html), [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) | Increase the number of triangles in a mesh Subdivision
 [BoundaryEdges](/CSharp/Meshes/BoundaryEdges)|[vtkFeatureEdges](http://www.vtk.org/doc/nightly/html/classvtkFeatureEdges.html) | Find the edges that are used by only one face Finding Boundary Edges
 [FillHoles](/CSharp/Meshes/FillHoles)|[vtkFillHolesFilter](http://www.vtk.org/doc/nightly/html/classvtkFillHolesFilter.html) | Close holes in a mesh Fill Holes
 [WindowedSincPolyDataFilter](/CSharp/Meshes/WindowedSincPolyDataFilter)|[vtkWindowedSincPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowedSincPolyDataFilter.html) | Smooth a mesh Windowed Sinc PolyData Filter|Smooth a mesh (windowed sinc filter)
-[height](/CSharp/Meshes/height)|[vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Colormap, color ma Color a mesh by height
+[ColoredElevationMap](/CSharp/Meshes/ColoredElevationMap)|[vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) | Colormap, color ma Color a mesh by height
 [ElevationFilter](/CSharp/Meshes/ElevationFilter)|[vtkElevationFilter](http://www.vtk.org/doc/nightly/html/classvtkElevationFilter.html) | Color a mesh by height
 [SimpleElevationFilter](/CSharp/Meshes/SimpleElevationFilter)|[vtkSimpleElevationFilter](http://www.vtk.org/doc/nightly/html/classvtkSimpleElevationFilter.html) | Color a mesh by dotting a vector from the origin to each point with a specified vector
-[mesh](/CSharp/Meshes/Triangulate a mesh)|[vtkTriangleFilter](http://www.vtk.org/doc/nightly/html/classvtkTriangleFilter.html) | Convert all polygons in a mesh to triangles Triangulate a mesh
+[Triangulate](/CSharp/Meshes/Triangulate)|[vtkTriangleFilter](http://www.vtk.org/doc/nightly/html/classvtkTriangleFilter.html) | Convert all polygons in a mesh to triangles Triangulate a mesh
 [ExtractEdges](/CSharp/Meshes/ExtractEdges)|[vtkExtractEdges](http://www.vtk.org/doc/nightly/html/classvtkExtractEdges.html) | Extract Edges
 [CellEdges](/CSharp/Meshes/CellEdges)|[vtkCell](http://www.vtk.org/doc/nightly/html/classvtkCell.html) | Get edges of cells
 [SolidClip](/CSharp/Meshes/SolidClip)|[vtkClipPolyData](http://www.vtk.org/doc/nightly/html/classvtkClipPolyData.html) | Create a "solid" clip
@@ -208,8 +193,3 @@ Example Name | Classes Demonstrated | Description |
 This section includes vtkImageData, vtkStructuredGrid, and vtkRectilinearGrid.
 
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. Here is an overview of these data structures: [http://vtk.org/Wiki/VTK/Tutorials/3DDataTypes]. Image data can represent at typical 2D image, but also, a 3D volume.
-
-Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[StructuredDataTypes](/CSharp/Visualization/StructuredDataTypes) | | Demonstration of structured data types
-[GetLinearPointId](/CSharp/StructuredData/GetLinearPointId) | | Get the linear point id of a point in a grid
