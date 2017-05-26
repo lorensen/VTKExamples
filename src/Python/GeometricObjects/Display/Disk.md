@@ -1,2 +1,0 @@
-### Description
-[]([Image:Disk.png])

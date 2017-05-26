@@ -16436,10 +16436,16 @@
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Images/ImageLuminance</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Images/TestImageLuminance.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>There are two ways to convert images to greyscale:
-<em> {{class|vtkImageLuminance}} uses the [(video)|luminance equation]]([wikipedia:Luma) for properly weighting the R, G, and B components;
-</em> {{class|vtkImageMagnitude}} does a simple sum-of-squares computation of the components (i.e. the [(mathematics)#Euclidean vector space|Euclidean norm]] -- not the <a href="../[wikipedia:Magnitude">[wikipedia:Root mean square|quadratic mean]</a>!), and is meant for vector data.</p>
-<p>For an example of usage of the vtkImageMagnitude filter, see <a href="../[../ImageMagnitude]"></a>.</p>
+<p>There are two ways to convert images to greyscale:</p>
+<ul>
+<li>
+<p>vtkImageLuminance uses the <a href="http://www.wikipedia.org/wiki/Luma_(video)">luminance equation</a> for properly weighting the R, G, and B components;</p>
+</li>
+<li>
+<p>vtkImageMagnitude does a simple sum-of-squares computation of the components (i.e. the <a href="http://www.wikipedia.org/wiki/Magnitude_(mathematics)#Euclidean_vector_space">Euclidean norm</a> -- not the <a href="http://www.wikipedia.org/wiki/Root_mean_square">quadratic mean</a>!), and is meant for vector data.</p>
+</li>
+</ul>
+<p>For an example of usage of the vtkImageMagnitude filter, see <a href="../../../Cxx/Images/ImageMagnitude">ImageMagnitude</a>.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageLuminance.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
