@@ -1,3 +1,5 @@
 ### Description
 This example demonstrate a minimal visualization created with VTK.
-See also [C++]], [[VTK/Examples/Java/Cylinder| Java]] and [[VTK/Examples/Python/Cylinder| Python]]([VTK/Examples/Cxx/Rendering/Cylinder|)
+
+See also [C++](/Cxx/Rendering/CylinderRenderingProperties), [Java](/Java/Cylinder) and [Cylinder](/Python/Cylinder).
+
