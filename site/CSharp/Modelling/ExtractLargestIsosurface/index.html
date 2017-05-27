@@ -16428,9 +16428,12 @@ vtkPolyDataConnectivityFilter is used to extract the largest isosurface.</p>
 <p>Second and third datasets can be downloaded from <a href="http://www.bic.mni.mcgill.ca/brainweb/">BrainWeb</a>, which is free of charge in use for a research.
 "test.vtk" was converted from "brainweb.img" using a program by Erik Vidholm (http://www.cb.uu.se/~erik/vtk/rawToVTK.cpp).</p>
 <p>The examples expects 2 or 3 argments:</p>
-<p>ExtractLargestIsosurface InputFilename Threshold ExtractLargest
+<div class="codehilite"><pre><span></span> ExtractLargestIsosurface InputFilename Threshold ExtractLargest
   if ExtractLargest is omitted or 1, the largest isosurface is extracted
-  if ExtractLargest is 0, all of the isosurfaces are extracted</p>
+  if ExtractLargest is 0, all of the isosurfaces are extracted
+</pre></div>
+
+
 <p>Try</p>
 <div class="codehilite"><pre><span></span>ExtractLargestIsosurface test.vtk 50 1
 </pre></div>
