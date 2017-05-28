@@ -5,4 +5,4 @@ This example generates a sphere, cuts it with a plane and, therefore, generates 
 Both the circular poly data (circle.vtp) and the resultant image (labelImage.mhd) are saved to disk.
 
 !!! note
-Similarily to example [PolyDataToImageStencil](/Python/PolyData/PolyDataToImageData), I am not really sure whether or not the image origin needs to be adjusted as the sphere-image-overlay shows some offset in paraview visualization (at least I think ...). Maybe someone could verify that. Thanks!
+    Similarily to example [PolyDataToImageStencil](/Python/PolyData/PolyDataToImageDataStencil), I am not really sure whether or not the image origin needs to be adjusted as the sphere-image-overlay shows some offset in paraview visualization (at least I think ...). Maybe someone could verify that. Thanks!

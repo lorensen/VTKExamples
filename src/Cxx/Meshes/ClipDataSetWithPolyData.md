@@ -1,7 +1,7 @@
 ### Description
 
 !!! note
-    This example was translated to C++ from the Python example [here](/Python/Meshes/vtkClipDataSetWithPolydata).
+    This example was translated to C++ from the Python example [here](/Python/Meshes/ClipDataSetWithPolydata).
 
 The example that shows how to use the vtkClipDataSet to clip a
 vtkRectilinearGrid with an arbitrary
