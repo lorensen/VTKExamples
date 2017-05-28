@@ -656,12 +656,6 @@
     </url>
         
     <url>
-     <loc>https://lorensen.github.io/VTKExamples/site//Python/ReadWriteVtkImageData/</loc>
-     <lastmod>2017-05-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
      <loc>https://lorensen.github.io/VTKExamples/site//Python/RotationAroundLine/</loc>
      <lastmod>2017-05-28</lastmod>
      <changefreq>daily</changefreq>
@@ -770,19 +764,7 @@
     </url>
         
     <url>
-     <loc>https://lorensen.github.io/VTKExamples/site//Python/vtkCutter/</loc>
-     <lastmod>2017-05-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
      <loc>https://lorensen.github.io/VTKExamples/site//Python/vtkVersion/</loc>
-     <lastmod>2017-05-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://lorensen.github.io/VTKExamples/site//Python/vtkVolumeExample/</loc>
      <lastmod>2017-05-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
