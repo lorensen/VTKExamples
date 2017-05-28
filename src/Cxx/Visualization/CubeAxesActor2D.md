@@ -4,4 +4,4 @@ For more information on how to configure this actor, [see this email](http://vtk
 This was converted from Python to C++. The source I found for the Python was at: [cubeAxes.py](https://github.com/Kitware/VTK/blob/master/Examples/Annotation/Python/cubeAxes.py)
 
 !!! seealso
-    [BoundingBox](/Cxx/Utilities/BoundingBox) and [Outline](/Cxx/Visualization/Outline).
+    [BoundingBox](/Cxx/Utilities/BoundingBox) and [Outline](/Cxx/PolyData/Outline).
