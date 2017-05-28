@@ -16198,7 +16198,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <p>If your example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test<strong>MyNewExample</strong>.png.</p>
 </li>
 <li>
-<p>Copy the image into: VTKExamples/src/Testing/Baseline/<strong>TOPIC</strong>/</p>
+<p>Copy the image into: VTKExamples/src/Testing/Baseline/<strong>LANG</strong>/<strong>TOPIC</strong>/</p>
 </li>
 <li>
 <p>Rerun ctest and the test should pass.</p>
@@ -16215,7 +16215,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 
 
 <p>and if you have a baseline image,</p>
-<div class="codehilite"><pre><span></span>git add Testing/Baseline/TOPIC/TestMyNewExample.png
+<div class="codehilite"><pre><span></span>git add Testing/Baseline/LANG/TOPIC/TestMyNewExample.png
 </pre></div>
 
 
