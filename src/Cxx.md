@@ -252,6 +252,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [GetMiscPointData](/Cxx/PolyData/GetMiscPointData) | [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html) |Get Miscellaneous Data from Points in a Polydata.
 [GradientFilter](/Cxx/PolyData/GradientFilter) | [vtkGradientFilter](http://www.vtk.org/doc/nightly/html/classvtkGradientFilter.html) |Compute the gradient of a scalar field on a data set.
 [ImplicitBoolean](/Cxx/Filtering/ImplicitBoolean) | [vtkImplicitBoolean](http://www.vtk.org/doc/nightly/html/classvtkImplicitBoolean.html) | Operations include intersection and union.
+[ImplicitBooleanDemo]/Cxx/Filtering/ImplicitBooleanDemo) | [vtkImplicitBoolean](http://www.vtk.org/doc/nightly/html/classvtkImplicitBoolean.html) | Demo Union, Difference and Intersection.
 [ImplicitModeller](/Cxx/PolyData/ImplicitModeller) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) |Compute the distance from an object to every point on a uniform grid.
 [ImplicitPolyDataDistance](/Cxx/PolyData/ImplicitPolyDataDistance) | [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html)|Compute the distance function in a space around a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [InterpolateMeshOnGrid](/Cxx/PolyData/InterpolateMeshOnGrid) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) | Interpolate a mesh over a grid.
