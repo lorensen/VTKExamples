@@ -10,16 +10,15 @@ readerVolume = vtk.vtkMetaImageReader()
 readerVolume.SetFileName(input)
 readerVolume.Update()
 
-
 # Extract the region of interest
 voi = vtk.vtkExtractVOI()
 if vtk.VTK_MAJOR_VERSION <= 5:
     voi.SetInput(readerVolume.GetOutput())
 else:
     voi.SetInputConnection(readerVolume.GetOutputPort())
-#voi.SetVOI(0,517, 0,228, 0,392)
+voi.SetVOI(0,517, 0,228, 0,392)
 voi.SetSampleRate(1,1,1)
-#voi.SetSampleRate(3,3,3)
+
 voi.Update()#necessary for GetScalarRange()
 srange= voi.GetOutput().GetScalarRange()#needs Update() before!
 print("Range", srange)
@@ -120,8 +119,6 @@ actor.SetMapper(mapper)
 ren = vtk.vtkRenderer()
 ren.SetBackground( 0, 0, 0 )
 ren.AddActor(actor)
-
-
 
 # Create a window for the renderer of size 250x250
 
