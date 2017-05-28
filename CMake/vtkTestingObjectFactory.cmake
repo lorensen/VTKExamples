@@ -3,7 +3,7 @@ SET(CMAKE_TESTDRIVER_BEFORE_TESTMAIN
     // Set defaults
     vtkTestingInteractor::ValidBaseline =
       std::string(\"${VTK_DATA_ROOT}\") +
-      std::string(\"/Baseline/\") +
+      std::string(\"/Baseline/Cxx/\") +
       std::string(\"${KIT}/\") +
       std::string(cmakeGeneratedFunctionMapEntries[testToRun].name) +
       std::string(\".png\");

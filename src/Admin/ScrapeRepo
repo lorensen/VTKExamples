@@ -142,7 +142,7 @@ for lang, langExt in Languages.items():
             if ExampleExt != langExt:
                 continue
             print "ExampleName: " + ExampleName + ExampleExt
-            BaselinePath = RepoDir + "/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png"
+            BaselinePath = RepoDir + "/Testing/Baseline/" + lang + "/" + KitName + "/Test" + ExampleName + ".png"
             PathName = DocDir + "/" + lang + "/" + KitName
             if not os.path.exists(PathName):
                 if PathName != "":
@@ -153,7 +153,7 @@ for lang, langExt in Languages.items():
                     
             if os.path.isfile(BaselinePath) :
                 print "BaselinePath: " + BaselinePath
-                ImgUrl =  RepoURL + "/blob/master/src/Testing/Baseline/" + KitName + "/Test" + ExampleName + ".png?raw=true"
+                ImgUrl =  RepoURL + "/blob/master/src/Testing/Baseline/" + lang + "/" + KitName + "/Test" + ExampleName + ".png?raw=true"
                 print "ImgUrl: " + ImgUrl
                 MdFile.write('<img style="float:middle" src="' + ImgUrl + '" width="256" />' + '\n')
                 MdFile.write("\n")

@@ -130,7 +130,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 4. If your example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
 
-5. Copy the image into: VTKExamples/src/Testing/Baseline/**TOPIC**/
+5. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/
 
 6. Rerun ctest and the test should pass.
 
@@ -153,7 +153,7 @@ git add MyNewExample.cxx
 and if you have a baseline image,
 
 ```
-git add Testing/Baseline/TOPIC/TestMyNewExample.png
+git add Testing/Baseline/LANG/TOPIC/TestMyNewExample.png
 ```
 ```
 git commit
