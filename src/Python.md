@@ -44,39 +44,39 @@ It would be appreciated if there are any Python VTK experts who could convert an
 
 | Example Name | Classes Demonstrated | Description |
 |--------------|----------------------|-------------|
-[Arrow](/Python/GeometricObjects/Display/Arrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html) |
-[Axes](/Python/GeometricObjects/Display/Axes) | [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor.html) |
-[Cell3DDemonstration](/Python/GeometricObjects/Display/Cell3DDemonstration) | [vtkHexagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkHexagonalPrism.html) [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html) [vtkPentagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkPentagonalPrism.html)  [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html) [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html) [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html) [vtkVoxel](http://www.vtk.org/doc/nightly/html/classvtkVoxel.html) [vtkWedge](http://www.vtk.org/doc/nightly/html/classvtkWedge.html) [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html) | Sample objects are generated from the classes derived from vtkCell3D and displayed.
-[ColoredLines](/Python/GeometricObjects/Display/ColoredLines) | [vtkCellData](http://www.vtk.org/doc/nightly/html/classvtkCellData.html) [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) |
-[Cone](/Python/GeometricObjects/Display/Cone) | [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html) |
-[Cube](/Python/GeometricObjects/Display/Cube) | [vtkCubeSource](http://www.vtk.org/doc/nightly/html/classvtkCubeSource.html) |
-[Cylinder](/Python/GeometricObjects/Display/Cylinder) | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html) |
-[DataSetSurface](/Python/GeometricObjects/Display/DataSetSurface) | [vtkDataSetSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkDataSetSurfaceFilter.html) |
-[Disk](/Python/GeometricObjects/Display/Disk) | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html) | A circle with a hole in it.
-[Frustum](/Python/GeometricObjects/Display/Frustum) | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html) |
-[GeometricObjectsDemo](/Python/GeometricObjects/Display/GeometricObjectsDemo) |  |
-[Hexahedron](/Python/GeometricObjects/Display/Hexahedron)| [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html) |
-[LineSource](/Python/GeometricObjects/Display/LineSource) | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html) |
-[LongLine](/Python/GeometricObjects/Display/LongLine) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) |
-[OrientedArrow](/Python/GeometricObjects/Display/OrientedArrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html) |
-[Plane](/Python/GeometricObjects/Display/Plane)| [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html) |
-[PlanesIntersection](/Python/GeometricObjects/Display/PlanesIntersection)| [vtkPlanesIntersection](http://www.vtk.org/doc/nightly/html/classvtkPlanesIntersection.html) |
-[Planes](/Python/GeometricObjects/Display/Planes)| [vtkPlanes](http://www.vtk.org/doc/nightly/html/classvtkPlanes.html), [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html) | We create a convex hull of the planes for display purposes.
-[PlatonicSolid](/Python/GeometricObjects/Display/PlatonicSolid) | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html) | All five platonic solids are displayed.
-[PointSource](/Python/GeometricObjects/Display/PointSource) | [vtkPointSource](http://www.vtk.org/doc/nightly/html/classvtkPointSource.html) |
-[Point](/Python/GeometricObjects/Display/Point) | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html) |
-[Polyline](/Python/GeometricObjects/Display/Polyline) | [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) | This example demonstrates how to create a polygon through several ordered points.
-[PolygonIntersection](/Python/GeometricObjects/Display/PolygonIntersection) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) | IntersectWithLine()
-[Polygon](/Python/GeometricObjects/Display/Polygon) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) |
-[Pyramid](/Python/GeometricObjects/Display/Pyramid) | [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html) |
-[Quad](/Python/GeometricObjects/Display/Quad) | [vtkQuad](http://www.vtk.org/doc/nightly/html/classvtkQuad.html) |
-[RegularPolygonSource](/Python/GeometricObjects/Display/RegularPolygonSource) | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html) |
-[Sphere](/Python/GeometricObjects/Display/Sphere) | [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html) |
-[Tetrahedron](/Python/GeometricObjects/Display/Tetrahedron) | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html) |
-[TextActor](/Python/GeometricObjects/Display/TextActor)  | [vtkTextActor](http://www.vtk.org/doc/nightly/html/classvtkTextActor.html) | 2D "HUD-type" text
-[TriangleStrip](/Python/GeometricObjects/Display/TriangleStrip) | [vtkTriangleStrip](http://www.vtk.org/doc/nightly/html/classvtkTriangleStrip.html) | 
-[Triangle](/Python/GeometricObjects/Display/Triangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
-[Vertex](/Python/GeometricObjects/Display/Vertex) | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html) |
+[Arrow](/Python/GeometricObjects/Arrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html) |
+[Axes](/Python/GeometricObjects/Axes) | [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor.html) |
+[Cell3DDemonstration](/Python/GeometricObjects/Cell3DDemonstration) | [vtkHexagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkHexagonalPrism.html) [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html) [vtkPentagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkPentagonalPrism.html)  [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html) [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html) [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html) [vtkVoxel](http://www.vtk.org/doc/nightly/html/classvtkVoxel.html) [vtkWedge](http://www.vtk.org/doc/nightly/html/classvtkWedge.html) [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html) | Sample objects are generated from the classes derived from vtkCell3D and displayed.
+[ColoredLines](/Python/GeometricObjects/ColoredLines) | [vtkCellData](http://www.vtk.org/doc/nightly/html/classvtkCellData.html) [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) |
+[Cone](/Python/GeometricObjects/Cone) | [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html) |
+[Cube](/Python/GeometricObjects/Cube) | [vtkCubeSource](http://www.vtk.org/doc/nightly/html/classvtkCubeSource.html) |
+[Cylinder](/Python/GeometricObjects/Cylinder) | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html) |
+[DataSetSurface](/Python/GeometricObjects/DataSetSurface) | [vtkDataSetSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkDataSetSurfaceFilter.html) |
+[Disk](/Python/GeometricObjects/Disk) | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html) | A circle with a hole in it.
+[Frustum](/Python/GeometricObjects/Frustum) | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html) |
+[GeometricObjectsDemo](/Python/GeometricObjects/GeometricObjectsDemo) |  |
+[Hexahedron](/Python/GeometricObjects/Hexahedron)| [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html) |
+[LineSource](/Python/GeometricObjects/LineSource) | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html) |
+[LongLine](/Python/GeometricObjects/LongLine) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html) |
+[OrientedArrow](/Python/GeometricObjects/OrientedArrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html) |
+[Plane](/Python/GeometricObjects/Plane)| [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html) |
+[PlanesIntersection](/Python/GeometricObjects/PlanesIntersection)| [vtkPlanesIntersection](http://www.vtk.org/doc/nightly/html/classvtkPlanesIntersection.html) |
+[Planes](/Python/GeometricObjects/Planes)| [vtkPlanes](http://www.vtk.org/doc/nightly/html/classvtkPlanes.html), [vtkHull](http://www.vtk.org/doc/nightly/html/classvtkHull.html) | We create a convex hull of the planes for display purposes.
+[PlatonicSolid](/Python/GeometricObjects/PlatonicSolid) | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html) | All five platonic solids are displayed.
+[PointSource](/Python/GeometricObjects/PointSource) | [vtkPointSource](http://www.vtk.org/doc/nightly/html/classvtkPointSource.html) |
+[Point](/Python/GeometricObjects/Point) | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html) |
+[Polyline](/Python/GeometricObjects/Polyline) | [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) | This example demonstrates how to create a polygon through several ordered points.
+[PolygonIntersection](/Python/GeometricObjects/PolygonIntersection) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) | IntersectWithLine()
+[Polygon](/Python/GeometricObjects/Polygon) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) |
+[Pyramid](/Python/GeometricObjects/Pyramid) | [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html) |
+[Quad](/Python/GeometricObjects/Quad) | [vtkQuad](http://www.vtk.org/doc/nightly/html/classvtkQuad.html) |
+[RegularPolygonSource](/Python/GeometricObjects/RegularPolygonSource) | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html) |
+[Sphere](/Python/GeometricObjects/Sphere) | [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html) |
+[Tetrahedron](/Python/GeometricObjects/Tetrahedron) | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html) |
+[TextActor](/Python/GeometricObjects/TextActor)  | [vtkTextActor](http://www.vtk.org/doc/nightly/html/classvtkTextActor.html) | 2D "HUD-type" text
+[TriangleStrip](/Python/GeometricObjects/TriangleStrip) | [vtkTriangleStrip](http://www.vtk.org/doc/nightly/html/classvtkTriangleStrip.html) | 
+[Triangle](/Python/GeometricObjects/Triangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
+[Vertex](/Python/GeometricObjects/Vertex) | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html) |
 
 ### Parametric Objects
 
