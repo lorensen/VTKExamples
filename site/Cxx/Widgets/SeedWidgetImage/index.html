@@ -16162,15 +16162,15 @@
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 
-<span class="k">class</span> <span class="nc">vtkSeedCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="k">class</span> <span class="nc">vtkSeedImageCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
 <span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
-    <span class="k">static</span> <span class="n">vtkSeedCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+    <span class="k">static</span> <span class="n">vtkSeedImageCallback</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
     <span class="p">{</span> 
-      <span class="k">return</span> <span class="k">new</span> <span class="n">vtkSeedCallback</span><span class="p">;</span> 
+      <span class="k">return</span> <span class="k">new</span> <span class="n">vtkSeedImageCallback</span><span class="p">;</span> 
     <span class="p">}</span>
 
-    <span class="n">vtkSeedCallback</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="n">vtkSeedImageCallback</span><span class="p">()</span> <span class="p">{}</span>
 
     <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span><span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">event</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">calldata</span><span class="p">)</span>
     <span class="p">{</span>
@@ -16231,7 +16231,7 @@
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">imageActor</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">drawing</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">drawing</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
 
   <span class="c1">// Create a renderer and render window</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
@@ -16265,8 +16265,8 @@
   <span class="n">seedWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
   <span class="n">seedWidget</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSeedCallback</span><span class="o">&gt;</span> <span class="n">seedCallback</span> <span class="o">=</span> 
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSeedCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSeedImageCallback</span><span class="o">&gt;</span> <span class="n">seedCallback</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSeedImageCallback</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">seedCallback</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span>
   <span class="n">seedCallback</span><span class="o">-&gt;</span><span class="n">SetWidget</span><span class="p">(</span><span class="n">seedWidget</span><span class="p">);</span>
   <span class="n">seedWidget</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">PlacePointEvent</span><span class="p">,</span><span class="n">seedCallback</span><span class="p">);</span>
