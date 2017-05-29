@@ -823,7 +823,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [QuadricLODActor](/Cxx/Visualization/QuadricLODActor)| [vtkQuadricLODActor](http://www.vtk.org/doc/nightly/html/classvtkQuadricLODActor.html) | Level of detail adjustment.
 [RandomProbe](/Cxx/Visualization/RandomProbe)| [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html)|Demonstrates how to probe a dataset with random points and select points inside the data set.
 [RenderLargeImage](/Cxx/Visualization/RenderLargeImage)| [vtkRenderLargeImage](http://www.vtk.org/doc/nightly/html/classvtkRenderLargeImage.html) |Render a large image, larger than a window.
-[RenderPassExistingContext](/Cxx/Visualization/RenderPassExistingContext)| [vtkRenderPass](http://www.vtk.org/doc/nightly/html/classvtkRenderPass.html),[vtkVolumetricPass](http://www.vtk.org/doc/nightly/html/classvtkVolumetricPass.html) |Render into an existing OpenGL Context.
 [RenderView](/Cxx/Views/RenderView)| [vtkRenderView](http://www.vtk.org/doc/nightly/html/classvtkRenderView.html) |A little bit easier rendering.
 [ReverseAccess ](/Cxx/Visualization/ReverseAccess) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)|Demonstrates how to access the source (e.g. [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html)) of an actor reversely.
 [RotateActor](/Cxx/Visualization/RotateActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetMatrix |Rotate an Actor.
