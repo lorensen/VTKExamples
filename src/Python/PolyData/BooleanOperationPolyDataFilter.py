@@ -7,13 +7,13 @@ sphereSource1.SetCenter(0.25, 0, 0)
 sphereSource1.Update()
 input1 = sphereSource1.GetOutput()
 sphere1Tri = vtk.vtkTriangleFilter()
-sphere1Tri.SetInput(input1)
+sphere1Tri.SetInputData(input1)
 
 sphereSource2 = vtk.vtkSphereSource()
 sphereSource2.Update()
 input2 = sphereSource2.GetOutput()
 sphere2Tri = vtk.vtkTriangleFilter()
-sphere2Tri.SetInput(input2)
+sphere2Tri.SetInputData(input2)
 
 input1Mapper = vtk.vtkPolyDataMapper()
 if vtk.VTK_MAJOR_VERSION <= 5:
@@ -43,12 +43,8 @@ booleanOperation = vtk.vtkBooleanOperationPolyDataFilter()
 booleanOperation.SetOperationToIntersection()
 #booleanOperation.SetOperationToDifference()
 
-if vtk.VTK_MAJOR_VERSION <= 5:
-    booleanOperation.SetInputConnection(0, sphere1Tri.GetOutputPort())
-    booleanOperation.SetInputConnection(1, sphere2Tri.GetOutputPort())
-else:
-    booleanOperation.SetInputData(0, sphere1Tri)
-    booleanOperation.SetInputData(1, sphere2Tri)
+booleanOperation.SetInputConnection(0, sphere1Tri.GetOutputPort())
+booleanOperation.SetInputConnection(1, sphere2Tri.GetOutputPort())
 booleanOperation.Update()
 
 booleanOperationMapper = vtk.vtkPolyDataMapper()

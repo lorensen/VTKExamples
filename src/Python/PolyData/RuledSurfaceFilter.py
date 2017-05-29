@@ -38,13 +38,13 @@ polydata.SetLines(lines)
  
 #Create the ruledSurfaceFilter from the polydata containing the lines
 ruledSurfaceFilter = vtk.vtkRuledSurfaceFilter()
-ruledSurfaceFilter.SetInput(polydata)
+ruledSurfaceFilter.SetInputData(polydata)
 ruledSurfaceFilter.SetResolution(21, 21)
 ruledSurfaceFilter.SetRuledModeToResample()
 
 #Create the mapper with the ruledSufaceFilter as input
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(ruledSurfaceFilter.GetOutput())
+mapper.SetInputConnection(ruledSurfaceFilter.GetOutputPort())
 
 #create the actor with the mapper
 actor = vtk.vtkActor()

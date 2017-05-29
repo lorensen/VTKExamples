@@ -60,12 +60,12 @@ for i in range(size-1):
         
         # Add some color
         r = [int(i/float(size)*255),int(j/float(size)*255),0]
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
-        colors.InsertNextTupleValue(r)
+        colors.InsertNextTypedTuple(r)
+        colors.InsertNextTypedTuple(r)
+        colors.InsertNextTypedTuple(r)
+        colors.InsertNextTypedTuple(r)
+        colors.InsertNextTypedTuple(r)
+        colors.InsertNextTypedTuple(r)
 
 # Create a polydata object
 trianglePolyData = vtk.vtkPolyData()
@@ -121,6 +121,6 @@ renderer.AddActor(actor_loop)
 renderer.AddActor(actor_butterfly)
 
 renderer.SetBackground(1, 1, 1) # Background color white
-renderWindow.SetSize(800, 800)
+renderWindow.SetSize(900, 300)
 renderWindow.Render()
 renderWindowInteractor.Start()
