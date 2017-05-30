@@ -24,8 +24,8 @@ colors.SetNumberOfComponents(3)
 colors.SetName("Colors")
 
 # Add the colors we created to the colors array
-colors.InsertNextTupleValue(red)
-colors.InsertNextTupleValue(green)
+colors.InsertNextTypedTuple(red)
+colors.InsertNextTypedTuple(green)
 
 # Create the first line (between Origin and P0)
 line0 = vtk.vtkLine()

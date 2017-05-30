@@ -14,11 +14,11 @@ source = vtk.vtkCylinderSource()
 source.SetCenter(0,0,0)
 source.SetRadius(5.0)
 source.SetHeight(7.0)
-source.SetResolution(100.0)
+source.SetResolution(100)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(source.GetOutput())
+mapper.SetInputConnection(source.GetOutputPort())
 
 # actor
 actor = vtk.vtkActor()

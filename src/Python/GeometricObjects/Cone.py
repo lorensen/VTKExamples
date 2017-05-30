@@ -16,10 +16,11 @@ iren.SetRenderWindow(renWin)
 cone = vtk.vtkConeSource()
 cone.SetResolution(60)
 cone.SetCenter(-2,0,0)
+cone.Update()
 
 # mapper
 coneMapper = vtk.vtkPolyDataMapper()
-coneMapper.SetInput(cone.GetOutput())
+coneMapper.SetInputData(cone.GetOutput())
 
 # actor
 coneActor = vtk.vtkActor()

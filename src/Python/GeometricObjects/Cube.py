@@ -11,10 +11,11 @@ iren.SetRenderWindow(renWin)
 
 # create cube
 cube = vtk.vtkCubeSource()
+cube.Update()
 
 # mapper
 cubeMapper = vtk.vtkPolyDataMapper()
-cubeMapper.SetInput(cube.GetOutput())
+cubeMapper.SetInputData(cube.GetOutput())
 
 # actor
 cubeActor = vtk.vtkActor()
