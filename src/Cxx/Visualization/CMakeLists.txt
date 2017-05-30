@@ -27,6 +27,7 @@ Requires_Version(NamedColors ${VERSION_MIN} ALL_FILES)
 Requires_Version(NamedColorPatches ${VERSION_MIN} ALL_FILES)
 Requires_Version(Legend ${VERSION_MIN} ALL_FILES)
 Requires_Version(ElevationBandsWithGlyphs ${VERSION_MIN} ALL_FILES)
+Requires_Module(ExtrudePolyDataAlongLine SplineDrivenImageSlicer)
 Requires_Version(CurvatureBandsWithGlyphs ${VERSION_MIN} ALL_FILES)
 Requires_Version(PointDataSubdivision ${VERSION_MIN} ALL_FILES)
 Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
@@ -53,6 +54,7 @@ SET(NEEDS_ARGS
   CurvedReformation
   DataSetGradient
   DepthSortPolyData
+  ExtrudePolyDataAlongLine
   Glyph3DMapper
   HedgeHog
   PointDataSubdivision
@@ -91,6 +93,11 @@ ADD_TEST(${KIT}-DataSetGradient ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-DepthSortPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDepthSortPolyData 1 100 100 0)
+
+if (SplineDrivenImageSlicer_LOADED)
+  ADD_TEST(${KIT}-ExtrudePolyDataAlongLine ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestExtrudePolyDataAlongLine ${DATA}/a.vtp)
+endif()
 
 ADD_TEST(${KIT}-Glyph3DMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGlyph3DMapper -E 40)
