@@ -16116,6 +16116,7 @@
                   <h1>Cone</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/Cone</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestCone.png?raw=true" width="256" /></p>
 <p>This program displays a cone on screen.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Cone.py</strong></p>
@@ -16137,10 +16138,11 @@
 <span class="n">cone</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkConeSource</span><span class="p">()</span>
 <span class="n">cone</span><span class="o">.</span><span class="n">SetResolution</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
 <span class="n">cone</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cone</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
 <span class="c1"># mapper</span>
 <span class="n">coneMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
-<span class="n">coneMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">cone</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">coneMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">cone</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
 <span class="c1"># actor</span>
 <span class="n">coneActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>

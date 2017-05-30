@@ -16130,6 +16130,7 @@
                   <h1>Cube</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/Cube</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestCube.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Display a cube</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
@@ -16147,10 +16148,11 @@
 
 <span class="c1"># create cube</span>
 <span class="n">cube</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCubeSource</span><span class="p">()</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
 <span class="c1"># mapper</span>
 <span class="n">cubeMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
-<span class="n">cubeMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">cubeMapper</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
 
 <span class="c1"># actor</span>
 <span class="n">cubeActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>
