@@ -16203,6 +16203,76 @@
 </pre></div>
 
 
+<p><strong>vtkTestProgressReportFilter.h</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifndef __vtkTestProgressReportFilter_h</span>
+<span class="cp">#define __vtkTestProgressReportFilter_h</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataAlgorithm.h&quot;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">vtkTestProgressReportFilter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkPolyDataAlgorithm</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkTestProgressReportFilter</span> <span class="o">*</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">vtkTestProgressReportFilter</span><span class="p">,</span><span class="n">vtkAlgorithm</span><span class="p">);</span>
+
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">vtkTestProgressReportFilter</span><span class="p">(){}</span>
+  <span class="o">~</span><span class="n">vtkTestProgressReportFilter</span><span class="p">()</span> <span class="n">VTK_OVERRIDE</span> <span class="p">{}</span>
+
+  <span class="kt">int</span> <span class="n">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="p">)</span> <span class="n">VTK_OVERRIDE</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkTestProgressReportFilter</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkTestProgressReportFilter</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">VTK_DELETE_FUNCTION</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkTestProgressReportFilter</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">VTK_DELETE_FUNCTION</span><span class="p">;</span>
+
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p><strong>vtkTestProgressReportFilter.cxx</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTestProgressReportFilter.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestProgressReportFilter</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="n">vtkTestProgressReportFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+  <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+  <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
+
+  <span class="c1">// Get the info objects</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">inInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+
+  <span class="c1">// Get the input and ouptut</span>
+  <span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">input</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+    <span class="n">inInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
+
+  <span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">output</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">UpdateProgress</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
+  <span class="p">}</span>
+
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
@@ -16211,7 +16281,7 @@
 <span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
 <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">ProgressReport</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ProgressReport.cxx</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ProgressReport</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">ProgressReport.cxx</span>  <span class="s">vtkTestProgressReportFilter.cxx</span><span class="p">)</span>
 
 <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ProgressReport</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
 </pre></div>

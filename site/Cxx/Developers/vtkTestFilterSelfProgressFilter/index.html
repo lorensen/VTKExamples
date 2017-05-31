@@ -16161,7 +16161,7 @@
 
 <span class="n">vtkTestFilterSelfProgressFilter</span><span class="o">::</span><span class="n">vtkTestFilterSelfProgressFilter</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">progressCallback</span> <span class="o">=</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;</span> <span class="n">progressCallback</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCallbackCommand</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">progressCallback</span><span class="o">-&gt;</span><span class="n">SetCallback</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ProgressFunction</span><span class="p">);</span>
 
@@ -16192,9 +16192,9 @@
       <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
 
   <span class="k">for</span><span class="p">(</span><span class="n">vtkIdType</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
+    <span class="p">{</span>
     <span class="k">this</span><span class="o">-&gt;</span><span class="n">UpdateProgress</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
-  <span class="p">}</span>
+    <span class="p">}</span>
 
   <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
 
@@ -16211,7 +16211,7 @@
 <span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
 <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">vtkTestFilterSelfProgressFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">vtkTestFilterSelfProgressFilter.cxx</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">vtkTestFilterSelfProgressFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">vtkTestFilterSelfProgressFilter.cxx</span> <span class="p">)</span>
 
 <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">vtkTestFilterSelfProgressFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
 </pre></div>

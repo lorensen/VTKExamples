@@ -16187,6 +16187,395 @@
 </pre></div>
 
 
+<p><strong>vtkTest.h</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifndef __vtkTest_h</span>
+<span class="cp">#define __vtkTest_h</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">vtkTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkDataObject</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">vtkTest</span><span class="o">*</span> <span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">vtkTest</span><span class="p">,</span><span class="n">vtkDataObject</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintSelf</span><span class="p">(</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span> <span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">ShallowCopy</span><span class="p">(</span><span class="n">vtkTest</span><span class="o">*</span> <span class="n">t</span><span class="p">);</span>
+
+    <span class="n">vtkGetMacro</span><span class="p">(</span><span class="n">Value</span><span class="p">,</span> <span class="kt">double</span><span class="p">);</span>
+    <span class="n">vtkSetMacro</span><span class="p">(</span><span class="n">Value</span><span class="p">,</span> <span class="kt">double</span><span class="p">);</span>
+
+  <span class="k">protected</span><span class="o">:</span>
+    <span class="n">vtkTest</span><span class="p">();</span>
+    <span class="o">~</span><span class="n">vtkTest</span><span class="p">();</span>
+
+
+  <span class="k">private</span><span class="o">:</span>
+    <span class="n">vtkTest</span><span class="p">(</span> <span class="k">const</span> <span class="n">vtkTest</span><span class="o">&amp;</span> <span class="p">);</span> <span class="c1">// Not implemented.</span>
+    <span class="kt">void</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span> <span class="k">const</span> <span class="n">vtkTest</span><span class="o">&amp;</span> <span class="p">);</span> <span class="c1">// Not implemented.</span>
+
+    <span class="kt">double</span> <span class="n">Value</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#endif </span>
+</pre></div>
+
+
+<p><strong>vtkTestAlgorithmFilter.h</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifndef __vtkTestAlgorithmFilter_h</span>
+<span class="cp">#define __vtkTestAlgorithmFilter_h</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkAlgorithm.h&quot;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">vtkDataSet</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">vtkTest</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">vtkTestAlgorithmFilter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkAlgorithm</span>
+<span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">vtkTestAlgorithmFilter</span> <span class="o">*</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">,</span><span class="n">vtkAlgorithm</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">PrintSelf</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span><span class="p">);</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// Get the output data object for a port on this algorithm.</span>
+    <span class="n">vtkTest</span><span class="o">*</span> <span class="nf">GetOutput</span><span class="p">();</span>
+    <span class="n">vtkTest</span><span class="o">*</span> <span class="nf">GetOutput</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">SetOutput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">d</span><span class="p">);</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// see vtkAlgorithm for details</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">ProcessRequest</span><span class="p">(</span><span class="n">vtkInformation</span><span class="o">*</span><span class="p">,</span>
+                               <span class="n">vtkInformationVector</span><span class="o">**</span><span class="p">,</span>
+                               <span class="n">vtkInformationVector</span><span class="o">*</span><span class="p">);</span>
+
+  <span class="c1">// this method is not recommended for use, but lots of old style filters use it</span>
+    <span class="n">vtkDataObject</span><span class="o">*</span> <span class="nf">GetInput</span><span class="p">();</span>
+    <span class="n">vtkDataObject</span><span class="o">*</span> <span class="nf">GetInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">);</span>
+    <span class="n">vtkTest</span><span class="o">*</span> <span class="nf">GetLabelHierarchyInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">);</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// Set an input of this algorithm. You should not override these</span>
+  <span class="c1">// methods because they are not the only way to connect a pipeline.</span>
+  <span class="c1">// Note that these methods support old-style pipeline connections.</span>
+  <span class="c1">// When writing new code you should use the more general</span>
+  <span class="c1">// vtkAlgorithm::SetInputConnection().  These methods transform the</span>
+  <span class="c1">// input index to the input port index, not an index of a connection</span>
+  <span class="c1">// within a single port.</span>
+    <span class="kt">void</span> <span class="nf">SetInput</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">SetInput</span><span class="p">(</span> <span class="kt">int</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="p">);</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// Add an input of this algorithm.  Note that these methods support</span>
+  <span class="c1">// old-style pipeline connections.  When writing new code you should</span>
+  <span class="c1">// use the more general vtkAlgorithm::AddInputConnection().  See</span>
+  <span class="c1">// SetInput() for details.</span>
+    <span class="kt">void</span> <span class="nf">AddInput</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">AddInput</span><span class="p">(</span> <span class="kt">int</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="p">);</span>
+
+  <span class="k">protected</span><span class="o">:</span>
+    <span class="n">vtkTestAlgorithmFilter</span><span class="p">();</span>
+    <span class="o">~</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">();</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// This is called by the superclass.</span>
+  <span class="c1">// This is the method you should override.</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">RequestDataObject</span><span class="p">(</span>
+                                  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">request</span><span class="p">,</span>
+                                  <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+                                  <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">);</span>
+
+  <span class="c1">// convenience method</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">RequestInformation</span><span class="p">(</span>
+                                   <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">request</span><span class="p">,</span>
+                                   <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+                                   <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">);</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// This is called by the superclass.</span>
+  <span class="c1">// This is the method you should override.</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">RequestData</span><span class="p">(</span>
+                            <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">request</span><span class="p">,</span>
+                            <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+                            <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">);</span>
+
+  <span class="c1">// Description:</span>
+  <span class="c1">// This is called by the superclass.</span>
+  <span class="c1">// This is the method you should override.</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">RequestUpdateExtent</span><span class="p">(</span>
+                                    <span class="n">vtkInformation</span><span class="o">*</span><span class="p">,</span>
+                                    <span class="n">vtkInformationVector</span><span class="o">**</span><span class="p">,</span>
+                                    <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="p">);</span>
+
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">FillOutputPortInformation</span><span class="p">(</span> <span class="kt">int</span> <span class="n">port</span><span class="p">,</span> <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span> <span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">FillInputPortInformation</span><span class="p">(</span> <span class="kt">int</span> <span class="n">port</span><span class="p">,</span> <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span> <span class="p">);</span>
+
+  <span class="k">private</span><span class="o">:</span>
+    <span class="n">vtkTestAlgorithmFilter</span><span class="p">(</span> <span class="k">const</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">&amp;</span> <span class="p">);</span> <span class="c1">// Not implemented.</span>
+    <span class="kt">void</span> <span class="k">operator</span> <span class="o">=</span> <span class="p">(</span> <span class="k">const</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">&amp;</span> <span class="p">);</span>  <span class="c1">// Not implemented.</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p><strong>vtkTest.cxx</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTest.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTest</span><span class="p">);</span>
+
+<span class="n">vtkTest</span><span class="o">::</span><span class="n">vtkTest</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Value</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vtkTest</span><span class="o">::~</span><span class="n">vtkTest</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span> <span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span> <span class="n">os</span><span class="p">,</span> <span class="n">indent</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">vtkTest</span><span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Value</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>vtkTestAlgorithmFilter.cxx</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTestAlgorithmFilter.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkTest.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCommand.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">);</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputPorts</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfOutputPorts</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTestAlgorithmFilter</span><span class="o">::~</span><span class="n">vtkTestAlgorithmFilter</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="n">indent</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTest</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetOutput</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTest</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetOutput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetOutputDataObject</span><span class="p">(</span><span class="n">port</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">SetOutput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetExecutive</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOutputData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetInput</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetExecutive</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetInputData</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="n">vtkTest</span><span class="o">*</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">GetLabelHierarchyInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">(</span><span class="n">port</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">ProcessRequest</span><span class="p">(</span><span class="n">vtkInformation</span><span class="o">*</span> <span class="n">request</span><span class="p">,</span>
+                                     <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+                                     <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Create an output object of the correct type.</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_DATA_OBJECT</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestDataObject</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// generate the data</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_DATA</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkStreamingDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_UPDATE_EXTENT</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestUpdateExtent</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// execute information</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">request</span><span class="o">-&gt;</span><span class="n">Has</span><span class="p">(</span><span class="n">vtkDemandDrivenPipeline</span><span class="o">::</span><span class="n">REQUEST_INFORMATION</span><span class="p">()))</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">RequestInformation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">ProcessRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">inputVector</span><span class="p">,</span> <span class="n">outputVector</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">FillOutputPortInformation</span><span class="p">(</span>
+    <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">port</span><span class="p">),</span> <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// now add our info</span>
+  <span class="n">info</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_TYPE_NAME</span><span class="p">(),</span> <span class="s">&quot;vtkTest&quot;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">FillInputPortInformation</span><span class="p">(</span>
+                                               <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">port</span><span class="p">),</span> <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">info</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">info</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkAlgorithm</span><span class="o">::</span><span class="n">INPUT_REQUIRED_DATA_TYPE</span><span class="p">(),</span> <span class="s">&quot;vtkTest&quot;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+    <span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestDataObject</span><span class="p">(</span><span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                                         <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">inputVector</span><span class="p">),</span>
+         <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">)</span>
+    <span class="p">{</span>
+<span class="c1">//RequestDataObject (RDO) is an earlier pipeline pass.</span>
+<span class="c1">//During RDO, each filter is supposed to produce an empty data object of the proper type</span>
+
+  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkTest</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="n">output</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">(),</span> <span class="n">output</span> <span class="p">);</span>
+    <span class="n">output</span><span class="o">-&gt;</span><span class="n">FastDelete</span><span class="p">();</span>
+
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetOutputPortInformation</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span>
+      <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_EXTENT_TYPE</span><span class="p">(),</span> <span class="n">output</span><span class="o">-&gt;</span><span class="n">GetExtentType</span><span class="p">()</span> <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestInformation</span><span class="p">(</span>
+                                         <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+    <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">inputVector</span><span class="p">),</span>
+                                      <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">outputVector</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="c1">// do nothing let subclasses handle it</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestUpdateExtent</span><span class="p">(</span>
+                                          <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+    <span class="n">vtkInformationVector</span><span class="o">**</span> <span class="n">inputVector</span><span class="p">,</span>
+    <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">outputVector</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">numInputPorts</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetNumberOfInputPorts</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">numInputPorts</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">numInputConnections</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetNumberOfInputConnections</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">numInputConnections</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">inputInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+      <span class="n">inputInfo</span><span class="o">-&gt;</span><span class="n">Set</span><span class="p">(</span><span class="n">vtkStreamingDemandDrivenPipeline</span><span class="o">::</span><span class="n">EXACT_EXTENT</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="c1">// This is the superclasses style of Execute method.  Convert it into</span>
+<span class="c1">// an imaging style Execute method.</span>
+<span class="kt">int</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span>
+                                  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+    <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+    <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="n">outputVector</span> <span class="p">)</span>
+<span class="p">{</span>
+<span class="c1">//Later on RequestData (RD) happens.</span>
+<span class="c1">//During RD each filter examines any inputs it has, then fills in that empty data object with real data.</span>
+
+  <span class="n">vtkInformation</span><span class="o">*</span> <span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkTest</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+                                          <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span> <span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
+
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">inInfo</span> <span class="o">=</span> <span class="n">inputVector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">vtkTest</span> <span class="o">*</span><span class="n">input</span> <span class="o">=</span> <span class="n">vtkTest</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+                                         <span class="n">inInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">output</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">SetInput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">SetInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetInputDataObject</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// Setting a NULL input removes the connection.</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetInputDataObject</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">AddInput</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">AddInput</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestAlgorithmFilter</span><span class="o">::</span><span class="n">AddInput</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="n">vtkDataObject</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">AddInputDataObject</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
@@ -16195,7 +16584,7 @@
 <span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
 <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">AlgorithmFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AlgorithmFilter.cxx</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">AlgorithmFilter</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">AlgorithmFilter.cxx</span>  <span class="s">vtkTest.cxx</span> <span class="s">vtkTestAlgorithmFilter.cxx</span><span class="p">)</span>
 
 <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">AlgorithmFilter</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
 </pre></div>

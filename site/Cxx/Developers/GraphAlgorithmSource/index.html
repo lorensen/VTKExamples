@@ -16184,6 +16184,111 @@
 </pre></div>
 
 
+<p><strong>vtkTestGraphAlgorithmSource.h</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifndef __vtkTestGraphAlgorithmSource_h</span>
+<span class="cp">#define __vtkTestGraphAlgorithmSource_h</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkGraphAlgorithm.h&quot;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">vtkTestGraphAlgorithmSource</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkGraphAlgorithm</span> 
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">vtkTestGraphAlgorithmSource</span> <span class="o">*</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">vtkTestGraphAlgorithmSource</span><span class="p">,</span><span class="n">vtkGraphAlgorithm</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="nf">PrintSelf</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span><span class="p">);</span>
+
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">vtkTestGraphAlgorithmSource</span><span class="p">();</span>
+  <span class="o">~</span><span class="n">vtkTestGraphAlgorithmSource</span><span class="p">();</span>
+
+  <span class="kt">int</span> <span class="nf">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="p">);</span>
+
+  <span class="kt">int</span> <span class="nf">RequestDataObject</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="p">);</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkTestGraphAlgorithmSource</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkTestGraphAlgorithmSource</span><span class="o">&amp;</span><span class="p">);</span>  <span class="c1">// Not implemented.</span>
+  <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkTestGraphAlgorithmSource</span><span class="o">&amp;</span><span class="p">);</span>  <span class="c1">// Not implemented.</span>
+
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p><strong>vtkTestGraphAlgorithmSource.cxx</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkTestGraphAlgorithmSource.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkMutableUndirectedGraph.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkUndirectedGraph.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkGraph.h&quot;</span><span class="cp"></span>
+
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestGraphAlgorithmSource</span><span class="p">);</span>
+
+<span class="n">vtkTestGraphAlgorithmSource</span><span class="o">::</span><span class="n">vtkTestGraphAlgorithmSource</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputPorts</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfOutputPorts</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">vtkTestGraphAlgorithmSource</span><span class="o">::~</span><span class="n">vtkTestGraphAlgorithmSource</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">vtkTestGraphAlgorithmSource</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span>
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+  <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">inputVector</span><span class="p">),</span>
+  <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
+
+  <span class="n">vtkInformation</span> <span class="o">*</span><span class="n">outInfo</span> <span class="o">=</span> <span class="n">outputVector</span><span class="o">-&gt;</span><span class="n">GetInformationObject</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="n">vtkGraph</span> <span class="o">*</span><span class="n">output</span> <span class="o">=</span> <span class="n">vtkGraph</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
+    <span class="n">outInfo</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">vtkDataObject</span><span class="o">::</span><span class="n">DATA_OBJECT</span><span class="p">()));</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;</span> <span class="n">NewGraph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMutableUndirectedGraph</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="c1">//add 3 vertices</span>
+  <span class="n">NewGraph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">NewGraph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+  <span class="n">NewGraph</span><span class="o">-&gt;</span><span class="n">AddVertex</span><span class="p">();</span>
+
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">NewGraph</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">vtkTestGraphAlgorithmSource</span><span class="o">::</span><span class="n">RequestDataObject</span><span class="p">(</span>
+  <span class="n">vtkInformation</span><span class="o">*</span><span class="p">,</span> 
+  <span class="n">vtkInformationVector</span><span class="o">**</span><span class="p">,</span> 
+  <span class="n">vtkInformationVector</span><span class="o">*</span> <span class="p">)</span>
+<span class="p">{</span>
+
+  <span class="n">vtkUndirectedGraph</span> <span class="o">*</span><span class="n">output</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">output</span> <span class="o">=</span> <span class="n">vtkUndirectedGraph</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+
+
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetExecutive</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOutputData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+  <span class="n">output</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//----------------------------------------------------------------------------</span>
+<span class="kt">void</span> <span class="n">vtkTestGraphAlgorithmSource</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="n">vtkIndent</span> <span class="n">indent</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Superclass</span><span class="o">::</span><span class="n">PrintSelf</span><span class="p">(</span><span class="n">os</span><span class="p">,</span><span class="n">indent</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="cmakeliststxt">CMakeLists.txt<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 
@@ -16192,7 +16297,7 @@
 <span class="nb">find_package</span><span class="p">(</span><span class="s">VTK</span> <span class="s">REQUIRED</span><span class="p">)</span>
 <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">VTK_USE_FILE</span><span class="o">}</span><span class="p">)</span>
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">GraphAlgorithmSource</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GraphAlgorithmSource.cxx</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">GraphAlgorithmSource</span> <span class="s">MACOSX_BUNDLE</span> <span class="s">GraphAlgorithmSource.cxx</span>  <span class="s">vtkTestGraphAlgorithmSource.cxx</span><span class="p">)</span>
 
 <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">GraphAlgorithmSource</span> <span class="o">${</span><span class="nv">VTK_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
 </pre></div>
