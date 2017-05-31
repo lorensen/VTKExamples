@@ -1,0 +1,4 @@
+vtkTest1.h
+vtkTestAlgorithmSource.h
+vtkTest1.cxx
+vtkTestAlgorithmSource.cxx

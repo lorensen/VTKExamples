@@ -47,10 +47,17 @@ def GetVTKQtCMake(S):
     reg = re.compile(r"\{\{(VTKQtCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
     return [reg.findall(S)]
 
+def WriteCxxCode(toFile, codeName, code):
+    toFile.write("**" + codeName + "**" + "\n")
+    toFile.write("```c++" + "\n")
+    toFile.write(code);
+    toFile.write("```" + "\n")
+
 # Fill in the template parameters in a CMakeLists template file
 # The output is a CMakeLists.txt file with Name substituted for {{{1}}}
-def FillCMakeLists(S, Name):
-    reg = re.sub(r'XXX', Name, S)
+def FillCMakeLists(S, Name, ExtraNames):
+    r1 = re.sub(r'XXX', Name, S)
+    reg =  re.sub(r'YYY', ExtraNames, r1)
     return reg
 
 def FillQtCMakeLists(S, Name):
@@ -182,6 +189,24 @@ for lang, langExt in Languages.items():
             SrcFile.close()
             MdFile.write(src)
             MdFile.write("```" + "\n")
+            ExtrasPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".extras"
+            ExtraNames = ""
+            if os.path.isfile(ExtrasPath) :
+                print "Extras.. " + ExtrasPath + "\n"
+                ExtrasFile = open(ExtrasPath, 'r')
+                for line in ExtrasFile:
+                    line = line.strip()
+                    print line
+                    ExtraPath = RepoDir + "/" + lang + "/" + KitName + "/" + line
+                    print "\t" + "ExtraPath: " + ExtraPath
+                    ExtraFile = open(ExtraPath, 'r')
+                    extraCode = ExtraFile.read()
+                    ExtraFile.close()
+                    WriteCxxCode(MdFile, line, extraCode)
+                    extent = os.path.splitext(line)
+                    if extent[1] == ".cxx":
+                        ExtraNames += " " + line
+                ExtrasFile.close()
             CustomCMakePath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".cmake"
             if os.path.isfile(CustomCMakePath) :
                 CustomCMakeFile = open(CustomCMakePath, 'r')
@@ -191,7 +216,7 @@ for lang, langExt in Languages.items():
                 CMakeFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
                 CMakeContents = CMakeFile.read()
                 CMakeFile.close()
-                cmake = FillCMakeLists(CMakeContents, ExampleName)
+                cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames)
             if lang == "Cxx": 
                 MdFile.write(cmake)
             MdFile.close()

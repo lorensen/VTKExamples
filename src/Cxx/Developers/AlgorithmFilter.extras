@@ -1,0 +1,4 @@
+vtkTest.h
+vtkTestAlgorithmFilter.h
+vtkTest.cxx
+vtkTestAlgorithmFilter.cxx
