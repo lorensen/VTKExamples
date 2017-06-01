@@ -14,7 +14,7 @@ cube.Update()
 
 # Create 3D cells so vtkImplicitDataSet evaluates inside vs outside correctly
 tri = vtk.vtkDelaunay3D()
-tri.SetInput(cube.GetOutput())
+tri.SetInputConnection(cube.GetOutputPort())
 tri.BoundingTriangulationOff()
 
 # vtkImplicitDataSet needs some scalars to interpolate to find inside/outside
