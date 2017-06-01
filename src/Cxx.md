@@ -339,22 +339,22 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 ### Point cloud operations
 
 
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[DensifyPoints](/Cxx/Points/DensifyPoints) | [vtkDensifyPointCloudFilter](http://www.vtk.org/doc/nightly/html/classvtkDensifyPointCloudFilter.html) | Add points to a point cloud.
-[DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | [vtkCleanPolyData](http://www.vtk.org/doc/nightly/html/classvtkCleanPolyData.html) | Downsample a point cloud. Remove points so that there are no points within a tolerance of any point.
-[ExtractClusters](/Cxx/Points/ExtractClusters) | [vtkEuclideanClusterExtraction](http://www.vtk.org/doc/nightly/html/classvtkEuclideanClusterExtraction.html) | From a set of randomly distributed spheres, extract connected clusters.
-[ExtractPointsDemo](/Cxx/Points/ExtractPointsDemo) | [vtkExtractPoints](http://www.vtk.org/doc/nightly/html/classvtkExtractPoints.html) |Extract points inside an implicit function.
-[ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html),[vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html),[vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Create a surface from Unorganized Points using Point filters (DEMO).
-[ExtractSurface](/Cxx/Points/ExtractSurface) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html),[vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html),[vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Create a surface from Unorganized Points using Point filters.
-[FitImplicitFunction](/Cxx/Points/FitImplicitFunction) | [vtkFitImplicitFunction](http://www.vtk.org/doc/nightly/html/classvtkFitImplicitFunction.html) | Extract points within a distance to an implicit function.
-[MaskPointsFilter](/Cxx/Points/MaskPointsFilter) | [vtkMaskPointsFilter](http://www.vtk.org/doc/nightly/html/classvtkMaskPointsFilter.html) |Extract points within an image mask.
-[NormalEstimation](/Cxx/Points/NormalEstimation) | [vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html) | Estimate the normals of a random points that lie on a sphere.
-[PointOccupancy](/Cxx/Points/PointOccupancy) | [vtkPointOccupancy](http://www.vtk.org/doc/nightly/html/classvtkPointOccupancy.html) |Show which voxels contain points.
-[PointSource](/Cxx/PolyData/PointSource) | [vtkPointSource](http://www.vtk.org/doc/nightly/html/classvtkPointSource.html) |Generate a random point cloud.
-[RadiusOutlierRemoval](/Cxx/Points/RadiusOutlierRemoval) | [vtkRadiusOutlierRemoval](http://www.vtk.org/doc/nightly/html/classvtkRadiusOutlierRemoval.html) |Remove outliers.
-[SignedDistance](/Cxx/Points/SignedDistance) | [vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Compute signed distance to a point cloud.
-[UnsignedDistance](/Cxx/Points/UnsignedDistance) | [vtkUnsignedDistance](http://www.vtk.org/doc/nightly/html/classvtkUnsignedDistance.html) |Compute unsigned distance to a point cloud.
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[DensifyPoints](/Cxx/Points/DensifyPoints) | [vtkDensifyPointCloudFilter](http://www.vtk.org/doc/nightly/html/classvtkDensifyPointCloudFilter.html) | Add points to a point cloud. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestDensifyPoints.png?raw=true" width="64" />
+[DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | [vtkCleanPolyData](http://www.vtk.org/doc/nightly/html/classvtkCleanPolyData.html) | Downsample a point cloud. Remove points so that there are no points within a tolerance of any point. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestDownsamplePointCloud.png?raw=true" width="64" />
+[ExtractClusters](/Cxx/Points/ExtractClusters) | [vtkEuclideanClusterExtraction](http://www.vtk.org/doc/nightly/html/classvtkEuclideanClusterExtraction.html) | From a set of randomly distributed spheres, extract connected clusters. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestExtractClusters.png?raw=true" width="64" />
+[ExtractPointsDemo](/Cxx/Points/ExtractPointsDemo) | [vtkExtractPoints](http://www.vtk.org/doc/nightly/html/classvtkExtractPoints.html) |Extract points inside an implicit function. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestExtractPointsDemo.png?raw=true" width="64" />
+[ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html),[vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html),[vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Create a surface from Unorganized Points using Point filters (DEMO). | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestExtractSurfaceDemo.png?raw=true" width="64" />
+[ExtractSurface](/Cxx/Points/ExtractSurface) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html),[vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html),[vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Create a surface from Unorganized Points using Point filters. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestExtractSurface.png?raw=true" width="64" />
+[FitImplicitFunction](/Cxx/Points/FitImplicitFunction) | [vtkFitImplicitFunction](http://www.vtk.org/doc/nightly/html/classvtkFitImplicitFunction.html) | Extract points within a distance to an implicit function. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestFitImplicitFunction.png?raw=true" width="64" />
+[MaskPointsFilter](/Cxx/Points/MaskPointsFilter) | [vtkMaskPointsFilter](http://www.vtk.org/doc/nightly/html/classvtkMaskPointsFilter.html) |Extract points within an image mask. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestMaskPointsFilter.png?raw=true" width="64" />
+[NormalEstimation](/Cxx/Points/NormalEstimation) | [vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html) | Estimate the normals of a random points that lie on a sphere. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestNormalEstimation.png?raw=true" width="64" />
+[PointOccupancy](/Cxx/Points/PointOccupancy) | [vtkPointOccupancy](http://www.vtk.org/doc/nightly/html/classvtkPointOccupancy.html) |Show which voxels contain points. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestPointOccupancy.png?raw=true" width="64" />
+[PointSource](/Cxx/PolyData/PointSource) | [vtkPointSource](http://www.vtk.org/doc/nightly/html/classvtkPointSource.html) |Generate a random point cloud. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestPointSource.png?raw=true" width="64" />
+[RadiusOutlierRemoval](/Cxx/Points/RadiusOutlierRemoval) | [vtkRadiusOutlierRemoval](http://www.vtk.org/doc/nightly/html/classvtkRadiusOutlierRemoval.html) |Remove outliers. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestRadiusOutlierRemoval.png?raw=true" width="64" />
+[SignedDistance](/Cxx/Points/SignedDistance) | [vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html) |Compute signed distance to a point cloud. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestSignedDistance.png?raw=true" width="64" />
+[UnsignedDistance](/Cxx/Points/UnsignedDistance) | [vtkUnsignedDistance](http://www.vtk.org/doc/nightly/html/classvtkUnsignedDistance.html) |Compute unsigned distance to a point cloud. | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestUnsignedDistance.png?raw=true" width="64" />
 
 
 ### Working with Meshes
@@ -477,13 +477,14 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 ### Medical
 
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[MedicalDemo1](/Cxx/Medical/MedicalDemo1) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) |Create a skin surface from volume data
-[MedicalDemo2](/Cxx/Medical/MedicalDemo2) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) |Create a skin and bone surface from volume data
-[MedicalDemo3](/Cxx/Medical/MedicalDemo3) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) |Create skin, bone and slices from volume data
-[MedicalDemo4](/Cxx/Medical/MedicalDemo4) | [vtkFixedPointVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkFixedPointVolumeRayCastMapper.html) |Create a volume rendering
-[TissueLens](/Cxx/Medical/TissueLens) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html)  [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) |Cut a volume with a sphere
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[MedicalDemo1](/Cxx/Medical/MedicalDemo1) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) |Create a skin surface from volume data |<img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo1.png?raw=true" width="64" />
+[MedicalDemo2](/Cxx/Medical/MedicalDemo2) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) |Create a skin and bone surface from volume data | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo2.png?raw=true" width="64" />
+[MedicalDemo3](/Cxx/Medical/MedicalDemo3) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) |Create skin, bone and slices from volume data | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo3.png?raw=true" width="64" />
+[MedicalDemo4](/Cxx/Medical/MedicalDemo4) | [vtkFixedPointVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkFixedPointVolumeRayCastMapper.html) |Create a volume rendering | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestMedicalDemo4.png?raw=true" width="64" />
+[TissueLens](/Cxx/Medical/TissueLens) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html)  [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) |Cut a volume with a sphere | <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Medical/TestTissueLens.png?raw=true" width="64" />
+
 
 ### Surface reconstruction
 
