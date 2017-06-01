@@ -15948,6 +15948,7 @@
                   <h1>DataSetSurface</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/DataSetSurface</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestDataSetSurface.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DataSetSurface.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">vtk</span> <span class="kn">import</span><span class="o">*</span>
@@ -15997,13 +15998,13 @@
 <span class="n">uGrid</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">hexa</span><span class="o">.</span><span class="n">GetCellType</span><span class="p">(),</span> <span class="n">hexa</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">());</span>
 
 <span class="n">surface</span><span class="o">=</span><span class="n">vtkDataSetSurfaceFilter</span><span class="p">()</span>
-<span class="n">surface</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">uGrid</span><span class="p">)</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">uGrid</span><span class="p">)</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 
 
 
 <span class="n">aBeamMapper</span> <span class="o">=</span> <span class="n">vtkDataSetMapper</span><span class="p">()</span>
-<span class="n">aBeamMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">surface</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">aBeamMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">surface</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 <span class="n">aBeamActor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
 <span class="n">aBeamActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">aBeamMapper</span><span class="p">)</span>
 <span class="n">aBeamActor</span><span class="o">.</span><span class="n">AddPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
@@ -16021,7 +16022,7 @@
 <span class="c1">#create cutter</span>
 <span class="n">cutter</span><span class="o">=</span><span class="n">vtkCutter</span><span class="p">()</span>
 <span class="n">cutter</span><span class="o">.</span><span class="n">SetCutFunction</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
-<span class="n">cutter</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">.</span><span class="n">GetInput</span><span class="p">())</span>
+<span class="n">cutter</span><span class="o">.</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">aBeamActor</span><span class="o">.</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">.</span><span class="n">GetInput</span><span class="p">())</span>
 <span class="n">cutter</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
 <span class="n">cutterMapper</span><span class="o">=</span><span class="n">vtkDataSetMapper</span><span class="p">()</span>
 <span class="n">cutterMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">cutter</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
@@ -16051,6 +16052,8 @@
 
 <span class="c1">#Render and interact</span>
 <span class="n">renderWindow</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+
+<span class="n">renderWindowInteractor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 </pre></div>
                 
                   

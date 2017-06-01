@@ -15948,6 +15948,7 @@
                   <h1>Plane</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/Plane</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestPlane.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Plane.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
@@ -15968,7 +15969,7 @@
 
 <span class="c1"># mapper</span>
 <span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
-<span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">mapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
 <span class="c1"># actor</span>
 <span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkActor</span><span class="p">()</span>

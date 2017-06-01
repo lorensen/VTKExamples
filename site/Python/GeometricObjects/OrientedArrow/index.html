@@ -14542,12 +14542,42 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        OrientedArrow
+      </label>
     
     <a href="./" title="OrientedArrow" class="md-nav__link md-nav__link--active">
       OrientedArrow
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15896,8 +15926,27 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
   
 </nav>
                   </div>
@@ -15910,12 +15959,21 @@
               
                 
                 
+                  <h1>OrientedArrow</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/OrientedArrow</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestOrientedArrow.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example illustrates how to create and display an arrow that passes through two points.</p>
 <p>It demonstrates two different ways to apply the transform:</p>
-<h1 id="use-vtktransformpolydatafilter-to-create-a-new-transformed-polydata-this-method-is-useful-if-the-transformed-polydata-is-needed-later-in-the-pipeline-eg-vtkglyph3dfilter">Use <a href="http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html">vtkTransformPolyDataFilter</a> to create a new transformed polydata. This method is useful if the transformed polydata is needed later in the pipeline, e.g. vtkGlyph3DFilter.<a class="headerlink" href="#use-vtktransformpolydatafilter-to-create-a-new-transformed-polydata-this-method-is-useful-if-the-transformed-polydata-is-needed-later-in-the-pipeline-eg-vtkglyph3dfilter" title="Permanent link">&para;</a></h1>
-<h1 id="apply-the-transform-directly-to-the-actor-using-vtkprop3ds-setusermatrix-no-new-data-is-produced">Apply the transform directly to the actor using <a href="http://www.vtk.org/doc/nightly/html/classvtkProp3D.html#a950378fc70405a58bd998c00f84a39a3">vtkProp3D's SetUserMatrix</a>. No new data is produced.<a class="headerlink" href="#apply-the-transform-directly-to-the-actor-using-vtkprop3ds-setusermatrix-no-new-data-is-produced" title="Permanent link">&para;</a></h1>
+<ol>
+<li>
+<p>Use <a href="http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html">vtkTransformPolyDataFilter</a> to create a new transformed polydata. This method is useful if the transformed polydata is needed later in the pipeline, e.g. vtkGlyph3DFilter.</p>
+</li>
+<li>
+<p>Apply the transform directly to the actor using <a href="http://www.vtk.org/doc/nightly/html/classvtkProp3D.html#a950378fc70405a58bd998c00f84a39a3">vtkProp3D's SetUserMatrix</a>. No new data is produced.</p>
+</li>
+</ol>
 <p>Switch between the two methods by setting USER_MATRIX to either <math>True</math> or <math>False</math> as documented in the script.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OrientedArrow.py</strong></p>

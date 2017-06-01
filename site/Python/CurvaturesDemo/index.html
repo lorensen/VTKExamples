@@ -15956,6 +15956,7 @@
                   <h1>CurvaturesDemo</h1>
                 
                 <p><a href="../../">VTKExamples</a>/<a href="../../Python">Python</a>//CurvaturesDemo</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python//TestCurvaturesDemo.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>'''How to get the Gaussian and Mean curvatures of a surface.'''</p>
 <p>Two different surfaces are used in this demonstration with each surface coloured according to its Gaussian and Mean curvatures.</p>
@@ -15967,7 +15968,7 @@
 <p>The second surface is a parametric surface, in this case the surface has already been triangulated so no extra processing is necessary.</p>
 </li>
 </ul>
-<p>In order to get a nice coloured image, a {{DoxygenURL|vtkColorTransferFunction}} has been used to generate a set of colours for the {{DoxygenURL|vtkLookUp}} tables. We have used a diverging colour space similar to that in ParaView.
+<p>In order to get a nice coloured image, a <a href="http://www.vtk.org/nightly/html/classvtkColorTransferFunction.html">vtkColorTransferFunction</a> has been used to generate a set of colours for the <a href="http://www.vtk.org/nightly/html/classvtkLookUp.html">vtkLookUp</a> tables. We have used a diverging colour space similar to that in ParaView.
 Because of the symmetry of the ranges selected for the lookup tables, the white colouration represents a midpoint value whilst the blue represents values less than the midopoint value and red represents colours greater than the midpoint value.</p>
 <p>In the case of the Random Hills Gaussian curvature surface, this colouration shows the nature of the surface quite nicely. The blue areas are saddle points (negative Gaussian curvature) and the red areas have a positive Gaussian curvature. In the case of the mean curvature the blue colouration is representing negative curvature perpendicular to one of the principal axes.</p>
 <p>This example also demonstrates the use of lists and the linking of the elements of the lists together to form a pipeline. </p>
