@@ -39,9 +39,9 @@ glyph.SetInputConnection(elev.GetOutputPort())
 
 # Here is where we build the glyph table
 # that will be indexed into according to the IndexMode
-glyph.SetSource(0,cs.GetOutput())
-glyph.SetSource(1,ss.GetOutput())
-glyph.SetSource(2,cs2.GetOutput())
+glyph.SetSourceConnection(0,cs.GetOutputPort())
+glyph.SetSourceConnection(1,ss.GetOutputPort())
+glyph.SetSourceConnection(2,cs2.GetOutputPort())
 
 glyph.ScalingOn()
 glyph.SetScaleModeToScaleByScalar()

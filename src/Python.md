@@ -150,7 +150,7 @@ This section includes examples of manipulating meshes.
 |--------------|----------------------|-------------|
 [BackgroundImage](/Python/BackgroundImage) | [vtkJPEGReader](http://www.vtk.org/doc/nightly/html/classvtkJPEGReader.html), [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html), [vtkImageActor](http://www.vtk.org/doc/nightly/html/classvtkImageActor.html), [vtkSuperquadricSource](http://www.vtk.org/doc/nightly/html/classvtkSuperquadricSource.html) |
 [Cutter](/Python/Cutter) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) |
-[ImplicitDataSet](/Python/ImplicitDataSet) | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html)]( vtkIdType | n/a | This is just a typedef, Python, you can use a python "int" or "long" for vtkIdType.
+[ImplicitDataSet](/Python/ImplicitDataSet) | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html) | vtkIdType  n/a. This is just a typedef, Python, you can use a python "int" or "long" for vtkIdType.
 [Screenshot](/Python/Screenshot) | [vtkWindowToImageFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowToImageFilter.html) |
 [Variant](/Python/Variant) | [vtkVariant](http://www.vtk.org/doc/nightly/html/classvtkVariant.html) |
 [vtkVersion](/Python/vtkVersion) | [vtkVersion](http://www.vtk.org/doc/nightly/html/classvtkVersion.html) |

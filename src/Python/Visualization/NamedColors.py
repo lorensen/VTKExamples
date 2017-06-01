@@ -139,7 +139,7 @@ def CheckVTKVersion(requiredMajorVersion):
     :param: requiredMajorVersion e.g. 6
     '''
     version = vtk.vtkVersion()
-    if version.GetVTKMajorVersion() > requiredMajorVersion:
+    if version.GetVTKMajorVersion() < requiredMajorVersion:
         raise
     else:
         return

@@ -16,7 +16,7 @@ source.SetRadius(5.0)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(source.GetOutput())
+mapper.SetInputConnection(source.GetOutputPort())
 
 # actor
 actor = vtk.vtkActor()

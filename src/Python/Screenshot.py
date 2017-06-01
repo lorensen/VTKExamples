@@ -16,7 +16,7 @@ source.SetRadius(5.0)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(source.GetOutput())
+mapper.SetInputConnection(source.GetOutputPort())
 
 # actor
 actor = vtk.vtkActor()
@@ -37,7 +37,7 @@ w2if.Update()
 
 writer = vtk.vtkPNGWriter()
 writer.SetFileName("screenshot.png")
-writer.SetInput(w2if.GetOutput())
+writer.SetInputConnection(w2if.GetOutputPort())
 writer.Write()
 
 # enable user interface interactor

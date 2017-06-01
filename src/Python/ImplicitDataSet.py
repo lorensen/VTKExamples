@@ -33,7 +33,7 @@ clipper.Update()
 # Vis for clipped sphere
 mapper = vtk.vtkPolyDataMapper()
 mapper.SetInputConnection(clipper.GetOutputPort())
-actor = vtk.vtkActor()
+actor = vtk.vtkActor()`<
 actor.SetMapper(mapper)
 
 # Vis for cube so can see it in relation to clipped sphere
