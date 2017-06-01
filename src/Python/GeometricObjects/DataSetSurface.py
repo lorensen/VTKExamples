@@ -45,13 +45,13 @@ uGrid.SetPoints(points);
 uGrid.InsertNextCell(hexa.GetCellType(), hexa.GetPointIds());
 
 surface=vtkDataSetSurfaceFilter()
-surface.SetInput(uGrid)
+surface.SetInputData(uGrid)
 surface.Update()
 
 
 
 aBeamMapper = vtkDataSetMapper()
-aBeamMapper.SetInput(surface.GetOutput())
+aBeamMapper.SetInputConnection(surface.GetOutputPort())
 aBeamActor = vtkActor()
 aBeamActor.SetMapper(aBeamMapper)
 aBeamActor.AddPosition(0,0,0)
@@ -69,7 +69,7 @@ plane.SetNormal(1,0,0)
 #create cutter
 cutter=vtkCutter()
 cutter.SetCutFunction(plane)
-cutter.SetInput(aBeamActor.GetMapper().GetInput())
+cutter.SetInputData(aBeamActor.GetMapper().GetInput())
 cutter.Update()
 cutterMapper=vtkDataSetMapper()
 cutterMapper.SetInputConnection( cutter.GetOutputPort())
@@ -99,3 +99,5 @@ renderer.SetBackground(0,0,0) # Background color white
 
 #Render and interact
 renderWindow.Render()
+
+renderWindowInteractor.Start()

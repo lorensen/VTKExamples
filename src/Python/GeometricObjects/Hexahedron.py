@@ -43,7 +43,7 @@ uGrid.InsertNextCell(hex.GetCellType(), hex.GetPointIds())
  
 # Visualize
 mapper = vtk.vtkDataSetMapper()
-mapper.SetInput(uGrid)
+mapper.SetInputData(uGrid)
  
 actor = vtk.vtkActor()
 actor.SetMapper(mapper)
