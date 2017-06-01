@@ -15948,6 +15948,7 @@
                   <h1>GlyphTable</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/GlyphTable</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Visualization/TestGlyphTable.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GlyphTable.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
@@ -15991,9 +15992,9 @@
 
 <span class="c1"># Here is where we build the glyph table</span>
 <span class="c1"># that will be indexed into according to the IndexMode</span>
-<span class="n">glyph</span><span class="o">.</span><span class="n">SetSource</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cs</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
-<span class="n">glyph</span><span class="o">.</span><span class="n">SetSource</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ss</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
-<span class="n">glyph</span><span class="o">.</span><span class="n">SetSource</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">cs2</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cs</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ss</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
+<span class="n">glyph</span><span class="o">.</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">cs2</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
 <span class="n">glyph</span><span class="o">.</span><span class="n">ScalingOn</span><span class="p">()</span>
 <span class="n">glyph</span><span class="o">.</span><span class="n">SetScaleModeToScaleByScalar</span><span class="p">()</span>
