@@ -758,7 +758,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ CameraActor](/Cxx/Visualization/CameraActor) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Visualize a camera (frustum) in a scene.
 [ DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
 [ FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
-[ ExtrudePolyDataAlongALine](/Cxx/Visualization/ExtrudePolyDataAlongALine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
+[ ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
 [ FlatShading](/Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetInterpolationToFlat |
 [ Legend](/Cxx/Visualization/Legend) | [vtkLegendBoxActor](http://www.vtk.org/doc/nightly/html/classvtkLegendBoxActor.html) |
 [ NoShading](/Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetAmbient, [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetDiffuse, [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetSpecular |
