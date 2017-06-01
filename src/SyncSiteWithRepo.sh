@@ -57,10 +57,10 @@ git rm `git status | grep deleted: | cut -d":" -f2,2`
 git commit -m "SYNC: Files deleted (or moved) from wiki."
 
 echo "6) Update tarballs and push to tarball repo"
-if ( test -d Tarballs ); then
-(cd Tarballs; git add *tar)
-(cd Tarballs; git commit -m "SYNC: Tarballs modified")
-(cd Tarballs; git push)
+if ( test -d src/Tarballs ); then
+(cd src/Tarballs; git add *tar)
+(cd src/Tarballs; git commit -m "SYNC: Tarballs modified")
+(cd src/Tarballs; git push)
 fi
 
 echo "7) Push the changes"

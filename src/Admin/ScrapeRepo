@@ -278,9 +278,9 @@ tmpDir = tempfile.mkdtemp(prefix="VTKTarballs") + "/"
 # Create the Tarballs directory in the source tree if not present
 # If it does not exist, assume the tarball repo has not been cloned
 # and we need to ignore tar files
-if not os.path.exists("Tarballs"):
-    os.makedirs("Tarballs")
-    ignoreFile = open("Tarballs/.gitignore", 'w')
+if not os.path.exists("src/Tarballs"):
+    os.makedirs("src/Tarballs")
+    ignoreFile = open("src/Tarballs/.gitignore", 'w')
     ignoreFile.write("*,tar\n")
     ignoreFile.close()
 
@@ -325,10 +325,10 @@ for example in exampleToFileNames:
 
     # Now create the tar file for the example
     # The tarballs are stored in the source tree
-    tar = tarfile.open("Tarballs/" + example + ".tar", "w")
+    tar = tarfile.open("src/Tarballs/" + example + ".tar", "w")
     tar.add(srcDir,arcname=example)
     tar.close()
 
 os.utime(tmpDir,(0,refMtime))
 # Cleanup the temporary directories
-#shutil.rmtree(tmpDir)
+shutil.rmtree(tmpDir)
