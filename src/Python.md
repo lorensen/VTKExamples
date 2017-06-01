@@ -101,6 +101,7 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [BooleanOperationPolyDataFilter](/Python/PolyData/BooleanOperationPolyDataFilter) | [vtkBooleanOperationPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkBooleanOperationPolyDataFilter.html) | This example performs a boolean operation (Intersection, Union, Difference) of two PolyData
 [ColoredTriangle](/Python/ColoredTriangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
 [CombinePolyData](/Python/Filtering/CombinePolyData) | [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html) | This example combines Polydata objects, and displays the result to the screen.
+[Cube](/Python/DataManipulation/Cube) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
 [CurvaturesDemo](/Python/CurvaturesDemo) | [vtkCurvatures](http://www.vtk.org/doc/nightly/html/classvtkCurvatures.html),  [vtkColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html)  | Demonstrates how to get the Gaussian and Mean curvatures of a surface.
 [DottedLine](/Python/DottedLine) | vtkActor::GetProperty::SetLineStipplePattern |
 [FilledPolygon](/Python/FilledPolygon) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) |
@@ -114,14 +115,13 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [PolyDataToImageDataStencil](/Python/PolyData/PolyDataToImageDataStencil) | [vtkPolyDataToImageStencil](http://www.vtk.org/doc/nightly/html/classvtkPolyDataToImageStencil.html) |
 [RotationAroundLine](/Python/RotationAroundLine) | [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html)  |
 [RuledSurfaceFilter](/Python/PolyData/RuledSurfaceFilter) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) |
-[SolidColoredTriangle](/Python/SolidColoredTriangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
 [SmoothMeshGrid](/Python/PolyData/SmoothMeshGrid) | [vtkLoopSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLoopSubdivisionFilter.html) | [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) |
+[SolidColoredTriangle](/Python/SolidColoredTriangle) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
 [TriangleColoredPoints](/Python/TriangleColoredPoints) | [vtkUnsignedCharArray](http://www.vtk.org/doc/nightly/html/classvtkUnsignedCharArray.html) |
 [TriangleCornerVertices](/Python/TriangleCornerVertices) | [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html) |
 [TriangleCorners](/Python/TriangleCorners) | [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html) |
 [WarpVector](/Python/PolyData/WarpVector) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html), [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector.html) | This example warps/deflects a line.
 [WriteTriangleToFile](/Python/WriteTriangleToFile) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
-[Cube](/Python/DataManipulation/Cube) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
 
 ## Working with 3D Data
 
