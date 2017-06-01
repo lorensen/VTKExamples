@@ -128,9 +128,9 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
     ctest -V -R MyNewExample
     ```
 
-4. If your example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
+4. If your C++ example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test**MyNewExample**.png.
 
-5. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/
+5. Copy the image into: VTKExamples/src/Testing/Baseline/**LANG**/**TOPIC**/. For python and other languages, create an image with the proper name using a screen capture and copy that image into the proper location.
 
 6. Rerun ctest and the test should pass.
 
@@ -181,6 +181,16 @@ If your example requires arguments, you will need to edit the *CMakeLists.txt* i
 
 2. Add an *ADD_TEST* line. See other *CMakeLists.txt* files for examples.
 
+## Add extra files to a C++ example
+
+Most C++ examples consist of one file. If other files are required,
+place them in the same directory as the example. Then add a file with
+the same prefix as the example name and a *.extras* suffix. List each
+extra filename in the *.extras* file, one filename per line.
+
+!!! warning
+    If you add extra files to the example, but do not add their filenames to the *.extras* file, they will appear in the left hand file menus **and** will not be included in the tar file for the example.
+
 ## Review changes in a browser
 
 If you want to preview your changes in a browser (**NOTE:** You must have python installed on your system)
@@ -195,5 +205,3 @@ If you want to preview your changes in a browser (**NOTE:** You must have python
     ```
 
   4. After a few minutes go to https://**YOUR_NAME**.github.io/VTKExamples/ to see your changes before issuing your pull request.
-
-
