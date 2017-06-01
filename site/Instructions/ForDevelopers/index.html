@@ -15930,6 +15930,7 @@ illustrate a single concept.</p>
 <li><a href="#advanced-usage">Advanced usage</a><ul>
 <li><a href="#add-a-description">Add a description</a></li>
 <li><a href="#add-arguments-to-the-test">Add arguments to the test</a></li>
+<li><a href="#add-extra-files-to-a-c-example">Add extra files to a C++ example</a></li>
 <li><a href="#review-changes-in-a-browser">Review changes in a browser</a></li>
 </ul>
 </li>
@@ -16003,10 +16004,10 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <p><code>ctest -V -R MyNewExample</code></p>
 </li>
 <li>
-<p>If your example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test<strong>MyNewExample</strong>.png.</p>
+<p>If your C++ example does any rendering, the test will fail the first time and create an image in VTKExamples/build/Testing/Temporary. The image will be called Test<strong>MyNewExample</strong>.png.</p>
 </li>
 <li>
-<p>Copy the image into: VTKExamples/src/Testing/Baseline/<strong>LANG</strong>/<strong>TOPIC</strong>/</p>
+<p>Copy the image into: VTKExamples/src/Testing/Baseline/<strong>LANG</strong>/<strong>TOPIC</strong>/. For python and other languages, create an image with the proper name using a screen capture and copy that image into the proper location.</p>
 </li>
 <li>
 <p>Rerun ctest and the test should pass.</p>
@@ -16050,6 +16051,15 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.</p>
 <p>Add an <em>ADD_TEST</em> line. See other <em>CMakeLists.txt</em> files for examples.</p>
 </li>
 </ol>
+<h2 id="add-extra-files-to-a-c-example">Add extra files to a C++ example<a class="headerlink" href="#add-extra-files-to-a-c-example" title="Permanent link">&para;</a></h2>
+<p>Most C++ examples consist of one file. If other files are required,
+place them in the same directory as the example. Then add a file with
+the same prefix as the example name and a <em>.extras</em> suffix. List each
+extra filename in the <em>.extras</em> file, one filename per line.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you add extra files to the example, but do not add their filenames to the <em>.extras</em> file, they will appear in the left hand file menus <strong>and</strong> will not be included in the tar file for the example.</p>
+</div>
 <h2 id="review-changes-in-a-browser">Review changes in a browser<a class="headerlink" href="#review-changes-in-a-browser" title="Permanent link">&para;</a></h2>
 <p>If you want to preview your changes in a browser (<strong>NOTE:</strong> You must have python installed on your system)</p>
 <ol>
