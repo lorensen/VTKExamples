@@ -47,6 +47,10 @@ def GetVTKQtCMake(S):
     reg = re.compile(r"\{\{(VTKQtCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
     return [reg.findall(S)]
 
+def GetVTKCMakelists(S):
+    reg = re.compile(r"```cmake(.*?)```", re.DOTALL)
+    return [''.join(reg.findall(S))]
+
 def WriteCxxCode(toFile, codeName, code):
     toFile.write("**" + codeName + "**" + "\n")
     toFile.write("```c++" + "\n")
@@ -212,6 +216,13 @@ for lang, langExt in Languages.items():
             SrcFile.close()
             MdFile.write(src)
             MdFile.write("```" + "\n")
+
+            # Store the full file names for the example
+            if ExampleName not in exampleToFileNames:
+                exampleToFileNames[ExampleName] = set()
+            SrcFile = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ExampleExt
+            exampleToFileNames[ExampleName].add(SrcFile)
+
             ExtrasPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".extras"
             ExtraNames = ""
             if os.path.isfile(ExtrasPath) :
@@ -221,6 +232,9 @@ for lang, langExt in Languages.items():
                     line = line.strip()
                     print line
                     ExtraPath = RepoDir + "/" + lang + "/" + KitName + "/" + line
+                    SrcFile = RepoDir + "/" + lang + "/" + KitName + "/" + line
+
+                    exampleToFileNames[ExampleName].add(SrcFile)
                     print "\t" + "ExtraPath: " + ExtraPath
                     ExtraFile = open(ExtraPath, 'r')
                     extraCode = ExtraFile.read()
@@ -240,6 +254,7 @@ for lang, langExt in Languages.items():
                 CMakeContents = CMakeFile.read()
                 CMakeFile.close()
                 cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames)
+            exampleToCMake[ExampleName] = GetVTKCMakelists(cmake)
             if lang == "Cxx": 
                 MdFile.write(cmake)
             MdFile.close()
@@ -256,80 +271,6 @@ for item in sortedByCode:
     indexFile.write("<A HREF=" + RepoURL + "/blob/master" + re.sub(" ", "_", item[1]) + ".md" + ">" + "(md)" + "</A>")
     indexFile.write("<br>\n")
 indexFile.close()
-
-exit(0)
-
-xxx = 0
-for page in site.pages:
-    # Look for find pages that start with VTK/Examples/
-    to_find = "VTK/Examples/"
-    start = page.name.find(to_find)
-
-    # If the page doesn't start with VTK/Examples, skip it
-    if start < 0:
-        continue
-
-    # Get the part of the page name that comes after VTK/Examples/
-    # e.g. if the page name is VTK/Examples/GeometricObjects/Line, 
-    # ExamplePath will be GeometriObjects/Line
-    ExamplePath = page.name[start+len(to_find):]
-
-    # Continuing the above example, the below splits GeometricObjects/Line
-    # into PathName = GeometricObjects/
-    # ExampleName = Line
-    PathSplit = os.path.split(ExamplePath)
-    PathName = PathSplit[0]
-    ExampleName = re.sub(" ", "_", PathSplit[1])
-
-    # Get the content of the page
-    content = page.edit()
-
-    # Get all of the file names and file content on the page
-    CodeChunks = GetCode(content)
-
-    vtkQtCMakeChunks = GetVTKQtCMake(content)
-    if vtkQtCMakeChunks[0]:
-        exampleToCMake[ExampleName] = FillCMakeLists(ExtractCMakeLists(VTKQtTemplate)[0], ExampleName)
-        xxx = xxx + 1
-
-    vtkCMakeChunks = GetVTKCMake(content)
-    if vtkCMakeChunks[0]:
-        exampleToCMake[ExampleName] = FillCMakeLists(ExtractCMakeLists(VTKTemplate)[0], ExampleName)
-        xxx = xxx + 1
-    if CodeChunks:
-        for code in CodeChunks:
-            # Extract the Level 2 heading (e.g. ==Line.cxx==) into FileName and the content in the first <source ...> tag below the heading into FileContent
-            FileName = code[0]
-            FileContent = code[1]
-            if FileName == "CMakeLists.txt":
-                break
-            if FileName ==" CMakeLists.txt ":
-                continue
-            if FileName == " CmakeLists.txt":
-                continue
-            if FileName == "CmakeLists.txt":
-                continue
-
-            # Check if the path exists, if not, create it
-            if not os.path.exists(PathName):
-                if PathName != "":
-                    os.makedirs(PathName)
-            # Write the source code file
-            OutputFile = "./" + PathName + "/" + FileName
-            if os.path.exists(OutputFile):
-                sys.exit("ERROR: " + OutputFile + " already exists. Check for duplicate file in examples.")
-            print "Creating " + OutputFile
-            MyFile = open(OutputFile, 'w')
-            MyFile.write(FileContent)
-            MyFile.write("\n")
-            MyFile.close()
-            codeToPage[FileName] = ExamplePath
-            # Store the full file names for the example
-            if ExampleName not in exampleToFileNames:
-                exampleToFileNames[ExampleName] = set()
-            exampleToFileNames[ExampleName].add(OutputFile)
-        if xxx > 10000:
-            break
 
 # Create tarballs for each example
 tmpDir = tempfile.mkdtemp(prefix="VTKTarballs") + "/"
@@ -371,7 +312,7 @@ for example in exampleToFileNames:
     if example in exampleToCMake:
         cmakeFileName = srcDir + "/" + "CMakeLists.txt"
         cmakeFile = open(cmakeFileName, 'w')
-        cmakeFile.write(exampleToCMake[example])    
+        cmakeFile.write(exampleToCMake[example][0])    
         cmakeFile.close()
         os.utime(cmakeFileName,(refMtime,refMtime))
 
@@ -390,4 +331,4 @@ for example in exampleToFileNames:
 
 os.utime(tmpDir,(0,refMtime))
 # Cleanup the temporary directories
-shutil.rmtree(tmpDir)
+#shutil.rmtree(tmpDir)
