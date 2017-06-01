@@ -119,9 +119,9 @@ It would be appreciated if there are any Python VTK experts who could convert an
 [TriangleColoredPoints](/Python/TriangleColoredPoints) | [vtkUnsignedCharArray](http://www.vtk.org/doc/nightly/html/classvtkUnsignedCharArray.html) |
 [TriangleCornerVertices](/Python/TriangleCornerVertices) | [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html) |
 [TriangleCorners](/Python/TriangleCorners) | [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html) |
-[WarpVectorpy](/Python/PolyData/WarpVector) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html), [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector.html) | This example warps/deflects a line.
+[WarpVector](/Python/PolyData/WarpVector) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html), [vtkDoubleArray](http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html), [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html), [vtkWarpVector](http://www.vtk.org/doc/nightly/html/classvtkWarpVector.html) | This example warps/deflects a line.
 [WriteTriangleToFile](/Python/WriteTriangleToFile) | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
-[py](/Python/DataManipulation/Cube) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
+[Cube](/Python/DataManipulation/Cube) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |
 
 ## Working with 3D Data
 
