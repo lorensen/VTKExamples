@@ -57,7 +57,6 @@ def WriteCxxCode(toFile, codeName, code):
     toFile.write(code);
     toFile.write("```" + "\n")
 
-# <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestBillboardTextActor3D.png?raw=true" width="64" />
 # add thumbnails to example tables
 def FindThumbnail(S):
         reg = re.compile(r'^\[[^\(]*\]\(([^)]*)')
@@ -135,12 +134,11 @@ exampleToCMake = dict()
 exampleToFileNames = dict()
 
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
+AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 
 # Convert repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
-#CopyFile(RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 CopyFile(RepoDir + "/Tcl.md", DocDir + "/Tcl.md")
-CopyFile(RepoDir + "/Python.md", DocDir + "/Python.md")
 CopyFile(RepoDir + "/Java.md", DocDir + "/Java.md")
 CopyFile(RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
 
