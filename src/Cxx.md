@@ -628,7 +628,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [GraphPoints](/Cxx/InfoVis/GraphPoints)| [vtkGraph](http://www.vtk.org/doc/nightly/html/classvtkGraph.html)::SetPoints, [vtkPassThroughLayoutStrategy](http://www.vtk.org/doc/nightly/html/classvtkPassThroughLayoutStrategy.html) |Manually set coordinates of vertices in a graph.
 [GraphToPolyData](/Cxx/Graphs/GraphToPolyData)| [vtkGraphToPolyData](http://www.vtk.org/doc/nightly/html/classvtkGraphToPolyData.html) |Convert a graph to a PolyData.
 [InEdgeIterator](/Cxx/Graphs/InEdgeIterator)| [vtkInEdgeIterator](http://www.vtk.org/doc/nightly/html/classvtkInEdgeIterator.html) |Iterate over edges incoming to a vertex.
-[LabelVerticesAndEdges](/Cxx/Graphs/LabelVerticesAndEdges)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html)::SetEdgeLabelArrayName, [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html)::SetVertexLabelArrayName|Label vertices and edges.
+[LabelVerticesAndEdges](/Cxx/Graphs/LabelVerticesAndEdges)| [vtkGraphLayoutView](http://www.vtk.org/doc/nightly/html/classvtkGraphLayoutView.html) |Label vertices and edges.
 [MinimumSpanningTree](/Cxx/Graphs/MinimumSpanningTree)| [vtkBoostPrimMinimumSpanningTree](http://www.vtk.org/doc/nightly/html/classvtkBoostPrimMinimumSpanningTree.html) |Minimum spanning tree of a graph.
 [MutableGraphHelper](/Cxx/InfoVis/MutableGraphHelper)| [vtkMutableGraphHelper](http://www.vtk.org/doc/nightly/html/classvtkMutableGraphHelper.html) |Create either a [vtkMutableDirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableDirectedGraph.html) or [vtkMutableUndirectedGraph](http://www.vtk.org/doc/nightly/html/classvtkMutableUndirectedGraph.html).
 [NOVCAGraph](/Cxx/Graphs/NOVCAGraph)| [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html) [vtkXMLUnstructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLUnstructuredGridWriter.html) [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html)|Create a graph & visualize it in ParaView/VisIt.
@@ -726,7 +726,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Scalars](/Cxx/VTKConcepts/Scalars) | (http://www.vtk.org/doc/nightly/html/classVTKConcepts.html)/Scalars)| Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
+[Scalars](/Cxx/VTKConcepts/Scalars) | [VTKConcepts](http://www.vtk.org/doc/nightly/html/classVTKConcepts.html) | Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
 
 
 ## Rendering
