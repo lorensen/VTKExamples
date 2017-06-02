@@ -15948,6 +15948,7 @@
                   <h1>Disk</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/Disk</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/GeometricObjects/TestDisk.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Disk.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">vtk</span>
@@ -15965,9 +15966,8 @@
 <span class="n">source</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDiskSource</span><span class="p">()</span>
 <span class="n">source</span><span class="o">.</span><span class="n">SetInnerRadius</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">source</span><span class="o">.</span><span class="n">SetOuterRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">source</span><span class="o">.</span><span class="n">SetRadialResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">source</span><span class="o">.</span><span class="n">SetCircumferentialResolution</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">source</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetRadialResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">source</span><span class="o">.</span><span class="n">SetCircumferentialResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="c1"># mapper</span>
 <span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
@@ -15982,7 +15982,6 @@
 
 <span class="c1"># enable user interface interactor</span>
 <span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
-<span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
 <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 </pre></div>
                 
