@@ -57,6 +57,32 @@ def WriteCxxCode(toFile, codeName, code):
     toFile.write(code);
     toFile.write("```" + "\n")
 
+# <img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestBillboardTextActor3D.png?raw=true" width="64" />
+# add thumbnails to example tables
+def FindThumbnail(S):
+        reg = re.compile(r'^\[[^\(]*\]\(([^)]*)')
+        if reg.match(S):
+                return [''.join(reg.findall(S))]
+        return['']
+
+def AddThumbnails(repoDir, repoURL, fromFile, toFile):
+    mdFile = open(fromFile, 'r');
+    outFile = open(toFile, 'w')
+    for line in mdFile:
+        outFile.write(line.strip())        
+        exampleLine = FindThumbnail(line.strip())[0]
+        if  exampleLine != '':
+            exampleName = os.path.split(exampleLine)[1]
+            exampleDir = os.path.split(exampleLine)[0]
+            baseline = RepoDir + "/Testing/Baseline" + exampleDir + "/Test" + exampleName + ".png"
+            if os.path.exists(baseline):
+                img = '<img style="float:middle" src="' + repoURL + '/blob/master/' + baseline + '?raw=true" width="64" />'
+                outFile.write(" | " + img)
+        outFile.write("\n")
+    mdFile.close()
+    outFile.close()
+
+
 # Fill in the template parameters in a CMakeLists template file
 # The output is a CMakeLists.txt file with Name substituted for {{{1}}}
 def FillCMakeLists(S, Name, ExtraNames):
@@ -108,13 +134,16 @@ exampleToCMake = dict()
 # Create a dict to hold the file names for each example
 exampleToFileNames = dict()
 
+AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
+
 # Convert repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
-CopyFile(RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
+#CopyFile(RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 CopyFile(RepoDir + "/Tcl.md", DocDir + "/Tcl.md")
 CopyFile(RepoDir + "/Python.md", DocDir + "/Python.md")
 CopyFile(RepoDir + "/Java.md", DocDir + "/Java.md")
 CopyFile(RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
+
 if not os.path.exists(DocDir + "/Instructions"):
     os.makedirs(DocDir + "/Instructions")
 CopyFile(RepoDir + "/Instructions/ForUsers.md", DocDir + "/Instructions/ForUsers.md")
