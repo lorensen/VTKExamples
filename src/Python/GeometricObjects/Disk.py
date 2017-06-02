@@ -13,9 +13,8 @@ iren.SetRenderWindow(renWin)
 source = vtk.vtkDiskSource()
 source.SetInnerRadius(1)
 source.SetOuterRadius(2)
-source.SetRadialResolution(100)
-source.SetCircumferentialResolution(100)
-source.Update()
+source.SetRadialResolution(10)
+source.SetCircumferentialResolution(10)
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
@@ -30,5 +29,4 @@ ren.AddActor(actor)
 
 # enable user interface interactor
 iren.Initialize()
-renWin.Render()
 iren.Start()

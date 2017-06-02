@@ -171,7 +171,7 @@ Please add examples in your areas of expertise!
 [Vertex](/Cxx/GeometricObjects/Vertex)   | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html) |
 
 
-## Parametric Objects
+### Parametric Objects
 
 These examples demonstrate how to create an display one of the many [vtkParametric](http://www.vtk.org/doc/nightly/html/classvtkParametric.html) objects. All of the classes listed can be used in an identical fashion.
 
