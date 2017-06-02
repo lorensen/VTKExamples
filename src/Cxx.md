@@ -256,7 +256,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ImplicitModeller](/Cxx/PolyData/ImplicitModeller) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) |Compute the distance from an object to every point on a uniform grid.
 [ImplicitPolyDataDistance](/Cxx/PolyData/ImplicitPolyDataDistance) | [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html)|Compute the distance function in a space around a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
 [InterpolateMeshOnGrid](/Cxx/PolyData/InterpolateMeshOnGrid) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) | Interpolate a mesh over a grid.
-[InterpolateTerrain](/Cxx/PolyData/InterpolateTerrain) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) | [http://[vtk](http://www.vtk.org/doc/nightly/html/classvtk.html).org/Wiki/Demystifying_the_[vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) Here] is a good explanation of what is going on.Interpolate terrain.
+[InterpolateTerrain](/Cxx/PolyData/InterpolateTerrain) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) | [http://[vtk](http://www.vtk.org/doc/nightly/html/classvtk.html) [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html) Interpolate terrain.
 [IntersectionPolyDataFilter](/Cxx/PolyData/IntersectionPolyDataFilter) | [vtkIntersectionPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkIntersectionPolyDataFilter.html)|Compute the intersection of two [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) objects.
 [IterateOverLines](/Cxx/PolyData/IterateOverLines) | [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html) | Iterate through the lines of a PolyData.
 [KMeansClustering](/Cxx/InfoVis/KMeansClustering) | [vtkKMeansStatistics](http://www.vtk.org/doc/nightly/html/classvtkKMeansStatistics.html) |KMeans Clustering
@@ -726,7 +726,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Scalars](/Cxx/VTKConcepts/Scalars)](http://www.vtk.org/doc/nightly/html/classVTKConcepts.html)/Scalars)| |Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
+[Scalars](/Cxx/VTKConcepts/Scalars) | (http://www.vtk.org/doc/nightly/html/classVTKConcepts.html)/Scalars)| Attach a scalar value to each point (PointData) or cell (CellData) in a data set.
 
 
 ## Rendering
@@ -760,23 +760,23 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
 [ FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
 [ ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
-[ FlatShading](/Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetInterpolationToFlat |
+[ FlatShading](/Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [ Legend](/Cxx/Visualization/Legend) | [vtkLegendBoxActor](http://www.vtk.org/doc/nightly/html/classvtkLegendBoxActor.html) |
-[ NoShading](/Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetAmbient, [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetDiffuse, [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetSpecular |
-[ PointSize](/Cxx/Visualization/PointSize) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetPointSize |
+[ NoShading](/Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
+[ PointSize](/Cxx/Visualization/PointSize) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor)| [vtkPointWidget](http://www.vtk.org/doc/nightly/html/classvtkPointWidget.html) |Track a 3D cursor.
 [AssignCellColorsFromLUT](/Cxx/Visualization/AssignCellColorsFromLUT)| [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html) [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) [vtkColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html) | Demonstrates how to assign colors to cells in a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) structure using lookup tables.
-[BackfaceCulling](/Cxx/Visualization/BackfaceCulling)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::BackfaceCullingOn | Backface culling.
-[BackgroundColor ](/Cxx/Visualization/BackgroundColor) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html)::SetBackground | Background color.
-[BackgroundGradient ](/Cxx/Visualization/BackgroundGradient) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html)::GradientBackgroundOn, [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html)::Setbackground2 | Background gradient.
+[BackfaceCulling](/Cxx/Visualization/BackfaceCulling)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Backface culling.
+[BackgroundColor ](/Cxx/Visualization/BackgroundColor) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Background color.
+[BackgroundGradient ](/Cxx/Visualization/BackgroundGradient) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Background gradient.
 [BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkTexture](http://www.vtk.org/doc/nightly/html/classvtkTexture.html) |Use a texture for the background of a [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html).
 [Camera](/Cxx/Visualization/Camera)| [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html) |Positioning and aiming the camera.
 [CaptionActor2D](/Cxx/Visualization/CaptionActor2D)| [vtkCaptionActor2D](http://www.vtk.org/doc/nightly/html/classvtkCaptionActor2D.html) |Draw a caption/bubble pointing to a particular point.
 [ClipArt ](/Cxx/Visualization/ClipArt) | [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) | Generate 3D clip art from an image.
-[CloseWindow](/Cxx/Visualization/CloseWindow)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html)::TerminateApp, [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html)::Finalize |Close a render window.
-[ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetEdgeColor | Color the edges of an Actor.
-[ColorAnActor ](/Cxx/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetColor | Color an Actor.
-[ColorGlyphs](/Cxx/Visualization/ColorGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)::SetColorModeToColorByScalar |Color glyphs.
+[CloseWindow](/Cxx/Visualization/CloseWindow)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) |Close a render window.
+[ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Color the edges of an Actor.
+[ColorAnActor ](/Cxx/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Color an Actor.
+[ColorGlyphs](/Cxx/Visualization/ColorGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) |Color glyphs.
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation)| [vtkCornerAnnotation](http://www.vtk.org/doc/nightly/html/classvtkCornerAnnotation.html) | Write text in the corners of a window.
 [CorrectlyRenderTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderTranslucentGeometry)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Correctly Rendering Translucent Geometry.
 [CubeAxesActor2D](/Cxx/Visualization/CubeAxesActor2D)| [vtkCubeAxesActor2D](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor2D.html) | This example uses the [vtkCubeAxesActor2D](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor2D.html) to show your scene with axes to indicate the spatial extent of your data.
@@ -797,8 +797,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Glyph3D ](/Cxx/Filtering/Glyph3D) | [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper)| [vtkGlyph3DMapper](http://www.vtk.org/doc/nightly/html/classvtkGlyph3DMapper.html) |
 [HedgeHog](/Cxx/Visualization/HedgeHog)| [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html) [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html) |Create oriented lines (hedgehogs) from vector data.
-[Hide an actor](/Cxx/Visualization/HideActor)| [vtkPropCollection](http://www.vtk.org/doc/nightly/html/classvtkPropCollection.html) [vtkProp](http://www.vtk.org/doc/nightly/html/classvtkProp.html)::VisibilityOff | visible
-[HideAllActors](/Cxx/Visualization/HideAllActors)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html)::RemoveAllViewProps |Hide all actors.
+[Hide an actor](/Cxx/Visualization/HideActor)| [vtkPropCollection](http://www.vtk.org/doc/nightly/html/classvtkPropCollection.html) [vtkProp](http://www.vtk.org/doc/nightly/html/classvtkProp.html) | visible
+[HideAllActors](/Cxx/Visualization/HideAllActors)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Hide all actors.
 [ImageMapper](/Cxx/Visualization/ImageMapper)| [vtkImageMapper](http://www.vtk.org/doc/nightly/html/classvtkImageMapper.html) | Display an image in 2D.
 [ImageOrder](/Cxx/Visualization/ImageOrder)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Determine the display order of a stack of images.
 [ImageOrientation ](/Cxx/Visualization/ImageOrientation) | [vtkInteractorStyleImage](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleImage.html) |Orientation of the view of an image.
@@ -817,7 +817,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MultipleActors](/Cxx/Visualization/MultipleActors)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Multiple Actors.
 [NamedColorPatches ](Cxx/Visualization/NamedColorPatches) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) showing the available colors in the vtkNamedColors class.
 [NamedColors ](Cxx/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the [vtkNamedColor](http://www.vtk.org/doc/nightly/html/classvtkNamedColor.html) class.
-[Opacity](/Cxx/Visualization/Opacity)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetOpacity | Transparency, transparent.
+[Opacity](/Cxx/Visualization/Opacity)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|Create oriented glyphs from vector data.
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) |Generate a custom glyph at each point.
@@ -827,10 +827,10 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RenderLargeImage](/Cxx/Visualization/RenderLargeImage)| [vtkRenderLargeImage](http://www.vtk.org/doc/nightly/html/classvtkRenderLargeImage.html) |Render a large image, larger than a window.
 [RenderView](/Cxx/Views/RenderView)| [vtkRenderView](http://www.vtk.org/doc/nightly/html/classvtkRenderView.html) |A little bit easier rendering.
 [ReverseAccess ](/Cxx/Visualization/ReverseAccess) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)|Demonstrates how to access the source (e.g. [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html)) of an actor reversely.
-[RotateActor](/Cxx/Visualization/RotateActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetMatrix |Rotate an Actor.
+[RotateActor](/Cxx/Visualization/RotateActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Rotate an Actor.
 [ScalarBarActor](/Cxx/Visualization/ScalarBarActor)| [vtkScalarBarActor](http://www.vtk.org/doc/nightly/html/classvtkScalarBarActor.html) | Display a color bar.
 [ScalarVisibility](/Cxx/Visualization/ScalarVisibility)| [vtkDataSetMapper](http://www.vtk.org/doc/nightly/html/classvtkDataSetMapper.html) | Switch between coloring the actor and coloring the data.
-[ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)::SetScaleModeToScaleByScalar |Scale glyphs.
+[ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)|[vtkInteractorStyleRubberBand2D](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBand2D.html) |Select a region of a window.
 [StreamLines](/Cxx/Visualization/StreamLines)| [vtkStreamLine](http://www.vtk.org/doc/nightly/html/classvtkStreamLine.html) |Stream Lines.
@@ -838,9 +838,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [TextSource](/Cxx/Visualization/TextSource)| [vtkTextSource](http://www.vtk.org/doc/nightly/html/classvtkTextSource.html) |Display text.
 [TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) |Texture map a plane.
-[TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html)::GetPointData::SetTCoords |Texture map a quad.
+[TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |Texture map a quad.
 [TransformActorCollection](/Cxx/Visualization/TransformActorCollection)| [vtkActorCollection](http://www.vtk.org/doc/nightly/html/classvtkActorCollection.html) |Transform an actor collection.
-[TransformActor](/Cxx/Visualization/TransformActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::SetUserTransform |Transform an Actor.
+[TransformActor](/Cxx/Visualization/TransformActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Transform an Actor.
 [TubesFromSplines](/Cxx/VisualizationAlgorithms/TubesFromSplines)| [vtkTubeFilter](http://www.vtk.org/doc/nightly/html/classvtkTubeFilter.html) [vtkParametricFunctionSource](http://www.vtk.org/doc/nightly/html/classvtkParametricFunctionSource.html)  [vtkTupleInterpolator](http://www.vtk.org/doc/nightly/html/classvtkTupleInterpolator.html)|Create tubes from interpolated points and scalars.
 [TubesWithVaryingRadiusAndColors](/Cxx/VisualizationAlgorithms/TubesWithVaryingRadiusAndColors)| [vtkTubeFilter](http://www.vtk.org/doc/nightly/html/classvtkTubeFilter.html) |Create tubes with varying radius and colors.
 [VectorOfActors](/Cxx/Visualization/VectorOfActors)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Multiple Actors in a Vector.
@@ -850,8 +850,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [VisualizeImageData](/Cxx/Visualization/VisualizeImageData)| [vtkDataSetMapper](http://www.vtk.org/doc/nightly/html/classvtkDataSetMapper.html) |Visualize the points of an ImageData.
 [VisualizeVTP](/Cxx/Visualization/VisualizeVTP)| [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html) [vtkPolyDataMapper](http://www.vtk.org/doc/nightly/html/classvtkPolyDataMapper.html) |Visualize a VTP File.
 [WindowSize](/Cxx/Visualization/WindowSize)| [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html):SetSize | Change the size of a window.
-[WindowTitle](/Cxx/Visualization/WindowTitle)| [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html)::SetWindowName | Change the title of a window.
-[Wireframe](/Cxx/Visualization/Wireframe)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::GetProperty::SetRepresentationToWireframe |
+[WindowTitle](/Cxx/Visualization/WindowTitle)| [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) | Change the title of a window.
+[Wireframe](/Cxx/Visualization/Wireframe)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [a KochSnowflake](/Cxx/Visualization/KochSnowflake) | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html) [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html)| Use recursion to represent a Koch snowflake fractal.
 
 ## Volume Rendering
@@ -889,7 +889,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MoveAGlyph](/Cxx/Interaction/MoveAGlyph)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | Drag a glyph around.
 [MoveAVertexUnstructuredGrid](/Cxx/Interaction/MoveAVertexUnstructuredGrid)| [vtkPointPicker](http://www.vtk.org/doc/nightly/html/classvtkPointPicker.html) | Click and drag a vertex of a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html).
 [ObserverMemberFunction](/Cxx/Interaction/ObserverMemberFunction)|  | Set observers to be class member functions.
-[PickableOff](/Cxx/Interaction/PickableOff)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html)::PickableOff |Disallow interaction with a specific actor.
+[PickableOff](/Cxx/Interaction/PickableOff)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Disallow interaction with a specific actor.
 [Picking](/Cxx/Interaction/Picking)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) | Get the world coordinate of the mouse click (if you clicked an actor)
 [PointPicker](/Cxx/Interaction/PointPicker)| [vtkPointPicker](http://www.vtk.org/doc/nightly/html/classvtkPointPicker.html) | Get the coordinates of the closest point in the data set to the mouse click.
 [RubberBand2DObserver](/Cxx/Interaction/RubberBand2DObserver)| [vtkInteractorStyleRubberBand2D](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBand2D.html) |RubberBand2D Observer.
@@ -899,7 +899,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RubberBandZoom](/Cxx/Interaction/RubberBandZoom)| [vtkInteractorStyleRubberBandZoom](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBandZoom.html) |
 [SelectAnActor](/Cxx/Interaction/SelectAnActor)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Select an actor.
 [SelectAVertex](/Cxx/Interaction/SelectAVertex)| [vtkPointPicker](http://www.vtk.org/doc/nightly/html/classvtkPointPicker.html) | Click and drag a vertex of a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html).
-[ShiftAndControl](/Cxx/Interaction/ShiftAndControl)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html)::GetControlKey() | Hold/holding down a key. Check if shift or control is being held.
+[ShiftAndControl](/Cxx/Interaction/ShiftAndControl)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Hold/holding down a key. Check if shift or control is being held.
 [StyleSwitch](/Cxx/Interaction/StyleSwitch)| [vtkInteractorStyleSwitch](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleSwitch.html) |Choose between multiple interaction modes.
 [TrackballActor](/Cxx/Interaction/TrackballActor)| [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html) |Trackball actor mode.
 [TrackballCamera](/Cxx/Interaction/TrackballCamera)| [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) |Trackball camera mode.
@@ -1039,7 +1039,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SphereWidget](/Cxx/Widgets/SphereWidget)| [vtkSphereWidget](http://www.vtk.org/doc/nightly/html/classvtkSphereWidget.html) |Sphere widget.
 [SplineWidget](/Cxx/Widgets/SplineWidget)| [vtkSplineWidget](http://www.vtk.org/doc/nightly/html/classvtkSplineWidget.html) |
 [TextWidget](/Cxx/Widgets/TextWidget)| [vtkSeedWidget](http://www.vtk.org/doc/nightly/html/classvtkSeedWidget.html) || [vtkTextWidget](http://www.vtk.org/doc/nightly/html/classvtkTextWidget.html) |Draw movable text.
-[TexturedButtonWidget](/Cxx/Widgets/TexturedButtonWidget) | [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html)[vtkTexturedButtonRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkTexturedButtonRepresentation2D.html) |Create a textured 2D buttonx.
+[TexturedButtonWidget](/Cxx/Widgets/TexturedButtonWidget) | [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html) [vtkTexturedButtonRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkTexturedButtonRepresentation2D.html) |Create a textured 2D buttonx.
 
 ## Plotting
 
@@ -1062,7 +1062,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [AnimateActors](/Cxx/Animation/AnimateActors) | [vtkAnimationScene](http://www.vtk.org/doc/nightly/html/classvtkAnimationScene.html) [vtkAnimationCue](http://www.vtk.org/doc/nightly/html/classvtkAnimationCue.html)|Animate actors.
-[Animation](/Cxx/Utilities/Animation) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html)::CreateRepeatingTimer | Move a sphere across a scene.
+[Animation](/Cxx/Utilities/Animation) | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) | Move a sphere across a scene.
 [AnimationScene](/Cxx/Utilities/AnimationScene) | [vtkAnimationScene](http://www.vtk.org/doc/nightly/html/classvtkAnimationScene.html) [vtkAnimationCue](http://www.vtk.org/doc/nightly/html/classvtkAnimationCue.html) | Animation (the right way). Zoom in on a sphere.
 [DataAnimation](/Cxx/Utilities/DataAnimation) | [vtkCallbackCommand](http://www.vtk.org/doc/nightly/html/classvtkCallbackCommand.html) [vtkProgrammableFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableFilter.html) | Data Animation. Update points in a dataset every specified interval.
 [DataAnimationSubclass](/Cxx/Utilities/DataAnimationSubclass) | [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) [vtkProgrammableFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableFilter.html)| Update points in a dataset every specified interval (using a [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) subclass instead of a callback function.
@@ -1098,7 +1098,7 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 [RenderWindowNoUiFile](/Cxx/Qt/RenderWindowNoUiFile) | Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html)| This is a very basic example that shows how to create a Qt window. Typically, one would want to design a form in the QtDesigner (this is shown in [[/Qt/RenderWindowUi|RenderWindowUi]]).
 [RenderWindowUIMultipleInheritance](/Cxx/Qt/RenderWindowUIMultipleInheritance) | QMainWindow | Using a Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html) with the Qt Multiple Inheritance model.
 [RenderWindowUISingleInheritance](/Cxx/Qt/RenderWindowUISingleInheritance) | QMainWindow | Using a Q[VTKWidget](http://www.vtk.org/doc/nightly/html/classVTKWidget.html) with the Qt Single Inheritance model.
-[ShareCameraQt](/Cxx/Qt/ShareCameraQt) | (http://www.vtk.org/doc/nightly/html/classVTKWidgets.html)] |  Share the camera between Q[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html).
+[ShareCameraQt](/Cxx/Qt/ShareCameraQt) | |  Share the camera between Q[VTKWidgets](http://www.vtk.org/doc/nightly/html/classVTKWidgets.html).
 [SideBySideRenderWindowsQt](/Cxx/Qt/SideBySideRenderWindowsQt) | QApplication | Side by side render windows.
 
 
