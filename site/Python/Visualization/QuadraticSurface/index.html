@@ -15962,6 +15962,7 @@
                   <h1>QuadraticSurface</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/Visualization/QuadraticSurface</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Python/Visualization/TestQuadraticSurface.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Converted from c++ by Jim McCusker</li>
@@ -15990,7 +15991,7 @@
     <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
     <span class="c1"># F(x,y,z) = 1*x^2 + 1*y^2</span>
 
-    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span><span class="mf">10.0</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">HyperbolicParaboloid</span><span class="p">():</span>
     <span class="c1"># create the quadric function definition</span>
@@ -16000,7 +16001,7 @@
     <span class="c1"># F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9</span>
     <span class="c1"># F(x,y,z) = 1*x^2 - 1*y^2</span>
 
-    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">PlotFunction</span><span class="p">(</span><span class="n">quadric</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">Cylinder</span><span class="p">():</span>
     <span class="c1"># create the quadric function definition</span>
@@ -16077,12 +16078,12 @@
 
     <span class="c1">#create the 0 isosurface</span>
     <span class="n">contours</span> <span class="o">=</span> <span class="n">vtkContourFilter</span><span class="p">()</span>
-    <span class="n">contours</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">contours</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
     <span class="n">contours</span><span class="o">.</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="c1"># map the contours to graphical primitives</span>
     <span class="n">contourMapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">()</span>
-    <span class="n">contourMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">contours</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">contourMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">contours</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
     <span class="n">contourMapper</span><span class="o">.</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
 
     <span class="c1"># create an actor for the contours</span>
@@ -16093,11 +16094,11 @@
 
     <span class="c1"># create outline</span>
     <span class="n">outline</span> <span class="o">=</span> <span class="n">vtkOutlineFilter</span><span class="p">()</span>
-    <span class="n">outline</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">outline</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
     <span class="c1"># map it to graphics primitives</span>
     <span class="n">outlineMapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="p">()</span>
-    <span class="n">outlineMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">outline</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">())</span>
+    <span class="n">outlineMapper</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outline</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
 
     <span class="c1"># create an actor for it</span>
     <span class="n">outlineActor</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="p">()</span>
