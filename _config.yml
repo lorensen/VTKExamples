@@ -1,0 +1,9 @@
+plugins: [jekyll-seo-tag]
+gems:
+  - jekyll-seo-tag
+<html>
+  <head>
+    {% include head.html %}
+    {% seo %}
+  </head>
+</html>
