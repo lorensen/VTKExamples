@@ -1,0 +1,13 @@
+#!/usr/bin/python
+# NOTE: if you get this error message:
+# cannot import name viewkeys
+# you may have to run sudo pip install --ignore-installed six
+import pysitemap
+
+
+if __name__ == '__main__':
+    url = 'https://lorensen.github.io/VTKExamples/site/'  # url from to crawl
+    logfile = 'errlog.log'  # path to logfile
+    oformat = 'xml'  # output format
+    crawl = pysitemap.Crawler(url=url, logfile=logfile, oformat=oformat)
+    crawl.crawl()
