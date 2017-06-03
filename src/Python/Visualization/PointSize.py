@@ -21,7 +21,7 @@ src.Update()
 
 # mapper
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(src.GetOutput())
+mapper.SetInputConnection(src.GetOutputPort())
 
 # actor
 actor = vtk.vtkActor()

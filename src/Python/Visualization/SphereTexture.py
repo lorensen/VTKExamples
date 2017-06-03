@@ -14,6 +14,7 @@ jpegfile = "masonry-wide.jpg"
  
 # Create a render window
 ren = vtk.vtkRenderer()
+ren.SetBackground(.1, .2, .5)
 renWin = vtk.vtkRenderWindow()
 renWin.AddRenderer(ren)
 renWin.SetSize(480,480)

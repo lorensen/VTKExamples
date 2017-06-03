@@ -20,7 +20,7 @@ def EllipticParaboloid():
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
     # F(x,y,z) = 1*x^2 + 1*y^2
  
-    PlotFunction(quadric, 0.0)
+    PlotFunction(quadric,10.0)
  
 def HyperbolicParaboloid():
     # create the quadric function definition
@@ -30,7 +30,7 @@ def HyperbolicParaboloid():
     # F(x,y,z) = a0*x^2 + a1*y^2 + a2*z^2 + a3*x*y + a4*y*z + a5*x*z + a6*x + a7*y + a8*z + a9
     # F(x,y,z) = 1*x^2 - 1*y^2
  
-    PlotFunction(quadric, 1.0)
+    PlotFunction(quadric, 10.0)
  
 def Cylinder():
     # create the quadric function definition
@@ -107,12 +107,12 @@ def PlotFunction(quadric, value):
  
     #create the 0 isosurface
     contours = vtkContourFilter()
-    contours.SetInput(sample.GetOutput())
+    contours.SetInputConnection(sample.GetOutputPort())
     contours.GenerateValues(1, value, value)
  
     # map the contours to graphical primitives
     contourMapper = vtkPolyDataMapper()
-    contourMapper.SetInput(contours.GetOutput())
+    contourMapper.SetInputConnection(contours.GetOutputPort())
     contourMapper.SetScalarRange(0.0, 1.2)
  
     # create an actor for the contours
@@ -123,11 +123,11 @@ def PlotFunction(quadric, value):
  
     # create outline
     outline = vtkOutlineFilter()
-    outline.SetInput(sample.GetOutput())
+    outline.SetInputConnection(sample.GetOutputPort())
  
     # map it to graphics primitives
     outlineMapper = vtkPolyDataMapper()
-    outlineMapper.SetInput(outline.GetOutput())
+    outlineMapper.SetInputConnection(outline.GetOutputPort())
  
     # create an actor for it
     outlineActor = vtkActor()
