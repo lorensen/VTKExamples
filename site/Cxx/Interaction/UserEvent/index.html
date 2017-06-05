@@ -10975,42 +10975,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-43-62" type="checkbox" id="nav-8-43-62">
-    
-    <label class="md-nav__link" for="nav-8-43-62">
-      WishList
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-8-43-62">
-        WishList
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../Utilities/WishList/TryDowncast/" title="TryDowncast" class="md-nav__link">
-      TryDowncast
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -16028,6 +15992,69 @@
                 <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;CallbackFunction called.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>vtkTestFilter.h</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifndef __vtkTestFilter_h</span>
+<span class="cp">#define __vtkTestFilter_h</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkPolyDataAlgorithm.h&quot;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">vtkTestFilter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkPolyDataAlgorithm</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">vtkTypeMacro</span><span class="p">(</span><span class="n">vtkTestFilter</span><span class="p">,</span><span class="n">vtkPolyDataAlgorithm</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">vtkTestFilter</span> <span class="o">*</span><span class="nf">New</span><span class="p">();</span>
+
+  <span class="kt">int</span> <span class="n">RefreshEvent</span><span class="p">;</span>
+
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">vtkTestFilter</span><span class="p">();</span>
+
+  <span class="kt">int</span> <span class="nf">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="p">,</span> <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="p">);</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">vtkTestFilter</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkTestFilter</span><span class="o">&amp;</span><span class="p">);</span>  <span class="c1">// Not implemented.</span>
+  <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">vtkTestFilter</span><span class="o">&amp;</span><span class="p">);</span>  <span class="c1">// Not implemented.</span>
+
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkCommand.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkAppendPolyData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkSphereSource.h&quot;</span><span class="cp"></span>
+
+<span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkTestFilter</span><span class="p">);</span>
+
+<span class="n">vtkTestFilter</span><span class="o">::</span><span class="n">vtkTestFilter</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputPorts</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">RefreshEvent</span> <span class="o">=</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">UserEvent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">vtkTestFilter</span><span class="o">::</span><span class="n">RequestData</span><span class="p">(</span><span class="n">vtkInformation</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">**</span><span class="n">inputVector</span><span class="p">,</span>
+                                             <span class="n">vtkInformationVector</span> <span class="o">*</span><span class="n">outputVector</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Get the info object</span>
+<span class="c1">//  vtkInformation *outInfo = outputVector-&gt;GetInformationObject(0);</span>
+
+<span class="c1">//  vtkPolyData *output = vtkPolyData::SafeDownCast(</span>
+<span class="c1">//      outInfo-&gt;Get(vtkDataObject::DATA_OBJECT()));</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">InvokeEvent</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RefreshEvent</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 

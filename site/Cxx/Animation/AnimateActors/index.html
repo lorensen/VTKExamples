@@ -10975,42 +10975,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-43-62" type="checkbox" id="nav-8-43-62">
-    
-    <label class="md-nav__link" for="nav-8-43-62">
-      WishList
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-8-43-62">
-        WishList
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../Utilities/WishList/TryDowncast/" title="TryDowncast" class="md-nav__link">
-      TryDowncast
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -16088,6 +16052,185 @@
   <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
   <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<p><strong>AnimateActors.h</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">#ifndef __AnimateActors_h</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAnimationCue.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">ActorAnimator</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">ActorAnimator</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Observer</span> <span class="o">=</span> <span class="n">AnimationCueObserver</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Observer</span><span class="o">-&gt;</span><span class="n">Animator</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">.5</span><span class="p">);</span>
+    <span class="p">}</span>
+
+  <span class="o">~</span><span class="n">ActorAnimator</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">UnRegister</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Observer</span><span class="o">-&gt;</span><span class="n">UnRegister</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">SetActor</span><span class="p">(</span><span class="n">vtkActor</span> <span class="o">*</span><span class="n">actor</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">UnRegister</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span> <span class="o">=</span> <span class="n">actor</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">Register</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">SetStartPosition</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">position</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span> <span class="o">=</span> <span class="n">position</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">SetEndPosition</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">position</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span> <span class="o">=</span> <span class="n">position</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">AddObserversToCue</span><span class="p">(</span><span class="n">vtkAnimationCue</span> <span class="o">*</span><span class="n">cue</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="n">cue</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">StartAnimationCueEvent</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Observer</span><span class="p">);</span>
+    <span class="n">cue</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">EndAnimationCueEvent</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Observer</span><span class="p">);</span>
+    <span class="n">cue</span><span class="o">-&gt;</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">vtkCommand</span><span class="o">::</span><span class="n">AnimationCueTickEvent</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Observer</span><span class="p">);</span>
+    <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">Start</span><span class="p">(</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+    <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                             <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">Tick</span><span class="p">(</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">AnimationTime</span> <span class="o">-</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">StartTime</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">EndTime</span> <span class="o">-</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">StartTime</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">position</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="n">position</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">StartPosition</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">t</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="n">position</span><span class="p">);</span>
+
+    <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">End</span><span class="p">(</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+    <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                             <span class="k">this</span><span class="o">-&gt;</span><span class="n">EndPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+<span class="k">protected</span><span class="o">:</span>
+  <span class="k">class</span> <span class="nc">AnimationCueObserver</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+  <span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="n">AnimationCueObserver</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+      <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">AnimationCueObserver</span><span class="p">;</span>
+      <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+                         <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">event</span><span class="p">,</span>
+                         <span class="kt">void</span> <span class="o">*</span><span class="n">calldata</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*</span><span class="n">info</span><span class="o">=</span>
+          <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">vtkAnimationCue</span><span class="o">::</span><span class="n">AnimationCueInfo</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">calldata</span><span class="p">);</span>
+        <span class="k">switch</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+          <span class="p">{</span>
+          <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">StartAnimationCueEvent</span><span class="p">:</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">EndAnimationCueEvent</span><span class="p">:</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">-&gt;</span><span class="n">End</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">AnimationCueTickEvent</span><span class="p">:</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span><span class="o">-&gt;</span><span class="n">Tick</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+    <span class="n">AnimationCueObserver</span><span class="p">()</span>
+      <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">Animator</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="n">ActorAnimator</span> <span class="o">*</span><span class="n">Animator</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="n">vtkActor</span> <span class="o">*</span>             <span class="n">Actor</span><span class="p">;</span>
+  <span class="n">AnimationCueObserver</span> <span class="o">*</span> <span class="n">Observer</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span>    <span class="n">StartPosition</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span>    <span class="n">EndPosition</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">AnimationSceneObserver</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">static</span> <span class="n">AnimationSceneObserver</span> <span class="o">*</span><span class="n">New</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">AnimationSceneObserver</span><span class="p">;</span>
+    <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">vtkRenderWindow</span> <span class="o">*</span><span class="n">renWin</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span><span class="o">-&gt;</span><span class="n">UnRegister</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span> <span class="o">=</span> <span class="n">renWin</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span><span class="o">-&gt;</span><span class="n">Register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+    <span class="p">}</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Execute</span><span class="p">(</span><span class="n">vtkObject</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+                       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">event</span><span class="p">,</span>
+                       <span class="kt">void</span> <span class="o">*</span><span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">calldata</span><span class="p">))</span>
+    <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="k">switch</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="k">case</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="nl">AnimationCueTickEvent</span><span class="p">:</span>
+          <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">AnimationSceneObserver</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="o">~</span><span class="n">AnimationSceneObserver</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span><span class="o">-&gt;</span><span class="n">UnRegister</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">RenderWindow</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="n">vtkRenderWindow</span> <span class="o">*</span><span class="n">RenderWindow</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#endif</span>
 </pre></div>
 
 
