@@ -10,7 +10,7 @@ public:
   vtkTypeMacro(vtkTestFilterProgressFilter,vtkAlgorithm);
 
 protected:
-  vtkTestFilterProgressFilterr();
+  vtkTestFilterProgressFilter();
   ~vtkTestFilterProgressFilter() VTK_OVERRIDE {}
  
   int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) VTK_OVERRIDE; 
