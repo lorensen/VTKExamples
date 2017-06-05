@@ -28,6 +28,8 @@ if ( test -d Tarballs ); then
 fi
 
 echo "2) Scrape the repo"
+rm -rf docs/*
+rm -rf site/*
 src/Admin/ScrapeRepo  src docs ${REPO}
 
 echo "3) Check for a successful scrape"
@@ -43,8 +45,6 @@ if test $count -lt $expected; then
 fi
 
 echo "4) Update the html pages"
-rm -rf docs/*
-rm -rf site/*
 mkdocs build
 
 echo "5) Copy sitemap.xml"
@@ -63,6 +63,7 @@ git commit -m "SYNC: Files deleted (or moved) from wiki."
 
 echo "6) Update tarballs and push to tarball repo"
 if ( test -d src/Tarballs ); then
+(cd src/Tarballs; rm *.tar)
 (cd src/Tarballs; git add *tar)
 (cd src/Tarballs; git commit -m "SYNC: Tarballs modified")
 (cd src/Tarballs; git push)

@@ -281,8 +281,8 @@ for lang, langExt in Languages.items():
                 CMakeContents = CMakeFile.read()
                 CMakeFile.close()
                 cmake = FillCMakeLists(CMakeContents, ExampleName, ExtraNames)
-            exampleToCMake[ExampleName] = GetVTKCMakelists(cmake)
             if lang == "Cxx": 
+                exampleToCMake[ExampleName] = GetVTKCMakelists(cmake)
                 MdFile.write(cmake)
             MdFile.close()
             codeToPage[ExampleName + langExt] = "/" + lang + "/" + KitName + "/" + ExampleName
@@ -325,7 +325,6 @@ for example in exampleToFileNames:
     codeFileName = srcDir + "/" + example + ".cxx"
     if not os.path.exists(srcDir):
         os.makedirs(srcDir)
-        os.makedirs(srcDir + "/build")
 
         # An example may have multiple source files
         for exampleFileName in exampleToFileNames[example]:
@@ -337,6 +336,7 @@ for example in exampleToFileNames:
 
     # Some examples do not have a CMakeLists.txt file
     if example in exampleToCMake:
+        os.makedirs(srcDir + "/build")
         cmakeFileName = srcDir + "/" + "CMakeLists.txt"
         cmakeFile = open(cmakeFileName, 'w')
         cmakeFile.write(exampleToCMake[example][0])    
