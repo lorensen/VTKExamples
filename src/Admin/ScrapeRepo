@@ -137,7 +137,6 @@ AddThumbnails(RepoDir, RepoURL, RepoDir + "/Cxx.md", DocDir + "/Cxx.md")
 AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 
 # Convert repo .md files
-CopyFile(RepoDir + "/Admin/sitemap.xml", DocDir + "/sitemap.xml")
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
 CopyFile(RepoDir + "/Tcl.md", DocDir + "/Tcl.md")
 CopyFile(RepoDir + "/Java.md", DocDir + "/Java.md")

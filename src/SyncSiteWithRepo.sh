@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # SyncSiteWithRepo - synchronize the examples site with the
-#                    aexamples repo
+#                    examples repo
 #
 if [ $# -lt 1 ]
   then
@@ -43,7 +43,12 @@ if test $count -lt $expected; then
 fi
 
 echo "4) Update the html pages"
+rm -rf docs/*
+rm -rf site/*
 mkdocs build
+
+echo "5) Copy sitemap.xml"
+cp src/Admin/sitemap.xml site/sitemap.xml
 
 echo "5.1) Process modified files"
 git commit -m "SYNC: Files modified on wiki." `git status | grep modified: | cut -d":" -f2,2`
