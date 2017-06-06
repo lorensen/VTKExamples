@@ -18,7 +18,7 @@ scalar_range = output.GetScalarRange()
 # Create the mapper that corresponds the objects of the vtk file
 # into graphics elements
 mapper = vtkDataSetMapper()
-mapper.SetInput(output)
+mapper.SetInputData(output)
 mapper.SetScalarRange(scalar_range)
 
 # Create the Actor

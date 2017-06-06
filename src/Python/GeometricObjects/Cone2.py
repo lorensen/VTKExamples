@@ -6,7 +6,7 @@ coneSource = vtk.vtkConeSource()
  
 # Create a mapper and actor
 mapper = vtk.vtkPolyDataMapper()
-mapper.SetInput(coneSource.GetOutput())
+mapper.SetInputConnection(coneSource.GetOutputPort())
 actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 
