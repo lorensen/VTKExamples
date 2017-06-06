@@ -32,4 +32,3 @@ vtkUnstructuredGrid that has 714434 cells
 	Cell type vtkTetra occurs 705090 times.
 	Cell type vtkWedge occurs 9344 times.
 </samp>
-=======
