@@ -34,7 +34,7 @@ compassWidget.SetRepresentation(compassRepresentation)
  
 # add the actors to the scene
 renderer.AddActor(actor)
-renderer.SetBackground(1, 1, 1) # Background color white
+renderer.SetBackground(.2, .3, .7) # Background color white
 renderWindow.Render()
 compassWidget.EnabledOn()
  
