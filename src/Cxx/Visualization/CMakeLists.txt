@@ -47,6 +47,7 @@ if (BUILD_TESTING)
 SET(KIT Visualization)
 SET(NEEDS_ARGS
   BackgroundTexture
+  BlobbyLogo
   BoxClipStructuredPoints
   BoxClipUnstructuredGrid
   ClipArt
@@ -72,6 +73,9 @@ SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-BackgroundTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBackgroundTexture -E 30)
+
+ADD_TEST(${KIT}-BlobbyLogo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestBlobbyLogo ${DATA}/v.vtk ${DATA}/t.vtk ${DATA}/k.vtk)
 
 ADD_TEST(${KIT}-BoxClipStructuredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBoxClipStructuredPoints ${DATA}/HeadMRVolume.mhd)
