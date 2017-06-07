@@ -67,9 +67,8 @@ SET(NEEDS_ARGS
   VisualizeVTP
   Visualize2DPoints
 )
-
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
-SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+SET(TEMP ${WikiExamples_BINARY_DIR}/Testmake rebuing/Temporary)
 
 ADD_TEST(${KIT}-BackgroundTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBackgroundTexture -E 30)
