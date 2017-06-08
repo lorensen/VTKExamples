@@ -12,5 +12,3 @@ markdown_extensions:
 google_analytics:
   -  'UA-3660134-4'
   -  'auto'
-extra:
-  logo: 'images/logo.ico'
