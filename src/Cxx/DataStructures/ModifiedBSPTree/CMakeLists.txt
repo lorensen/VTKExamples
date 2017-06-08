@@ -28,7 +28,7 @@ SET(KIT DataStructuresModifiedBSPTree)
 SET(NEEDS_ARGS
   VisualizeModifiedBSPTree
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-VisualizeModifiedBSPTree ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestVisualizeModifiedBSPTree -E 40)

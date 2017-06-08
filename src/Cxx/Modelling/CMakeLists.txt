@@ -33,7 +33,7 @@ SET(NEEDS_ARGS
   MarchingSquares
 )
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-Delaunay3D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

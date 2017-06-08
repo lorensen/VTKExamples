@@ -34,7 +34,7 @@ SET(NEEDS_ARGS
   RectilinearWipeWidget
 )
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 ADD_TEST(${KIT}-OrientationMarkerWidget ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOrientationMarkerWidget ${DATA}/Bunny.vtp)
 

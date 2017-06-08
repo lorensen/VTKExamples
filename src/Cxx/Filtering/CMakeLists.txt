@@ -42,7 +42,7 @@ SET(NEEDS_ARGS
   SurfaceFromUnorganizedPoints
 )
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 ADD_TEST(${KIT}-SurfaceFromUnorganizedPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSurfaceFromUnorganizedPoints ${DATA}/Bunny.vtp -E 30)
 

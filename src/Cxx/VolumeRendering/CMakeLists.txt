@@ -45,7 +45,7 @@ else()
   )
 endif()
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 if (VTK_RENDERING_BACKEND STREQUAL "OpenGL2")

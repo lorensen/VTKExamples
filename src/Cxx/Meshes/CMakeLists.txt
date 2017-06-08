@@ -41,7 +41,7 @@ SET(NEEDS_ARGS
   OBBDicer
   TableBasedClipDataSetWithPolyData
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-ClipDataSetWithPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestClipDataSetWithPolyData -E 25)

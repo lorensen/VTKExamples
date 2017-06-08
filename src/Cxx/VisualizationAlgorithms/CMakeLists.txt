@@ -33,7 +33,7 @@ SET(NEEDS_ARGS
   FindCellIntersections
 )
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-CutWithCutFunction ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCutWithCutFunction ${DATA}/Torso.vtp 20)

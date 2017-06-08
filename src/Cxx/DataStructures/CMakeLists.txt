@@ -37,7 +37,7 @@ SET(NEEDS_ARGS
   OctreeTimingDemo
   OctreeVisualize
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-DataStructureComparison ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDataStructureComparison ${DATA}/Bunny.vtp -E 20)

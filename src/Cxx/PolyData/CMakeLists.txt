@@ -64,7 +64,7 @@ if(NOT ${VTK_VERSION} VERSION_LESS "6")
   list(APPEND NEEDS_ARGS Curvatures)
 endif()
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

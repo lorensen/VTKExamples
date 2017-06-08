@@ -30,7 +30,7 @@ SET(NEEDS_ARGS
   ImageClip
   ImageRegion
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-ImageClip ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageClip ${DATA}/Gourds2.jpg)

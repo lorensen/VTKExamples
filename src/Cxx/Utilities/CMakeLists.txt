@@ -36,7 +36,7 @@ SET(KIT Utilities)
 SET(NEEDS_ARGS
   ZBuffer
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-ZBuffer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

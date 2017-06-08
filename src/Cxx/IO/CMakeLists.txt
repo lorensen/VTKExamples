@@ -70,7 +70,7 @@ SET(NEEDS_ARGS
   WriteVTU
 )
  
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-ConvertFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

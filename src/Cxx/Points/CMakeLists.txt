@@ -55,7 +55,7 @@ SET(NEEDS_ARGS
   SignedDistance
   UnsignedDistance
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 if (vtkFiltersPoints_LOADED)
    ADD_TEST(${KIT}-ExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

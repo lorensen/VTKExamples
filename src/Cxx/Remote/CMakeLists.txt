@@ -26,7 +26,7 @@ endforeach(SOURCE_FILE)
 if (BUILD_TESTING)
 # Testing
 SET(KIT Remote)
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()

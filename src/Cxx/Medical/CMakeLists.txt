@@ -35,7 +35,7 @@ SET(NEEDS_ARGS
   MedicalDemo4
   TissueLens
 )
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
+SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
 ADD_TEST(${KIT}-GenerateCubesFromLabels ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGenerateCubesFromLabels ${DATA}/frogtissue.mhd 1 29)
