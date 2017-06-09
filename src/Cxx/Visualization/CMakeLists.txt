@@ -33,7 +33,7 @@ Requires_Version(PointDataSubdivision ${VERSION_MIN} ALL_FILES)
 Requires_Version(ProjectSphere ${VERSION_MIN} ALL_FILES)
 Requires_Version(BillboardTextActor3D "7.1.0" ALL_FILES)
 Requires_Module(Shadows vtkRenderingOpenGL)
-Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
+#Requires_Setting_Off(StreamLines VTK_LEGACY_REMOVE)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   STRING(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -51,6 +51,7 @@ SET(NEEDS_ARGS
   BoxClipStructuredPoints
   BoxClipUnstructuredGrid
   ClipArt
+  ComplexV
   CorrectlyRenderTranslucentGeometry
   CurvedReformation
   DataSetGradient
@@ -61,7 +62,7 @@ SET(NEEDS_ARGS
   PointDataSubdivision
   RenderLargeImage
   SelectWindowRegion
-  StreamLines
+  # StreamLines
   TextureMapPlane
   TextureMapQuad
   VisualizeVTP
@@ -82,6 +83,9 @@ ADD_TEST(${KIT}-BoxClipStructuredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}
 
 ADD_TEST(${KIT}-BoxClipUnstructuredGrid ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBoxClipUnstructuredGrid ${DATA}/hexa.vtk)
+
+ADD_TEST(${KIT}-ComplexV ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestComplexV ${DATA}/carotid.vtk)
 
 ADD_TEST(${KIT}-ClipArt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestClipArt ${DATA}/stormy.jpg)
@@ -118,10 +122,10 @@ ADD_TEST(${KIT}-RenderLargeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 ADD_TEST(${KIT}-SelectWindowRegion ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSelectWindowRegion ${DATA}/Ox.jpg)
 
-if (NOT VTK_LEGACY_REMOVE)
-ADD_TEST(${KIT}-StreamLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestStreamLines ${DATA}/combxyz.bin ${DATA}/combq.bin)
-endif()
+#if (NOT VTK_LEGACY_REMOVE)
+#ADD_TEST(${KIT}-StreamLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+#  TestStreamLines ${DATA}/combxyz.bin ${DATA}/combq.bin)
+#endif()
 
 ADD_TEST(${KIT}-TextureMapPlane ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTextureMapPlane ${DATA}/Yinyang.jpg)

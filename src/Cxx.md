@@ -758,6 +758,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ BillboardTextActor3D](/Cxx/Visualization/BillboardTextActor3D) | [vtkBillboardTextActor3D](http://www.vtk.org/doc/nightly/html/classvtkBillboardTextActor3D.html) | Label points with billboards.
 [ BlobbyLogo](/Cxx/Visualization/BlobbyLogo) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) | Blobby logo from VTK textbook.
 [ CameraActor](/Cxx/Visualization/CameraActor) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Visualize a camera (frustum) in a scene.
+[ ComplexV](/Cxx/Visualization/ComplexV) | [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html) | ComplexV from the VTK Textbook.
 [ DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
 [ FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
 [ ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
@@ -834,7 +835,6 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)|[vtkInteractorStyleRubberBand2D](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBand2D.html) |Select a region of a window.
-[StreamLines](/Cxx/Visualization/StreamLines)| [vtkStreamLine](http://www.vtk.org/doc/nightly/html/classvtkStreamLine.html) |Stream Lines.
 [TensorGlyph](/Cxx/Visualization/TensorGlyph)| [vtkTensorGlyph](http://www.vtk.org/doc/nightly/html/classvtkTensorGlyph.html) | Draw a rotated/scaled glyph at each point.
 [TextSource](/Cxx/Visualization/TextSource)| [vtkTextSource](http://www.vtk.org/doc/nightly/html/classvtkTextSource.html) |Display text.
 [TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
