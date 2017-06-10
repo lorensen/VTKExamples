@@ -754,6 +754,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 |--------------|----------------------|-------------|-------|
 [BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkTexture](http://www.vtk.org/doc/nightly/html/classvtkTexture.html) |Use a texture for the background of a [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html).
 [ClipArt ](/Cxx/Visualization/ClipArt) | [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) | Generate 3D clip art from an image.
+[TextureCutQuadric](/Cxx/Texture/TextureCutQuadric)| [vtkBooleanTexture](http://www.vtk.org/doc/nightly/html/classvtkBooleanTexture.html)[vtkImplicitTextureCoords](http://www.vtk.org/doc/nightly/html/classvtkImplicitTextureCoords.html) | Cut a quadric with boolean textures.
 [TextureCutSphere](/Cxx/Texture/TextureCutSphere)| [vtkImplicitTextureCoords](http://www.vtk.org/doc/nightly/html/classvtkImplicitTextureCoords.html) | Cut a sphere using texture coordinates.
 [TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) |Texture map a plane.
