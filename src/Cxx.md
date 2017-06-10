@@ -734,9 +734,9 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [AmbientSpheres](/Cxx/Rendering/AmbientSpheres)| [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Demonstrates the effect of ambient lighting on spheres.
+[CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties)| [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Change the properties of a cylinder.
 [DiffuseSpheres](/Cxx/Rendering/DiffuseSpheres)| [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Demonstrates the effect of diffuse lighting on spheres.
 [SpecularSpheres](/Cxx/Rendering/SpecularSpheres)| [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Demonstrates the effect of specular lighting on spheres.
-[CylinderRenderingProperties](/Cxx/Rendering/CylinderRenderingProperties)| [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Change the properties of a cylinder.
 
 
 ## Lighting
@@ -744,10 +744,21 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Shadows](/Cxx/Visualization/Shadows)| [vtkShadowMapPass](http://www.vtk.org/doc/nightly/html/classvtkShadowMapPass.html) |Create shadows.
-[Light](/Cxx/Lighting/Light)| [vtkLight](http://www.vtk.org/doc/nightly/html/classvtkLight.html) |Add a directional light to a scene.
 [LightActor](/Cxx/Lighting/LightActor)| [vtkLightActor](http://www.vtk.org/doc/nightly/html/classvtkLightActor.html) |Display the location and direction of a light.
+[Light](/Cxx/Lighting/Light)| [vtkLight](http://www.vtk.org/doc/nightly/html/classvtkLight.html) |Add a directional light to a scene.
+[Shadows](/Cxx/Visualization/Shadows)| [vtkShadowMapPass](http://www.vtk.org/doc/nightly/html/classvtkShadowMapPass.html) |Create shadows.
 
+
+## TextureMapping
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkTexture](http://www.vtk.org/doc/nightly/html/classvtkTexture.html) |Use a texture for the background of a [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html).
+[ClipArt ](/Cxx/Visualization/ClipArt) | [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) | Generate 3D clip art from an image.
+[TextureCutSphere](Cxx/Texture/TextureCutSphere) | vtkImplicitTextureCoords](http://www.vtk.org/doc/nightly/html/classvtkImplicitTextureCoords.html) | Cut a sphere using texture coordinates.
+[TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
+[TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) |Texture map a plane.
+[TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |Texture map a quad.
+[TexturedSphere](Cxx/Texture/TexturedSphere) | vtkTextureMapToSphere](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToSphere.html) | Texture a sphere.
 
 ## Visualization
 See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a brief explanation of the VTK terminology of mappers, actors, etc.
@@ -760,8 +771,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ CameraActor](/Cxx/Visualization/CameraActor) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Visualize a camera (frustum) in a scene.
 [ ComplexV](/Cxx/Visualization/ComplexV) | [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html) | ComplexV from the VTK Textbook.
 [ DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
-[ FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
 [ ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
+[ FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
 [ FlatShading](/Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [ Legend](/Cxx/Visualization/Legend) | [vtkLegendBoxActor](http://www.vtk.org/doc/nightly/html/classvtkLegendBoxActor.html) |
 [ NoShading](/Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
@@ -771,10 +782,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [BackfaceCulling](/Cxx/Visualization/BackfaceCulling)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Backface culling.
 [BackgroundColor ](/Cxx/Visualization/BackgroundColor) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Background color.
 [BackgroundGradient ](/Cxx/Visualization/BackgroundGradient) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Background gradient.
-[BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkTexture](http://www.vtk.org/doc/nightly/html/classvtkTexture.html) |Use a texture for the background of a [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html).
 [Camera](/Cxx/Visualization/Camera)| [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html) |Positioning and aiming the camera.
 [CaptionActor2D](/Cxx/Visualization/CaptionActor2D)| [vtkCaptionActor2D](http://www.vtk.org/doc/nightly/html/classvtkCaptionActor2D.html) |Draw a caption/bubble pointing to a particular point.
-[ClipArt ](/Cxx/Visualization/ClipArt) | [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) | Generate 3D clip art from an image.
 [CloseWindow](/Cxx/Visualization/CloseWindow)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) |Close a render window.
 [ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Color the edges of an Actor.
 [ColorAnActor ](/Cxx/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Color an Actor.
@@ -808,9 +817,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [IsosurfaceSampling ](/Cxx/Visualization/IsosurfaceSampling) | [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html)|Demonstrates how to create point data on an isosurface.
 [LODProp3D ](/Cxx/Visualization/LODProp3D) | [vtkLODProp3D](http://www.vtk.org/doc/nightly/html/classvtkLODProp3D.html) | Level of detail rendering.
 [LabelContours](/Cxx/Visualization/LabelContours)| [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) |Label Contours.
-[LabeledMesh ](/Cxx/Visualization/LabeledMesh) | [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) | Label Mesh.
 [LabelPlacementMapper](/Cxx/Visualization/LabelPlacementMapper)| [vtkPointSetToLabelHierarchy](http://www.vtk.org/doc/nightly/html/classvtkPointSetToLabelHierarchy.html) [vtkLabelPlacementMapper](http://www.vtk.org/doc/nightly/html/classvtkLabelPlacementMapper.html) | Display a non-overlapping text label at each point.
 [LabeledDataMapper](/Cxx/Visualization/LabeledDataMapper)| [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) |Display the point ID at each point.
+[LabeledMesh ](/Cxx/Visualization/LabeledMesh) | [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) | Label Mesh.
 [LegendScaleActor](/Cxx/Visualization/LegendScaleActor)| [vtkLegendScaleActor](http://www.vtk.org/doc/nightly/html/classvtkLegendScaleActor.html) |Display the scale of a scene.
 [LineWidth](/Cxx/Visualization/LineWidth)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Change the width/thickness of lines in an actor.
 [MovableAxes ](/Cxx/Visualization/MovableAxes) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html) [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor.html) [vtkAssembly](http://www.vtk.org/doc/nightly/html/classvtkAssembly.html) | Movable axes.
@@ -836,11 +845,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)|[vtkInteractorStyleRubberBand2D](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBand2D.html) |Select a region of a window.
-[TensorGlyph](/Cxx/Visualization/TensorGlyph)| [vtkTensorGlyph](http://www.vtk.org/doc/nightly/html/classvtkTensorGlyph.html) | Draw a rotated/scaled glyph at each point.
+[TensorGlyph](/Cxx/Visualization/TensorGlyph)| [vtkTensorGlyph](http://www.vtk.org/doc/nightly/html/classvtkTenorGlyph.html) | Draw a rotated/scaled glyph at each point.
 [TextSource](/Cxx/Visualization/TextSource)| [vtkTextSource](http://www.vtk.org/doc/nightly/html/classvtkTextSource.html) |Display text.
-[TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
-[TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) |Texture map a plane.
-[TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |Texture map a quad.
 [TransformActorCollection](/Cxx/Visualization/TransformActorCollection)| [vtkActorCollection](http://www.vtk.org/doc/nightly/html/classvtkActorCollection.html) |Transform an actor collection.
 [TransformActor](/Cxx/Visualization/TransformActor)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Transform an Actor.
 [TubesFromSplines](/Cxx/VisualizationAlgorithms/TubesFromSplines)| [vtkTubeFilter](http://www.vtk.org/doc/nightly/html/classvtkTubeFilter.html) [vtkParametricFunctionSource](http://www.vtk.org/doc/nightly/html/classvtkParametricFunctionSource.html)  [vtkTupleInterpolator](http://www.vtk.org/doc/nightly/html/classvtkTupleInterpolator.html)|Create tubes from interpolated points and scalars.

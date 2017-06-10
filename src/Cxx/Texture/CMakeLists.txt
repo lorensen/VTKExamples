@@ -30,11 +30,15 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Texture)
 SET(NEEDS_ARGS
+  TextureCutSphere
   TexturedSphere
 )
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+ADD_TEST(${KIT}-TextureCutSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestTextureCutSphere ${DATA}/texThres.vtk)
 
 ADD_TEST(${KIT}-TexturedSphere ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTexturedSphere ${DATA}/earth.ppm)
