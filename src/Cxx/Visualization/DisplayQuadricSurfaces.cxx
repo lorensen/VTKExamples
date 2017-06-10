@@ -206,7 +206,7 @@ void PlotFunction(vtkQuadric* quadric, double value)
   // add the actors to the scene
   ren1->AddActor(contourActor);
   ren1->AddActor(outlineActor);
-  ren1->SetBackground(1,1,1); // Background color white
+  ren1->SetBackground (0.4392,0.5020,0.5647);
   
   // render and interact
   renWin->Render();
