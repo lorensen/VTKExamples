@@ -754,11 +754,11 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 |--------------|----------------------|-------------|-------|
 [BackgroundTexture](/Cxx/Visualization/BackgroundTexture)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkTexture](http://www.vtk.org/doc/nightly/html/classvtkTexture.html) |Use a texture for the background of a [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html).
 [ClipArt ](/Cxx/Visualization/ClipArt) | [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) | Generate 3D clip art from an image.
-[TextureCutSphere](Cxx/Texture/TextureCutSphere) | [vtkImplicitTextureCoords](http://www.vtk.org/doc/nightly/html/classvtkImplicitTextureCoords.html) | Cut a sphere using texture coordinates.
+[TextureCutSphere](/Cxx/Texture/TextureCutSphere)| [vtkImplicitTextureCoords](http://www.vtk.org/doc/nightly/html/classvtkImplicitTextureCoords.html) | Cut a sphere using texture coordinates.
 [TextureMapImageData ](/Cxx/Visualization/TextureMapImageData) | [vtkImageCanvasSource2D](http://www.vtk.org/doc/nightly/html/classvtkImageCanvasSource2D.html) | Texture map an ImageData.
 [TextureMapPlane](/Cxx/Visualization/TextureMapPlane)| [vtkTextureMapToPlane](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToPlane.html) |Texture map a plane.
 [TextureMapQuad](/Cxx/Visualization/TextureMapQuad)| [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) |Texture map a quad.
-[TexturedSphere](Cxx/Texture/TexturedSphere) | [vtkTextureMapToSphere](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToSphere.html) | Texture a sphere.
+[TexturedSphere](/Cxx/Texture/TexturedSphere)| [vtkTextureMapToSphere](http://www.vtk.org/doc/nightly/html/classvtkTextureMapToSphere.html) | Texture a sphere.
 
 ## Visualization
 See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a brief explanation of the VTK terminology of mappers, actors, etc.
