@@ -57,16 +57,16 @@ int main ( int argc, char *argv[] )
 
   vtkSmartPointer<vtkFloatArray> textureCoordinates =
     vtkSmartPointer<vtkFloatArray>::New();
-  textureCoordinates->SetNumberOfComponents(3);
+  textureCoordinates->SetNumberOfComponents(2);
   textureCoordinates->SetName("TextureCoordinates");
 
-  float tuple[3] = {0.0, 0.0, 0.0};
+  float tuple[2] = {0.0, 0.0};
   textureCoordinates->InsertNextTuple(tuple);
-  tuple[0] = 1.0; tuple[1] = 0.0; tuple[2] = 0.0;
+  tuple[0] = 1.0; tuple[1] = 0.0;
   textureCoordinates->InsertNextTuple(tuple);
-  tuple[0] = 1.0; tuple[1] = 1.0; tuple[2] = 0.0;
+  tuple[0] = 1.0; tuple[1] = 1.0;
   textureCoordinates->InsertNextTuple(tuple);
-  tuple[0] = 0.0; tuple[1] = 2.0; tuple[2] = 0.0;
+  tuple[0] = 0.0; tuple[1] = 2.0;
   textureCoordinates->InsertNextTuple(tuple);
 
   quad->GetPointData()->SetTCoords(textureCoordinates);
@@ -93,7 +93,7 @@ int main ( int argc, char *argv[] )
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(texturedQuad);
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground (0.4392,0.5020,0.5647);
   renderer->ResetCamera();
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
