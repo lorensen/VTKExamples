@@ -54,7 +54,6 @@ SET(NEEDS_ARGS
   ComplexV
   CorrectlyRenderTranslucentGeometry
   CurvedReformation
-  DataSetGradient
   DepthSortPolyData
   ExtrudePolyDataAlongLine
   Glyph3DMapper
@@ -96,9 +95,6 @@ ADD_TEST(${KIT}-CorrectlyRenderTranslucentGeometry ${CMAKE_RUNTIME_OUTPUT_DIRECT
 
 ADD_TEST(${KIT}-CurvedReformation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCurvedReformation ${DATA}/HeadMRVolume.mhd ${DATA}/polyline.vtk 200)
-
-ADD_TEST(${KIT}-DataSetGradient ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestDataSetGradient ${DATA}/hexa.vtk)
 
 ADD_TEST(${KIT}-DepthSortPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDepthSortPolyData 1 100 100 0)
