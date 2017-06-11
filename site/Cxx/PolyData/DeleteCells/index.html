@@ -15808,6 +15808,7 @@
                   <h1>DeleteCells</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/DeleteCells</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestDeleteCells.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to delete a cell from a vtkPolyData. This is a three-step process: first, build upward-links from points to cells; second, mark cells for deletion; third, delete the marked cells. The first step is necessary to create a data structure suitable for efficient delete operations. Creating this data structure is computationally expensive, so it is only carried out before operations that need it, e.g. those that require changes to the topology.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
