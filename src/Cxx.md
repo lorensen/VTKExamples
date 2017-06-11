@@ -770,6 +770,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ BillboardTextActor3D](/Cxx/Visualization/BillboardTextActor3D) | [vtkBillboardTextActor3D](http://www.vtk.org/doc/nightly/html/classvtkBillboardTextActor3D.html) | Label points with billboards.
 [ BlobbyLogo](/Cxx/Visualization/BlobbyLogo) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) | Blobby logo from VTK textbook.
 [ CameraActor](/Cxx/Visualization/CameraActor) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Visualize a camera (frustum) in a scene.
+[ CameraModel1](/Cxx/Visualization/CameraModel1) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Illustrate camera movement.
+[ CameraModel2](/Cxx/Visualization/CameraModel2) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Illustrate camera movement.
 [ ComplexV](/Cxx/Visualization/ComplexV) | [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html) | ComplexV from the VTK Textbook.
 [ DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
 [ ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
