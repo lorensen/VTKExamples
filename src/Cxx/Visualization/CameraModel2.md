@@ -2,7 +2,7 @@
 This example illustrates the camera movement centered at the camera position.
 
 !!! note
-    For camera movement around the focal point see (CameraModel1)[/Cxx/Visualization/CameraModel1].
+    For camera movement around the focal point see [CameraModel1](/Cxx/Visualization/CameraModel1).
 
 !!! note
     This example corresponds  to Figure 3-13 in the VTK Text.
