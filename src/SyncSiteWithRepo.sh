@@ -45,21 +45,22 @@ if test $count -lt $expected; then
 fi
 
 echo "4) Update the html pages"
+(cd site; rm -rf *)
 mkdocs build
 
 echo "5) Copy sitemap.xml"
 cp src/Admin/sitemap.xml site/sitemap.xml
 
 echo "5.1) Process modified files"
-git commit -m "SYNC: Files modified on wiki." `git status | grep modified: | cut -d":" -f2,2`
+git commit -m "SYNC: Files modified in the repo." `git status | grep modified: | cut -d":" -f2,2`
 
 echo "5.2) Process new files"
 find . "(" -name \*.html ")" -exec git add {} \;
-git commit -m "SYNC: Files added to wiki."
+git commit -m "SYNC: Files added to the repo."
 
 echo "5.3) Process deleted files"
 git rm `git status | grep deleted: | cut -d":" -f2,2`
-git commit -m "SYNC: Files deleted (or moved) from wiki."
+git commit -m "SYNC: Files deleted (or moved) from the repo."
 
 echo "6) Update tarballs and push to tarball repo"
 if ( test -d src/Tarballs ); then
