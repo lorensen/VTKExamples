@@ -22,9 +22,10 @@ fi
 
 echo "1) Pull updates from master repositories"
 git pull
-if ( test -d Tarballs ); then
-  (cd Tarballs; git checkout .)
-  (cd Tarballs; git pull origin master)
+if ( test -d src/Tarballs ); then
+  (cd src/Tarballs; git checkout .)
+  (cd src/Tarballs; git pull origin master)
+  (cd src/Tarballs; rm *.tar)
 fi
 
 echo "2) Scrape the repo"
@@ -64,7 +65,6 @@ git commit -m "SYNC: Files deleted (or moved) from the repo."
 
 echo "6) Update tarballs and push to tarball repo"
 if ( test -d src/Tarballs ); then
-(cd src/Tarballs; rm *.tar)
 (cd src/Tarballs; git add *tar)
 (cd src/Tarballs; git commit -m "SYNC: Tarballs modified")
 (cd src/Tarballs; git push)
