@@ -1,5 +1,8 @@
 #include <vtkVersion.h>
 #include <vtkSurfaceReconstructionFilter.h>
+#include <vtkSmartPointer.h>
+
+#include <vtkNamedColors.h>
 #include <vtkProgrammableSource.h>
 #include <vtkContourFilter.h>
 #include <vtkReverseSense.h>
@@ -11,7 +14,6 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkMath.h>
-#include <vtkSmartPointer.h>
 #include <cmath>
 
 #include <vtkTransform.h>
@@ -23,6 +25,8 @@ static vtkSmartPointer<vtkPolyData> transform_back(vtkSmartPointer<vtkPoints> pt
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   // Read some points
   vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
@@ -64,8 +68,9 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkActor> surfaceActor = vtkSmartPointer<vtkActor>::New();
   surfaceActor->SetMapper(map);
-  surfaceActor->GetProperty()->SetDiffuseColor(1.0000, 0.3882, 0.2784);
-  surfaceActor->GetProperty()->SetSpecularColor(1, 1, 1);
+  surfaceActor->GetProperty()->SetDiffuseColor(
+    namedColors->GetColor3d("Tomato").GetData());
+  surfaceActor->GetProperty()->SetSpecularColor(namedColors->GetColor3d("Seashell").GetData());
   surfaceActor->GetProperty()->SetSpecular(.4);
   surfaceActor->GetProperty()->SetSpecularPower(50);
 
@@ -79,7 +84,7 @@ int main(int, char *[])
 
   // Add the actors to the renderer, set the background and size
   ren->AddActor(surfaceActor);
-  ren->SetBackground(1, 1, 1);
+  ren->SetBackground(namedColors->GetColor3d("Burlywood").GetData());
   renWin->SetSize(400, 400);
   ren->GetActiveCamera()->SetFocalPoint(0, 0, 0);
   ren->GetActiveCamera()->SetPosition(1, 0, 0);

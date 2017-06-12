@@ -1,4 +1,5 @@
 #include <vtkActor.h>
+#include <vtkNamedColors.h>
 #include <vtkParametricFunctionSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -27,6 +28,9 @@
 
 int main(int, char* [])
 {
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Select one of the following (matching the selection above)
   vtkSmartPointer<vtkParametricTorus> parametricObject =
     vtkSmartPointer<vtkParametricTorus>::New();
@@ -74,7 +78,8 @@ int main(int, char* [])
   // Create an actor for the contours
   vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-
+  actor->GetProperty()->SetDiffuseColor(
+    namedColors->GetColor3d("Burlywood").GetData());
   vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -84,7 +89,7 @@ int main(int, char* [])
   interactor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(1, 1, 1); // Background color white
+  renderer->SetBackground(namedColors->GetColor3d("Beige").GetData());
 
   renderWindow->Render();
   interactor->Start();

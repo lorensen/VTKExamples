@@ -1,5 +1,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkImplicitBoolean.h>
+#include <vtkNamedColors.h>
 
 #include <vtkSphere.h>
 #include <vtkBox.h>
@@ -17,10 +18,8 @@
 
 int main (int argc, char *[])
 {
-  // A renderer and render window
-  vtkSmartPointer<vtkRenderer> renderer = 
-    vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(1, 1, 1);
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   // create a sphere
   vtkSmartPointer<vtkSphere> sphere = 
@@ -101,7 +100,7 @@ int main (int argc, char *[])
     actor->GetProperty()->SetEdgeColor(.2, .2, .5);
 
     // add the actor
-    ren[i]->SetBackground(.9, .9, .9);
+    ren[i]->SetBackground(namedColors->GetColor3d("Khaki").GetData());
     ren[i]->SetActiveCamera(camera);
     ren[i]->AddActor(actor);
   }

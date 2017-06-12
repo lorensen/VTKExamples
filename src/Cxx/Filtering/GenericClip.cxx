@@ -10,6 +10,7 @@
 #include <vtkImplicitDataSet.h>
 #include <vtkIdFilter.h>
 #include <vtkIdTypeArray.h>
+#include <vtkNamedColors.h>
 #include <vtkSphereSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -23,6 +24,9 @@
 
 int main(int, char*[])
 {
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
     // If we try to use a PointSource with vtkBridgeDataSet, an error is produced:
 //    vtkBridgeCell.cxx:141: virtual int vtkBridgeCell::GetType(): Assertion `"check: impossible case" && 0' failed.
     // There does not seem to be a case to handle VTK_VERTEX (which is what is produced by PointSource) in vtkBridgeDataSet.
@@ -82,7 +86,9 @@ int main(int, char*[])
   sample->SetSampleDimensions(20,20,20);
   sample->SetImplicitFunction(plane);
   double value = 10.0;
-  double xmin = -value, xmax = value, ymin = -value, ymax = value, zmin = -value, zmax = value;
+  double xmin = -value, xmax = value,
+    ymin = -value, ymax = value,
+    zmin = -value, zmax = value;
   sample->SetModelBounds(xmin, xmax, ymin, ymax, zmin, zmax);
 
   // Create the 0 isosurface
@@ -115,7 +121,7 @@ int main(int, char*[])
   // Add the actor to the scene
   renderer->AddActor(actor);
   renderer->AddActor(sphereActor);
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(namedColors->GetColor3d("Burlywood").GetData());
 
   // Render and interact
   renderWindow->Render();
