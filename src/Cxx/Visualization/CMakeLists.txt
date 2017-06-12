@@ -62,7 +62,7 @@ SET(NEEDS_ARGS
   PointDataSubdivision
   RenderLargeImage
   SelectWindowRegion
-  # StreamLines
+  StreamLines
   TextureMapPlane
   TextureMapQuad
   VisualizeVTP
@@ -122,10 +122,8 @@ ADD_TEST(${KIT}-RenderLargeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
 ADD_TEST(${KIT}-SelectWindowRegion ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestSelectWindowRegion ${DATA}/Ox.jpg)
 
-#if (NOT VTK_LEGACY_REMOVE)
-#ADD_TEST(${KIT}-StreamLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-#  TestStreamLines ${DATA}/combxyz.bin ${DATA}/combq.bin)
-#endif()
+ADD_TEST(${KIT}-StreamLines ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestStreamLines ${DATA}/combxyz.bin ${DATA}/combq.bin)
 
 ADD_TEST(${KIT}-TextureMapPlane ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTextureMapPlane ${DATA}/Yinyang.jpg)

@@ -848,6 +848,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) |Get the bounds of the whole scene.
 [SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)|[vtkInteractorStyleRubberBand2D](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleRubberBand2D.html) |Select a region of a window.
+[StreamLines](/Cxx/Visualization/StreamLines) | [vtkStreamTracer](http://www.vtk.org/doc/nightly/html/classvtkStreamTracer.html) | Streamlines.
 [TensorGlyph](/Cxx/Visualization/TensorGlyph)| [vtkTensorGlyph](http://www.vtk.org/doc/nightly/html/classvtkTenorGlyph.html) | Draw a rotated/scaled glyph at each point.
 [TextSource](/Cxx/Visualization/TextSource)| [vtkTextSource](http://www.vtk.org/doc/nightly/html/classvtkTextSource.html) |Display text.
 [TransformActorCollection](/Cxx/Visualization/TransformActorCollection)| [vtkActorCollection](http://www.vtk.org/doc/nightly/html/classvtkActorCollection.html) |Transform an actor collection.
