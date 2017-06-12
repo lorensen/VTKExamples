@@ -15903,6 +15903,32 @@ Style</a>. The curly brace (scope delimiter) is on a separate line and aligns wi
 <span class="n">delaunay3D</span><span class="o">-&gt;</span><span class="n">SetAlpha</span><span class="p">(</span><span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
 <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">);</span>
 </pre></div>
+
+
+<ul>
+<li>
+<p>Always provide a background for the renderers. Avoid setting the background to white.</p>
+</li>
+<li>
+<p>Use <a href="http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html">vtkNamedColors</a> for setting colors of actors and renderer backgrounds. <a href="http://htmlpreview.github.io/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html">This html file</a> shows the colors that are available.</p>
+<p>For example,</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">namedColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Khaki&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>is preferred to
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>    <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.9412</span><span class="p">,</span> <span class="mf">0.9020</span><span class="p">,</span> <span class="mf">0.5490</span><span class="p">);</span>
+</pre></div>
                 
                   
                 
