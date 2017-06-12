@@ -123,7 +123,7 @@ writer->SetFileName ( argv[3] );
 
 * Always provide a background for the renderers. Avoid setting the background to white.
 
-* Use vtkNamedColors for setting colors of actors and renderer backgrounds.
+* Use [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) for setting colors of actors and renderer backgrounds. [This html file](http://htmlpreview.github.io/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) shows the colors that are available.
 
     For example,
 ```c++
@@ -134,7 +134,7 @@ writer->SetFileName ( argv[3] );
 
     renderer->SetBackground(namedColors->GetColor3d("Khaki").GetData());
 ```
- is preferred to
+    is preferred to
 ```c++
     renderer->SetBackground(0.9412, 0.9020, 0.5490);
 ```
