@@ -120,3 +120,23 @@ reader->SetFileName (argv[2]);
 delaunay3D->SetAlpha(atof(argv[1]));
 writer->SetFileName ( argv[3] );
 ```
+
+* Always provide a background for the renderers. Avoid setting the background to white.
+
+* Use vtkNamedColors for setting colors of actors and renderer backgrounds.
+
+    For example,
+```c++
+#include <vtkNamedColors.h>
+
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+    renderer->SetBackground(namedColors->GetColor3d("Khaki").GetData());
+```
+ is preferred to
+```c++
+    renderer->SetBackground(0.9412, 0.9020, 0.5490);
+```
+
+    
