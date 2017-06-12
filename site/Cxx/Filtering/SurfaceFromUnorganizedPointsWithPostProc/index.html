@@ -15820,6 +15820,9 @@ To cure this, in this example we added a post transformation to move the reconst
 <p><strong>SurfaceFromUnorganizedPointsWithPostProc.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSurfaceReconstructionFilter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProgrammableSource.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkReverseSense.h&gt;</span><span class="cp"></span>
@@ -15831,7 +15834,6 @@ To cure this, in this example we added a post transformation to move the reconst
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkTransform.h&gt;</span><span class="cp"></span>
@@ -15843,6 +15845,8 @@ To cure this, in this example we added a post transformation to move the reconst
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">namedColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
   <span class="c1">// Read some points</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -15884,8 +15888,9 @@ To cure this, in this example we added a post transformation to move the reconst
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">surfaceActor</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
-  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
-  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span>
+    <span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Seashell&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.4</span><span class="p">);</span>
   <span class="n">surfaceActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 
@@ -15899,7 +15904,7 @@ To cure this, in this example we added a post transformation to move the reconst
 
   <span class="c1">// Add the actors to the renderer, set the background and size</span>
   <span class="n">ren</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">surfaceActor</span><span class="p">);</span>
-  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Burlywood&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
   <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">ren</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>

@@ -15828,6 +15828,7 @@
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImplicitDataSet.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkIdFilter.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkIdTypeArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
@@ -15841,6 +15842,9 @@
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">namedColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
     <span class="c1">// If we try to use a PointSource with vtkBridgeDataSet, an error is produced:</span>
 <span class="c1">//    vtkBridgeCell.cxx:141: virtual int vtkBridgeCell::GetType(): Assertion `&quot;check: impossible case&quot; &amp;&amp; 0&#39; failed.</span>
     <span class="c1">// There does not seem to be a case to handle VTK_VERTEX (which is what is produced by PointSource) in vtkBridgeDataSet.</span>
@@ -15900,7 +15904,9 @@
   <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
   <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">plane</span><span class="p">);</span>
   <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
-  <span class="kt">double</span> <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span>
+    <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
   <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">);</span>
 
   <span class="c1">// Create the 0 isosurface</span>
@@ -15933,7 +15939,7 @@
   <span class="c1">// Add the actor to the scene</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sphereActor</span><span class="p">);</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Burlywood&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Render and interact</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>

@@ -3,7 +3,7 @@ Although education of new users is the main motivation, the VTK wiki examples sh
 
 1. Encourage good programming style
 2. Promote the proper and modern way to use VTK and write VTK programs
-3. Facilitate the nightly compilation and testing of examples that reside in the VTK wiki
+3. Facilitate the nightly compilation and testing of examples that reside in the VTKExamples repository.
 
 These requirements must be met without compromising the main goal of user education.
 
