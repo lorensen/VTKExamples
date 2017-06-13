@@ -170,6 +170,12 @@ Please add examples in your areas of expertise!
 [Triangle](/Cxx/GeometricObjects/Triangle)   | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html) |
 [Vertex](/Cxx/GeometricObjects/Vertex)   | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html) |
 
+### NonLinear
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[QuadraticHexahedron](/Cxx/GeometricObjects/QuadraticHexahedron) | [vtkQuadraticHexahedron](http://www.vtk.org/doc/nightly/html/classvtkQuadraticHexahedron.html) [vtkTessellatorFilter](http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html) | Create and tessellate a nonlinear cell.
+[QuadraticTetra](/Cxx/GeometricObjects/QuadraticTetra) | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html) [vtkTessellatorFilter](http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html) | Create and tessellate a nonlinear cell.
 
 ### Parametric Objects
 
