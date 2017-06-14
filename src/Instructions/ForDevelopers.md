@@ -1,7 +1,7 @@
-The success of the VTK Wiki Examples depends on the contributions from
+The success of the VTK Examples depends on the contributions from
 the VTK user community. If you wish to contribute to this valuable
-resource, please follow these guidelines. If you are a Wiki Example
-User, [go here](../Instructions/ForUsers) or a Wiki Example
+resource, please follow these guidelines. If you are a VTK Example
+User, [go here](../Instructions/ForUsers) or an Example
 Administrator [go here](../Instructions/ForAdministrators).
 
 C++, C#, Tcl, Python and Java examples are welcome! Examples should

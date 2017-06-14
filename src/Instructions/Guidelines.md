@@ -1,5 +1,5 @@
 ## Requirements
-Although education of new users is the main motivation, the VTK wiki examples should also:
+Although education of new users is the main motivation, the VTK Examples should also:
 
 1. Encourage good programming style
 2. Promote the proper and modern way to use VTK and write VTK programs

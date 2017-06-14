@@ -1,4 +1,4 @@
-If you want to use [VTK Examples](https://github.com/lorensen/VTKExamples) you have several options. If you are a Wiki Example Developer, [go here](../Instructions/ForDevelopers) or a Wiki Example Administrator [go here](../Instructions/ForAdministrators).
+If you want to use [VTK Examples](https://github.com/lorensen/VTKExamples) you have several options. If you are a VTK Example Developer, [go here](../Instructions/ForDevelopers) or a VTK Example Administrator [go here](../Instructions/ForAdministrators).
 
 ## Build an example
 
@@ -11,7 +11,7 @@ downloading individual examples you can build them all.
 
 1. As a VTK Remote module
 
-   When you configure your VTK build, set Module_WikiExamples:BOOL=ON and rebuild VTK.
+   When you configure your VTK build, set Module_VTKExamples:BOOL=ON and rebuild VTK.
 
 2. Download a [zip](https://github.com/lorensen/VTKExamples/archive/master.zip) containing the source.
 
