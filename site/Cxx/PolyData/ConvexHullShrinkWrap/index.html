@@ -8113,6 +8113,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../ConvexHull/" title="ConvexHull" class="md-nav__link">
+      ConvexHull
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -8506,18 +8518,6 @@
   <li class="md-nav__item">
     <a href="../HighlightBadCells/" title="HighlightBadCells" class="md-nav__link">
       HighlightBadCells
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Hull/" title="Hull" class="md-nav__link">
-      Hull
     </a>
   </li>
 
@@ -15844,6 +15844,7 @@
                   <h1>ConvexHullShrinkWrap</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/ConvexHullShrinkWrap</p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestConvexHullShrinkWrap.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a point cloud, and a sphere larger than the point cloud which fully contains the cloud. It then "shrink wraps" the sphere onto the points. This produces approximately a convex hull.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
@@ -15851,52 +15852,91 @@
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointSource.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmoothPolyDataFilter.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">namedColors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
   <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
   <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
-  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">pointSource</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
   <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-  <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
-
-  <span class="p">{</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> 
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;input.vtp&quot;</span><span class="p">);</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
-  <span class="p">}</span>
-
-  <span class="p">{</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> 
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;points.vtp&quot;</span><span class="p">);</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
-  <span class="p">}</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSmoothPolyDataFilter</span><span class="o">&gt;</span> <span class="n">smoothFilter</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSmoothPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">smoothFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">smoothFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">smoothFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span> 
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;output.vtp&quot;</span><span class="p">);</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">smoothFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">glyphSource</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyphSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">.04</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph3D</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3D</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph3D</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">glyphSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph3D</span><span class="o">-&gt;</span><span class="n">ScalingOff</span><span class="p">();</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">glyph3DMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph3D</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph3DMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">glyph3DActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3DMapper</span><span class="p">);</span>
+  <span class="n">glyph3DActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span>
+    <span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">smoothFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+
+  <span class="c1">// Create an actor for the surface</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span>
+    <span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetEdgeColor</span><span class="p">(</span>
+    <span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;IvoryBlack&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">EdgeVisibilityOff</span><span class="p">();</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
+
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyph3DActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">namedColors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;SlateGray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
+  <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
   <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
@@ -15963,7 +16003,7 @@ Once the <em>tarball ConvexHullShrinkWrap.tar</em> has been downloaded and extra
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../ContoursToSurface/" title="ContoursToSurface" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ConvexHull/" title="ConvexHull" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -15972,7 +16012,7 @@ Once the <em>tarball ConvexHullShrinkWrap.tar</em> has been downloaded and extra
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                ContoursToSurface
+                ConvexHull
               </span>
             </div>
           </a>
