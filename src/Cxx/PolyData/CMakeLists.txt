@@ -75,7 +75,7 @@ ADD_TEST(${KIT}-ColoredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestColoredPoints ${TEMP}/coloredpoints.vtp)
 
 ADD_TEST(${KIT}-ConvexHull ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestConvexHull ${TEMP}/cowHead.vtp)
+  TestConvexHull ${DATA}/cowHead.vtp)
 
 if(NOT ${VTK_VERSION} VERSION_LESS "6")
   ADD_TEST(${KIT}-Curvatures ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
