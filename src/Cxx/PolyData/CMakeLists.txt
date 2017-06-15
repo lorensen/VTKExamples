@@ -39,6 +39,7 @@ SET(KIT PolyData)
 SET(NEEDS_ARGS
   CellLocatorVisualization
   ColoredPoints
+  ConvexHull
   DetermineArrayDataTypes
   DijkstraGraphGeodesicPath	
   EmbedPointsIntoVolume
@@ -73,6 +74,9 @@ ADD_TEST(${KIT}-CellLocatorVisualization ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT
 ADD_TEST(${KIT}-ColoredPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestColoredPoints ${TEMP}/coloredpoints.vtp)
 
+ADD_TEST(${KIT}-ConvexHull ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestConvexHull ${TEMP}/cowHead.vtp)
+
 if(NOT ${VTK_VERSION} VERSION_LESS "6")
   ADD_TEST(${KIT}-Curvatures ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestCurvatures ${DATA}/cowHead.vtp -20 20)
@@ -101,9 +105,6 @@ ADD_TEST(${KIT}-GradientFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-GreedyTerrainDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGreedyTerrainDecimation -E 55)
-
-ADD_TEST(${KIT}-Hull ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestHull ${DATA}/Bunny.vtp)
 
 ADD_TEST(${KIT}-HighlightBadCells ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestHighlightBadCells -E 20)
