@@ -30,7 +30,6 @@ fi
 
 echo "2) Scrape the repo"
 rm -rf docs/*
-rm -rf site/*
 src/Admin/ScrapeRepo  src docs ${REPO}
 
 echo "3) Check for a successful scrape"
@@ -46,7 +45,6 @@ if test $count -lt $expected; then
 fi
 
 echo "4) Update the html pages"
-(cd site; rm -rf *)
 mkdocs build
 
 echo "5) Copy sitemap.xml"
