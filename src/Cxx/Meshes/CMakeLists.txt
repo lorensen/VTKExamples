@@ -39,6 +39,7 @@ SET(NEEDS_ARGS
   FillHoles
   MatrixMathFilter
   OBBDicer
+  SplitPolyData
   TableBasedClipDataSetWithPolyData
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -54,6 +55,9 @@ ADD_TEST(${KIT}-OBBDicer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-MatrixMathFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMatrixMathFilter ${DATA}/tensors.vtk)
+
+ADD_TEST(${KIT}-SplitPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestSplitPolyData ${DATA}/cowHead.vtp)
 
 ADD_TEST(${KIT}-TableBasedClipDataSetWithPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestTableBasedClipDataSetWithPolyData -E 25)
