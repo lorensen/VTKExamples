@@ -3,3 +3,14 @@
 {% block htmltitle %}
 <meta name="google-site-verification" content="8hi6AHNlzKOmFDV4W8tLmySODRzQvtqMEIfZdc3WTLA" />
 {% endblock %}
+
+{% block extrahead %}
+<script>
+(function() {
+  var cx = '123:456'; // Insert your own Custom Search engine ID here
+  var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+  gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+{% endblock %}
