@@ -45,6 +45,8 @@ if test $count -lt $expected; then
 fi
 
 echo "4) Update the html pages"
+mkdir docs/stylesheets
+cp src/stylesheets/extra.css docs/stylesheets/extra.css
 mkdocs build
 
 echo "5) Copy sitemap.xml"
