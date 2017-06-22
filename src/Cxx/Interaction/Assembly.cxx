@@ -1,10 +1,11 @@
 #include <vtkSmartPointer.h>
+#include <vtkAssembly.h>
+
 #include <vtkTransform.h>
 #include <vtkCubeSource.h>
 #include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkAssembly.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
@@ -14,8 +15,13 @@
 #include <vtkAxesActor.h>
 #include <vtkPropAssembly.h>
 
+#include <vtkNamedColors.h>
+
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create a sphere
   vtkSmartPointer<vtkSphereSource> sphereSource =
     vtkSmartPointer<vtkSphereSource>::New();
@@ -27,6 +33,9 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> sphereActor =
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
+  sphereActor->GetProperty()->SetColor(
+    namedColors->GetColor3d("Banana").GetData());
+
 
   // Create a cube
   vtkSmartPointer<vtkCubeSource> cubeSource =
@@ -40,7 +49,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> cubeActor =
     vtkSmartPointer<vtkActor>::New();
   cubeActor->SetMapper(cubeMapper);
-
+  cubeActor->GetProperty()->SetColor(
+    namedColors->GetColor3d("Tomato").GetData());
   // Combine the sphere and cube into an assembly
   vtkSmartPointer<vtkAssembly> assembly =
     vtkSmartPointer<vtkAssembly>::New();
@@ -78,7 +88,7 @@ int main(int, char *[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(assembly);
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(namedColors->GetColor3d("SlateGray").GetData());
 
   renderer->ResetCamera();
   renderWindow->Render();
