@@ -14,3 +14,4 @@ google_analytics:
   -  'auto'
 extra_css:
   -  'stylesheets/extra.css'
+copyright: '<font color=#666>Content is available under </font><a href="https://creativecommons.org/licenses/by/2.5/" title="Attribution2.5">Attribution2.5</a> <font color=#666>unless otherwise noted.</font>'
