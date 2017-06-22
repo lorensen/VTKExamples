@@ -1,7 +1,8 @@
-#include <vtkVersion.h>
-#include <vtkFrustumSource.h>
-#include <vtkPolyData.h>
 #include <vtkSmartPointer.h>
+#include <vtkFrustumSource.h>
+
+#include <vtkNamedColors.h>
+#include <vtkPolyData.h>
 #include <vtkCamera.h>
 #include <vtkPlanes.h>
 #include <vtkMapper.h>
@@ -13,11 +14,14 @@
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkCamera> camera =
     vtkSmartPointer<vtkCamera>::New();
   double planesArray[24];
   
-  camera->GetFrustumPlanes(1, planesArray);
+  camera->GetFrustumPlanes(1.0, planesArray);
   
   vtkSmartPointer<vtkPlanes> planes =
     vtkSmartPointer<vtkPlanes>::New();
@@ -33,11 +37,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(frustum);
-#else
   mapper->SetInputData(frustum);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
@@ -57,7 +57,15 @@ int main(int, char *[])
 
   // add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground( .2, .1, .3); // Background color dark purple
+  renderer->SetBackground(namedColors->GetColor3d("BurlyWood").GetData());
+
+  // Position the camera so that we can see the frustum
+  renderer->GetActiveCamera()->SetPosition(1, 0, 0);
+  renderer->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+  renderer->GetActiveCamera()->SetViewUp(0, 1, 0);
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->ResetCamera();
 
   // render an image (lights and cameras are created automatically)
   renderWindow->Render();
