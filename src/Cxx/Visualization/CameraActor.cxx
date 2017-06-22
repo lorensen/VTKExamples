@@ -1,16 +1,22 @@
+#include <vtkSmartPointer.h>
+#include <vtkCameraActor.h>
+
+#include <vtkNamedColors.h>
 #include <vtkSphereSource.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkSmartPointer.h>
 #include <vtkCamera.h>
 #include <vtkPlanes.h>
 #include <vtkMapper.h>
-#include <vtkCameraActor.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Sphere
   vtkSmartPointer<vtkSphereSource> sphereSource = 
     vtkSmartPointer<vtkSphereSource>::New();
@@ -23,6 +29,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> sphereActor = 
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
+  sphereActor->GetProperty()->SetDiffuseColor(
+    namedColors->GetColor3d("Tomato").GetData());
   
   // Camera
   vtkSmartPointer<vtkCamera> camera = 
@@ -31,7 +39,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkCameraActor> cameraActor = 
     vtkSmartPointer<vtkCameraActor>::New();
   cameraActor->SetCamera(camera);
-  
+  cameraActor->GetProperty()->SetColor(0, 0, 0);
+
   // (Xmin,Xmax,Ymin,Ymax,Zmin,Zmax).
   double* bounds = new double[6];
   bounds = cameraActor->GetBounds();
@@ -49,10 +58,24 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
-  renderer->AddActor(cameraActor);
   renderer->AddActor(sphereActor);
-  
-  renderer->SetBackground(1,1,1); // Background color white
+  // Compute the active camera parameters
+  renderer->ResetCamera();
+
+  // Set the camera parameters for the camera actor
+  camera->DeepCopy(renderer->GetActiveCamera());
+  renderer->AddActor(cameraActor);
+
+  // Position the camera so that we can see the camera actor
+  renderer->GetActiveCamera()->SetPosition(1, 0, 0);
+  renderer->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+  renderer->GetActiveCamera()->SetViewUp(0, 1, 0);
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+
+  renderer->ResetCamera();
+  renderer->SetBackground(namedColors->GetColor3d("SlateGray").GetData());
+
   renderWindow->Render();
   renderWindowInteractor->Start();
   
