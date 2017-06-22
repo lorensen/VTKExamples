@@ -4,7 +4,7 @@ resource, please follow these guidelines. If you are a VTK Example
 User, [go here](../Instructions/ForUsers) or an Example
 Administrator [go here](../Instructions/ForAdministrators).
 
-C++, C#, Tcl, Python and Java examples are welcome! Examples should
+C++, C#,  Python and Java examples are welcome! Examples should
 illustrate a single concept.
 
 [TOC]
@@ -106,7 +106,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 2. Save your source code in VTKExamples/src/**LANGUAGE**/**TOPIC**/
 
-    where **LANGUAGE** is Cxx, Python, CSharp, or Tcl.
+    where **LANGUAGE** is Cxx, Python, CSharp or Java.
 
     and **TOPIC** is the topic that you have chosen.
 
@@ -136,13 +136,13 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 ## Add the example to the language page.
 
-Depending on the language of your example, edit the file *Cxx.md*, *Python.md*, *CSharp.md*, *Java.md*, or *Tcl.md*.
+Depending on the language of your example, edit the file *Cxx.md*, *Python.md*, *CSharp.md*, or *Java.md*.
 
 Find the section for your topic and add a line for your new example. The format of the line is:
 
 \[**MyNewExample**\]\(/**LANG**/**TOPIC**/**MyNewExample**\) | doxygen | short description
 
-where **LANG** is one of Cxx, Python, CSharp, Java, Tcl.
+where **LANG** is one of Cxx, Python, CSharp, Java.
 
 ## Commit your changes to your topic branch
 

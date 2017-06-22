@@ -138,7 +138,6 @@ AddThumbnails(RepoDir, RepoURL, RepoDir + "/Python.md", DocDir + "/Python.md")
 
 # Convert repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
-CopyFile(RepoDir + "/Tcl.md", DocDir + "/Tcl.md")
 CopyFile(RepoDir + "/Java.md", DocDir + "/Java.md")
 CopyFile(RepoDir + "/CSharp.md", DocDir + "/CSharp.md")
 
@@ -155,7 +154,6 @@ Languages["Cxx"] = ".cxx"
 Languages["Python"] = ".py"
 Languages["Java"] = ".java"
 Languages["CSharp"] = ".cs"
-Languages["Tcl"] = ".tcl"
 
 # Scan all Cxx directories and look for extras
 allExtras = set()
@@ -233,8 +231,6 @@ for lang, langExt in Languages.items():
                 MdFile.write("```csharp" + "\n")
             elif langExt == ".py":
                 MdFile.write("```python" + "\n")
-            elif langExt == ".tcl":
-                MdFile.write("```tcl" + "\n")
             elif langExt == ".java":
                 MdFile.write("```java" + "\n")
             SrcFileName = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + langExt
