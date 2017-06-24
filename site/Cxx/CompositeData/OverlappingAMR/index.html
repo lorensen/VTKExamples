@@ -15660,7 +15660,8 @@
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/CompositeData/TestOverlappingAMR.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OverlappingAMR.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="c1">//Demonstrates how to create and populate a VTK&#39;s Overlapping AMR Grid type Data</span>
+<div class="codehilite"><pre><span></span><span class="c1">// Demonstrates how to create and populate a VTK&#39;s Overlapping AMR Grid</span>
+<span class="c1">// type Data</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkAMRBox.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkAMRUtilities.h&gt;</span><span class="cp"></span>
@@ -15684,7 +15685,8 @@
       <span class="n">vtkFloatArray</span><span class="o">*</span> <span class="n">scalars</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="c1">// Implicit function used to compute scalars</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
     <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
     <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
 
@@ -15727,7 +15729,8 @@
   <span class="kt">double</span> <span class="n">spacing</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
   <span class="kt">int</span> <span class="n">dims</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">};</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="c1">// Geometry</span>
   <span class="n">ug1</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
   <span class="n">ug1</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing</span><span class="p">);</span>
@@ -15747,7 +15750,8 @@
 
   <span class="kt">double</span> <span class="n">spacing2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">};</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug2</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="c1">// Geometry</span>
   <span class="n">ug2</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
   <span class="n">ug2</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing2</span><span class="p">);</span>
@@ -15766,7 +15770,8 @@
 
   <span class="kt">double</span> <span class="n">origin3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug3</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;</span> <span class="n">ug3</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUniformGrid</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="c1">// Geometry</span>
   <span class="n">ug3</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin3</span><span class="p">);</span>
   <span class="n">ug3</span><span class="o">-&gt;</span><span class="n">SetSpacing</span><span class="p">(</span><span class="n">spacing2</span><span class="p">);</span>
@@ -15807,7 +15812,8 @@
   <span class="n">geomFilter2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">cf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
   <span class="c1">// create the render window, renderer, and interactor</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">aren</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">aren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span>  <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">aren</span><span class="p">);</span>
@@ -15822,7 +15828,9 @@
 
   <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geomFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  <span class="n">vtkActor</span> <span class="o">*</span><span class="n">actor1</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">actor1</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
   <span class="c1">// associate the geometry with a mapper and the mapper to an actor</span>
@@ -15831,7 +15839,8 @@
 
   <span class="n">mapper2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">geomFilter2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
-  <span class="n">vtkActor</span> <span class="o">*</span><span class="n">actor2</span> <span class="o">=</span> <span class="n">vtkActor</span><span class="o">::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">actor2</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper2</span><span class="p">);</span>
 
   <span class="c1">// add the actor to the renderer and start handling events</span>
