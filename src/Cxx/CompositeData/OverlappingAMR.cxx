@@ -1,4 +1,5 @@
-//Demonstrates how to create and populate a VTK's Overlapping AMR Grid type Data
+// Demonstrates how to create and populate a VTK's Overlapping AMR Grid
+// type Data
 
 #include <vtkAMRBox.h>
 #include <vtkAMRUtilities.h>
@@ -22,7 +23,8 @@ namespace
       vtkFloatArray* scalars)
   {
     // Implicit function used to compute scalars
-    vtkSmartPointer<vtkSphere> sphere = vtkSmartPointer<vtkSphere>::New();
+    vtkSmartPointer<vtkSphere> sphere =
+      vtkSmartPointer<vtkSphere>::New();
     sphere->SetRadius(3);
     sphere->SetCenter(5, 5, 5);
   
@@ -65,7 +67,8 @@ int main (int, char *[])
   double spacing[3] = {1.0, 1.0, 1.0};
   int dims[3] = {11, 11, 11};
 
-  vtkSmartPointer<vtkUniformGrid> ug1 = vtkSmartPointer<vtkUniformGrid>::New();
+  vtkSmartPointer<vtkUniformGrid> ug1 =
+    vtkSmartPointer<vtkUniformGrid>::New();
   // Geometry
   ug1->SetOrigin(origin);
   ug1->SetSpacing(spacing);
@@ -85,7 +88,8 @@ int main (int, char *[])
 
   double spacing2[3] = {0.5, 0.5, 0.5};
 
-  vtkSmartPointer<vtkUniformGrid> ug2 = vtkSmartPointer<vtkUniformGrid>::New();
+  vtkSmartPointer<vtkUniformGrid> ug2 =
+    vtkSmartPointer<vtkUniformGrid>::New();
   // Geometry
   ug2->SetOrigin(origin);
   ug2->SetSpacing(spacing2);
@@ -104,7 +108,8 @@ int main (int, char *[])
 
   double origin3[3] = {5, 5, 5};
 
-  vtkSmartPointer<vtkUniformGrid> ug3 = vtkSmartPointer<vtkUniformGrid>::New();
+  vtkSmartPointer<vtkUniformGrid> ug3 =
+    vtkSmartPointer<vtkUniformGrid>::New();
   // Geometry
   ug3->SetOrigin(origin3);
   ug3->SetSpacing(spacing2);
@@ -145,7 +150,8 @@ int main (int, char *[])
   geomFilter2->SetInputConnection(cf->GetOutputPort());
 
   // create the render window, renderer, and interactor
-  vtkSmartPointer<vtkRenderer> aren = vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderer> aren =
+    vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin  = 
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(aren);
@@ -160,7 +166,9 @@ int main (int, char *[])
   
   mapper->SetInputConnection(geomFilter->GetOutputPort());
   
-  vtkActor *actor1 = vtkActor::New();
+  vtkSmartPointer<vtkActor> actor1 =
+    vtkSmartPointer<vtkActor>::New();
+     
   actor1->SetMapper(mapper);
 
   // associate the geometry with a mapper and the mapper to an actor
@@ -169,7 +177,8 @@ int main (int, char *[])
   
   mapper2->SetInputConnection(geomFilter2->GetOutputPort());
   
-  vtkActor *actor2 = vtkActor::New();
+  vtkSmartPointer<vtkActor> actor2 =
+    vtkSmartPointer<vtkActor>::New();
   actor2->SetMapper(mapper2);
 
   // add the actor to the renderer and start handling events
