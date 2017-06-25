@@ -51,6 +51,55 @@
   })();
 </script>
 
+<script>
+registerListener('load', setLazy);
+registerListener('load', lazyLoad);
+registerListener('scroll', lazyLoad);
+
+var lazy = [];
+
+function setLazy(){
+    lazy = document.getElementsByClassName('lazy');
+    console.log('Found ' + lazy.length + ' lazy images');
+} 
+
+function lazyLoad(){
+    for(var i=0; i<lazy.length; i++){
+        if(isInViewport(lazy[i])){
+            if (lazy[i].getAttribute('data-src')){
+                lazy[i].src = lazy[i].getAttribute('data-src');
+                lazy[i].removeAttribute('data-src');
+            }
+        }
+    }
+    
+    cleanLazy();
+}
+
+function cleanLazy(){
+    lazy = Array.prototype.filter.call(lazy, function(l){ return l.getAttribute('data-src');});
+}
+
+function isInViewport(el){
+    var rect = el.getBoundingClientRect();
+    
+    return (
+        rect.bottom >= 0 && 
+        rect.right >= 0 && 
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) && 
+        rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+     );
+}
+
+function registerListener(event, func) {
+    if (window.addEventListener) {
+        window.addEventListener(event, func)
+    } else {
+        window.attachEvent('on' + event, func)
+    }
+}
+</script>
+
   </head>
   
   
@@ -15657,7 +15706,7 @@
                   <h1>GeoAssignCoordinates</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Geovis/GeoAssignCoordinates</p>
-<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" /></p>
+<p><img class="lazy" style="float:middle" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Geovis/TestGeoAssignCoordinates.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>GeoAssignCoordinates.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>

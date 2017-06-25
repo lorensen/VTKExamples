@@ -51,6 +51,55 @@
   })();
 </script>
 
+<script>
+registerListener('load', setLazy);
+registerListener('load', lazyLoad);
+registerListener('scroll', lazyLoad);
+
+var lazy = [];
+
+function setLazy(){
+    lazy = document.getElementsByClassName('lazy');
+    console.log('Found ' + lazy.length + ' lazy images');
+} 
+
+function lazyLoad(){
+    for(var i=0; i<lazy.length; i++){
+        if(isInViewport(lazy[i])){
+            if (lazy[i].getAttribute('data-src')){
+                lazy[i].src = lazy[i].getAttribute('data-src');
+                lazy[i].removeAttribute('data-src');
+            }
+        }
+    }
+    
+    cleanLazy();
+}
+
+function cleanLazy(){
+    lazy = Array.prototype.filter.call(lazy, function(l){ return l.getAttribute('data-src');});
+}
+
+function isInViewport(el){
+    var rect = el.getBoundingClientRect();
+    
+    return (
+        rect.bottom >= 0 && 
+        rect.right >= 0 && 
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) && 
+        rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+     );
+}
+
+function registerListener(event, func) {
+    if (window.addEventListener) {
+        window.addEventListener(event, func)
+    } else {
+        window.attachEvent('on' + event, func)
+    }
+}
+</script>
+
   </head>
   
   
@@ -15671,7 +15720,7 @@
                   <h1>SeedWidget</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/SeedWidget</p>
-<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestSeedWidget.png?raw=true" width="256" /></p>
+<p><img class="lazy" style="float:middle" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestSeedWidget.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example demonstrates how to use vtkSeedWidget, which generates (seeds) points to be placed in the scene in the locations where the user clicks.</p>
 <p>The points can then be used for operations like connectivity, segmentation, and region growing. For an example using a custom callback where such operations can be assembled, see <a href="../../../Cxx/Widgets/SeedWidgetWithCustomCallback">SeedWidgetWithCustomCallback</a>.</p>
