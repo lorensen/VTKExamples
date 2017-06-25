@@ -12,6 +12,7 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 
 #include <vtkContourFilter.h>
 
@@ -30,6 +31,9 @@ int main(int argc, char *argv[])
   {
     numberOfCuts = atoi(argv[2]);
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkXMLPolyDataReader> reader =
     vtkSmartPointer<vtkXMLPolyDataReader>::New();
@@ -84,7 +88,7 @@ int main(int argc, char *argv[])
   // Create cut actor
   vtkSmartPointer<vtkActor> cutterActor =
     vtkSmartPointer<vtkActor>::New();
-  cutterActor->GetProperty()->SetColor(1.0,1,0);
+  cutterActor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
   cutterActor->GetProperty()->SetLineWidth(2);
   cutterActor->SetMapper(cutterMapper);
 
@@ -96,7 +100,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkActor> modelActor =
     vtkSmartPointer<vtkActor>::New();
-  modelActor->GetProperty()->SetColor(0.5,1,0.5);
+  modelActor->GetProperty()->SetColor(colors->GetColor3d("Flesh").GetData());
   modelActor->SetMapper(modelMapper);
 
   // Create renderers and add actors of plane and model
@@ -114,9 +118,8 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
-  renderer->SetBackground(.2, .3, .4);
 
-
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
   renderer->GetActiveCamera()->SetPosition(0, -1, 0);
   renderer->GetActiveCamera()->SetFocalPoint(0, 0, 0);
   renderer->GetActiveCamera()->SetViewUp(0, 0, 1);
