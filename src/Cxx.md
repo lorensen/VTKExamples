@@ -592,7 +592,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [Check if a specific module is present](/Cxx/CMakeTechniques/CheckForModule) |  |
-[Check VTK Version in CMake](/Cxx/Utilities/CMakeVTKVersionCheck) | (http://www.vtk.org/doc/nightly/html/classVTKVersionCheck.html)) |  | 
+[Check VTK Version in CMake](/Cxx/Utilities/CMakeVTKVersionCheck) | |  | 
 
 
 ## Math Operations
@@ -773,30 +773,23 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[ BillboardTextActor3D](/Cxx/Visualization/BillboardTextActor3D) | [vtkBillboardTextActor3D](http://www.vtk.org/doc/nightly/html/classvtkBillboardTextActor3D.html) | Label points with billboards.
-[ BlobbyLogo](/Cxx/Visualization/BlobbyLogo) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) | Blobby logo from VTK textbook.
-[ CameraActor](/Cxx/Visualization/CameraActor) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Visualize a camera (frustum) in a scene.
-[ CameraModel1](/Cxx/Visualization/CameraModel1) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Illustrate camera movement.
-[ CameraModel2](/Cxx/Visualization/CameraModel2) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Illustrate camera movement.
-[ ComplexV](/Cxx/Visualization/ComplexV) | [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html) | ComplexV from the VTK Textbook.
-[ DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
-[ ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
-[ FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
-[ FlatShading](/Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
-[ Legend](/Cxx/Visualization/Legend) | [vtkLegendBoxActor](http://www.vtk.org/doc/nightly/html/classvtkLegendBoxActor.html) |
-[ NoShading](/Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
-[ PointSize](/Cxx/Visualization/PointSize) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [Arbitrary3DCursor](/Cxx/Visualization/Arbitrary3DCursor)| [vtkPointWidget](http://www.vtk.org/doc/nightly/html/classvtkPointWidget.html) |Track a 3D cursor.
 [AssignCellColorsFromLUT](/Cxx/Visualization/AssignCellColorsFromLUT)| [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html) [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) [vtkColorTransferFunction](http://www.vtk.org/doc/nightly/html/classvtkColorTransferFunction.html) | Demonstrates how to assign colors to cells in a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html) structure using lookup tables.
 [BackfaceCulling](/Cxx/Visualization/BackfaceCulling)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Backface culling.
 [BackgroundColor ](/Cxx/Visualization/BackgroundColor) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Background color.
 [BackgroundGradient ](/Cxx/Visualization/BackgroundGradient) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) | Background gradient.
+[BillboardTextActor3D](/Cxx/Visualization/BillboardTextActor3D) | [vtkBillboardTextActor3D](http://www.vtk.org/doc/nightly/html/classvtkBillboardTextActor3D.html) | Label points with billboards.
+[BlobbyLogo](/Cxx/Visualization/BlobbyLogo) | [vtkImplicitModeller](http://www.vtk.org/doc/nightly/html/classvtkImplicitModeller.html) | Blobby logo from VTK textbook.
+[CameraActor](/Cxx/Visualization/CameraActor) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Visualize a camera (frustum) in a scene.
+[CameraModel1](/Cxx/Visualization/CameraModel1) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Illustrate camera movement.
+[CameraModel2](/Cxx/Visualization/CameraModel2) | [vtkCameraActor](http://www.vtk.org/doc/nightly/html/classvtkCameraActor.html) | Illustrate camera movement.
 [Camera](/Cxx/Visualization/Camera)| [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html) |Positioning and aiming the camera.
 [CaptionActor2D](/Cxx/Visualization/CaptionActor2D)| [vtkCaptionActor2D](http://www.vtk.org/doc/nightly/html/classvtkCaptionActor2D.html) |Draw a caption/bubble pointing to a particular point.
 [CloseWindow](/Cxx/Visualization/CloseWindow)| [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html) [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) |Close a render window.
 [ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Color the edges of an Actor.
 [ColorAnActor ](/Cxx/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Color an Actor.
 [ColorGlyphs](/Cxx/Visualization/ColorGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) |Color glyphs.
+[ComplexV](/Cxx/Visualization/ComplexV) | [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html) | ComplexV from the VTK Textbook.
 [CornerAnnotation](/Cxx/Visualization/CornerAnnotation)| [vtkCornerAnnotation](http://www.vtk.org/doc/nightly/html/classvtkCornerAnnotation.html) | Write text in the corners of a window.
 [CorrectlyRenderTranslucentGeometry](/Cxx/Visualization/CorrectlyRenderTranslucentGeometry)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Correctly Rendering Translucent Geometry.
 [CubeAxesActor2D](/Cxx/Visualization/CubeAxesActor2D)| [vtkCubeAxesActor2D](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor2D.html) | This example uses the [vtkCubeAxesActor2D](http://www.vtk.org/doc/nightly/html/classvtkCubeAxesActor2D.html) to show your scene with axes to indicate the spatial extent of your data.
@@ -809,9 +802,13 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DepthSortPolyData](/Cxx/Visualization/DepthSortPolyData)| [vtkDepthSortPolyData](http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html) |Poly Data Depth Sorting.
 [DisplayCoordinateAxes](/Cxx/Visualization/DisplayCoordinateAxes)| [vtkOrientationMarkerWidget](http://www.vtk.org/doc/nightly/html/classvtkOrientationMarkerWidget.html) |Display coordinate axes.
 [DisplayQuadricSurfaces](/Cxx/Visualization/DisplayQuadricSurfaces)| [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) [vtkSampleFunction](http://www.vtk.org/doc/nightly/html/classvtkSampleFunction.html) [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html) |Display Quadric Surfaces.
+[DistanceToCamera](/Cxx/Visualization/DistanceToCamera) | [vtkDistanceToCamera](http://www.vtk.org/doc/nightly/html/classvtkDistanceToCamera.html) |
 [DrawText](/Cxx/Visualization/DrawText)| [vtkTextActor](http://www.vtk.org/doc/nightly/html/classvtkTextActor.html) [vtkTextProperty](http://www.vtk.org/doc/nightly/html/classvtkTextProperty.html) |Display Text.
 [ElevationBandsWithGlyphs](/Cxx/Visualization/ElevationBandsWithGlyphs)| [vtkBandedPolyDataContourFilter](http://www.vtk.org/doc/nightly/html/classvtkBandedPolyDataContourFilter.html) [vtkLookupTable](http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html) [vtkColorSeries](http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html) [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html) | Demonstrates the coloring of a surface by partitioning the elevation into bands and using arrows to display the normals on the surface.
+[ExtrudePolyDataAlongLine](/Cxx/Visualization/ExtrudePolyDataAlongLine) | [vtkRuledSurfaceFilter](http://www.vtk.org/doc/nightly/html/classvtkRuledSurfaceFilter.html) | Extrude a 2D polydata along a line in 3D space.
 [FastSplatter](/Cxx/Visualization/FastSplatter)| [vtkFastSplatter](http://www.vtk.org/doc/nightly/html/classvtkFastSplatter.html) |Convolve a splat image with every point in an input image.
+[FindCellIntersections](/Cxx/VisualizationAlgorithms/FindCellIntersections) | [vtkCellLocator](http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html) | Find the intersection of a line and the cells in an unstructured dataset
+[FlatShading](/Cxx/Visualization/FlatShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [Follower ](/Cxx/Visualization/Follower) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html) | Draw text that stays right side up.
 [Glyph2D ](/Cxx/Filtering/Glyph2D) | [vtkGlyph2D](http://www.vtk.org/doc/nightly/html/classvtkGlyph2D.html)|
 [Glyph3D ](/Cxx/Filtering/Glyph3D) | [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|
@@ -830,6 +827,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [LabeledDataMapper](/Cxx/Visualization/LabeledDataMapper)| [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) |Display the point ID at each point.
 [LabeledMesh ](/Cxx/Visualization/LabeledMesh) | [vtkLabeledDataMapper](http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html) | Label Mesh.
 [LegendScaleActor](/Cxx/Visualization/LegendScaleActor)| [vtkLegendScaleActor](http://www.vtk.org/doc/nightly/html/classvtkLegendScaleActor.html) |Display the scale of a scene.
+[Legend](/Cxx/Visualization/Legend) | [vtkLegendBoxActor](http://www.vtk.org/doc/nightly/html/classvtkLegendBoxActor.html) |
 [LineWidth](/Cxx/Visualization/LineWidth)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkProperty](http://www.vtk.org/doc/nightly/html/classvtkProperty.html) |Change the width/thickness of lines in an actor.
 [MovableAxes ](/Cxx/Visualization/MovableAxes) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html) [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor.html) [vtkAssembly](http://www.vtk.org/doc/nightly/html/classvtkAssembly.html) | Movable axes.
 [MoveActor](/Cxx/Visualization/MoveActor)| [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html) |Moving an Actor.
@@ -837,10 +835,12 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MultipleActors](/Cxx/Visualization/MultipleActors)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |Multiple Actors.
 [NamedColorPatches ](/Cxx/Visualization/NamedColorPatches) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) showing the available colors in the vtkNamedColors class.
 [NamedColors ](/Cxx/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the [vtkNamedColor](http://www.vtk.org/doc/nightly/html/classvtkNamedColor.html) class.
+[NoShading](/Cxx/Visualization/NoShading) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| [vtkPolyDataNormals](http://www.vtk.org/doc/nightly/html/classvtkPolyDataNormals.html) | Demo different ooption to generate normals.
 [Opacity](/Cxx/Visualization/Opacity)| [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|Create oriented glyphs from vector data.
 [PointDataSubdivision](/Cxx/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
+[PointSize](/Cxx/Visualization/PointSize) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html) |
 [ProgrammableGlyphFilter](/Cxx/Visualization/ProgrammableGlyphFilter)| [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) |Generate a custom glyph at each point.
 [QuadraticSurface](/Cxx/Visualization/QuadraticSurface)| [vtkQuadric](http://www.vtk.org/doc/nightly/html/classvtkQuadric.html) |Display a quadratic surface.
 [QuadricLODActor](/Cxx/Visualization/QuadricLODActor)| [vtkQuadricLODActor](http://www.vtk.org/doc/nightly/html/classvtkQuadricLODActor.html) | Level of detail adjustment.
@@ -1023,7 +1023,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[ PolygonalSurfacePointPlacer](/Cxx/PolyData/PolygonalSurfacePointPlacer)| [vtkPolygonalSurfacePointPlacer](http://www.vtk.org/doc/nightly/html/classvtkPolygonalSurfacePointPlacer.html) | Used in conjuntion with [vtkContourWidget](http://www.vtk.org/doc/nightly/html/classvtkContourWidget.html) to draw curves on a surface.
+[PolygonalSurfacePointPlacer](/Cxx/PolyData/PolygonalSurfacePointPlacer)| [vtkPolygonalSurfacePointPlacer](http://www.vtk.org/doc/nightly/html/classvtkPolygonalSurfacePointPlacer.html) | Used in conjuntion with [vtkContourWidget](http://www.vtk.org/doc/nightly/html/classvtkContourWidget.html) to draw curves on a surface.
 [AffineWidget](/Cxx/Widgets/AffineWidget)| [vtkAffineWidget](http://www.vtk.org/doc/nightly/html/classvtkAffineWidget.html) | Apply an affine transformation interactively.
 [AngleWidget2D](/Cxx/Widgets/AngleWidget2D)| [vtkAngleWidget](http://www.vtk.org/doc/nightly/html/classvtkAngleWidget.html) [vtkAngleRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkAngleRepresentation2D.html) |[vtkAngleWidget](http://www.vtk.org/doc/nightly/html/classvtkAngleWidget.html) + [vtkAngleRepresentation2D](http://www.vtk.org/doc/nightly/html/classvtkAngleRepresentation2D.html).
 [AngleWidget](/Cxx/Widgets/AngleWidget)| [vtkAngleWidget](http://www.vtk.org/doc/nightly/html/classvtkAngleWidget.html) |
@@ -1108,8 +1108,8 @@ Click [here](http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup) for a tutorial on ho
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [BorderWidgetQt](/Cxx/Qt/BorderWidgetQt) | [vtkBorderWidget](http://www.vtk.org/doc/nightly/html/classvtkBorderWidget.html) QApplication |
-[ QtBarChart](/Cxx/Qt/QtBarChart) | [vtkQtBarChart](http://www.vtk.org/doc/nightly/html/classvtkQtBarChart.html) |
-[ ShowEvent ](/Cxx/Qt/ShowEvent) |  | Use QMainWindow::showEvent event to do things that you might want to do in the constructor 
+[QtBarChart](/Cxx/Qt/QtBarChart) | [vtkQtBarChart](http://www.vtk.org/doc/nightly/html/classvtkQtBarChart.html) |
+[ShowEvent ](/Cxx/Qt/ShowEvent) |  | Use QMainWindow::showEvent event to do things that you might want to do in the constructor 
 [EventQtSlotConnect](/Cxx/Qt/EventQtSlotConnect) | [vtkEventQtSlotConnect](http://www.vtk.org/doc/nightly/html/classvtkEventQtSlotConnect.html)|  Connect a VTK event to a Qt slot.
 [ImageDataToQImage](/Cxx/Qt/ImageDataToQImage) | |  Convert a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html) to a QImage.
 [QImageToImageSource](/Cxx/Qt/QImageToImageSource) | [vtkQImageToImageSource](http://www.vtk.org/doc/nightly/html/classvtkQImageToImageSource.html) |  Convert a QImage to a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html).
