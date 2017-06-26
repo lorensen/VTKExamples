@@ -15720,7 +15720,7 @@ function registerListener(event, func) {
                   <h1>FillHoles</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/FillHoles</p>
-<p><img class="lazy" style="float:middle" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Meshes/TestFillHoles.png?raw=true" width="256" /></p>
+<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Meshes/TestFillHoles.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This filter finds holes in a mesh and closes them. </p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
@@ -15751,6 +15751,8 @@ function registerListener(event, func) {
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkFillHolesFilter.h&gt;</span><span class="cp"></span>
 
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
 <span class="k">static</span> <span class="kt">void</span> <span class="nf">GenerateData</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span><span class="p">);</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
@@ -15772,6 +15774,9 @@ function registerListener(event, func) {
 
     <span class="n">input</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
   <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFillHolesFilter</span><span class="o">&gt;</span> <span class="n">fillHolesFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkFillHolesFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -15811,13 +15816,14 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backfaceProp</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">backfaceProp</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.89</span><span class="p">,</span><span class="mf">0.81</span><span class="p">,</span><span class="mf">0.34</span><span class="p">);</span>
+  <span class="n">backfaceProp</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalMapper</span><span class="p">);</span>
   <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backfaceProp</span><span class="p">);</span>
-  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span>
+    <span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Flesh&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">filledMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -15826,7 +15832,8 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">filledActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">filledActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">filledMapper</span><span class="p">);</span>
-  <span class="n">filledActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">filledActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span>
+    <span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Flesh&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Create a renderer, render window, and interactor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">leftRenderer</span> <span class="o">=</span>
@@ -15851,7 +15858,7 @@ function registerListener(event, func) {
   <span class="c1">// Add the actor to the scene</span>
   <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
   <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">filledActor</span><span class="p">);</span>
-  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color green</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;PaleGreen&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -15861,7 +15868,7 @@ function registerListener(event, func) {
 
   <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.1</span><span class="p">);</span> <span class="c1">// Background color green</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;LightGreen&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Share the camera</span>
 
