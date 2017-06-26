@@ -214,7 +214,7 @@ for lang, langExt in Languages.items():
                 print "BaselinePath: " + BaselinePath
                 ImgUrl =  RepoURL + "/blob/master/src/Testing/Baseline/" + lang + "/" + KitName + "/Test" + ExampleName + ".png?raw=true"
                 print "ImgUrl: " + ImgUrl
-                MdFile.write('<img class="lazy" style="float:middle" data-src="' + ImgUrl + '" width="256" />' + '\n')
+                MdFile.write('<img style="float:middle" src="' + ImgUrl + '" width="256" />' + '\n')
                 MdFile.write("\n")
             DescriptionPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             if os.path.isfile(DescriptionPath) :
