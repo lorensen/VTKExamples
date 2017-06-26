@@ -24,6 +24,8 @@
 
 #include <vtkFillHolesFilter.h>
 
+#include <vtkNamedColors.h>
+
 static void GenerateData(vtkPolyData*);
 
 int main(int argc, char *argv[])
@@ -45,6 +47,9 @@ int main(int argc, char *argv[])
 
     input->ShallowCopy(reader->GetOutput());
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkFillHolesFilter> fillHolesFilter =
     vtkSmartPointer<vtkFillHolesFilter>::New();
@@ -84,13 +89,14 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkProperty> backfaceProp =
     vtkSmartPointer<vtkProperty>::New();
-  backfaceProp->SetDiffuseColor(0.89,0.81,0.34);
+  backfaceProp->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
 
   vtkSmartPointer<vtkActor> originalActor =
     vtkSmartPointer<vtkActor>::New();
   originalActor->SetMapper(originalMapper);
   originalActor->SetBackfaceProperty(backfaceProp);
-  originalActor->GetProperty()->SetDiffuseColor(1.0, 0.3882, 0.2784);
+  originalActor->GetProperty()->SetDiffuseColor(
+    colors->GetColor3d("Flesh").GetData());
 
   vtkSmartPointer<vtkPolyDataMapper> filledMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -99,7 +105,8 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> filledActor =
     vtkSmartPointer<vtkActor>::New();
   filledActor->SetMapper(filledMapper);
-  filledActor->GetProperty()->SetDiffuseColor(1.0, 0.3882, 0.2784);
+  filledActor->GetProperty()->SetDiffuseColor(
+    colors->GetColor3d("Flesh").GetData());
 
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> leftRenderer =
@@ -124,7 +131,7 @@ int main(int argc, char *argv[])
   // Add the actor to the scene
   leftRenderer->AddActor(originalActor);
   rightRenderer->AddActor(filledActor);
-  leftRenderer->SetBackground(.3, .6, .3); // Background color green
+  leftRenderer->SetBackground(colors->GetColor3d("PaleGreen").GetData());
 
   leftRenderer->GetActiveCamera()->SetPosition(0, -1, 0);
   leftRenderer->GetActiveCamera()->SetFocalPoint(0, 0, 0);
@@ -134,7 +141,7 @@ int main(int argc, char *argv[])
 
   leftRenderer->ResetCamera();
 
-  rightRenderer->SetBackground(.5, .6, .1); // Background color green
+  rightRenderer->SetBackground(colors->GetColor3d("LightGreen").GetData());
 
   // Share the camera
 
