@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -18,6 +17,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkXMLPolyDataReader.h>
+#include <vtkNamedColors.h>
 
 class vtkBorderCallback : public vtkCommand
 {
@@ -84,11 +84,7 @@ int main(int argc, char* argv[])
 
   vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageActor->SetInput(image);
-#else
   imageActor->GetMapper()->SetInputData(image);
-#endif
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -103,15 +99,18 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkBorderWidget> borderWidget =
     vtkSmartPointer<vtkBorderWidget>::New();
   borderWidget->SetInteractor(interactor);
-  static_cast<vtkBorderRepresentation*>(borderWidget->GetRepresentation())->GetBorderProperty()->SetColor(0,1,0);
+  static_cast<vtkBorderRepresentation*>(borderWidget->GetRepresentation())
+    ->GetBorderProperty()->SetColor(0,1,0);
   borderWidget->SelectableOff();
 
   interactor->SetRenderWindow(renderWindow);
 
   // Setup both renderers
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(1,0,0);
+  renderer->SetBackground(colors->GetColor3d("Wheat").GetData());
   renderWindow->AddRenderer(renderer);
 
   renderer->AddActor(imageActor);

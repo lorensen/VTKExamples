@@ -1,11 +1,13 @@
+#include <vtkImageCheckerboard.h>
+#include <vtkSmartPointer.h>
+
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkJPEGReader.h>
-#include <vtkSmartPointer.h>
 #include <vtkImageData.h>
 #include <vtkImageViewer2.h>
-#include <vtkImageCheckerboard.h>
+#include <vtkNamedColors.h>
 
 int main ( int argc, char* argv[] )
 {
@@ -40,12 +42,15 @@ int main ( int argc, char* argv[] )
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkImageViewer2> imageViewer =
     vtkSmartPointer<vtkImageViewer2>::New();
   imageViewer->SetInputConnection(checkerboardFilter->GetOutputPort());
   imageViewer->SetupInteractor(renderWindowInteractor);
   imageViewer->GetRenderer()->ResetCamera();
-  imageViewer->GetRenderer()->SetBackground(1,0,0);
+  imageViewer->GetRenderer()->SetBackground(
+    colors->GetColor3d("Wheat").GetData());
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
 
