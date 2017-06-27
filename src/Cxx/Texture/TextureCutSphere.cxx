@@ -31,7 +31,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkPolyDataMapper> innerMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   innerMapper->SetInputConnection(sphere1->GetOutputPort());
-      
+
   vtkSmartPointer<vtkActor> innerSphere =
     vtkSmartPointer<vtkActor>::New();
   innerSphere->SetMapper(innerMapper);
@@ -98,7 +98,7 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderer>::New();
   iren->SetRenderWindow(renWin);
   renWin->AddRenderer(aren);
-  
+
   aren->AddActor(innerSphere);
   aren->AddActor(outerSphere);
   aren->SetBackground (0.4392,0.5020,0.5647);
@@ -113,4 +113,7 @@ int main (int argc, char *argv[])
 
   iren->Initialize();
   iren->Start();
+
+  return EXIT_SUCCESS;
+
 }
