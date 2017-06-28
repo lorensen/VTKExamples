@@ -174,6 +174,7 @@ This section includes examples of manipulating meshes.
 [MultipleViewports](/Python/MultipleViewports) | vtkRenderer::SetViewport |
 [NamedColorPatches](/Python/Visualization/NamedColorPatches) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) showing the available colors in the vtkNamedColors class.
 [NamedColors](/Python/Visualization/NamedColors) | [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) | Demonstrates how to use the vtkNamedColor class
+[OrientedGlyphs](/Python/Visualization/OrientedGlyphs)| [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html)|Create oriented glyphs from vector data.
 [PointDataSubdivision](/Python/Visualization/PointDataSubdivision) | [vtkLinearSubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html) [vtkButterflySubdivisionFilter](http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html) | Demonstrates the effect of applying these filters on various sources.
 [PointSize](/Python/Visualization/PointSize) | vtkProperty()::SetPointSize |
 [ProgrammableGlyphs](/Python/Visualization/ProgrammableGlyphs) | [vtkProgrammableGlyphFilter](http://www.vtk.org/doc/nightly/html/classvtkProgrammableGlyphFilter.html) | Vary the shapes of glyphed points using a programmable glyph filter
