@@ -893,6 +893,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ClientData](/Cxx/Interaction/ClientData)| [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) | Give an observer access to an object (via ClientData).
 [DoubleClick](/Cxx/Interaction/DoubleClick)| [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) |Catch a double click.
 [Game](/Cxx/Interaction/Game)| [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html) | Move a cube into a sphere.
+[EllipticalButton](/Cxx/Interaction/EllipticalButton)| [vtkEllipticalButtonSource](http://www.vtk.org/doc/nightly/html/classvtkEllipticalButtonSource.html) [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html) | Crteate an elliptical button.
 [HighlightPickedActor](/Cxx/Picking/HighlightPickedActor)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Highlight a picked actor.
 [HighlightSelectedPoints](/Cxx/Picking/HighlightSelectedPoints)| [vtkExtractGeometry](http://www.vtk.org/doc/nightly/html/classvtkExtractGeometry.html) |Highlight Selected Points.
 [HighlightSelection](/Cxx/Picking/HighlightSelection)| [vtkExtractPolyDataGeometry](http://www.vtk.org/doc/nightly/html/classvtkExtractPolyDataGeometry.html) |Highlight selection.

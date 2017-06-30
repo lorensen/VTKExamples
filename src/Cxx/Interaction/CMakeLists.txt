@@ -27,10 +27,14 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Interaction)
 SET(NEEDS_ARGS
+  EllipticalButton
   ImageClip
   ImageRegion
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+ADD_TEST(${KIT}-EllipticalButton ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestEllipticalButton ${DATA}/Yinyang.png)
 
 ADD_TEST(${KIT}-ImageClip ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageClip ${DATA}/Gourds2.jpg)
