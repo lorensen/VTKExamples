@@ -6430,6 +6430,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -15692,6 +15699,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -15731,6 +15745,16 @@ function registerListener(event, func) {
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Interaction/EllipticalButton</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Interaction/TestEllipticalButton.png?raw=true" width="256" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>This example creates a 3D button using vtkEllipsoidalButton. Interaction is done by assigning the button to a vtkProp3DButtonRepresentation. Then a callback for a vtkButtonWidget controls the color of the button and the displayed geometry. Click on the button to see the color of both the button and geometry change.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is a bug in vtkEllipticalButtonSource. If CircumferentialResolution is odd, improper geometry is created.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Values close to 1.0 for RadialRatio can cause shading artifacts at the corners of the button.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>EllipticalButton.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkEllipticalButtonSource.h&gt;</span><span class="cp"></span>
@@ -15758,6 +15782,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="c1">// Callback for the interaction</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
 <span class="k">class</span> <span class="nc">vtkButtonCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -15777,11 +15803,17 @@ function registerListener(event, func) {
   <span class="n">vtkButtonCallback</span><span class="p">()</span><span class="o">:</span><span class="n">Actor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
   <span class="n">vtkActor</span> <span class="o">*</span><span class="n">Actor</span><span class="p">;</span>
 <span class="p">};</span>
+<span class="p">}</span>
 
 <span class="k">static</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">CreateButtonActor</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">textureFile</span><span class="p">);</span>
 
 <span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; imageFilename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+  <span class="p">}</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">color</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -15855,7 +15887,8 @@ function registerListener(event, func) {
 <span class="p">{</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">vtkImageReader2</span> <span class="o">*</span> <span class="n">imageReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">textureFile</span><span class="p">);</span>
+  <span class="n">vtkImageReader2</span> <span class="o">*</span> <span class="n">imageReader</span> <span class="o">=</span>
+    <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">textureFile</span><span class="p">);</span>
   <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">textureFile</span><span class="p">);</span>
   <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
