@@ -23,6 +23,8 @@
 #include <vtkNamedColors.h>
 
 // Callback for the interaction
+namespace
+{
 class vtkButtonCallback : public vtkCommand
 {
 public:
@@ -42,11 +44,17 @@ public:
   vtkButtonCallback():Actor(0) {}
   vtkActor *Actor;
 };
+}
 
 static vtkSmartPointer<vtkActor> CreateButtonActor(const char *textureFile);
 
 int main (int argc, char *argv[])
 {
+  if (argc < 2)
+  {
+    std::cout << "Usage: " << argv[0] << " imageFilename" << std::endl;
+    return EXIT_FAILURE;
+  }
 
   vtkSmartPointer<vtkNamedColors> color =
     vtkSmartPointer<vtkNamedColors>::New();
@@ -120,7 +128,8 @@ vtkSmartPointer<vtkActor> CreateButtonActor(const char *textureFile)
 {
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 * imageReader = readerFactory->CreateImageReader2(textureFile);
+  vtkImageReader2 * imageReader =
+    readerFactory->CreateImageReader2(textureFile);
   imageReader->SetFileName(textureFile);
   imageReader->Update();
 
