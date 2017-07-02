@@ -37,6 +37,7 @@ SET(KIT Meshes)
 SET(NEEDS_ARGS
   ClipDataSetWithPolyData
   FillHoles
+  IdentifyHoles
   MatrixMathFilter
   OBBDicer
   SplitPolyData
@@ -49,6 +50,9 @@ ADD_TEST(${KIT}-ClipDataSetWithPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}
 
 ADD_TEST(${KIT}-FillHoles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFillHoles ${DATA}/Torso.vtp)
+
+ADD_TEST(${KIT}-IdentifyHoles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestIdentifyHoles ${DATA}/Torso.vtp)
 
 ADD_TEST(${KIT}-OBBDicer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestOBBDicer ${DATA}/Bunny.vtp)

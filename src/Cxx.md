@@ -383,6 +383,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [FillHoles](/Cxx/Meshes/FillHoles) | [vtkFillHolesFilter](http://www.vtk.org/doc/nightly/html/classvtkFillHolesFilter.html) | Close holes in a mesh.
 [GreedyTerrainDecimation](/Cxx/PolyData/GreedyTerrainDecimation)  | [vtkGreedyTerrainDecimation](http://www.vtk.org/doc/nightly/html/classvtkGreedyTerrainDecimation.html) | Create a mesh from an ImageData 
 [HighlightBadCells](/Cxx/PolyData/HighlightBadCells) | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) |
+[IdentifyHoles](/Cxx/Meshes/IdentifyHoles) | [vtkFillHolesFilter](http://www.vtk.org/doc/nightly/html/classvtkFillHolesFilter.html) | Close holes in a mesh and identify the holes.
 [LargestRegion](/Cxx/PolyData/PolyDataConnectivityFilter_LargestRegion)  | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) |  Extract the largest connected region in a polydata.
 [MatrixMathFilter](/Cxx/Meshes/MatrixMathFilter) | [vtkMatrixMathFilter](http://www.vtk.org/doc/nightly/html/classvtkMatrixMathFilter.html) | Compute various quantities on cell and points in a mesh.
 [MeshQuality](/Cxx/PolyData/MeshQuality) | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) |
@@ -893,7 +894,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ClientData](/Cxx/Interaction/ClientData)| [vtkCommand](http://www.vtk.org/doc/nightly/html/classvtkCommand.html) | Give an observer access to an object (via ClientData).
 [DoubleClick](/Cxx/Interaction/DoubleClick)| [vtkInteractorStyleTrackballCamera](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballCamera.html) |Catch a double click.
 [Game](/Cxx/Interaction/Game)| [vtkInteractorStyleTrackballActor](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleTrackballActor.html) | Move a cube into a sphere.
-[EllipticalButton](/Cxx/Interaction/EllipticalButton)| [vtkEllipticalButtonSource](http://www.vtk.org/doc/nightly/html/classvtkEllipticalButtonSource.html) [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html) | Crteate an elliptical button.
+[EllipticalButton](/Cxx/Interaction/EllipticalButton)| [vtkEllipticalButtonSource](http://www.vtk.org/doc/nightly/html/classvtkEllipticalButtonSource.html) [vtkButtonWidget](http://www.vtk.org/doc/nightly/html/classvtkButtonWidget.html) |Create an elliptical button.
 [HighlightPickedActor](/Cxx/Picking/HighlightPickedActor)| [vtkPropPicker](http://www.vtk.org/doc/nightly/html/classvtkPropPicker.html) |Highlight a picked actor.
 [HighlightSelectedPoints](/Cxx/Picking/HighlightSelectedPoints)| [vtkExtractGeometry](http://www.vtk.org/doc/nightly/html/classvtkExtractGeometry.html) |Highlight Selected Points.
 [HighlightSelection](/Cxx/Picking/HighlightSelection)| [vtkExtractPolyDataGeometry](http://www.vtk.org/doc/nightly/html/classvtkExtractPolyDataGeometry.html) |Highlight selection.
