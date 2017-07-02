@@ -15766,6 +15766,10 @@ function registerListener(event, func) {
 <li>Create a new polydata that contains the filled holes. To do this we rely on the fact that the fill holes filter stores the original cells first and then adds the new cells that fill the holes.  Using <a href="http://www.vtk.org/doc/nightly/html/classvtkCellIterator.html">vtkCellIterator</a>, we skip the original cells and then continue iterating to obtain the new cells.</li>
 <li>Use <a href="http://www.vtk.org/doc/nightly/html/classvtkConnectivityFilter.html">vtkConnectivityFilter</a> on the filled polydata to identify the individual holes.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have to use <a href="http://www.vtk.org/doc/nightly/html/classvtkConnectivityFilter.html">vtkConnectivtyFilter</a> and not <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html">vtkPolyDataConnectivityFilter</a> since the later does not create RegionIds cell data.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IdentifyHoles.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
