@@ -206,6 +206,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ImplicitSphere](/Cxx/ImplicitFunctions/ImplicitSphere) | [vtkSphere](http://www.vtk.org/doc/nightly/html/classvtkSphere.html) | An implicit representation of a sphere.
 [IsoContours](/Cxx/ImplicitFunctions/IsoContours) | [vtkContourFunction](http://www.vtk.org/doc/nightly/html/classvtkContourFunction.html) | Visualize different isocontours using a slider.
 [MarchingCubes](/Cxx/Modelling/MarchingCubes) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) | Create a voxelized sphere.
+[MarchingCases](/Cxx/VisualizationAlgorithms/MarchingCases) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) | Explore the Marching Cubes cases.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | [vtkMarchingSquares](http://www.vtk.org/doc/nightly/html/classvtkMarchingSquares.html) | Create a contour from a structured point set (image).
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | [vtkSampleFunction](http://www.vtk.org/doc/nightly/html/classvtkSampleFunction.html) |Sample and visualize an implicit function.
 
