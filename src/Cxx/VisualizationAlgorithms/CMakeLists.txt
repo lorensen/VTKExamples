@@ -31,6 +31,7 @@ SET(NEEDS_ARGS
   CutWithScalars
   FilledContours
   FindCellIntersections
+  MarchingCases
 )
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
@@ -46,6 +47,9 @@ ADD_TEST(${KIT}-FilledContours ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-FindCellIntersections ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestFindCellIntersections ${DATA}/Disc_BiQuadraticQuads_0_0.vtu)
+
+ADD_TEST(${KIT}-MarchingCases ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestMarchingCases 7)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
