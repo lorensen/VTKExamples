@@ -385,6 +385,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [GreedyTerrainDecimation](/Cxx/PolyData/GreedyTerrainDecimation)  | [vtkGreedyTerrainDecimation](http://www.vtk.org/doc/nightly/html/classvtkGreedyTerrainDecimation.html) | Create a mesh from an ImageData 
 [HighlightBadCells](/Cxx/PolyData/HighlightBadCells) | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) |
 [IdentifyHoles](/Cxx/Meshes/IdentifyHoles) | [vtkFillHolesFilter](http://www.vtk.org/doc/nightly/html/classvtkFillHolesFilter.html) | Close holes in a mesh and identify the holes.
+[ImplicitSelectionLoop](/Cxx/PolyData/ImplicitSelectionLoop) | [vtkImplicitSelectionLoop](http://www.vtk.org/doc/nightly/html/classvtkImplicitSelectionLoop.html) |Select a region of a mesh with an implicit function.
 [LargestRegion](/Cxx/PolyData/PolyDataConnectivityFilter_LargestRegion)  | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) |  Extract the largest connected region in a polydata.
 [MatrixMathFilter](/Cxx/Meshes/MatrixMathFilter) | [vtkMatrixMathFilter](http://www.vtk.org/doc/nightly/html/classvtkMatrixMathFilter.html) | Compute various quantities on cell and points in a mesh.
 [MeshQuality](/Cxx/PolyData/MeshQuality) | [vtkMeshQuality](http://www.vtk.org/doc/nightly/html/classvtkMeshQuality.html) |

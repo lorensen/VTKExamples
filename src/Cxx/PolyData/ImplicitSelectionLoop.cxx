@@ -1,6 +1,6 @@
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
-#include <vtkSelectPolyData.h>
+#include <vtkImplicitSelectionLoop.h>
 #include <vtkSphereSource.h>
 #include <vtkClipPolyData.h>
 #include <vtkProperty.h>
@@ -20,7 +20,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkSphereSource> sphereSource = 
     vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource->SetPhiResolution(50);
+  sphereSource->SetPhiResolution(100);
   sphereSource->SetThetaResolution(100);
   sphereSource->Update();
       
@@ -56,16 +56,15 @@ int main(int, char *[])
   selectionPoints ->InsertPoint( 26, -0.0392091, 0.000251724, 0.499943); 
   selectionPoints ->InsertPoint( 27, -0.096161, 0.159646, 0.46438 );
   
-  vtkSmartPointer<vtkSelectPolyData> loop =
-    vtkSmartPointer<vtkSelectPolyData>::New();
-  loop->SetInputConnection(sphereSource->GetOutputPort());
+  vtkSmartPointer<vtkImplicitSelectionLoop> loop =
+    vtkSmartPointer<vtkImplicitSelectionLoop>::New();
   loop->SetLoop(selectionPoints);
-  loop->GenerateSelectionScalarsOn();
-  loop->SetSelectionModeToSmallestRegion(); //negative scalars inside
   
   vtkSmartPointer<vtkClipPolyData> clip = //clips out positive region
     vtkSmartPointer<vtkClipPolyData>::New();
-  clip->SetInputConnection(loop->GetOutputPort());
+  clip->SetInputConnection(sphereSource->GetOutputPort());
+  clip->SetClipFunction(loop);
+  clip->SetValue(0.0);
 
   vtkSmartPointer<vtkPolyDataMapper> clipMapper = 
     vtkSmartPointer<vtkPolyDataMapper>::New();
