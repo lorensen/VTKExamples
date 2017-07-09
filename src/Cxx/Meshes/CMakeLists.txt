@@ -36,14 +36,26 @@ if (BUILD_TESTING)
 SET(KIT Meshes)
 SET(NEEDS_ARGS
   ClipDataSetWithPolyData
+  Decimation
   FillHoles
   IdentifyHoles
   MatrixMathFilter
   OBBDicer
+  QuadricClustering
+  QuadricDecimation
   SplitPolyData
   TableBasedClipDataSetWithPolyData
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
+
+ADD_TEST(${KIT}-Decimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDecimation ${DATA}/Torso.vtp)
+
+ADD_TEST(${KIT}-QuadricDecimation ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestQuadricDecimation ${DATA}/Torso.vtp)
+
+ADD_TEST(${KIT}-QuadricClustering ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestQuadricClustering ${DATA}/Torso.vtp)
 
 ADD_TEST(${KIT}-ClipDataSetWithPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestClipDataSetWithPolyData -E 25)

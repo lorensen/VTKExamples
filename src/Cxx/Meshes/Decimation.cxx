@@ -1,6 +1,7 @@
-#include <vtkVersion.h>
+#include <vtkXMLPolyDataReader.h>
 #include <vtkPolyData.h>
 #include <vtkSphereSource.h>
+#include <vtkTriangleFilter.h>
 #include <vtkDecimatePro.h>
 #include <vtkSmartPointer.h>
 #include <vtkPolyDataMapper.h>
@@ -8,30 +9,50 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkCamera.h>
 
-int main(int, char *[])
+#include <vtkNamedColors.h>
+
+int main(int argc, char *argv[])
 {
-  vtkSmartPointer<vtkSphereSource> sphereSource =
-    vtkSmartPointer<vtkSphereSource>::New();
-  sphereSource->Update();
-
-  vtkSmartPointer<vtkPolyData> input =
-    vtkSmartPointer<vtkPolyData>::New();
-  input->ShallowCopy(sphereSource->GetOutput());
+  vtkSmartPointer<vtkPolyData> inputPolyData;
+  if(argc > 1)
+  {
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName(argv[1]);
+    vtkSmartPointer<vtkTriangleFilter> triangles =
+      vtkSmartPointer<vtkTriangleFilter>::New();
+    triangles->SetInputConnection(reader->GetOutputPort());
+    triangles->Update();
+    inputPolyData = triangles->GetOutput();
+  }
+  else
+  {
+    vtkSmartPointer<vtkSphereSource> sphereSource =
+      vtkSmartPointer<vtkSphereSource>::New();
+    sphereSource->SetThetaResolution(30);
+    sphereSource->SetPhiResolution(15);
+    sphereSource->Update();
+    inputPolyData = sphereSource->GetOutput();
+  }
   
+  float reduction = .9; // 90% reduction
+  if (argc > 2)
+  {
+    reduction = atof(argv[2]);
+  }
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   std::cout << "Before decimation" << std::endl << "------------" << std::endl;
-  std::cout << "There are " << input->GetNumberOfPoints() << " points." << std::endl;
-  std::cout << "There are " << input->GetNumberOfPolys() << " polygons." << std::endl;
+  std::cout << "There are " << inputPolyData->GetNumberOfPoints() << " points." << std::endl;
+  std::cout << "There are " << inputPolyData->GetNumberOfPolys() << " polygons." << std::endl;
 
   vtkSmartPointer<vtkDecimatePro> decimate =
     vtkSmartPointer<vtkDecimatePro>::New();
-#if VTK_MAJOR_VERSION <= 5
-  decimate->SetInputConnection(input->GetProducerPort());
-#else
-  decimate->SetInputData(input);
-#endif
-  //decimate->SetTargetReduction(.99); //99% reduction (if there was 100 triangles, now there will be 1)
-  decimate->SetTargetReduction(.10); //10% reduction (if there was 100 triangles, now there will be 90)
+  decimate->SetInputData(inputPolyData);
+  decimate->SetTargetReduction(reduction);
+  decimate->PreserveTopologyOn();
   decimate->Update();
 
   vtkSmartPointer<vtkPolyData> decimated =
@@ -42,28 +63,35 @@ int main(int, char *[])
 
   std::cout << "There are " << decimated->GetNumberOfPoints() << " points." << std::endl;
   std::cout << "There are " << decimated->GetNumberOfPolys() << " polygons." << std::endl;
+  std::cout << "Reduction: " <<
+    static_cast<double>((inputPolyData->GetNumberOfPolys() - decimated->GetNumberOfPolys())) /
+    static_cast<double>(inputPolyData->GetNumberOfPolys()) << std::endl;
 
   vtkSmartPointer<vtkPolyDataMapper> inputMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  inputMapper->SetInputConnection(input->GetProducerPort());
-#else
-  inputMapper->SetInputData(input);
-#endif
+  inputMapper->SetInputData(inputPolyData);
+
+  vtkSmartPointer<vtkProperty> backFace =
+    vtkSmartPointer<vtkProperty>::New();
+  backFace->SetColor(colors->GetColor3d("gold").GetData());
+
   vtkSmartPointer<vtkActor> inputActor =
     vtkSmartPointer<vtkActor>::New();
   inputActor->SetMapper(inputMapper);
+  inputActor->GetProperty()->SetInterpolationToFlat();
+  inputActor->GetProperty()->SetColor(colors->GetColor3d("flesh").GetData());
+  inputActor->SetBackfaceProperty(backFace);
 
   vtkSmartPointer<vtkPolyDataMapper> decimatedMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  decimatedMapper->SetInputConnection(decimated->GetProducerPort());
-#else
   decimatedMapper->SetInputData(decimated);
-#endif
+
   vtkSmartPointer<vtkActor> decimatedActor =
     vtkSmartPointer<vtkActor>::New();
   decimatedActor->SetMapper(decimatedMapper);
+  decimatedActor->GetProperty()->SetColor(colors->GetColor3d("flesh").GetData());
+  decimatedActor->GetProperty()->SetInterpolationToFlat();
+  decimatedActor->SetBackfaceProperty(backFace);
 
   // There will be one render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
@@ -97,9 +125,21 @@ int main(int, char *[])
   leftRenderer->AddActor(inputActor);
   rightRenderer->AddActor(decimatedActor);
 
-  leftRenderer->ResetCamera();
+  // Shared camera
+  // Shared camera looking down the -y axis
+  vtkSmartPointer<vtkCamera> camera =
+    vtkSmartPointer<vtkCamera>::New();
+  camera->SetPosition (0, -1, 0);
+  camera->SetFocalPoint (0, 0, 0);
+  camera->SetViewUp (0, 0, 1);
+  camera->Elevation(30);
+  camera->Azimuth(30);
 
-  rightRenderer->ResetCamera();
+  leftRenderer->SetActiveCamera(camera);
+  rightRenderer->SetActiveCamera(camera);
+
+  leftRenderer->ResetCamera();
+  leftRenderer->ResetCameraClippingRange();
 
   renderWindow->Render();
   interactor->Start();
