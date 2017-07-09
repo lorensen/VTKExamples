@@ -2,7 +2,7 @@
 #include <vtkBooleanOperationPolyDataFilter.h>
 
 #include <vtkActor.h>
-#include <vtkPolyDataReader.h>
+#include <vtkSTLReader.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
@@ -20,14 +20,14 @@ int main(int argc, char *argv[])
 
   if (argc == 4)
   {
-    vtkSmartPointer<vtkPolyDataReader> reader1 =
-      vtkSmartPointer<vtkPolyDataReader>::New();
+    vtkSmartPointer<vtkSTLReader> reader1 =
+      vtkSmartPointer<vtkSTLReader>::New();
     reader1->SetFileName(argv[1]);
     reader1->Update();
     input1 = reader1->GetOutput();
 
-    vtkSmartPointer<vtkPolyDataReader> reader2 =
-      vtkSmartPointer<vtkPolyDataReader>::New();
+    vtkSmartPointer<vtkSTLReader> reader2 =
+      vtkSmartPointer<vtkSTLReader>::New();
     reader2->SetFileName(argv[3]);
     reader2->Update();
     input2 = reader2->GetOutput();
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
   input2Actor->SetMapper( input2Mapper );
   input2Actor->GetProperty()->SetColor(0,1,0);
   input2Actor->SetPosition(
-    -(input2->GetBounds()[1]-input2->GetBounds()[0]),
+    -2.0 * (input2->GetBounds()[1]-input2->GetBounds()[0]),
     0, 0);
   vtkSmartPointer<vtkBooleanOperationPolyDataFilter> booleanOperation =
     vtkSmartPointer<vtkBooleanOperationPolyDataFilter>::New();
@@ -120,8 +120,8 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->AddViewProp(input1Actor);
-  renderer->AddViewProp(input2Actor);
+//  renderer->AddViewProp(input1Actor);
+//  renderer->AddViewProp(input2Actor);
   renderer->AddViewProp(booleanOperationActor);
   renderer->SetBackground(.1, .2, .3);
   vtkSmartPointer<vtkRenderWindow> renderWindow =
