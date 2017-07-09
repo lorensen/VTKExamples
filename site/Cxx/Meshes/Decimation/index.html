@@ -15797,9 +15797,10 @@ function registerListener(event, func) {
 <p>This example decimates a mesh. The SetTargetReduction function specifies how many triangles should reduced by specifying the percentage (0,1) of triangles to be removed. For example, if the mesh contains 100 triangles and SetTargetReduction(.90) is called, after the decimation there will be approximately 10 triangles - a 90% reduction.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Decimation.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTriangleFilter.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkDecimatePro.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
@@ -15807,30 +15808,50 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">inputPolyData</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangleFilter</span><span class="o">&gt;</span> <span class="n">triangles</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangleFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">inputPolyData</span> <span class="o">=</span> <span class="n">triangles</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">inputPolyData</span> <span class="o">=</span> <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+  <span class="p">}</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">input</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">input</span><span class="o">-&gt;</span><span class="n">ShallowCopy</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
-
+  <span class="kt">float</span> <span class="n">reduction</span> <span class="o">=</span> <span class="mf">.9</span><span class="p">;</span> <span class="c1">// 90% reduction</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">reduction</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Before decimation&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;------------&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">input</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polygons.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">inputPolyData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">inputPolyData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polygons.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDecimatePro</span><span class="o">&gt;</span> <span class="n">decimate</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDecimatePro</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
-  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
-<span class="cp">#endif</span>
-  <span class="c1">//decimate-&gt;SetTargetReduction(.99); //99% reduction (if there was 100 triangles, now there will be 1)</span>
-  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetTargetReduction</span><span class="p">(</span><span class="mf">.10</span><span class="p">);</span> <span class="c1">//10% reduction (if there was 100 triangles, now there will be 90)</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetTargetReduction</span><span class="p">(</span><span class="n">reduction</span><span class="p">);</span>
+  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">PreserveTopologyOn</span><span class="p">();</span>
   <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">decimated</span> <span class="o">=</span>
@@ -15841,28 +15862,35 @@ function registerListener(event, func) {
 
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">decimated</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; points.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">decimated</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; polygons.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reduction: &quot;</span> <span class="o">&lt;&lt;</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">((</span><span class="n">inputPolyData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">()</span> <span class="o">-</span> <span class="n">decimated</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">()))</span> <span class="o">/</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">inputPolyData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPolys</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">inputMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">inputMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
-  <span class="n">inputMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
-<span class="cp">#endif</span>
+  <span class="n">inputMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">inputPolyData</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">backFace</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">backFace</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;gold&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">inputActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">inputActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">inputMapper</span><span class="p">);</span>
+  <span class="n">inputActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
+  <span class="n">inputActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;flesh&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">inputActor</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backFace</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">decimatedMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">decimatedMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">decimated</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">decimatedMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">decimated</span><span class="p">);</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">decimatedActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">decimatedActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">decimatedMapper</span><span class="p">);</span>
+  <span class="n">decimatedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;flesh&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">decimatedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
+  <span class="n">decimatedActor</span><span class="o">-&gt;</span><span class="n">SetBackfaceProperty</span><span class="p">(</span><span class="n">backFace</span><span class="p">);</span>
 
   <span class="c1">// There will be one render window</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
@@ -15896,9 +15924,21 @@ function registerListener(event, func) {
   <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">inputActor</span><span class="p">);</span>
   <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">decimatedActor</span><span class="p">);</span>
 
-  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="c1">// Shared camera</span>
+  <span class="c1">// Shared camera looking down the -y axis</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">camera</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetPosition</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetFocalPoint</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetViewUp</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
 
-  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">camera</span><span class="p">);</span>
+  <span class="n">rightRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">camera</span><span class="p">);</span>
+
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">leftRenderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
