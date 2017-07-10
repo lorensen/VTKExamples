@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
   input2Actor->SetMapper( input2Mapper );
   input2Actor->GetProperty()->SetColor(0,1,0);
   input2Actor->SetPosition(
-    -2.0 * (input2->GetBounds()[1]-input2->GetBounds()[0]),
+    -(input2->GetBounds()[1]-input2->GetBounds()[0]),
     0, 0);
   vtkSmartPointer<vtkBooleanOperationPolyDataFilter> booleanOperation =
     vtkSmartPointer<vtkBooleanOperationPolyDataFilter>::New();
@@ -120,8 +120,8 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-//  renderer->AddViewProp(input1Actor);
-//  renderer->AddViewProp(input2Actor);
+  renderer->AddViewProp(input1Actor);
+  renderer->AddViewProp(input2Actor);
   renderer->AddViewProp(booleanOperationActor);
   renderer->SetBackground(.1, .2, .3);
   vtkSmartPointer<vtkRenderWindow> renderWindow =
