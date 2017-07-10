@@ -15891,7 +15891,7 @@ function registerListener(event, func) {
   <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">input2Mapper</span> <span class="p">);</span>
   <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
   <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span>
-    <span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="o">-</span><span class="p">(</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
     <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBooleanOperationPolyDataFilter</span><span class="o">&gt;</span> <span class="n">booleanOperation</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBooleanOperationPolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -15930,8 +15930,8 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="c1">//  renderer-&gt;AddViewProp(input1Actor);</span>
-<span class="c1">//  renderer-&gt;AddViewProp(input2Actor);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input1Actor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input2Actor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">booleanOperationActor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>

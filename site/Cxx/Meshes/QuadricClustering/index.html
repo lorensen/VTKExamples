@@ -7342,6 +7342,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -15740,6 +15747,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -15779,6 +15793,13 @@ function registerListener(event, func) {
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Meshes/QuadricClustering</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Meshes/TestQuadricClustering.png?raw=true" width="256" /></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>The algorithm used is the one described by Peter Lindstrom in his Siggraph
+2000 paper, <a href="https://www.researchgate.net/publication/2915018_Out-of-Core_Simplification_of_Large_Polygonal_Models">"Out-of-Core Simplification of Large Polygonal Models."</a>  The general approach of the algorithm is to cluster vertices in a uniform binning of space, accumulating the quadric of each triangle (pushed out to  the triangles vertices) within each bin, and then determining an optimal position for a single vertex in a bin by using the accumulated quadric.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p><a href="../../../Cxx/Meshes/QuadricDecimation">QuadricDecimation</a> and <a href="../../../Cxx/Meshes/Decimation">Decimation</a>.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>QuadricClustering.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
