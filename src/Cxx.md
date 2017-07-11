@@ -200,6 +200,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ContourTriangulator](/Cxx/Modelling/ContourTriangulator) | [vtkMarchingSquares](http://www.vtk.org/doc/nightly/html/classvtkMarchingSquares.html) [vtkContourTriangulator](http://www.vtk.org/doc/nightly/html/classvtkContourTriangulator.html) | Create a contour from a structured point set (image) and triangulate it.
 [CutWithCutFunction](/Cxx/VisualizationAlgorithms/CutWithCutFunction) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html) | Cut a surface with an implicit plane using [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html).
 [CutWithScalars](/Cxx/VisualizationAlgorithms/CutWithScalars) | [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html) | Cut a surface with scalars.
+[DiscreteMarchingCubes](/Cxx/Modelling/DiscreteMarchingCubes) | [vtkDiscreteMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkDiscreteMarchingCubes.html) | Generate surfaces from labelled data.
 [ExtractLargestIsosurface](/Cxx/Modelling/ExtractLargestIsosurface) | [vtkPolyDataConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html) | Extract largest isosurface.
 [FilledContours](/Cxx/VisualizationAlgorithms/FilledContours) | [vtkContourFilter](http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html) |Create filled contours (using [vtkClipPolyData](http://www.vtk.org/doc/nightly/html/classvtkClipPolyData.html)).
 [ImplicitDataSet](/Cxx/ImplicitFunctions/ImplicitDataSet) | [vtkImplicitDataSet](http://www.vtk.org/doc/nightly/html/classvtkImplicitDataSet.html) | Convert an imagedata to an implicit function.
@@ -209,6 +210,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [MarchingCases](/Cxx/VisualizationAlgorithms/MarchingCases) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html) | Explore the Marching Cubes cases.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | [vtkMarchingSquares](http://www.vtk.org/doc/nightly/html/classvtkMarchingSquares.html) | Create a contour from a structured point set (image).
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | [vtkSampleFunction](http://www.vtk.org/doc/nightly/html/classvtkSampleFunction.html) |Sample and visualize an implicit function.
+[SmoothDiscreteMarchingCubes](/Cxx/Modelling/SmoothDiscreteMarchingCubes) | [vtkDiscreteMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkDiscreteMarchingCubes.html) [vtkWindowedSincPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowedSincPolyDataFilter.html) | Generate smooth surfaces from labelled data.
 
 
 ## Working with 3D Data
