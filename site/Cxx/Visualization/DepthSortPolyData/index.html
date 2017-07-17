@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15818,7 +15842,7 @@ and THETA resolution. The spheres overlap. Therefore, correct blending
 and visualization in general requires depth sorting of the underlying
 polygons which will not happen when simply using a poly data
 mapper. Depth sorting can be achieved by connecting a
-<em>vtkDepthSortPolyData</em> filter to the mapper instead of the pure poly
+ <a href="http://www.vtk.org/doc/nightly/html/classvtkDepthSortPolyData.html#details">vtkDepthSortPolyData</a>* filter to the mapper instead of the pure poly
 data.</p>
 <h3 id="program-usage">Program Usage<a class="headerlink" href="#program-usage" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>Usage: ./DepthSortPolyData DepthSortFlag ThetaResolution  PhiResolution ScalarVisibilityFlag*

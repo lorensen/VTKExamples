@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15715,8 +15739,8 @@ function registerListener(event, func) {
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/PolyData/InterpolateTerrain</p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example samples a "terrain map" using two approaches.</p>
-<h1 id="creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights">Creates an image from the x,y points of the terrian and then uses vtkProbeFilter to interpolate the heights.<a class="headerlink" href="#creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights" title="Permanent link">&para;</a></h1>
-<h1 id="uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata">Uses vtkCellLocator to directly interpolate the terrain polydata.<a class="headerlink" href="#uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata" title="Permanent link">&para;</a></h1>
+<h1 id="creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights">Creates an image from the x,y points of the terrian and then uses <a href="http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html#details">vtkProbeFilter</a> to interpolate the heights.<a class="headerlink" href="#creates-an-image-from-the-xy-points-of-the-terrian-and-then-uses-vtkprobefilter-to-interpolate-the-heights" title="Permanent link">&para;</a></h1>
+<h1 id="uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata">Uses <a href="http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html#details">vtkCellLocator</a> to directly interpolate the terrain polydata.<a class="headerlink" href="#uses-vtkcelllocator-to-directly-interpolate-the-terrain-polydata" title="Permanent link">&para;</a></h1>
 <p>Note that the results differ when the point is not one of the original terrain points. This is because the image has quadrilateral elements and the polydata has triangles. As the resolution of the grid increases, the two results converge.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>InterpolateTerrain.cxx</strong></p>

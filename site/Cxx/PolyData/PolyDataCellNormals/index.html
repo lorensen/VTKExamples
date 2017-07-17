@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15797,16 +15821,14 @@ function registerListener(event, func) {
 <p><source lang="cpp">
 polydata-&gt;GetPointData()-&gt;SetNormals(PointNormalsArray);
 </source></p>
-<p><source lang="cpp">
-vtkSmartPointer<vtkDoubleArray> PointNormalsRetrieved = vtkDoubleArray::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetNormals());
+<p><source lang="cpp"> <a href="http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html#details">vtkSmartPointer</a> <a href="http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details">vtkDoubleArray</a>&gt; PointNormalsRetrieved = <a href="http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details">vtkDoubleArray</a>::SafeDownCast(polydata-&gt;GetPointData()-&gt;GetNormals());
 </source></p>
 <p>are changed to </p>
 <p><source lang="cpp">
 polydata-&gt;GetCellData()-&gt;SetNormals(CellNormalsArray);
 </source></p>
 <p>and </p>
-<p><source lang="cpp">
-vtkSmartPointer<vtkDoubleArray> CellNormalsRetrieved = vtkDoubleArray::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetNormals());
+<p><source lang="cpp"> <a href="http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html#details">vtkSmartPointer</a> <a href="http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details">vtkDoubleArray</a>&gt; CellNormalsRetrieved = <a href="http://www.vtk.org/doc/nightly/html/classvtkDoubleArray.html#details">vtkDoubleArray</a>::SafeDownCast(polydata-&gt;GetCellData()-&gt;GetNormals());
 </source></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PolyDataCellNormals.cxx</strong></p>

@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15795,16 +15819,15 @@ function registerListener(event, func) {
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a 3x3 table. The columns MUST be added first - if you attempt to call AddRow type functions, they will not do anything (or produce errors) because the table still has 0 columns until you tell it otherwise. This example adds 3 empty columns to the table, then goes back and fills them in. </p>
 <p>Warning: the table does not copy the data, so if you add the SAME column to the table each time, i.e.
-<source lang="cpp">
-vtkSmartPointer<vtkVariantArray> col = vtkSmartPointer<vtkVariantArray>::New();</p>
-<p>col-&gt;InsertNextValue(vtkVariant(0.0));
-col-&gt;InsertNextValue(vtkVariant(0.0));
-col-&gt;InsertNextValue(vtkVariant(0.0));
+<source lang="cpp"> <a href="http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html#details">vtkSmartPointer</a> <a href="http://www.vtk.org/doc/nightly/html/classvtkVariantArray.html#details">vtkVariantArray</a>&gt; col = <a href="http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html#details">vtkSmartPointer</a> <a href="http://www.vtk.org/doc/nightly/html/classvtkVariantArray.html#details">vtkVariantArray</a>&gt;::New();</p>
+<p>col-&gt;InsertNextValue <a href="http://www.vtk.org/doc/nightly/html/classvtkVariant.html#details">vtkVariant</a>(0.0));
+col-&gt;InsertNextValue <a href="http://www.vtk.org/doc/nightly/html/classvtkVariant.html#details">vtkVariant</a>(0.0));
+col-&gt;InsertNextValue <a href="http://www.vtk.org/doc/nightly/html/classvtkVariant.html#details">vtkVariant</a>(0.0));
 table-&gt;AddColumn(Col);
 table-&gt;AddColumn(Col);
 table-&gt;AddColumn(Col);
 </source></p>
-<p>If you modify one of the entries in the table with  Table-&gt;SetValue ( r,c, vtkVariant ( counter ) ); after they have all been set to the same column, the rth entry in EVERY column will be changed.</p>
+<p>If you modify one of the entries in the table with  Table-&gt;SetValue ( r,c, <a href="http://www.vtk.org/doc/nightly/html/classvtkVariant.html#details">vtkVariant</a> ( counter ) ); after they have all been set to the same column, the rth entry in EVERY column will be changed.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ConstructTable.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>

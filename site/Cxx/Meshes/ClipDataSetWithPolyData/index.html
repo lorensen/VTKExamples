@@ -7528,6 +7528,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7554,6 +7566,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15798,11 +15822,10 @@ function registerListener(event, func) {
 <p class="admonition-title">Note</p>
 <p>This example was translated to C++ from the Python example <a href="../../../Python/Meshes/ClipDataSetWithPolydata">here</a>.</p>
 </div>
-<p>The example that shows how to use the vtkClipDataSet to clip a
-vtkRectilinearGrid with an arbitrary
-polydata. vtkImplicitPolyDataDistance is used to turn the polydata
+<p>The example that shows how to use the <a href="http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html#details">vtkClipDataSet</a> to clip a <a href="http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html#details">vtkRectilinearGrid</a> with an arbitrary
+polydata. <a href="http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html#details">vtkImplicitPolyDataDistance</a> is used to turn the polydata
 into an implicit function. Every point of the grid is evaluated before
-sending to vtkClipDataSet. This example uses a vtkConeSource to
+sending to <a href="http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html#details">vtkClipDataSet</a>. This example uses a <a href="http://www.vtk.org/doc/nightly/html/classvtkConeSource.html#details">vtkConeSource</a> to
 generate polydata to use, however any polydata could be used,
 including stl files.</p>
 <p>The left part of the image shows the inside clip and the distance
@@ -15811,20 +15834,18 @@ the program exits using the "e: key, the example will report the cell
 type for both the inside and outside clips.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>vtkClipDataSet tetrahedralizes the volume before clipping. Contrast this with the vtkTableBasedClipDataSet example: <a href="../../../Cxx/Meshes/TableBasedClipDataSetWithPolyData">TableBasedClipDataSetWithPolyData</a>.</p>
+<p><a href="http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html#details">vtkClipDataSet</a> tetrahedralizes the volume before clipping. Contrast this with the <a href="http://www.vtk.org/doc/nightly/html/classvtkTableBasedClipDataSet.html#details">vtkTableBasedClipDataSet</a> example: <a href="../../../Cxx/Meshes/TableBasedClipDataSetWithPolyData">TableBasedClipDataSetWithPolyData</a>.</p>
 </div>
 <p>Here is the summary reported when the example exits:
 <samp></p>
 <hr />
-<p>The clipped dataset(inside) contains a 
-vtkUnstructuredGrid that has 49514 cells
-    Cell type vtkTetra occurs 41034 times.
-    Cell type vtkWedge occurs 8480 times.</p>
+<p>The clipped dataset(inside) contains a  <a href="http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details">vtkUnstructuredGrid</a> that has 49514 cells
+    Cell type <a href="http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details">vtkTetra</a> occurs 41034 times.
+    Cell type <a href="http://www.vtk.org/doc/nightly/html/classvtkWedge.html#details">vtkWedge</a> occurs 8480 times.</p>
 <hr />
-<p>The clipped dataset(outside) contains a 
-vtkUnstructuredGrid that has 714434 cells
-    Cell type vtkTetra occurs 705090 times.
-    Cell type vtkWedge occurs 9344 times.
+<p>The clipped dataset(outside) contains a  <a href="http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details">vtkUnstructuredGrid</a> that has 714434 cells
+    Cell type <a href="http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details">vtkTetra</a> occurs 705090 times.
+    Cell type <a href="http://www.vtk.org/doc/nightly/html/classvtkWedge.html#details">vtkWedge</a> occurs 9344 times.
 </samp></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ClipDataSetWithPolyData.cxx</strong></p>

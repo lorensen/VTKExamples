@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15794,11 +15818,11 @@ function registerListener(event, func) {
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Visualization/LabelContours</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestLabelContours.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>This example labels isolines created by vtkContourFilter. After the isolines are generated, the resulting disconnected lines segments are gathered into polylines by vtkStripper. Then an appropriate position along each line is chosen to place the label for the contour. Two strategies for label placement are illustrated: a point at the midpoint of the line or a random point. vtkLabeledDataMapper places the labels for the contour lines.</p>
+<p>This example labels isolines created by <a href="http://www.vtk.org/doc/nightly/html/classvtkContourFilter.html#details">vtkContourFilter</a>. After the isolines are generated, the resulting disconnected lines segments are gathered into polylines by <a href="http://www.vtk.org/doc/nightly/html/classvtkStripper.html#details">vtkStripper</a>. Then an appropriate position along each line is chosen to place the label for the contour. Two strategies for label placement are illustrated: a point at the midpoint of the line or a random point. <a href="http://www.vtk.org/doc/nightly/html/classvtkLabeledDataMapper.html#details">vtkLabeledDataMapper</a> places the labels for the contour lines.</p>
 <p>The program can be run with an input XML polydata file (.vtp) or without arguments. If a file is specified then one, two or a range of contours can be specified. If run without a file name, the example generates a random scalar field on a plane.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The labels are represented as vtkActor2D's. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.</p>
+<p>The labels are represented as <a href="http://www.vtk.org/doc/nightly/html/classvtkActor2D.html#details">vtkActor2D</a>'s. If they are generated for a 3D surface, the labels that should be hidden will still be displayed.</p>
 </div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>LabelContours.cxx</strong></p>

@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15802,7 +15826,7 @@ To further enhance the surface the surface normals are
 glyphed and colored by elevation using the default lookup table. </p>
 <p>The example also demonstrates partitioning the pipelines into functions and how
 to generate a custom lookup table to handle irregular distributions of data.</p>
-<p>For generating surfaces, the trick here is to return vtkPolydata for surfaces
+<p>For generating surfaces, the trick here is to return <a href="http://www.vtk.org/doc/nightly/html/classvtkPolydata.html#details">vtkPolydata</a> for surfaces
 thereby hiding the particular surface properties in the implementation of the
 function. This allows us to specify multiple surface types and, in this code,
 to use an enum to pick the one we want.</p>
@@ -15814,7 +15838,7 @@ the random hills surface is that most of the gaussian curvatures will lie in the
 <p>Use an enum to select your surface generating elevations and curvatures and clipping as needed.</p>
 </li>
 <li>
-<p>Use vtkColorSeries to make an indexed lookup table.</p>
+<p>Use <a href="http://www.vtk.org/doc/nightly/html/classvtkColorSeries.html#details">vtkColorSeries</a> to make an indexed lookup table.</p>
 </li>
 <li>
 <p>Then we use the number of colors in the lookup table and the scalar range of the surface to create a list/vector of bands. If need be we generate manual bands.</p>
@@ -15835,15 +15859,15 @@ the random hills surface is that most of the gaussian curvatures will lie in the
 <p>Then everything is put together for the rendering in the usual actor/mapper pipeline. The reversed lookup table is used by the scalar bar actor so that the maximum value is at the top if the actor is placed in its default orientation/position.</p>
 </li>
 <li>
-<p>The function Display() pulls together all the components and returns a vtkRenderWindowInteractor so that you can interact with the image.</p>
+<p>The function Display() pulls together all the components and returns a <a href="http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html#details">vtkRenderWindowInteractor</a> so that you can interact with the image.</p>
 </li>
 </ol>
 <p>Feel free to experiment with different color schemes and/or the other
 sources from the parametric function group or the torus etc.</p>
 <p>For versions of VTK older than VTK 8.0:</p>
-<p>In the function <code>MakeParametricHills()</code> you may have to set <code>ClockwiseOrderingOff()</code> when using vtkParametricRandomHills as a source,
+<p>In the function <code>MakeParametricHills()</code> you may have to set <code>ClockwiseOrderingOff()</code> when using <a href="http://www.vtk.org/doc/nightly/html/classvtkParametricRandomHills.html#details">vtkParametricRandomHills</a> as a source,
 this ensures that the normals face in the expected direction, the default is <code>ClockwiseOrderingOn()</code>.
-As an alternative, in <code>MakeGlyphs()</code>, you can set reverseNormals to True thereby invoking vtkReverseSense to achieve the same effect.</p>
+As an alternative, in <code>MakeGlyphs()</code>, you can set reverseNormals to True thereby invoking <a href="http://www.vtk.org/doc/nightly/html/classvtkReverseSense.html#details">vtkReverseSense</a> to achieve the same effect.</p>
 <p>You will usually need to adjust the parameters for maskPts,
 arrow and glyph for a nice appearance.
 Do this in the function MakeGlyphs().</p>

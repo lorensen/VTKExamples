@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15719,17 +15743,17 @@ function registerListener(event, func) {
 <h1 id="define-eventqtslotconnect_h">define EventQtSlotConnect_H<a class="headerlink" href="#define-eventqtslotconnect_h" title="Permanent link">&para;</a></h1>
 <h1 id="include-ui_eventqtslotconnecth">include "ui_EventQtSlotConnect.h"<a class="headerlink" href="#include-ui_eventqtslotconnecth" title="Permanent link">&para;</a></h1>
 <h1 id="include">include <QMainWindow><a class="headerlink" href="#include" title="Permanent link">&para;</a></h1>
-<h1 id="include_1">include <vtkSmartPointer.h><a class="headerlink" href="#include_1" title="Permanent link">&para;</a></h1>
-<p>class vtkEventQtSlotConnect;</p>
+<h1 id="include-vtksmartpointerh">include  <a href="http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html#details">vtkSmartPointer</a>.h&gt;<a class="headerlink" href="#include-vtksmartpointerh" title="Permanent link">&para;</a></h1>
+<p>class <a href="http://www.vtk.org/doc/nightly/html/classvtkEventQtSlotConnect.html#details">vtkEventQtSlotConnect</a>;</p>
 <p>class EventQtSlotConnect : public QMainWindow, private Ui::EventQtSlotConnect
 {
   Q_OBJECT
 public:</p>
 <p>EventQtSlotConnect();</p>
 <p>public slots:</p>
-<p>void slot_clicked(vtkObject<em>, unsigned long, void</em>, void*);</p>
+<p>void slot_clicked <a href="http://www.vtk.org/doc/nightly/html/classvtkObject.html#details">vtkObject</a><em>, unsigned long, void</em>, void*);</p>
 <p>private:</p>
-<p>vtkSmartPointer<vtkEventQtSlotConnect> Connections;
+<p><a href="http://www.vtk.org/doc/nightly/html/classvtkSmartPointer.html#details">vtkSmartPointer</a> <a href="http://www.vtk.org/doc/nightly/html/classvtkEventQtSlotConnect.html#details">vtkEventQtSlotConnect</a>&gt; Connections;
 };</p>
 <h1 id="endif">endif<a class="headerlink" href="#endif" title="Permanent link">&para;</a></h1>
 <p></source></p>

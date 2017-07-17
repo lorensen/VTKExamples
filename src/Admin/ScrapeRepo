@@ -27,7 +27,8 @@ def ConvertAndCopyFile(fromFile, toFile):
     htmlFile = open(toFile, 'w')
     md = mdFile.read()
     mdFile.close()
-    html = html = markdown.markdown(md, extensions=['markdown.extensions.tables','markdown.extensions.toc(title=Contents)'])
+    print md
+    html = markdown.markdown(md, extensions=['markdown.extensions.tables','markdown.extensions.toc(title=Contents)'])
     htmlFile.write(html)
     htmlFile.close()
     
@@ -58,6 +59,12 @@ def WriteCxxCode(toFile, codeName, code):
     toFile.write("```" + "\n")
 
 # add thumbnails to example tables
+def AddDoxygen(S):
+    reg = re.compile(r'[^\./\[s](vtk[0-9a-zA-Z]*)')
+    if reg.findall(S):
+        return re.sub(r'[^\./\[s](vtk[0-9a-zA-Z]*)', r' [\1](http://www.vtk.org/doc/nightly/html/class\1.html#details)', S)
+    return S
+
 def FindThumbnail(S):
         reg = re.compile(r'^\[[^\(]*\]\(([^)]*)')
         if reg.match(S):
@@ -221,6 +228,7 @@ for lang, langExt in Languages.items():
                 DescriptionFile = open(RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md", 'r')
                 description = DescriptionFile.read()
                 DescriptionFile.close()
+                description = AddDoxygen(description)
                 MdFile.write(description)
                 MdFile.write("\n")
             MdFile.write("###Code\n")

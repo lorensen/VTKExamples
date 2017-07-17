@@ -7475,6 +7475,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7492,12 +7504,56 @@ function registerListener(event, func) {
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
-      
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        MarchingCubes
+      </label>
     
     <a href="./" title="MarchingCubes" class="md-nav__link md-nav__link--active">
       MarchingCubes
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-marchingcubes" title="Download and Build MarchingCubes" class="md-nav__link">
+    Download and Build MarchingCubes
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -7510,6 +7566,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15698,8 +15766,41 @@ function registerListener(event, func) {
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="CMakeLists.txt" class="md-nav__link">
+    CMakeLists.txt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-build-marchingcubes" title="Download and Build MarchingCubes" class="md-nav__link">
+    Download and Build MarchingCubes
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
   
 </nav>
                   </div>
@@ -15712,15 +15813,17 @@ function registerListener(event, func) {
               
                 
                 
+                  <h1>MarchingCubes</h1>
+                
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Modelling/MarchingCubes</p>
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Modelling/TestMarchingCubes.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Creates a surface from a volume using Marching Cubes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>vtkVoxelModeller by default produces a VTK_BIT scalar image. Marching Cubes does not support this type. The scalar output is set to float for this example.</p>
+<p><a href="http://www.vtk.org/doc/nightly/html/classvtkVoxelModeller.html#details">vtkVoxelModeller</a> by default produces a VTK_BIT scalar image. Marching Cubes does not support this type. The scalar output is set to float for this example.</p>
 </div>
-<h1 id="to-generate-a-surface-from-a-dicom-series-provide-a-folder-containing-the-series-and-specify-an-isovalue-for-the-surface">To generate a surface from a DICOM series, provide a folder containing the series and specify an isovalue for the surface.<a class="headerlink" href="#to-generate-a-surface-from-a-dicom-series-provide-a-folder-containing-the-series-and-specify-an-isovalue-for-the-surface" title="Permanent link">&para;</a></h1>
+<p>To generate a surface from a DICOM series, provide a folder containing the series and specify an isovalue for the surface.</p>
 <p>This <a href="http://placid.nlm.nih.gov/community/21">Midas Repository</a> contains a number of DICOM datasets.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MarchingCubes.cxx</strong></p>

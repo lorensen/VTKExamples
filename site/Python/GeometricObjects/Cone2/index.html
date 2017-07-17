@@ -7471,6 +7471,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../../Cxx/Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../Cxx/Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7497,6 +7509,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../../Cxx/Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Cxx/Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15715,26 +15739,26 @@ function registerListener(event, func) {
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Python">Python</a>/GeometricObjects/Cone2</p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><source lang="python">
-import vtk</p>
+import <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a></p>
 <h1 id="create-a-rendering-window-and-renderer">create a rendering window and renderer<a class="headerlink" href="#create-a-rendering-window-and-renderer" title="Permanent link">&para;</a></h1>
-<p>ren = vtk.vtkRenderer()
-renWin = vtk.vtkRenderWindow()
+<p>ren = <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>.vtkRenderer()
+renWin = <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>.vtkRenderWindow()
 renWin.AddRenderer(ren)
 WIDTH=640
 HEIGHT=480
 renWin.SetSize(WIDTH,HEIGHT)</p>
 <h1 id="create-a-renderwindowinteractor">create a renderwindowinteractor<a class="headerlink" href="#create-a-renderwindowinteractor" title="Permanent link">&para;</a></h1>
-<p>iren = vtk.vtkRenderWindowInteractor()
+<p>iren = <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>.vtkRenderWindowInteractor()
 iren.SetRenderWindow(renWin)</p>
 <h1 id="create-cone">create cone<a class="headerlink" href="#create-cone" title="Permanent link">&para;</a></h1>
-<p>cone = vtk.vtkConeSource()
+<p>cone = <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>.vtkConeSource()
 cone.SetResolution(60)
 cone.SetCenter(-2,0,0)</p>
 <h1 id="mapper">mapper<a class="headerlink" href="#mapper" title="Permanent link">&para;</a></h1>
-<p>coneMapper = vtk.vtkPolyDataMapper()
+<p>coneMapper = <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>.vtkPolyDataMapper()
 coneMapper.SetInput(cone.GetOutput())</p>
 <h1 id="actor">actor<a class="headerlink" href="#actor" title="Permanent link">&para;</a></h1>
-<p>coneActor = vtk.vtkActor()
+<p>coneActor = <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>.vtkActor()
 coneActor.SetMapper(coneMapper)</p>
 <h1 id="assign-actor-to-the-renderer">assign actor to the renderer<a class="headerlink" href="#assign-actor-to-the-renderer" title="Permanent link">&para;</a></h1>
 <p>ren.AddActor(coneActor)</p>

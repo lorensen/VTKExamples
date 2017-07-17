@@ -7473,6 +7473,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Modelling/DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
+      DiscreteMarchingCubes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Modelling/ExtractLargestIsosurface/" title="ExtractLargestIsosurface" class="md-nav__link">
       ExtractLargestIsosurface
     </a>
@@ -7499,6 +7511,18 @@ function registerListener(event, func) {
   <li class="md-nav__item">
     <a href="../../Modelling/MarchingSquares/" title="MarchingSquares" class="md-nav__link">
       MarchingSquares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Modelling/SmoothDiscreteMarchingCubes/" title="SmoothDiscreteMarchingCubes" class="md-nav__link">
+      SmoothDiscreteMarchingCubes
     </a>
   </li>
 
@@ -15795,7 +15819,7 @@ function registerListener(event, func) {
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestExtractOutsideSurface.png?raw=true" width="256" /></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example extracts the outer surface of a multiple surface polydata model. The examples assumes the outside surface is closed and there is only one outside surface. It also assumes that the center of the model lies inside the outer surface.</p>
-<p>The example casts a ray from outside the bounds of the model into the center of the model. It uses a vtkCellLocator to intersect the ray with the model. The intersected cell is used as a seed to the vtkPolyDataConnectivityFilter which is run with the extraction mode set to CellSeededRegions.</p>
+<p>The example casts a ray from outside the bounds of the model into the center of the model. It uses a <a href="http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html#details">vtkCellLocator</a> to intersect the ray with the model. The intersected cell is used as a seed to the <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html#details">vtkPolyDataConnectivityFilter</a> which is run with the extraction mode set to CellSeededRegions.</p>
 <p>If run without arguments, the example generates a small (in area) sphere inside a large (in area) sphere. The inner sphere has more cells than the outer sphere, but should not be extracted.</p>
 <p>You can try your own surface by specifying a XML PolyData file (.vtp) on the command line.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
