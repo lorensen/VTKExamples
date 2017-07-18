@@ -1,7 +1,7 @@
 #ifndef __vtkTestFilterSelfProgressFilter_h
 #define __vtkTestFilterSelfProgressFilter_h
  
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
  
 class vtkTestFilterSelfProgressFilter : public vtkPolyDataAlgorithm 
 {

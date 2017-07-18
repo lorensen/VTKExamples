@@ -1,11 +1,11 @@
 #include "vtkTestAlgorithmFilter.h"
 #include "vtkTest.h"
 
-#include "vtkCommand.h"
-#include "vtkInformation.h"
-#include "vtkInformationVector.h"
-#include "vtkObjectFactory.h"
-#include "vtkStreamingDemandDrivenPipeline.h"
+#include <vtkCommand.h>
+#include <vtkInformation.h>
+#include <vtkInformationVector.h>
+#include <vtkObjectFactory.h>
+#include <vtkStreamingDemandDrivenPipeline.h>
 
 vtkStandardNewMacro(vtkTestAlgorithmFilter);
 

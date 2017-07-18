@@ -1,14 +1,14 @@
-#include "vtkTestFilter.h"
+#include <vtkTestFilter.h>
 
-#include "vtkObjectFactory.h"
-#include "vtkCommand.h"
-#include "vtkStreamingDemandDrivenPipeline.h"
-#include "vtkInformationVector.h"
-#include "vtkInformation.h"
-#include "vtkDataObject.h"
-#include "vtkSmartPointer.h"
-#include "vtkAppendPolyData.h"
-#include "vtkSphereSource.h"
+#include <vtkObjectFactory.h>
+#include <vtkCommand.h>
+#include <vtkStreamingDemandDrivenPipeline.h>
+#include <vtkInformationVector.h>
+#include <vtkInformation.h>
+#include <vtkDataObject.h>
+#include <vtkSmartPointer.h>
+#include <vtkAppendPolyData.h>
+#include <vtkSphereSource.h>
 
 vtkStandardNewMacro(vtkTestFilter);
 

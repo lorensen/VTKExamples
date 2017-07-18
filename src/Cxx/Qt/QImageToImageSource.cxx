@@ -1,8 +1,8 @@
 #include <QApplication>
 #include <QPixmap>
 
-#include "vtkSmartPointer.h"
-#include "vtkQImageToImageSource.h"
+#include <vtkSmartPointer.h>
+#include <vtkQImageToImageSource.h>
 
 int main(int argc, char *argv[])
 {

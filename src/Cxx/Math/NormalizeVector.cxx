@@ -1,4 +1,4 @@
-#include "vtkMath.h"
+#include <vtkMath.h>
 
 int main(int, char*[])
 {

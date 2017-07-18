@@ -1,18 +1,18 @@
-#include "vtkSmartPointer.h"
-#include "vtkHedgeHog.h"
+#include <vtkSmartPointer.h>
+#include <vtkHedgeHog.h>
 
-#include "vtkActor.h"
-#include "vtkCamera.h"
-#include "vtkFloatArray.h"
-#include "vtkMath.h"
-#include "vtkPointData.h"
-#include "vtkPoints.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkProperty.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkRenderer.h"
-#include "vtkStructuredGrid.h"
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkFloatArray.h>
+#include <vtkMath.h>
+#include <vtkPointData.h>
+#include <vtkPoints.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkStructuredGrid.h>
 
 #include <vtkNamedColors.h>
 

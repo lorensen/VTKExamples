@@ -1,7 +1,7 @@
 #ifndef __vtkTest1_h
 #define __vtkTest1_h
 
-#include "vtkDataObject.h"
+#include <vtkDataObject.h>
 
 class vtkTest1 : public vtkDataObject
 {

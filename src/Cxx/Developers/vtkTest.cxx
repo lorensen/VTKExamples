@@ -1,6 +1,6 @@
 #include "vtkTest.h"
 
-#include "vtkObjectFactory.h"
+#include <vtkObjectFactory.h>
 
 vtkStandardNewMacro(vtkTest);
 

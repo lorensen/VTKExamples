@@ -10,7 +10,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleTrackballCamera.h>
 
-#include "vtkTestFilter.h"
+#include <vtkTestFilter.h>
 
 class CustomStyle : public vtkInteractorStyleTrackballCamera
 {

@@ -9,7 +9,7 @@
 #include <vtkSphereSource.h>
 #include <vtkCubeSource.h>
 
-#include "vtkSmartPointer.h"
+#include <vtkSmartPointer.h>
 
 // Constructor
 ShareCameraQt::ShareCameraQt() 

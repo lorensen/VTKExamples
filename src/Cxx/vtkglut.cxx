@@ -3,13 +3,13 @@
 #else
 #include <glut.h>
 #endif
-#include "vtkConeSource.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkRenderWindow.h"
-#include "vtkCamera.h"
-#include "vtkActor.h"
-#include "vtkRenderer.h"
-#include "vtkNew.h"
+#include <vtkConeSource.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkRenderWindow.h>
+#include <vtkCamera.h>
+#include <vtkActor.h>
+#include <vtkRenderer.h>
+#include <vtkNew.h>
 
 vtkNew<vtkRenderer> ren;
 vtkNew<vtkRenderWindow> renWin;

@@ -1,14 +1,14 @@
 #include "vtkTestGraphAlgorithmFilter.h"
 
-#include "vtkObjectFactory.h"
-#include "vtkStreamingDemandDrivenPipeline.h"
-#include "vtkInformationVector.h"
-#include "vtkInformation.h"
-#include "vtkDataObject.h"
-#include "vtkSmartPointer.h"
-#include "vtkMutableUndirectedGraph.h"
-#include "vtkMutableDirectedGraph.h"
-#include "vtkMutableGraphHelper.h"
+#include <vtkObjectFactory.h>
+#include <vtkStreamingDemandDrivenPipeline.h>
+#include <vtkInformationVector.h>
+#include <vtkInformation.h>
+#include <vtkDataObject.h>
+#include <vtkSmartPointer.h>
+#include <vtkMutableUndirectedGraph.h>
+#include <vtkMutableDirectedGraph.h>
+#include <vtkMutableGraphHelper.h>
 
 vtkStandardNewMacro(vtkTestGraphAlgorithmFilter);
 

@@ -5,7 +5,7 @@
 #ifndef __vtkTestMultipleInputPortsFilter_h
 #define __vtkTestMultipleInputPortsFilter_h
 
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
 
 class vtkTestMultipleInputPortsFilter : public vtkPolyDataAlgorithm
 {

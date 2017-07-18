@@ -1,7 +1,7 @@
 #ifndef __vtkTestReader_h
 #define __vtkTestReader_h
 
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
 
 class vtkTestReader : public vtkPolyDataAlgorithm 
 {

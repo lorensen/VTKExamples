@@ -1,24 +1,24 @@
-#include "vtkSmartPointer.h"
+#include <vtkSmartPointer.h>
 
-#include "vtkActor.h"
-#include "vtkProperty.h"
-#include "vtkCommand.h"
-#include "vtkConeSource.h"
-#include "vtkSphereSource.h"
-#include "vtkGlyph3D.h"
-#include "vtkPointWidget.h"
-#include "vtkPolyData.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkProbeFilter.h"
-#include "vtkProperty.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkRenderer.h"
-#include "vtkTextActor.h"
-#include "vtkTextProperty.h"
-#include "vtkXMLPolyDataReader.h"
+#include <vtkActor.h>
+#include <vtkProperty.h>
+#include <vtkCommand.h>
+#include <vtkConeSource.h>
+#include <vtkSphereSource.h>
+#include <vtkGlyph3D.h>
+#include <vtkPointWidget.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProbeFilter.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkTextActor.h>
+#include <vtkTextProperty.h>
+#include <vtkXMLPolyDataReader.h>
 
-#include "vtkNamedColors.h"
+#include <vtkNamedColors.h>
 
 #include <sstream>
 

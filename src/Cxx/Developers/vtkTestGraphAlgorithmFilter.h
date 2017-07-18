@@ -1,7 +1,7 @@
 #ifndef __vtkTestGraphAlgorithmFilter_h
 #define __vtkTestGraphAlgorithmFilter_h
 
-#include "vtkGraphAlgorithm.h"
+#include <vtkGraphAlgorithm.h>
 
 class vtkTestGraphAlgorithmFilter : public vtkGraphAlgorithm 
 {

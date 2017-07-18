@@ -1,5 +1,5 @@
 #include <vtkImageResize.h>
-#include "vtkImageSincInterpolator.h"
+#include <vtkImageSincInterpolator.h>
 
 #include <vtkVersion.h>
 #include <vtkImageActor.h>

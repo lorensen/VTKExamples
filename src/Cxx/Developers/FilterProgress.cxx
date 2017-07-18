@@ -5,7 +5,7 @@
 #include <vtkCallbackCommand.h>
 #include <vtkCommand.h>
 
-#include "vtkTestFilterProgressFilter.h"
+#include <vtkTestFilterProgressFilter.h>
 
 void ProgressFunction(vtkObject* caller,
                       long unsigned int eventId,

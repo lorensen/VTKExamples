@@ -1,10 +1,10 @@
 #include <vtkVersion.h>
 
-#include "vtkSmartPointer.h"
-#include "vtkProgrammableSource.h"
-#include "vtkPolyData.h"
-#include "vtkVertexGlyphFilter.h"
-#include "vtkPoints.h"
+#include <vtkSmartPointer.h>
+#include <vtkProgrammableSource.h>
+#include <vtkPolyData.h>
+#include <vtkVertexGlyphFilter.h>
+#include <vtkPoints.h>
 
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>

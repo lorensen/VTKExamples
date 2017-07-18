@@ -13,14 +13,14 @@
 #include <vtkMath.h>
 #include <vtkPoints.h>
 
-#include "vtkParametricBohemianDome.h"
-#include "vtkParametricBour.h"
-#include "vtkParametricCatalanMinimal.h"
-#include "vtkParametricFunction.h"
-#include "vtkParametricHenneberg.h"
-#include "vtkParametricKuen.h"
-#include "vtkParametricPluckerConoid.h"
-#include "vtkParametricPseudosphere.h"
+#include <vtkParametricBohemianDome.h>
+#include <vtkParametricBour.h>
+#include <vtkParametricCatalanMinimal.h>
+#include <vtkParametricFunction.h>
+#include <vtkParametricHenneberg.h>
+#include <vtkParametricKuen.h>
+#include <vtkParametricPluckerConoid.h>
+#include <vtkParametricPseudosphere.h>
 
 #include <vector>
 

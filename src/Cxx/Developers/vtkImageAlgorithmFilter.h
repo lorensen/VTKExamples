@@ -1,7 +1,7 @@
 #ifndef __vtkImageAlgorithmFilter_h
 #define __vtkImageAlgorithmFilter_h
 
-#include "vtkImageAlgorithm.h"
+#include <vtkImageAlgorithm.h>
 
 class vtkImageAlgorithmFilter : public vtkImageAlgorithm 
 {

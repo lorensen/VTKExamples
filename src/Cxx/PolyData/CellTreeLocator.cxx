@@ -3,7 +3,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkUnstructuredGrid.h>
 #include <vtkCellTreeLocator.h>
-#include "vtkGenericCell.h"
+#include <vtkGenericCell.h>
 
 int main(int, char *[])
 {

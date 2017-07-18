@@ -7,8 +7,8 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 
-#include "vtkRIBExporter.h"
-#include "vtkRIBProperty.h"
+#include <vtkRIBExporter.h>
+#include <vtkRIBProperty.h>
 
 #include <vtksys/SystemTools.hxx>
 

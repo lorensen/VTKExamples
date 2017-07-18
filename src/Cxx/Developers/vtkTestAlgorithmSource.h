@@ -1,7 +1,7 @@
 #ifndef __vtkTestAlgorithmSource_h
 #define __vtkTestAlgorithmSource_h
 
-#include "vtkAlgorithm.h"
+#include <vtkAlgorithm.h>
 
 class vtkDataSet;
 class vtkTest1;

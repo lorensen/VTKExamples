@@ -1,7 +1,7 @@
 #ifndef __vtkTestProgressReportFilter_h
 #define __vtkTestProgressReportFilter_h
  
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
  
 class vtkTestProgressReportFilter : public vtkPolyDataAlgorithm
 {

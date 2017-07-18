@@ -1,11 +1,11 @@
-#include "vtkSmartPointer.h"
-#include "vtkVersion.h"
+#include <vtkSmartPointer.h>
+#include <vtkVersion.h>
 
-#include "vtkPolyhedron.h"
-#include "vtkPolyData.h"
+#include <vtkPolyhedron.h>
+#include <vtkPolyData.h>
 
-#include "vtkPolyDataMapper.h"
-#include "vtkCamera.h"
+#include <vtkPolyDataMapper.h>
+#include <vtkCamera.h>
 #include <vtkActor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>

@@ -6,8 +6,8 @@
 #include <vtkPolyData.h>
 #include <vtkSmartPointer.h>
 #include <vtkProperty.h>
-#include "vtkTransform.h"
-#include "vtkAxesActor.h"
+#include <vtkTransform.h>
+#include <vtkAxesActor.h>
 
 int main ( int argc, char *argv[])
 {

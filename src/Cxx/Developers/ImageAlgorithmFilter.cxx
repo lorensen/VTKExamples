@@ -1,7 +1,7 @@
 #include <vtkSmartPointer.h>
 
 #include "vtkImageAlgorithmFilter.h"
-#include "vtkImageData.h"
+#include <vtkImageData.h>
 
 void PrintImage(vtkImageData* image);
 

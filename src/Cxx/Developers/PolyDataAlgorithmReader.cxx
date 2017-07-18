@@ -1,7 +1,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 
-#include "vtkTestReader.h"
+#include <vtkTestReader.h>
 
 int main (int, char *[])
 {

@@ -1,12 +1,12 @@
-#include "vtkActor.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkPointSource.h"
-#include "vtkProperty.h"
-#include "vtkPolyData.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkRenderer.h"
-#include "vtkSmartPointer.h"
+#include <vtkActor.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPointSource.h>
+#include <vtkProperty.h>
+#include <vtkPolyData.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
 
 int main(int, char *[])
 {

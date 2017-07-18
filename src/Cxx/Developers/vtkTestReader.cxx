@@ -1,11 +1,11 @@
-#include "vtkTestReader.h"
+#include <vtkTestReader.h>
 
-#include "vtkObjectFactory.h"
-#include "vtkStreamingDemandDrivenPipeline.h"
-#include "vtkInformationVector.h"
-#include "vtkInformation.h"
-#include "vtkDataObject.h"
-#include "vtkNew.h"
+#include <vtkObjectFactory.h>
+#include <vtkStreamingDemandDrivenPipeline.h>
+#include <vtkInformationVector.h>
+#include <vtkInformation.h>
+#include <vtkDataObject.h>
+#include <vtkNew.h>
 
 vtkStandardNewMacro(vtkTestReader);
 

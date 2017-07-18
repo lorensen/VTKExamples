@@ -1,7 +1,7 @@
 #ifndef __vtkTestFilter_h
 #define __vtkTestFilter_h
 
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
 
 class vtkTestFilter : public vtkPolyDataAlgorithm
 {
@@ -24,15 +24,15 @@ private:
 
 #endif
 
-#include "vtkObjectFactory.h"
-#include "vtkCommand.h"
-#include "vtkStreamingDemandDrivenPipeline.h"
-#include "vtkInformationVector.h"
-#include "vtkInformation.h"
-#include "vtkDataObject.h"
-#include "vtkSmartPointer.h"
-#include "vtkAppendPolyData.h"
-#include "vtkSphereSource.h"
+#include <vtkObjectFactory.h>
+#include <vtkCommand.h>
+#include <vtkStreamingDemandDrivenPipeline.h>
+#include <vtkInformationVector.h>
+#include <vtkInformation.h>
+#include <vtkDataObject.h>
+#include <vtkSmartPointer.h>
+#include <vtkAppendPolyData.h>
+#include <vtkSphereSource.h>
 
 vtkStandardNewMacro(vtkTestFilter);
 

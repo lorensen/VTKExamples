@@ -1,26 +1,26 @@
 #include <vtkVersion.h>
-#include "vtkSmartPointer.h"
+#include <vtkSmartPointer.h>
 
-#include "vtkActor.h"
-#include "vtkCamera.h"
-#include "vtkCellArray.h"
-#include "vtkImageDataGeometryFilter.h"
-#include "vtkPoints.h"
-#include "vtkPolyData.h"
-#include "vtkPolyDataCollection.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkProperty.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkRenderer.h"
-#include "vtkSphereSource.h"
-#include "vtkTriangleFilter.h"
-#include "vtkXMLPolyDataReader.h"
+#include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkCellArray.h>
+#include <vtkImageDataGeometryFilter.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataCollection.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkSphereSource.h>
+#include <vtkTriangleFilter.h>
+#include <vtkXMLPolyDataReader.h>
 
-#include "vtkContourWidget.h"
-#include "vtkOrientedGlyphContourRepresentation.h"
-#include "vtkPolygonalSurfacePointPlacer.h"
-#include "vtkPolygonalSurfaceContourLineInterpolator.h"
+#include <vtkContourWidget.h>
+#include <vtkOrientedGlyphContourRepresentation.h>
+#include <vtkPolygonalSurfacePointPlacer.h>
+#include <vtkPolygonalSurfaceContourLineInterpolator.h>
 
 
 int main(int argc, char *argv[])

@@ -1,7 +1,7 @@
 #ifndef __vtkTestPolyDataFilter_h
 #define __vtkTestPolyDataFilter_h
 
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
 
 class vtkTestPolyDataFilter : public vtkPolyDataAlgorithm 
 {

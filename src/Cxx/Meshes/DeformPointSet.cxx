@@ -1,20 +1,20 @@
-#include "vtkSmartPointer.h"
+#include <vtkSmartPointer.h>
 
-#include "vtkActor.h"
-#include "vtkPolyData.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkRenderer.h"
-#include "vtkRenderer.h"
-#include "vtkSphereSource.h"
-#include "vtkElevationFilter.h"
-#include "vtkProperty.h"
-#include "vtkCellArray.h"
-#include "vtkPoints.h"
-#include "vtkDeformPointSet.h"
-#include "vtkCamera.h"
-#include "vtkXMLPolyDataReader.h"
+#include <vtkActor.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkRenderer.h>
+#include <vtkSphereSource.h>
+#include <vtkElevationFilter.h>
+#include <vtkProperty.h>
+#include <vtkCellArray.h>
+#include <vtkPoints.h>
+#include <vtkDeformPointSet.h>
+#include <vtkCamera.h>
+#include <vtkXMLPolyDataReader.h>
 
 int main( int argc, char *argv[] )
 {

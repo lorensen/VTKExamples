@@ -7,7 +7,7 @@
 #include <vtkParametricFunctionSource.h>
 
 #include <vtkPolyDataMapper.h>
-#include "vtkCamera.h"
+#include <vtkCamera.h>
 #include <vtkActor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>

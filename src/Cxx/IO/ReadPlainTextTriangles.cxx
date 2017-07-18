@@ -1,9 +1,9 @@
-#include "vtkVersion.h"
-#include "vtkSmartPointer.h"
-#include "vtkPolyData.h"
-#include "vtkPoints.h"
-#include "vtkCellArray.h"
-#include "vtkXMLPolyDataWriter.h"
+#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
+#include <vtkPolyData.h>
+#include <vtkPoints.h>
+#include <vtkCellArray.h>
+#include <vtkXMLPolyDataWriter.h>
 #include <iostream>
 
 vtkPolyData * custom_reader(std::istream & infile)

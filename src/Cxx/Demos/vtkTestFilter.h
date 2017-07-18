@@ -1,8 +1,8 @@
 #ifndef __vtkTestFilter_h
 #define __vtkTestFilter_h
 
-#include "vtkPolyDataAlgorithm.h"
-#include "vtkSmartPointer.h"
+#include <vtkPolyDataAlgorithm.h>
+#include <vtkSmartPointer.h>
 
 class vtkTestFilter : public vtkPolyDataAlgorithm
 {

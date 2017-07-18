@@ -3,7 +3,7 @@
 #ifndef __vtkTestFilterProgressFilter_h
 #define __vtkTestFilterProgressFilter_h
  
-#include "vtkPolyDataAlgorithm.h"
+#include <vtkPolyDataAlgorithm.h>
  
 class vtkTestFilterProgressFilter : public vtkPolyDataAlgorithm 
 {

@@ -1,15 +1,15 @@
-#include "vtkSmartPointer.h"
-#include "vtkContourTriangulator.h"
-#include "vtkMarchingSquares.h"
+#include <vtkSmartPointer.h>
+#include <vtkContourTriangulator.h>
+#include <vtkMarchingSquares.h>
 
-#include "vtkActor.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkPNGReader.h"
-#include "vtkDataSetMapper.h"
-#include "vtkCamera.h"
-#include "vtkProperty.h"
+#include <vtkActor.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkPNGReader.h>
+#include <vtkDataSetMapper.h>
+#include <vtkCamera.h>
+#include <vtkProperty.h>
 
 int main(int argc, char* argv[])
 {

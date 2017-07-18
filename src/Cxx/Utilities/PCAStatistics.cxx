@@ -1,10 +1,10 @@
 #include <vtkVersion.h>
-#include "vtkSmartPointer.h"
-#include "vtkDoubleArray.h"
-#include "vtkMultiBlockDataSet.h"
-#include "vtkPCAStatistics.h"
-#include "vtkStringArray.h"
-#include "vtkTable.h"
+#include <vtkSmartPointer.h>
+#include <vtkDoubleArray.h>
+#include <vtkMultiBlockDataSet.h>
+#include <vtkPCAStatistics.h>
+#include <vtkStringArray.h>
+#include <vtkTable.h>
 
 int main(int, char*[])
 {

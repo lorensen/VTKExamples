@@ -1,6 +1,6 @@
 #include <vtkSmartPointer.h>
 
-#include "vtkTestPolyDataFilter.h"
+#include <vtkTestPolyDataFilter.h>
 
 int main(int, char *[])
 {
