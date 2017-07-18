@@ -15805,12 +15805,12 @@ function registerListener(event, func) {
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestHedgeHog.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>HedgeHog.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;vtkHedgeHog.h&quot;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&quot;vtkActor.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkCamera.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkFloatArray.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkHedgeHog.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkMath.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkPointData.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkPoints.h&quot;</span><span class="cp"></span>
@@ -15820,6 +15820,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;vtkStructuredGrid.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateData</span><span class="p">(</span><span class="n">vtkStructuredGrid</span><span class="o">*</span> <span class="n">sgrid</span><span class="p">);</span>
 
@@ -15833,11 +15835,7 @@ function registerListener(event, func) {
   <span class="c1">// We create a simple pipeline to display the data.</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHedgeHog</span><span class="o">&gt;</span> <span class="n">hedgehog</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkHedgeHog</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">sgrid</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">sgrid</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">hedgehog</span><span class="o">-&gt;</span><span class="n">SetScaleFactor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">sgridMapper</span> <span class="o">=</span>
@@ -15861,7 +15859,13 @@ function registerListener(event, func) {
   <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
 
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sgridActor</span><span class="p">);</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GradientBackgroundOn</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Aqua&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground2</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;CadetBlue&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mf">60.0</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>

@@ -15842,6 +15842,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt; </span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt; </span><span class="cp"></span>
 
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span> 
 <span class="p">{</span> 
   <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
@@ -15940,15 +15942,18 @@ function registerListener(event, func) {
   <span class="n">blobbyLogoMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">blobbyLogoIso</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span> 
   <span class="n">blobbyLogoMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span> <span class="p">();</span> 
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">tomato</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">tomato</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.3882</span><span class="p">,</span> <span class="mf">.2784</span><span class="p">);</span> 
+  <span class="n">tomato</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">tomato</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.3</span><span class="p">);</span> 
   <span class="n">tomato</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> 
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;</span> <span class="n">banana</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">banana</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">.89</span><span class="p">,</span> <span class="mf">.81</span><span class="p">,</span> <span class="mf">.34</span><span class="p">);</span> 
+  <span class="n">banana</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">banana</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span> <span class="p">(</span><span class="mf">.7</span><span class="p">);</span> 
   <span class="n">banana</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.4</span><span class="p">);</span> 
   <span class="n">banana</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> 
@@ -15974,7 +15979,7 @@ function registerListener(event, func) {
   <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">logo</span><span class="p">);</span> 
   <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">blobbyLogo</span><span class="p">);</span> 
 
-  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span> 
+  <span class="n">aRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;SlateGray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">aRenderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span> 
 
