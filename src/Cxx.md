@@ -547,6 +547,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [PassThrought](/Cxx/InfoVis/PassThrough) | [vtkPassThrough](http://www.vtk.org/doc/nightly/html/classvtkPassThrough.html) |Pass input along to outpu.
 [PiecewiseFunction](/Cxx/Utilities/PiecewiseFunction) | [vtkPiecewiseFunction](http://www.vtk.org/doc/nightly/html/classvtkPiecewiseFunction.html) |Interpolation using a piecewise function.
 [PointInPolygon](/Cxx/Utilities/PointInPolygon) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html) | Point inside polygon test.
+[ReportRenderWindowCapabilities](/Cxx/Utilities/ReportRenderWindowCapabilities) | [vtkRenderWindow](http://www.vtk.org/doc/nightly/html/classvtkRenderWindow.html) | Report the capabilities of a render window.
 [Screenshot](/Cxx/Utilities/Screenshot) | [vtkWindowToImageFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowToImageFilter.html) |
 [ShallowCopy](/Cxx/Utilities/ShallowCopy) |  | Shallow copy a VTK object.
 [ShareCamera](/Cxx/Utilities/ShareCamera) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html) [vtkCamera](http://www.vtk.org/doc/nightly/html/classvtkCamera.html) | Share a camera between multiple renderers.
