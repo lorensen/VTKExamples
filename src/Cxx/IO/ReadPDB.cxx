@@ -1,10 +1,9 @@
 #include <vtkSmartPointer.h>
+#include <vtkPDBReader.h>
+
 #include <cmath>
 #include <vtkGlyph3D.h>
 #include <vtkLODActor.h>
-#include <vtkLODActor.h>
-#include <vtkPDBReader.h>
-#include <vtkPolyDataMapper.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
@@ -12,6 +11,7 @@
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
 #include <vtkTubeFilter.h>
+#include <vtkNamedColors.h>
 
 int main (int argc, char *argv[])
 {
@@ -20,13 +20,16 @@ int main (int argc, char *argv[])
     std::cerr << "Usage: " << argv[0] << " Filename(.pdb)" << std::endl;
     return EXIT_FAILURE;
   }
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(.1, .2, .3);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
-  renderWindow->SetSize(300, 300);
+  renderWindow->SetSize(640, 480);
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
@@ -83,7 +86,7 @@ int main (int argc, char *argv[])
   atom->GetProperty()->SetDiffuse(0.85);
   atom->GetProperty()->SetSpecular(0.1);
   atom->GetProperty()->SetSpecularPower(30);
-  atom->GetProperty()->SetSpecularColor(1, 1, 1);
+  atom->GetProperty()->SetSpecularColor(colors->GetColor3d("White").GetData());
   atom->SetNumberOfCloudPoints(30000);
 
   renderer->AddActor(atom);
@@ -114,8 +117,7 @@ int main (int argc, char *argv[])
   bond->GetProperty()->SetDiffuse(0.85);
   bond->GetProperty()->SetSpecular(0.1);
   bond->GetProperty()->SetSpecularPower(30);
-  bond->GetProperty()->SetSpecularColor(1, 1, 1);
-  bond->GetProperty()->SetDiffuseColor(1.0000, 0.8941, 0.70981);
+  bond->GetProperty()->SetSpecularColor(colors->GetColor3d("White").GetData());
 
   renderer->AddActor(bond);
 
