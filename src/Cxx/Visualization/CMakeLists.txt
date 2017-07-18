@@ -46,6 +46,7 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Visualization)
 SET(NEEDS_ARGS
+  Arbitrary3DCursor
   BackgroundTexture
   BlobbyLogo
   BoxClipStructuredPoints
@@ -71,6 +72,9 @@ SET(NEEDS_ARGS
 
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testmake rebuing/Temporary)
+
+ADD_TEST(${KIT}-Arbitrary3DCursor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestArbitrary3DCursor ${DATA}/Bunny.vtp)
 
 ADD_TEST(${KIT}-BackgroundTexture ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestBackgroundTexture -E 30)

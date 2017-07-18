@@ -1,9 +1,9 @@
-#include <vtkVersion.h>
 #include "vtkSmartPointer.h"
+#include "vtkHedgeHog.h"
+
 #include "vtkActor.h"
 #include "vtkCamera.h"
 #include "vtkFloatArray.h"
-#include "vtkHedgeHog.h"
 #include "vtkMath.h"
 #include "vtkPointData.h"
 #include "vtkPoints.h"
@@ -13,6 +13,8 @@
 #include "vtkRenderWindowInteractor.h"
 #include "vtkRenderer.h"
 #include "vtkStructuredGrid.h"
+
+#include <vtkNamedColors.h>
 
 static void CreateData(vtkStructuredGrid* sgrid);
 
@@ -26,11 +28,7 @@ int main(int, char*[])
   // We create a simple pipeline to display the data.
   vtkSmartPointer<vtkHedgeHog> hedgehog =
     vtkSmartPointer<vtkHedgeHog>::New();
-#if VTK_MAJOR_VERSION <= 5
-  hedgehog->SetInput(sgrid);
-#else
   hedgehog->SetInputData(sgrid);
-#endif
   hedgehog->SetScaleFactor(0.1);
 
   vtkSmartPointer<vtkPolyDataMapper> sgridMapper =
@@ -54,7 +52,13 @@ int main(int, char*[])
   iren->SetRenderWindow(renWin);
 
   renderer->AddActor(sgridActor);
-  renderer->SetBackground(1,1,1);
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  renderer->GradientBackgroundOn();
+  renderer->SetBackground(colors->GetColor3d("Aqua").GetData());
+  renderer->SetBackground2(colors->GetColor3d("CadetBlue").GetData());
+
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Elevation(60.0);
   renderer->GetActiveCamera()->Azimuth(30.0);

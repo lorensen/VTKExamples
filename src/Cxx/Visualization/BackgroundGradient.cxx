@@ -7,6 +7,8 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 
+#include <vtkNamedColors.h>
+
 int main(int, char *[])
 {
   // Create a sphere
@@ -36,10 +38,13 @@ int main(int, char *[])
   // Add the actor to the scene
   renderer->AddActor(actor);
   
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Setup the background gradient
   renderer->GradientBackgroundOn();
-  renderer->SetBackground(1,1,1);
-  renderer->SetBackground2(0,0,1);
+  renderer->SetBackground(colors->GetColor3d("Banana").GetData());
+  renderer->SetBackground2(colors->GetColor3d("Tomato").GetData());
  
   // Render and interact
   renderWindow->Render();

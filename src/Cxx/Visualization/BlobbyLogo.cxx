@@ -18,6 +18,8 @@
 #include <vtkContourFilter.h> 
 #include <vtkProperty.h> 
  
+#include <vtkNamedColors.h>
+
 int main( int argc, char *argv[] ) 
 { 
   if (argc < 4)
@@ -116,15 +118,18 @@ int main( int argc, char *argv[] )
   blobbyLogoMapper->SetInputConnection (blobbyLogoIso->GetOutputPort()); 
   blobbyLogoMapper->ScalarVisibilityOff (); 
  
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkProperty> tomato =
     vtkSmartPointer<vtkProperty>::New();
-  tomato->SetDiffuseColor(1, .3882, .2784); 
+  tomato->SetDiffuseColor(colors->GetColor3d("tomato").GetData());
   tomato->SetSpecular(.3); 
   tomato->SetSpecularPower(20); 
  
   vtkSmartPointer<vtkProperty> banana =
     vtkSmartPointer<vtkProperty>::New();
-  banana->SetDiffuseColor(.89, .81, .34); 
+  banana->SetDiffuseColor(colors->GetColor3d("banana").GetData());
   banana->SetDiffuse (.7); 
   banana->SetSpecular(.4); 
   banana->SetSpecularPower(20); 
@@ -150,7 +155,7 @@ int main( int argc, char *argv[] )
   aRenderer->AddActor(logo); 
   aRenderer->AddActor(blobbyLogo); 
  
-  aRenderer->SetBackground(.2, .3, .6); 
+  aRenderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
  
   aRenderWindow->Render(); 
  

@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include "vtkSmartPointer.h"
 
 #include "vtkActor.h"
@@ -18,6 +17,8 @@
 #include "vtkTextActor.h"
 #include "vtkTextProperty.h"
 #include "vtkXMLPolyDataReader.h"
+
+#include "vtkNamedColors.h"
 
 #include <sstream>
 
@@ -71,18 +72,16 @@ int main( int argc, char *argv[] )
     inputPolyData = sphereSource->GetOutput();
   }
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyData> point =
     vtkSmartPointer<vtkPolyData>::New();
 
   vtkSmartPointer<vtkProbeFilter> probe =
     vtkSmartPointer<vtkProbeFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  probe->SetInput(point);
-  probe->SetSource(inputPolyData);
-#else
   probe->SetInputData(point);
   probe->SetSourceData(inputPolyData);
-#endif
 
   // create glyph
   vtkSmartPointer<vtkConeSource> cone =
@@ -108,23 +107,20 @@ int main( int argc, char *argv[] )
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(inputPolyData);
-#else
   mapper->SetInputData(inputPolyData);
-#endif
+
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetRepresentationToWireframe();
-  actor->GetProperty()->SetColor(0.8900, 0.8100, 0.3400 );
+  actor->GetProperty()->SetColor(colors->GetColor3d("gold").GetData());
 
   vtkSmartPointer<vtkTextActor> textActor =
     vtkSmartPointer<vtkTextActor>::New();
   textActor->GetTextProperty()->SetFontSize ( 12 );
   textActor->SetPosition ( 10, 20 );
   textActor->SetInput ( "cursor:" );
-  textActor->GetTextProperty()->SetColor ( 1.0,0.0,0.0 );
+  textActor->GetTextProperty()->SetColor (colors->GetColor3d("White").GetData());
 
   // Create the RenderWindow, Render1er and both Actors
   //
@@ -152,11 +148,7 @@ int main( int argc, char *argv[] )
   vtkSmartPointer<vtkPointWidget> pointWidget =
     vtkSmartPointer<vtkPointWidget>::New();
   pointWidget->SetInteractor(iren);
-#if VTK_MAJOR_VERSION <= 5
-  pointWidget->SetInput(inputPolyData);
-#else
   pointWidget->SetInputData(inputPolyData);
-#endif
   pointWidget->AllOff();
   pointWidget->PlaceWidget();
   pointWidget->AddObserver(vtkCommand::InteractionEvent,myCallback);
@@ -167,7 +159,10 @@ int main( int argc, char *argv[] )
 
   // Add the actors to the renderer, set the background and size
   //
-  ren1->SetBackground(0.1, 0.2, 0.4);
+  ren1->GradientBackgroundOn();
+  ren1->SetBackground(colors->GetColor3d("SlateGray").GetData());
+  ren1->SetBackground2(colors->GetColor3d("Wheat").GetData());
+
   renWin->SetSize(300, 300);
   renWin->Render();
   pointWidget->On();

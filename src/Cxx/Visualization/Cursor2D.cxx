@@ -1,14 +1,17 @@
+#include <vtkSmartPointer.h>
+#include <vtkCursor2D.h>
+
 #include <vtkSphereSource.h>
 #include <vtkProperty.h>
 #include <vtkPolyData.h>
-#include <vtkSmartPointer.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkCursor2D.h>
  
+#include <vtkNamedColors.h>
+
 int main(int, char *[])
 {
   // Create a sphere
@@ -39,13 +42,17 @@ int main(int, char *[])
  
   // Add the actor to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(1,1,1); // Background color white
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
  
   vtkSmartPointer<vtkCursor2D> cursor = 
     vtkSmartPointer<vtkCursor2D>::New();
   cursor->SetModelBounds(-10,10,-10,10,0,0);
   cursor->AllOn();
-  cursor->OutlineOff();
+  cursor->SetFocalPoint (5.0, 5.0, 0.0);
+  cursor->OutlineOn();
   cursor->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> cursorMapper = 
