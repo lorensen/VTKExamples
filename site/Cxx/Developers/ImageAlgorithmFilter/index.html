@@ -15835,7 +15835,7 @@ function registerListener(event, func) {
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&quot;vtkImageAlgorithmFilter.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkImageData.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 
 <span class="kt">void</span> <span class="nf">PrintImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">);</span>
 
@@ -15895,7 +15895,7 @@ function registerListener(event, func) {
 <div class="codehilite"><pre><span></span><span class="cp">#ifndef __vtkImageAlgorithmFilter_h</span>
 <span class="cp">#define __vtkImageAlgorithmFilter_h</span>
 
-<span class="cp">#include</span> <span class="cpf">&quot;vtkImageAlgorithm.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageAlgorithm.h&gt;</span><span class="cp"></span>
 
 <span class="k">class</span> <span class="nc">vtkImageAlgorithmFilter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkImageAlgorithm</span> 
 <span class="p">{</span>
@@ -15921,13 +15921,13 @@ function registerListener(event, func) {
 <p><strong>vtkImageAlgorithmFilter.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkImageAlgorithmFilter.h&quot;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&quot;vtkImageData.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkStreamingDemandDrivenPipeline.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkInformationVector.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkInformation.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkDataObject.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStreamingDemandDrivenPipeline.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformationVector.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkInformation.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDataObject.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
 <span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">vtkImageAlgorithmFilter</span><span class="p">);</span>
 

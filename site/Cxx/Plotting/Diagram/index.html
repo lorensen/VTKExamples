@@ -15817,20 +15817,20 @@ function registerListener(event, func) {
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestDiagram.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Diagram.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkObjectFactory.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkContext2D.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkContextItem.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkContextActor.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkContextScene.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkPen.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkBrush.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkTextProperty.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkOpenGLContextDevice2D.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkStdString.h&quot;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContext2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextItem.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPen.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkBrush.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOpenGLContextDevice2D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStdString.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#define VTK_CREATE(type, name) \</span>
 <span class="cp">  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()</span>

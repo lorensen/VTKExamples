@@ -15817,23 +15817,23 @@ function registerListener(event, func) {
 <p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Plotting/TestStackedBar.png?raw=true" width="256" /></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>StackedBar.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;vtkSmartPointer.h&quot;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderer.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindow.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkChartXY.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkChartLegend.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkPlotBar.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkAxis.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkTable.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkIntArray.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkDoubleArray.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkStringArray.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkTextProperty.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkContextView.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkContextScene.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkRenderWindowInteractor.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;vtkColorSeries.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartXY.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkChartLegend.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPlotBar.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkAxis.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTable.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkIntArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkDoubleArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkStringArray.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextView.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContextScene.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColorSeries.h&gt;</span><span class="cp"></span>
 
 <span class="k">const</span> <span class="kt">int</span> <span class="n">num_months</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
 
