@@ -29,8 +29,6 @@
 #include <vtkScalarBarActor.h>
 
 #include <vtkSmartPointer.h>
-#define VTK_SP(type, name)                                                     \
-  vtkSmartPointer<type> name = vtkSmartPointer<type>::New()
 
 #include <algorithm>
 #include <cctype>
@@ -280,7 +278,8 @@ void MakeElevations(vtkPolyData* src, vtkPolyData* elev)
 {
   double bounds[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   src->GetBounds(bounds);
-  VTK_SP(vtkElevationFilter, elevFilter);
+  vtkSmartPointer<vtkElevationFilter> elevFilter =
+    vtkSmartPointer<vtkElevationFilter>::New();
   elevFilter->SetInputData(src);
   elevFilter->SetLowPoint(0, bounds[2], 0);
   elevFilter->SetHighPoint(0, bounds[3], 0);
@@ -292,7 +291,8 @@ void MakeElevations(vtkPolyData* src, vtkPolyData* elev)
 //-----------------------------------------------------------------------------
 void MakeSphere(vtkPolyData* src)
 {
-  VTK_SP(vtkSphereSource, source);
+  vtkSmartPointer<vtkSphereSource> source =
+    vtkSmartPointer<vtkSphereSource>::New();
   source->SetCenter(0.0, 0.0, 0.0);
   source->SetRadius(10.0);
   source->SetThetaResolution(32);
@@ -304,7 +304,8 @@ void MakeSphere(vtkPolyData* src)
 //-----------------------------------------------------------------------------
 void MakePlane(vtkPolyData* src)
 {
-  VTK_SP(vtkPlaneSource, source);
+  vtkSmartPointer<vtkPlaneSource> source =
+    vtkSmartPointer<vtkPlaneSource>::New();
   source->SetOrigin(-10.0, -10.0, 0.0);
   source->SetPoint2(-10.0, 10.0, 0.0);
   source->SetPoint1(10.0, -10.0, 0.0);
@@ -317,7 +318,8 @@ void MakePlane(vtkPolyData* src)
 //-----------------------------------------------------------------------------
 void MakeParametricSurface(vtkPolyData* src)
 {
-  VTK_SP(vtkParametricRandomHills, fn);
+  vtkSmartPointer<vtkParametricRandomHills> fn =
+    vtkSmartPointer<vtkParametricRandomHills>::New();
   fn->AllowRandomGenerationOn();
   fn->SetRandomSeed(1);
   fn->SetNumberOfHills(30);
@@ -328,7 +330,8 @@ void MakeParametricSurface(vtkPolyData* src)
     fn->ClockwiseOrderingOff();
   }
 
-  VTK_SP(vtkParametricFunctionSource, source);
+  vtkSmartPointer<vtkParametricFunctionSource> source =
+    vtkSmartPointer<vtkParametricFunctionSource>::New();
   source->SetParametricFunction(fn);
   source->SetUResolution(50);
   source->SetVResolution(50);
@@ -344,7 +347,8 @@ void MakeParametricSurface(vtkPolyData* src)
 void MakeLUT(vtkLookupTable* lut)
 {
   // Make the lookup table.
-  VTK_SP(vtkColorSeries, colorSeries);
+  vtkSmartPointer<vtkColorSeries> colorSeries =
+    vtkSmartPointer<vtkColorSeries>::New();
   // Select a color scheme.
   int colorSeriesEnum;
   // colorSeriesEnum = colorSeries->BREWER_DIVERGING_BROWN_BLUE_GREEN_9;
@@ -433,8 +437,10 @@ void MakeGlyphs(vtkPolyData* src, bool const& reverseNormals, vtkGlyph3D* glyph)
   // Sometimes the contouring algorithm can create a volume whose gradient
   // vector and ordering of polygon(using the right hand rule) are
   // inconsistent. vtkReverseSense cures this problem.
-  VTK_SP(vtkReverseSense, reverse);
-  VTK_SP(vtkMaskPoints, maskPts);
+  vtkSmartPointer<vtkReverseSense> reverse =
+    vtkSmartPointer<vtkReverseSense>::New();
+  vtkSmartPointer<vtkMaskPoints> maskPts =
+    vtkSmartPointer<vtkMaskPoints>::New();
   maskPts->SetOnRatio(5);
   maskPts->RandomModeOn();
   if (reverseNormals)
@@ -450,7 +456,8 @@ void MakeGlyphs(vtkPolyData* src, bool const& reverseNormals, vtkGlyph3D* glyph)
   }
 
   // Source for the glyph filter
-  VTK_SP(vtkArrowSource, arrow);
+  vtkSmartPointer<vtkArrowSource> arrow =
+    vtkSmartPointer<vtkArrowSource>::New();
   arrow->SetTipResolution(16);
   arrow->SetTipLength(0.3);
   arrow->SetTipRadius(0.1);
@@ -472,7 +479,8 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   // ------------------------------------------------------------
   // Create the surface, lookup tables, contour filter etc.
   // ------------------------------------------------------------
-  VTK_SP(vtkPolyData, src);
+  vtkSmartPointer<vtkPolyData> src =
+    vtkSmartPointer<vtkPolyData>::New();
   switch (st)
   {
     case PLANE:
@@ -502,7 +510,8 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   double scalarRange[2];
   src->GetScalarRange(scalarRange);
 
-  VTK_SP(vtkLookupTable, lut);
+  vtkSmartPointer<vtkLookupTable> lut =
+    vtkSmartPointer<vtkLookupTable>::New();
   MakeLUT(lut);
   lut->SetTableRange(scalarRange);
   vtkIdType numberOfBands = lut->GetNumberOfTableValues();
@@ -527,7 +536,8 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   }
 
   // Annotate
-  VTK_SP(vtkVariantArray, values);
+  vtkSmartPointer<vtkVariantArray> values =
+    vtkSmartPointer<vtkVariantArray>::New();
   for (size_t i = 0; i < labels.size(); ++i)
   {
     values->InsertNextValue(vtkVariant(labels[i]));
@@ -538,11 +548,13 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   }
 
   // Create a lookup table with the colors reversed.
-  VTK_SP(vtkLookupTable, lutr);
+  vtkSmartPointer<vtkLookupTable> lutr =
+    vtkSmartPointer<vtkLookupTable>::New();
   ReverseLUT(lut, lutr);
 
   // Create the contour bands.
-  VTK_SP(vtkBandedPolyDataContourFilter, bcf);
+  vtkSmartPointer<vtkBandedPolyDataContourFilter> bcf =
+    vtkSmartPointer<vtkBandedPolyDataContourFilter>::New();
   bcf->SetInputData(src);
   // Use either the minimum or maximum value for each band.
   int i = 0;
@@ -557,36 +569,42 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   bcf->GenerateContourEdgesOn();
 
   // Generate the glyphs on the original surface.
-  VTK_SP(vtkGlyph3D, glyph);
+  vtkSmartPointer<vtkGlyph3D> glyph =
+    vtkSmartPointer<vtkGlyph3D>::New();
   MakeGlyphs(src, false, glyph);
 
   // ------------------------------------------------------------
   // Create the mappers and actors
   // ------------------------------------------------------------
 
-  VTK_SP(vtkPolyDataMapper, srcMapper);
+  vtkSmartPointer<vtkPolyDataMapper> srcMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
   srcMapper->SetInputConnection(bcf->GetOutputPort());
   srcMapper->SetScalarRange(scalarRange);
   srcMapper->SetLookupTable(lut);
   srcMapper->SetScalarModeToUseCellData();
 
-  VTK_SP(vtkActor, srcActor);
+  vtkSmartPointer<vtkActor> srcActor =
+    vtkSmartPointer<vtkActor>::New();
   srcActor->SetMapper(srcMapper);
   srcActor->RotateX(-45);
   srcActor->RotateZ(45);
 
   // Create contour edges
-  VTK_SP(vtkPolyDataMapper, edgeMapper);
+  vtkSmartPointer<vtkPolyDataMapper> edgeMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
   edgeMapper->SetInputData(bcf->GetContourEdgesOutput());
   edgeMapper->SetResolveCoincidentTopologyToPolygonOffset();
 
-  VTK_SP(vtkActor, edgeActor);
+  vtkSmartPointer<vtkActor> edgeActor =
+    vtkSmartPointer<vtkActor>::New();
   edgeActor->SetMapper(edgeMapper);
   edgeActor->GetProperty()->SetColor(0, 0, 0);
   edgeActor->RotateX(-45);
   edgeActor->RotateZ(45);
 
-  VTK_SP(vtkPolyDataMapper, glyphMapper);
+  vtkSmartPointer<vtkPolyDataMapper> glyphMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
   glyphMapper->SetInputConnection(glyph->GetOutputPort());
   glyphMapper->SetScalarModeToUsePointFieldData();
   glyphMapper->SetColorModeToMapScalars();
@@ -597,13 +615,15 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   // use whatever lookup table you like.
   glyphMapper->SetScalarRange(scalarRange);
 
-  VTK_SP(vtkActor, glyphActor);
+  vtkSmartPointer<vtkActor> glyphActor =
+    vtkSmartPointer<vtkActor>::New();
   glyphActor->SetMapper(glyphMapper);
   glyphActor->RotateX(-45);
   glyphActor->RotateZ(45);
 
   // Add a scalar bar->
-  VTK_SP(vtkScalarBarActor, scalarBar);
+  vtkSmartPointer<vtkScalarBarActor> scalarBar =
+    vtkSmartPointer<vtkScalarBarActor>::New();
   // This LUT puts the lowest value at the top of the scalar bar.
   // scalarBar->SetLookupTable(lut);
   // Use this LUT if you want the highest value at the top.
@@ -613,8 +633,10 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
   // ------------------------------------------------------------
   // Create the RenderWindow, Renderer and Interactor
   // ------------------------------------------------------------
-  VTK_SP(vtkRenderer, ren);
-  VTK_SP(vtkRenderWindow, renWin);
+  vtkSmartPointer<vtkRenderer> ren =
+    vtkSmartPointer<vtkRenderer>::New();
+  vtkSmartPointer<vtkRenderWindow> renWin =
+    vtkSmartPointer<vtkRenderWindow>::New();
 
   renWin->AddRenderer(ren);
   iren->SetRenderWindow(renWin);
@@ -638,7 +660,8 @@ void Display(SURFACE_TYPE st, vtkRenderWindowInteractor* iren)
 //! Make and display the surface.
 int main(int, char* [])
 {
-  VTK_SP(vtkRenderWindowInteractor, iren);
+  vtkSmartPointer<vtkRenderWindowInteractor> iren =
+    vtkSmartPointer<vtkRenderWindowInteractor>::New();
   // Select the surface you want displayed.
   // Display(PLANE, iren);
   // Display(SPHERE, iren);
