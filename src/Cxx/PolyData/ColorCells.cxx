@@ -11,6 +11,8 @@
 #include <vtkPolyData.h>
 #include <vtkPlaneSource.h>
 
+#include <vtkNamedColors.h>
+
 #include <algorithm>
 
 int main(int , char *[])
@@ -38,16 +40,18 @@ int main(int , char *[])
   lut->Build();
 
   // Fill in a few known colors, the rest will be generated if needed
-  lut->SetTableValue(0     , 0     , 0     , 0, 1);  //Black
-  lut->SetTableValue(1, 0.8900, 0.8100, 0.3400, 1); // Banana
-  lut->SetTableValue(2, 1.0000, 0.3882, 0.2784, 1); // Tomato
-  lut->SetTableValue(3, 0.9608, 0.8706, 0.7020, 1); // Wheat
-  lut->SetTableValue(4, 0.9020, 0.9020, 0.9804, 1); // Lavender
-  lut->SetTableValue(5, 1.0000, 0.4900, 0.2500, 1); // Flesh
-  lut->SetTableValue(6, 0.5300, 0.1500, 0.3400, 1); // Raspberry
-  lut->SetTableValue(7, 0.9804, 0.5020, 0.4471, 1); // Salmon
-  lut->SetTableValue(8, 0.7400, 0.9900, 0.7900, 1); // Mint
-  lut->SetTableValue(9, 0.2000, 0.6300, 0.7900, 1); // Peacock
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+  lut->SetTableValue(0, colors->GetColor4d("Black").GetData());
+  lut->SetTableValue(1, colors->GetColor4d("Banana").GetData());
+  lut->SetTableValue(2, colors->GetColor4d("Tomato").GetData());
+  lut->SetTableValue(3, colors->GetColor4d("Wheat").GetData());
+  lut->SetTableValue(4, colors->GetColor4d("Lavender").GetData());
+  lut->SetTableValue(5, colors->GetColor4d("Flesh").GetData());
+  lut->SetTableValue(6, colors->GetColor4d("Raspberry").GetData());
+  lut->SetTableValue(7, colors->GetColor4d("Salmon").GetData());
+  lut->SetTableValue(8, colors->GetColor4d("Mint").GetData());
+  lut->SetTableValue(9, colors->GetColor4d("Peacock").GetData());
 
   aPlane->Update(); // Force an update so we can set cell data
   aPlane->GetOutput()->GetCellData()->SetScalars(cellData);
@@ -73,7 +77,7 @@ int main(int , char *[])
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderer->AddActor(actor);
-  renderer->SetBackground(.1,.2,.3);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
 
