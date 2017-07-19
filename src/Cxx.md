@@ -299,6 +299,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [ProjectSphere](/Cxx/Visualization/ProjectSphere) |[vtkProjectSphereFilter](http://www.vtk.org/doc/nightly/html/classvtkProjectSphereFilter.html#details) |Unroll a sphere or spherical-like model.
 [QuantizePolyDataPoints](/Cxx/PolyData/QuantizePolyDataPoints) | [vtkQuantizePolyDataPoints](http://www.vtk.org/doc/nightly/html/classvtkQuantizePolyDataPoints.html#details) |Snap (quantize) points to a grid.
 [Reflection](/Cxx/PolyData/Reflection) | [vtkReflectionFilter](http://www.vtk.org/doc/nightly/html/classvtkReflectionFilter.html#details) |Mirror a DataSet.
+[RemoveOutsideSurface](/Cxx/PolyData/RemoveOutsideSurface) | [vtkConnectivityFilter](http://www.vtk.org/doc/nightly/html/classvtkConnectivityFilter.html#details) | Remove the outer surface of a multiple surface polydata.
 [ReverseSense](/Cxx/PolyData/ReverseSense) | [vtkReverseSense](http://www.vtk.org/doc/nightly/html/classvtkReverseSense.html#details) |Flip normals.
 [RibbonFilter](/Cxx/PolyData/RibbonFilter) | [vtkRibbonFilter](http://www.vtk.org/doc/nightly/html/classvtkRibbonFilter.html#details) |
 [RotationAroundLine](/Cxx/PolyData/RotationAroundLine) | [vtkTransform](http://www.vtk.org/doc/nightly/html/classvtkTransform.html#details) [vtkTransformPolyDataFilter](http://www.vtk.org/doc/nightly/html/classvtkTransformPolyDataFilter.html#details) |Rotation around a line.
