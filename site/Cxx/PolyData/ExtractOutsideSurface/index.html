@@ -15845,13 +15845,14 @@ function registerListener(event, func) {
 <p>This example extracts the outer surface of a multiple surface polydata model. The examples assumes the outside surface is closed and there is only one outside surface. It also assumes that the center of the model lies inside the outer surface.</p>
 <p>The example casts a ray from outside the bounds of the model into the center of the model. It uses a <a href="http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html#details">vtkCellLocator</a> to intersect the ray with the model. The intersected cell is used as a seed to the <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyDataConnectivityFilter.html#details">vtkPolyDataConnectivityFilter</a> which is run with the extraction mode set to CellSeededRegions.</p>
 <p>If run without arguments, the example generates a small (in area) sphere inside a large (in area) sphere. The inner sphere has more cells than the outer sphere, but should not be extracted.</p>
+<p>The gold model is the original polydata and the blue model is the outer surface.</p>
 <p>You can try your own surface by specifying a XML PolyData file (.vtp) on the command line.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ExtractOutsideSurface.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataConnectivityFilter.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
@@ -15862,6 +15863,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCellLocator.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkTriangleFilter.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
@@ -15884,6 +15887,7 @@ function registerListener(event, func) {
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span>
 
     <span class="c1">// Large sphere with least polygons</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource2</span> <span class="o">=</span>
@@ -15945,11 +15949,7 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataConnectivityFilter</span><span class="o">&gt;</span> <span class="n">connectivityFilter</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataConnectivityFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">SetExtractionModeToCellSeededRegions</span><span class="p">();</span>
   <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">InitializeSeedList</span><span class="p">();</span>
   <span class="n">connectivityFilter</span><span class="o">-&gt;</span><span class="n">AddSeed</span><span class="p">(</span><span class="n">cellId</span><span class="p">);</span>
@@ -15957,15 +15957,17 @@ function registerListener(event, func) {
   <span class="c1">// Create a mapper and actor for original data</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">originalMapper</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
-<span class="cp">#endif</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalMapper</span><span class="p">);</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">BackfaceCullingOn</span><span class="p">();</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">.5</span><span class="p">);;</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Gold&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Create a mapper and actor for extracted data</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">extractedMapper</span> <span class="o">=</span>
@@ -15974,8 +15976,10 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">extractedActor</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Peacock&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">extractedMapper</span><span class="p">);</span>
+  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mf">.5</span><span class="p">);;</span>
+  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">BackfaceCullingOn</span><span class="p">();</span>
 
   <span class="c1">// Create a renderer</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
@@ -15983,10 +15987,17 @@ function registerListener(event, func) {
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">extractedActor</span><span class="p">);</span>
 
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GradientBackgroundOn</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground2</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Beige&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Burlywood&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
+  <span class="n">extractedActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">((</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="c1">// Create a render window</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renwin</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">);</span>
 
   <span class="c1">// Create an interactor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>

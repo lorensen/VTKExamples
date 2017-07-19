@@ -15940,8 +15940,6 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkScalarBarActor.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
-<span class="cp">#define VTK_SP(type, name)                                                     \</span>
-<span class="cp">  vtkSmartPointer&lt;type&gt; name = vtkSmartPointer&lt;type&gt;::New()</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cctype&gt;</span><span class="cp"></span>
@@ -16293,7 +16291,8 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="p">{</span>
   <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
   <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkElevationFilter</span><span class="p">,</span> <span class="n">elevFilter</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkElevationFilter</span><span class="o">&gt;</span> <span class="n">elevFilter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkElevationFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
   <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetLowPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">elevFilter</span><span class="o">-&gt;</span><span class="n">SetHighPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
@@ -16305,7 +16304,8 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="c1">//-----------------------------------------------------------------------------</span>
 <span class="kt">void</span> <span class="n">MakeTorus</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkSuperquadricSource</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadricSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadricSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
@@ -16318,18 +16318,21 @@ get an idea of the distribution of the scalars in each band.</p>
 
   <span class="c1">// The quadric is made of strips, so pass it through a triangle filter as</span>
   <span class="c1">// the curvature filter only operates on polys</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkTriangleFilter</span><span class="p">,</span> <span class="n">tri</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangleFilter</span><span class="o">&gt;</span> <span class="n">tri</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTriangleFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">tri</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">source</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
   <span class="c1">// The quadric has nasty discontinuities from the way the edges are generated</span>
   <span class="c1">// so let&#39;s pass it though a CleanPolyDataFilter and merge any points which</span>
   <span class="c1">// are coincident, or very close</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkCleanPolyData</span><span class="p">,</span> <span class="n">cleaner</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;</span> <span class="n">cleaner</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">tri</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">SetTolerance</span><span class="p">(</span><span class="mf">0.005</span><span class="p">);</span>
   <span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">elev</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">elev</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">MakeElevations</span><span class="p">(</span><span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">(),</span> <span class="n">elev</span><span class="p">);</span>
   <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
 <span class="p">}</span>
@@ -16337,11 +16340,13 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="c1">//-----------------------------------------------------------------------------</span>
 <span class="kt">void</span> <span class="n">MakeParametricTorus</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricTorus</span><span class="p">,</span> <span class="n">fn</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricTorus</span><span class="o">&gt;</span> <span class="n">fn</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricTorus</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetRingRadius</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
   <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetCrossSectionRadius</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricFunctionSource</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">);</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
@@ -16357,7 +16362,8 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="c1">//-----------------------------------------------------------------------------</span>
 <span class="kt">void</span> <span class="n">MakeParametricHills</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricRandomHills</span><span class="p">,</span> <span class="n">fn</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricRandomHills</span><span class="o">&gt;</span> <span class="n">fn</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricRandomHills</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">fn</span><span class="o">-&gt;</span><span class="n">AllowRandomGenerationOn</span><span class="p">();</span>
   <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetRandomSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
   <span class="n">fn</span><span class="o">-&gt;</span><span class="n">SetNumberOfHills</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
@@ -16368,7 +16374,8 @@ get an idea of the distribution of the scalars in each band.</p>
     <span class="n">fn</span><span class="o">-&gt;</span><span class="n">ClockwiseOrderingOff</span><span class="p">();</span>
   <span class="p">}</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkParametricFunctionSource</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;</span> <span class="n">source</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkParametricFunctionSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetParametricFunction</span><span class="p">(</span><span class="n">fn</span><span class="p">);</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetUResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
   <span class="n">source</span><span class="o">-&gt;</span><span class="n">SetVResolution</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
@@ -16388,31 +16395,38 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
   <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane1</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane1</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">plane1</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">plane1</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane2</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane2</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">plane2</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">plane2</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane3</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane3</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">plane3</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">plane3</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane4</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane4</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">plane4</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">dy</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">plane4</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane5</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane5</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">plane5</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">dz</span><span class="p">);</span>
   <span class="n">plane5</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPlane</span><span class="p">,</span> <span class="n">plane6</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">plane6</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">plane6</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">dz</span><span class="p">);</span>
   <span class="n">plane6</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkImplicitBoolean</span><span class="p">,</span> <span class="n">clipFunction</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImplicitBoolean</span><span class="o">&gt;</span> <span class="n">clipFunction</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImplicitBoolean</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">SetOperationTypeToUnion</span><span class="p">();</span>
   <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane1</span><span class="p">);</span>
   <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane2</span><span class="p">);</span>
@@ -16422,7 +16436,8 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="n">clipFunction</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="n">plane6</span><span class="p">);</span>
 
   <span class="c1">// Create clipper for the random hills</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkClipPolyData</span><span class="p">,</span> <span class="n">clipper</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipPolyData</span><span class="o">&gt;</span> <span class="n">clipper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkClipPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetClipFunction</span><span class="p">(</span><span class="n">clipFunction</span><span class="p">);</span>
   <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
   <span class="n">clipper</span><span class="o">-&gt;</span><span class="n">GenerateClipScalarsOff</span><span class="p">();</span>
@@ -16436,7 +16451,8 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="kt">void</span> <span class="n">CalculateCurvatures</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="n">vtkPolyData</span><span class="o">*</span> <span class="n">curv</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="c1">// Calculate the curvature.</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkCurvatures</span><span class="p">,</span> <span class="n">curvature</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCurvatures</span><span class="o">&gt;</span> <span class="n">curvature</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCurvatures</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">curvature</span><span class="o">-&gt;</span><span class="n">SetCurvatureTypeToGaussian</span><span class="p">();</span>
   <span class="n">curvature</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
   <span class="n">curvature</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
@@ -16447,7 +16463,8 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="kt">void</span> <span class="n">MakeLUT</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="o">*</span> <span class="n">lut</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="c1">// Make the lookup table.</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkColorSeries</span><span class="p">,</span> <span class="n">colorSeries</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;</span> <span class="n">colorSeries</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkColorSeries</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="c1">// Select a color scheme.</span>
   <span class="kt">int</span> <span class="n">colorSeriesEnum</span><span class="p">;</span>
   <span class="c1">// colorSeriesEnum = colorSeries-&gt;BREWER_DIVERGING_BROWN_BLUE_GREEN_9;</span>
@@ -16540,8 +16557,10 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="c1">// Sometimes the contouring algorithm can create a volume whose gradient</span>
   <span class="c1">// vector and ordering of polygon(using the right hand rule) are</span>
   <span class="c1">// inconsistent. vtkReverseSense cures this problem.</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkReverseSense</span><span class="p">,</span> <span class="n">reverse</span><span class="p">);</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkMaskPoints</span><span class="p">,</span> <span class="n">maskPts</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkReverseSense</span><span class="o">&gt;</span> <span class="n">reverse</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkReverseSense</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;</span> <span class="n">maskPts</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMaskPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">SetOnRatio</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
   <span class="n">maskPts</span><span class="o">-&gt;</span><span class="n">RandomModeOn</span><span class="p">();</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">reverseNormals</span><span class="p">)</span>
@@ -16557,7 +16576,8 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="p">}</span>
 
   <span class="c1">// Source for the glyph filter</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkArrowSource</span><span class="p">,</span> <span class="n">arrow</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;</span> <span class="n">arrow</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkArrowSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipResolution</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
   <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipLength</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
   <span class="n">arrow</span><span class="o">-&gt;</span><span class="n">SetTipRadius</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
@@ -16578,7 +16598,8 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="c1">// ------------------------------------------------------------</span>
   <span class="c1">// Create the surface, lookup tables, contour filter etc.</span>
   <span class="c1">// ------------------------------------------------------------</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">src</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="k">switch</span> <span class="p">(</span><span class="n">st</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">case</span> <span class="nl">TORUS</span><span class="p">:</span>
@@ -16593,7 +16614,8 @@ get an idea of the distribution of the scalars in each band.</p>
     <span class="p">}</span>
     <span class="k">case</span> <span class="nl">PARAMETRIC_HILLS</span><span class="p">:</span>
     <span class="p">{</span>
-      <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyData</span><span class="p">,</span> <span class="n">hills</span><span class="p">);</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">hills</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
       <span class="n">MakeParametricHills</span><span class="p">(</span><span class="n">hills</span><span class="p">);</span>
       <span class="n">Clipper</span><span class="p">(</span><span class="n">hills</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
       <span class="k">break</span><span class="p">;</span>
@@ -16618,7 +16640,8 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="n">scalarRange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalarRangeCurvatures</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
   <span class="n">scalarRange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalarRangeCurvatures</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="p">,</span> <span class="n">lut</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lut</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">MakeLUT</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
   <span class="n">vtkIdType</span> <span class="n">numberOfBands</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfTableValues</span><span class="p">();</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">bands</span><span class="p">;</span>
@@ -16655,7 +16678,8 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="p">}</span>
 
   <span class="c1">// Annotate</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkVariantArray</span><span class="p">,</span> <span class="n">values</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkVariantArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">labels</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">values</span><span class="o">-&gt;</span><span class="n">InsertNextValue</span><span class="p">(</span><span class="n">vtkVariant</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
@@ -16666,11 +16690,13 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="p">}</span>
 
   <span class="c1">// Create a lookup table with the colors reversed.</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkLookupTable</span><span class="p">,</span> <span class="n">lutr</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;</span> <span class="n">lutr</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkLookupTable</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">ReverseLUT</span><span class="p">(</span><span class="n">lut</span><span class="p">,</span> <span class="n">lutr</span><span class="p">);</span>
 
   <span class="c1">// Create the contour bands.</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="p">,</span> <span class="n">bcf</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="o">&gt;</span> <span class="n">bcf</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkBandedPolyDataContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">bcf</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
   <span class="c1">// Use either the minimum or maximum value for each band.</span>
   <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -16685,36 +16711,42 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="n">bcf</span><span class="o">-&gt;</span><span class="n">GenerateContourEdgesOn</span><span class="p">();</span>
 
   <span class="c1">// Generate the glyphs on the original surface.</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkGlyph3D</span><span class="p">,</span> <span class="n">glyph</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">MakeGlyphs</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">glyph</span><span class="p">);</span>
 
   <span class="c1">// ------------------------------------------------------------</span>
   <span class="c1">// Create the mappers and actors</span>
   <span class="c1">// ------------------------------------------------------------</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">srcMapper</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">srcMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">bcf</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRange</span><span class="p">);</span>
   <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="n">lut</span><span class="p">);</span>
   <span class="n">srcMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">srcActor</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">srcActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">srcActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">srcMapper</span><span class="p">);</span>
   <span class="n">srcActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">);</span>
   <span class="n">srcActor</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
 
   <span class="c1">// Create contour edges</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">edgeMapper</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">edgeMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">edgeMapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">bcf</span><span class="o">-&gt;</span><span class="n">GetContourEdgesOutput</span><span class="p">());</span>
   <span class="n">edgeMapper</span><span class="o">-&gt;</span><span class="n">SetResolveCoincidentTopologyToPolygonOffset</span><span class="p">();</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">edgeActor</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">edgeActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">edgeMapper</span><span class="p">);</span>
   <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">);</span>
   <span class="n">edgeActor</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkPolyDataMapper</span><span class="p">,</span> <span class="n">glyphMapper</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyphMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUsePointFieldData</span><span class="p">();</span>
   <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetColorModeToMapScalars</span><span class="p">();</span>
@@ -16725,13 +16757,15 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="c1">// use whatever lookup table you like.</span>
   <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetScalarRange</span><span class="p">(</span><span class="n">scalarRangeElevation</span><span class="p">);</span>
 
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkActor</span><span class="p">,</span> <span class="n">glyphActor</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyphActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">);</span>
   <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">RotateX</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">);</span>
   <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">RotateZ</span><span class="p">(</span><span class="mi">45</span><span class="p">);</span>
 
   <span class="c1">// Add a scalar bar-&gt;</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkScalarBarActor</span><span class="p">,</span> <span class="n">scalarBar</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkScalarBarActor</span><span class="o">&gt;</span> <span class="n">scalarBar</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkScalarBarActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="c1">// This LUT puts the lowest value at the top of the scalar bar.</span>
   <span class="c1">// scalarBar-&gt;SetLookupTable(lut);</span>
   <span class="c1">// Use this LUT if you want the highest value at the top.</span>
@@ -16741,8 +16775,10 @@ get an idea of the distribution of the scalars in each band.</p>
   <span class="c1">// ------------------------------------------------------------</span>
   <span class="c1">// Create the RenderWindow, Renderer and Interactor</span>
   <span class="c1">// ------------------------------------------------------------</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkRenderer</span><span class="p">,</span> <span class="n">ren</span><span class="p">);</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkRenderWindow</span><span class="p">,</span> <span class="n">renWin</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren</span><span class="p">);</span>
   <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
@@ -16766,7 +16802,8 @@ get an idea of the distribution of the scalars in each band.</p>
 <span class="c1">//! Make and display the surface.</span>
 <span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="p">[])</span>
 <span class="p">{</span>
-  <span class="n">VTK_SP</span><span class="p">(</span><span class="n">vtkRenderWindowInteractor</span><span class="p">,</span> <span class="n">iren</span><span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="c1">// Select the surface you want displayed.</span>
   <span class="c1">// Display(TORUS, iren);</span>
   <span class="c1">// Display(PARAMETRIC_TORUS, iren);</span>
