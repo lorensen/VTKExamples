@@ -1,7 +1,7 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
-#include <vtkSphereSource.h>
 #include <vtkPolyDataConnectivityFilter.h>
+
+#include <vtkSphereSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkProperty.h>
@@ -12,6 +12,8 @@
 #include <vtkCellLocator.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkTriangleFilter.h>
+
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +36,7 @@ int main(int argc, char *argv[])
     sphereSource1->SetThetaResolution(10);
     sphereSource1->SetPhiResolution(10);
     sphereSource1->SetCenter(5, 5, 5);
+    sphereSource1->SetRadius(1.5);
 
     // Large sphere with least polygons
     vtkSmartPointer<vtkSphereSource> sphereSource2 =
@@ -95,11 +98,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkPolyDataConnectivityFilter> connectivityFilter =
       vtkSmartPointer<vtkPolyDataConnectivityFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  connectivityFilter->SetInput(polyData);
-#else
   connectivityFilter->SetInputData(polyData);
-#endif
   connectivityFilter->SetExtractionModeToCellSeededRegions();
   connectivityFilter->InitializeSeedList();
   connectivityFilter->AddSeed(cellId);
@@ -107,15 +106,17 @@ int main(int argc, char *argv[])
   // Create a mapper and actor for original data
     vtkSmartPointer<vtkPolyDataMapper> originalMapper =
       vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  originalMapper->SetInput(polyData);
-#else
   originalMapper->SetInputData(polyData);
-#endif
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkActor> originalActor =
       vtkSmartPointer<vtkActor>::New();
   originalActor->SetMapper(originalMapper);
+  originalActor->GetProperty()->BackfaceCullingOn();
+  originalActor->GetProperty()->SetOpacity(.5);;
+  originalActor->GetProperty()->SetColor(colors->GetColor3d("Gold").GetData());
 
   // Create a mapper and actor for extracted data
   vtkSmartPointer<vtkPolyDataMapper> extractedMapper =
@@ -124,8 +125,10 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkActor> extractedActor =
       vtkSmartPointer<vtkActor>::New();
-  extractedActor->GetProperty()->SetColor(1,0,0);
+  extractedActor->GetProperty()->SetColor(colors->GetColor3d("Peacock").GetData());
   extractedActor->SetMapper(extractedMapper);
+  extractedActor->GetProperty()->SetOpacity(.5);;
+  extractedActor->GetProperty()->BackfaceCullingOn();
 
   // Create a renderer
   vtkSmartPointer<vtkRenderer> renderer =
@@ -133,10 +136,17 @@ int main(int argc, char *argv[])
   renderer->AddActor(originalActor);
   renderer->AddActor(extractedActor);
 
+  renderer->GradientBackgroundOn();
+  renderer->SetBackground2(colors->GetColor3d("Beige").GetData());
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
+
+  extractedActor->SetPosition((bounds[1] - bounds[0]) / 1.9, 0, 0);
+  originalActor->SetPosition(-(bounds[1] - bounds[0]) / 1.9, 0, 0);
   // Create a render window
   vtkSmartPointer<vtkRenderWindow> renwin =
       vtkSmartPointer<vtkRenderWindow>::New();
   renwin->AddRenderer(renderer);
+  renwin->SetSize(512, 512);
 
   // Create an interactor
   vtkSmartPointer<vtkRenderWindowInteractor> iren =

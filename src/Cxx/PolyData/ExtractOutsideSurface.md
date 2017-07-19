@@ -5,4 +5,6 @@ The example casts a ray from outside the bounds of the model into the center of 
 
 If run without arguments, the example generates a small (in area) sphere inside a large (in area) sphere. The inner sphere has more cells than the outer sphere, but should not be extracted.
 
+The gold model is the original polydata and the blue model is the outer surface.
+
 You can try your own surface by specifying a XML PolyData file (.vtp) on the command line.
