@@ -4,12 +4,11 @@ public class ColorAnActor {
 
   static
   {
-    System.loadLibrary("vtkCommonJava");
-    System.loadLibrary("vtkFilteringJava");
-    System.loadLibrary("vtkIOJava");
-    System.loadLibrary("vtkImagingJava");
-    System.loadLibrary("vtkGraphicsJava");
-    System.loadLibrary("vtkRenderingJava");
+    System.loadLibrary("vtkCommonCoreJava");
+    System.loadLibrary("vtkFiltersSourcesJava");
+    System.loadLibrary("vtkInteractionStyleJava");
+    System.loadLibrary("vtkRenderingCoreJava");
+    System.loadLibrary("vtkRenderingOpenGL2Java");
   }
 
   public static void main(String[] args)

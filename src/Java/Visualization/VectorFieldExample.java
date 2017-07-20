@@ -1,5 +1,3 @@
-package eu.mihosoft.vtk;
-
 import java.awt.BorderLayout;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +20,15 @@ import vtk.vtkXMLUnstructuredGridReader;
 
 public class VectorFieldExample implements Serializable {
 
+  static
+  {
+    System.loadLibrary("vtkCommonCoreJava");
+    System.loadLibrary("vtkFiltersCoreJava");
+    System.loadLibrary("vtkFiltersSourcesJava");
+    System.loadLibrary("vtkIOXMLJava");
+    System.loadLibrary("vtkRenderingCoreJava");
+    System.loadLibrary("vtkRenderingOpenGL2Java");
+  }
     private static final long serialVersionUID = 1L;
 
     public static vtkPanel showVectorField(
@@ -38,7 +45,7 @@ public class VectorFieldExample implements Serializable {
         image.GetPointData().SetVectors(image.GetPointData().GetArray(elementInFile));
 
         vtkThresholdPoints thresholdVector = new vtkThresholdPoints();
-        thresholdVector.SetInput(image);
+        thresholdVector.SetInputData(image);
         thresholdVector.SetInputArrayToProcess(
                 elementInFile,
                 image.GetInformation());
@@ -60,7 +67,7 @@ public class VectorFieldExample implements Serializable {
         vtkPolyData tmp = thresholdVector.GetOutput();
         System.out.println("number of thresholded points: " + tmp.GetNumberOfPoints());
 
-        vectorGlyph.SetInputConnection(image.GetProducerPort());
+        vectorGlyph.SetInputData(image);
         vectorGlyph.SetSourceConnection(arrowSource.GetOutputPort());
         vectorGlyph.SetScaleModeToScaleByVector();
         vectorGlyph.SetVectorModeToUseVector();
@@ -99,7 +106,7 @@ public class VectorFieldExample implements Serializable {
                 JFrame frame = new JFrame("VTKJPanel Demo");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-                File file = new File("PATH/TO/FILE.vtu"); // needs to be replaced
+                File file = new File("../src/Testing/Data/tetra.vtu"); // needs to be replaced
 
                 vtkPanel panel = showVectorField(file, 2, 0.001, 0.05); // values need to be replaced
 

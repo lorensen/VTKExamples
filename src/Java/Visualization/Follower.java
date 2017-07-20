@@ -5,13 +5,13 @@ public class Follower
 
   static
   {
-    System.loadLibrary("vtkCommonJava");
-    System.loadLibrary("vtkFilteringJava");
-    System.loadLibrary("vtkIOJava");
-    System.loadLibrary("vtkImagingJava");
-    System.loadLibrary("vtkGraphicsJava");
-    System.loadLibrary("vtkRenderingJava");
-    System.loadLibrary("vtkHybridJava");
+    System.loadLibrary("vtkCommonCoreJava");
+    System.loadLibrary("vtkFiltersSourcesJava");
+    System.loadLibrary("vtkFiltersCoreJava");
+    System.loadLibrary("vtkInteractionStyleJava");
+    System.loadLibrary("vtkRenderingFreeTypeJava");
+    System.loadLibrary("vtkRenderingCoreJava");
+    System.loadLibrary("vtkRenderingOpenGL2Java");
   }
 
   public static void main(String[] args)

@@ -37,7 +37,7 @@ It would be appreciated if there are any Java VTK experts who could convert any 
 [Follower](/Java/Visualization/Follower) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html#details) | Draw text that stays right side up
 [AnimDataCone](/Java/Visualization/AnimDataCone)  | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html#details) | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
 [ColorAnActor](/Java/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html::GetProperty)::SetColor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
-[VectorField](/Java/Visualization/VectorField) |    |
+[VectorFieldExample](/Java/Visualization/VectorFieldExample) |    |
 
 #Interaction
 | Example Name | Classes Demonstrated | Description |
