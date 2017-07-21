@@ -175,7 +175,9 @@ Please add examples in your areas of expertise!
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [QuadraticHexahedron](/Cxx/GeometricObjects/QuadraticHexahedron) | [vtkQuadraticHexahedron](http://www.vtk.org/doc/nightly/html/classvtkQuadraticHexahedron.html#details) [vtkTessellatorFilter](http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html#details) | Create and tessellate a nonlinear cell.
+[QuadraticHexahedronDemo](/Cxx/GeometricObjects/QuadraticHexahedronDemo) | [vtkQuadraticHexahedron](http://www.vtk.org/doc/nightly/html/classvtkQuadraticHexahedron.html#details) [vtkTessellatorFilter](http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html#details) | Interactively adjust chord error.
 [QuadraticTetra](/Cxx/GeometricObjects/QuadraticTetra) | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details) [vtkTessellatorFilter](http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html#details) | Create and tessellate a nonlinear cell.
+[QuadraticTetraDemo](/Cxx/GeometricObjects/QuadraticTetraDemo) | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details) [vtkTessellatorFilter](http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html#details) | Interactively adjust chord error.
 
 ### Parametric Objects
 
