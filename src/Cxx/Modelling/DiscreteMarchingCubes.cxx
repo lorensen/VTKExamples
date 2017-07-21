@@ -64,6 +64,8 @@ int main (int argc, char *argv[])
   renWin->Render();
 
   iren->Start();
+
+  return EXIT_SUCCESS;
 }
 
 vtkSmartPointer<vtkImageData> MakeBlob(int n, double radius)
