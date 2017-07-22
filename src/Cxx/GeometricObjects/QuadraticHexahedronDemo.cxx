@@ -246,6 +246,7 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticHexahedron()
   vtkSmartPointer<vtkPoints> points =
     vtkSmartPointer<vtkPoints>::New();
 
+  vtkMath::RandomSeed(5070); // for testing
   double *pcoords = aHexahedron->GetParametricCoords();
   points->SetNumberOfPoints(aHexahedron->GetNumberOfPoints());
   for (int i = 0; i < aHexahedron->GetNumberOfPoints(); ++i)

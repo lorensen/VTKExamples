@@ -247,6 +247,7 @@ vtkSmartPointer<vtkUnstructuredGrid> MakeQuadraticTetra()
     vtkSmartPointer<vtkPoints>::New();
   double *pcoords = aTetra->GetParametricCoords();
 
+  vtkMath::RandomSeed(5070); // for testing
   points->SetNumberOfPoints(aTetra->GetNumberOfPoints());
   for (int i = 0; i < aTetra->GetNumberOfPoints(); ++i)
   {

@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
   }
   else
   {
+    vtkMath::RandomSeed(5070); // for testing
     vtkSmartPointer<vtkAppendPolyData> appendFilter =
       vtkSmartPointer<vtkAppendPolyData>::New();
 
