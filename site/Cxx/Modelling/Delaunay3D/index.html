@@ -7552,6 +7552,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../Delaunay3DDemo/" title="Delaunay3DDemo" class="md-nav__link">
+      Delaunay3DDemo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-nav__link">
       DiscreteMarchingCubes
     </a>
@@ -15880,6 +15892,11 @@ function registerListener(event, func) {
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example creates a tetrahedral mesh from unorganized points. The example uses the <a href="http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html#details">vtkDelaunay3D</a> filter. The resulting mesh will be a solid convex hull of the original points. The example takes the points from a XML PolyData file (.vtp) produces the 3D Delaunay tetrahedralization (both with alpha = 0 and a non-zero alpha), and displays the result on the screen.</p>
 <p>For alpha != 0 (right window), the tetra are yellow, the lines are blue and the triangles are red.</p>
+<p>The example requires a .vtp file and an optional alpha.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p>See <a href="../../../Cxx/Modelling/Delaunay3DDemo">Delaunay3DDemo</a> to interactively adjust Alpha.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Delaunay3D.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkDelaunay3D.h&gt;</span><span class="cp"></span>
@@ -15904,7 +15921,13 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkUnsignedCharArray.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkTextMapper.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkActor2D.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
 <span class="p">{</span>
@@ -15920,14 +15943,19 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">color</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">originalMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
+  <span class="n">originalMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">originalActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">originalMapper</span><span class="p">);</span>
-  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">originalActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
 
   <span class="c1">// Clean the polydata. This will remove duplicate points that may be</span>
@@ -15945,11 +15973,12 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">delaunayMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">delaunayMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">delaunay3D</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">delaunayMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">delaunayActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">delaunayActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">delaunayMapper</span><span class="p">);</span>
-  <span class="n">delaunayActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">delaunayActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">delaunayActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
 
   <span class="c1">// Generate a mesh from the input points. If Alpha is non-zero, then</span>
@@ -15958,22 +15987,19 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay3D</span><span class="o">&gt;</span> <span class="n">delaunay3DAlpha</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDelaunay3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span> <span class="p">(</span><span class="n">cleaner</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">SetAlpha</span><span class="p">(</span><span class="mf">.02</span><span class="p">);</span>
+  <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">SetAlpha</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
   <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
-  <span class="n">vtkCellIterator</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">NewCellIterator</span><span class="p">();</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">color</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;</span> <span class="n">cellData</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">cellData</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-  <span class="c1">// Set the cell color depending on cell type</span>
   <span class="kt">int</span> <span class="n">numTetras</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">numLines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">numTris</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">numVerts</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
+  <span class="n">vtkCellIterator</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">NewCellIterator</span><span class="p">();</span>
   <span class="k">for</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">();</span> <span class="o">!</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">IsDoneWithTraversal</span><span class="p">();</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">GoToNextCell</span><span class="p">())</span>
   <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">()</span> <span class="o">==</span> <span class="n">VTK_TETRA</span><span class="p">)</span>
@@ -15994,27 +16020,47 @@ function registerListener(event, func) {
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">()</span> <span class="o">==</span> <span class="n">VTK_VERTEX</span><span class="p">)</span>
     <span class="p">{</span>
       <span class="n">numVerts</span><span class="o">++</span><span class="p">;</span>
-      <span class="n">cellData</span><span class="o">-&gt;</span><span class="n">InsertNextTypedTuple</span><span class="p">(</span><span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+      <span class="n">cellData</span><span class="o">-&gt;</span><span class="n">InsertNextTypedTuple</span><span class="p">(</span><span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3ub</span><span class="p">(</span><span class="s">&quot;Lime&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
     <span class="p">}</span>
   <span class="p">}</span>
   <span class="n">it</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">();</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numTetras: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numTetras</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numLines: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numLines</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numTris: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numTris</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numVerts: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numVerts</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
+  <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numTetras: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numTetras</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numLines: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numLines</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numTris: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numTris</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;numVerts: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">numVerts</span><span class="p">;</span>
+
+  <span class="c1">// Set the cell color depending on cell type</span>
   <span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">cellData</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">delaunayAlphaMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">delaunayAlphaMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">delaunay3DAlpha</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">delaunayAlphaMapper</span><span class="o">-&gt;</span><span class="n">SetScalarModeToUseCellData</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">delaunayAlphaActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">delaunayAlphaActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">delaunayAlphaMapper</span><span class="p">);</span>
-  <span class="n">delaunayAlphaActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">delaunayAlphaActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mf">5.0</span><span class="p">);</span>
   <span class="n">delaunayAlphaActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
 
   <span class="c1">// Visualize</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;</span> <span class="n">textProperty</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextProperty</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+  <span class="n">textProperty</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Black&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;</span> <span class="n">textMapper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTextMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>  
+  <span class="n">textMapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">textMapper</span><span class="o">-&gt;</span><span class="n">SetTextProperty</span><span class="p">(</span><span class="n">textProperty</span><span class="p">);</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;</span> <span class="n">textActor</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">textMapper</span><span class="p">);</span>
+  <span class="n">textActor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 
   <span class="c1">// Define viewport ranges</span>
   <span class="c1">// (xmin, ymin, xmax, ymax)</span>
@@ -16057,16 +16103,19 @@ function registerListener(event, func) {
   <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">originalActor</span><span class="p">);</span>
   <span class="n">delaunayRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">delaunayActor</span><span class="p">);</span>
   <span class="n">delaunayAlphaRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">delaunayAlphaActor</span><span class="p">);</span>
+  <span class="n">delaunayAlphaRenderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">textActor</span><span class="p">);</span>
 
   <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span>
-    <span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Bisque&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+    <span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Slate_Grey&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">delaunayRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span>
-    <span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+    <span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Light_Grey&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">delaunayAlphaRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span>
-    <span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Cornsilk&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+    <span class="n">color</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Grey&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
+  <span class="n">originalRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
   <span class="c1">// Render and interact</span>
-  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
   <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
@@ -16148,13 +16197,13 @@ Once the <em>tarball Delaunay3D.tar</em> has been downloaded and extracted,</p>
           </a>
         
         
-          <a href="../DiscreteMarchingCubes/" title="DiscreteMarchingCubes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Delaunay3DDemo/" title="Delaunay3DDemo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                DiscreteMarchingCubes
+                Delaunay3DDemo
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
