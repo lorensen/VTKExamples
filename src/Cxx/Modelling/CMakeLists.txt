@@ -29,6 +29,7 @@ SET(KIT Modelling)
 SET(NEEDS_ARGS
   ContourTriangulator
   Delaunay3D
+  Delaunay3DDemo
   ExtractLargestIsosurface
   MarchingSquares
 )
@@ -38,6 +39,9 @@ SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-Delaunay3D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestDelaunay3D ${DATA}/Bunny.vtp)
+
+ADD_TEST(${KIT}-Delaunay3DDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestDelaunay3DDemo ${DATA}/Bunny.vtp)
 
 ADD_TEST(${KIT}-ExtractLargestIsosurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestExtractLargestIsosurface ${DATA}/brain.vtk 50 1)

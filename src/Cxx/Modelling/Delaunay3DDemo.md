@@ -3,7 +3,4 @@ This example creates a tetrahedral mesh from unorganized points. The example use
 
 For alpha != 0 (right window), the tetra are yellow, the lines are blue and the triangles are red.
 
-The example requires a .vtp file and an optional alpha.
-
-!!! seealso
-    See [Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) to interactively adjust Alpha.
+Alpha can be changed interactively to see its affect on the resulting surface.

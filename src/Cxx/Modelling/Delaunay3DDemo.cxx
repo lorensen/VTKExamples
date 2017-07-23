@@ -24,9 +24,22 @@
 #include <vtkTextMapper.h>
 #include <vtkActor2D.h>
 
+#include <vtkCommand.h>
+#include <vtkSliderWidget.h>
+#include <vtkSliderRepresentation2D.h>
+
 #include <vtkXMLPolyDataReader.h>
 
 #include <sstream>
+
+namespace
+{
+void MakeWidget(vtkSmartPointer<vtkSliderWidget> &,
+                vtkSmartPointer<vtkDelaunay3D> &,
+                vtkSmartPointer<vtkTextMapper> &,
+                vtkSmartPointer<vtkRenderer> &,
+                vtkSmartPointer<vtkRenderWindowInteractor> &);
+}
 
 int main ( int argc, char *argv[] )
 {
@@ -199,6 +212,10 @@ int main ( int argc, char *argv[] )
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
+  vtkSmartPointer<vtkSliderWidget> widget =
+    vtkSmartPointer<vtkSliderWidget>::New();
+  MakeWidget(widget, delaunay3DAlpha, textMapper, delaunayAlphaRenderer, renderWindowInteractor);
+
   originalRenderer->AddActor(originalActor);
   delaunayRenderer->AddActor(delaunayActor);
   delaunayAlphaRenderer->AddActor(delaunayAlphaActor);
@@ -217,4 +234,125 @@ int main ( int argc, char *argv[] )
   // Render and interact
   renderWindowInteractor->Start();
   return EXIT_SUCCESS;
+}
+
+namespace
+{
+// These callbacks do the actual work.
+// Callbacks for the interactions
+class SliderCallbackAlpha : public vtkCommand
+{
+public:
+  static SliderCallbackAlpha *New()
+  {
+    return new SliderCallbackAlpha;
+  }
+  virtual void Execute(vtkObject *caller, unsigned long, void*)
+  {
+    vtkSliderWidget *sliderWidget =
+      reinterpret_cast<vtkSliderWidget*>(caller);
+    double value = static_cast<vtkSliderRepresentation2D *>(sliderWidget->GetRepresentation())->GetValue();
+    this->Delaunay3D->SetAlpha(value);
+    this->Delaunay3D->Update();
+
+    vtkSmartPointer<vtkUnsignedCharArray> cellData =
+      vtkSmartPointer<vtkUnsignedCharArray>::New();
+    cellData->SetNumberOfComponents(3);
+
+    // Set the cell color depending on cell type
+    vtkSmartPointer<vtkNamedColors> color =
+      vtkSmartPointer<vtkNamedColors>::New();
+    int numTetras = 0;
+    int numLines = 0;
+    int numTris = 0;
+    int numVerts = 0;
+
+    vtkCellIterator *it = this->Delaunay3D->GetOutput()->NewCellIterator();
+    for (it->InitTraversal(); !it->IsDoneWithTraversal(); it->GoToNextCell())
+    {
+      if (it->GetCellType() == VTK_TETRA)
+      {
+        numTetras++;
+        cellData->InsertNextTypedTuple(color->GetColor3ub("Banana").GetData());
+      }
+      else if (it->GetCellType() == VTK_LINE)
+      {
+        numLines++;
+        cellData->InsertNextTypedTuple(color->GetColor3ub("Peacock").GetData());
+      }
+      else if (it->GetCellType() == VTK_TRIANGLE)
+      {
+        numTris++;
+        cellData->InsertNextTypedTuple(color->GetColor3ub("Tomato").GetData());
+      }
+      else if (it->GetCellType() == VTK_VERTEX)
+      {
+        numVerts++;
+        cellData->InsertNextTypedTuple(color->GetColor3ub("Lime").GetData());
+      }
+    }
+    it->Delete();
+    this->Delaunay3D->GetOutput()->GetCellData()->SetScalars(cellData);
+    std::stringstream ss;
+    ss << "numTetras: " << numTetras << std::endl;
+    ss << "numLines: " << numLines << std::endl;
+    ss << "numTris: " << numTris << std::endl;
+    ss << "numVerts: " << numVerts;
+    this->TextMapper->SetInput(ss.str().c_str());
+
+  }
+  SliderCallbackAlpha():Delaunay3D(0),TextMapper(0) {}
+  vtkDelaunay3D *Delaunay3D;
+  vtkTextMapper *TextMapper;
+};
+
+void
+MakeWidget(vtkSmartPointer<vtkSliderWidget> &widget,
+           vtkSmartPointer<vtkDelaunay3D> &delaunay3D,
+           vtkSmartPointer<vtkTextMapper> &textMapper,
+           vtkSmartPointer<vtkRenderer> &renderer,
+           vtkSmartPointer<vtkRenderWindowInteractor> &interactor)
+{
+  // Setup a slider widget for each varying parameter
+  double tubeWidth(.02);
+  double sliderLength(.04);
+  double titleHeight(.04);
+  double labelHeight(.04);
+
+  vtkSmartPointer<vtkSliderRepresentation2D> sliderRepAlpha =
+    vtkSmartPointer<vtkSliderRepresentation2D>::New();
+
+  sliderRepAlpha->SetRenderer(renderer);
+
+  sliderRepAlpha->SetMinimumValue(0.0001);
+  sliderRepAlpha->SetMaximumValue(1.0);
+  sliderRepAlpha->SetValue(delaunay3D->GetAlpha());
+  sliderRepAlpha->SetTitleText("Alpha");
+  sliderRepAlpha->SetRenderer(renderer);
+  sliderRepAlpha->GetPoint1Coordinate()->SetValue(0.1, .1);
+  sliderRepAlpha->GetPoint1Coordinate()->SetCoordinateSystemToNormalizedViewport();
+  sliderRepAlpha->GetPoint2Coordinate()->SetValue(.9, .1);
+  sliderRepAlpha->GetPoint2Coordinate()->SetCoordinateSystemToNormalizedViewport();
+
+  sliderRepAlpha->SetTubeWidth(tubeWidth);
+  sliderRepAlpha->SetSliderLength(sliderLength);
+  sliderRepAlpha->SetTitleHeight(titleHeight);
+  sliderRepAlpha->SetLabelHeight(labelHeight);
+  sliderRepAlpha->SetEndCapLength(tubeWidth*1.5);
+  sliderRepAlpha->SetSliderWidth(tubeWidth*1.5);
+  sliderRepAlpha->BuildRepresentation();
+
+  widget->SetRepresentation(sliderRepAlpha);
+  widget->SetAnimationModeToAnimate();
+  widget->SetNumberOfAnimationSteps(2);
+  widget->SetInteractor(interactor);
+  widget->EnabledOn();
+
+  vtkSmartPointer<SliderCallbackAlpha> callbackAlpha =
+    vtkSmartPointer<SliderCallbackAlpha>::New();
+  callbackAlpha->Delaunay3D = delaunay3D;
+  callbackAlpha->TextMapper = textMapper;
+
+  widget->AddObserver(vtkCommand::InteractionEvent,callbackAlpha);
+}
 }

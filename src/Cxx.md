@@ -504,7 +504,8 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Delaunay3D](/Cxx/Modelling/Delaunay3D) | [vtkDelaunay3D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html#details) | Create a solid mesh from Unorganized Points (Delaunay3D).
+[Delaunay3D](/Cxx/Modelling/Delaunay3D) | [vtkDelaunay3D](http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html#details) | Create a solid mesh from Unorganized Points.
+[Delaunay3DDemo](/Cxx/Modelling/Delaunay3DDemo) | [vtkDelaunay3DDemo](http://www.vtk.org/doc/nightly/html/classvtkDelaunay3D.html#details) | Interactively adjust Alpha for Delaunay3D.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html#details) [vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html#details) [vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html#details) |Create a surface from Unorganized Points using Point filters (DEMO).
 [ExtractSurface](/Cxx/Points/ExtractSurface) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html#details) [vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html#details) [vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html#details) |Create a surface from Unorganized Points using Point filters.
 [GaussianSplat](/Cxx/Filtering/GaussianSplat) | [vtkGaussianSplatter](http://www.vtk.org/doc/nightly/html/classvtkGaussianSplatter.html#details) |Create a surface from Unorganized Points (Gaussian Splat).
