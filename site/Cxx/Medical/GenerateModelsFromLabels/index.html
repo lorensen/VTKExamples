@@ -15889,12 +15889,12 @@ function registerListener(event, func) {
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Medical/GenerateModelsFromLabels</p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>This example creates polydata models from a 3D volume that contains
-discrete labels. These volume are normally the output of a
+<p>This example uses <a href="http://www.vtk.org/doc/nightly/html/classvtkDiscreteMarchingCubes.html#details">vtkDiscreteMarchingCubes</a> to create <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> models from a 3D volume that contains
+discrete labels. These volumes are normally the output of a
 segmentation algorithm. The polydata for each label will be output
-into a separate file.
-If you want to see the segmentation results as
-cube models, see the example <a href="../../../Cxx/Medical/GenerateCubesFromLabels">cubes from labeled volume data</a>.
+into a separate file.</p>
+<p>If you want to see the segmentation results as
+cube models, see the example <a href="../../../Cxx/Medical/GenerateCubesFromLabels">GenerateCubesFromLabels</a>.
 The input volume must be in <a href="http://www.vtk.org/Wiki/MetaIO/Documentation">MetaIO format</a>.</p>
 <p>Once you generate the models, you can view them with <a href="http://paraview.org">Paraview</a></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
