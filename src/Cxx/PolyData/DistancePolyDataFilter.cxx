@@ -1,4 +1,3 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
@@ -13,6 +12,8 @@
 #include <vtkPointData.h>
 #include <vtkScalarBarActor.h>
 #include <vtkSphereSource.h>
+
+#include <vtkNamedColors.h>
 
 int main(int argc, char* argv[])
 {
@@ -40,30 +41,29 @@ int main(int argc, char* argv[])
     vtkSmartPointer<vtkSphereSource> sphereSource1 =
       vtkSmartPointer<vtkSphereSource>::New();
     sphereSource1->SetCenter(1, 0, 0);
+    sphereSource1->SetPhiResolution(21);
+    sphereSource1->SetThetaResolution(21);
     sphereSource1->Update();
     input1 = sphereSource1->GetOutput();
 
     vtkSmartPointer<vtkSphereSource> sphereSource2 =
       vtkSmartPointer<vtkSphereSource>::New();
+    sphereSource2->SetPhiResolution(21);
+    sphereSource2->SetThetaResolution(21);
     sphereSource2->Update();
     input2 = sphereSource2->GetOutput();
   }
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkCleanPolyData> clean1 =
     vtkSmartPointer<vtkCleanPolyData>::New();
-#if VTK_MAJOR_VERSION <= 5
-  clean1->SetInputConnection( input1->GetProducerPort());
-#else
   clean1->SetInputData( input1);
-#endif
 
   vtkSmartPointer<vtkCleanPolyData> clean2 =
     vtkSmartPointer<vtkCleanPolyData>::New();
-#if VTK_MAJOR_VERSION <= 5
-  clean2->SetInputConnection( input2->GetProducerPort());
-#else
   clean2->SetInputData( input2);
-#endif
 
   vtkSmartPointer<vtkDistancePolyDataFilter> distanceFilter =
     vtkSmartPointer<vtkDistancePolyDataFilter>::New();
@@ -90,6 +90,9 @@ int main(int argc, char* argv[])
   scalarBar->SetNumberOfLabels(4);
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+  renderer->SetBackground2(colors->GetColor3d("Gold").GetData());
+  renderer->GradientBackgroundOn();
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
