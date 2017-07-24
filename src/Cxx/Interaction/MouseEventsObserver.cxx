@@ -9,9 +9,12 @@
 #include <vtkSmartPointer.h>
 #include <vtkPointPicker.h>
 #include <vtkCamera.h>
-//#include <vtkInteractorObserver.h>
+#include <vtkNamedColors.h>
 
+namespace
+{
 void ClickCallbackFunction ( vtkObject* caller, long unsigned int eventId, void* clientData, void* callData );
+}
 
 int main(int, char *[])
 {
@@ -30,9 +33,12 @@ int main(int, char *[])
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(colors->GetColor3d("Slate_grey").GetData());
   renderer->AddActor(actor);
   
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
@@ -48,6 +54,8 @@ int main(int, char *[])
   clickCallback->SetCallback ( ClickCallbackFunction );
 
   renderWindowInteractor->AddObserver ( vtkCommand::LeftButtonPressEvent, clickCallback );
+  renderWindowInteractor->AddObserver ( vtkCommand::RightButtonPressEvent, clickCallback );
+  renderWindowInteractor->AddObserver ( vtkCommand::KeyPressEvent, clickCallback );
   
   renderWindowInteractor->Initialize();
   renderWindowInteractor->Start();
@@ -55,11 +63,20 @@ int main(int, char *[])
   return EXIT_SUCCESS;
 }
 
-void ClickCallbackFunction ( vtkObject* vtkNotUsed(caller), long unsigned int vtkNotUsed(eventId), void* vtkNotUsed(clientData), void* vtkNotUsed(callData) )
+namespace
+{
+void ClickCallbackFunction (
+  vtkObject* vtkNotUsed(caller),
+  long unsigned int eventId,
+  void* vtkNotUsed(clientData),
+  void* vtkNotUsed(callData) )
 {
   std::cout << "Click callback" << std::endl;
+  std::cout << "Event: " << vtkCommand::GetStringFromEventId(eventId) << std::endl;
+
   // Get the interactor like this:
   // vtkRenderWindowInteractor *iren = 
   //  static_cast<vtkRenderWindowInteractor*>(caller);
 
+}
 }

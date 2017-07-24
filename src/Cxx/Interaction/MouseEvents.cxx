@@ -8,7 +8,7 @@
 #include <vtkPointPicker.h>
 #include <vtkCamera.h>
 #include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkObjectFactory.h>
+#include <vtkNamedColors.h>
 
 // Define interaction style
 class customMouseInteractorStyle : public vtkInteractorStyleTrackballCamera
@@ -59,9 +59,12 @@ int main(int, char *[])
       vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(colors->GetColor3d("Slate_grey").GetData());
   renderer->AddActor(actor);
   
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
