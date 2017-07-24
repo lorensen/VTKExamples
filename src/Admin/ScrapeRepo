@@ -82,7 +82,7 @@ def AddThumbnails(repoDir, repoURL, fromFile, toFile):
             exampleDir = os.path.split(exampleLine)[0]
             baseline = RepoDir + "/Testing/Baseline" + exampleDir + "/Test" + exampleName + ".png"
             if os.path.exists(baseline):
-                img = '<img class="lazy" style="float:middle" data-src="' + repoURL + '/blob/master/' + baseline + '?raw=true" width="64" />'
+                img = '<img class="lazy" style="float:center" data-src="' + repoURL + '/blob/master/' + baseline + '?raw=true" width="64" />'
                 outFile.write(" | " + img)
         outFile.write("\n")
     mdFile.close()
@@ -221,7 +221,8 @@ for lang, langExt in Languages.items():
                 print "BaselinePath: " + BaselinePath
                 ImgUrl =  RepoURL + "/blob/master/src/Testing/Baseline/" + lang + "/" + KitName + "/Test" + ExampleName + ".png?raw=true"
                 print "ImgUrl: " + ImgUrl
-                MdFile.write('<img style="float:middle" src="' + ImgUrl + '" width="256" />' + '\n')
+                MdFile.write('<img style="border:2px solid beige;float:center" src="' + ImgUrl + '" width="256" />' + '\n')
+                MdFile.write("<hr>\n")
                 MdFile.write("\n")
             DescriptionPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
             if os.path.isfile(DescriptionPath) :
