@@ -15874,7 +15874,8 @@ function registerListener(event, func) {
                   <h1>QuadraticTetra</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/QuadraticTetra</p>
-<p><img style="float:middle" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestQuadraticTetra.png?raw=true" width="256" /></p>
+<p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestQuadraticTetra.png?raw=true" width="256" />
+<hr></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>QuadraticTetra.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
@@ -15977,6 +15978,7 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPoints</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="kt">double</span> <span class="o">*</span><span class="n">pcoords</span> <span class="o">=</span> <span class="n">aTetra</span><span class="o">-&gt;</span><span class="n">GetParametricCoords</span><span class="p">();</span>
 
+  <span class="n">vtkMath</span><span class="o">::</span><span class="n">RandomSeed</span><span class="p">(</span><span class="mi">5070</span><span class="p">);</span> <span class="c1">// for testing</span>
   <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="n">aTetra</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">());</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">aTetra</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
   <span class="p">{</span>
