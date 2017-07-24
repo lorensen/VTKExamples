@@ -28,17 +28,23 @@ int main(int, char *[])
   sphereSource->SetThetaResolution(30);
   sphereSource->SetCenter(40, 40, 0);
   sphereSource->SetRadius(20);
+
   // generate circle by cutting the sphere with an implicit plane
   // (through its center, axis-aligned)
-  vtkSmartPointer<vtkCutter> circleCutter = vtkSmartPointer<vtkCutter>::New();
+  vtkSmartPointer<vtkCutter> circleCutter =
+    vtkSmartPointer<vtkCutter>::New();
   circleCutter->SetInputConnection(sphereSource->GetOutputPort());
-  vtkSmartPointer<vtkPlane> cutPlane = vtkSmartPointer<vtkPlane>::New();
+  vtkSmartPointer<vtkPlane> cutPlane =
+    vtkSmartPointer<vtkPlane>::New();
   cutPlane->SetOrigin(sphereSource->GetCenter());
   cutPlane->SetNormal(0, 0, 1);
   circleCutter->SetCutFunction(cutPlane);
-  vtkSmartPointer<vtkStripper> stripper = vtkSmartPointer<vtkStripper>::New();
+
+  vtkSmartPointer<vtkStripper> stripper =
+    vtkSmartPointer<vtkStripper>::New();
   stripper->SetInputConnection(circleCutter->GetOutputPort()); // valid circle
   stripper->Update();
+
   // that's our circle
   vtkSmartPointer<vtkPolyData> circle = stripper->GetOutput();
 
@@ -78,17 +84,20 @@ int main(int, char *[])
   whiteImage->SetDimensions(dim);
   whiteImage->SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1);
   double origin[3];
+
   // NOTE: I am not sure whether or not we had to add some offset!
   origin[0] = bounds[0];// + spacing[0] / 2;
   origin[1] = bounds[2];// + spacing[1] / 2;
   origin[2] = bounds[4];// + spacing[2] / 2;
   whiteImage->SetOrigin(origin);
+
 #if VTK_MAJOR_VERSION <= 5
   whiteImage->SetScalarTypeToUnsignedChar();
   whiteImage->AllocateScalars();
 #else
   whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
 #endif
+
   // fill the image with foreground voxels:
   unsigned char inval = 255;
   unsigned char outval = 0;
@@ -134,6 +143,7 @@ int main(int, char *[])
   imgstenc->ReverseStencilOff();
   imgstenc->SetBackgroundValue(outval);
   imgstenc->Update();
+  imgstenc->GetOutput()->Print(std::cout);
 
   vtkSmartPointer<vtkMetaImageWriter> imageWriter =
     vtkSmartPointer<vtkMetaImageWriter>::New();

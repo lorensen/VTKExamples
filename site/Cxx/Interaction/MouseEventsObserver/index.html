@@ -6562,6 +6562,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -15836,6 +15843,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -15876,6 +15890,10 @@ function registerListener(event, func) {
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Interaction/MouseEventsObserver</p>
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Interaction/TestMouseEventsObserver.png?raw=true" width="256" />
 <hr></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>This example shows how to add an event observer to an existing style class.</p>
+<p>See <a href="../../../Cxx/Interaction/MouseEvents">MouseEvents</a> for a
+different approach that subclasses an existin interactor style to implement custom behaviors.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>MouseEventsObserver.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
@@ -15889,11 +15907,14 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointPicker.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
-<span class="c1">//#include &lt;vtkInteractorObserver.h&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
-<span class="kt">void</span> <span class="nf">ClickCallbackFunction</span> <span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">);</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">ClickCallbackFunction</span> <span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">caller</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">clientData</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">callData</span> <span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> 
@@ -15910,9 +15931,12 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Slate_grey&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span> 
@@ -15928,6 +15952,8 @@ function registerListener(event, func) {
   <span class="n">clickCallback</span><span class="o">-&gt;</span><span class="n">SetCallback</span> <span class="p">(</span> <span class="n">ClickCallbackFunction</span> <span class="p">);</span>
 
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">AddObserver</span> <span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">LeftButtonPressEvent</span><span class="p">,</span> <span class="n">clickCallback</span> <span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">AddObserver</span> <span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">RightButtonPressEvent</span><span class="p">,</span> <span class="n">clickCallback</span> <span class="p">);</span>
+  <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">AddObserver</span> <span class="p">(</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">KeyPressEvent</span><span class="p">,</span> <span class="n">clickCallback</span> <span class="p">);</span>
 
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
@@ -15935,13 +15961,22 @@ function registerListener(event, func) {
   <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">ClickCallbackFunction</span> <span class="p">(</span> <span class="n">vtkObject</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span> <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">eventId</span><span class="p">),</span> <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">clientData</span><span class="p">),</span> <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">ClickCallbackFunction</span> <span class="p">(</span>
+  <span class="n">vtkObject</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">caller</span><span class="p">),</span>
+  <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">eventId</span><span class="p">,</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">clientData</span><span class="p">),</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">vtkNotUsed</span><span class="p">(</span><span class="n">callData</span><span class="p">)</span> <span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Click callback&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Event: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">vtkCommand</span><span class="o">::</span><span class="n">GetStringFromEventId</span><span class="p">(</span><span class="n">eventId</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
   <span class="c1">// Get the interactor like this:</span>
   <span class="c1">// vtkRenderWindowInteractor *iren = </span>
   <span class="c1">//  static_cast&lt;vtkRenderWindowInteractor*&gt;(caller);</span>
 
+<span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 

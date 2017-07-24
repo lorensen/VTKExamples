@@ -15931,17 +15931,23 @@ least I think ...). Maybe someone could verify that. Thanks!</p>
   <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
   <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+
   <span class="c1">// generate circle by cutting the sphere with an implicit plane</span>
   <span class="c1">// (through its center, axis-aligned)</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;</span> <span class="n">circleCutter</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;</span> <span class="n">circleCutter</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCutter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">circleCutter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">cutPlane</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;</span> <span class="n">cutPlane</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPlane</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">cutPlane</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetCenter</span><span class="p">());</span>
   <span class="n">cutPlane</span><span class="o">-&gt;</span><span class="n">SetNormal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
   <span class="n">circleCutter</span><span class="o">-&gt;</span><span class="n">SetCutFunction</span><span class="p">(</span><span class="n">cutPlane</span><span class="p">);</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;</span> <span class="n">stripper</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;</span> <span class="n">stripper</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkStripper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">stripper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">circleCutter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span> <span class="c1">// valid circle</span>
   <span class="n">stripper</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+
   <span class="c1">// that&#39;s our circle</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">circle</span> <span class="o">=</span> <span class="n">stripper</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
@@ -15981,17 +15987,20 @@ least I think ...). Maybe someone could verify that. Thanks!</p>
   <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">);</span>
   <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
   <span class="kt">double</span> <span class="n">origin</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
   <span class="c1">// NOTE: I am not sure whether or not we had to add some offset!</span>
   <span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="c1">// + spacing[0] / 2;</span>
   <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="c1">// + spacing[1] / 2;</span>
   <span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="c1">// + spacing[2] / 2;</span>
   <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">);</span>
+
 <span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
   <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
   <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
 <span class="cp">#else</span>
   <span class="n">whiteImage</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 <span class="cp">#endif</span>
+
   <span class="c1">// fill the image with foreground voxels:</span>
   <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">inval</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
   <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">outval</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -16037,6 +16046,7 @@ least I think ...). Maybe someone could verify that. Thanks!</p>
   <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">ReverseStencilOff</span><span class="p">();</span>
   <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">SetBackgroundValue</span><span class="p">(</span><span class="n">outval</span><span class="p">);</span>
   <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">imgstenc</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageWriter</span><span class="o">&gt;</span> <span class="n">imageWriter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMetaImageWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
