@@ -15878,8 +15878,7 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DistancePolyDataFilter.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkDistancePolyDataFilter.h&gt;</span><span class="cp"></span>
@@ -15893,6 +15892,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkScalarBarActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
@@ -15920,30 +15921,29 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource1</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
     <span class="n">input1</span> <span class="o">=</span> <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource2</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
+    <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
     <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
     <span class="n">input2</span> <span class="o">=</span> <span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
   <span class="p">}</span>
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;</span> <span class="n">clean1</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">clean1</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">clean1</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">input1</span><span class="p">);</span>
-<span class="cp">#endif</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;</span> <span class="n">clean2</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">clean2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">clean2</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">input2</span><span class="p">);</span>
-<span class="cp">#endif</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDistancePolyDataFilter</span><span class="o">&gt;</span> <span class="n">distanceFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDistancePolyDataFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -15970,6 +15970,9 @@ function registerListener(event, func) {
   <span class="n">scalarBar</span><span class="o">-&gt;</span><span class="n">SetNumberOfLabels</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Silver&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground2</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Gold&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GradientBackgroundOn</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
