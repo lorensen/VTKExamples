@@ -9,7 +9,7 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 
-#include <vtkTestFilter.h>
+#include "vtkTestFilter.h"
 
 static void CallbackFunction(vtkObject* caller,
                 long unsigned int eventId,
