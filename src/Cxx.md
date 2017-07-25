@@ -44,6 +44,7 @@ Please add examples in your areas of expertise!
 [DEMReader](/Cxx/IO/DEMReader)   | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html#details) | Read DEM (elevation map) files
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | [vtkDataSetReader](http://www.vtk.org/doc/nightly/html/classvtkDataSetReader.html#details) |Report the contents of a VTK XML or legacy file
 [IndividualVRML](/Cxx/IO/IndividualVRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) | This example is used to get each actor and object from a scene and verify axes correspondence 
+[OBJImporter](/Cxx/IO/OBJImporter) | [vtkOBJImporter](http://www.vtk.org/doc/nightly/html/classvtkOBJImporter.html#details) | Import an OBJ scene that includes actors, materials and textures.
 [ParticleReader](/Cxx/IO/ParticleReader) | [vtkParticleReader](http://www.vtk.org/doc/nightly/html/classvtkParticleReader.html#details) | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadDICOMSeries](/Cxx/IO/ReadDICOMSeries)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) | This example demonstrates how to read a series of DICOM images and scroll through slices
 [ReadDICOM](/Cxx/IO/ReadDICOM)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) |Read DICOM file

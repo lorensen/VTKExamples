@@ -36,6 +36,7 @@ SET(NEEDS_ARGS
   JPEGReader
   JPEGWriter
   MetaImageReader
+  OBJImporter
   ParticleReader
   PNGReader
   PNGWriter
@@ -96,6 +97,9 @@ ADD_TEST(${KIT}-JPEGWriter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-MetaImageReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestMetaImageReader ${DATA}/Gourds.mha)
+
+ADD_TEST(${KIT}-OBJImporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestOBJImporter ${DATA}/doorman/doorman.obj ${DATA}/doorman/doorman.mtl ${DATA}/doorman)
 
 ADD_TEST(${KIT}-ParticleReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestParticleReader ${DATA}/Particles.raw)

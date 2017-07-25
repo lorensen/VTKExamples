@@ -1,0 +1,48 @@
+# Blender MTL File: 'doorman.blend'
+# Material Count: 4
+
+newmtl m_doorMan_clothing
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd t_doorMan_d.png
+map_Disp t_doorMan_n.png
+map_Ks t_doorMan_s.png
+
+newmtl m_doorMan_eye
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd t_eye_d.png
+map_Disp t_eye_n.png
+
+newmtl m_doorMan_skin
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd t_doorMan_d.png
+map_Disp t_doorMan_n.png
+map_Ks t_doorMan_s.png
+
+newmtl m_doorMan_teeth
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd t_doorMan_teeth_d.png
+map_Disp t_doorMan_teeth_n.png
