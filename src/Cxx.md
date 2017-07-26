@@ -40,6 +40,7 @@ Please add examples in your areas of expertise!
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[3DSImporter](/Cxx/IO/3DSImporter) | [vtk3DSImporter](http://www.vtk.org/doc/nightly/html/classvtk3DSImporter.html#details) | Import a 3D Studio scene that includes mulitple actors.
 [DelimitedTextReader](/Cxx/InfoVis/DelimitedTextReader)   | [vtkDelimitedTextReader](http://www.vtk.org/doc/nightly/html/classvtkDelimitedTextReader.html#details) |Read a delimited file into a polydata.
 [DEMReader](/Cxx/IO/DEMReader)   | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html#details) | Read DEM (elevation map) files
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | [vtkDataSetReader](http://www.vtk.org/doc/nightly/html/classvtkDataSetReader.html#details) |Report the contents of a VTK XML or legacy file

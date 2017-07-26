@@ -27,6 +27,7 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT IO)
 SET(NEEDS_ARGS
+  3DSImporter
   ConvertFile
   DEMReader
   DumpXMLFile
@@ -73,6 +74,9 @@ SET(NEEDS_ARGS
  
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+ADD_TEST(${KIT}-3DSImporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  Test3DSImporter ${DATA}/iflamingo.3ds)
 
 ADD_TEST(${KIT}-ConvertFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestConvertFile ${DATA}/Bunny.vtp ${TEMP}/ConvertFile.ply)
