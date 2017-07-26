@@ -147,6 +147,7 @@ Please add examples in your areas of expertise!
 [Cylinder](/Cxx/GeometricObjects/Cylinder)   | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) |
 [Disk](/Cxx/GeometricObjects/Disk)   | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html#details) | A circle with a hole in it.
 [Dodecahedron](/Cxx/GeometricObjects/Dodecahedron)   | [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details) | Create a dodecahedron using [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details)
+[EllipticalCylinder](/Cxx/GeometricObjects/EllipticalCylinder)   | [vtkLinearExtrusionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearExtrusionFilter.html#details) | Create an elliptical cylinder using extrusion.
 [Frustum](/Cxx/GeometricObjects/Frustum)   | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html#details) |
 [GeometricObjectsDemo](/Cxx/GeometricObjects/GeometricObjectsDemo) |  | A demonstration of all geometric objects that work the same way.
 [Hexahedron](/Cxx/GeometricObjects/Hexahedron)  | [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html#details) |
