@@ -4343,6 +4343,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../3DSImporter/" title="3DSImporter" class="md-nav__link">
+      3DSImporter
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../ConvertFile/" title="ConvertFile" class="md-nav__link">
       ConvertFile
     </a>
@@ -15942,9 +15954,13 @@ function registerListener(event, func) {
   <span class="n">actors</span><span class="o">-&gt;</span><span class="n">InitTraversal</span><span class="p">();</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;There are &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">actors</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; actors&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
+  <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="n">vtkIdType</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">actors</span><span class="o">-&gt;</span><span class="n">GetNumberOfItems</span><span class="p">();</span> <span class="o">++</span><span class="n">a</span><span class="p">)</span>
   <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">importer</span><span class="o">-&gt;</span><span class="n">GetOutputDescription</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
     <span class="n">vtkActor</span> <span class="o">*</span> <span class="n">actor</span> <span class="o">=</span> <span class="n">actors</span><span class="o">-&gt;</span><span class="n">GetNextActor</span><span class="p">();</span>
+
     <span class="c1">// OBJImporter turns texture interpolation off</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetTexture</span><span class="p">())</span>
     <span class="p">{</span>
@@ -15955,11 +15971,12 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;</span> <span class="n">clean</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
     <span class="n">clean</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+    <span class="n">clean</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-    <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
     <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">clean</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+    <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
     <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SplittingOff</span><span class="p">();</span>
     <span class="n">normals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
     <span class="n">vtkPolyDataMapper</span> <span class="o">*</span><span class="n">mapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">());</span>
