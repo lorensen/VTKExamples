@@ -50,9 +50,13 @@ int main (int argc, char *argv[])
   actors->InitTraversal();
   std::cout << "There are " << actors->GetNumberOfItems() << " actors" << std::endl;
 
+  int m = 0;
   for (vtkIdType a = 0; a < actors->GetNumberOfItems(); ++a)
   {
+    std::cout << importer->GetOutputDescription(a) << std::endl;
+
     vtkActor * actor = actors->GetNextActor();
+
     // OBJImporter turns texture interpolation off
     if (actor->GetTexture())
     {
@@ -63,11 +67,12 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkCleanPolyData> clean =
       vtkSmartPointer<vtkCleanPolyData>::New();
     clean->SetInputData(pd);
+    clean->Update();
 
     vtkSmartPointer<vtkPolyDataNormals> normals =
       vtkSmartPointer<vtkPolyDataNormals>::New();
-    normals->SetInputData(pd);
     normals->SetInputConnection(clean->GetOutputPort());
+    normals->SetInputData(pd);
     normals->SplittingOff();
     normals->Update();
     vtkPolyDataMapper *mapper = vtkPolyDataMapper::SafeDownCast(actor->GetMapper());
