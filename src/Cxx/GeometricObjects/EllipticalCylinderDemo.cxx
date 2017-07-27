@@ -2,6 +2,10 @@
 #include <vtkPolyLine.h>
 #include <vtkPoints.h>
 #include <vtkLinearExtrusionFilter.h>
+#include <vtkTubeFilter.h>
+#include <vtkArrowSource.h>
+#include <vtkTransform.h>
+#include <vtkTransformPolyDataFilter.h>
 
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
@@ -16,6 +20,18 @@
 
 int main(int argc, char *argv[])
 {
+  double nx = 0.0;
+  double ny = 0.0;
+  double nz = 100.0;
+
+  if (argc > 3)
+  {
+    nx = atof(argv[1]);
+    ny = atof(argv[2]);
+    nz = atof(argv[3]);
+  }
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   double angle = 0;
   double r1, r2;
@@ -58,15 +74,87 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkLinearExtrusionFilter>::New();
   extrude->SetInputData(polyData);
   extrude->SetExtrusionTypeToNormalExtrusion();
-  extrude->SetVector(0, 0, 100.0);
+  extrude->SetVector(nx, ny, nz);
   extrude->Update();
 
-  vtkSmartPointer<vtkNamedColors> colors =
-    vtkSmartPointer<vtkNamedColors>::New();
+  // Create an oriented arrow
+  double startPoint[3], endPoint[3];
+  startPoint[0] = centerX;
+  startPoint[1] = centerY;
+  startPoint[2] = 0.0;
+  endPoint[0] = startPoint[0] + extrude->GetVector()[0];
+  endPoint[1] = startPoint[1] + extrude->GetVector()[1];
+  endPoint[2] = startPoint[2] + extrude->GetVector()[2];
+
+  // Compute a basis
+  double normalizedX[3];
+  double normalizedY[3];
+  double normalizedZ[3];
+
+  // The X axis is a vector from start to end
+  vtkMath::Subtract(endPoint, startPoint, normalizedX);
+  double length = vtkMath::Norm(normalizedX);
+  vtkMath::Normalize(normalizedX);
+
+  // The Z axis is an arbitrary vector cross X
+  double arbitrary[3];
+  arbitrary[0] = vtkMath::Random(-10,10);
+  arbitrary[1] = vtkMath::Random(-10,10);
+  arbitrary[2] = vtkMath::Random(-10,10);
+  vtkMath::Cross(normalizedX, arbitrary, normalizedZ);
+  vtkMath::Normalize(normalizedZ);
+
+  // The Y axis is Z cross X
+  vtkMath::Cross(normalizedZ, normalizedX, normalizedY);
+  vtkSmartPointer<vtkMatrix4x4> matrix =
+    vtkSmartPointer<vtkMatrix4x4>::New();
+
+  // Create the direction cosine matrix
+  matrix->Identity();
+  for (unsigned int i = 0; i < 3; i++)
+  {
+    matrix->SetElement(i, 0, normalizedX[i]);
+    matrix->SetElement(i, 1, normalizedY[i]);
+    matrix->SetElement(i, 2, normalizedZ[i]);
+  }
+
+  // Apply the transforms
+  vtkSmartPointer<vtkTransform> transform =
+    vtkSmartPointer<vtkTransform>::New();
+  transform->Translate(startPoint);
+  transform->Concatenate(matrix);
+  transform->Scale(length, length, length);
+
+  vtkSmartPointer<vtkArrowSource> arrowSource =
+    vtkSmartPointer<vtkArrowSource>::New();
+  arrowSource->SetTipResolution(31);
+  arrowSource->SetShaftResolution(21);
+
+  // Transform the polydata
+  vtkSmartPointer<vtkTransformPolyDataFilter> transformPD =
+    vtkSmartPointer<vtkTransformPolyDataFilter>::New();
+  transformPD->SetTransform(transform);
+  transformPD->SetInputConnection(arrowSource->GetOutputPort());
+
+  //Create a mapper and actor for the arrow
+  vtkSmartPointer<vtkPolyDataMapper> arrowMapper =
+    vtkSmartPointer<vtkPolyDataMapper>::New();
+  arrowMapper->SetInputConnection(transformPD->GetOutputPort());
+
+  vtkSmartPointer<vtkActor> arrowActor =
+    vtkSmartPointer<vtkActor>::New();
+  arrowActor->SetMapper(arrowMapper);
+  arrowActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
+
+  vtkSmartPointer<vtkTubeFilter> tubes =
+    vtkSmartPointer<vtkTubeFilter>::New();
+  tubes->SetInputData(polyData);
+  tubes->SetRadius(2.0);
+  tubes->SetNumberOfSides(21);
 
   vtkSmartPointer<vtkPolyDataMapper> lineMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-  lineMapper->SetInputData(polyData);
+  lineMapper->SetInputConnection(tubes->GetOutputPort());
 
   vtkSmartPointer<vtkActor> lineActor =
     vtkSmartPointer<vtkActor>::New();
@@ -77,21 +165,18 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(extrude->GetOutputPort());
 
-  vtkSmartPointer<vtkProperty> back =
-    vtkSmartPointer<vtkProperty>::New();
-  back->SetColor(colors->GetColor3d("Tomato").GetData());
-
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
-  actor->SetBackfaceProperty(back);
+  actor->GetProperty()->SetOpacity(.7);
 
   vtkSmartPointer<vtkRenderer> ren =
     vtkSmartPointer<vtkRenderer>::New();
   ren->SetBackground(colors->GetColor3d("Slate_grey").GetData());
   ren->AddActor(actor);
   ren->AddActor(lineActor);
+  ren->AddActor(arrowActor);
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
