@@ -8,8 +8,11 @@
 #include <vtkPointPicker.h>
 #include <vtkCamera.h>
 #include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkObjectFactory.h>
 
+#include <vtkNamedColors.h>
+
+namespace
+{
 // Define interaction style
 class MouseInteractorStyleDoubleClick : public vtkInteractorStyleTrackballCamera
 {
@@ -26,9 +29,7 @@ class MouseInteractorStyleDoubleClick : public vtkInteractorStyleTrackballCamera
 
     virtual void OnLeftButtonDown()
     {
-      //std::cout << "Pressed left mouse button." << std::endl;
       this->NumberOfClicks++;
-      //std::cout << "NumberOfClicks = " << this->NumberOfClicks << std::endl;
       int pickPosition[2];
       this->GetInteractor()->GetEventPosition(pickPosition);
 
@@ -46,12 +47,12 @@ class MouseInteractorStyleDoubleClick : public vtkInteractorStyleTrackballCamera
         this->NumberOfClicks = 1;
       }
 
-
       if(this->NumberOfClicks == 2)
       {
         std::cout << "Double clicked." << std::endl;
         this->NumberOfClicks = 0;
       }
+
       // forward events
       vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
     }
@@ -62,6 +63,7 @@ class MouseInteractorStyleDoubleClick : public vtkInteractorStyleTrackballCamera
     int ResetPixelDistance;
 };
 vtkStandardNewMacro(MouseInteractorStyleDoubleClick);
+}
 
 int main(int, char *[])
 {
@@ -79,9 +81,12 @@ int main(int, char *[])
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(colors->GetColor3d("Slate_grey").GetData());
   renderer->AddActor(actor);
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
