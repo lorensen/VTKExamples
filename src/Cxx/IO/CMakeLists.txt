@@ -181,7 +181,7 @@ ADD_TEST(${KIT}-StructuredGridReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}Cxx
   TestStructuredGridReader ${DATA}/SampleStructGrid.vtk)
 
 ADD_TEST(${KIT}-VRML ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestVRML ${DATA}/bridge.wrl)
+  TestVRML ${DATA}/sextant.wrl)
 
 ADD_TEST(${KIT}-WriteBMP ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWriteBMP ${TEMP}/WriteBMP.bmp)
