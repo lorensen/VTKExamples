@@ -40,12 +40,10 @@ Please add examples in your areas of expertise!
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[3DSImporter](/Cxx/IO/3DSImporter) | [vtk3DSImporter](http://www.vtk.org/doc/nightly/html/classvtk3DSImporter.html#details) | Import a 3D Studio scene that includes mulitple actors.
 [DelimitedTextReader](/Cxx/InfoVis/DelimitedTextReader)   | [vtkDelimitedTextReader](http://www.vtk.org/doc/nightly/html/classvtkDelimitedTextReader.html#details) |Read a delimited file into a polydata.
 [DEMReader](/Cxx/IO/DEMReader)   | [vtkDEMReader](http://www.vtk.org/doc/nightly/html/classvtkDEMReader.html#details) | Read DEM (elevation map) files
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | [vtkDataSetReader](http://www.vtk.org/doc/nightly/html/classvtkDataSetReader.html#details) |Report the contents of a VTK XML or legacy file
 [IndividualVRML](/Cxx/IO/IndividualVRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) | This example is used to get each actor and object from a scene and verify axes correspondence 
-[OBJImporter](/Cxx/IO/OBJImporter) | [vtkOBJImporter](http://www.vtk.org/doc/nightly/html/classvtkOBJImporter.html#details) | Import an OBJ scene that includes actors, materials and textures.
 [ParticleReader](/Cxx/IO/ParticleReader) | [vtkParticleReader](http://www.vtk.org/doc/nightly/html/classvtkParticleReader.html#details) | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadDICOMSeries](/Cxx/IO/ReadDICOMSeries)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) | This example demonstrates how to read a series of DICOM images and scroll through slices
 [ReadDICOM](/Cxx/IO/ReadDICOM)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) |Read DICOM file
@@ -57,8 +55,15 @@ Please add examples in your areas of expertise!
 [ReadTextFile](/Cxx/IO/ReadTextFile)   | [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details) | Read a plain text file into a polydata.
 [ReadSTL](/Cxx/IO/ReadSTL)   | [vtkSTLReader](http://www.vtk.org/doc/nightly/html/classvtkSTLReader.html#details) |Read stereo lithography STL (.stl) files
 [SimplePointsReader ](/Cxx/IO/SimplePointsReader)  | [vtkSimplePointsReader](http://www.vtk.org/doc/nightly/html/classvtkSimplePointsReader.html#details) |Read a simple "xyz" file of points.
-[VRML](/Cxx/IO/VRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) |Read a VRML (WRL) file.
 
+
+###### Importers
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[3DSImporter](/Cxx/IO/3DSImporter) | [vtk3DSImporter](http://www.vtk.org/doc/nightly/html/classvtk3DSImporter.html#details) | Import a 3D Studio scene that includes mulitple actors.
+[OBJImporter](/Cxx/IO/OBJImporter) | [vtkOBJImporter](http://www.vtk.org/doc/nightly/html/classvtkOBJImporter.html#details) | Import an OBJ scene that includes actors, materials and textures.
+[VRMLImporter](/Cxx/IO/VRMLImporter) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) | Import a VRML 2.0 (WRL) file.
 
 ##### Output
 

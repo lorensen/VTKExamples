@@ -62,7 +62,7 @@ SET(NEEDS_ARGS
   SimplePointsReader
   StructuredPointsReader
   StructuredGridReader
-  VRML
+  VRMLImporter
   WriteBMP
   WritePLY
   WritePNM
@@ -180,8 +180,8 @@ ADD_TEST(${KIT}-StructuredPointsReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}C
 ADD_TEST(${KIT}-StructuredGridReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestStructuredGridReader ${DATA}/SampleStructGrid.vtk)
 
-ADD_TEST(${KIT}-VRML ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestVRML ${DATA}/sextant.wrl)
+ADD_TEST(${KIT}-VRMLImporter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestVRMLImporter ${DATA}/sextant.wrl)
 
 ADD_TEST(${KIT}-WriteBMP ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestWriteBMP ${TEMP}/WriteBMP.bmp)
