@@ -16020,8 +16020,15 @@ function registerListener(event, func) {
     <span class="c1">// The importer shininess parameter is between 0 and 1. VTK specular power is usually 10-100.</span>
     <span class="c1">// Also, the default for the specular factor for VRML is 1, while VTK&#39;s is 0</span>
     <span class="kt">double</span> <span class="n">specularPower</span> <span class="o">=</span> <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetSpecularPower</span><span class="p">();</span>
-    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="n">specularPower</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
-    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">specularPower</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularPower</span><span class="p">(</span><span class="n">specularPower</span> <span class="o">*</span> <span class="mf">128.0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">double</span> <span class="n">specular</span> <span class="o">=</span> <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetSpecular</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">specular</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="c1">// The VRML default ambient intensity is .2</span>
     <span class="kt">double</span> <span class="n">ambientIntensity</span> <span class="o">=</span> <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetAmbient</span><span class="p">();</span>
