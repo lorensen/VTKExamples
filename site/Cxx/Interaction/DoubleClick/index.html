@@ -15936,8 +15936,11 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointPicker.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleTrackballCamera.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
 
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span>
+<span class="p">{</span>
 <span class="c1">// Define interaction style</span>
 <span class="k">class</span> <span class="nc">MouseInteractorStyleDoubleClick</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleTrackballCamera</span>
 <span class="p">{</span>
@@ -15954,9 +15957,7 @@ function registerListener(event, func) {
 
     <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnLeftButtonDown</span><span class="p">()</span>
     <span class="p">{</span>
-      <span class="c1">//std::cout &lt;&lt; &quot;Pressed left mouse button.&quot; &lt;&lt; std::endl;</span>
       <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumberOfClicks</span><span class="o">++</span><span class="p">;</span>
-      <span class="c1">//std::cout &lt;&lt; &quot;NumberOfClicks = &quot; &lt;&lt; this-&gt;NumberOfClicks &lt;&lt; std::endl;</span>
       <span class="kt">int</span> <span class="n">pickPosition</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
       <span class="k">this</span><span class="o">-&gt;</span><span class="n">GetInteractor</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetEventPosition</span><span class="p">(</span><span class="n">pickPosition</span><span class="p">);</span>
 
@@ -15974,12 +15975,12 @@ function registerListener(event, func) {
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumberOfClicks</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
       <span class="p">}</span>
 
-
       <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">NumberOfClicks</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
       <span class="p">{</span>
         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Double clicked.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">NumberOfClicks</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="p">}</span>
+
       <span class="c1">// forward events</span>
       <span class="n">vtkInteractorStyleTrackballCamera</span><span class="o">::</span><span class="n">OnLeftButtonDown</span><span class="p">();</span>
     <span class="p">}</span>
@@ -15990,8 +15991,9 @@ function registerListener(event, func) {
     <span class="kt">int</span> <span class="n">ResetPixelDistance</span><span class="p">;</span>
 <span class="p">};</span>
 <span class="n">vtkStandardNewMacro</span><span class="p">(</span><span class="n">MouseInteractorStyleDoubleClick</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -16007,9 +16009,12 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Slate_grey&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
