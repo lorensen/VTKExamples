@@ -60,8 +60,15 @@ int main ( int argc, char *argv[])
     // The importer shininess parameter is between 0 and 1. VTK specular power is usually 10-100.
     // Also, the default for the specular factor for VRML is 1, while VTK's is 0
     double specularPower = actor->GetProperty()->GetSpecularPower();
-    actor->GetProperty()->SetSpecularPower(specularPower * 100.0);
-    actor->GetProperty()->SetSpecular(1.0);
+    if (specularPower <= 1.0)
+    {
+      actor->GetProperty()->SetSpecularPower(specularPower * 128.0);
+    }
+    double specular = actor->GetProperty()->GetSpecular();
+    if (specular == 0.0)
+    {
+      actor->GetProperty()->SetSpecular(1.0);
+    }
 
     // The VRML default ambient intensity is .2
     double ambientIntensity = actor->GetProperty()->GetAmbient();
