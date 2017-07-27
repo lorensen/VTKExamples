@@ -325,6 +325,19 @@ function registerListener(event, func) {
     Input
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importers" title="Importers" class="md-nav__link">
+    Importers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -5387,8 +5400,8 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
-    <a href="IO/VRML/" title="VRML" class="md-nav__link">
-      VRML
+    <a href="IO/VRMLImporter/" title="VRMLImporter" class="md-nav__link">
+      VRMLImporter
     </a>
   </li>
 
@@ -16453,6 +16466,19 @@ function registerListener(event, func) {
     Input
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importers" title="Importers" class="md-nav__link">
+    Importers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -17088,12 +17114,6 @@ function registerListener(event, func) {
 </thead>
 <tbody>
 <tr>
-<td><a href="../Cxx/IO/3DSImporter">3DSImporter</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtk3DSImporter.html#details">vtk3DSImporter</a></td>
-<td>Import a 3D Studio scene that includes mulitple actors.</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/Test3DSImporter.png?raw=true" width="64" /></td>
-</tr>
-<tr>
 <td><a href="../Cxx/InfoVis/DelimitedTextReader">DelimitedTextReader</a></td>
 <td><a href="http://www.vtk.org/doc/nightly/html/classvtkDelimitedTextReader.html#details">vtkDelimitedTextReader</a></td>
 <td>Read a delimited file into a polydata.</td>
@@ -17118,28 +17138,10 @@ function registerListener(event, func) {
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestIndividualVRML.png?raw=true" width="64" /></td>
 </tr>
 <tr>
-<td><a href="../Cxx/IO/OBJImporter">OBJImporter</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkOBJImporter.html#details">vtkOBJImporter</a></td>
-<td>Import an OBJ scene that includes actors, materials and textures.</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestOBJImporter.png?raw=true" width="64" /></td>
-</tr>
-<tr>
 <td><a href="../Cxx/IO/ParticleReader">ParticleReader</a></td>
 <td><a href="http://www.vtk.org/doc/nightly/html/classvtkParticleReader.html#details">vtkParticleReader</a></td>
 <td>This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.</td>
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestParticleReader.png?raw=true" width="64" /></td>
-</tr>
-<tr>
-<td><a href="../Cxx/IO/ReadDICOMSeries">ReadDICOMSeries</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details">vtkDICOMImageReader</a></td>
-<td>This example demonstrates how to read a series of DICOM images and scroll through slices</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestReadDICOMSeries.png?raw=true" width="64" /></td>
-</tr>
-<tr>
-<td><a href="../Cxx/IO/ReadDICOM">ReadDICOM</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details">vtkDICOMImageReader</a></td>
-<td>Read DICOM file</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestReadDICOM.png?raw=true" width="64" /></td>
 </tr>
 <tr>
 <td><a href="../Cxx/IO/ReadOBJ">ReadOBJ</a></td>
@@ -17189,11 +17191,36 @@ function registerListener(event, func) {
 <td>Read a simple "xyz" file of points.</td>
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestSimplePointsReader.png?raw=true" width="64" /></td>
 </tr>
+</tbody>
+</table>
+<h6 id="importers">Importers<a class="headerlink" href="#importers" title="Permanent link">&para;</a></h6>
+<table>
+<thead>
 <tr>
-<td><a href="../Cxx/IO/VRML">VRML</a></td>
+<th>Example Name</th>
+<th>Classes Demonstrated</th>
+<th>Description</th>
+<th>Image</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../Cxx/IO/3DSImporter">3DSImporter</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtk3DSImporter.html#details">vtk3DSImporter</a></td>
+<td>Import a 3D Studio scene that includes mulitple actors.</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/Test3DSImporter.png?raw=true" width="64" /></td>
+</tr>
+<tr>
+<td><a href="../Cxx/IO/OBJImporter">OBJImporter</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkOBJImporter.html#details">vtkOBJImporter</a></td>
+<td>Import an OBJ scene that includes actors, materials and textures.</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestOBJImporter.png?raw=true" width="64" /></td>
+</tr>
+<tr>
+<td><a href="../Cxx/IO/VRMLImporter">VRMLImporter</a></td>
 <td><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a></td>
-<td>Read a VRML (WRL) file.</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestVRML.png?raw=true" width="64" /></td>
+<td>Import a VRML 2.0 (WRL) file.</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestVRMLImporter.png?raw=true" width="64" /></td>
 </tr>
 </tbody>
 </table>
@@ -17411,6 +17438,18 @@ function registerListener(event, func) {
 <td><a href="http://www.vtk.org/doc/nightly/html/classvtkBMPReader.html#details">vtkBMPReader</a></td>
 <td>Read BMP (.bmp) files.</td>
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestReadBMP.png?raw=true" width="64" /></td>
+</tr>
+<tr>
+<td><a href="../Cxx/IO/ReadDICOMSeries">ReadDICOMSeries</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details">vtkDICOMImageReader</a></td>
+<td>This example demonstrates how to read a series of DICOM images and scroll through slices</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestReadDICOMSeries.png?raw=true" width="64" /></td>
+</tr>
+<tr>
+<td><a href="../Cxx/IO/ReadDICOM">ReadDICOM</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details">vtkDICOMImageReader</a></td>
+<td>Read DICOM file</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/IO/TestReadDICOM.png?raw=true" width="64" /></td>
 </tr>
 <tr>
 <td><a href="../Cxx/IO/ReadPNM">ReadPNM</a></td>
@@ -19005,28 +19044,10 @@ function registerListener(event, func) {
 </thead>
 <tbody>
 <tr>
-<td><a href="../Cxx/ImageData/GetCellCenter">GetCellCenter</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a></td>
-<td>Get the coordinates of the center of a cell.</td>
-<td></td>
-</tr>
-<tr>
 <td><a href="../Cxx/ImageData/CellIdFromGridCoordinates">CellIdFromGridCoordinates</a></td>
 <td><a href="http://www.vtk.org/doc/nightly/html/classvtkStructuredData.html#details">vtkStructuredData</a></td>
 <td>Get the id of a cell from its grid coordinates.</td>
 <td></td>
-</tr>
-<tr>
-<td><a href="../Cxx/ImageData/IterateImageData">IterateImageData</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a></td>
-<td>Iterating over a <a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a>.</td>
-<td></td>
-</tr>
-<tr>
-<td><a href="../Cxx/ImageData/ImageNormalize">ImageNormalize</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details">vtkImageNormalize</a></td>
-<td>Normalize an image.</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestImageNormalize.png?raw=true" width="64" /></td>
 </tr>
 <tr>
 <td><a href="../Cxx/ImageData/ExtractVOI">ExtractVOI</a></td>
@@ -19035,10 +19056,22 @@ function registerListener(event, func) {
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestExtractVOI.png?raw=true" width="64" /></td>
 </tr>
 <tr>
-<td><a href="../Cxx/ImageData/ImageWeightedSum">ImageWeightedSum</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details">vtkImageWeightedSum</a></td>
-<td>Add two or more images.</td>
-<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestImageWeightedSum.png?raw=true" width="64" /></td>
+<td><a href="../Cxx/ImageData/GetCellCenter">GetCellCenter</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a></td>
+<td>Get the coordinates of the center of a cell.</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../Cxx/ImageData/ImageIterator">ImageIterator</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html#details">vtkImageIterator</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../Cxx/ImageData/ImageNormalize">ImageNormalize</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details">vtkImageNormalize</a></td>
+<td>Normalize an image.</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestImageNormalize.png?raw=true" width="64" /></td>
 </tr>
 <tr>
 <td><a href="../Cxx/ImageData/ImageReslice">ImageReslice</a></td>
@@ -19053,15 +19086,21 @@ function registerListener(event, func) {
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestImageTranslateExtent.png?raw=true" width="64" /></td>
 </tr>
 <tr>
+<td><a href="../Cxx/ImageData/ImageWeightedSum">ImageWeightedSum</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details">vtkImageWeightedSum</a></td>
+<td>Add two or more images.</td>
+<td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestImageWeightedSum.png?raw=true" width="64" /></td>
+</tr>
+<tr>
 <td><a href="../Cxx/ImageData/IntersectLine">IntersectLine</a></td>
 <td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a></td>
 <td>Intersect a line with all cells of a <a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a>.</td>
 <td><img class="lazy" style="float:center" data-src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/ImageData/TestIntersectLine.png?raw=true" width="64" /></td>
 </tr>
 <tr>
-<td><a href="../Cxx/ImageData/ImageIterator">ImageIterator</a></td>
-<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html#details">vtkImageIterator</a></td>
-<td></td>
+<td><a href="../Cxx/ImageData/IterateImageData">IterateImageData</a></td>
+<td><a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a></td>
+<td>Iterating over a <a href="http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details">vtkImageData</a>.</td>
 <td></td>
 </tr>
 </tbody>
