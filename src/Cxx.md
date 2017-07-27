@@ -45,8 +45,6 @@ Please add examples in your areas of expertise!
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | [vtkDataSetReader](http://www.vtk.org/doc/nightly/html/classvtkDataSetReader.html#details) |Report the contents of a VTK XML or legacy file
 [IndividualVRML](/Cxx/IO/IndividualVRML) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) | This example is used to get each actor and object from a scene and verify axes correspondence 
 [ParticleReader](/Cxx/IO/ParticleReader) | [vtkParticleReader](http://www.vtk.org/doc/nightly/html/classvtkParticleReader.html#details) | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
-[ReadDICOMSeries](/Cxx/IO/ReadDICOMSeries)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) | This example demonstrates how to read a series of DICOM images and scroll through slices
-[ReadDICOM](/Cxx/IO/ReadDICOM)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) |Read DICOM file
 [ReadOBJ](/Cxx/IO/ReadOBJ)   | [vtkOBJReader](http://www.vtk.org/doc/nightly/html/classvtkOBJReader.html#details) |Read an OBJ (.obj) file.
 [ReadPDB](/Cxx/IO/ReadPDB)   | [vtkPDBReader](http://www.vtk.org/doc/nightly/html/classvtkPDBReader.html#details) | Read Protein Data Bank Files.
 [ReadPLOT3D](/Cxx/IO/ReadPLOT3D)   | [vtkPLOT3DReader](http://www.vtk.org/doc/nightly/html/classvtkPLOT3DReader.html#details) | Read CFD (computational fluid dynamics) data produced by PLOT3D.
@@ -91,7 +89,6 @@ Please add examples in your areas of expertise!
 
 ##### Output
 
-
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [Write an ExodusII file](/Cxx/Parallel/ExodusIIWriter)   | [vtkExodusIIWriter](http://www.vtk.org/doc/nightly/html/classvtkExodusIIWriter.html#details) | Write a time varying ExodusII file.
@@ -103,7 +100,6 @@ Please add examples in your areas of expertise!
 [XMLStructuredGridWriter](/Cxx/IO/XMLStructuredGridWriter) | [vtkXMLStructuredGridWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLStructuredGridWriter.html#details) | Write a .vts file from a [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html#details).
 
 #### Legacy VTK Formats
-
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
@@ -123,11 +119,12 @@ Please add examples in your areas of expertise!
 [MetaImageReader](/Cxx/IO/MetaImageReader) | [vtkMetaImageReader](http://www.vtk.org/doc/nightly/html/classvtkMetaImageReader.html#details) |Read .mha files.
 [PNGReader](/Cxx/IO/PNGReader) | [vtkPNGReader](http://www.vtk.org/doc/nightly/html/classvtkPNGReader.html#details)|Read a PNG image.
 [ReadBMP](/Cxx/IO/ReadBMP) |[vtkBMPReader](http://www.vtk.org/doc/nightly/html/classvtkBMPReader.html#details) | Read BMP (.bmp) files.
+[ReadDICOMSeries](/Cxx/IO/ReadDICOMSeries)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) | This example demonstrates how to read a series of DICOM images and scroll through slices
+[ReadDICOM](/Cxx/IO/ReadDICOM)   | [vtkDICOMImageReader](http://www.vtk.org/doc/nightly/html/classvtkDICOMImageReader.html#details) |Read DICOM file
 [ReadPNM](/Cxx/IO/ReadPNM) | [vtkPNMReader](http://www.vtk.org/doc/nightly/html/classvtkPNMReader.html#details) |Read PNM (.pnm) files.
 [ReadTIFF](/Cxx/IO/ReadTIFF) | [vtkTIFFReader](http://www.vtk.org/doc/nightly/html/classvtkTIFFReader.html#details) |Read TIFF (.tif) files.
 
 #### Output
-
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
@@ -444,17 +441,16 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[GetCellCenter](/Cxx/ImageData/GetCellCenter) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details)|Get the coordinates of the center of a cell.
 [CellIdFromGridCoordinates](/Cxx/ImageData/CellIdFromGridCoordinates) | [vtkStructuredData](http://www.vtk.org/doc/nightly/html/classvtkStructuredData.html#details)|Get the id of a cell from its grid coordinates.
-[IterateImageData](/Cxx/ImageData/IterateImageData) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details) | Iterating over a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
-[ImageNormalize](/Cxx/ImageData/ImageNormalize) | [vtkImageNormalize](http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details) |Normalize an image.
 [ExtractVOI](/Cxx/ImageData/ExtractVOI) | [vtkExtractVOI](http://www.vtk.org/doc/nightly/html/classvtkExtractVOI.html#details) | Extract a volume of interest (subvolume).
-[ImageWeightedSum](/Cxx/ImageData/ImageWeightedSum) | [vtkImageWeightedSum](http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details) |Add two or more images.
+[GetCellCenter](/Cxx/ImageData/GetCellCenter) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details)|Get the coordinates of the center of a cell.
+[ImageIterator](/Cxx/ImageData/ImageIterator)| [vtkImageIterator](http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html#details) |
+[ImageNormalize](/Cxx/ImageData/ImageNormalize) | [vtkImageNormalize](http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details) |Normalize an image.
 [ImageReslice](/Cxx/ImageData/ImageReslice) | [vtkImageReslice](http://www.vtk.org/doc/nightly/html/classvtkImageReslice.html#details) |Resize a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
 [ImageTranslateExtent](/Cxx/ImageData/ImageTranslateExtent) | [vtkImageTranslateExtent](http://www.vtk.org/doc/nightly/html/classvtkImageTranslateExtent.html#details) |Change the extent of a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
+[ImageWeightedSum](/Cxx/ImageData/ImageWeightedSum) | [vtkImageWeightedSum](http://www.vtk.org/doc/nightly/html/classvtkImageWeightedSum.html#details) |Add two or more images.
 [IntersectLine](/Cxx/ImageData/IntersectLine) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details) |Intersect a line with all cells of a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
-[ImageIterator](/Cxx/ImageData/ImageIterator)| [vtkImageIterator](http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html#details) |
-
+[IterateImageData](/Cxx/ImageData/IterateImageData) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details) | Iterating over a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
 
 #### Conversions
 
@@ -476,14 +472,11 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 #### [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html#details)
 
-
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [StructuredPointsToUnstructuredGrid](/Cxx/StructuredPoints/StructuredPointsToUnstructuredGrid) | [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html#details) [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details)|Convert a [vtkStructuredPoints](http://www.vtk.org/doc/nightly/html/classvtkStructuredPoints.html#details) to a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details).
 
-
 #### [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html#details)
-
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
@@ -507,7 +500,6 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [MedicalDemo3](/Cxx/Medical/MedicalDemo3) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html#details) |Create skin, bone and slices from volume data
 [MedicalDemo4](/Cxx/Medical/MedicalDemo4) | [vtkFixedPointVolumeRayCastMapper](http://www.vtk.org/doc/nightly/html/classvtkFixedPointVolumeRayCastMapper.html#details) |Create a volume rendering
 [TissueLens](/Cxx/Medical/TissueLens) | [vtkMarchingCubes](http://www.vtk.org/doc/nightly/html/classvtkMarchingCubes.html#details) [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html#details)  [vtkProbeFilter](http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html#details) |Cut a volume with a sphere
-
 
 ### Surface reconstruction
 
