@@ -62,6 +62,7 @@ Please add examples in your areas of expertise!
 [3DSImporter](/Cxx/IO/3DSImporter) | [vtk3DSImporter](http://www.vtk.org/doc/nightly/html/classvtk3DSImporter.html#details) | Import a 3D Studio scene that includes mulitple actors.
 [OBJImporter](/Cxx/IO/OBJImporter) | [vtkOBJImporter](http://www.vtk.org/doc/nightly/html/classvtkOBJImporter.html#details) | Import an OBJ scene that includes actors, materials and textures.
 [VRMLImporter](/Cxx/IO/VRMLImporter) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) | Import a VRML 2.0 (WRL) file.
+[VRMLImporterDemo](/Cxx/IO/VRMLImporterDemo) | [vtkVRMLImporter](http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details) | Import a VRML 2.0 (WRL) file and add normals if necessary.
 
 ##### Output
 
