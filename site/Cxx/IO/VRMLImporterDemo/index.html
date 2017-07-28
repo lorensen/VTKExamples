@@ -15954,7 +15954,11 @@ function registerListener(event, func) {
 <p><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a> imports multiple <a href="http://www.vtk.org/doc/nightly/html/classvtkActor.html#details">vtkActor</a> models. Sometimes the <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> require modifications. For example <a href="http://alexei.nfshost.com/3d/grasshop.wrl">the data in this example</a> does not have normals. The example uses <a href="http://www.vtk.org/doc/nightly/html/classvtkActorCollection.html#details">vtkActorCollection</a> to walk each model's <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> and inserts a <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyDataNormals.html#details">vtkPolyDataNormals</a> if the normals do not exist.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a> files use a shininess between 0 and 1, while <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>'s <a href="http://www.vtk.org/doc/nightly/html/classvtkProperty.html#details">vtkProperty</a> has a specular power between 0 and 100. The example corrects this.</p>
+<p><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a> files use a shininess between 0 and 1, while <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>'s <a href="http://www.vtk.org/doc/nightly/html/classvtkProperty.html#details">vtkProperty</a> has a specular power between 0 and 128. The example corrects this if the specular power is &lt;= 1.0.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><a href="http://alexei.nfshost.com/3d/virtual.htmls">The Virtual Insect</a> website has lots of cool wrl models of insects.</p>
 </div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>VRMLImporterDemo.cxx</strong></p>
