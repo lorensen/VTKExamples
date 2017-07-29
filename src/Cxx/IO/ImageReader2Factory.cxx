@@ -8,6 +8,7 @@
 #include <vtkInteractorStyleImage.h>
 #include <vtkRenderer.h>
 #include <vtkImageActor.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
   // Read file
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
-  vtkImageReader2 * imageReader = readerFactory->CreateImageReader2(inputFilename.c_str());
+  vtkSmartPointer<vtkImageReader2> imageReader = readerFactory->CreateImageReader2(inputFilename.c_str());
   imageReader->SetFileName(inputFilename.c_str());
   imageReader->Update();
 
@@ -36,10 +37,14 @@ int main(int argc, char *argv[])
     imageReader->GetOutputPort());
 
   // Setup renderer
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
   renderer->ResetCamera();
+ renderer->SetBackground(colors->GetColor3d("Slate_grey").GetData());
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
@@ -59,8 +64,6 @@ int main(int argc, char *argv[])
   renderWindowInteractor->Initialize();
 
   renderWindowInteractor->Start();
-
-  imageReader->Delete();
 
   return EXIT_SUCCESS;
 }
