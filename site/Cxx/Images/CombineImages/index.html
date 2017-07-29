@@ -15957,10 +15957,11 @@ function registerListener(event, func) {
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageBlend.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageViewer2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
@@ -15977,23 +15978,20 @@ function registerListener(event, func) {
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">input1Filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">input2Filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-
   <span class="c1">// Read the images</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader1</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">jPEGReader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">input1Filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">imgReader1</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">imgReader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader2</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">jPEGReader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">input2Filename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">imgReader2</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">imgReader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
   <span class="c1">// Combine the images (blend takes multiple connections on the 0th input port)</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;</span> <span class="n">blend</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageBlend</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">jPEGReader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">jPEGReader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">imgReader1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">blend</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">imgReader2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.5</span><span class="p">);</span>
   <span class="n">blend</span><span class="o">-&gt;</span><span class="n">SetOpacity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">.5</span><span class="p">);</span>
 

@@ -15961,7 +15961,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
@@ -15978,16 +15979,12 @@ function registerListener(event, func) {
   <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
   <span class="p">{</span>
     <span class="c1">//Read the image</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jpegReader</span> <span class="o">=</span>
-      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-    <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">CanReadFile</span><span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
-    <span class="p">{</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error reading file &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-      <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
-    <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
-    <span class="n">imageData</span> <span class="o">=</span> <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">imageReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="n">imageData</span> <span class="o">=</span> <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
   <span class="p">}</span>
   <span class="k">else</span>
   <span class="p">{</span>

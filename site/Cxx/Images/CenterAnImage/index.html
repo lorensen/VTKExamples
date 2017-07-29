@@ -15966,7 +15966,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageClip.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
@@ -16010,28 +16011,20 @@ function registerListener(event, func) {
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-
   <span class="c1">// Read the image</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jPEGReader</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-
-  <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">CanReadFile</span><span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Error: cannot read &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
-  <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">imageReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="c1">// Shift the image center to (0,0)</span>
   <span class="kt">int</span> <span class="n">dims</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-  <span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">(</span><span class="n">dims</span><span class="p">);</span>
+  <span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetDimensions</span><span class="p">(</span><span class="n">dims</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageChangeInformation</span><span class="o">&gt;</span> <span class="n">changeInformation</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageChangeInformation</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">changeInformation</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">jPEGReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">changeInformation</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">imageReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">changeInformation</span><span class="o">-&gt;</span><span class="n">CenterImageOn</span><span class="p">();</span>
   <span class="n">changeInformation</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
