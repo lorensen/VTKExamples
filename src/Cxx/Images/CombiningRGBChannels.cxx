@@ -10,6 +10,8 @@
 #include <vtkRenderer.h>
 #include <vtkImageActor.h>
 
+#include <vtkNamedColors.h>
+
 int main(int, char *[])
 {
   // Create an image (will be used as the R channel)
@@ -79,34 +81,37 @@ int main(int, char *[])
   double blueViewport[4] = {0.5, 0.0, 0.75, 1.0};
   double combinedViewport[4] = {0.75, 0.0, 1.0, 1.0};
   
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Setup renderers
   vtkSmartPointer<vtkRenderer> redRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   redRenderer->SetViewport(redViewport);
   redRenderer->AddActor(redActor);
   redRenderer->ResetCamera();
-  redRenderer->SetBackground(.4, .5, .6);
+  redRenderer->SetBackground(colors->GetColor3d("Tomato").GetData());
 
   vtkSmartPointer<vtkRenderer> greenRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   greenRenderer->SetViewport(greenViewport);
   greenRenderer->AddActor(greenActor);
   greenRenderer->ResetCamera();
-  greenRenderer->SetBackground(.4, .5, .7);
+  greenRenderer->SetBackground(colors->GetColor3d("Mint").GetData());
   
   vtkSmartPointer<vtkRenderer> blueRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   blueRenderer->SetViewport(blueViewport);
   blueRenderer->AddActor(blueActor);
   blueRenderer->ResetCamera();
-  blueRenderer->SetBackground(.4, .5, .8);
+  blueRenderer->SetBackground(colors->GetColor3d("Peacock").GetData());
   
   vtkSmartPointer<vtkRenderer> combinedRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   combinedRenderer->SetViewport(combinedViewport);
   combinedRenderer->AddActor(combinedActor);
   combinedRenderer->ResetCamera();
-  combinedRenderer->SetBackground(.4, .5, .9);
+  combinedRenderer->SetBackground(colors->GetColor3d("Snow").GetData());
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
