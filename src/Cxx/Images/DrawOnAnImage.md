@@ -1,2 +1,2 @@
 ### Description
-This example draws a circle in the center of the input image using {{class|vtkImageCanvasSource2D}}'s <code>DrawCircle</code> method.
+This example draws a circle in the center of the input image using vtkImageCanvasSource2D 's DrawCircle method.

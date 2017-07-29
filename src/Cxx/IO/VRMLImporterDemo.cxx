@@ -88,6 +88,7 @@ int main ( int argc, char *argv[])
     }
   }
 
+
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);

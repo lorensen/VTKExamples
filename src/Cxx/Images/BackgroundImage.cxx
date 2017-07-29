@@ -4,7 +4,8 @@
 #include <vtkImageCanvasSource2D.h>
 #include <vtkImageActor.h>
 #include <vtkImageData.h>
-#include <vtkJPEGReader.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderer.h>
@@ -21,16 +22,12 @@ int main(int argc, char *argv[])
   if ( argc > 1 )
   {
     //Read the image
-    vtkSmartPointer<vtkJPEGReader> jpegReader =
-      vtkSmartPointer<vtkJPEGReader>::New();
-    if( !jpegReader->CanReadFile( argv[1] ) )
-    {
-      std::cerr << "Error reading file " << argv[1] << std::endl;
-      return EXIT_FAILURE;
-    }
-    jpegReader->SetFileName ( argv[1] );
-    jpegReader->Update();
-    imageData = jpegReader->GetOutput();
+    vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+      vtkSmartPointer<vtkImageReader2Factory>::New();
+    vtkSmartPointer<vtkImageReader2> imageReader = readerFactory->CreateImageReader2(argv[1]);
+    imageReader->SetFileName(argv[1]);
+    imageReader->Update();
+    imageData = imageReader->GetOutput();
   }
   else
   {

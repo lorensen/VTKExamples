@@ -1,7 +1,9 @@
-#include <vtkImageData.h>
-#include <vtkJPEGReader.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageExtractComponents.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
+#include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -9,25 +11,23 @@
 #include <vtkRenderer.h>
 #include <vtkJPEGReader.h>
 #include <vtkImageActor.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
   // Verify command line arguments
   if (argc != 2 )
   {
-    std::cout << "Required parameters: InputFilename" << std::endl;
+    std::cout << "Usage: " << argv[0] << " InputFilename" << std::endl;
     return EXIT_FAILURE;
   }
 
-  // Parse command line arguments
-  std::string inputFilename = argv[1];
-
-  // Read JPG file
-  vtkSmartPointer<vtkJPEGReader> reader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  reader->SetFileName(inputFilename.c_str());
+  // Read the image
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
   reader->Update();
-
 
   vtkSmartPointer<vtkImageExtractComponents> extractRedFilter =
     vtkSmartPointer<vtkImageExtractComponents>::New();
@@ -71,34 +71,37 @@ int main(int argc, char *argv[])
   double greenViewport[4] = {0.5, 0.0, 0.75, 1.0};
   double blueViewport[4] = {0.75, 0.0, 1.0, 1.0};
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Setup renderers
   vtkSmartPointer<vtkRenderer> inputRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   inputRenderer->SetViewport(inputViewport);
   inputRenderer->AddActor(inputActor);
   inputRenderer->ResetCamera();
-  inputRenderer->SetBackground(.4, .5, .9);
+  inputRenderer->SetBackground(colors->GetColor3d("Snow").GetData());
 
   vtkSmartPointer<vtkRenderer> redRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   redRenderer->SetViewport(redViewport);
   redRenderer->AddActor(redActor);
   redRenderer->ResetCamera();
-  redRenderer->SetBackground(.4, .5, .6);
+  redRenderer->SetBackground(colors->GetColor3d("Tomato").GetData());
 
   vtkSmartPointer<vtkRenderer> greenRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   greenRenderer->SetViewport(greenViewport);
   greenRenderer->AddActor(greenActor);
   greenRenderer->ResetCamera();
-  greenRenderer->SetBackground(.4, .5, .7);
+  greenRenderer->SetBackground(colors->GetColor3d("Mint").GetData());
 
   vtkSmartPointer<vtkRenderer> blueRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   blueRenderer->SetViewport(blueViewport);
   blueRenderer->AddActor(blueActor);
   blueRenderer->ResetCamera();
-  blueRenderer->SetBackground(.4, .5, .8);
+  blueRenderer->SetBackground(colors->GetColor3d("Peacock").GetData());
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =

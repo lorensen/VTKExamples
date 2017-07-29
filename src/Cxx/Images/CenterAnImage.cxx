@@ -10,7 +10,8 @@
 #include <vtkImageClip.h>
 #include <vtkImageData.h>
 #include <vtkInteractorStyleImage.h>
-#include <vtkJPEGReader.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkMath.h>
 #include <vtkProperty2D.h>
 #include <vtkRenderWindow.h>
@@ -54,28 +55,20 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
 
-  std::string inputFilename = argv[1];
-
   // Read the image
-  vtkSmartPointer<vtkJPEGReader> jPEGReader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-
-  if( !jPEGReader->CanReadFile( inputFilename.c_str() ) )
-  {
-    cout << "Error: cannot read " << inputFilename.c_str() << std::endl;
-    return EXIT_FAILURE;
-  }
-
-  jPEGReader->SetFileName ( inputFilename.c_str() );
-  jPEGReader->Update();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> imageReader = readerFactory->CreateImageReader2(argv[1]);
+  imageReader->SetFileName(argv[1]);
+  imageReader->Update();
 
   // Shift the image center to (0,0)
   int dims[3];
-  jPEGReader->GetOutput()->GetDimensions(dims);
+  imageReader->GetOutput()->GetDimensions(dims);
 
   vtkSmartPointer<vtkImageChangeInformation> changeInformation =
     vtkSmartPointer<vtkImageChangeInformation>::New();
-  changeInformation->SetInputConnection(jPEGReader->GetOutputPort());
+  changeInformation->SetInputConnection(imageReader->GetOutputPort());
   changeInformation->CenterImageOn();
   changeInformation->Update();
 

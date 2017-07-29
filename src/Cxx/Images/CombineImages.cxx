@@ -1,10 +1,11 @@
 #include <vtkImageBlend.h>
 #include <vtkSmartPointer.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageData.h>
 #include <vtkImageViewer2.h>
 #include <vtkNamedColors.h>
@@ -21,23 +22,20 @@ int main ( int argc, char* argv[] )
     return EXIT_FAILURE;
   }
 
-  std::string input1Filename = argv[1];
-  std::string input2Filename = argv[2];
-
   // Read the images
-  vtkSmartPointer<vtkJPEGReader> jPEGReader1 =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  jPEGReader1->SetFileName ( input1Filename.c_str() );
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> imgReader1 = readerFactory->CreateImageReader2(argv[1]);
+  imgReader1->SetFileName(argv[1]);
 
-  vtkSmartPointer<vtkJPEGReader> jPEGReader2 =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  jPEGReader2->SetFileName ( input2Filename.c_str() );
+  vtkSmartPointer<vtkImageReader2> imgReader2 = readerFactory->CreateImageReader2(argv[2]);
+  imgReader2->SetFileName(argv[2]);
 
   // Combine the images (blend takes multiple connections on the 0th input port)
   vtkSmartPointer<vtkImageBlend> blend =
     vtkSmartPointer<vtkImageBlend>::New();
-  blend->AddInputConnection(jPEGReader1->GetOutputPort());
-  blend->AddInputConnection(jPEGReader2->GetOutputPort());
+  blend->AddInputConnection(imgReader1->GetOutputPort());
+  blend->AddInputConnection(imgReader2->GetOutputPort());
   blend->SetOpacity(0,.5);
   blend->SetOpacity(1,.5);
 

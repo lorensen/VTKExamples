@@ -1,13 +1,13 @@
 #include <vtkSmartPointer.h>
+#include <vtkImageAppendComponents.h>
+
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
-#include <vtkImageAppendComponents.h>
 #include <vtkImageCanvasSource2D.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageActor.h>
 
 int main(int, char *[])

@@ -1,9 +1,10 @@
 #include <vtkSmartPointer.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageViewer2.h>
@@ -16,20 +17,18 @@ int main ( int argc, char* argv[] )
   if ( argc != 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " InputFilename(jpg)" << std::endl;
+              << " InputImageFilename" << std::endl;
     return EXIT_FAILURE;
   }
 
-  // Parse input arguments
-  std::string inputFilename = argv[1];
-
   // Read the image
-  vtkSmartPointer<vtkJPEGReader> jPEGReader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  jPEGReader->SetFileName ( inputFilename.c_str() );
-  jPEGReader->Update();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> imgReader = readerFactory->CreateImageReader2(argv[1]);
+  imgReader->SetFileName(argv[1]);
+  imgReader->Update();
 
-  vtkImageData* image = jPEGReader->GetOutput();
+  vtkImageData* image = imgReader->GetOutput();
 
   // Find center of image
   int center[2];
@@ -57,7 +56,7 @@ int main ( int argc, char* argv[] )
   // input port)
   vtkSmartPointer<vtkImageBlend> blend =
     vtkSmartPointer<vtkImageBlend>::New();
-  blend->AddInputConnection(jPEGReader->GetOutputPort());
+  blend->AddInputConnection(imgReader->GetOutputPort());
   blend->AddInputConnection(drawing->GetOutputPort());
   blend->SetOpacity(0,.6);
   blend->SetOpacity(1,.4);

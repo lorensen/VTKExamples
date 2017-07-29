@@ -18,8 +18,9 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkImageCanvasSource2D.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageRGBToHSV.h>
 #include <vtkImageExtractComponents.h>
 #include <vtkImageGradient.h>
@@ -61,9 +62,11 @@ int main(int argc, char *argv[])
   else
   {
     // Read an image
-    vtkSmartPointer<vtkJPEGReader> reader =
-      vtkSmartPointer<vtkJPEGReader>::New();
+    vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+      vtkSmartPointer<vtkImageReader2Factory>::New();
+    vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
     reader->SetFileName(argv[1]);
+    reader->Update();
 
     // Convert to HSV and extract the Value
     vtkSmartPointer<vtkImageRGBToHSV> hsvFilter =

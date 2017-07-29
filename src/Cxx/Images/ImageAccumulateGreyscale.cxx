@@ -1,3 +1,7 @@
+#include <vtkSmartPointer.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkActor.h>
 #include <vtkBarChartActor.h>
 #include <vtkFieldData.h>
@@ -5,13 +9,11 @@
 #include <vtkImageData.h>
 #include <vtkImageExtractComponents.h>
 #include <vtkIntArray.h>
-#include <vtkJPEGReader.h>
 #include <vtkLegendBoxActor.h>
 #include <vtkProperty2D.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
 #include <vtkImageMagnitude.h>
 
 int main( int argc, char *argv[] )
@@ -23,11 +25,10 @@ int main( int argc, char *argv[] )
     return EXIT_FAILURE;
   }
 
-  // Read a jpeg image
-  vtkSmartPointer<vtkJPEGReader> reader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  reader->SetFileName( argv[1] );
-  reader->Update();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
 
   vtkSmartPointer<vtkImageMagnitude> magnitude =
     vtkSmartPointer<vtkImageMagnitude>::New();

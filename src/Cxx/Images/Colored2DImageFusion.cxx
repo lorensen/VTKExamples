@@ -1,12 +1,13 @@
 #include <vtkSmartPointer.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkActor.h>
 #include <vtkDataSet.h>
 #include <vtkDataSetMapper.h>
 #include <vtkImageBlend.h>
 #include <vtkImageData.h>
 #include <vtkImageMapToColors.h>
-#include <vtkJPEGReader.h>
 #include <vtkLookupTable.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -15,7 +16,7 @@
 int main(int argc, char *argv[])
 {
   // Parse input arguments
-  if ( argc != 3 )
+  if ( argc < 3 )
   {
     std::cerr << "Usage: " << argv[0]
               << " Input1Filename Input2Filename" << std::endl;
@@ -36,13 +37,13 @@ int main(int argc, char *argv[])
   imgSecondColorMap->SetValueRange( 0.4, 0.8 );
   imgSecondColorMap->Build();
 
-  vtkSmartPointer<vtkJPEGReader> imgReader =
-      vtkSmartPointer<vtkJPEGReader>::New();
-  imgReader->SetFileName( argv[1] );
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> imgReader = readerFactory->CreateImageReader2(argv[1]);
+  imgReader->SetFileName(argv[1]);
 
-  vtkSmartPointer<vtkJPEGReader> imgReaderMoving =
-      vtkSmartPointer<vtkJPEGReader>::New();
-  imgReaderMoving->SetFileName( argv[2] );
+  vtkSmartPointer<vtkImageReader2> imgReaderMoving = readerFactory->CreateImageReader2(argv[2]);
+  imgReaderMoving->SetFileName(argv[2]);
 
   vtkSmartPointer<vtkImageMapToColors> firstColorMapper =
       vtkSmartPointer<vtkImageMapToColors>::New();
