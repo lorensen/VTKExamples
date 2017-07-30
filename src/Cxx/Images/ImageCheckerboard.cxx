@@ -1,10 +1,11 @@
 #include <vtkImageCheckerboard.h>
 #include <vtkSmartPointer.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageData.h>
 #include <vtkImageViewer2.h>
 #include <vtkNamedColors.h>
@@ -19,23 +20,19 @@ int main ( int argc, char* argv[] )
     return EXIT_FAILURE;
   }
 
-  // Parse input arguments
-  std::string inputFilename1 = argv[1];
-  std::string inputFilename2 = argv[2];
-
   // Read the images
-  vtkSmartPointer<vtkJPEGReader> jPEGReader1 =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  jPEGReader1->SetFileName ( inputFilename1.c_str() );
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader1 = readerFactory->CreateImageReader2(argv[1]);
+  reader1->SetFileName(argv[1]);
 
-  vtkSmartPointer<vtkJPEGReader> jPEGReader2 =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  jPEGReader2->SetFileName ( inputFilename2.c_str() );
+  vtkSmartPointer<vtkImageReader2> reader2 = readerFactory->CreateImageReader2(argv[2]);
+  reader2->SetFileName(argv[2]);
 
   vtkSmartPointer<vtkImageCheckerboard> checkerboardFilter =
     vtkSmartPointer<vtkImageCheckerboard>::New();
-  checkerboardFilter->SetInputConnection(0, jPEGReader1->GetOutputPort());
-  checkerboardFilter->SetInputConnection(1, jPEGReader2->GetOutputPort());
+  checkerboardFilter->SetInputConnection(0, reader1->GetOutputPort());
+  checkerboardFilter->SetInputConnection(1, reader2->GetOutputPort());
   checkerboardFilter->SetNumberOfDivisions(3,3,1);
 
   // Visualize

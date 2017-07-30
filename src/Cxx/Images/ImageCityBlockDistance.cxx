@@ -1,36 +1,33 @@
+#include <vtkSmartPointer.h>
+#include <vtkImageCityBlockDistance.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageCast.h>
 #include <vtkImageThreshold.h>
-#include <vtkJPEGReader.h>
-#include <vtkPNGReader.h>
-#include <vtkSmartPointer.h>
 #include <vtkImageExtractComponents.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageActor.h>
-#include <vtkImageCityBlockDistance.h>
 
 int main(int argc, char *argv[])
 {
   // Verify command line arguments
   if (argc < 2 )
   {
-    std::cout << "Usage: " << argv[0] << " BinaryImage.jpg" << std::endl;
+    std::cout << "Usage: " << argv[0] << " BinaryImage" << std::endl;
     return EXIT_FAILURE;
   }
 
-  // Parse command line arguments
-  std::string inputFilename = argv[1];
-
   // Read file
-  vtkSmartPointer<vtkJPEGReader> reader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  reader->SetFileName(inputFilename.c_str());
-  reader->Update();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
 
   vtkSmartPointer<vtkImageCast> castFilter =
     vtkSmartPointer<vtkImageCast>::New();

@@ -1,5 +1,7 @@
 #include <vtkSmartPointer.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkCamera.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageActor.h>
@@ -8,7 +10,6 @@
 #include <vtkImageData.h>
 #include <vtkImageMandelbrotSource.h>
 #include <vtkInteractorStyleImage.h>
-#include <vtkJPEGReader.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -19,7 +20,7 @@ int main(int argc, char *argv[])
   if(argc < 2)
   {
     std::cout << "Usage: " << argv[0]
-              << " filename.png [iterations(10)] [threshold(20)]" << std::endl;
+              << " ImagFilename [iterations(10)] [threshold(20)]" << std::endl;
     return EXIT_FAILURE;
   }
   int iterations = 10;
@@ -33,8 +34,9 @@ int main(int argc, char *argv[])
     threshold = atoi(argv[3]);
   }
   // Read the image
-  vtkSmartPointer<vtkJPEGReader> reader =
-    vtkSmartPointer<vtkJPEGReader>::New();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
 
   vtkSmartPointer<vtkImageAnisotropicDiffusion2D> diffusion =
