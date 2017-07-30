@@ -1,17 +1,18 @@
+#include <vtkSmartPointer.h>
 #include <vtkImageResize.h>
 #include <vtkImageSincInterpolator.h>
 
-#include <vtkVersion.h>
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkImageActor.h>
 #include <vtkImageCanvasSource2D.h>
 #include <vtkImageData.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageMapper3D.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
-#include <vtkSmartPointer.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -23,13 +24,14 @@ int main(int argc, char *argv[])
   // Verify input arguments
   if ( argc > 1 )
   {
-    //Read the image
-    vtkSmartPointer<vtkJPEGReader> jpegReader =
-      vtkSmartPointer<vtkJPEGReader>::New();
-    jpegReader->SetFileName ( argv[1] );
-    jpegReader->Update();
+    // Read the image
+    vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+      vtkSmartPointer<vtkImageReader2Factory>::New();
+    vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+    reader->SetFileName(argv[1]);
+    reader->Update();
 
-    imageData = jpegReader->GetOutput();
+    imageData = reader->GetOutput();
     if (argc >3)
     {
       newSize[0] = atoi(argv[2]);
@@ -66,11 +68,8 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageResize> resize =
     vtkSmartPointer<vtkImageResize>::New();
-#if VTK_MAJOR_VERSION <= 5
-  resize->SetInput(imageData);
-#else
   resize->SetInputData(imageData);
-#endif
+
   resize->SetOutputDimensions(newSize[0], newSize[1], 1);
   resize->Update();
   if (windowFunction < 0)
@@ -90,9 +89,13 @@ int main(int argc, char *argv[])
   imageActor->GetMapper()->SetInputConnection(resize->GetOutputPort());
 
  // Setup renderer
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(imageActor);
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
   renderer->ResetCamera();
 
   // Setup render window
