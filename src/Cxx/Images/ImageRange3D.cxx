@@ -1,12 +1,14 @@
 #include <vtkSmartPointer.h>
+#include <vtkImageRange3D.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageActor.h>
-#include <vtkImageRange3D.h>
 #include <vtkImageCast.h>
 
 int main(int argc, char* argv[])
@@ -18,13 +20,11 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
 
-  std::string inputFilename = argv[1];
-
   // Read the image
-  vtkSmartPointer<vtkJPEGReader> reader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  reader->SetFileName(inputFilename.c_str());
-  reader->Update();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
 
   // Create actors
   vtkSmartPointer<vtkImageActor> originalActor =

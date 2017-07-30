@@ -21,7 +21,7 @@ int main( int argc, char *argv[] )
   // Handle the arguments
   if( argc < 2 )
   {
-    std::cout << "Required arguments: filename.jpg" << std::endl;
+    std::cout << "Required arguments: filename" << std::endl;
     return EXIT_FAILURE;
   }
 

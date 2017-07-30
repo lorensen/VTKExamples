@@ -1,11 +1,15 @@
-#include <vtkJPEGReader.h>
+#include <vtkSmartPointer.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
+
 #include <vtkImageMapper3D.h>
 #include <vtkImageActor.h> // Note: this is a 3D actor (c.f. vtkImageMapper which is 2D)
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
-#include <vtkSmartPointer.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char* argv[])
 {
@@ -18,10 +22,10 @@ int main(int argc, char* argv[])
   std::string inputFilename = argv[1];
 
   // Read the image
-  vtkSmartPointer<vtkJPEGReader> reader = 
-      vtkSmartPointer<vtkJPEGReader>::New();
-  reader->SetFileName(inputFilename.c_str());
-  reader->Update();
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
 
   // Create an actor
   vtkSmartPointer<vtkImageActor> actor = 
@@ -29,10 +33,14 @@ int main(int argc, char* argv[])
   actor->GetMapper()->SetInputConnection(reader->GetOutputPort());
 
   // Setup renderer
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
   renderer->ResetCamera();
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> window = 

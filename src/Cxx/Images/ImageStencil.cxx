@@ -1,10 +1,8 @@
-#include <vtkVersion.h>
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageStencil.h>
 #include <vtkImageStencilData.h>
 #include <vtkImageToImageStencil.h>
-#include <vtkJPEGReader.h>
 #include <vtkPointData.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindow.h>
@@ -13,8 +11,11 @@
 #include <vtkRenderer.h>
 #include <vtkImageActor.h>
 
-static void CreateColorImage(vtkImageData*, unsigned int channel);
-static void CreateMask(vtkImageData*);
+namespace
+{
+void CreateColorImage(vtkImageData*, unsigned int channel);
+void CreateMask(vtkImageData*);
+}
 
 int main(int, char *[])
 {
@@ -29,23 +30,14 @@ int main(int, char *[])
 
   //vtkSmartPointer<vtkImageStencilData> stencilData = vtkSmartPointer<vtkImageStencilData>::New();
   vtkSmartPointer<vtkImageToImageStencil> imageToImageStencil = vtkSmartPointer<vtkImageToImageStencil>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageToImageStencil->SetInputConnection(mask->GetProducerPort());
-#else
   imageToImageStencil->SetInputData(mask);
-#endif
   imageToImageStencil->ThresholdByUpper(122);
 
   vtkSmartPointer<vtkImageStencil> stencil = vtkSmartPointer<vtkImageStencil>::New();
   stencil->SetInputConnection(2, imageToImageStencil->GetOutputPort());
   stencil->ReverseStencilOn();
-#if VTK_MAJOR_VERSION <= 5
-  stencil->SetBackgroundInput(image2);
-  stencil->SetInputConnection(image1->GetProducerPort());
-#else
   stencil->SetBackgroundInputData(image2);
   stencil->SetInputData(image1);
-#endif
   stencil->Update();
 
   // Create an actor
@@ -78,18 +70,15 @@ int main(int, char *[])
 }
 
 
+namespace
+{
 void CreateColorImage(vtkImageData* image, const unsigned int channel)
 {
   unsigned int dim = 20;
 
   image->SetDimensions(dim, dim, 1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(3);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR,3);
-#endif
+
   for(unsigned int x = 0; x < dim; x++)
   {
     for(unsigned int y = 0; y < dim; y++)
@@ -106,18 +95,13 @@ void CreateColorImage(vtkImageData* image, const unsigned int channel)
   image->Modified();
 }
 
-static void CreateMask(vtkImageData* image)
+void CreateMask(vtkImageData* image)
 {
   unsigned int dim = 20;
 
   image->SetDimensions(dim, dim, 1);
-#if VTK_MAJOR_VERSION <= 5
-  image->SetNumberOfScalarComponents(1);
-  image->SetScalarTypeToUnsignedChar();
-  image->AllocateScalars();
-#else
   image->AllocateScalars(VTK_UNSIGNED_CHAR, 1);
-#endif
+
   for(unsigned int x = 0; x < dim; x++)
   {
     for(unsigned int y = 0; y < dim; y++)
@@ -135,4 +119,5 @@ static void CreateMask(vtkImageData* image)
   }
 
   image->Modified();
+}
 }
