@@ -1,7 +1,9 @@
 #include <vtkSmartPointer.h>
 #include <vtkRectilinearWipeWidget.h>
 #include <vtkRectilinearWipeRepresentation.h>
-#include <vtkJPEGReader.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkImageRectilinearWipe.h>
 #include <vtkImageActor.h>
 #include <vtkImageMapper3D.h>
@@ -13,6 +15,7 @@
 #include <vtkCommand.h>
 #include <vtkObjectFactory.h>
 #include <vtkInteractorStyleImage.h>
+#include <vtkNamedColors.h>
 
 // Define interaction style
 class WipeInteractorStyle : public vtkInteractorStyleImage
@@ -74,19 +77,23 @@ int main( int argc, char *argv[] )
   if ( argc < 3 )
   {
     std::cerr << "Usage: " << argv[0]
-              << " Input1Filename(jpg) Input2Filename(jpg)" << std::endl;
+              << " Input1Filename Input2Filename" << std::endl;
     return EXIT_FAILURE;
   }
 
   int wipeMode = 0;
-  //Read the images
-  vtkSmartPointer<vtkJPEGReader> reader1 =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  reader1->SetFileName ( argv[1] );
+  if (argc > 3)
+  {
+    wipeMode = atoi(argv[3]);
+  }
+  // Read the images
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader1 = readerFactory->CreateImageReader2(argv[1]);
+  reader1->SetFileName(argv[1]);
 
-  vtkSmartPointer<vtkJPEGReader> reader2 =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  reader2->SetFileName ( argv[2] );
+  vtkSmartPointer<vtkImageReader2> reader2 = readerFactory->CreateImageReader2(argv[2]);
+  reader2->SetFileName(argv[2]);
 
   // Create a wipe pipeline
   vtkSmartPointer<vtkImageRectilinearWipe> wipe =
@@ -98,8 +105,12 @@ int main( int argc, char *argv[] )
 
   // Create the RenderWindow, Renderer and both Actors
   //
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
+  ren1->SetBackground(colors->GetColor3d("Wheat").GetData());
+
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renWin->AddRenderer(ren1);
@@ -136,12 +147,10 @@ int main( int argc, char *argv[] )
   // Add the actors to the renderer, set the background and size
   //
   ren1->AddActor(wipeActor);
-  ren1->SetBackground(0.1, 0.2, 0.4);
   renWin->SetSize(300, 300);
 
   // render the image
   //
-  iren->Initialize();
   renWin->Render();
   wipeWidget->On();
   iren->Start();

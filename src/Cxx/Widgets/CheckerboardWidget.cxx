@@ -11,8 +11,8 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkProperty2D.h>
 #include <vtkCommand.h>
-#include <vtkObjectFactory.h>
 #include <vtkInteractorStyleImage.h>
+#include <vtkNamedColors.h>
 
 int main( int argc, char *argv[] )
 {
@@ -41,6 +41,8 @@ int main( int argc, char *argv[] )
 
   // Create the RenderWindow, Renderer and both Actors
   //
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
@@ -73,7 +75,7 @@ int main( int argc, char *argv[] )
   // Add the actors to the renderer, set the background and size
   //
   ren1->AddActor(checkerActor);
-  ren1->SetBackground(0.1, 0.2, 0.4);
+  ren1->SetBackground(colors->GetColor3d("Wheat").GetData());
   renWin->SetSize(300, 300);
 
   // render the image
