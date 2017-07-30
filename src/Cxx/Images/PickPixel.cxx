@@ -1,4 +1,7 @@
-#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkAssemblyPath.h>
 #include <vtkCell.h>
 #include <vtkCommand.h>
@@ -8,13 +11,11 @@
 #include <vtkImageData.h>
 #include <vtkImageViewer2.h>
 #include <vtkInteractorStyleImage.h>
-#include <vtkJPEGReader.h>
 #include <vtkPointData.h>
 #include <vtkPropPicker.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
 #include <vtkTextProperty.h>
 
 // The mouse motion callback, to pick the image and recover pixel values
@@ -68,10 +69,6 @@ public:
       vtkImageData* image = this->Viewer->GetInput();
       vtkInteractorStyle *style = vtkInteractorStyle::SafeDownCast(
           interactor->GetInteractorStyle());
-
-#if VTK_MAJOR_VERSION <= 5
-      image->Update();
-#endif
 
       // Pick at the mouse location provided by the interactor
       this->Picker->Pick( interactor->GetEventPosition()[0],
@@ -185,7 +182,7 @@ int main ( int argc, char* argv[] )
   if ( argc != 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " Filename(jpeg)" << std::endl;
+              << " Filename" << std::endl;
     return EXIT_FAILURE;
   }
 
@@ -193,15 +190,11 @@ int main ( int argc, char* argv[] )
   std::string inputFilename = argv[1];
 
   //Read the image
-  vtkSmartPointer<vtkJPEGReader> jpegReader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  if( !jpegReader->CanReadFile( inputFilename.c_str() ) )
-  {
-    std::cout << argv[0] << ": Error reading file "
-              << inputFilename << endl << "Exiting..." << endl;
-    return EXIT_FAILURE;
-  }
-  jpegReader->SetFileName ( inputFilename.c_str() );
+  // Read the image
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
 
   // Picker to pick pixels
   vtkSmartPointer<vtkPropPicker> propPicker =
@@ -216,7 +209,7 @@ int main ( int argc, char* argv[] )
   // Visualize
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  imageViewer->SetInputConnection( jpegReader->GetOutputPort() );
+  imageViewer->SetInputConnection( reader->GetOutputPort() );
   imageViewer->SetupInteractor( renderWindowInteractor );
   imageViewer->SetSize( 600, 600 );
 
