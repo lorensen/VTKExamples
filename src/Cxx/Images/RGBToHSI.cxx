@@ -1,5 +1,5 @@
 #include <vtkSmartPointer.h>
-#include <vtkImageRGBToHSV.h>
+#include <vtkImageRGBToHSI.h>
 
 #include <vtkImageReader2Factory.h>
 #include <vtkImageReader2.h>
@@ -29,24 +29,24 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
 
-  vtkSmartPointer<vtkImageRGBToHSV> hsvFilter =
-    vtkSmartPointer<vtkImageRGBToHSV>::New();
-  hsvFilter->SetInputConnection(reader->GetOutputPort());
+  vtkSmartPointer<vtkImageRGBToHSI> hsiFilter =
+    vtkSmartPointer<vtkImageRGBToHSI>::New();
+  hsiFilter->SetInputConnection(reader->GetOutputPort());
 
-  vtkSmartPointer<vtkImageExtractComponents> extractHueFilter =
+  vtkSmartPointer<vtkImageExtractComponents> extractHFilter =
     vtkSmartPointer<vtkImageExtractComponents>::New();
-  extractHueFilter->SetInputConnection(hsvFilter->GetOutputPort());
-  extractHueFilter->SetComponents(0);
+  extractHFilter->SetInputConnection(hsiFilter->GetOutputPort());
+  extractHFilter->SetComponents(0);
 
-  vtkSmartPointer<vtkImageExtractComponents> extractSaturationFilter =
+  vtkSmartPointer<vtkImageExtractComponents> extractSFilter =
     vtkSmartPointer<vtkImageExtractComponents>::New();
-  extractSaturationFilter->SetInputConnection(hsvFilter->GetOutputPort());
-  extractSaturationFilter->SetComponents(1);
+  extractSFilter->SetInputConnection(hsiFilter->GetOutputPort());
+  extractSFilter->SetComponents(1);
 
-  vtkSmartPointer<vtkImageExtractComponents> extractValueFilter =
+  vtkSmartPointer<vtkImageExtractComponents> extractIFilter =
     vtkSmartPointer<vtkImageExtractComponents>::New();
-  extractValueFilter->SetInputConnection(hsvFilter->GetOutputPort());
-  extractValueFilter->SetComponents(2);
+  extractIFilter->SetInputConnection(hsiFilter->GetOutputPort());
+  extractIFilter->SetComponents(2);
 
   // Create actors
   vtkSmartPointer<vtkImageActor> inputActor =
@@ -57,24 +57,24 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkImageActor> hActor =
     vtkSmartPointer<vtkImageActor>::New();
   hActor->GetMapper()->SetInputConnection(
-    extractHueFilter->GetOutputPort());
+    extractHFilter->GetOutputPort());
 
   vtkSmartPointer<vtkImageActor> sActor =
     vtkSmartPointer<vtkImageActor>::New();
   sActor->GetMapper()->SetInputConnection(
-    extractSaturationFilter->GetOutputPort());
+    extractSFilter->GetOutputPort());
 
-  vtkSmartPointer<vtkImageActor> vActor =
+  vtkSmartPointer<vtkImageActor> iActor =
     vtkSmartPointer<vtkImageActor>::New();
-  vActor->GetMapper()->SetInputConnection(
-    extractValueFilter->GetOutputPort());
+  iActor->GetMapper()->SetInputConnection(
+    extractIFilter->GetOutputPort());
 
   // Define viewport ranges
   // (xmin, ymin, xmax, ymax)
   double inputViewport[4] = {0.0, 0.0, 0.25, 1.0};
   double hViewport[4] = {0.25, 0.0, 0.5, 1.0};
   double sViewport[4] = {0.5, 0.0, 0.75, 1.0};
-  double vViewport[4] = {0.75, 0.0, 1.0, 1.0};
+  double iViewport[4] = {0.75, 0.0, 1.0, 1.0};
 
   // Shared camera
   vtkSmartPointer<vtkCamera> sharedCamera =
@@ -104,12 +104,12 @@ int main(int argc, char *argv[])
   sRenderer->SetActiveCamera(sharedCamera);
   sRenderer->SetBackground(colors->GetColor3d("LightGrey").GetData());
 
-  vtkSmartPointer<vtkRenderer> vRenderer =
+  vtkSmartPointer<vtkRenderer> iRenderer =
     vtkSmartPointer<vtkRenderer>::New();
-  vRenderer->SetViewport(vViewport);
-  vRenderer->AddActor(vActor);
-  vRenderer->SetActiveCamera(sharedCamera);
-  vRenderer->SetBackground(colors->GetColor3d("Silver").GetData());
+  iRenderer->SetViewport(iViewport);
+  iRenderer->AddActor(iActor);
+  iRenderer->SetActiveCamera(sharedCamera);
+  iRenderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
   renderWindow->AddRenderer(inputRenderer);
   renderWindow->AddRenderer(hRenderer);
   renderWindow->AddRenderer(sRenderer);
-  renderWindow->AddRenderer(vRenderer);
+  renderWindow->AddRenderer(iRenderer);
   inputRenderer->ResetCamera();
 
   // Setup render window interactor

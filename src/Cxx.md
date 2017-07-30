@@ -1028,7 +1028,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageSobel2D](/Cxx/Images/ImageSobel2D)| [vtkImageSobel2D](http://www.vtk.org/doc/nightly/html/classvtkImageSobel2D.html#details) |Sobel edge detection 2D.
 [ImageValueRange](/Cxx/Images/ImageValueRange)| [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details) | Get the range of image pixel values (min/max).
 [ImageVariance3D](/Cxx/Images/ImageVariance3D)| [vtkImageVariance3D](http://www.vtk.org/doc/nightly/html/classvtkImageVariance3D.html#details) | Construct a new image consisting of the variance of the input image at each pixel.
+[RGBToHSI](/Cxx/Images/RGBToHSI)| [vtkImageRGBToHSI](http://www.vtk.org/doc/nightly/html/classvtkImageRGBToHSI.html#details) |Convert RGB to HSI.
 [RGBToHSV](/Cxx/Images/RGBToHSV)| [vtkImageRGBToHSV](http://www.vtk.org/doc/nightly/html/classvtkImageRGBToHSV.html#details) |Convert RGB to HSV.
+[RGBToYIQ](/Cxx/Images/RGBToYIQ)| [vtkImageRGBToYIQ](http://www.vtk.org/doc/nightly/html/classvtkImageRGBToYIQ.html#details) |Convert RGB to YIQ.
 [RescaleAnImage](/Cxx/ImageProcessing/RescaleAnImage) | [vtkImageShiftScale](http://www.vtk.org/doc/nightly/html/classvtkImageShiftScale.html#details) | Rescale an image
 [ResizeImage](/Cxx/Images/ResizeImage)| [vtkImageResize](http://www.vtk.org/doc/nightly/html/classvtkImageResize.html#details) [vtkImageSincInterpolator](http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html#details)| Resize an image using a sinc interpolator.
 

@@ -65,7 +65,9 @@ SET(NEEDS_ARGS
   InteractWithImage
   PickPixel
   PickPixel2
+  RGBToHSI
   RGBToHSV
+  RGBToYIQ
   RTAnalyticSource
   ResizeImage
   StaticImage
@@ -168,8 +170,14 @@ ADD_TEST(${KIT}-PickPixel2 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 ADD_TEST(${KIT}-ImageRange3D ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestImageRange3D  ${DATA}/Gourds2.jpg)
 
+ADD_TEST(${KIT}-RGBToHSI ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestRGBToHSI ${DATA}/Gourds2.jpg)
+
 ADD_TEST(${KIT}-RGBToHSV ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRGBToHSV ${DATA}/Gourds2.jpg)
+
+ADD_TEST(${KIT}-RGBToYIQ ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestRGBToYIQ ${DATA}/Gourds2.jpg)
 
 ADD_TEST(${KIT}-StaticImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestStaticImage ${DATA}/Ox.jpg)
