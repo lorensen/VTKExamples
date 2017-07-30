@@ -186,9 +186,6 @@ int main ( int argc, char* argv[] )
     return EXIT_FAILURE;
   }
 
-  //Parse input argument
-  std::string inputFilename = argv[1];
-
   // Read the image
   vtkSmartPointer<vtkImageReader2Factory> readerFactory =
     vtkSmartPointer<vtkImageReader2Factory>::New();
