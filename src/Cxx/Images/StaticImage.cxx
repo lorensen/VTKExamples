@@ -1,7 +1,8 @@
 #include <vtkSmartPointer.h>
 
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkImageViewer2.h>
-#include <vtkJPEGReader.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -12,27 +13,21 @@ int main(int argc, char* argv[])
   if ( argc != 2 )
   {
     std::cout << "Usage: " << argv[0]
-              << " Filename(.jpeg)" << std::endl;
+              << " Filename" << std::endl;
     return EXIT_FAILURE;
   }
 
   // Read the image
-  vtkSmartPointer<vtkJPEGReader> jpegReader =
-    vtkSmartPointer<vtkJPEGReader>::New();
-  if(!jpegReader->CanReadFile(argv[1]))
-  {
-    std::cout << argv[0]
-              << ": Error reading file " << argv[1] << std::endl
-              << " Exiting..." << std::endl;
-    return EXIT_FAILURE;
-  }
-
-  jpegReader->SetFileName ( argv[1] );
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
+  reader->SetFileName(argv[1]);
+  reader->Update();
 
   // Visualize
   vtkSmartPointer<vtkImageViewer2> imageViewer =
     vtkSmartPointer<vtkImageViewer2>::New();
-  imageViewer->SetInputConnection( jpegReader->GetOutputPort() );
+  imageViewer->SetInputConnection( reader->GetOutputPort() );
   imageViewer->GetRenderWindow()->SetSize( 500, 500 );
   imageViewer->GetRenderer()->ResetCamera();
 

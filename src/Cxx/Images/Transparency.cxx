@@ -1,10 +1,11 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkImageMapToColors.h>
+
+#include <vtkImageReader2Factory.h>
+#include <vtkImageReader2.h>
 #include <vtkLookupTable.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageData.h>
-#include <vtkImageMapToColors.h>
-#include <vtkJPEGReader.h>
 #include <vtkPointData.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -22,8 +23,10 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
 
-  vtkSmartPointer<vtkJPEGReader> reader =
-    vtkSmartPointer<vtkJPEGReader>::New();
+  // Read the image
+  vtkSmartPointer<vtkImageReader2Factory> readerFactory =
+    vtkSmartPointer<vtkImageReader2Factory>::New();
+  vtkSmartPointer<vtkImageReader2> reader = readerFactory->CreateImageReader2(argv[1]);
   reader->SetFileName(argv[1]);
   reader->Update();
 
@@ -35,12 +38,8 @@ int main(int argc, char* argv[])
   int extent[6];
   image->GetExtent(extent);
   maskImage->SetExtent(extent);
-#if VTK_MAJOR_VERSION <= 5
-  maskImage->SetNumberOfScalarComponents(1);
-  maskImage->SetScalarTypeToDouble();
-#else
   maskImage->AllocateScalars(VTK_DOUBLE,1);
-#endif
+
   for (int y = extent[2]; y < extent[3]; y++)
   {
     for (int x = extent[0]; x < extent[1]; x++)
@@ -69,20 +68,13 @@ int main(int argc, char* argv[])
     vtkSmartPointer<vtkImageMapToColors>::New();
   mapTransparency->SetLookupTable(lookupTable);
   mapTransparency->PassAlphaToOutputOn();
-#if VTK_MAJOR_VERSION <= 5
-  mapTransparency->SetInput(maskImage);
-#else
   mapTransparency->SetInputData(maskImage);
-#endif
+
 
   // Create actors
   vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  imageActor->SetInput(image);
-#else
   imageActor->GetMapper()->SetInputData(image);
-#endif
 
   vtkSmartPointer<vtkImageActor> maskActor =
     vtkSmartPointer<vtkImageActor>::New();
