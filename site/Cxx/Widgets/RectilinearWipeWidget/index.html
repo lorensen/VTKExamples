@@ -6117,6 +6117,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Images/RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Images/RGBToHSV/" title="RGBToHSV" class="md-nav__link">
       RGBToHSV
     </a>
@@ -15978,7 +15990,9 @@ separator.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRectilinearWipeWidget.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRectilinearWipeRepresentation.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageRectilinearWipe.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
@@ -15990,6 +16004,7 @@ separator.</p>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="c1">// Define interaction style</span>
 <span class="k">class</span> <span class="nc">WipeInteractorStyle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkInteractorStyleImage</span>
@@ -16051,19 +16066,23 @@ separator.</p>
   <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">)</span>
   <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-              <span class="o">&lt;&lt;</span> <span class="s">&quot; Input1Filename(jpg) Input2Filename(jpg)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Input1Filename Input2Filename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
 
   <span class="kt">int</span> <span class="n">wipeMode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="c1">//Read the images</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">wipeMode</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="c1">// Read the images</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader1</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader1</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">);</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader2</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">reader2</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
   <span class="c1">// Create a wipe pipeline</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRectilinearWipe</span><span class="o">&gt;</span> <span class="n">wipe</span> <span class="o">=</span>
@@ -16075,8 +16094,12 @@ separator.</p>
 
   <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
   <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
@@ -16113,12 +16136,10 @@ separator.</p>
   <span class="c1">// Add the actors to the renderer, set the background and size</span>
   <span class="c1">//</span>
   <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">wipeActor</span><span class="p">);</span>
-  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
   <span class="c1">// render the image</span>
   <span class="c1">//</span>
-  <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">wipeWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
   <span class="n">iren</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>

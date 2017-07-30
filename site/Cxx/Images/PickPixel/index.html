@@ -6172,6 +6172,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../RGBToHSV/" title="RGBToHSV" class="md-nav__link">
       RGBToHSV
     </a>
@@ -15969,7 +15981,10 @@ function registerListener(event, func) {
 </ul>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PickPixel.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkAssemblyPath.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCell.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
@@ -15979,13 +15994,11 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageViewer2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPropPicker.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkTextProperty.h&gt;</span><span class="cp"></span>
 
 <span class="c1">// The mouse motion callback, to pick the image and recover pixel values</span>
@@ -16039,10 +16052,6 @@ function registerListener(event, func) {
       <span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">Viewer</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">();</span>
       <span class="n">vtkInteractorStyle</span> <span class="o">*</span><span class="n">style</span> <span class="o">=</span> <span class="n">vtkInteractorStyle</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span>
           <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">GetInteractorStyle</span><span class="p">());</span>
-
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-      <span class="n">image</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
-<span class="cp">#endif</span>
 
       <span class="c1">// Pick at the mouse location provided by the interactor</span>
       <span class="k">this</span><span class="o">-&gt;</span><span class="n">Picker</span><span class="o">-&gt;</span><span class="n">Pick</span><span class="p">(</span> <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">GetEventPosition</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
@@ -16156,23 +16165,15 @@ function registerListener(event, func) {
   <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
   <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-              <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename(jpeg)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="c1">//Parse input argument</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-
-  <span class="c1">//Read the image</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jpegReader</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">CanReadFile</span><span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;: Error reading file &quot;</span>
-              <span class="o">&lt;&lt;</span> <span class="n">inputFilename</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span> <span class="p">);</span>
+  <span class="c1">// Read the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
   <span class="c1">// Picker to pick pixels</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPropPicker</span><span class="o">&gt;</span> <span class="n">propPicker</span> <span class="o">=</span>
@@ -16187,7 +16188,7 @@ function registerListener(event, func) {
   <span class="c1">// Visualize</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetupInteractor</span><span class="p">(</span> <span class="n">renderWindowInteractor</span> <span class="p">);</span>
   <span class="n">imageViewer</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">600</span> <span class="p">);</span>
 

@@ -6172,6 +6172,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../RGBToHSV/" title="RGBToHSV" class="md-nav__link">
       RGBToHSV
     </a>
@@ -15966,39 +15978,36 @@ function registerListener(event, func) {
 <p>Compute the Manhattan distance from every point to every black point in a binary image.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageCityBlockDistance.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCityBlockDistance.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageCast.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageThreshold.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkPNGReader.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageExtractComponents.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkImageCityBlockDistance.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
   <span class="c1">// Verify command line arguments</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">)</span>
   <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; BinaryImage.jpg&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; BinaryImage&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="c1">// Parse command line arguments</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-
   <span class="c1">// Read file</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;</span> <span class="n">castFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageCast</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>

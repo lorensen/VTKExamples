@@ -6172,6 +6172,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../RGBToHSV/" title="RGBToHSV" class="md-nav__link">
       RGBToHSV
     </a>
@@ -15970,13 +15982,11 @@ function registerListener(event, func) {
 </div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageStencil.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageStencil.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageStencilData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageToImageStencil.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
@@ -15985,10 +15995,13 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateColorImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">channel</span><span class="p">);</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateMask</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">);</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">CreateColorImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">channel</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">CreateMask</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">image1</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">CreateColorImage</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// Create a red image</span>
@@ -16001,23 +16014,14 @@ function registerListener(event, func) {
 
   <span class="c1">//vtkSmartPointer&lt;vtkImageStencilData&gt; stencilData = vtkSmartPointer&lt;vtkImageStencilData&gt;::New();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToImageStencil</span><span class="o">&gt;</span> <span class="n">imageToImageStencil</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageToImageStencil</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">mask</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">mask</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">ThresholdByUpper</span><span class="p">(</span><span class="mi">122</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageStencil</span><span class="o">&gt;</span> <span class="n">stencil</span> <span class="o">=</span> <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageStencil</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">imageToImageStencil</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">ReverseStencilOn</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetBackgroundInput</span><span class="p">(</span><span class="n">image2</span><span class="p">);</span>
-  <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">image1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetBackgroundInputData</span><span class="p">(</span><span class="n">image2</span><span class="p">);</span>
   <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">image1</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">stencil</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="c1">// Create an actor</span>
@@ -16050,18 +16054,15 @@ function registerListener(event, func) {
 <span class="p">}</span>
 
 
-<span class="kt">void</span> <span class="nf">CreateColorImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">channel</span><span class="p">)</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">CreateColorImage</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">channel</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 
   <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
-  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
-<span class="cp">#else</span>
   <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="cp">#endif</span>
+
   <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
@@ -16078,18 +16079,13 @@ function registerListener(event, func) {
   <span class="n">image</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateMask</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">)</span>
+<span class="kt">void</span> <span class="n">CreateMask</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">image</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 
   <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetDimensions</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-  <span class="n">image</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToUnsignedChar</span><span class="p">();</span>
-  <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">();</span>
-<span class="cp">#else</span>
   <span class="n">image</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_UNSIGNED_CHAR</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="cp">#endif</span>
+
   <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
@@ -16107,6 +16103,7 @@ function registerListener(event, func) {
   <span class="p">}</span>
 
   <span class="n">image</span><span class="o">-&gt;</span><span class="n">Modified</span><span class="p">();</span>
+<span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 

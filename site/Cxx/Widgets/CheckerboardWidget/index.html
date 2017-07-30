@@ -6117,6 +6117,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../../Images/RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../Images/RGBToHSV/" title="RGBToHSV" class="md-nav__link">
       RGBToHSV
     </a>
@@ -15983,8 +15995,8 @@ alternative image comparison widget try the
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty2D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCommand.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkObjectFactory.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
 <span class="p">{</span>
@@ -16013,6 +16025,8 @@ alternative image comparison widget try the
 
   <span class="c1">// Create the RenderWindow, Renderer and both Actors</span>
   <span class="c1">//</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
@@ -16045,7 +16059,7 @@ alternative image comparison widget try the
   <span class="c1">// Add the actors to the renderer, set the background and size</span>
   <span class="c1">//</span>
   <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">checkerActor</span><span class="p">);</span>
-  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
 
   <span class="c1">// render the image</span>

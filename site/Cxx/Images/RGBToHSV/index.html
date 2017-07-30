@@ -6117,6 +6117,18 @@ function registerListener(event, func) {
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -15964,63 +15976,61 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>Convert RGB channels to HSV channels.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p><a href="../../../Cxx/Images/RGBToYIQ">RGBToYIQ</a> and <a href="../../../Cxx/Images/RGBToHSI">RGBToHSI</a></p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>RGBToHSV.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageRGBToHSV.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageExtractComponents.h&gt;</span><span class="cp"></span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
   <span class="c1">// Verify command line arguments</span>
   <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
   <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: image&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;image&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Reading file: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">inputFilename</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-
-  <span class="c1">// Read JPG file</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="c1">// Read the image</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRGBToHSV</span><span class="o">&gt;</span> <span class="n">hsvFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageRGBToHSV</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractHueFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">extractHueFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">extractHueFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-  <span class="n">extractHueFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractSaturationFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">extractSaturationFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">extractSaturationFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-  <span class="n">extractSaturationFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;</span> <span class="n">extractValueFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageExtractComponents</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">extractValueFilter</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">hsvFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">extractValueFilter</span><span class="o">-&gt;</span><span class="n">SetComponents</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-  <span class="n">extractValueFilter</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="c1">// Create actors</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">inputActor</span> <span class="o">=</span>
@@ -16050,34 +16060,40 @@ function registerListener(event, func) {
   <span class="kt">double</span> <span class="n">sViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
   <span class="kt">double</span> <span class="n">vViewport</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
 
+  <span class="c1">// Shared camera</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">sharedCamera</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="c1">// Setup renderers</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">inputRenderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">inputViewport</span><span class="p">);</span>
   <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">inputActor</span><span class="p">);</span>
-  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
-  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.9</span><span class="p">);</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">sharedCamera</span><span class="p">);</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">hRenderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">hRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">hViewport</span><span class="p">);</span>
   <span class="n">hRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">hActor</span><span class="p">);</span>
-  <span class="n">hRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
-  <span class="n">hRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
+  <span class="n">hRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">sharedCamera</span><span class="p">);</span>
+  <span class="n">hRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Gainsboro&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">sRenderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">sRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">sViewport</span><span class="p">);</span>
   <span class="n">sRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">sActor</span><span class="p">);</span>
-  <span class="n">sRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
-  <span class="n">sRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.7</span><span class="p">);</span>
+  <span class="n">sRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">sharedCamera</span><span class="p">);</span>
+  <span class="n">sRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;LightGrey&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">vRenderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vRenderer</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="n">vViewport</span><span class="p">);</span>
   <span class="n">vRenderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">vActor</span><span class="p">);</span>
-  <span class="n">vRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
-  <span class="n">vRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.8</span><span class="p">);</span>
+  <span class="n">vRenderer</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">sharedCamera</span><span class="p">);</span>
+  <span class="n">vRenderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Silver&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Setup render window</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
@@ -16087,6 +16103,7 @@ function registerListener(event, func) {
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">hRenderer</span><span class="p">);</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">sRenderer</span><span class="p">);</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">vRenderer</span><span class="p">);</span>
+  <span class="n">inputRenderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
   <span class="c1">// Setup render window interactor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
@@ -16167,7 +16184,7 @@ Once the <em>tarball RGBToHSV.tar</em> has been downloaded and extracted,</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../PickPixel2/" title="PickPixel2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../RGBToHSI/" title="RGBToHSI" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -16176,7 +16193,7 @@ Once the <em>tarball RGBToHSV.tar</em> has been downloaded and extracted,</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                PickPixel2
+                RGBToHSI
               </span>
             </div>
           </a>

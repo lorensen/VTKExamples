@@ -6165,6 +6165,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../RGBToHSI/" title="RGBToHSI" class="md-nav__link">
+      RGBToHSI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../RGBToHSV/" title="RGBToHSV" class="md-nav__link">
       RGBToHSV
     </a>
@@ -15952,6 +15964,8 @@ function registerListener(event, func) {
 <p><strong>ImageAnisotropicDiffusion2D.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
@@ -15960,7 +15974,6 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageMandelbrotSource.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
@@ -15971,7 +15984,7 @@ function registerListener(event, func) {
   <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-              <span class="o">&lt;&lt;</span> <span class="s">&quot; filename.png [iterations(10)] [threshold(20)]&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&quot; ImagFilename [iterations(10)] [threshold(20)]&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="kt">int</span> <span class="n">iterations</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
@@ -15985,8 +15998,9 @@ function registerListener(event, func) {
     <span class="n">threshold</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
   <span class="p">}</span>
   <span class="c1">// Read the image</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
   <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageAnisotropicDiffusion2D</span><span class="o">&gt;</span> <span class="n">diffusion</span> <span class="o">=</span>
