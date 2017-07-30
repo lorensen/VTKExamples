@@ -6143,6 +6143,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../RGBToYIQ/" title="RGBToYIQ" class="md-nav__link">
+      RGBToYIQ
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../RTAnalyticSource/" title="RTAnalyticSource" class="md-nav__link">
       RTAnalyticSource
     </a>
@@ -15975,28 +15987,34 @@ function registerListener(event, func) {
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Images/TestResizeImage.png?raw=true" width="256" />
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>Resize an image using a sinc interpolator. Without command line arguments, the example resize a synthetic image. A jpeg file can be passed on the command lines. The new dimensions can also be passed as well as an integer specifying the sinc interpolator. See {{VTKDoxygenURL <a href="http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html#details">vtkImageSincInterpolator</a>}} for details. A -1 turns off interpolation.</p>
-<p>ImageResize maintains the physical size of the image.</p>
+<p>Resize an image using a sinc interpolator. Without command line arguments, the example resize a synthetic image. A jpeg file can be passed on the command lines. The new dimensions can also be passed as well as an integer specifying the sinc interpolator. See <a href="http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html#details">vtkImageSincInterpolator</a> for details. A -1 turns off interpolation.</p>
+<p>Several window functions are provided. See <a href="https://en.wikipedia.org/wiki/Window_function">this article</a> for a description og window functions.
+ <a href="http://www.vtk.org/doc/nightly/html/classvtkImageResize.html#details">vtkImageResize</a> maintains the physical size of the image.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This example was inspired by a question asked by <em>Qiang Wang</em>.</p>
 </div>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p>The paper <a href="http://mwlab.pmo.ac.cn/~lzh/about_work/dspfftpaper/Some_Windows_with_Very_Good_Sidelobe_Behavior.pdf">"Some windows with very good sidelobe behavior"</a> describes the windows implemented in <a href="http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html#details">vtkImageSincInterpolator</a>.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ResizeImage.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkImageResize.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageResize.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageSincInterpolator.h&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkJPEGReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageMapper3D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleImage.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
@@ -16008,13 +16026,14 @@ function registerListener(event, func) {
   <span class="c1">// Verify input arguments</span>
   <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
   <span class="p">{</span>
-    <span class="c1">//Read the image</span>
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;</span> <span class="n">jpegReader</span> <span class="o">=</span>
-      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkJPEGReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-    <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">SetFileName</span> <span class="p">(</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
-    <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+    <span class="c1">// Read the image</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;</span> <span class="n">readerFactory</span> <span class="o">=</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2Factory</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageReader2</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">-&gt;</span><span class="n">CreateImageReader2</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
-    <span class="n">imageData</span> <span class="o">=</span> <span class="n">jpegReader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
+    <span class="n">imageData</span> <span class="o">=</span> <span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span><span class="mi">3</span><span class="p">)</span>
     <span class="p">{</span>
       <span class="n">newSize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
@@ -16051,11 +16070,8 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageResize</span><span class="o">&gt;</span> <span class="n">resize</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageResize</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">resize</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">resize</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
-<span class="cp">#endif</span>
+
   <span class="n">resize</span><span class="o">-&gt;</span><span class="n">SetOutputDimensions</span><span class="p">(</span><span class="n">newSize</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">newSize</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>
   <span class="n">resize</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">windowFunction</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
@@ -16075,9 +16091,13 @@ function registerListener(event, func) {
   <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">resize</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
 
  <span class="c1">// Setup renderer</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">imageActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Burlywood&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
   <span class="c1">// Setup render window</span>
