@@ -6,7 +6,6 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageActor.h>
 #include <vtkImageEllipsoidSource.h>
 #include <vtkImageCast.h>

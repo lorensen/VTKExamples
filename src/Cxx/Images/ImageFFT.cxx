@@ -1,13 +1,13 @@
 #include <vtkSmartPointer.h>
+#include <vtkImageFFT.h>
+
 #include <vtkImageData.h>
 #include <vtkImageMapper3D.h>
 #include <vtkImageCanvasSource2D.h>
-#include <vtkImageFFT.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkInteractorStyleImage.h>
 #include <vtkRenderer.h>
-#include <vtkJPEGReader.h>
 #include <vtkImageActor.h>
 #include <vtkImageEllipsoidSource.h>
 #include <vtkImageCast.h>

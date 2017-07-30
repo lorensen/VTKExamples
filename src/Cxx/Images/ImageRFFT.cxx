@@ -7,7 +7,6 @@
 #include <vtkImageActor.h>
 #include <vtkImageEllipsoidSource.h>
 #include <vtkImageCast.h>
-#include <vtkJPEGReader.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
