@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 import vtk
 
 nc = vtk.vtkNamedColors()
@@ -18,12 +20,12 @@ def GetProgramParameters():
          and number of points to use for the normals.
     '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue)
-    parser.add_argument('sourceToUse', help='The surface to use.')
+    parser.add_argument('sourceToUse', help='The surface to use.', nargs='?', default='Cone')
+    parser.add_argument('-g', '--glyphPoints', help='Number of points to be used for glyphing.', nargs='?', default=50,
+                        type=int)
     parser.add_argument('--no-normals', help='Do not display normals.', dest='displayNormals', action='store_false')
     parser.add_argument('--no-gouraud', help='Use flat interpolation. Gouraud interpolation is used by default.',
                         dest='gouraudInterpolation', action='store_false')
-    parser.add_argument('glyphPoints', help='Number of points to be used for glyphing.', nargs='?', default=50,
-                        type=int)
     parser.set_defaults(displayNormals=True)
     parser.set_defaults(gouraudInterpolation=True)
     args = parser.parse_args()
@@ -352,22 +354,32 @@ def WritePNG(ren, fn, magnification=1):
     :param: magnification - the magnification, usually 1.
     """
     renLgeIm = vtk.vtkRenderLargeImage()
-    imgWriter = vtk.vtkPNGWriter()
     renLgeIm.SetInput(ren)
     renLgeIm.SetMagnification(magnification)
+    imgWriter = vtk.vtkPNGWriter()
     imgWriter.SetInputConnection(renLgeIm.GetOutputPort())
     imgWriter.SetFileName(fn)
     imgWriter.Write()
 
 
 def main():
+    def FlatInterpolation():
+        for actor in actors:
+            actor.GetProperty().SetInterpolationToFlat()
+        renWin.Render()
+
+    def GouraudInterpolation():
+        for actor in actors:
+            actor.GetProperty().SetInterpolationToGouraud()
+        renWin.Render()
+
     sourceToUse, displayNormals, gouraudInterpolation, glyphPoints = GetProgramParameters()
 
     if sourceToUse in Sources().sources:
         src = Sources().sources[sourceToUse]
     else:
         print('The source {:s} is not available.'.format(sourceToUse))
-        print('Available sources are:', ', '.join(sorted(list(Sources().sources.keys()))))
+        print('Available sources are:\n', ', '.join(sorted(list(Sources().sources.keys()))))
         return
 
     src.Update()
@@ -440,33 +452,24 @@ def main():
 
         om.append(MakeOrientationMarker(ren[i], iren))
 
-    renWin.SetSize(renWinXSize, renWinYSize)
-
-    iren.Initialize()
-
-    def FlatInterpolation():
-        for actor in actors:
-            actor.GetProperty().SetInterpolationToFlat()
-        renWin.Render()
-
-    def GouraudInterpolation():
-        for actor in actors:
-            actor.GetProperty().SetInterpolationToGouraud()
-        renWin.Render()
-
     if gouraudInterpolation:
         GouraudInterpolation()
     else:
         FlatInterpolation()
 
-    iren.Start()
+    renWin.SetSize(renWinXSize, renWinYSize)
+    renWin.Render()
+    # renWin.SetWindowName() needs to be called after renWin.Render()
+    renWin.SetWindowName('Point Data Subdivision Example')
 
-    # WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(), "PointDataSubdivision.png")
+    iren.Initialize()
+    # WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(), "TestPointDataSubdivision.png")
+    iren.Start()
 
 
 if __name__ == '__main__':
     requiredMajorVersion = 6
-    print(vtk.vtkVersion().GetVTKMajorVersion())
+    # print(vtk.vtkVersion().GetVTKMajorVersion())
     if vtk.vtkVersion().GetVTKMajorVersion() < requiredMajorVersion:
         print("You need VTK Version 6 or greater.")
         print("The class vtkNamedColors is in VTK version 6 or greater.")
