@@ -4,6 +4,7 @@
 
 #include <vtkImageReader2Factory.h>
 #include <vtkImageReader2.h>
+#include <vtkCamera.h>
 #include <vtkImageActor.h>
 #include <vtkImageCanvasSource2D.h>
 #include <vtkImageData.h>
@@ -61,6 +62,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkImageSincInterpolator> interpolator =
     vtkSmartPointer<vtkImageSincInterpolator>::New();
+  interpolator->UseWindowParameterOn();
   if (windowFunction >= 0 && windowFunction <= 10)
   {
     interpolator->SetWindowFunction(windowFunction);
@@ -69,9 +71,10 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkImageResize> resize =
     vtkSmartPointer<vtkImageResize>::New();
   resize->SetInputData(imageData);
-
+  resize->SetInterpolator(interpolator);
   resize->SetOutputDimensions(newSize[0], newSize[1], 1);
-  resize->Update();
+  resize->InterpolateOn();
+
   if (windowFunction < 0)
   {
     resize->InterpolateOff();
@@ -87,8 +90,9 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkImageActor> imageActor =
     vtkSmartPointer<vtkImageActor>::New();
   imageActor->GetMapper()->SetInputConnection(resize->GetOutputPort());
+  imageActor->InterpolateOff();
 
- // Setup renderer
+  // Setup renderer
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
@@ -97,11 +101,14 @@ int main(int argc, char *argv[])
   renderer->AddActor(imageActor);
   renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
   renderer->ResetCamera();
+  renderer->GetActiveCamera()->Dolly(5.0);
+  renderer->ResetCameraClippingRange();
 
   // Setup render window
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer(renderer);
+  renderWindow->SetSize(1280, 1024);
 
   // Setup render window interactor
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =

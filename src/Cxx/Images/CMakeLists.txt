@@ -70,6 +70,7 @@ SET(NEEDS_ARGS
   RGBToYIQ
   RTAnalyticSource
   ResizeImage
+  ResizeImageDemo
   StaticImage
 )
 
@@ -189,7 +190,10 @@ ADD_TEST(${KIT}-RTAnalyticSource ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTest
   TestRTAnalyticSource -E 20)
 
 ADD_TEST(${KIT}-ResizeImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestResizeImage ${DATA}/Gourds2.jpg 640 480 1)
+  TestResizeImage ${DATA}/Gourds2.jpg 1280 1024 5)
+
+ADD_TEST(${KIT}-ResizeImageDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestResizeImageDemo ${DATA}/Pileated.jpg 3)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()

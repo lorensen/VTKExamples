@@ -1033,7 +1033,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [RGBToYIQ](/Cxx/Images/RGBToYIQ)| [vtkImageRGBToYIQ](http://www.vtk.org/doc/nightly/html/classvtkImageRGBToYIQ.html#details) |Convert RGB to YIQ.
 [RescaleAnImage](/Cxx/ImageProcessing/RescaleAnImage) | [vtkImageShiftScale](http://www.vtk.org/doc/nightly/html/classvtkImageShiftScale.html#details) | Rescale an image
 [ResizeImage](/Cxx/Images/ResizeImage)| [vtkImageResize](http://www.vtk.org/doc/nightly/html/classvtkImageResize.html#details) [vtkImageSincInterpolator](http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html#details)| Resize an image using a sinc interpolator.
-
+[ResizeImageDemo](/Cxx/Images/ResizeImageDemo)| [vtkImageResize](http://www.vtk.org/doc/nightly/html/classvtkImageResize.html#details) [vtkImageSincInterpolator](http://www.vtk.org/doc/nightly/html/classvtkImageSincInterpolator.html#details)| Demonstrate allsinc interpolators to resize an image.
 
 ## Widgets
 
