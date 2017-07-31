@@ -6,4 +6,4 @@ vtkVRMLImporter imports multiple vtkActor models. Sometimes the vtkPolyData requ
     vtkVRMLImporter files use a shininess between 0 and 1, while vtk's vtkProperty has a specular power between 0 and 128. The example corrects this if the specular power is <= 1.0.
 
 !!! tip
-    [The Virtual Insect](http://alexei.nfshost.com/3d/virtual.htmls) website has lots of cool wrl models of insects.
+    [The Virtual Insect](http://alexei.nfshost.com/3d/virtual.html) website has lots of cool wrl models of insects.
