@@ -15706,18 +15706,6 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
-    <a href="../PointDataSubdivisionDemo/" title="PointDataSubdivisionDemo" class="md-nav__link">
-      PointDataSubdivisionDemo
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../PointSize/" title="PointSize" class="md-nav__link">
       PointSize
     </a>
@@ -16001,10 +15989,15 @@ function registerListener(event, func) {
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <h4 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h4>
 <p>This example demonstrates the use of the <a href="http://www.vtk.org/doc/nightly/html/classvtkLinearSubdivisionFilter.html">vtkLinearSubdivisionFilter</a> and <a href="http://www.vtk.org/doc/nightly/html/classvtkButterflySubdivisionFilter.html">vtkButterflySubdivisionFilter</a> .</p>
-<p>In order to see the effects of these filters a triptych is created that demonstrates the effect of applying the filter.</p>
-<p>The user can select from a list of sources to render, specify whether normals are displayed, what type of shading to use and the number of normals to glyph.</p>
-<p>A representative set of sources to render are provided in the class called <strong>Sources</strong>. The user is encouraged to experiment with different sources to see the effect of the filters.</p>
+<p>In order to see the effects of these filters, a triptych is created that demonstrates the effect of applying the filter to a selected source such as a cone.</p>
+<p>Whilst a default source consisting of a cone is provided, the user can select from a list of sources to render and also:
+- Specify whether normals are displayed.
+- What type of shading to use.
+- The number of normals to glyph.</p>
+<p>The user is encouraged to experiment with different sources to see the effect of the filters.</p>
+<p>Additionally the use of labels and orientation markers are also demonstrated.</p>
 <h4 id="adding-more-sources">Adding more sources.<a class="headerlink" href="#adding-more-sources" title="Permanent link">&para;</a></h4>
+<p>A representative set of sources to render are provided in the class called <strong>Sources</strong>. </p>
 <p>If you add more sources, you may need to provide one or all of these filters:
  - A Triangle filter
  - A Normal filter
@@ -16016,6 +16009,8 @@ function registerListener(event, func) {
 <p><strong>PointDataSubdivision.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">vtk</span>
 
@@ -16034,12 +16029,12 @@ function registerListener(event, func) {
 <span class="s1">         and number of points to use for the normals.</span>
 <span class="s1">    &#39;&#39;&#39;</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilogue</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;sourceToUse&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The surface to use.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;sourceToUse&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The surface to use.&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Cone&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="s1">&#39;--glyphPoints&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of points to be used for glyphing.&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-normals&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Do not display normals.&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;displayNormals&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_false&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-gouraud&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use flat interpolation. Gouraud interpolation is used by default.&#39;</span><span class="p">,</span>
                         <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;gouraudInterpolation&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_false&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;glyphPoints&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of points to be used for glyphing.&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">displayNormals</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">gouraudInterpolation</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
@@ -16368,22 +16363,32 @@ function registerListener(event, func) {
 <span class="sd">    :param: magnification - the magnification, usually 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">renLgeIm</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderLargeImage</span><span class="p">()</span>
-    <span class="n">imgWriter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">()</span>
     <span class="n">renLgeIm</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">ren</span><span class="p">)</span>
     <span class="n">renLgeIm</span><span class="o">.</span><span class="n">SetMagnification</span><span class="p">(</span><span class="n">magnification</span><span class="p">)</span>
+    <span class="n">imgWriter</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPNGWriter</span><span class="p">()</span>
     <span class="n">imgWriter</span><span class="o">.</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">renLgeIm</span><span class="o">.</span><span class="n">GetOutputPort</span><span class="p">())</span>
     <span class="n">imgWriter</span><span class="o">.</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
     <span class="n">imgWriter</span><span class="o">.</span><span class="n">Write</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">FlatInterpolation</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
+            <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetInterpolationToFlat</span><span class="p">()</span>
+        <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">GouraudInterpolation</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
+            <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetInterpolationToGouraud</span><span class="p">()</span>
+        <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+
     <span class="n">sourceToUse</span><span class="p">,</span> <span class="n">displayNormals</span><span class="p">,</span> <span class="n">gouraudInterpolation</span><span class="p">,</span> <span class="n">glyphPoints</span> <span class="o">=</span> <span class="n">GetProgramParameters</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">sourceToUse</span> <span class="ow">in</span> <span class="n">Sources</span><span class="p">()</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
         <span class="n">src</span> <span class="o">=</span> <span class="n">Sources</span><span class="p">()</span><span class="o">.</span><span class="n">sources</span><span class="p">[</span><span class="n">sourceToUse</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;The source {:s} is not available.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sourceToUse</span><span class="p">))</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Available sources are:&#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">Sources</span><span class="p">()</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">keys</span><span class="p">()))))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Available sources are:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">Sources</span><span class="p">()</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">keys</span><span class="p">()))))</span>
         <span class="k">return</span>
 
     <span class="n">src</span><span class="o">.</span><span class="n">Update</span><span class="p">()</span>
@@ -16456,33 +16461,24 @@ function registerListener(event, func) {
 
         <span class="n">om</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MakeOrientationMarker</span><span class="p">(</span><span class="n">ren</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">iren</span><span class="p">))</span>
 
-    <span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">renWinXSize</span><span class="p">,</span> <span class="n">renWinYSize</span><span class="p">)</span>
-
-    <span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">FlatInterpolation</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
-            <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetInterpolationToFlat</span><span class="p">()</span>
-        <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">GouraudInterpolation</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
-            <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetInterpolationToGouraud</span><span class="p">()</span>
-        <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
-
     <span class="k">if</span> <span class="n">gouraudInterpolation</span><span class="p">:</span>
         <span class="n">GouraudInterpolation</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">FlatInterpolation</span><span class="p">()</span>
 
-    <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">renWinXSize</span><span class="p">,</span> <span class="n">renWinYSize</span><span class="p">)</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+    <span class="c1"># renWin.SetWindowName() needs to be called after renWin.Render()</span>
+    <span class="n">renWin</span><span class="o">.</span><span class="n">SetWindowName</span><span class="p">(</span><span class="s1">&#39;Point Data Subdivision Example&#39;</span><span class="p">)</span>
 
-    <span class="c1"># WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(), &quot;PointDataSubdivision.png&quot;)</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">Initialize</span><span class="p">()</span>
+    <span class="c1"># WritePNG(iren.GetRenderWindow().GetRenderers().GetFirstRenderer(), &quot;TestPointDataSubdivision.png&quot;)</span>
+    <span class="n">iren</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">requiredMajorVersion</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkVersion</span><span class="p">()</span><span class="o">.</span><span class="n">GetVTKMajorVersion</span><span class="p">())</span>
+    <span class="c1"># print(vtk.vtkVersion().GetVTKMajorVersion())</span>
     <span class="k">if</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkVersion</span><span class="p">()</span><span class="o">.</span><span class="n">GetVTKMajorVersion</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">requiredMajorVersion</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;You need VTK Version 6 or greater.&quot;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The class vtkNamedColors is in VTK version 6 or greater.&quot;</span><span class="p">)</span>
@@ -16523,13 +16519,13 @@ function registerListener(event, func) {
           </a>
         
         
-          <a href="../PointDataSubdivisionDemo/" title="PointDataSubdivisionDemo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../PointSize/" title="PointSize" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                PointDataSubdivisionDemo
+                PointSize
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
