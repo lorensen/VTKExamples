@@ -446,6 +446,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [ExtractVOI](/Cxx/ImageData/ExtractVOI) | [vtkExtractVOI](http://www.vtk.org/doc/nightly/html/classvtkExtractVOI.html#details) | Extract a volume of interest (subvolume).
 [GetCellCenter](/Cxx/ImageData/GetCellCenter) | [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details)|Get the coordinates of the center of a cell.
 [ImageIterator](/Cxx/ImageData/ImageIterator)| [vtkImageIterator](http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html#details) |
+[ImageIteratorDemo](/Cxx/ImageData/ImageIteratorDemo)| [vtkImageIterator](http://www.vtk.org/doc/nightly/html/classvtkImageIterator.html#details) | Demonstrate using an iterator to access pixels in a region.
 [ImageNormalize](/Cxx/ImageData/ImageNormalize) | [vtkImageNormalize](http://www.vtk.org/doc/nightly/html/classvtkImageNormalize.html#details) |Normalize an image.
 [ImageReslice](/Cxx/ImageData/ImageReslice) | [vtkImageReslice](http://www.vtk.org/doc/nightly/html/classvtkImageReslice.html#details) |Resize a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
 [ImageTranslateExtent](/Cxx/ImageData/ImageTranslateExtent) | [vtkImageTranslateExtent](http://www.vtk.org/doc/nightly/html/classvtkImageTranslateExtent.html#details) |Change the extent of a [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details).
