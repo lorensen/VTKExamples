@@ -6232,6 +6232,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../ResizeImageDemo/" title="ResizeImageDemo" class="md-nav__link">
+      ResizeImageDemo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../StaticImage/" title="StaticImage" class="md-nav__link">
       StaticImage
     </a>
@@ -15994,6 +16006,7 @@ function registerListener(event, func) {
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2Factory.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageReader2.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageCanvasSource2D.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
@@ -16051,6 +16064,7 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSincInterpolator</span><span class="o">&gt;</span> <span class="n">interpolator</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageSincInterpolator</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">interpolator</span><span class="o">-&gt;</span><span class="n">UseWindowParameterOn</span><span class="p">();</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">windowFunction</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">windowFunction</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">interpolator</span><span class="o">-&gt;</span><span class="n">SetWindowFunction</span><span class="p">(</span><span class="n">windowFunction</span><span class="p">);</span>
@@ -16059,9 +16073,10 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageResize</span><span class="o">&gt;</span> <span class="n">resize</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageResize</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">resize</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageData</span><span class="p">);</span>
-
+  <span class="n">resize</span><span class="o">-&gt;</span><span class="n">SetInterpolator</span><span class="p">(</span><span class="n">interpolator</span><span class="p">);</span>
   <span class="n">resize</span><span class="o">-&gt;</span><span class="n">SetOutputDimensions</span><span class="p">(</span><span class="n">newSize</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">newSize</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>
-  <span class="n">resize</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="n">resize</span><span class="o">-&gt;</span><span class="n">InterpolateOn</span><span class="p">();</span>
+
   <span class="k">if</span> <span class="p">(</span><span class="n">windowFunction</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">resize</span><span class="o">-&gt;</span><span class="n">InterpolateOff</span><span class="p">();</span>
@@ -16077,8 +16092,9 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">imageActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">resize</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">imageActor</span><span class="o">-&gt;</span><span class="n">InterpolateOff</span><span class="p">();</span>
 
- <span class="c1">// Setup renderer</span>
+  <span class="c1">// Setup renderer</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
@@ -16087,11 +16103,14 @@ function registerListener(event, func) {
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">imageActor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Burlywood&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Dolly</span><span class="p">(</span><span class="mf">5.0</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
   <span class="c1">// Setup render window</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">renderer</span><span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">1024</span><span class="p">);</span>
 
   <span class="c1">// Setup render window interactor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renderWindowInteractor</span> <span class="o">=</span>
@@ -16187,13 +16206,13 @@ Once the <em>tarball ResizeImage.tar</em> has been downloaded and extracted,</p>
           </a>
         
         
-          <a href="../StaticImage/" title="StaticImage" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../ResizeImageDemo/" title="ResizeImageDemo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                StaticImage
+                ResizeImageDemo
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
