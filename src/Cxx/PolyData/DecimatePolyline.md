@@ -1,2 +1,2 @@
 ### Description
-This example shows how to [(signal processing)|decimate]]([wikipedia:Decimation) a polyline.
+This example shows how to decimate a polyline.
