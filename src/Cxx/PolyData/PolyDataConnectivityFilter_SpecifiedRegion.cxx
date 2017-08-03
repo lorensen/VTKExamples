@@ -64,6 +64,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(originalActor);
   renderer->AddActor(extractedActor);
+  renderer->GradientBackgroundOn();
   renderer->SetBackground (colors->GetColor3d("Gold").GetData());
   renderer->SetBackground2 (colors->GetColor3d("Silver").GetData());
   
