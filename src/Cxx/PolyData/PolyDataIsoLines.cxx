@@ -1,16 +1,20 @@
 #include <vtkSmartPointer.h>
+#include <vtkBandedPolyDataContourFilter.h>
+
 #include <vtkCellArray.h>
 #include <vtkFloatArray.h>
 #include <vtkPointData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkXMLPolyDataWriter.h>
 #include <vtkCamera.h>
-#include <vtkBandedPolyDataContourFilter.h>
+
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +24,9 @@ int main(int argc, char *argv[])
     std::cout << "Required arguments: Filename" << std::endl;
     return EXIT_FAILURE;
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkXMLPolyDataReader> reader =
       vtkSmartPointer<vtkXMLPolyDataReader>::New();
@@ -92,6 +99,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> edgeActor =
       vtkSmartPointer<vtkActor>::New();
   edgeActor->SetMapper(edgeMapper);
+  edgeActor->GetProperty()->SetLineWidth(5);
 
   // Create the RenderWindow, Renderer and both Actors
 
@@ -108,6 +116,7 @@ int main(int argc, char *argv[])
   renderer->AddActor(colorActor);
   renderer->AddActor(edgeActor);
 
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
   renderWindow->Render();
 
   interactor->Start();
