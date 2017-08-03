@@ -436,8 +436,8 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 
 "ImageData" is not the traditional "flat, 2D image" you are used to. It is a special VTK data structure in the collection of 3D data structures provided by VTK. [Here is an overview of these data structures](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes). Image data can represent at typical 2D image, but also, a 3D volume.
 
-* [[/Cxx/Visualization/StructuredDataTypes|Demonstration of structured data types]]
-* [[/Cxx/StructuredData/GetLinearPointId|Get the linear point id of a point in a grid]]
+* [Demonstration of structured data types](/Cxx/Visualization/StructuredDataTypes)
+* [Get the linear point id of a point in a grid](/Cxx/StructuredData/GetLinearPointId)
 
 #### [vtkImageData](http://www.vtk.org/doc/nightly/html/classvtkImageData.html#details)
 
