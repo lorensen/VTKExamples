@@ -279,6 +279,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [IterateOverLines](/Cxx/PolyData/IterateOverLines) | [vtkCellArray](http://www.vtk.org/doc/nightly/html/classvtkCellArray.html#details) | Iterate through the lines of a PolyData.
 [KMeansClustering](/Cxx/InfoVis/KMeansClustering) | [vtkKMeansStatistics](http://www.vtk.org/doc/nightly/html/classvtkKMeansStatistics.html#details) |KMeans Clustering
 [KochanekSpline](/Cxx/PolyData/KochanekSpline) | [vtkKochanekSpline](http://www.vtk.org/doc/nightly/html/classvtkKochanekSpline.html#details) |Create an Kochanek spline on a set of points.
+[KochanekSplineDemo](/Cxx/PolyData/KochanekSplineDemo) | [vtkKochanekSpline](http://www.vtk.org/doc/nightly/html/classvtkKochanekSpline.html#details) | Interactively change the parameters of the Kochanek spline.
 [LinearExtrusion](/Cxx/PolyData/LinearExtrusion) | [vtkLinearExtrusionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearExtrusionFilter.html#details) | Extrude a shape.
 [MaskPoints](/Cxx/PolyData/MaskPoints) | [vtkMaskPoints](http://www.vtk.org/doc/nightly/html/classvtkMaskPoints.html#details) |Select a subset (mask) of a point set.
 [MergePoints](/Cxx/PolyData/MergePoints) | [vtkMergePoints](http://www.vtk.org/doc/nightly/html/classvtkMergePoints.html#details) | Remove duplicate (merge) points.
