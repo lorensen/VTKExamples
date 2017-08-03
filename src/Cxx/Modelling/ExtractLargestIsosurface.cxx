@@ -4,11 +4,13 @@
 #include <vtkPolyDataConnectivityFilter.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 
+#include <vtkNamedColors.h>
 int main(int argc, char* argv[])
 {
   if (argc < 3)
@@ -24,6 +26,9 @@ int main(int argc, char* argv[])
   {
     extractLargest = atoi(argv[3]);
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   // Load data
   vtkSmartPointer<vtkStructuredPointsReader> reader =
@@ -61,13 +66,19 @@ int main(int argc, char* argv[])
   // Visualize
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
-  actor->GetProperty()->SetColor(1,1,1);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Flesh").GetData());
   actor->SetMapper(mapper);
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
-
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
+  renderer->GetActiveCamera()->SetViewUp(0.0, 0.0, 1.0);
+  renderer->GetActiveCamera()->SetPosition(0.0, 1.0, 0.0);
+  renderer->GetActiveCamera()->SetFocalPoint(0.0, 0.0, 0.0);
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30.0);
+  renderer->GetActiveCamera()->Elevation(30.0);
   vtkSmartPointer<vtkRenderWindow> renwin =
     vtkSmartPointer<vtkRenderWindow>::New();
   renwin->AddRenderer(renderer);

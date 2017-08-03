@@ -1,35 +1,51 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 
 #include <vtkActor.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
+#include <vtkGlyph3DMapper.h>
 #include <vtkPointSource.h>
 #include <vtkPoints.h>
 #include <vtkPointsProjectedHull.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPolyLine.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkSphereSource.h>
+#include <vtkTubeFilter.h>
 #include <vtkXMLPolyDataWriter.h>
+
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  vtkSmartPointer<vtkSphereSource> sphere =
+    vtkSmartPointer<vtkSphereSource>::New();
+  sphere->SetPhiResolution(21);
+  sphere->SetThetaResolution(21);
+  sphere->SetRadius(.01);
+
   vtkSmartPointer<vtkPointSource> pointSource =
     vtkSmartPointer<vtkPointSource>::New();
   pointSource->SetNumberOfPoints(40);
   pointSource->Update();
 
-  //setup actor and mapper
-  vtkSmartPointer<vtkPolyDataMapper> pointMapper =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
+  // Setup actor and mapper
+  vtkSmartPointer<vtkGlyph3DMapper> pointMapper =
+    vtkSmartPointer<vtkGlyph3DMapper>::New();
   pointMapper->SetInputConnection(pointSource->GetOutputPort());
+  pointMapper->SetSourceConnection(sphere->GetOutputPort());
 
   vtkSmartPointer<vtkActor> pointActor =
     vtkSmartPointer<vtkActor>::New();
   pointActor->SetMapper(pointMapper);
+  pointActor->GetProperty()->SetColor(colors->GetColor3d("Peacock").GetData());
 
   vtkSmartPointer<vtkPointsProjectedHull> points =
     vtkSmartPointer<vtkPointsProjectedHull>::New();
@@ -80,18 +96,22 @@ int main(int, char *[])
   // Add the lines to the dataset
   polyData->SetLines(cells);
 
+  // Create tubes around the lines
+  vtkSmartPointer<vtkTubeFilter> tubes =
+    vtkSmartPointer<vtkTubeFilter>::New();
+  tubes->SetInputData(polyData);
+  tubes->SetRadius(.005);
+  tubes->SetNumberOfSides(21);
+
   // Setup actor and mapper
   vtkSmartPointer<vtkPolyDataMapper> xHullMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  xHullMapper->SetInput(polyData);
-#else
-  xHullMapper->SetInputData(polyData);
-#endif
+  xHullMapper->SetInputConnection(tubes->GetOutputPort());
 
   vtkSmartPointer<vtkActor> xHullActor =
     vtkSmartPointer<vtkActor>::New();
   xHullActor->SetMapper(xHullMapper);
+  xHullActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
   // Setup render window, renderer, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
@@ -104,6 +124,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
   renderer->AddActor(xHullActor);
   renderer->AddActor(pointActor);
 
