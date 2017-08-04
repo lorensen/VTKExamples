@@ -1,7 +1,8 @@
 #include <vtkSmartPointer.h>
+#include <vtkReflectionFilter.h>
+
 #include <vtkDataSetMapper.h>
 #include <vtkProperty.h>
-#include <vtkReflectionFilter.h>
 #include <vtkPolyData.h>
 #include <vtkConeSource.h>
 #include <vtkPolyDataMapper.h>
@@ -9,9 +10,13 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkConeSource> coneSource = 
     vtkSmartPointer<vtkConeSource>::New();
   coneSource->Update();
@@ -22,7 +27,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> coneActor = 
       vtkSmartPointer<vtkActor>::New();
   coneActor->SetMapper(coneMapper);
-  coneActor->GetProperty()->SetColor(0.0, 1.0, 0.0); //(R,G,B)
+  coneActor->GetProperty()->SetColor(colors->GetColor3d("Mint").GetData());
   
   // Reflection
   vtkSmartPointer<vtkReflectionFilter> reflectionFilter = 
@@ -37,14 +42,16 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> reflectionActor = 
     vtkSmartPointer<vtkActor>::New();
   reflectionActor->SetMapper(reflectionMapper);
-  reflectionActor->GetProperty()->SetColor(1.0, 0.0, 0.0); //(R,G,B)
+  reflectionActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
   
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
+  renderWindow->SetSize(640, 480);
   renderWindow->AddRenderer(renderer);
+
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
@@ -52,7 +59,7 @@ int main(int, char *[])
   // Add the actor to the scene
   renderer->AddActor(coneActor);
   renderer->AddActor(reflectionActor);
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(colors->GetColor3d("Burlywood").GetData());
  
   // Render and interact
   renderWindow->Render();
