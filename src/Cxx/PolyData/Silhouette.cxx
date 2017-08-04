@@ -1,16 +1,19 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkPolyDataSilhouette.h>
+
+#include <vtkXMLPolyDataReader.h>
+#include <vtkCleanPolyData.h>
 #include <vtkProperty.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkCamera.h>
 #include <vtkActor.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkPolyDataSilhouette.h>
 #include <vtkSphereSource.h>
-#include <vtkXMLPolyDataReader.h>
-#include <vtkCleanPolyData.h>
+
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -37,19 +40,20 @@ int main(int argc, char *argv[])
     polyData = clean->GetOutput();
   }
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   //create mapper and actor for original model
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(polyData);
-#else
   mapper->SetInputData(polyData);
-#endif
+  mapper->ScalarVisibilityOff();
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetInterpolationToFlat();
+  actor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
 
   //create renderer and renderWindow
   vtkSmartPointer<vtkRenderer> renderer =
@@ -63,11 +67,7 @@ int main(int argc, char *argv[])
   //Compute the silhouette
   vtkSmartPointer<vtkPolyDataSilhouette> silhouette =
     vtkSmartPointer<vtkPolyDataSilhouette>::New();
-#if VTK_MAJOR_VERSION <= 5
-  silhouette->SetInput(polyData);
-#else
   silhouette->SetInputData(polyData);
-#endif
   silhouette->SetCamera(renderer->GetActiveCamera());
   silhouette->SetEnableFeatureAngle(0);
 
@@ -79,19 +79,23 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> actor2 =
     vtkSmartPointer<vtkActor>::New();
   actor2->SetMapper(mapper2);
-  actor2->GetProperty()->SetColor(1.0, 0.3882, 0.2784); // tomato
+  actor2->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
   actor2->GetProperty()->SetLineWidth(5);
-  renderer->AddActor(actor2);
-  renderer->SetBackground(.1, .2, .3);
-  renderer->ResetCamera();
 
-  //you MUST NOT call renderWindow->Render() before
-  //iren->SetRenderWindow(renderWindow);
+  renderer->AddActor(actor2);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->GetActiveCamera()->Dolly(1.5);;
+  renderer->ResetCameraClippingRange();
+
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renderWindow);
 
   //render and interact
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   iren->Start();
 
