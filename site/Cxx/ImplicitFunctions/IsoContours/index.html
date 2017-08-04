@@ -15998,8 +15998,9 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IsoContours.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkInteractorStyleUser.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkOutlineFilter.h&gt;</span><span class="cp"></span>
@@ -16016,10 +16017,13 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkXMLImageDataWriter.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">CreateData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
+
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">CreateData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
 
 <span class="k">class</span> <span class="nc">vtkSliderCallback</span> <span class="o">:</span> <span class="k">public</span> <span class="n">vtkCommand</span>
 <span class="p">{</span>
@@ -16039,9 +16043,13 @@ function registerListener(event, func) {
   <span class="n">vtkSliderCallback</span><span class="p">()</span><span class="o">:</span><span class="n">ContourFilter</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{}</span>
   <span class="n">vtkContourFilter</span><span class="o">*</span> <span class="n">ContourFilter</span><span class="p">;</span>
 <span class="p">};</span>
+<span class="p">}</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">CreateData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
@@ -16049,11 +16057,7 @@ function registerListener(event, func) {
   <span class="c1">// Create an isosurface</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contourFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">contourFilter</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// (numContours, rangeStart, rangeEnd)</span>
 
   <span class="c1">// Map the contours to graphical primitives</span>
@@ -16065,21 +16069,21 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">contourActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">contourActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">contourMapper</span><span class="p">);</span>
+  <span class="n">contourActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 
   <span class="c1">// Create the outline</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOutlineFilter</span><span class="o">&gt;</span> <span class="n">outlineFilter</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOutlineFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">outlineFilter</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">outlineFilter</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">outlineMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">outlineMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">outlineFilter</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">outlineActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">outlineActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">outlineMapper</span><span class="p">);</span>
+  <span class="n">outlineActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Gray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">outlineActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
   <span class="c1">// Visualize</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
@@ -16093,6 +16097,7 @@ function registerListener(event, func) {
 
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">contourActor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Burlywood&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation3D</span><span class="o">&gt;</span> <span class="n">sliderRep</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSliderRepresentation3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -16129,16 +16134,12 @@ function registerListener(event, func) {
 
   <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">CreateData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span> <span class="n">CreateData</span><span class="p">(</span><span class="n">vtkImageData</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetExtent</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetNumberOfScalarComponents</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-  <span class="n">data</span><span class="o">-&gt;</span><span class="n">SetScalarTypeToDouble</span><span class="p">();</span>
-<span class="cp">#else</span>
   <span class="n">data</span><span class="o">-&gt;</span><span class="n">AllocateScalars</span><span class="p">(</span><span class="n">VTK_DOUBLE</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="kt">int</span><span class="o">*</span> <span class="n">extent</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">GetExtent</span><span class="p">();</span>
 
   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">extent</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
@@ -16153,12 +16154,9 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataWriter</span><span class="o">&gt;</span> <span class="n">writer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLImageDataWriter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="s">&quot;data.vti&quot;</span><span class="p">);</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">data</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">writer</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">writer</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
