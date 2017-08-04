@@ -16001,6 +16001,7 @@ function registerListener(event, func) {
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSampleFunction.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkContourFilter.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkOutlineFilter.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
@@ -16010,18 +16011,24 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSphere.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSuperquadric.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
-  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;</span> <span class="n">sphere</span> <span class="o">=</span> 
-    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphere</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadric</span><span class="o">&gt;</span> <span class="n">implicitFunction</span> <span class="o">=</span> 
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSuperquadric</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">implicitFunction</span><span class="o">-&gt;</span><span class="n">SetPhiRoundness</span><span class="p">(</span><span class="mf">2.5</span><span class="p">);</span>
+  <span class="n">implicitFunction</span><span class="o">-&gt;</span><span class="n">SetThetaRoundness</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
 
   <span class="c1">// Sample the function</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;</span> <span class="n">sample</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSampleFunction</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetSampleDimensions</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
-  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">sphere</span><span class="p">);</span>
+  <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">implicitFunction</span><span class="p">);</span>
   <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
   <span class="kt">double</span> <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">value</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
   <span class="n">sample</span><span class="o">-&gt;</span><span class="n">SetModelBounds</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">);</span>
@@ -16030,7 +16037,7 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;</span> <span class="n">contours</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkContourFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">contours</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sample</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">contours</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">contours</span><span class="o">-&gt;</span><span class="n">GenerateValues</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span>
 
   <span class="c1">// Map the contours to graphical primitives</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">contourMapper</span> <span class="o">=</span> 
@@ -16073,7 +16080,7 @@ function registerListener(event, func) {
 
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">contourActor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">outlineActor</span><span class="p">);</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Background color white</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tan&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
