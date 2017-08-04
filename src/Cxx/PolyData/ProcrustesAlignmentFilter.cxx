@@ -1,5 +1,6 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkProcrustesAlignmentFilter.h>
+
 #include <vtkPointSet.h>
 #include <vtkPolyData.h>
 #include <vtkLandmarkTransform.h>
@@ -14,17 +15,22 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkProperty.h>
-#include <vtkProcrustesAlignmentFilter.h>
-#if VTK_MAJOR_VERSION > 5
+
 #include <vtkMultiBlockDataSet.h>
 #include <vtkMultiBlockDataGroupFilter.h>
-#endif 
+#include <vtkNamedColors.h>
+
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   //create a sphere
   vtkSmartPointer<vtkSphereSource> sphereSource = 
       vtkSmartPointer<vtkSphereSource>::New();
- 
+  sphereSource->SetPhiResolution(31);
+  sphereSource->SetThetaResolution(31);
+
   // make two copies of the shape and distort them a little
   vtkSmartPointer<vtkTransform> transform1 = 
     vtkSmartPointer<vtkTransform>::New();
@@ -54,7 +60,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> Actor1a = 
     vtkSmartPointer<vtkActor> ::New();
   Actor1a->SetMapper(map1a);
-  Actor1a->GetProperty()->SetDiffuseColor(1.0000, 0.3882, 0.2784);
+  Actor1a->GetProperty()->SetDiffuseColor(colors->GetColor3d("Tomato").GetData());
  
   vtkSmartPointer<vtkPolyDataMapper> map1b = 
     vtkSmartPointer<vtkPolyDataMapper> ::New();
@@ -63,7 +69,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> Actor1b = 
     vtkSmartPointer<vtkActor> ::New();
   Actor1b->SetMapper(map1b);
-  Actor1b->GetProperty()->SetDiffuseColor(0.3882, 1.0000, 0.2784);
+  Actor1b->GetProperty()->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
  
   vtkSmartPointer<vtkPolyDataMapper> map1c = 
       vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -71,118 +77,86 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> Actor1c = 
       vtkSmartPointer<vtkActor>::New();
   Actor1c->SetMapper(map1c);
-  Actor1c->GetProperty()->SetDiffuseColor(0.3882, 0.2784, 1.0000);
+  Actor1c->GetProperty()->SetDiffuseColor(colors->GetColor3d("Peacock").GetData());
  
   // align the shapes using Procrustes (using SetModeToRigidBody) 
   vtkSmartPointer<vtkProcrustesAlignmentFilter> procrustes1 = 
           vtkSmartPointer<vtkProcrustesAlignmentFilter>::New();
-#if VTK_MAJOR_VERSION <=5 
-  procrustes1->SetNumberOfInputs(3);
-  procrustes1->SetInputConnection(sphereSource->GetOutputPort());
-  procrustes1->AddInputConnection(transformer1->GetOutputPort());
-  procrustes1->AddInputConnection(transformer2->GetOutputPort());
-#else
   vtkSmartPointer<vtkMultiBlockDataGroupFilter> group =
     vtkSmartPointer<vtkMultiBlockDataGroupFilter>::New();
   group->AddInputConnection(sphereSource->GetOutputPort());
   group->AddInputConnection(transformer1->GetOutputPort());
   group->AddInputConnection(transformer2->GetOutputPort());
   procrustes1->SetInputConnection(group->GetOutputPort());
-#endif
   procrustes1->GetLandmarkTransform()->SetModeToRigidBody();
  
   // map the aligned shapes into the second renderer
   vtkSmartPointer<vtkDataSetMapper> map2a = 
       vtkSmartPointer<vtkDataSetMapper>::New();
  
-#if VTK_MAJOR_VERSION <= 5
-  map2a->SetInputConnection(procrustes1->GetOutputPort(0));
-#else
   procrustes1->Update();
   map2a->SetInputData(vtkDataSet::SafeDownCast(procrustes1->GetOutput()->GetBlock(0)));
-#endif
+
   vtkSmartPointer<vtkActor> Actor2a = 
       vtkSmartPointer<vtkActor>::New();
   Actor2a->SetMapper(map2a);
-  Actor2a->GetProperty()->SetDiffuseColor(1.0000, 0.3882, 0.2784);
+  Actor2a->GetProperty()->SetDiffuseColor(colors->GetColor3d("Tomato").GetData());
  
   vtkSmartPointer<vtkDataSetMapper> map2b =
       vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  map2b->SetInputConnection(procrustes1->GetOutputPort(1));
-#else
   procrustes1->Update();
   map2b->SetInputData(vtkDataSet::SafeDownCast(procrustes1->GetOutput()->GetBlock(1)));
-#endif
+
   vtkSmartPointer<vtkActor> Actor2b =
     vtkSmartPointer<vtkActor>::New();
   Actor2b->SetMapper(map2b);
-  Actor2b->GetProperty()->SetDiffuseColor(0.3882, 1.0000, 0.2784);
+  Actor2b->GetProperty()->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
  
   vtkSmartPointer<vtkDataSetMapper> map2c =
       vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  map2c->SetInputConnection(procrustes1->GetOutputPort(2));
-#else
   procrustes1->Update();
   map2c->SetInputData(vtkDataSet::SafeDownCast(procrustes1->GetOutput()->GetBlock(2)));
-#endif
+
   vtkSmartPointer<vtkActor> Actor2c = 
       vtkSmartPointer<vtkActor>::New();
   Actor2c->SetMapper(map2c);
-  Actor2c->GetProperty()->SetDiffuseColor(0.3882, 0.2784, 1.0000);
+  Actor2c->GetProperty()->SetDiffuseColor(colors->GetColor3d("Peacock").GetData());
  
   //align the shapes using Procrustes (using SetModeToSimilarity (default))
   vtkSmartPointer<vtkProcrustesAlignmentFilter> procrustes2 =
       vtkSmartPointer<vtkProcrustesAlignmentFilter>::New();
-#if VTK_MAJOR_VERSION <=5 
-  procrustes2->SetNumberOfInputs(3);
-  procrustes2->SetInputConnection(sphereSource->GetOutputPort());
-  procrustes2->AddInputConnection(transformer1->GetOutputPort());
-  procrustes2->AddInputConnection(transformer2->GetOutputPort());
-#else
   procrustes2->SetInputConnection(group->GetOutputPort());
-#endif
  
   // map the aligned shapes into the third renderer
   vtkSmartPointer<vtkDataSetMapper> map3a =
       vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  map3a->SetInputConnection(procrustes2->GetOutputPort(0));
-#else
   procrustes2->Update();
   map3a->SetInputData(vtkDataSet::SafeDownCast(procrustes2->GetOutput()->GetBlock(0)));
-#endif
+
   vtkSmartPointer<vtkActor> Actor3a =
       vtkSmartPointer<vtkActor>::New();
   Actor3a->SetMapper(map3a);
-  Actor3a->GetProperty()->SetDiffuseColor(1.0000, 0.3882, 0.2784);
+  Actor3a->GetProperty()->SetDiffuseColor(colors->GetColor3d("Tomato").GetData());
  
   vtkSmartPointer<vtkDataSetMapper> map3b =
       vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  map3b->SetInputConnection(procrustes2->GetOutputPort(1));
-#else
   procrustes2->Update();
   map3b->SetInputData(vtkDataSet::SafeDownCast(procrustes2->GetOutput()->GetBlock(1)));
-#endif
+
   vtkSmartPointer<vtkActor> Actor3b =
       vtkSmartPointer<vtkActor>::New();
   Actor3b->SetMapper(map3b);
-  Actor3b->GetProperty()->SetDiffuseColor(0.3882, 1.0000, 0.2784);
+  Actor3b->GetProperty()->SetDiffuseColor(colors->GetColor3d("Banana").GetData());
  
   vtkSmartPointer<vtkDataSetMapper> map3c =
       vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  map3c->SetInputConnection(procrustes2->GetOutputPort(2));
-#else
   procrustes2->Update();
   map3c->SetInputData(vtkDataSet::SafeDownCast(procrustes2->GetOutput()->GetBlock(2)));
-#endif
+
   vtkSmartPointer<vtkActor> Actor3c =
       vtkSmartPointer<vtkActor>::New();
   Actor3c->SetMapper(map3c);
-  Actor3c->GetProperty()->SetDiffuseColor(0.3882, 0.2784, 1.0000);
+  Actor3c->GetProperty()->SetDiffuseColor(colors->GetColor3d("Peacock").GetData());
  
   // Create the RenderWindow and its three Renderers
   vtkSmartPointer<vtkRenderer> ren1 =
@@ -196,7 +170,7 @@ int main(int, char *[])
   renWin->AddRenderer(ren1);
   renWin->AddRenderer(ren2);
   renWin->AddRenderer(ren3);
-  renWin->SetSize(300, 100);
+  renWin->SetSize(600, 300);
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renWin);
@@ -216,19 +190,18 @@ int main(int, char *[])
  
   // set the properties of the renderers
  
-  ren1->SetBackground(1, 1, 1);
+  ren1->SetBackground(colors->GetColor3d("Bisque").GetData());
   ren1->SetViewport(0.0, 0.0, 0.33, 1.0);
-  ren1->ResetCamera();
   ren1->GetActiveCamera()->SetPosition(1, -1, 0);
   ren1->ResetCamera();
  
-  ren2->SetBackground(1, 1, 1);
+  ren2->SetBackground(colors->GetColor3d("Cornsilk").GetData());
   ren2->SetViewport(0.33, 0.0, 0.66, 1.0);
   ren2->ResetCamera();
   ren2->GetActiveCamera()->SetPosition(1, -1, 0);
   ren2->ResetCamera();
- 
-  ren3->SetBackground(1, 1, 1);
+
+  ren3->SetBackground(colors->GetColor3d("Eggshell").GetData());
   ren3->SetViewport(0.66, 0.0, 1.0, 1.0);
   ren3->ResetCamera();
   ren3->GetActiveCamera()->SetPosition(1, -1, 0);
