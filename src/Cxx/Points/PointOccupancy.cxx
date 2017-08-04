@@ -19,7 +19,10 @@
 
 #include <vtksys/SystemTools.hxx>
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 int main (int argc, char *argv[])
 {
@@ -87,7 +90,9 @@ int main (int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
@@ -137,4 +142,5 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     polyData = points->GetOutput();
   }
   return polyData;
+}
 }

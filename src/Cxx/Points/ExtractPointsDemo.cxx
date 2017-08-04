@@ -9,9 +9,8 @@
 #include <vtkBoundedPointSource.h>
 
 #include <vtkSphereSource.h>
-#include <vtkGlyph3D.h>
+#include <vtkGlyph3DMapper.h>
 
-#include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -100,20 +99,15 @@ int main (int argc, char *argv[])
       extract->SetInputConnection(pointSource->GetOutputPort());
       extract->SetImplicitFunction(functions[index]);
 
-      vtkSmartPointer<vtkGlyph3D> glyph =
-        vtkSmartPointer<vtkGlyph3D>::New();
+      vtkSmartPointer<vtkGlyph3DMapper> glyph =
+        vtkSmartPointer<vtkGlyph3DMapper>::New();
       glyph->SetInputConnection(extract->GetOutputPort());
       glyph->SetSourceConnection(sphereSource->GetOutputPort());
       glyph->ScalingOff();
 
-      vtkSmartPointer<vtkPolyDataMapper> glyphMapper =
-        vtkSmartPointer<vtkPolyDataMapper>::New();
-      glyphMapper->SetInputConnection(glyph->GetOutputPort());
-      glyphMapper->ScalarVisibilityOff();
-
       vtkSmartPointer<vtkActor> glyphActor =
         vtkSmartPointer<vtkActor>::New();
-      glyphActor->SetMapper(glyphMapper);
+      glyphActor->SetMapper(glyph);
 
       renderers[index]->AddActor(glyphActor);
       renderers[index]->ResetCamera();

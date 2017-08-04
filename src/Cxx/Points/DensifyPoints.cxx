@@ -7,7 +7,7 @@
 #include <vtkPointSource.h>
 
 #include <vtkSphereSource.h>
-#include <vtkGlyph3D.h>
+#include <vtkGlyph3DMapper.h>
 
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
@@ -18,7 +18,10 @@
 
 #include <vtksys/SystemTools.hxx>
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 int main (int argc, char *argv[])
 {
@@ -51,20 +54,15 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource1->SetRadius(radius);
 
-  vtkSmartPointer<vtkGlyph3D> glyph3D1 =
-    vtkSmartPointer<vtkGlyph3D>::New();
+  vtkSmartPointer<vtkGlyph3DMapper> glyph3D1 =
+    vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3D1->SetInputData(polyData);
   glyph3D1->SetSourceConnection(sphereSource1->GetOutputPort());
   glyph3D1->ScalingOff();
-  glyph3D1->Update();
-  vtkSmartPointer<vtkPolyDataMapper> glyph3DMapper1 =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
-  glyph3DMapper1->SetInputConnection(glyph3D1->GetOutputPort());
-  glyph3DMapper1->ScalarVisibilityOff();
 
   vtkSmartPointer<vtkActor> glyph3DActor1 =
     vtkSmartPointer<vtkActor>::New();
-  glyph3DActor1->SetMapper(glyph3DMapper1);
+  glyph3DActor1->SetMapper(glyph3D1);
   glyph3DActor1->GetProperty()->SetColor(0.8900, 0.8100, 0.3400);
 
 ////
@@ -72,21 +70,15 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource2->SetRadius(radius * .75);
 
-  vtkSmartPointer<vtkGlyph3D> glyph3D2 =
-    vtkSmartPointer<vtkGlyph3D>::New();
+  vtkSmartPointer<vtkGlyph3DMapper> glyph3D2 =
+    vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3D2->SetInputConnection(densify->GetOutputPort());
   glyph3D2->SetSourceConnection(sphereSource2->GetOutputPort());
   glyph3D2->ScalingOff();
-  glyph3D2->Update();
-
-  vtkSmartPointer<vtkPolyDataMapper> glyph3DMapper2 =
-    vtkSmartPointer<vtkPolyDataMapper>::New();
-  glyph3DMapper2->SetInputConnection(glyph3D2->GetOutputPort());
-  glyph3DMapper2->ScalarVisibilityOff();
 
   vtkSmartPointer<vtkActor> glyph3DActor2 =
     vtkSmartPointer<vtkActor>::New();
-  glyph3DActor2->SetMapper(glyph3DMapper2);
+  glyph3DActor2->SetMapper(glyph3D2);
   glyph3DActor2->GetProperty()->SetColor(1.0000, 0.4900, 0.2500);
 
   // Create graphics stuff
@@ -124,7 +116,9 @@ int main (int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
 {
   vtkSmartPointer<vtkPolyData> polyData;
   std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
@@ -174,4 +168,5 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     polyData = points->GetOutput();
   }
   return polyData;
+}
 }
