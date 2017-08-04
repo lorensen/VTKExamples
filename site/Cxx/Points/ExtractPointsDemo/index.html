@@ -16029,9 +16029,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkBoundedPointSource.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3D.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkGlyph3DMapper.h&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
@@ -16120,20 +16119,15 @@ function registerListener(event, func) {
       <span class="n">extract</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">pointSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
       <span class="n">extract</span><span class="o">-&gt;</span><span class="n">SetImplicitFunction</span><span class="p">(</span><span class="n">functions</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
 
-      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;</span> <span class="n">glyph</span> <span class="o">=</span>
-        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3DMapper</span><span class="o">&gt;</span> <span class="n">glyph</span> <span class="o">=</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3DMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
       <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">extract</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
       <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
       <span class="n">glyph</span><span class="o">-&gt;</span><span class="n">ScalingOff</span><span class="p">();</span>
 
-      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">glyphMapper</span> <span class="o">=</span>
-        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-      <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">glyph</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-      <span class="n">glyphMapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
-
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyphActor</span> <span class="o">=</span>
         <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-      <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyphMapper</span><span class="p">);</span>
+      <span class="n">glyphActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph</span><span class="p">);</span>
 
       <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">glyphActor</span><span class="p">);</span>
       <span class="n">renderers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
