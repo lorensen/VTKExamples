@@ -1,4 +1,4 @@
-#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
 #include <vtkBooleanOperationPolyDataFilter.h>
 
 #include <vtkActor.h>
@@ -8,8 +8,8 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
 #include <vtkSphereSource.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -39,6 +39,8 @@ int main(int argc, char *argv[])
     vtkSmartPointer<vtkSphereSource> sphereSource1 =
       vtkSmartPointer<vtkSphereSource>::New();
     sphereSource1->SetCenter(.25, 0, 0);
+    sphereSource1->SetPhiResolution(21);
+    sphereSource1->SetThetaResolution(21);
     sphereSource1->Update();
     input1 = sphereSource1->GetOutput();
 
@@ -53,33 +55,28 @@ int main(int argc, char *argv[])
     }
   }
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> input1Mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  input1Mapper->SetInputConnection( input1->GetProducerPort() );
-#else
   input1Mapper->SetInputData( input1 );
-#endif
   input1Mapper->ScalarVisibilityOff();
   vtkSmartPointer<vtkActor> input1Actor =
     vtkSmartPointer<vtkActor>::New();
   input1Actor->SetMapper( input1Mapper );
-  input1Actor->GetProperty()->SetColor(1,0,0);
+  input1Actor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
   input1Actor->SetPosition(
     input1->GetBounds()[1]-input1->GetBounds()[0],
     0, 0);
   vtkSmartPointer<vtkPolyDataMapper> input2Mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  input2Mapper->SetInputConnection( input2->GetProducerPort() );
-#else
   input2Mapper->SetInputData( input2 );
-#endif
   input2Mapper->ScalarVisibilityOff();
   vtkSmartPointer<vtkActor> input2Actor =
     vtkSmartPointer<vtkActor>::New();
   input2Actor->SetMapper( input2Mapper );
-  input2Actor->GetProperty()->SetColor(0,1,0);
+  input2Actor->GetProperty()->SetColor(colors->GetColor3d("Mint").GetData());
   input2Actor->SetPosition(
     -(input2->GetBounds()[1]-input2->GetBounds()[0]),
     0, 0);
@@ -102,13 +99,10 @@ int main(int argc, char *argv[])
     std::cout << "Unknown operation: " << operation << std::endl;
     return EXIT_FAILURE;
   }
-#if VTK_MAJOR_VERSION <= 5
-  booleanOperation->SetInputConnection( 0, input1->GetProducerPort() );
-  booleanOperation->SetInputConnection( 1, input2->GetProducerPort() );
-#else
+
   booleanOperation->SetInputData( 0, input1 );
   booleanOperation->SetInputData( 1, input2 );
-#endif
+
   vtkSmartPointer<vtkPolyDataMapper> booleanOperationMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   booleanOperationMapper->SetInputConnection( booleanOperation->GetOutputPort() );
@@ -117,16 +111,18 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> booleanOperationActor =
     vtkSmartPointer<vtkActor>::New();
   booleanOperationActor->SetMapper( booleanOperationMapper );
+  booleanOperationActor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddViewProp(input1Actor);
   renderer->AddViewProp(input2Actor);
   renderer->AddViewProp(booleanOperationActor);
-  renderer->SetBackground(.1, .2, .3);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
   renderWindow->AddRenderer( renderer );
+  renderWindow->SetSize(640, 480);
 
   vtkSmartPointer<vtkRenderWindowInteractor> renWinInteractor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
