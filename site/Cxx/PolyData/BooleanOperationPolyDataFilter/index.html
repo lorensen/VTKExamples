@@ -16025,7 +16025,7 @@ function registerListener(event, func) {
 </ol>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>BooleanOperationPolyDataFilter.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkBooleanOperationPolyDataFilter.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
@@ -16035,8 +16035,8 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkSphereSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
@@ -16066,6 +16066,8 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource1</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="mf">.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
+    <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
     <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
     <span class="n">input1</span> <span class="o">=</span> <span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 
@@ -16080,33 +16082,28 @@ function registerListener(event, func) {
     <span class="p">}</span>
   <span class="p">}</span>
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">input1Mapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">input1Mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">input1Mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">input1</span> <span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">input1Mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">input1Actor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">input1Mapper</span> <span class="p">);</span>
-  <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">input1Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span>
     <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
     <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">input2Mapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">input2Mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">input2Mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">input2</span> <span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">input2Mapper</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">input2Actor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">input2Mapper</span> <span class="p">);</span>
-  <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Mint&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">input2Actor</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span>
     <span class="o">-</span><span class="p">(</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
     <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -16129,13 +16126,10 @@ function registerListener(event, func) {
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Unknown operation: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">operation</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">input1</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
-  <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">input2</span><span class="o">-&gt;</span><span class="n">GetProducerPort</span><span class="p">()</span> <span class="p">);</span>
-<span class="cp">#else</span>
+
   <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">input1</span> <span class="p">);</span>
   <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">input2</span> <span class="p">);</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">booleanOperationMapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">booleanOperationMapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span> <span class="n">booleanOperation</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">()</span> <span class="p">);</span>
@@ -16144,16 +16138,18 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">booleanOperationActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">booleanOperationActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">booleanOperationMapper</span> <span class="p">);</span>
+  <span class="n">booleanOperationActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input1Actor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">input2Actor</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddViewProp</span><span class="p">(</span><span class="n">booleanOperationActor</span><span class="p">);</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Silver&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renderWindow</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span> <span class="n">renderer</span> <span class="p">);</span>
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">renWinInteractor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
