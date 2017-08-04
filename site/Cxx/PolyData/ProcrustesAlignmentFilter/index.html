@@ -16011,11 +16011,12 @@ function registerListener(event, func) {
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestProcrustesAlignmentFilter.png?raw=true" width="256" />
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>This example aligns three objects (deformed spheres) using the Procrustes algorithm. The original shapes are shown on the left. The alignment using a rigid transform is shown in the middle, and the alignment using a similarity transform is shown on the right.</p>
+<p>This example aligns three objects (deformed spheres) using the <a href="https://en.wikipedia.org/wiki/Orthogonal_Procrustes_problem">Procrustes algorithm</a>. The original shapes are shown on the left. The alignment using a rigid transform is shown in the middle, and the alignment using a similarity transform is shown on the right.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ProcrustesAlignmentFilter.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProcrustesAlignmentFilter.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPointSet.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkLandmarkTransform.h&gt;</span><span class="cp"></span>
@@ -16030,16 +16031,21 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkProcrustesAlignmentFilter.h&gt;</span><span class="cp"></span>
-<span class="cp">#if VTK_MAJOR_VERSION &gt; 5</span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkMultiBlockDataSet.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkMultiBlockDataGroupFilter.h&gt;</span><span class="cp"></span>
-<span class="cp">#endif </span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
+
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
   <span class="c1">//create a sphere</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetPhiResolution</span><span class="p">(</span><span class="mi">31</span><span class="p">);</span>
+  <span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">SetThetaResolution</span><span class="p">(</span><span class="mi">31</span><span class="p">);</span>
 
   <span class="c1">// make two copies of the shape and distort them a little</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkTransform</span><span class="o">&gt;</span> <span class="n">transform1</span> <span class="o">=</span> 
@@ -16070,7 +16076,7 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor1a</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="o">::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor1a</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map1a</span><span class="p">);</span>
-  <span class="n">Actor1a</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">Actor1a</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">map1b</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="o">::</span><span class="n">New</span><span class="p">();</span>
@@ -16079,7 +16085,7 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor1b</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="o">::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor1b</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map1b</span><span class="p">);</span>
-  <span class="n">Actor1b</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.3882</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">Actor1b</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">map1c</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -16087,118 +16093,86 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor1c</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor1c</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map1c</span><span class="p">);</span>
-  <span class="n">Actor1c</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">);</span>
+  <span class="n">Actor1c</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Peacock&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// align the shapes using Procrustes (using SetModeToRigidBody) </span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProcrustesAlignmentFilter</span><span class="o">&gt;</span> <span class="n">procrustes1</span> <span class="o">=</span> 
           <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProcrustesAlignmentFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;=5 </span>
-  <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputs</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-  <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">transformer1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">transformer2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockDataGroupFilter</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkMultiBlockDataGroupFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">group</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">group</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">transformer1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">group</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">transformer2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">group</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-<span class="cp">#endif</span>
   <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetLandmarkTransform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetModeToRigidBody</span><span class="p">();</span>
 
   <span class="c1">// map the aligned shapes into the second renderer</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">map2a</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">map2a</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
-<span class="cp">#else</span>
   <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">map2a</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">)));</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor2a</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor2a</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map2a</span><span class="p">);</span>
-  <span class="n">Actor2a</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">Actor2a</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">map2b</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">map2b</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-<span class="cp">#else</span>
   <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">map2b</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor2b</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor2b</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map2b</span><span class="p">);</span>
-  <span class="n">Actor2b</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.3882</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">Actor2b</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">map2c</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">map2c</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
-<span class="cp">#else</span>
   <span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">map2c</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">procrustes1</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">2</span><span class="p">)));</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor2c</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor2c</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map2c</span><span class="p">);</span>
-  <span class="n">Actor2c</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">);</span>
+  <span class="n">Actor2c</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Peacock&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">//align the shapes using Procrustes (using SetModeToSimilarity (default))</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProcrustesAlignmentFilter</span><span class="o">&gt;</span> <span class="n">procrustes2</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkProcrustesAlignmentFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;=5 </span>
-  <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">SetNumberOfInputs</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-  <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">sphereSource</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">transformer1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-  <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">AddInputConnection</span><span class="p">(</span><span class="n">transformer2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">group</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
-<span class="cp">#endif</span>
 
   <span class="c1">// map the aligned shapes into the third renderer</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">map3a</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">map3a</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
-<span class="cp">#else</span>
   <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">map3a</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">)));</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor3a</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor3a</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map3a</span><span class="p">);</span>
-  <span class="n">Actor3a</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">Actor3a</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">map3b</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">map3b</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-<span class="cp">#else</span>
   <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">map3b</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor3b</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor3b</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map3b</span><span class="p">);</span>
-  <span class="n">Actor3b</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.3882</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">);</span>
+  <span class="n">Actor3b</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">map3c</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">map3c</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
-<span class="cp">#else</span>
   <span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">map3c</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">vtkDataSet</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">procrustes2</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetBlock</span><span class="p">(</span><span class="mi">2</span><span class="p">)));</span>
-<span class="cp">#endif</span>
+
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">Actor3c</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">Actor3c</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">map3c</span><span class="p">);</span>
-  <span class="n">Actor3c</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.3882</span><span class="p">,</span> <span class="mf">0.2784</span><span class="p">,</span> <span class="mf">1.0000</span><span class="p">);</span>
+  <span class="n">Actor3c</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Peacock&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Create the RenderWindow and its three Renderers</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
@@ -16212,7 +16186,7 @@ function registerListener(event, func) {
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren1</span><span class="p">);</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren2</span><span class="p">);</span>
   <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">AddRenderer</span><span class="p">(</span><span class="n">ren3</span><span class="p">);</span>
-  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">renWin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">interactor</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">interactor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renWin</span><span class="p">);</span>
@@ -16232,19 +16206,18 @@ function registerListener(event, func) {
 
   <span class="c1">// set the properties of the renderers</span>
 
-  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Bisque&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
-  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
   <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Cornsilk&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.33</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.66</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
   <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
   <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
   <span class="n">ren2</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
 
-  <span class="n">ren3</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">ren3</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Eggshell&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">ren3</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
   <span class="n">ren3</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
   <span class="n">ren3</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPosition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
