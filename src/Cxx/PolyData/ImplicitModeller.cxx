@@ -1,7 +1,13 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkImplicitModeller.h>
+
+#include <vtkSmartPointer.h>
+#include <vtkPLYReader.h>
+#include <vtkXMLPolyDataReader.h>
+#include <vtkOBJReader.h>
+#include <vtkSTLReader.h>
 #include <vtkSphereSource.h>
+
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
@@ -11,43 +17,33 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkContourFilter.h>
 #include <vtkXMLPolyDataReader.h>
+#include <vtkNamedColors.h>
+
+#include <vtksys/SystemTools.hxx>
+
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
+}
 
 int main(int argc, char *argv[])
 {
-  vtkSmartPointer<vtkPolyData> inputPolyData;
-  if(argc > 1)
-  {
-    vtkSmartPointer<vtkXMLPolyDataReader> reader =
-      vtkSmartPointer<vtkXMLPolyDataReader>::New();
-    reader->SetFileName(argv[1]);
-    reader->Update();
-    inputPolyData = reader->GetOutput();
-  }
-  else
-  {
-    vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
-    sphereSource->SetPhiResolution(15);
-    sphereSource->SetThetaResolution(15);
-    sphereSource->Update();
-    inputPolyData = sphereSource->GetOutput();
-  }
+  vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkImplicitModeller> implicitModeller =
     vtkSmartPointer<vtkImplicitModeller>::New();
   implicitModeller->SetSampleDimensions(50,50,50);
-#if VTK_MAJOR_VERSION <= 5
-  implicitModeller->SetInput(inputPolyData);
-#else
-  implicitModeller->SetInputData(inputPolyData);
-#endif
+  implicitModeller->SetInputData(polyData);
   implicitModeller->AdjustBoundsOn();
   implicitModeller->SetAdjustDistance(.1); // Adjust by 10%
   implicitModeller->SetMaximumDistance(.1);
 
   // Compute the range to select a reasonable contour value
   double bounds[6];
-  inputPolyData->GetBounds(bounds);
+  polyData->GetBounds(bounds);
   double xrange = bounds[1] - bounds[0];
 
   // Create the 0 isosurface
@@ -76,11 +72,62 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Lime").GetData());
   renderer->AddActor(actor);
-  renderer->SetBackground(.1, .2, .3);
+  renderer->SetBackground(colors->GetColor3d("Wheat").GetData());
 
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   interactor->Start();
 
   return EXIT_SUCCESS;
+}
+
+namespace
+{
+vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
+{
+  vtkSmartPointer<vtkPolyData> polyData;
+  std::string extension = vtksys::SystemTools::GetFilenameExtension(std::string(fileName));
+  if (extension == ".ply")
+  {
+    vtkSmartPointer<vtkPLYReader> reader =
+      vtkSmartPointer<vtkPLYReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".vtp")
+  {
+    vtkSmartPointer<vtkXMLPolyDataReader> reader =
+      vtkSmartPointer<vtkXMLPolyDataReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".obj")
+  {
+    vtkSmartPointer<vtkOBJReader> reader =
+      vtkSmartPointer<vtkOBJReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".stl")
+  {
+    vtkSmartPointer<vtkSTLReader> reader =
+      vtkSmartPointer<vtkSTLReader>::New();
+    reader->SetFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else
+  {
+    vtkSmartPointer<vtkSphereSource> sphere =
+      vtkSmartPointer<vtkSphereSource>::New();
+    sphere->Update();
+    polyData = sphere->GetOutput();
+  }
+  return polyData;
+}
 }
