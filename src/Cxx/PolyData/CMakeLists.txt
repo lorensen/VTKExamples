@@ -56,6 +56,7 @@ SET(NEEDS_ARGS
   PolyDataIsoLines
   PolyDataPointSampler
   RemoveVertices
+  ShrinkPolyData
   ThinPlateSplineTransform
   TriangleColoredPoints
   TriangleSolidColor
@@ -126,6 +127,9 @@ ADD_TEST(${KIT}-PolyDataPointSampler ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}Cxx
 
 ADD_TEST(${KIT}-RemoveVertices ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestRemoveVertices ${DATA}/Bunny.vtp)
+
+ADD_TEST(${KIT}-ShrinkPolyData ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestShrinkPolyData ${DATA}/cowHead.vtp)
 
 ADD_TEST(${KIT}-ThinPlateSplineTransform ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestThinPlateSplineTransform ${DATA}/masonry.bmp)
