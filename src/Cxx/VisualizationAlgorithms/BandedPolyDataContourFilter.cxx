@@ -1,5 +1,6 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkBandedPolyDataContourFilter.h>
+
 #include <vtkCellArray.h>
 #include <vtkFloatArray.h>
 #include <vtkPointData.h>
@@ -9,10 +10,13 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkCamera.h>
-#include <vtkBandedPolyDataContourFilter.h>
+#include <vtkNamedColors.h>
  
 int main(int, char *[])
 {
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPoints> pts = 
     vtkSmartPointer<vtkPoints>::New();
   pts->InsertPoint( 0,  0, 0, 0);
@@ -93,12 +97,8 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkBandedPolyDataContourFilter> bf = 
     vtkSmartPointer<vtkBandedPolyDataContourFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  bf->SetInput (polyData);
-#else
   bf->SetInputData (polyData);
-#endif
-  bf->GenerateValues(3, 25, 75 );
+  bf->GenerateValues(5, 25, 75 );
       
   vtkSmartPointer<vtkPolyDataMapper> mapper = 
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -111,23 +111,24 @@ int main(int, char *[])
 
   // Create the RenderWindow, Renderer and both Actors
 
-  vtkSmartPointer<vtkRenderer> ren1 = 
+  vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
-  vtkSmartPointer<vtkRenderWindow> renWin = 
+  vtkSmartPointer<vtkRenderWindow> renderWindow = 
     vtkSmartPointer<vtkRenderWindow>::New();
-  renWin->AddRenderer(ren1);
-  vtkSmartPointer<vtkRenderWindowInteractor> iren = 
+  renderWindow->AddRenderer(renderer);
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
-  iren->SetRenderWindow(renWin);
+  interactor->SetRenderWindow(renderWindow);
 
   // Add the actors to the renderer, set the background and size
-  ren1->AddActor(actor);
+  renderer->AddActor(actor);
   
-  renWin->SetSize (300 ,80);
-  renWin->Render();
-  ren1->GetActiveCamera()->Zoom(3);
-  renWin->Render();
-  iren->Start();
+  renderWindow->SetSize (1200, 400);
+  renderWindow->Render();
+  renderer->GetActiveCamera()->Zoom(3);
+  renderer->SetBackground(colors->GetColor3d("Melon").GetData());
+  renderWindow->Render();
+  interactor->Start();
   
   return EXIT_SUCCESS;
 }
