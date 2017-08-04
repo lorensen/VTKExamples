@@ -1,6 +1,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkSampleFunction.h>
 #include <vtkContourFilter.h>
+
 #include <vtkOutlineFilter.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
@@ -10,18 +11,24 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkImageData.h>
 
-#include <vtkSphere.h>
+#include <vtkSuperquadric.h>
+#include <vtkNamedColors.h>
 
 int main (int, char *[])
 {
-  vtkSmartPointer<vtkSphere> sphere = 
-    vtkSmartPointer<vtkSphere>::New();
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  vtkSmartPointer<vtkSuperquadric> implicitFunction = 
+    vtkSmartPointer<vtkSuperquadric>::New();
+  implicitFunction->SetPhiRoundness(2.5);
+  implicitFunction->SetThetaRoundness(.5);
   
   // Sample the function
   vtkSmartPointer<vtkSampleFunction> sample = 
     vtkSmartPointer<vtkSampleFunction>::New();
   sample->SetSampleDimensions(50,50,50);
-  sample->SetImplicitFunction(sphere);
+  sample->SetImplicitFunction(implicitFunction);
   double value = 2.0;
   double xmin = -value, xmax = value, ymin = -value, ymax = value, zmin = -value, zmax = value;
   sample->SetModelBounds(xmin, xmax, ymin, ymax, zmin, zmax);
@@ -30,7 +37,7 @@ int main (int, char *[])
   vtkSmartPointer<vtkContourFilter> contours = 
     vtkSmartPointer<vtkContourFilter>::New();
   contours->SetInputConnection(sample->GetOutputPort());
-  contours->GenerateValues(1, 1, 1);
+  contours->GenerateValues(1, 2.0, 2.0);
   
   // Map the contours to graphical primitives
   vtkSmartPointer<vtkPolyDataMapper> contourMapper = 
@@ -73,7 +80,7 @@ int main (int, char *[])
   
   renderer->AddActor(contourActor);
   renderer->AddActor(outlineActor);
-  renderer->SetBackground(1,1,1); // Background color white
+  renderer->SetBackground(colors->GetColor3d("Tan").GetData());
   
   renderWindow->Render();
   interactor->Start();
