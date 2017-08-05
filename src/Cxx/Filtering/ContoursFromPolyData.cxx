@@ -1,16 +1,17 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkCutter.h>
+
 #include <vtkXMLPolyDataReader.h>
 #include <vtkSphereSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkPlane.h>
-#include <vtkCutter.h>
 #include <vtkProperty.h>
 #include <vtkActor.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkMath.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -35,11 +36,7 @@ int main(int argc, char *argv[])
 
   vtkSmartPointer<vtkPolyDataMapper> inputMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  inputMapper->SetInput(inputPolyData);
-#else
   inputMapper->SetInputData(inputPolyData);
-#endif
 
   // Create a plane to cut
   vtkSmartPointer<vtkPlane> plane =
@@ -69,28 +66,28 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkCutter> cutter =
     vtkSmartPointer<vtkCutter>::New();
   cutter->SetCutFunction(plane);
-#if VTK_MAJOR_VERSION <= 5
-  cutter->SetInput(inputPolyData);
-#else
   cutter->SetInputData(inputPolyData);
-#endif
+
   cutter->GenerateValues(20, -distanceMin, distanceMax);
   vtkSmartPointer<vtkPolyDataMapper> cutterMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   cutterMapper->SetInputConnection( cutter->GetOutputPort());
   cutterMapper->ScalarVisibilityOff();
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   // Create plane actor
   vtkSmartPointer<vtkActor> planeActor =
     vtkSmartPointer<vtkActor>::New();
-  planeActor->GetProperty()->SetColor(1.0,1,0);
-  planeActor->GetProperty()->SetLineWidth(3);
+  planeActor->GetProperty()->SetColor(colors->GetColor3d("Deep_pink").GetData());
+  planeActor->GetProperty()->SetLineWidth(5);
   planeActor->SetMapper(cutterMapper);
 
   // Create input actor
   vtkSmartPointer<vtkActor> inputActor =
     vtkSmartPointer<vtkActor>::New();
-  inputActor->GetProperty()->SetColor(1.0, 0.8941, 0.7686); // bisque
+  inputActor->GetProperty()->SetColor(colors->GetColor3d("Bisque").GetData());
   inputActor->SetMapper(inputMapper);
 
   // Create renderers and add actors of plane and cube
@@ -108,7 +105,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkRenderWindowInteractor> interactor =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   interactor->SetRenderWindow(renderWindow);
-  renderer->SetBackground(.1, .2, .3);
+  renderer->SetBackground(colors->GetColor3d("Slate_grey").GetData());
   renderWindow->Render();
 
   interactor->Start();
