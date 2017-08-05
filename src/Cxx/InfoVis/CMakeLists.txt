@@ -56,7 +56,6 @@ if ("${ALL_FILES}" MATCHES ".*TreeMapView.*")
     TestTreeMapView ${DATA}/Infovis-XML-vtkclasses.xml ${DATA}/Infovis-XML-vtklibrary.xml)
 endif()
 
-SET(DATA ${WikiExamples_SOURCE_DIR}/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
 
 ADD_TEST(${KIT}-DelimitedTextReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests

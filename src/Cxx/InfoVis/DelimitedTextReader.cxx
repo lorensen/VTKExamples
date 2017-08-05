@@ -1,10 +1,9 @@
-#include <vtkVersion.h>
-
 #include <vtkSmartPointer.h>
+#include <vtkDelimitedTextReader.h>
+
 #include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
-#include <vtkDelimitedTextReader.h>
 #include <vtkDoubleArray.h>
 #include <vtkTable.h>
 #include <vtkPointData.h>
@@ -13,6 +12,7 @@
 #include <vtkRenderer.h>
 #include <vtkVertexGlyphFilter.h>
 
+#include <vtkNamedColors.h>
 int main(int argc, char* argv[])
 {
   // Verify input arguments
@@ -83,6 +83,9 @@ int main(int argc, char* argv[])
   glyphFilter->Update();
 
   // Visualize
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(glyphFilter->GetOutputPort());
@@ -90,8 +93,8 @@ int main(int argc, char* argv[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  actor->GetProperty()->SetPointSize(3);
-  actor->GetProperty()->SetColor(1,0,0);
+  actor->GetProperty()->SetPointSize(30);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -103,7 +106,7 @@ int main(int argc, char* argv[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(colors->GetColor3d("Mint").GetData());
 
   renderWindow->Render();
   renderWindowInteractor->Start();
