@@ -16011,7 +16011,11 @@ function registerListener(event, func) {
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestColorCells.png?raw=true" width="256" />
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>This example shows how to assign specific colors to individual cells of a polydata.</p>
+<p>This example shows how to assign specific colors to individual cells of a <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> using a <a href="http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html#details">vtkLookupTable</a>. The <a href="http://www.vtk.org/doc/nightly/html/classvtkCellData.html#details">vtkCellData</a> has a <a href="http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html#details">vtkFloatArray</a> that contains a scalar values.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p>The example (ColorCellsWithRGB)[/Cxx/PolyData/ColorCellsWithRGB] creates a vtlCellData with a <a href="http://www.vtk.org/doc/nightly/html/classvtkUnsignedCharArray.html#details">vtkUnsignedCharArray</a> that contains rgb values.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ColorCells.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
