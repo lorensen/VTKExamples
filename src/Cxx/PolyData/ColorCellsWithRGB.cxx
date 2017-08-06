@@ -11,6 +11,8 @@
 #include <vtkPolyData.h>
 #include <vtkPlaneSource.h>
 
+#include <vtkNamedColors.h>
+
 int main(int , char *[])
 {
   // Provide some geometry
@@ -41,6 +43,9 @@ int main(int , char *[])
   aPlane->GetOutput()->GetCellData()->SetScalars(cellData);
 
   // Setup actor and mapper
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(aPlane->GetOutputPort());
@@ -59,7 +64,7 @@ int main(int , char *[])
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderer->AddActor(actor);
-  renderer->SetBackground(.1,.2,.3);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
 
