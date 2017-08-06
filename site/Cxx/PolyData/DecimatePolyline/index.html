@@ -16014,8 +16014,9 @@ function registerListener(event, func) {
 <p>This example shows how to decimate a polyline.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>DecimatePolyline.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkDecimatePolylineFilter.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkMath.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
@@ -16026,7 +16027,7 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
@@ -16056,23 +16057,20 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;</span> <span class="n">c_mapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">c_mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">c_mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
-<span class="cp">#endif</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">c_actor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">c_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">c_mapper</span> <span class="p">);</span>
+  <span class="n">c_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">c_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDecimatePolylineFilter</span><span class="o">&gt;</span> <span class="n">decimate</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDecimatePolylineFilter</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span> <span class="n">circle</span> <span class="p">);</span>
-<span class="cp">#endif</span>
   <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">SetTargetReduction</span><span class="p">(</span> <span class="mf">0.95</span> <span class="p">);</span>
   <span class="n">decimate</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
@@ -16083,7 +16081,8 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">d_actor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">d_actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span> <span class="n">d_mapper</span> <span class="p">);</span>
-  <span class="n">d_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">);</span>
+  <span class="n">d_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">d_actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -16097,6 +16096,9 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;</span> <span class="n">iren</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">iren</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span> <span class="n">renwin</span> <span class="p">);</span>
+
+  <span class="n">ren</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;SlateGray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+  <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
 
   <span class="n">renwin</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
