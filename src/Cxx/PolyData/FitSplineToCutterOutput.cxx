@@ -1,15 +1,16 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkCutter.h>
+#include <vtkSplineFilter.h>
+#include <vtkSpline.h>
+
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkActor.h>
+#include <vtkCamera.h>
 #include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkStripper.h>
-#include <vtkCutter.h>
-#include <vtkSplineFilter.h>
-#include <vtkSpline.h>
 #include <vtkPlane.h>
 #include <vtkSphereSource.h>
 #include <vtkPoints.h>
@@ -18,6 +19,8 @@
 #include <vtkPolyData.h>
 #include <vtkTubeFilter.h>
 #include <vtkKochanekSpline.h>
+
+#include <vtkNamedColors.h>
 
 int main (int argc, char *argv[])
 {
@@ -45,25 +48,21 @@ int main (int argc, char *argv[])
 
   vtkSmartPointer<vtkCutter> cutter =
     vtkSmartPointer<vtkCutter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  cutter->SetInput(polyData);
-#else
   cutter->SetInputData(polyData);
-#endif
   cutter->SetCutFunction(plane);
   cutter->GenerateValues(1, 0.0, 0.0);
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> modelMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  modelMapper->SetInput(polyData);
-#else
   modelMapper->SetInputData(polyData);
-#endif
 
   vtkSmartPointer<vtkActor> model =
     vtkSmartPointer<vtkActor>::New();
   model->SetMapper(modelMapper);
+  model->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
   vtkSmartPointer<vtkStripper> stripper =
     vtkSmartPointer<vtkStripper>::New();
@@ -95,21 +94,25 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkActor> lines =
     vtkSmartPointer<vtkActor>::New();
   lines->SetMapper(linesMapper);
+  lines->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
 
   vtkSmartPointer<vtkRenderer> ren =
     vtkSmartPointer<vtkRenderer>::New();
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
-
-  renWin->AddRenderer(ren);
-
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow(renWin);
 
   // Add the actors to the renderer
+  ren->AddActor(model);
   ren->AddActor(lines);
-  ren->SetBackground(0.1, 0.2, 0.4);
+
+  ren->ResetCamera();
+  ren->SetBackground(colors->GetColor3d("SlateGray").GetData());
+  ren->GetActiveCamera()->Azimuth(300);
+  ren->GetActiveCamera()->Elevation(30);
+  renWin->AddRenderer(ren);
 
   // This starts the event loop and as a side effect causes an initial
   // render.
