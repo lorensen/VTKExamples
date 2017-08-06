@@ -85,12 +85,14 @@ int main(int, char *[])
   vtkSmartPointer<vtkDataSetMapper> sphereMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
+  sphereMapper->SetResolveCoincidentTopologyToPolygonOffset();
+
   vtkSmartPointer<vtkActor> sphereActor =
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
   sphereActor->GetProperty()->SetEdgeColor(colors->GetColor3d("Lamp_Black").GetData());
   sphereActor->GetProperty()->EdgeVisibilityOn();
-  sphereActor->GetProperty()->SetLineWidth(3);
+  sphereActor->GetProperty()->SetLineWidth(5);
 
   vtkSmartPointer<vtkDataSetMapper> mainCellMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
