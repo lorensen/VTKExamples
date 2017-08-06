@@ -1,5 +1,6 @@
-#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
 #include <vtkDecimatePolylineFilter.h>
+
 #include <vtkMath.h>
 #include <vtkPolyData.h>
 #include <vtkCellArray.h>
@@ -10,7 +11,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkProperty.h>
 
-#include <vtkSmartPointer.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -40,23 +41,20 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkPolyDataMapper> c_mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  c_mapper->SetInput( circle );
-#else
   c_mapper->SetInputData( circle );
-#endif
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkActor> c_actor =
     vtkSmartPointer<vtkActor>::New();
   c_actor->SetMapper( c_mapper );
+  c_actor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  c_actor->GetProperty()->SetLineWidth(3);
 
   vtkSmartPointer<vtkDecimatePolylineFilter> decimate =
     vtkSmartPointer<vtkDecimatePolylineFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  decimate->SetInput( circle );
-#else
   decimate->SetInputData( circle );
-#endif
   decimate->SetTargetReduction( 0.95 );
   decimate->Update();
 
@@ -67,7 +65,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> d_actor =
     vtkSmartPointer<vtkActor>::New();
   d_actor->SetMapper( d_mapper );
-  d_actor->GetProperty()->SetColor( 1., 0. ,0. );
+  d_actor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
+  d_actor->GetProperty()->SetLineWidth(3);
 
   vtkSmartPointer<vtkRenderer> ren =
     vtkSmartPointer<vtkRenderer>::New();
@@ -81,6 +80,9 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindowInteractor> iren =
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   iren->SetRenderWindow( renwin );
+
+  ren->SetBackground(colors->GetColor3d("SlateGray").GetData());
+  renwin->SetSize(640, 480);
 
   renwin->Render();
 
