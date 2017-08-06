@@ -1,5 +1,6 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkVertexGlyphFilter.h>
+
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPointData.h>
@@ -10,8 +11,9 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkVertexGlyphFilter.h>
 #include <vtkProperty.h>
+
+#include <vtkNamedColors.h>
 
 // For compatibility with new VTK generic data arrays
 #ifdef vtkGenericDataArray_h
@@ -33,11 +35,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> vertexFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  vertexFilter->SetInputConnection(pointsPolydata->GetProducerPort());
-#else
   vertexFilter->SetInputData(pointsPolydata);
-#endif
   vertexFilter->Update();
 
   vtkSmartPointer<vtkPolyData> polydata =
@@ -45,33 +43,28 @@ int main(int, char *[])
   polydata->ShallowCopy(vertexFilter->GetOutput());
 
   // Setup colors
-  unsigned char red[3] = {255, 0, 0};
-  unsigned char green[3] = {0, 255, 0};
-  unsigned char blue[3] = {0, 0, 255};
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkUnsignedCharArray> colors =
     vtkSmartPointer<vtkUnsignedCharArray>::New();
   colors->SetNumberOfComponents(3);
   colors->SetName ("Colors");
-  colors->InsertNextTupleValue(red);
-  colors->InsertNextTupleValue(green);
-  colors->InsertNextTupleValue(blue);
+  colors->InsertNextTupleValue(namedColors->GetColor3ub("Tomato").GetData());
+  colors->InsertNextTupleValue(namedColors->GetColor3ub("Mint").GetData());
+  colors->InsertNextTupleValue(namedColors->GetColor3ub("Peacock").GetData());
 
   polydata->GetPointData()->SetScalars(colors);
 
   // Visualization
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInputConnection(polydata->GetProducerPort());
-#else
   mapper->SetInputData(polydata);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  actor->GetProperty()->SetPointSize(5);
+  actor->GetProperty()->SetPointSize(10);
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -83,7 +76,7 @@ int main(int, char *[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-
+  renderer->SetBackground(namedColors->GetColor3d("Burlywood").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
 
