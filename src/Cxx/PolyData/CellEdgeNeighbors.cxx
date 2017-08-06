@@ -1,5 +1,5 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+
 #include <vtkSphereSource.h>
 #include <vtkPolyData.h>
 #include <vtkIdList.h>
@@ -15,6 +15,8 @@
 #include <vtkSelection.h>
 #include <vtkExtractSelection.h>
 #include <vtkProperty.h>
+
+#include <vtkNamedColors.h>
 
 #include <list>
 
@@ -77,14 +79,18 @@ int main(int, char *[])
   }
   std::cout << std::endl;
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkDataSetMapper> sphereMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
   vtkSmartPointer<vtkActor> sphereActor =
     vtkSmartPointer<vtkActor>::New();
   sphereActor->SetMapper(sphereMapper);
-  sphereActor->GetProperty()->SetEdgeColor(0, 0, 0);
+  sphereActor->GetProperty()->SetEdgeColor(colors->GetColor3d("Lamp_Black").GetData());
   sphereActor->GetProperty()->EdgeVisibilityOn();
+  sphereActor->GetProperty()->SetLineWidth(3);
 
   vtkSmartPointer<vtkDataSetMapper> mainCellMapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
@@ -112,11 +118,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkExtractSelection> extractSelection =
         vtkSmartPointer<vtkExtractSelection>::New();
     extractSelection->SetInputConnection(0, sphereSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-    extractSelection->SetInput(1, selection);
-#else
     extractSelection->SetInputData(1, selection);
-#endif
     extractSelection->Update();
 
     mainCellMapper->SetInputConnection(extractSelection->GetOutputPort());
@@ -126,7 +128,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> mainCellActor =
     vtkSmartPointer<vtkActor>::New();
   mainCellActor->SetMapper(mainCellMapper);
-  mainCellActor->GetProperty()->SetColor(1,0,0);
+  mainCellActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
   // Create a dataset with the neighbor cells
   {
@@ -151,11 +153,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkExtractSelection> extractSelection =
         vtkSmartPointer<vtkExtractSelection>::New();
     extractSelection->SetInputConnection(0, sphereSource->GetOutputPort());
-#if VTK_MAJOR_VERSION <= 5
-    extractSelection->SetInput(1, selection);
-#else
     extractSelection->SetInputData(1, selection);
-#endif
     extractSelection->Update();
 
     neighborCellsMapper->SetInputConnection(extractSelection->GetOutputPort());
@@ -165,7 +163,7 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> neighborCellsActor =
     vtkSmartPointer<vtkActor>::New();
   neighborCellsActor->SetMapper(neighborCellsMapper);
-  neighborCellsActor->GetProperty()->SetColor(0,1,0);
+  neighborCellsActor->GetProperty()->SetColor(colors->GetColor3d("Mint").GetData());
 
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
@@ -181,9 +179,10 @@ int main(int, char *[])
   renderer->AddActor(sphereActor);
   renderer->AddActor(mainCellActor);
   renderer->AddActor(neighborCellsActor);
-  renderer->SetBackground(.3, .2, .1); // Background color dark red
+  renderer->SetBackground(colors->GetColor3d("Slate_grey").GetData());
 
   // Render and interact
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
 
