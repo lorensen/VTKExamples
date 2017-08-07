@@ -141,41 +141,51 @@ Please add examples in your areas of expertise!
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[Arrow](/Cxx/GeometricObjects/Arrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html#details) |
 [Axes](/Cxx/GeometricObjects/Axes)  | [vtkAxesActor](http://www.vtk.org/doc/nightly/html/classvtkAxesActor.html#details) |
-[Cell3DDemonstration](/Cxx/GeometricObjects/Cell3DDemonstration) | [vtkHexagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkHexagonalPrism.html#details) [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html#details) [vtkPentagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkPentagonalPrism.html#details)  [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details) [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html#details) [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details) [vtkVoxel](http://www.vtk.org/doc/nightly/html/classvtkVoxel.html#details) [vtkWedge](http://www.vtk.org/doc/nightly/html/classvtkWedge.html#details) [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details) |  Demonstrate the use of [vtkCell3D](http://www.vtk.org/doc/nightly/html/classvtkCell3D.html#details) to construct geometric objects. Sample objects are generated from the classes derived from [vtkCell3D](http://www.vtk.org/doc/nightly/html/classvtkCell3D.html#details) and displayed.
 [Colored Lines](/Cxx/GeometricObjects/ColoredLines)   | [vtkCellData](http://www.vtk.org/doc/nightly/html/classvtkCellData.html#details) [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html#details) |
-[Cone](/Cxx/GeometricObjects/Cone)   | [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html#details) |
-[Cube](/Cxx/GeometricObjects/Cube)   | [vtkCubeSource](http://www.vtk.org/doc/nightly/html/classvtkCubeSource.html#details) |
-[Cylinder](/Cxx/GeometricObjects/Cylinder)   | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) |
-[Disk](/Cxx/GeometricObjects/Disk)   | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html#details) | A circle with a hole in it.
 [Dodecahedron](/Cxx/GeometricObjects/Dodecahedron)   | [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details) | Create a dodecahedron using [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details)
 [EllipticalCylinder](/Cxx/GeometricObjects/EllipticalCylinder)   | [vtkLinearExtrusionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearExtrusionFilter.html#details) | Create an elliptical cylinder using extrusion.
 [EllipticalCylinderDemo](/Cxx/GeometricObjects/EllipticalCylinderDemo)   | [vtkLinearExtrusionFilter](http://www.vtk.org/doc/nightly/html/classvtkLinearExtrusionFilter.html#details) | Show the base and extrusion vector.
-[Frustum](/Cxx/GeometricObjects/Frustum)   | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html#details) |
 [GeometricObjectsDemo](/Cxx/GeometricObjects/GeometricObjectsDemo) |  | A demonstration of all geometric objects that work the same way.
-[Hexahedron](/Cxx/GeometricObjects/Hexahedron)  | [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html#details) |
-[Line](/Cxx/GeometricObjects/Line)   | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html#details) |
-[LongLine](/Cxx/GeometricObjects/LongLine) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html#details) | Manually create a polyline
-[Oriented Arrow](/Cxx/GeometricObjects/OrientedArrow)   | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html#details) | Orient an arrow along an arbitrary vector
-[Oriented Cylinder](/Cxx/GeometricObjects/OrientedCylinder)   | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) | Orient a cylinder along an arbitrary vector
-[Plane](/Cxx/GeometricObjects/Plane)  | [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html#details) |
 [PlanesIntersection](/Cxx/GeometricObjects/PlanesIntersection)  | [vtkPlanesIntersection](http://www.vtk.org/doc/nightly/html/classvtkPlanesIntersection.html#details) |
 [Planes](/Cxx/GeometricObjects/Planes)  | [vtkPlanes](http://www.vtk.org/doc/nightly/html/classvtkPlanes.html#details) |
-[PlatonicSolid](/Cxx/GeometricObjects/PlatonicSolid)   | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html#details) |
+[PolygonIntersection](/Cxx/GeometricObjects/PolygonIntersection) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html#details) |  Compute the intersection of a line segment with a polygon.
+
+### Cells
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[Cell3DDemonstration](/Cxx/GeometricObjects/Cell3DDemonstration) | [vtkHexagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkHexagonalPrism.html#details) [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html#details) [vtkPentagonalPrism](http://www.vtk.org/doc/nightly/html/classvtkPentagonalPrism.html#details)  [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details) [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html#details) [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details) [vtkVoxel](http://www.vtk.org/doc/nightly/html/classvtkVoxel.html#details) [vtkWedge](http://www.vtk.org/doc/nightly/html/classvtkWedge.html#details) [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details) |  Demonstrate the use of [vtkCell3D](http://www.vtk.org/doc/nightly/html/classvtkCell3D.html#details) to construct geometric objects. Sample objects are generated from the classes derived from [vtkCell3D](http://www.vtk.org/doc/nightly/html/classvtkCell3D.html#details) and displayed.
+[Hexahedron](/Cxx/GeometricObjects/Hexahedron)  | [vtkHexahedron](http://www.vtk.org/doc/nightly/html/classvtkHexahedron.html#details) |
+[LongLine](/Cxx/GeometricObjects/LongLine) | [vtkLine](http://www.vtk.org/doc/nightly/html/classvtkLine.html#details) | Manually create a polyline
 [Point](/Cxx/GeometricObjects/Point)   | [vtkPoints](http://www.vtk.org/doc/nightly/html/classvtkPoints.html#details) |
 [PolyLine](/Cxx/GeometricObjects/PolyLine)   | [vtkPolyLine](http://www.vtk.org/doc/nightly/html/classvtkPolyLine.html#details) |
-[PolygonIntersection](/Cxx/GeometricObjects/PolygonIntersection) | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html#details) |  Compute the intersection of a line segment with a polygon.
 [Polygon](/Cxx/GeometricObjects/Polygon)   | [vtkPolygon](http://www.vtk.org/doc/nightly/html/classvtkPolygon.html#details) |
 [Polyhedron](/Cxx/GeometricObjects/Polyhedron)   | [vtkPolyhedron](http://www.vtk.org/doc/nightly/html/classvtkPolyhedron.html#details) |
 [Pyramid](/Cxx/GeometricObjects/Pyramid)   | [vtkPyramid](http://www.vtk.org/doc/nightly/html/classvtkPyramid.html#details) |
 [Quad](/Cxx/GeometricObjects/Quad)   | [vtkQuad](http://www.vtk.org/doc/nightly/html/classvtkQuad.html#details) |
-[Regular Polygon](/Cxx/GeometricObjects/RegularPolygonSource)   | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html#details) |
-[Sphere](/Cxx/GeometricObjects/Sphere)   | [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html#details) |
 [Tetrahedron](/Cxx/GeometricObjects/Tetrahedron)   | [vtkTetra](http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details) |
 [Triangle strip](/Cxx/GeometricObjects/TriangleStrip) | [vtkTriangleStrip](http://www.vtk.org/doc/nightly/html/classvtkTriangleStrip.html#details) | 
 [Triangle](/Cxx/GeometricObjects/Triangle)   | [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details) |
 [Vertex](/Cxx/GeometricObjects/Vertex)   | [vtkVertex](http://www.vtk.org/doc/nightly/html/classvtkVertex.html#details) |
+
+### Sources
+
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[Arrow](/Cxx/GeometricObjects/Arrow) | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html#details) |
+[Cone](/Cxx/GeometricObjects/Cone)   | [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html#details) |
+[Cube](/Cxx/GeometricObjects/Cube)   | [vtkCubeSource](http://www.vtk.org/doc/nightly/html/classvtkCubeSource.html#details) |
+[Cylinder](/Cxx/GeometricObjects/Cylinder)   | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) |
+[Disk](/Cxx/GeometricObjects/Disk)   | [vtkDiskSource](http://www.vtk.org/doc/nightly/html/classvtkDiskSource.html#details) | A circle with a hole in it.
+[Frustum](/Cxx/GeometricObjects/Frustum)   | [vtkFrustumSource](http://www.vtk.org/doc/nightly/html/classvtkFrustumSource.html#details) |
+[Line](/Cxx/GeometricObjects/Line)   | [vtkLineSource](http://www.vtk.org/doc/nightly/html/classvtkLineSource.html#details) |
+[Oriented Arrow](/Cxx/GeometricObjects/OrientedArrow)   | [vtkArrowSource](http://www.vtk.org/doc/nightly/html/classvtkArrowSource.html#details) | Orient an arrow along an arbitrary vector
+[Oriented Cylinder](/Cxx/GeometricObjects/OrientedCylinder)   | [vtkCylinderSource](http://www.vtk.org/doc/nightly/html/classvtkCylinderSource.html#details) | Orient a cylinder along an arbitrary vector
+[Plane](/Cxx/GeometricObjects/Plane)  | [vtkPlaneSource](http://www.vtk.org/doc/nightly/html/classvtkPlaneSource.html#details) |
+[PlatonicSolid](/Cxx/GeometricObjects/PlatonicSolid)   | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html#details) |
+[Regular Polygon](/Cxx/GeometricObjects/RegularPolygonSource)   | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html#details) |
+[Sphere](/Cxx/GeometricObjects/Sphere)   | [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html#details) |
 
 ### NonLinear
 
