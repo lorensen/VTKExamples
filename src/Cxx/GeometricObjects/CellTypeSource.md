@@ -6,6 +6,6 @@ The example takes an optonal argument, a vtkCell name.
 
 For example, to generate vtkTriangle s, run
 
-    CellTypeSource vtkTriangle
+```CellTypeSource``` vtkTriangle
 
 
