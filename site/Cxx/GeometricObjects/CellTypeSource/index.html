@@ -16026,10 +16026,7 @@ function registerListener(event, func) {
 <p>This example uses <a href="http://www.vtk.org/doc/nightly/html/classvtkCellTypeSource.html#details">vtkCellTypeSource</a> to generate a <a href="http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details">vtkUnstructuredGrid</a>. If a cell does not fill a rectangular area or volume, then multiple cells will be generated. For example, a <a href="http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details">vtkTetra</a> requires 12 cells to fill a cube. A <a href="http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details">vtkTriangle</a> requires two cells to fill a square. <a href="http://www.vtk.org/doc/nightly/html/classvtkCellTypeSource.html#details">vtkCellTypeSource</a> generates a uniform set of coordinates. The example perturbs those coordinates to illustrate the results of the <a href="http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html#details">vtkTessellatorFilter</a>. Also, each cell is passed through <a href="http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html#details">vtkShrinkFilter</a> to help identify the cells. Each generated cell also has a unique color.</p>
 <p>The example takes an optonal argument, a <a href="http://www.vtk.org/doc/nightly/html/classvtkCell.html#details">vtkCell</a> name.</p>
 <p>For example, to generate <a href="http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details">vtkTriangle</a> s, run</p>
-<div class="codehilite"><pre><span></span>CellTypeSource [vtkTriangle](http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details)
-</pre></div>
-
-
+<p><code>CellTypeSource</code> <a href="http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details">vtkTriangle</a></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CellTypeSource.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
