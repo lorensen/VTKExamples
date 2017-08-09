@@ -1,12 +1,16 @@
 #include <vtkSmartPointer.h>
+#include <vtkCubeSource.h>
+#include <vtkShrinkFilter.h>
 
 #include <vtkActor.h>
-#include <vtkCubeSource.h>
+#include <vtkProperty.h>
+#include <vtkCamera.h>
 #include <vtkPolyData.h>
-#include <vtkPolyDataMapper.h>
+#include <vtkDataSetMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -14,14 +18,29 @@ int main(int, char *[])
   vtkSmartPointer<vtkCubeSource> cubeSource = 
     vtkSmartPointer<vtkCubeSource>::New();
   
+  vtkSmartPointer<vtkShrinkFilter> shrink =
+    vtkSmartPointer<vtkShrinkFilter>::New();
+  shrink->SetInputConnection(cubeSource->GetOutputPort());
+  shrink->SetShrinkFactor(.9);
+
   // Create a mapper and actor.
-  vtkSmartPointer<vtkPolyDataMapper> mapper = 
-    vtkSmartPointer<vtkPolyDataMapper>::New();
-  mapper->SetInputConnection(cubeSource->GetOutputPort());
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  vtkSmartPointer<vtkDataSetMapper> mapper = 
+    vtkSmartPointer<vtkDataSetMapper>::New();
+  mapper->SetInputConnection(shrink->GetOutputPort());
+
+  vtkSmartPointer<vtkProperty> back =
+    vtkSmartPointer<vtkProperty>::New();
+  back->SetColor(colors->GetColor3d("Tomato").GetData());
 
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->EdgeVisibilityOn();
+  actor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  actor->SetBackfaceProperty(back);
 
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer = 
@@ -35,7 +54,12 @@ int main(int, char *[])
 
   // Add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .2, .1);
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->ResetCameraClippingRange();
 
   // Render and interact
   renderWindow->Render();
