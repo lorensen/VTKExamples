@@ -1,16 +1,19 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkLine.h>
+
 #include <vtkCellArray.h>
 #include <vtkCellData.h>
 #include <vtkDoubleArray.h>
 #include <vtkPoints.h>
-#include <vtkLine.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkCamera.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -54,17 +57,18 @@ int main(int, char *[])
   linesPolyData->SetLines(lines);
 
   // Setup actor and mapper
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(linesPolyData);
-#else
   mapper->SetInputData(linesPolyData);
-#endif
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetLineWidth(4);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Peacock").GetData());
 
   // Setup render window, renderer, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
@@ -77,6 +81,12 @@ int main(int, char *[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderer->AddActor(actor);
 
+  renderer->ResetCamera();
+  renderer->GetActiveCamera()->Azimuth(30);
+  renderer->GetActiveCamera()->Elevation(30);
+  renderer->ResetCameraClippingRange();
+
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());                                 
   renderWindow->Render();
   renderWindowInteractor->Start();
 
