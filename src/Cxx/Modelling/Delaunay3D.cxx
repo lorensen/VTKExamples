@@ -30,13 +30,17 @@
 
 int main ( int argc, char *argv[] )
 {
+  float alpha = .5;
   if(argc < 2)
   {
     std::cout << "Usage: " << argv[0]
-              << " filename.vtp" << std::endl;
+              << " filename.vtp [alpha]" << std::endl;
     return EXIT_FAILURE;
   }
-
+  if (argc > 2)
+  {
+    alpha = atof(argv[2]);
+  }
   //Read the file
   vtkSmartPointer<vtkXMLPolyDataReader> reader =
     vtkSmartPointer<vtkXMLPolyDataReader>::New();
@@ -86,8 +90,9 @@ int main ( int argc, char *argv[] )
   vtkSmartPointer<vtkDelaunay3D> delaunay3DAlpha =
     vtkSmartPointer<vtkDelaunay3D>::New();
   delaunay3DAlpha->SetInputConnection (cleaner->GetOutputPort());
-  delaunay3DAlpha->SetAlpha(.5);
+  delaunay3DAlpha->SetAlpha(alpha);
   delaunay3DAlpha->Update();
+  std::cout << "Alpha: " << alpha << std::endl;
 
   vtkSmartPointer<vtkUnsignedCharArray> cellData =
     vtkSmartPointer<vtkUnsignedCharArray>::New();
