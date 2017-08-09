@@ -1,13 +1,17 @@
+#include <vtkSmartPointer.h>
+
 #include <vtkActor.h>
 #include <vtkCellArray.h>
 #include <vtkLine.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkSmartPointer.h>
+
+#include <vtkNamedColors.h>
  
 int main(int, char *[])
 {
@@ -52,6 +56,9 @@ int main(int, char *[])
   polydata->RemoveDeletedCells();
 
   // Visualize
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputDataObject(polydata);
@@ -59,6 +66,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Peacock").GetData());
+  actor->GetProperty()->SetLineWidth(4);
  
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -70,6 +79,7 @@ int main(int, char *[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
   renderer->AddActor(actor);
  
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
   renderWindow->Render();
   renderWindowInteractor->Start();
  
