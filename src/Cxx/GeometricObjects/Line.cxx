@@ -7,6 +7,7 @@
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
  
 int main(int, char *[])
 {
@@ -18,9 +19,11 @@ int main(int, char *[])
     vtkSmartPointer<vtkLineSource>::New();
   lineSource->SetPoint1(p0);
   lineSource->SetPoint2(p1);
-  lineSource->Update();
 
   // Visualize
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> mapper = 
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(lineSource->GetOutputPort());
@@ -28,6 +31,7 @@ int main(int, char *[])
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   actor->GetProperty()->SetLineWidth(4);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Peacock").GetData());
  
   vtkSmartPointer<vtkRenderer> renderer = 
     vtkSmartPointer<vtkRenderer>::New();
@@ -37,7 +41,8 @@ int main(int, char *[])
   vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
     vtkSmartPointer<vtkRenderWindowInteractor>::New();
   renderWindowInteractor->SetRenderWindow(renderWindow);
- 
+                                 
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());                                 
   renderer->AddActor(actor);
  
   renderWindow->Render();
