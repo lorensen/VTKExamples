@@ -187,7 +187,7 @@ Please add examples in your areas of expertise!
 [PlatonicSolid](/Cxx/GeometricObjects/PlatonicSolid)   | [vtkPlatonicSolidSource](http://www.vtk.org/doc/nightly/html/classvtkPlatonicSolidSource.html#details) |
 [Regular Polygon](/Cxx/GeometricObjects/RegularPolygonSource)   | [vtkRegularPolygonSource](http://www.vtk.org/doc/nightly/html/classvtkRegularPolygonSource.html#details) |
 [Sphere](/Cxx/GeometricObjects/Sphere)   | [vtkSphereSource](http://www.vtk.org/doc/nightly/html/classvtkSphereSource.html#details) |
-[TessellatedBoxSource](/Cxx/GeometricObjects/vtkTessellatedBoxSource)   | [vtkTessellatedBoxSource](http://www.vtk.org/doc/nightly/html/classvtkTessellatedBoxSource.html#details) | Generated a box with tessellated sides.
+[TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource)   | [vtkTessellatedBoxSource](http://www.vtk.org/doc/nightly/html/classvtkTessellatedBoxSource.html#details) | Generated a box with tessellated sides.
 
 ### NonLinear
 
