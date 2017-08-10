@@ -16022,19 +16022,20 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>Pyramid.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkPyramid.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCellArray.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPoints.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkPyramid.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">[])</span>
 <span class="p">{</span>
@@ -16071,17 +16072,16 @@ function registerListener(event, func) {
   <span class="n">ug</span><span class="o">-&gt;</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">pyramid</span><span class="o">-&gt;</span><span class="n">GetCellType</span><span class="p">(),</span><span class="n">pyramid</span><span class="o">-&gt;</span><span class="n">GetPointIds</span><span class="p">());</span>
 
   <span class="c1">//Create an actor and mapper</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">ug</span><span class="p">);</span>
-<span class="cp">#else</span>
   <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">ug</span><span class="p">);</span>
-<span class="cp">#endif</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">//Create a renderer, render window, and interactor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span> 
@@ -16097,11 +16097,11 @@ function registerListener(event, func) {
 
   <span class="c1">// Create a nice view</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCamera</span><span class="p">();</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Azimuth</span><span class="p">(</span><span class="mi">150</span><span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">GetActiveCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Elevation</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">ResetCameraClippingRange</span><span class="p">();</span>
 
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">);</span>
+<span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Silver&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
