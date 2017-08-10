@@ -1,16 +1,17 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkPyramid.h>
 
 #include <vtkActor.h>
+#include <vtkProperty.h>
 #include <vtkCamera.h>
 #include <vtkCellArray.h>
 #include <vtkDataSetMapper.h>
 #include <vtkPoints.h>
-#include <vtkPyramid.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkNamedColors.h>
 
 int main(int , char *[])
 {
@@ -47,17 +48,16 @@ int main(int , char *[])
   ug->InsertNextCell(pyramid->GetCellType(),pyramid->GetPointIds());
   
   //Create an actor and mapper
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkDataSetMapper> mapper = 
       vtkSmartPointer<vtkDataSetMapper>::New();
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(ug);
-#else
   mapper->SetInputData(ug);
-#endif
 
   vtkSmartPointer<vtkActor> actor = 
       vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
   //Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer = 
@@ -73,11 +73,11 @@ int main(int , char *[])
 
   // Create a nice view
   renderer->ResetCamera();
-  renderer->GetActiveCamera()->Azimuth(180);
-  renderer->GetActiveCamera()->Elevation(-20);
+  renderer->GetActiveCamera()->Azimuth(150);
+  renderer->GetActiveCamera()->Elevation(20);
   renderer->ResetCameraClippingRange();
 
-  renderer->SetBackground(0.2, 0.3, 0.4);
+renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
   renderWindow->Render();
   renderWindowInteractor->Start();
