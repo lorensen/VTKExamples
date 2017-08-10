@@ -1,16 +1,18 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkLine.h>
+
 #include <vtkCellArray.h>
 #include <vtkCellData.h>
 #include <vtkUnsignedCharArray.h>
 #include <vtkPoints.h>
-#include <vtkLine.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 
 // For compatibility with new VTK generic data arrays
 #ifdef vtkGenericDataArray_h
@@ -61,17 +63,15 @@ int main(int, char *[])
   // Add the lines to the polydata container
   linesPolyData->SetLines(lines);
   
-  
-  // Create two colors - one for each line
-  unsigned char red[3] = { 255, 0, 0 };
-  unsigned char green[3] = { 0, 255, 0 };
+  vtkSmartPointer<vtkNamedColors> namedColors =
+    vtkSmartPointer<vtkNamedColors>::New();
   
   // Create a vtkUnsignedCharArray container and store the colors in it
   vtkSmartPointer<vtkUnsignedCharArray> colors =
     vtkSmartPointer<vtkUnsignedCharArray>::New();
   colors->SetNumberOfComponents(3);
-  colors->InsertNextTupleValue(red);
-  colors->InsertNextTupleValue(green);
+  colors->InsertNextTupleValue(namedColors->GetColor3ub("Tomato").GetData());
+  colors->InsertNextTupleValue(namedColors->GetColor3ub("Mint").GetData());
   
   // Color the lines.
   // SetScalars() automatically associates the values in the data array passed as parameter
@@ -82,25 +82,21 @@ int main(int, char *[])
   // is matched with the second component of the cell array (line 1)
   linesPolyData->GetCellData()->SetScalars(colors);
   
-  
   // Setup the visualization pipeline
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-
-#if VTK_MAJOR_VERSION <= 5
-  mapper->SetInput(linesPolyData);
-#else
    mapper->SetInputData(linesPolyData);
-#endif
   
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
-  
+  actor->GetProperty()->SetLineWidth(4);
+
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
-  
+  renderer->SetBackground(namedColors->GetColor3d("SlateGray").GetData());
+
   vtkSmartPointer<vtkRenderWindow> window =
     vtkSmartPointer<vtkRenderWindow>::New();
   window->AddRenderer(renderer);
