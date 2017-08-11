@@ -594,7 +594,6 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [ArrayRange](/Cxx/Utilities/ArrayRange) | [vtkFloatArray](http://www.vtk.org/doc/nightly/html/classvtkFloatArray.html#details)::GetRange |Get the bounds (min,max) of a [vtk](http://www.vtk.org/doc/nightly/html/classvtk.html#details) array.
 [ArrayToTable](/Cxx/InfoVis/ArrayToTable) | [vtkArrayToTable](http://www.vtk.org/doc/nightly/html/classvtkArrayToTable.html#details) |Convert a [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html#details) to a [vtkTable](http://www.vtk.org/doc/nightly/html/classvtkTable.html#details).
 [ArrayWriter](/Cxx/Utilities/ArrayWriter) | [vtkArrayWriter](http://www.vtk.org/doc/nightly/html/classvtkArrayWriter.html#details)| Write a DenseArray or SparseArray to a file.
-[ConcatenateArray](/Cxx/TextAnalysis/ConcatenateArray) | [vtkConcatenateArray](http://www.vtk.org/doc/nightly/html/classvtkConcatenateArray.html#details) |Concatenate two arrays.
 [ConstructTable](/Cxx/Utilities/ConstructTable) | [vtkTable](http://www.vtk.org/doc/nightly/html/classvtkTable.html#details) | A table is a 2D array of any type of elements. They do not all have to be the same type. This is achieved using [vtkVariant](http://www.vtk.org/doc/nightly/html/classvtkVariant.html#details).
 [CustomDenseArray](/Cxx/Utilities/CustomDenseArray) | [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html#details) |Custom type Dense (2D) Array.
 [DenseArrayRange](/Cxx/Utilities/DenseArrayRange) | [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html#details) [vtkArrayRange](http://www.vtk.org/doc/nightly/html/classvtkArrayRange.html#details) |Get the bounds of a [vtkDenseArray](http://www.vtk.org/doc/nightly/html/classvtkDenseArray.html#details).
@@ -635,7 +634,6 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [MatrixTranspose](/Cxx/Math/MatrixTranspose)| [vtkMatrix3x3](http://www.vtk.org/doc/nightly/html/classvtkMatrix3x3.html#details) |Matrix transpose.
 [NormalizeVector](/Cxx/Math/NormalizeVector)| [vtkMath](http://www.vtk.org/doc/nightly/html/classvtkMath.html#details) |Normalize a vector.
 [PerpendicularVector](/Cxx/Math/PerpendicularVector) | [vtkMath](http://www.vtk.org/doc/nightly/html/classvtkMath.html#details)::Perpendiculars |Get a vector perpendicular to another vector.
-[PowerWeighting](/Cxx/TextAnalysis/PowerWeighting)| [vtkPowerWeighting](http://www.vtk.org/doc/nightly/html/classvtkPowerWeighting.html#details) |Raise all elements in an array to a power.
 [VectorDot](/Cxx/Math/VectorDot)| [vtkVectorDot](http://www.vtk.org/doc/nightly/html/classvtkVectorDot.html#details) |
 [VectorNorm](/Cxx/Math/VectorNorm) |[vtkVectorNorm](http://www.vtk.org/doc/nightly/html/classvtkVectorNorm.html#details) |Get the lengths of an array of vectors.
 
