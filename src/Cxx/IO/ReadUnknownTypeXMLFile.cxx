@@ -1,29 +1,29 @@
 #include <vtkSmartPointer.h>
+#include <vtkXMLGenericDataObjectReader.h>
+
 #include <vtkPolyData.h>
 #include <vtkUnstructuredGrid.h>
 #include <vtkDataSetMapper.h>
 #include <vtkActor.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkXMLGenericDataObjectReader.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
   // Ensure a filename was specified
   if(argc < 2)
   {
-    std::cerr << "Required arguments: InputFilename" << std::endl;
+    std::cout << "Usage: " << argv[0] << " InputFilename" << std::endl;
     return EXIT_FAILURE;
   }
-
-  // Get the filename from the command line
-  std::string inputFilename = argv[1];
 
   // Get all data from the file
   vtkSmartPointer<vtkXMLGenericDataObjectReader> reader =
     vtkSmartPointer<vtkXMLGenericDataObjectReader>::New();
-  reader->SetFileName(inputFilename.c_str());
+  reader->SetFileName(argv[1]);
   reader->Update();
 
   // All of the standard data types can be checked and obtained like this:
@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
   }
 
   // Visualize
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(reader->GetOutputPort());
@@ -44,6 +46,7 @@ int main(int argc, char *argv[])
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->SetColor(colors->GetColor3d("Moccasin").GetData());
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -55,8 +58,9 @@ int main(int argc, char *argv[])
   renderWindowInteractor->SetRenderWindow(renderWindow);
 
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
 
