@@ -1,14 +1,16 @@
 #include <vtkSmartPointer.h>
+#include <vtkOrientationMarkerWidget.h>
+
 #include <vtkXMLPolyDataReader.h>
+#include <vtkSuperquadricSource.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
-#include <vtkOrientationMarkerWidget.h>
 #include <vtkDataSetMapper.h>
 #include <vtkProperty.h>
 #include <vtkActor.h>
 #include <vtkPolyDataMapper.h>
-#include <vtkSuperquadricSource.h>
+#include <vtkNamedColors.h>
 
 int main (int argc, char *argv[] )
 {
@@ -19,6 +21,9 @@ int main (int argc, char *argv[] )
               << " Filename(.vtp)" << std::endl;
     return EXIT_FAILURE;
   }
+
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 
   // Read the polydata for the icon
   vtkSmartPointer<vtkXMLPolyDataReader> reader =
@@ -32,11 +37,12 @@ int main (int argc, char *argv[] )
   vtkSmartPointer<vtkActor> iconActor =
     vtkSmartPointer<vtkActor>::New();
   iconActor->SetMapper(iconMapper);
+  iconActor->GetProperty()->SetColor(colors->GetColor3d("Silver").GetData());
 
   // Set up the renderer, window, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
-  renderer->SetBackground( 0.0980, 0.0980, 0.4392 );
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -50,10 +56,12 @@ int main (int argc, char *argv[] )
   // Set up the widget
   vtkSmartPointer<vtkOrientationMarkerWidget> widget =
     vtkSmartPointer<vtkOrientationMarkerWidget>::New();
-  widget->SetOutlineColor( 0.9300, 0.5700, 0.1300 );
   widget->SetOrientationMarker( iconActor );
   widget->SetInteractor( iren );
   widget->SetViewport( 0.0, 0.0, 0.2, 0.2 );
+  widget->SetOutlineColor(colors->GetColor3d("Wheat").GetRed(),
+                          colors->GetColor3d("Wheat").GetGreen(),
+                          colors->GetColor3d("Wheat").GetBlue());
   widget->SetEnabled( 1 );
   widget->InteractiveOn();
 
@@ -72,7 +80,7 @@ int main (int argc, char *argv[] )
     vtkSmartPointer<vtkActor>::New();
   superquadricActor->SetMapper(superquadricMapper);
   superquadricActor->GetProperty()->SetInterpolationToFlat();
-  superquadricActor->GetProperty()->SetDiffuseColor(0.93, 0.57, 0.13);
+  superquadricActor->GetProperty()->SetDiffuseColor(colors->GetColor3d("Carrot").GetData());
   superquadricActor->GetProperty()->SetSpecularColor(1.0, 1.0, 1.0);
   superquadricActor->GetProperty()->SetDiffuse(.6);
   superquadricActor->GetProperty()->SetSpecular(.5);
