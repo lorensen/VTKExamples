@@ -16051,31 +16051,31 @@ function registerListener(event, func) {
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ReadUnknownTypeXMLFile.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLGenericDataObjectReader.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkUnstructuredGrid.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkXMLGenericDataObjectReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
   <span class="c1">// Ensure a filename was specified</span>
   <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
   <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Required arguments: InputFilename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; InputFilename&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
-
-  <span class="c1">// Get the filename from the command line</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">inputFilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
   <span class="c1">// Get all data from the file</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLGenericDataObjectReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLGenericDataObjectReader</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">inputFilename</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+  <span class="n">reader</span><span class="o">-&gt;</span><span class="n">SetFileName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
   <span class="n">reader</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
 
   <span class="c1">// All of the standard data types can be checked and obtained like this:</span>
@@ -16089,6 +16089,8 @@ function registerListener(event, func) {
   <span class="p">}</span>
 
   <span class="c1">// Visualize</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;</span> <span class="n">mapper</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkDataSetMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">reader</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
@@ -16096,6 +16098,7 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Moccasin&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -16107,8 +16110,9 @@ function registerListener(event, func) {
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.3</span><span class="p">);</span> <span class="c1">// Background color green</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;SlateGray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
+  <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">SetSize</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">);</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
 
