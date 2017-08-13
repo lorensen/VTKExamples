@@ -16051,16 +16051,18 @@ function registerListener(event, func) {
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>OrientationMarkerWidget.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkOrientationMarkerWidget.h&gt;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkSuperquadricSource.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkOrientationMarkerWidget.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkDataSetMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSuperquadricSource.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]</span> <span class="p">)</span>
 <span class="p">{</span>
@@ -16071,6 +16073,9 @@ function registerListener(event, func) {
               <span class="o">&lt;&lt;</span> <span class="s">&quot; Filename(.vtp)&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
   <span class="p">}</span>
+
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 
   <span class="c1">// Read the polydata for the icon</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkXMLPolyDataReader</span><span class="o">&gt;</span> <span class="n">reader</span> <span class="o">=</span>
@@ -16084,11 +16089,12 @@ function registerListener(event, func) {
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">iconActor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">iconActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">iconMapper</span><span class="p">);</span>
+  <span class="n">iconActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Silver&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Set up the renderer, window, and interactor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span> <span class="mf">0.0980</span><span class="p">,</span> <span class="mf">0.0980</span><span class="p">,</span> <span class="mf">0.4392</span> <span class="p">);</span>
+  <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;SlateGray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
@@ -16102,10 +16108,12 @@ function registerListener(event, func) {
   <span class="c1">// Set up the widget</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOrientationMarkerWidget</span><span class="o">&gt;</span> <span class="n">widget</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkOrientationMarkerWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetOutlineColor</span><span class="p">(</span> <span class="mf">0.9300</span><span class="p">,</span> <span class="mf">0.5700</span><span class="p">,</span> <span class="mf">0.1300</span> <span class="p">);</span>
   <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetOrientationMarker</span><span class="p">(</span> <span class="n">iconActor</span> <span class="p">);</span>
   <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span> <span class="n">iren</span> <span class="p">);</span>
   <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span> <span class="p">);</span>
+  <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetOutlineColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetRed</span><span class="p">(),</span>
+                          <span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetGreen</span><span class="p">(),</span>
+                          <span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Wheat&quot;</span><span class="p">).</span><span class="n">GetBlue</span><span class="p">());</span>
   <span class="n">widget</span><span class="o">-&gt;</span><span class="n">SetEnabled</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
   <span class="n">widget</span><span class="o">-&gt;</span><span class="n">InteractiveOn</span><span class="p">();</span>
 
@@ -16124,7 +16132,7 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">superquadricMapper</span><span class="p">);</span>
   <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetInterpolationToFlat</span><span class="p">();</span>
-  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.57</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">);</span>
+  <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Carrot&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
   <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecularColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
   <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">.6</span><span class="p">);</span>
   <span class="n">superquadricActor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
