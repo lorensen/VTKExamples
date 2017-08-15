@@ -5,5 +5,8 @@ vtkVRMLImporter imports multiple vtkActor models. Sometimes the vtkPolyData requ
 !!! warning
     vtkVRMLImporter files use a shininess between 0 and 1, while vtk's vtkProperty has a specular power between 0 and 128. The example corrects this if the specular power is <= 1.0.
 
+!!! warning
+    vtkVRMLImporter incorrectly creates a vtkLookupTable for colorPerVertex. This example converts the vtkLookupTable to vtkPointData.
+
 !!! tip
     [The Virtual Insect](http://alexei.nfshost.com/3d/virtual.html) website has lots of cool wrl models of insects.

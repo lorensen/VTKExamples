@@ -1,10 +1,12 @@
 #include <vtkSmartPointer.h>
 #include <vtkVRMLImporter.h>
 
+#include <vtkUnsignedCharArray.h>
 #include <vtkActor.h>
 #include <vtkActorCollection.h>
 #include <vtkCamera.h>
 #include <vtkMapper.h>
+#include <vtkLookupTable.h>
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
@@ -83,11 +85,30 @@ int main ( int argc, char *argv[])
       vtkSmartPointer<vtkPolyDataNormals> normals =
         vtkSmartPointer<vtkPolyDataNormals>::New();
       normals->SetInputData(dataSet);
+      normals->SplittingOff();
       normals->Update();
       mapper->SetInputData(normals->GetOutput());
     }
-  }
 
+    // If there is a lookup table, convert it to point data
+    vtkLookupTable *lut = vtkLookupTable::SafeDownCast(mapper->GetLookupTable());
+    if (lut && mapper->GetScalarVisibility())
+    {
+      vtkSmartPointer<vtkUnsignedCharArray> pc =
+        vtkSmartPointer<vtkUnsignedCharArray>::New();
+      pc->SetNumberOfComponents(4);
+      pc->SetNumberOfTuples(lut->GetNumberOfColors());
+      for (int t = 0; t < lut->GetNumberOfColors(); ++t)
+      {
+        double *lutc = lut->GetTableValue(t);
+        unsigned char lutuc[4];
+        lut->GetColorAsUnsignedChars(lutc, lutuc);
+        pc->SetTypedTuple(t, lutuc);
+      }
+      mapper->SetLookupTable(NULL);
+      mapper->GetInput()->GetPointData()->SetScalars(pc);
+    }
+  }
 
   renderer->ResetCamera();
   renderer->GetActiveCamera()->Azimuth(30);
