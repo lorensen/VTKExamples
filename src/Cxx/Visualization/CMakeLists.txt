@@ -57,6 +57,7 @@ SET(NEEDS_ARGS
   CurvedReformation
   DepthSortPolyData
   ExtrudePolyDataAlongLine
+  Glyph3DImage
   Glyph3DMapper
   HedgeHog
   NormalsDemo
@@ -107,6 +108,9 @@ if (SplineDrivenImageSlicer_LOADED)
   ADD_TEST(${KIT}-ExtrudePolyDataAlongLine ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestExtrudePolyDataAlongLine ${DATA}/a.vtp)
 endif()
+
+ADD_TEST(${KIT}-Glyph3DImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestGlyph3DImage ${DATA}/emote.jpg)
 
 ADD_TEST(${KIT}-Glyph3DMapper ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGlyph3DMapper -E 40)

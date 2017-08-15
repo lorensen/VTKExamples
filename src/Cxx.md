@@ -837,6 +837,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [Follower ](/Cxx/Visualization/Follower) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html#details) | Draw text that stays right side up.
 [Glyph2D ](/Cxx/Filtering/Glyph2D) | [vtkGlyph2D](http://www.vtk.org/doc/nightly/html/classvtkGlyph2D.html#details)|
 [Glyph3D ](/Cxx/Filtering/Glyph3D) | [vtkGlyph3D](http://www.vtk.org/doc/nightly/html/classvtkGlyph3D.html#details)|
+[Glyph3DImage](/Cxx/Visualization/Glyph3DImage)| [vtkGlyph3DMapper](http://www.vtk.org/doc/nightly/html/classvtkGlyph3DMapper.html#details) | Glyph the points in a vtkImageData.
 [Glyph3DMapper](/Cxx/Visualization/Glyph3DMapper)| [vtkGlyph3DMapper](http://www.vtk.org/doc/nightly/html/classvtkGlyph3DMapper.html#details) |
 [HedgeHog](/Cxx/Visualization/HedgeHog)| [vtkHedgeHog](http://www.vtk.org/doc/nightly/html/classvtkHedgeHog.html#details) [vtkStructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkStructuredGrid.html#details) |Create oriented lines (hedgehogs) from vector data.
 [Hide an actor](/Cxx/Visualization/HideActor)| [vtkPropCollection](http://www.vtk.org/doc/nightly/html/classvtkPropCollection.html#details) [vtkProp](http://www.vtk.org/doc/nightly/html/classvtkProp.html#details) | visible
