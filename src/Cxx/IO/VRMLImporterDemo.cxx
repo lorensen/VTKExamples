@@ -71,42 +71,46 @@ int main ( int argc, char *argv[])
     {
       actor->GetProperty()->SetSpecular(1.0);
     }
-
     // The VRML default ambient intensity is .2
     double ambientIntensity = actor->GetProperty()->GetAmbient();
+#if 0
     if (ambientIntensity == 0.0)
     {
       actor->GetProperty()->SetAmbient(.2);
     }
+#endif
     vtkPolyDataMapper *mapper = vtkPolyDataMapper::SafeDownCast(actor->GetMapper());
-    vtkPolyData *dataSet = vtkPolyData::SafeDownCast(mapper->GetInput());
-    if (!dataSet->GetPointData()->GetNormals())
+    if (mapper)
     {
-      vtkSmartPointer<vtkPolyDataNormals> normals =
-        vtkSmartPointer<vtkPolyDataNormals>::New();
-      normals->SetInputData(dataSet);
-      normals->SplittingOff();
-      normals->Update();
-      mapper->SetInputData(normals->GetOutput());
-    }
-
-    // If there is a lookup table, convert it to point data
-    vtkLookupTable *lut = vtkLookupTable::SafeDownCast(mapper->GetLookupTable());
-    if (lut && mapper->GetScalarVisibility())
-    {
-      vtkSmartPointer<vtkUnsignedCharArray> pc =
-        vtkSmartPointer<vtkUnsignedCharArray>::New();
-      pc->SetNumberOfComponents(4);
-      pc->SetNumberOfTuples(lut->GetNumberOfColors());
-      for (int t = 0; t < lut->GetNumberOfColors(); ++t)
+      vtkPolyData *dataSet = vtkPolyData::SafeDownCast(mapper->GetInput());
+      if (!dataSet->GetPointData()->GetNormals())
       {
-        double *lutc = lut->GetTableValue(t);
-        unsigned char lutuc[4];
-        lut->GetColorAsUnsignedChars(lutc, lutuc);
-        pc->SetTypedTuple(t, lutuc);
+        vtkSmartPointer<vtkPolyDataNormals> normals =
+          vtkSmartPointer<vtkPolyDataNormals>::New();
+        normals->SetInputData(dataSet);
+        normals->SplittingOff();
+        normals->Update();
+        mapper->SetInputData(normals->GetOutput());
       }
-      mapper->SetLookupTable(NULL);
-      mapper->GetInput()->GetPointData()->SetScalars(pc);
+
+      // If there is a lookup table, convert it to point data
+      vtkLookupTable *lut = vtkLookupTable::SafeDownCast(mapper->GetLookupTable());
+      if (lut && mapper->GetScalarVisibility())
+      {
+        vtkSmartPointer<vtkUnsignedCharArray> pc =
+          vtkSmartPointer<vtkUnsignedCharArray>::New();
+        pc->SetNumberOfComponents(4);
+        pc->SetNumberOfTuples(lut->GetNumberOfColors());
+        for (int t = 0; t < lut->GetNumberOfColors(); ++t)
+        {
+          double *lutc = lut->GetTableValue(t);
+          unsigned char lutuc[4];
+          lut->GetColorAsUnsignedChars(lutc, lutuc);
+          pc->SetTypedTuple(t, lutuc);
+        }
+        mapper->SetLookupTable(NULL);
+        mapper->GetInput()->GetPointData()->SetScalars(pc);
+      }
     }
   }
 
