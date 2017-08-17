@@ -16147,42 +16147,46 @@ function registerListener(event, func) {
     <span class="p">{</span>
       <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetSpecular</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
     <span class="p">}</span>
-
     <span class="c1">// The VRML default ambient intensity is .2</span>
     <span class="kt">double</span> <span class="n">ambientIntensity</span> <span class="o">=</span> <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetAmbient</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">ambientIntensity</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetAmbient</span><span class="p">(</span><span class="mf">.2</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="cp">#if 0</span><span class="c"></span>
+<span class="c">    if (ambientIntensity == 0.0)</span>
+<span class="c">    {</span>
+<span class="c">      actor-&gt;GetProperty()-&gt;SetAmbient(.2);</span>
+<span class="c">    }</span>
+<span class="cp">#endif</span>
     <span class="n">vtkPolyDataMapper</span> <span class="o">*</span><span class="n">mapper</span> <span class="o">=</span> <span class="n">vtkPolyDataMapper</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetMapper</span><span class="p">());</span>
-    <span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">dataSet</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">());</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">())</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
     <span class="p">{</span>
-      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
-        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-      <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
-      <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SplittingOff</span><span class="p">();</span>
-      <span class="n">normals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
-      <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
-    <span class="p">}</span>
-
-    <span class="c1">// If there is a lookup table, convert it to point data</span>
-    <span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut</span> <span class="o">=</span> <span class="n">vtkLookupTable</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetLookupTable</span><span class="p">());</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">lut</span> <span class="o">&amp;&amp;</span> <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetScalarVisibility</span><span class="p">())</span>
-    <span class="p">{</span>
-      <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;</span> <span class="n">pc</span> <span class="o">=</span>
-        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-      <span class="n">pc</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
-      <span class="n">pc</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfColors</span><span class="p">());</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfColors</span><span class="p">();</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span>
+      <span class="n">vtkPolyData</span> <span class="o">*</span><span class="n">dataSet</span> <span class="o">=</span> <span class="n">vtkPolyData</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">());</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">dataSet</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNormals</span><span class="p">())</span>
       <span class="p">{</span>
-        <span class="kt">double</span> <span class="o">*</span><span class="n">lutc</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
-        <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">lutuc</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-        <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetColorAsUnsignedChars</span><span class="p">(</span><span class="n">lutc</span><span class="p">,</span> <span class="n">lutuc</span><span class="p">);</span>
-        <span class="n">pc</span><span class="o">-&gt;</span><span class="n">SetTypedTuple</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">lutuc</span><span class="p">);</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
+          <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">dataSet</span><span class="p">);</span>
+        <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SplittingOff</span><span class="p">();</span>
+        <span class="n">normals</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+        <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">normals</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
       <span class="p">}</span>
-      <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-      <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">pc</span><span class="p">);</span>
+
+      <span class="c1">// If there is a lookup table, convert it to point data</span>
+      <span class="n">vtkLookupTable</span> <span class="o">*</span><span class="n">lut</span> <span class="o">=</span> <span class="n">vtkLookupTable</span><span class="o">::</span><span class="n">SafeDownCast</span><span class="p">(</span><span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetLookupTable</span><span class="p">());</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">lut</span> <span class="o">&amp;&amp;</span> <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetScalarVisibility</span><span class="p">())</span>
+      <span class="p">{</span>
+        <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;</span> <span class="n">pc</span> <span class="o">=</span>
+          <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkUnsignedCharArray</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+        <span class="n">pc</span><span class="o">-&gt;</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+        <span class="n">pc</span><span class="o">-&gt;</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfColors</span><span class="p">());</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetNumberOfColors</span><span class="p">();</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span>
+        <span class="p">{</span>
+          <span class="kt">double</span> <span class="o">*</span><span class="n">lutc</span> <span class="o">=</span> <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetTableValue</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+          <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">lutuc</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+          <span class="n">lut</span><span class="o">-&gt;</span><span class="n">GetColorAsUnsignedChars</span><span class="p">(</span><span class="n">lutc</span><span class="p">,</span> <span class="n">lutuc</span><span class="p">);</span>
+          <span class="n">pc</span><span class="o">-&gt;</span><span class="n">SetTypedTuple</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">lutuc</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">SetLookupTable</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">mapper</span><span class="o">-&gt;</span><span class="n">GetInput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">pc</span><span class="p">);</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
