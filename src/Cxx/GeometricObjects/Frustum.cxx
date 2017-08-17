@@ -21,6 +21,7 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkCamera> camera =
     vtkSmartPointer<vtkCamera>::New();
+  camera->SetClippingRange(.1, .4);
   double planesArray[24];
   
   camera->GetFrustumPlanes(1.0, planesArray);
