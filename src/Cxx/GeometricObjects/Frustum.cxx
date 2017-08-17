@@ -1,8 +1,10 @@
 #include <vtkSmartPointer.h>
 #include <vtkFrustumSource.h>
+#include <vtkShrinkPolyData.h>
 
 #include <vtkNamedColors.h>
 #include <vtkPolyData.h>
+#include <vtkProperty.h>
 #include <vtkCamera.h>
 #include <vtkPlanes.h>
 #include <vtkMapper.h>
@@ -14,7 +16,7 @@
 
 int main(int, char *[])
 {
-  vtkSmartPointer<vtkNamedColors> namedColors =
+  vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
   vtkSmartPointer<vtkCamera> camera =
@@ -31,17 +33,26 @@ int main(int, char *[])
     vtkSmartPointer<vtkFrustumSource>::New();
   frustumSource->ShowLinesOff();
   frustumSource->SetPlanes(planes);
-  frustumSource->Update();
 
-  vtkPolyData* frustum = frustumSource->GetOutput();
+  vtkSmartPointer<vtkShrinkPolyData> shrink =
+    vtkSmartPointer<vtkShrinkPolyData>::New();
+  shrink->SetInputConnection(frustumSource->GetOutputPort());
+  shrink->SetShrinkFactor(.9);
 
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
-  mapper->SetInputData(frustum);
+  mapper->SetInputConnection(shrink->GetOutputPort());
+
+  vtkSmartPointer<vtkProperty> back =
+    vtkSmartPointer<vtkProperty>::New();
+  back->SetColor(colors->GetColor3d("Tomato").GetData());
 
   vtkSmartPointer<vtkActor> actor =
     vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->GetProperty()->EdgeVisibilityOn();
+  actor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  actor->SetBackfaceProperty(back);
   
   // a renderer and render window
   vtkSmartPointer<vtkRenderer> renderer =
@@ -57,7 +68,7 @@ int main(int, char *[])
 
   // add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(namedColors->GetColor3d("BurlyWood").GetData());
+  renderer->SetBackground(colors->GetColor3d("Silver").GetData());
 
   // Position the camera so that we can see the frustum
   renderer->GetActiveCamera()->SetPosition(1, 0, 0);
