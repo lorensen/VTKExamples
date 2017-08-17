@@ -16085,6 +16085,7 @@ function registerListener(event, func) {
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">camera</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">camera</span><span class="o">-&gt;</span><span class="n">SetClippingRange</span><span class="p">(</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.4</span><span class="p">);</span>
   <span class="kt">double</span> <span class="n">planesArray</span><span class="p">[</span><span class="mi">24</span><span class="p">];</span>
 
   <span class="n">camera</span><span class="o">-&gt;</span><span class="n">GetFrustumPlanes</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">planesArray</span><span class="p">);</span>
