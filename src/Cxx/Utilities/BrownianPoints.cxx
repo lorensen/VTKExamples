@@ -14,6 +14,8 @@
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
 
+#include <vtkNamedColors.h>
+
 int main(int, char *[])
 {
   // Create a sphere
@@ -42,6 +44,7 @@ int main(int, char *[])
   
   vtkSmartPointer<vtkActor> actor = 
     vtkSmartPointer<vtkActor>::New();
+  actor->GetProperty()->EdgeVisibilityOn();
   actor->GetProperty()->SetInterpolationToFlat();
   actor->SetMapper(mapper);
 
@@ -50,9 +53,12 @@ int main(int, char *[])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   glyphMapper->SetInputConnection(glyph3D->GetOutputPort());
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkActor> glyphActor =
     vtkSmartPointer<vtkActor>::New();
-  glyphActor->GetProperty()->SetColor(0.89,0.81,0.34); // banana
+  glyphActor->GetProperty()->SetColor(colors->GetColor3d("banana").GetData());
   glyphActor->SetMapper(glyphMapper);
 
   //Create a renderer, render window, and interactor
@@ -76,9 +82,10 @@ int main(int, char *[])
   renderer->GetActiveCamera()->Dolly(1.4);
   renderer->ResetCameraClippingRange();
 
-  renderer->SetBackground(.3, .4, .5);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
   
   //Render and interact
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
 
