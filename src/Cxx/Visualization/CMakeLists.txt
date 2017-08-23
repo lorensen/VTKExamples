@@ -57,6 +57,7 @@ SET(NEEDS_ARGS
   CurvedReformation
   DepthSortPolyData
   ExtrudePolyDataAlongLine
+  FontFile
   Glyph3DImage
   Glyph3DMapper
   HedgeHog
@@ -108,6 +109,9 @@ if (SplineDrivenImageSlicer_LOADED)
   ADD_TEST(${KIT}-ExtrudePolyDataAlongLine ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
     TestExtrudePolyDataAlongLine ${DATA}/a.vtp)
 endif()
+
+ADD_TEST(${KIT}-FontFile ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestFontFile ${DATA}/CopyPaste.ttf)
 
 ADD_TEST(${KIT}-Glyph3DImage ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestGlyph3DImage ${DATA}/emote.jpg)
