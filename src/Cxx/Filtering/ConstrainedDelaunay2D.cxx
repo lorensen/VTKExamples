@@ -1,4 +1,6 @@
-#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
+#include <vtkDelaunay2D.h>
+
 #include <vtkCellArray.h>
 #include <vtkProperty.h>
 #include <vtkPolyDataMapper.h>
@@ -6,12 +8,11 @@
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 #include <vtkPolygon.h>
-#include <vtkSmartPointer.h>
-#include <vtkDelaunay2D.h>
 #include <vtkMath.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -63,26 +64,23 @@ int main(int, char *[])
   // Triangulate the grid points
   vtkSmartPointer<vtkDelaunay2D> delaunay =
    vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  delaunay->SetInput(aPolyData);
-  delaunay->SetSource(boundary);
-#else
   delaunay->SetInputData(aPolyData);
   delaunay->SetSourceData(boundary);
-#endif
-  delaunay->Update();
 
   // Visualize
   vtkSmartPointer<vtkPolyDataMapper> meshMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   meshMapper->SetInputConnection(delaunay->GetOutputPort());
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkActor> meshActor =
     vtkSmartPointer<vtkActor>::New();
   meshActor->SetMapper(meshMapper);
-  //meshActor->GetProperty()->SetEdgeColor(0,0,1); // Why aren't the edges aren't visible unless we set the representation to wireframe?
-  //meshActor->GetProperty()->SetInterpolationToFlat();
-  meshActor->GetProperty()->SetRepresentationToWireframe();
+  meshActor->GetProperty()->EdgeVisibilityOn();
+  meshActor->GetProperty()->SetEdgeColor(colors->GetColor3d("Peacock").GetData());
+  meshActor->GetProperty()->SetInterpolationToFlat();
 
   vtkSmartPointer<vtkPolyDataMapper> boundaryMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -95,7 +93,11 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> boundaryActor =
     vtkSmartPointer<vtkActor>::New();
   boundaryActor->SetMapper(boundaryMapper);
-  boundaryActor->GetProperty()->SetColor(1,0,0);
+  boundaryActor->GetProperty()->SetColor(colors->GetColor3d("Raspberry").GetData());
+  boundaryActor->GetProperty()->SetLineWidth(3);
+  boundaryActor->GetProperty()->EdgeVisibilityOn();
+  boundaryActor->GetProperty()->SetEdgeColor(1,0,0);
+  boundaryActor->GetProperty()->SetRepresentationToWireframe();
 
   // Create a renderer, render window, and interactor
   vtkSmartPointer<vtkRenderer> renderer =
@@ -110,9 +112,10 @@ int main(int, char *[])
   // Add the actor to the scene
   renderer->AddActor(meshActor);
   renderer->AddActor(boundaryActor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(colors->GetColor3d("Mint").GetData());
 
   // Render and interact
+  renderWindow->SetSize(640, 480);
   renderWindow->Render();
   renderWindowInteractor->Start();
 
