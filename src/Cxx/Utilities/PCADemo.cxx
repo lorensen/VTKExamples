@@ -1,14 +1,12 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkPCAStatistics.h>
+
 #include <vtkLine.h>
 #include <vtkLineSource.h>
 #include <vtkTransform.h>
 #include <vtkVertexGlyphFilter.h>
 #include <vtkMath.h>
 #include <vtkDoubleArray.h>
-#include <vtkMultiBlockDataSet.h>
-#include <vtkPCAStatistics.h>
-#include <vtkStringArray.h>
 #include <vtkTable.h>
 #include <vtkTransformPolyDataFilter.h>
 #include <vtkActor.h>
@@ -20,6 +18,8 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkVertexGlyphFilter.h>
+
+#include <vtkNamedColors.h>
 
 int main(int, char*[])
 {
@@ -44,11 +44,7 @@ int main(int, char*[])
   vtkSmartPointer<vtkTransformPolyDataFilter> transformFilter =
     vtkSmartPointer<vtkTransformPolyDataFilter>::New();
   transformFilter->SetTransform(transform);
-#if VTK_MAJOR_VERSION <= 5
-  transformFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   transformFilter->SetInputData(polydata);
-#endif
   transformFilter->Update();
 
   // These would be all of your "x" values.
@@ -78,11 +74,7 @@ int main(int, char*[])
 
   vtkSmartPointer<vtkPCAStatistics> pcaStatistics =
     vtkSmartPointer<vtkPCAStatistics>::New();
-#if VTK_MAJOR_VERSION <= 5
-  pcaStatistics->SetInput( vtkStatisticsAlgorithm::INPUT_DATA, datasetTable );
-#else
   pcaStatistics->SetInputData( vtkStatisticsAlgorithm::INPUT_DATA, datasetTable );
-#endif
 
   pcaStatistics->SetColumnStatus("x", 1 );
   pcaStatistics->SetColumnStatus("y", 1 );
@@ -124,10 +116,13 @@ int main(int, char*[])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   vec1Mapper->SetInputConnection(vector1Source->GetOutputPort());
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkActor> vector1Actor =
     vtkSmartPointer<vtkActor>::New();
   vector1Actor->SetMapper(vec1Mapper);
-  vector1Actor->GetProperty()->SetColor(0,1,0);
+  vector1Actor->GetProperty()->SetColor(colors->GetColor3d("LimeGreen").GetData());
   vector1Actor->GetProperty()->SetLineWidth(3);
 
   vtkSmartPointer<vtkLineSource> vector2Source =
@@ -143,7 +138,7 @@ int main(int, char*[])
   vtkSmartPointer<vtkActor> vector2Actor =
     vtkSmartPointer<vtkActor>::New();
   vector2Actor->SetMapper(vec2Mapper);
-  vector2Actor->GetProperty()->SetColor(1,0,0);
+  vector2Actor->GetProperty()->SetColor(colors->GetColor3d("Crimson").GetData());
   vector2Actor->GetProperty()->SetLineWidth(3);
 
   // Project all of the points onto the eigenvector with
@@ -179,11 +174,7 @@ int main(int, char*[])
 
   vtkSmartPointer<vtkVertexGlyphFilter> projectedGlyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  projectedGlyphFilter->SetInputConnection(projectedPolyData->GetProducerPort());
-#else
   projectedGlyphFilter->SetInputData(projectedPolyData);
-#endif
   projectedGlyphFilter->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> projectedMapper =
@@ -214,13 +205,13 @@ int main(int, char*[])
     vtkSmartPointer<vtkRenderer>::New();
   renderWindow->AddRenderer(leftRenderer);
   leftRenderer->SetViewport(leftViewport);
-  leftRenderer->SetBackground(.6, .5, .4);
+  leftRenderer->SetBackground(colors->GetColor3d("burlywood").GetData());
 
   vtkSmartPointer<vtkRenderer> rightRenderer =
     vtkSmartPointer<vtkRenderer>::New();
   renderWindow->AddRenderer(rightRenderer);
   rightRenderer->SetViewport(rightViewport);
-  rightRenderer->SetBackground(.4, .5, .6);
+  rightRenderer->SetBackground(colors->GetColor3d("slate_grey").GetData());
 
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
