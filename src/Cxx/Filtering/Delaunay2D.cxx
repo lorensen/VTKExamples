@@ -1,4 +1,6 @@
-#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
+#include <vtkDelaunay2D.h>
+
 #include <vtkCellArray.h>
 #include <vtkPoints.h>
 #include <vtkTriangle.h>
@@ -6,8 +8,6 @@
 #include <vtkPointData.h>
 #include <vtkLine.h>
 #include <vtkCellLocator.h>
-#include <vtkSmartPointer.h>
-#include <vtkDelaunay2D.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkRenderer.h>
@@ -15,6 +15,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkProperty.h>
 #include <vtkVertexGlyphFilter.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -40,14 +41,12 @@ int main(int, char *[])
   // Triangulate the grid points
   vtkSmartPointer<vtkDelaunay2D> delaunay =
   vtkSmartPointer<vtkDelaunay2D>::New();
-#if VTK_MAJOR_VERSION <= 5
-  delaunay->SetInput(polydata);
-#else
   delaunay->SetInputData(polydata);
-#endif
-  delaunay->Update();
 
   // Visualize
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> meshMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   meshMapper->SetInputConnection(delaunay->GetOutputPort());
@@ -55,15 +54,12 @@ int main(int, char *[])
   vtkSmartPointer<vtkActor> meshActor =
     vtkSmartPointer<vtkActor>::New();
   meshActor->SetMapper(meshMapper);
+  meshActor->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
+  meshActor->GetProperty()->EdgeVisibilityOn();
 
   vtkSmartPointer<vtkVertexGlyphFilter> glyphFilter =
     vtkSmartPointer<vtkVertexGlyphFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  glyphFilter->SetInputConnection(polydata->GetProducerPort());
-#else
   glyphFilter->SetInputData(polydata);
-#endif
-  glyphFilter->Update();
 
   vtkSmartPointer<vtkPolyDataMapper> pointMapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -71,8 +67,8 @@ int main(int, char *[])
 
   vtkSmartPointer<vtkActor> pointActor =
     vtkSmartPointer<vtkActor>::New();
-  pointActor->GetProperty()->SetColor(1,0,0);
-  pointActor->GetProperty()->SetPointSize(3);
+  pointActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
+  pointActor->GetProperty()->SetPointSize(5);
   pointActor->SetMapper(pointMapper);
 
   vtkSmartPointer<vtkRenderer> renderer =
@@ -86,7 +82,7 @@ int main(int, char *[])
 
   renderer->AddActor(meshActor);
   renderer->AddActor(pointActor);
-  renderer->SetBackground(.3, .6, .3); // Background color green
+  renderer->SetBackground(colors->GetColor3d("Mint").GetData());
 
   renderWindow->Render();
   renderWindowInteractor->Start();

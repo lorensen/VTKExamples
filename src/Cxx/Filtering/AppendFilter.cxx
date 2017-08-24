@@ -1,8 +1,7 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkAppendFilter.h>
 
 #include <vtkActor.h>
-#include <vtkAppendFilter.h>
 #include <vtkDataSetMapper.h>
 #include <vtkPointSource.h>
 #include <vtkPoints.h>
@@ -12,6 +11,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkUnstructuredGrid.h>
+#include <vtkNamedColors.h>
 
 int main(int, char *[])
 {
@@ -43,13 +43,8 @@ int main(int, char *[])
   // Combine the two data sets
   vtkSmartPointer<vtkAppendFilter> appendFilter =
     vtkSmartPointer<vtkAppendFilter>::New();
-#if VTK_MAJOR_VERSION <= 5
-  appendFilter->AddInput(polydata);
-  appendFilter->AddInput(ug);
-#else
   appendFilter->AddInputData(polydata);
   appendFilter->AddInputData(ug);
-#endif
   appendFilter->Update();
 
   vtkSmartPointer<vtkUnstructuredGrid> combined =
@@ -58,6 +53,9 @@ int main(int, char *[])
             << " points combined." << std::endl;
 
   // Create a mapper and actor
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkDataSetMapper> mapper =
     vtkSmartPointer<vtkDataSetMapper>::New();
   mapper->SetInputConnection(appendFilter->GetOutputPort());
@@ -79,7 +77,7 @@ int main(int, char *[])
 
   // Add the actor to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.2, .3, .4);
+  renderer->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   // Render and interact
   renderWindow->Render();

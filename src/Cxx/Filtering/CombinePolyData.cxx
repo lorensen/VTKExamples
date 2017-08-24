@@ -1,16 +1,17 @@
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
+#include <vtkAppendPolyData.h>
+
 #include <vtkPolyData.h>
 #include <vtkSphereSource.h>
 #include <vtkConeSource.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkCleanPolyData.h>
-#include <vtkAppendPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkActor.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkNamedColors.h>
 
 int main(int argc, char *argv[])
 {
@@ -60,14 +61,8 @@ int main(int argc, char *argv[])
   //Append the two meshes
   vtkSmartPointer<vtkAppendPolyData> appendFilter =
     vtkSmartPointer<vtkAppendPolyData>::New();
-#if VTK_MAJOR_VERSION <= 5
-  appendFilter->AddInputConnection(input1->GetProducerPort());
-  appendFilter->AddInputConnection(input2->GetProducerPort());
-#else
   appendFilter->AddInputData(input1);
   appendFilter->AddInputData(input2);
-#endif
-  appendFilter->Update();
 
   // Remove any duplicate points.
   vtkSmartPointer<vtkCleanPolyData> cleanFilter =
@@ -76,6 +71,9 @@ int main(int argc, char *argv[])
   cleanFilter->Update();
 
   //Create a mapper and actor
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
   mapper->SetInputConnection(cleanFilter->GetOutputPort());
@@ -96,7 +94,7 @@ int main(int argc, char *argv[])
 
   //Add the actors to the scene
   renderer->AddActor(actor);
-  renderer->SetBackground(.3, .2, .1); // Background color dark red
+  renderer->SetBackground(colors->GetColor3d("Crimson").GetData());
 
   //Render and interact
   renderWindow->Render();
