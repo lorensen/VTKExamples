@@ -16068,6 +16068,8 @@ function registerListener(event, func) {
                   <h1>AngleWidget2D</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Widgets/AngleWidget2D</p>
+<p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Widgets/TestAngleWidget2D.png?raw=true" width="256" />
+<hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>The arc is still visible?</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
@@ -16097,21 +16099,30 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindowInteractor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="n">renderWindow</span><span class="p">);</span>
 
+  <span class="kt">double</span> <span class="n">pos1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">pos2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">200.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+  <span class="kt">double</span> <span class="n">center</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAngleRepresentation2D</span><span class="o">&gt;</span> <span class="n">rep</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAngleRepresentation2D</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">rep</span><span class="o">-&gt;</span><span class="n">ArcVisibilityOff</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAngleWidget</span><span class="o">&gt;</span> <span class="n">angleWidget</span> <span class="o">=</span> 
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkAngleWidget</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">angleWidget</span><span class="o">-&gt;</span><span class="n">CreateDefaultRepresentation</span><span class="p">();</span>
   <span class="n">angleWidget</span><span class="o">-&gt;</span><span class="n">SetRepresentation</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span>
   <span class="n">angleWidget</span><span class="o">-&gt;</span><span class="n">SetInteractor</span><span class="p">(</span><span class="n">renderWindowInteractor</span><span class="p">);</span>
-  <span class="n">angleWidget</span><span class="o">-&gt;</span><span class="n">CreateDefaultRepresentation</span><span class="p">();</span>
 
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
 
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span>
   <span class="n">renderWindow</span><span class="o">-&gt;</span><span class="n">Render</span><span class="p">();</span>
   <span class="n">angleWidget</span><span class="o">-&gt;</span><span class="n">On</span><span class="p">();</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetPoint1DisplayPosition</span><span class="p">(</span><span class="n">pos1</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetPoint2DisplayPosition</span><span class="p">(</span><span class="n">pos2</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">SetCenterDisplayPosition</span><span class="p">(</span><span class="n">center</span><span class="p">);</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">Ray1VisibilityOn</span><span class="p">();</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">Ray2VisibilityOn</span><span class="p">();</span>
+  <span class="n">rep</span><span class="o">-&gt;</span><span class="n">ArcVisibilityOn</span><span class="p">();</span>
 
   <span class="c1">// Begin mouse interaction</span>
   <span class="n">renderWindowInteractor</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
