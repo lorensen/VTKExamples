@@ -16058,10 +16058,10 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>ImageImport.cxx</strong></p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkImageImport.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vtkImageData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
@@ -16101,11 +16101,7 @@ function registerListener(event, func) {
   <span class="c1">// Create an actor</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkImageActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-<span class="cp">#if VTK_MAJOR_VERSION &lt;= 5</span>
-  <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetInput</span><span class="p">(</span><span class="n">imageImport</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
-<span class="cp">#else</span>
   <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">imageImport</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">());</span>
-<span class="cp">#endif</span>
 
   <span class="c1">// Setup renderer</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">renderer</span> <span class="o">=</span>
