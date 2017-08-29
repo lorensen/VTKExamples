@@ -1,7 +1,7 @@
-#include <vtkVersion.h>
-#include <vtkImageData.h>
 #include <vtkSmartPointer.h>
 #include <vtkImageImport.h>
+
+#include <vtkImageData.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
@@ -41,11 +41,7 @@ int main(int, char *[])
   // Create an actor
   vtkSmartPointer<vtkImageActor> actor =
     vtkSmartPointer<vtkImageActor>::New();
-#if VTK_MAJOR_VERSION <= 5
-  actor->SetInput(imageImport->GetOutput());
-#else
   actor->SetInputData(imageImport->GetOutput());
-#endif
 
   // Setup renderer
   vtkSmartPointer<vtkRenderer> renderer =
