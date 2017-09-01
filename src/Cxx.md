@@ -580,6 +580,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [Variant](/Cxx/Utilities/Variant) | [vtkVariant](http://www.vtk.org/doc/nightly/html/classvtkVariant.html#details) |Convert between data types.
 [Vector](/Cxx/Utilities/Vector) | [vtkVector](http://www.vtk.org/doc/nightly/html/classvtkVector.html#details) |Mathematical vector class.
 [VersionMacros](/Cxx/Utilities/VersionMacros) | Macro/#define's | Check VTK Version.
+[ViewportBorders](/Cxx/Utilities/ViewportBorders) | | Draw a border around each viewport.
 [VisualDebugging](/Cxx/Demos/VisualDebugging) | | Update the screen from inside an algorithm.
 [ZBuffer](/Cxx/Utilities/ZBuffer) | [vtkRenderer](http://www.vtk.org/doc/nightly/html/classvtkRenderer.html#details) | zbuffer.
 

@@ -34,10 +34,14 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Utilities)
 SET(NEEDS_ARGS
+  ViewportBorders
   ZBuffer
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 SET(TEMP ${WikiExamples_BINARY_DIR}/Testing/Temporary)
+
+ADD_TEST(${KIT}-ViewportBorders ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestViewportBorders ${DATA}/v.vtk ${DATA}/t.vtk ${DATA}/k.vtk)
 
 ADD_TEST(${KIT}-ZBuffer ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestZBuffer ${DATA}/Bunny.vtp ${TEMP}/ZBuffer.bmp)
