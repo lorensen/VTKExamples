@@ -16088,6 +16088,7 @@ on.</p>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataNormals.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyData.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkCleanPolyData.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPolyDataMapper.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkProperty.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkActor.h&gt;</span><span class="cp"></span>
@@ -16095,6 +16096,8 @@ on.</p>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindow.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkColor.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vtkPLYReader.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkXMLPolyDataReader.h&gt;</span><span class="cp"></span>
@@ -16117,14 +16120,23 @@ on.</p>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">renderer</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
+  <span class="c1">// Create background colors for each viewport</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkColor3d</span><span class="o">&gt;</span> <span class="n">backgroundColors</span><span class="p">;</span>
+  <span class="n">backgroundColors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Cornsilk&quot;</span><span class="p">));</span>
+  <span class="n">backgroundColors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;NavajoWhite&quot;</span><span class="p">));</span>
+  <span class="n">backgroundColors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tan&quot;</span><span class="p">));</span>
+
   <span class="c1">// Create a renderer for each view port</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">ren</span><span class="p">;</span>
   <span class="n">ren</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
   <span class="n">ren</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
   <span class="n">ren</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">());</span>
-  <span class="n">ren</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Difference</span>
-  <span class="n">ren</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Union</span>
-  <span class="n">ren</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Intersection</span>
+  <span class="n">ren</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Input</span>
+  <span class="n">ren</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Normals (no split)</span>
+  <span class="n">ren</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetViewport</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// Normals (split)</span>
 
   <span class="c1">// Shared camera</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCamera</span><span class="o">&gt;</span> <span class="n">camera</span> <span class="o">=</span>
@@ -16133,7 +16145,7 @@ on.</p>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;</span> <span class="n">normals</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyDataNormals</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
-
+  <span class="n">normals</span><span class="o">-&gt;</span><span class="n">SetFeatureAngle</span><span class="p">(</span><span class="mf">30.0</span><span class="p">);</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
@@ -16166,9 +16178,17 @@ on.</p>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">actor</span> <span class="o">=</span> 
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
     <span class="n">actor</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">);</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span>
+      <span class="n">SetDiffuseColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Peacock&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span>
+      <span class="n">SetDiffuse</span><span class="p">(</span><span class="mf">.7</span><span class="p">);</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span>
+      <span class="n">SetSpecularPower</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+    <span class="n">actor</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span>
+      <span class="n">SetSpecular</span><span class="p">(</span><span class="mf">.5</span><span class="p">);</span>
 
     <span class="c1">// add the actor</span>
-    <span class="n">ren</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">);</span>
+    <span class="n">ren</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">backgroundColors</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetData</span><span class="p">());</span>
     <span class="n">ren</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">SetActiveCamera</span><span class="p">(</span><span class="n">camera</span><span class="p">);</span>
     <span class="n">ren</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
   <span class="p">}</span>
@@ -16261,8 +16281,11 @@ on.</p>
     <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
     <span class="n">polyData</span> <span class="o">=</span> <span class="n">sphere</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
   <span class="p">}</span>
-
-  <span class="k">return</span> <span class="n">polyData</span><span class="p">;</span>
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;</span> <span class="n">clean</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkCleanPolyData</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
+  <span class="n">clean</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
+  <span class="n">clean</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">clean</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 
