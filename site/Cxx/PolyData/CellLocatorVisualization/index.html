@@ -16083,8 +16083,11 @@ function registerListener(event, func) {
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/PolyData/TestCellLocatorVisualization.png?raw=true" width="256" />
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>The idea of this example is to navigate levels of a uniform spatial tree  <a href="http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html#details">vtkCellLocator</a>) using a slider.</p>
-<p><strong>Note:</strong> it is not desirable to have CellsPerBucket set "too small". This is because at some point, refining a bucket will result in each cell in that bucket to also be in the bucket's children.  This only wastes memory and computation.  The value that is "too small" is dependent on the grid but in general a value between 10 and 100 should work well (the default value is 25).</p>
+<p>The idea of this example is to navigate levels of a uniform spatial tree, <a href="http://www.vtk.org/doc/nightly/html/classvtkCellLocator.html#details">vtkCellLocator</a>, using a slider.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not desirable to have CellsPerBucket set "too small". This is because at some point, refining a bucket will result in each cell in that bucket to also be in the bucket's children.  This only wastes memory and computation.  The value that is "too small" is dependent on the grid but in general a value between 10 and 100 should work well (the default value is 25).</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>CellLocatorVisualization.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
