@@ -23,6 +23,7 @@ void ViewportBorder(vtkSmartPointer<vtkRenderer> &renderer,
                     double *color,
                     bool last = false);
 }
+
 int main (int argc, char *argv[])
 {
   // 
