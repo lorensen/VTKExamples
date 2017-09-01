@@ -3,6 +3,7 @@
 
 #include <vtkPolyDataNormals.h>
 #include <vtkPolyData.h>
+#include <vtkCleanPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkActor.h>
@@ -10,6 +11,8 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkColor.h>
+#include <vtkNamedColors.h>
 
 #include <vtkPLYReader.h>
 #include <vtkXMLPolyDataReader.h>
@@ -32,14 +35,23 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkRenderer>::New();
   renderer->SetBackground(1, 1, 1);
 
+  // Create background colors for each viewport
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  std::vector<vtkColor3d> backgroundColors;
+  backgroundColors.push_back(colors->GetColor3d("Cornsilk"));
+  backgroundColors.push_back(colors->GetColor3d("NavajoWhite"));
+  backgroundColors.push_back(colors->GetColor3d("Tan"));
+
   // Create a renderer for each view port
   std::vector<vtkSmartPointer<vtkRenderer> > ren;
   ren.push_back(vtkSmartPointer<vtkRenderer>::New());
   ren.push_back(vtkSmartPointer<vtkRenderer>::New());
   ren.push_back(vtkSmartPointer<vtkRenderer>::New());
-  ren[0]->SetViewport(0, 0, 1.0 / 3.0, 1);  // Difference
-  ren[1]->SetViewport(1.0 / 3.0, 0, 2.0 / 3.0, 1);  // Union
-  ren[2]->SetViewport(2.0 / 3.0, 0, 1, 1);  // Intersection
+  ren[0]->SetViewport(0, 0, 1.0 / 3.0, 1);  // Input
+  ren[1]->SetViewport(1.0 / 3.0, 0, 2.0 / 3.0, 1);  // Normals (no split)
+  ren[2]->SetViewport(2.0 / 3.0, 0, 1, 1);  // Normals (split)
 
   // Shared camera
   vtkSmartPointer<vtkCamera> camera =
@@ -48,7 +60,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkPolyDataNormals> normals =
     vtkSmartPointer<vtkPolyDataNormals>::New();
   normals->SetInputData(polyData);
-
+  normals->SetFeatureAngle(30.0);
   for (int i = 0; i < 3; ++i)
   {
     if (i == 0)
@@ -81,9 +93,17 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkActor> actor = 
       vtkSmartPointer<vtkActor>::New();
     actor->SetMapper(mapper);
+    actor->GetProperty()->
+      SetDiffuseColor(colors->GetColor3d("Peacock").GetData());
+    actor->GetProperty()->
+      SetDiffuse(.7);
+    actor->GetProperty()->
+      SetSpecularPower(20);
+    actor->GetProperty()->
+      SetSpecular(.5);
 
     // add the actor
-    ren[i]->SetBackground(.5, .5, .5);
+    ren[i]->SetBackground(backgroundColors[i].GetData());
     ren[i]->SetActiveCamera(camera);
     ren[i]->AddActor(actor);
   }
@@ -176,6 +196,9 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     sphere->Update();
     polyData = sphere->GetOutput();
   }
-
-  return polyData;
+  vtkSmartPointer<vtkCleanPolyData> clean =
+    vtkSmartPointer<vtkCleanPolyData>::New();
+  clean->SetInputData(polyData);
+  clean->Update();
+  return clean->GetOutput();
 }
