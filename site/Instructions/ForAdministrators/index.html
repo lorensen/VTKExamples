@@ -13362,9 +13362,36 @@ function registerListener(event, func) {
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ForAdministrators
+      </label>
+    
     <a href="./" title="ForAdministrators" class="md-nav__link md-nav__link--active">
       ForAdministrators
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vtkexamples" title="VTKExamples" class="md-nav__link">
+    VTKExamples
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -15983,6 +16010,20 @@ function registerListener(event, func) {
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vtkexamples" title="VTKExamples" class="md-nav__link">
+    VTKExamples
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -15994,10 +16035,66 @@ function registerListener(event, func) {
               
                 
                 
-                <p>Wiki Example Administrators have write access to the [https://github.com/lorensen/VTKWikiExamples.git git repository]. If you are a Wiki Example User <a href="../../Instructions/ForUsers">go here</a> or a Wiki Example Developer <a href="../../Instructions/ForDevelopers">go here</a>.</p>
-<h1 id="organization-of-the-example-repository">Organization of the Example Repository<a class="headerlink" href="#organization-of-the-example-repository" title="Permanent link">&para;</a></h1>
-<p>The wiki examples are stored in a <a href="https://github.com/lorensen/VTKExamples.git">git repository</a> hosted at <a href="http://www.github.com/">github.com</a>. The repository contains several types of files.</p>
+                <div class="admonition danger">
+<p class="admonition-title">Danger</p>
+</div>
+<p>This page is not complete</p>
+<p>VTKExamples Administrators have write access to the <a href="../[https://github.com/lorensen/VTKExamples">git repository</a>. If you are a VTKExamples User <a href="../../Instructions/ForUsers">go here</a> or a VTKExamples Developer <a href="../../Instructions/ForDevelopers">go here</a>.</p>
+<h1 id="organization-of-the-vtkexamples-repository">Organization of the VTKExamples Repository<a class="headerlink" href="#organization-of-the-vtkexamples-repository" title="Permanent link">&para;</a></h1>
+<p>The VTKExamples are stored in a <a href="https://github.com/lorensen/VTKExamples.git">git repository</a> hosted at <a href="http://www.github.com/">github.com</a>. The repository contains several types of files.</p>
+<p>All example source code, descriptions, test data and test baselines are stored in the src/ tree.</p>
+<h2 id="vtkexamples">VTKExamples<a class="headerlink" href="#vtkexamples" title="Permanent link">&para;</a></h2>
+<p>The major elements of the tree are:</p>
+<div class="codehilite"><pre><span></span><span class="p">|</span>-- VTKExamples
+  <span class="p">|</span>-- CMakeLists.txt
+  <span class="p">|</span>-- _layouts
+  <span class="p">|</span>-- custom_theme
+  <span class="p">|</span>-- mkdocs.yml
+  <span class="p">|</span>-- src
+    <span class="p">|</span>-- SyncSiteWithRepo.sh
+    <span class="p">|</span>-- Admin
+    <span class="p">|</span>   <span class="p">|</span>-- ScrapeRepo
+    <span class="p">|</span>   <span class="p">|</span>-- VTKCMakeLists
+    <span class="p">|</span>   <span class="p">|</span>-- VTKQtCMakeLists
+    <span class="p">|</span>   <span class="p">|</span>-- sitemap.xml
+    <span class="p">|</span>   <span class="p">|</span>-- sitemapGenerator
+    <span class="p">|</span>-- Artifacts
+    <span class="p">|</span>-- Instructions
+    <span class="p">|</span>-- LANGUAGE.md
+    <span class="p">|</span>-- LANGUAGE
+    <span class="p">|</span>   <span class="p">|</span>-- TOPIC
+    <span class="p">|</span>-- Tarballs
+    <span class="p">|</span>-- Testing
+    <span class="p">|</span>   <span class="p">|</span>-- Baseline
+    <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- LANGUAGE
+    <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- TOPIC
+    <span class="p">|</span>   <span class="p">|</span>-- Data
+    <span class="p">|</span>-- stylesheets
+        <span class="p">|</span>-- extra.css
+  <span class="p">|</span>-- site
+</pre></div>
+
+
+<h1 id="look-and-feel">Look and Feel<a class="headerlink" href="#look-and-feel" title="Permanent link">&para;</a></h1>
+<h2 id="mkdocs"><a href="http://www.mkdocs.org/">MkDocs</a><a class="headerlink" href="#mkdocs" title="Permanent link">&para;</a></h2>
+<h3 id="configuring-mkdocs">Configuring MkDocs<a class="headerlink" href="#configuring-mkdocs" title="Permanent link">&para;</a></h3>
+<h4 id="markdown-extensions">Markdown Extensions<a class="headerlink" href="#markdown-extensions" title="Permanent link">&para;</a></h4>
+<h5 id="admonition"><a href="http://squidfunk.github.io/mkdocs-material/extensions/admonition/">admonition</a><a class="headerlink" href="#admonition" title="Permanent link">&para;</a></h5>
+<h5 id="codehilite"><a href="http://squidfunk.github.io/mkdocs-material/extensions/codehilite/">codehilite</a><a class="headerlink" href="#codehilite" title="Permanent link">&para;</a></h5>
+<h5 id="toc">toc<a class="headerlink" href="#toc" title="Permanent link">&para;</a></h5>
+<h2 id="mkdocs-materials-theme"><a href="http://squidfunk.github.io/mkdocs-material/">MkDocs Materials theme</a><a class="headerlink" href="#mkdocs-materials-theme" title="Permanent link">&para;</a></h2>
+<h3 id="configuring-materiala">Configuring Materiala<a class="headerlink" href="#configuring-materiala" title="Permanent link">&para;</a></h3>
+<h2 id="google-analytics"><a href="https://analytics.google.com/">Google Analytics</a><a class="headerlink" href="#google-analytics" title="Permanent link">&para;</a></h2>
+<p>Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics ayatwm. After registarion, an html snippet is provided to incde on every web page to be tracked.</p>
+<h3 id="configuring-google-analytics">Configuring Google Analytics<a class="headerlink" href="#configuring-google-analytics" title="Permanent link">&para;</a></h3>
+<h2 id="google-custom-search-engine"><a href="https://analytics.google.com/">Google Custom Search Engine</a><a class="headerlink" href="#google-custom-search-engine" title="Permanent link">&para;</a></h2>
+<h3 id="configuring-gcse">Configuring GCSE<a class="headerlink" href="#configuring-gcse" title="Permanent link">&para;</a></h3>
+<h3 id="inplementating-gcse">Inplementating GCSE<a class="headerlink" href="#inplementating-gcse" title="Permanent link">&para;</a></h3>
+<h2 id="lazy-image-loading"><a href="https://davidwalsh.name/lazyload-image-fade">Lazy Image Loading</a><a class="headerlink" href="#lazy-image-loading" title="Permanent link">&para;</a></h2>
+<p>The first implementation had problems loading the <a href="../../Cxx">Cxx summary</a>. The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear on the browser window.</p>
 <h1 id="administrator-tasks">Administrator Tasks<a class="headerlink" href="#administrator-tasks" title="Permanent link">&para;</a></h1>
+<h2 id="scrapewiki"><a href="../../Admin/ScrapeRepo">ScrapeWiki</a><a class="headerlink" href="#scrapewiki" title="Permanent link">&para;</a></h2>
+<p><img alt="alt text" src="https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png" title="ScrapeRepo" /></p>
                 
                   
                 
