@@ -72,4 +72,5 @@ The first implementation had problems loading the [Cxx summary](/Cxx). The numbe
 ## Administrator Tasks
 
 ### [ScrapeRepo](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo)
-![alt text](https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png "ScrapeRepo")
+
+[alt text](https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png "ScrapeRepo")
