@@ -7,9 +7,7 @@ Administrator [go here](../Instructions/ForAdministrators).
 C++, C#,  Python and Java examples are welcome! Examples should
 illustrate a single concept.
 
-[TOC]
-
-# Follow the Coding Guidelines
+## Follow the Coding Guidelines
 
 When you write an example, please follow the [coding guidelines](../Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a pull request.
 
@@ -87,14 +85,14 @@ When you write an example, please follow the [coding guidelines](../Instructions
 
     where **YOUR_VTK_BIN_DIR** is the location of your VTK build.
 
-# Add the example
+## Add the example
 
-## Choose a Topic
+### Choose a Topic
 
 The examples are organized by topic. Current topics include Animation,
 DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
-## Write the source
+### Write the source
 
 1. Create a branch in your repository
 
@@ -134,7 +132,7 @@ DataStructures, Filters, GeometricObjects, Images, Meshes, etc.
 
 6. Rerun ctest and the test should pass.
 
-## Add the example to the language page.
+### Add the example to the language page.
 
 Depending on the language of your example, edit the file *Cxx.md*, *Python.md*, *CSharp.md*, or *Java.md*.
 
@@ -144,7 +142,7 @@ Find the section for your topic and add a line for your new example. The format 
 
 where **LANG** is one of Cxx, Python, CSharp, Java.
 
-## Commit your changes to your topic branch
+### Commit your changes to your topic branch
 
 ```
 git add MyNewExample.cxx
@@ -159,21 +157,21 @@ git add Testing/Baseline/LANG/TOPIC/TestMyNewExample.png
 git commit
 ```
 
-## Push the changes to github
+### Push the changes to github
 
 ```
 git push origin MyNewExample
 ```
 
-## Go to your github project and [generate a pull request](https://help.github.com/articles/creating-a-pull-request/).
+### Go to your github project and [generate a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
-# Advanced usage
+## Advanced usage
 
-## Add a description
+### Add a description
 
 If your example could benefit from an extended description, you can create a file **MyNewExample**.md. Store the file along side your source code. Use [markdown](https://guides.github.com/features/mastering-markdown/) to format the description.
 
-## Add arguments to the test
+### Add arguments to the test
 
 If your example requires arguments, you will need to edit the *CMakeLists.txt* in the topic directory.
 
@@ -181,7 +179,7 @@ If your example requires arguments, you will need to edit the *CMakeLists.txt* i
 
 2. Add an *ADD_TEST* line. See other *CMakeLists.txt* files for examples.
 
-## Add extra files to a C++ example
+### Add extra files to a C++ example
 
 Most C++ examples consist of one file. If other files are required,
 place them in the same directory as the example. Then add a file with
@@ -191,7 +189,7 @@ extra filename in the *.extras* file, one filename per line.
 !!! warning
     If you add extra files to the example, but do not add their filenames to the *.extras* file, they will appear in the left hand file menus **and** will not be included in the tar file for the example.
 
-## Review changes in a browser
+### Review changes in a browser
 
 If you want to preview your changes in a browser (**NOTE:** You must have python installed on your system)
 
