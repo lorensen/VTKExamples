@@ -9,6 +9,7 @@ The VTKExamples are stored in a [git repository](https://github.com/lorensen/VTK
 All example source code, descriptions, test data and test baselines are stored in the src/ tree.
 
 ## VTKExamples
+
 The major elements of the tree are:
 
 ``` bash
@@ -40,17 +41,18 @@ The major elements of the tree are:
         |-- extra.css
   |-- site
 ```
+## Look and Feel
 
-# Look and Feel
-## [MkDocs](http://www.mkdocs.org/)
-### Configuring MkDocs
-#### Markdown Extensions
-##### [admonition](http://squidfunk.github.io/mkdocs-material/extensions/admonition/)
-##### [codehilite](http://squidfunk.github.io/mkdocs-material/extensions/codehilite/)
-##### toc
-## [MkDocs Materials theme](http://squidfunk.github.io/mkdocs-material/)
+### [MkDocs](http://www.mkdocs.org/)
+#### Configuring MkDocs
+##### Markdown Extensions
+###### [admonition](http://squidfunk.github.io/mkdocs-material/extensions/admonition/)
+###### [codehilite](http://squidfunk.github.io/mkdocs-material/extensions/codehilite/)
+###### toc
 
-### Configuring Materiala
+### [MkDocs Materials theme](http://squidfunk.github.io/mkdocs-material/)
+
+#### Configuring Materiala
 
 ## [Google Analytics](https://analytics.google.com/)
 Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics ayatwm. After registarion, an html snippet is provided to incde on every web page to be tracked.
@@ -58,13 +60,16 @@ Google Analytics tracks the site usage, providing lots of useful statistics. To 
 ### Configuring Google Analytics
 
 ## [Google Custom Search Engine](https://analytics.google.com/)
+
 ### Configuring GCSE
+
 ### Inplementating GCSE
 
 ## [Lazy Image Loading](https://davidwalsh.name/lazyload-image-fade)
 
 The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear on the browser window.
 
-# Administrator Tasks
-## [ScrapeRepo](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo)
+## Administrator Tasks
+
+### [ScrapeRepo](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo)
 ![alt text](https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png "ScrapeRepo")
