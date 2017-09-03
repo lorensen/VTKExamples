@@ -67,10 +67,10 @@ Google Analytics tracks the site usage, providing lots of useful statistics. To 
 
 ## [Lazy Image Loading](https://davidwalsh.name/lazyload-image-fade)
 
-The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear on the browser window.
+The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear in the browser window.
 
 ## Administrator Tasks
 
 ### [ScrapeRepo](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo)
 
-[alt text](https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png "ScrapeRepo")
+![alt text](https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png "ScrapeRepo")
