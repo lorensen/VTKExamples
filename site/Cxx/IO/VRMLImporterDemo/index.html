@@ -16084,12 +16084,12 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a> imports multiple <a href="http://www.vtk.org/doc/nightly/html/classvtkActor.html#details">vtkActor</a> models. Sometimes the <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> require modifications. For example <a href="http://alexei.nfshost.com/3d/grasshop.wrl">the data in this example</a> does not have normals. The example uses <a href="http://www.vtk.org/doc/nightly/html/classvtkActorCollection.html#details">vtkActorCollection</a> to walk each model's <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> and inserts a <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyDataNormals.html#details">vtkPolyDataNormals</a> if the normals do not exist.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
 <p><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a> files use a shininess between 0 and 1, while <a href="http://www.vtk.org/doc/nightly/html/classvtk.html#details">vtk</a>'s <a href="http://www.vtk.org/doc/nightly/html/classvtkProperty.html#details">vtkProperty</a> has a specular power between 0 and 128. The example corrects this if the specular power is &lt;= 1.0.</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
 <p><a href="http://www.vtk.org/doc/nightly/html/classvtkVRMLImporter.html#details">vtkVRMLImporter</a> incorrectly creates a <a href="http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html#details">vtkLookupTable</a> for colorPerVertex. This example converts the <a href="http://www.vtk.org/doc/nightly/html/classvtkLookupTable.html#details">vtkLookupTable</a> to <a href="http://www.vtk.org/doc/nightly/html/classvtkPointData.html#details">vtkPointData</a>.</p>
 </div>
 <div class="admonition tip">

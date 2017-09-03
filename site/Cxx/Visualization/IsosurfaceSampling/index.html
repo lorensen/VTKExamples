@@ -16083,7 +16083,11 @@ function registerListener(event, func) {
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Visualization/TestIsosurfaceSampling.png?raw=true" width="256" />
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>This example illustrates how to create an isosurface and create point data on that isosurface that is sampled from another dataset. This example creates an isosurface of a sphere and then uses the <a href="http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html#details">vtkProbeFilter</a> to compute point data from a sampled cylinder. '''Note''', that all point data is sampled, even the normals. This example restores the original isosurface normals after the probe. The example has one optional command line argument that controls the sample resolution of the sphere and cylinder. The default is 50.</p>
+<p>This example illustrates how to create an isosurface and create point data on that isosurface that is sampled from another dataset. This example creates an isosurface of a sphere and then uses the <a href="http://www.vtk.org/doc/nightly/html/classvtkProbeFilter.html#details">vtkProbeFilter</a> to compute point data from a sampled cylinder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All point data is sampled, even the normals. This example restores the original isosurface normals after the probe. The example has one optional command line argument that controls the sample resolution of the sphere and cylinder. The default is 50.</p>
+</div>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>IsosurfaceSampling.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkVersion.h&gt;</span><span class="cp"></span>
