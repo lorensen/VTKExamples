@@ -1,4 +1,4 @@
-!!! danger This page is not complete
+!!! danger "This page is not complete"
 
 VTKExamples Administrators have write access to the [git repository]([https://github.com/lorensen/VTKExamples). If you are a VTKExamples User [go here](/Instructions/ForUsers) or a VTKExamples Developer [go here](/Instructions/ForDevelopers).
 
@@ -66,5 +66,5 @@ Google Analytics tracks the site usage, providing lots of useful statistics. To 
 The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear on the browser window.
 
 # Administrator Tasks
-## [ScrapeWiki](/Admin/ScrapeRepo)
+## [ScrapeRepo](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo)
 ![alt text](https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png "ScrapeRepo")
