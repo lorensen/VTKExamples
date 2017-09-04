@@ -1,5 +1,3 @@
-# Developers
-
 The success of the VTK Examples depends on the contributions from
 the VTK user community. If you wish to contribute to this valuable
 resource, please follow these guidelines. If you are a VTK Example
