@@ -55,12 +55,17 @@ def LoadTinyUrlCache (CacheFile, CacheDict) :
     cf.close()
 
 def GetTinyUrl(CacheDict, Url):
+    global cacheHits
+    global cacheMisses
     if Url in CacheDict.keys() :
         print "cache hit: " + Url
+        cacheHits = cacheHits + 1
         return CacheDict[Url]
     tinyOne = tinyurl.create_one(Url)
+    CacheDict[Url] = tinyOne;
+    cacheMisses = cacheMisses + 1
     print "cache miss: " + Url
-    return CacheDict[tinyOne]
+    return CacheDict[Url]
     
 def GetVTKCMake(S):
     reg = re.compile(r"\{\{(VTKCMakeLists)\|(.*?)\}\}.*?", re.DOTALL)
@@ -131,7 +136,8 @@ if len(sys.argv) < 4:
 RepoDir = sys.argv[1]
 DocDir = sys.argv[2]
 RepoURL = sys.argv[3]
-
+cacheHits = 0;
+cacheMisses = 0;
 # Make sure the wiki docs folder exists
 if not os.path.exists("docs"):
     os.makedirs("docs")
@@ -139,8 +145,9 @@ if not os.path.exists("docs"):
 BaselineName = RepoDir + "/Testing/Baseline"
 
 # Load the TinyUrl cache
+CacheFile = RepoDir + "/Admin/TinyUrlCache"
 CacheDict = dict()
-LoadTinyUrlCache(RepoDir + "/Admin/TinyUrlCache", CacheDict)
+LoadTinyUrlCache(CacheFile, CacheDict)
 
 # Read the Wiki Templates
 VTKTemplateFile = open(RepoDir + "/Admin/VTKCMakeLists", 'r')
@@ -391,3 +398,15 @@ for example in exampleToFileNames:
 os.utime(tmpDir,(0,refMtime))
 # Cleanup the temporary directories
 shutil.rmtree(tmpDir)
+
+
+# Update the cache file if necessary
+if cacheMisses > 0 :
+    cf = open(CacheFile, 'w')
+    for key in CacheDict:
+        cf.write(key + " " + CacheDict[key] + "\n")
+    cf.close()
+
+# Report stats
+print "Cache hits: " + str(cacheHits)
+print "Cache misses: " + str(cacheMisses)
