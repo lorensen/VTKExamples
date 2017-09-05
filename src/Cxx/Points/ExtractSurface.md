@@ -4,4 +4,7 @@ This example loosely follows the most excellent paper by Curless and Levoy: ["A 
 The image was created using the [Armadillo dataset](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/Armadillo.ply?raw=true)
 
 !!! warning
+    If you experience extraneous lines in the reconstruction, update your VTK. A [patch](https://gitlab.kitware.com/vtk/vtk/merge_requests/3238) was made on September 5, 2017 to correct the issue.
+
+!!! warning
     The classes used in this example require vtk 7.1 or later.
