@@ -34,6 +34,7 @@ Requires_Version(PointOccupancy ${VERSION_MIN} ALL_FILES)
 Requires_Version(RadiusOutlierRemoval ${VERSION_MIN} ALL_FILES)
 Requires_Version(SignedDistance ${VERSION_MIN} ALL_FILES)
 Requires_Version(UnsignedDistance ${VERSION_MIN} ALL_FILES)
+Requires_Module(PowercrustExtractSurface Powercrust)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   STRING(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
