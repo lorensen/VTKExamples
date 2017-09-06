@@ -53,18 +53,21 @@ The major elements of the tree are:
 
 ### [MkDocs Materials theme](http://squidfunk.github.io/mkdocs-material/)
 
-#### Configuring Materiala
+#### Configuring Materials
 
 ## [Google Analytics](https://analytics.google.com/)
-Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics ayatwm. After registarion, an html snippet is provided to incde on every web page to be tracked.
+Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics System. After registration, an html snippet is provided to inclu on every web page to be tracked.
 
 ### Configuring Google Analytics
 
-## [Google Custom Search Engine](https://analytics.google.com/)
+## [Google Custom Search Engine](https://cse.google.com/cse/)
+The overall look and feel is established at https://cse.google.com/cse/. After setting up th search engine, you can get the code to add to the web pages.
 
 ### Configuring GCSE
+The code is added to [custom_theme/main.html](https://github.com/lorensen/VTKExamples/blob/master/custom_theme/main.html).
 
-### Implementating GCSE
+### Implementing GCSE
+The search box is added to the web pages by adding the gcse search box html, *<gcse:searchbox-only>Search</gcse:searchbox-only>*.
 
 ## Performance
 ### [Lazy Image Loading](https://davidwalsh.name/lazyload-image-fade)
