@@ -17,6 +17,7 @@
 #include <vtkRenderer.h>
 #include <vtkCamera.h>
 
+#include <vtkNamedColors.h>
 #include <vtksys/SystemTools.hxx>
 
 static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
@@ -87,16 +88,24 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkPolyDataMapper>::New();
   surfaceMapper->SetInputConnection(surface->GetOutputPort());
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
+
+  vtkSmartPointer<vtkProperty> back =
+    vtkSmartPointer<vtkProperty>::New();
+  back->SetColor(colors->GetColor3d("banana").GetData());
+
   vtkSmartPointer<vtkActor> surfaceActor =
     vtkSmartPointer<vtkActor>::New();
   surfaceActor->SetMapper(surfaceMapper);
-  surfaceActor->GetProperty()->SetColor(1.0000,0.3882,0.2784);
+  surfaceActor->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
+  surfaceActor->SetBackfaceProperty(back);
 
   // Create graphics stuff
   //
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
-  ren1->SetBackground(.3, .4, .6);
+  ren1->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
