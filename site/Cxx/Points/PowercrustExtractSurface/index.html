@@ -8134,6 +8134,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -16040,6 +16047,13 @@ function registerListener(event, func) {
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#description" title="Description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#code" title="Code" class="md-nav__link">
     Code
   </a>
@@ -16080,6 +16094,27 @@ function registerListener(event, func) {
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/Points/PowercrustExtractSurface</p>
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/Points/TestPowercrustExtractSurface.png?raw=true" width="256" />
 <hr></p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>The Powercrust, or Crust algorithm, reconstructs surfaces from unorganized points. See <a href="http://web.cs.ucdavis.edu/~amenta/pubs/sm.pdf">The Power Crust</a> for technical details.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The code is covered by the <a href="http://www.gnu.org/copyleft/gpl.html">GPL License</a> and may restrict commercial use.. </p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p><a href="../../../Cxx/Points/ExtractSurface">ExtractSurface</a> reconstructs surfaces and is included with the VTK distribution.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The Power Crust is implemented as a <a href="http://www.vtk.org/Wiki/VTK/Remote_Modules">VTK Remote Module</a>.</p>
+</div>
+<p>To use the Power Crust in VTK:</p>
+<ol>
+<li>Download <a href="https://github.com/lorensen/Powercrust/blob/master/Powercrust.remote.cmake">Powercrust.remote.cmake</a> and place it in your <em>VTK/Remote</em> directory.</li>
+<li>Reconfigure your VTK build with <em>cmake</em></li>
+<li>Enable the remote module by setting <em>Module_Powercrust:BOOL=ON</em>.</li>
+<li><code>make</code></li>
+</ol>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>PowercrustExtractSurface.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
