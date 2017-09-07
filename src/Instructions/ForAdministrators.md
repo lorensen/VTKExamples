@@ -6,7 +6,7 @@ VTKExamples Administrators have write access to the [git repository]([https://gi
 
 The VTKExamples are stored in a [git repository](https://github.com/lorensen/VTKExamples.git) hosted at [github.com](http://www.github.com/). The repository contains several types of files.
 
-All example source code, descriptions, test data and test baselines are stored in the src/ tree.
+All example source code, descriptions, test data and test baselines are stored in the *src/* tree.
 
 ## VTKExamples Repository
 
@@ -43,44 +43,140 @@ The major elements of the tree are:
 ```
 
 ## Look and Feel
+A priority in moving from the wiki media [VTK Wiki Examples](http://www.vtk.org/Wiki/VTK/Examples) to the github pages [VTKExamples](https://lorensen.github.io/VTKExamples/site/) was to provide a modern, familiar look and feel. We also wanted to support tablet and mobile platforms. We chose [MkDocs](http://www.mkdocs.org/) because it generated static html pages that can be hosted anywhere.
+
+<img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/OldVersusNew.png?raw=true" />
 
 ### [MkDocs](http://www.mkdocs.org/)
+#### Installing MkDocs
+MkDocs is a python package and can be installed using `pip`;
+
+```bash
+pip install mkdocs
+```
 #### Configuring MkDocs
-##### Markdown Extensions
-###### [admonition](http://squidfunk.github.io/mkdocs-material/extensions/admonition/)
-###### [codehilite](http://squidfunk.github.io/mkdocs-material/extensions/codehilite/)
-###### toc
+The *mkdocs.yml* file contains the configuration parameters
+```bash
+site_name: VTKExamples
+theme: material
+site_url: https://lorensen.github.io/VTKExamples/site/
+repo_name: lorensen/VTKExamples
+repo_url: https://github.com/lorensen/VTKExamples
+theme_dir: custom_theme
+markdown_extensions:
+  - admonition
+  - codehilite(guess_lang=false)
+  - toc(permalink=true)
+google_analytics:
+  -  'UA-3660134-4'
+  -  'auto'
+extra_css:
+  -  'stylesheets/extra.css'
+copyright: '<font color=#666>Content is available under </font><a href="https://creativecommons.org/licenses/by/2.5/" title="Attribution2.5">Attribution2.5</a> <font color=#666>unless otherwise noted.</font>'
+```
+#### Markdown Extensions
+A number of markdown extensions are available.
+##### [admonition](http://squidfunk.github.io/mkdocs-material/extensions/admonition/)
+Admonitions are specially marked "topics" that can appear anywhere an ordinary body element can. They contain arbitrary body elements. Typically, an admonition is rendered as an offset block in a document, sometimes outlined or shaded, with a title matching the admonition type.
+For example:
+
+!!! note
+    This is a note or seealso admonition
+
+!!! summary
+    This is a summary or tldr admonition
+
+!!! info
+    This is a info or todo admonition
+
+!!! tip
+    This is a tip, hint or important admonition
+
+!!! success
+    This is a success, check or done admonition
+
+!!! question
+    This is a question,help faq admonition
+
+!!! warning
+    This is a warning, caution or attention admonition
+
+!!! failure
+    This is a failure, fail or missing admonition
+
+!!! danger
+    This is a danger or error admonition
+
+!!! bug
+    This is a bug admonition
+
+!!! quote
+    This is a quote or cite admonition
+
+!!! cite
+    This is a cite admonition
+
+##### [codehilite](http://squidfunk.github.io/mkdocs-material/extensions/codehilite/)
+The codehilite extension highlights code depending on the language.
+
+##### toc
+The toc extension generates a table of contents, like the one at the right of this page.
 
 ### [MkDocs Materials theme](http://squidfunk.github.io/mkdocs-material/)
+The Materials theme is built using Google's [Material Design](https://material.io/guidelines/) guidelines. It offers a unified experience across platforms. The look and feel is a familiar one.
 
 #### Configuring Materials
+The materials theme is selected using the *material* keyword in the *mkdocs.yml* file.
 
 ## [Google Analytics](https://analytics.google.com/)
-Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics System. After registration, an html snippet is provided to inclu on every web page to be tracked.
+Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics System. After registration, an html snippet is provided to include on every web page to be tracked.
 
 ### Configuring Google Analytics
 
+The *google_analytics* keyword in the *mkdocs.yml" file specifies the google analytics unique code for this web site. The *custom_theme/main.html* file defines the meta data for the google site verification:
+```html
+<meta name="google-site-verification" content="8hi6AHNlzKOmFDV4W8tLmySODRzQvtqMEIfZdc3WTLA" />
+```
 ## [Google Custom Search Engine](https://cse.google.com/cse/)
-The overall look and feel is established at https://cse.google.com/cse/. After setting up th search engine, you can get the code to add to the web pages.
+The overall look and feel is established at [https://cse.google.com/cse/](https://cse.google.com/cse/). After setting up the search engine, you can get the code to add to the web pages.
+
+```javascript
+<script>
+  (function() {
+    var cx = '015419652359195128492:0lkxso1wcym';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+```
 
 ### Configuring GCSE
 The code is added to [custom_theme/main.html](https://github.com/lorensen/VTKExamples/blob/master/custom_theme/main.html).
-
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<gcse:searchbox-only>Search</gcse:searchbox-only>
+```
 ### Implementing GCSE
-The search box is added to the web pages by adding the gcse search box html, *<gcse:searchbox-only>Search</gcse:searchbox-only>*.
-
+The search box is added to the web pages by adding the gcse search box html
+``` html
+    <gcse:searchbox-only>Search</gcse:searchbox-only>
+```
 ## Performance
 ### [Lazy Image Loading](https://davidwalsh.name/lazyload-image-fade)
 
 The first implementation had problems loading the [Cxx summary](/Cxx). The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear in the browser window.
 
-The Lazy Image Loading is implemented in javascript. The javascript is stored in *custom_theme/main.html*. If uses a clever *trick*. Images that should be lazy loaded use a *<img>* tag with a *class=lazy* and attribute *data_src*. If the image is in the viewport, the *data_src* is removed and the image renders.
+The Lazy Image Loading is implemented in javascript. The javascript is stored in *custom_theme/main.html*. If uses a clever *trick*. Images that should be lazy loaded use a *<img>* tag with a *class=lazy* and attribute *data_src*. If the image is in the view port, the *data_src* is removed and the image renders.
 
-### Tiny Urls
+### Tiny URLs
 
 The VTKExamples web pages have many url's that link to images and VTK doxygen pages. The long length of these url's can increase page load tines, especially on the language summary pages. 
 
-http://tinyurl.com provides a service to map the long url's into shorted url's. There is a python package, *tinyurl*, that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file *src/Admin/TinyUrlCache*. *ScrapeRepo* uses this cache to only convert url's that are not in the cache. *ScrapeRepo* updates the cache after each run.
+[http://tinyurl.com](http://tinyurl.com) provides a service to map the long url's into shorted url's. There is a python package, *tinyurl*, that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file *src/Admin/TinyUrlCache*. *ScrapeRepo* uses this cache to only convert url's that are not in the cache. *ScrapeRepo* updates the cache after each run.
 
 ## Administrator Tasks
 
@@ -100,6 +196,8 @@ Given a *RepositoryDir*, *DocDir* and a *RepositoryUrl*, *ScrapeRepo* proceeds a
     3. Insert the source code from _src/_**LANG**/**TOPIC**/**EXAMPLE**.**EXTENSION**
 
 4. For each Cxx source file
-    1. If _Cxx/_**TOPIC**/**EXAMPLE**_.cmake_ exists, add it as the CMakeListssection of the _.md_ file, otherwise, fill in the *VTKCMakelists* template, including the files listed in the optional _src/Cxx/_**TOPIC**/**EXAMPLE**_.extras_ file.
+    1. If _Cxx/_**TOPIC**/**EXAMPLE**_.cmake_ exists, add it as the CMakeLists section of the _.md_ file, otherwise, fill in the *VTKCMakelists* template, including the files listed in the optional _src/Cxx/_**TOPIC**/**EXAMPLE**_.extras_ file.
 
 4. For each Cxx source file, create a _src/Tarballs/_**EXAMPLE**_.tar_ file containing the source and _CMakeLists.txt_ file.
+
+## How to Become an Administrator
