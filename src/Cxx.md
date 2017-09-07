@@ -780,6 +780,7 @@ This section includes [vtkImageData](http://www.vtk.org/doc/nightly/html/classvt
 [LightActor](/Cxx/Lighting/LightActor)| [vtkLightActor](http://www.vtk.org/doc/nightly/html/classvtkLightActor.html#details) |Display the location and direction of a light.
 [Light](/Cxx/Lighting/Light)| [vtkLight](http://www.vtk.org/doc/nightly/html/classvtkLight.html#details) |Add a directional light to a scene.
 [Shadows](/Cxx/Visualization/Shadows)| [vtkShadowMapPass](http://www.vtk.org/doc/nightly/html/classvtkShadowMapPass.html#details) |Create shadows.
+[SpotLights](/Cxx/Lighting/SpotLights)| [vtkLight](http://www.vtk.org/doc/nightly/html/classvtkLight.html#details) | Create two positional(spot) lights.
 
 
 ## Texture Mapping
