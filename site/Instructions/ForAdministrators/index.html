@@ -13416,12 +13416,18 @@ function registerListener(event, func) {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#installing-mkdocs" title="Installing MkDocs" class="md-nav__link">
+    Installing MkDocs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configuring-mkdocs" title="Configuring MkDocs" class="md-nav__link">
     Configuring MkDocs
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#markdown-extensions" title="Markdown Extensions" class="md-nav__link">
@@ -13449,11 +13455,6 @@ function registerListener(event, func) {
   <a href="#toc" title="toc" class="md-nav__link">
     toc
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -13555,8 +13556,8 @@ function registerListener(event, func) {
 </li>
         
           <li class="md-nav__item">
-  <a href="#tiny-urls" title="Tiny Urls" class="md-nav__link">
-    Tiny Urls
+  <a href="#tiny-urls" title="Tiny URLs" class="md-nav__link">
+    Tiny URLs
   </a>
   
 </li>
@@ -13583,6 +13584,13 @@ function registerListener(event, func) {
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-become-an-administrator" title="How to Become an Administrator" class="md-nav__link">
+    How to Become an Administrator
+  </a>
   
 </li>
       
@@ -16236,12 +16244,18 @@ function registerListener(event, func) {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#installing-mkdocs" title="Installing MkDocs" class="md-nav__link">
+    Installing MkDocs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configuring-mkdocs" title="Configuring MkDocs" class="md-nav__link">
     Configuring MkDocs
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#markdown-extensions" title="Markdown Extensions" class="md-nav__link">
@@ -16269,11 +16283,6 @@ function registerListener(event, func) {
   <a href="#toc" title="toc" class="md-nav__link">
     toc
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -16375,8 +16384,8 @@ function registerListener(event, func) {
 </li>
         
           <li class="md-nav__item">
-  <a href="#tiny-urls" title="Tiny Urls" class="md-nav__link">
-    Tiny Urls
+  <a href="#tiny-urls" title="Tiny URLs" class="md-nav__link">
+    Tiny URLs
   </a>
   
 </li>
@@ -16406,6 +16415,13 @@ function registerListener(event, func) {
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-to-become-an-administrator" title="How to Become an Administrator" class="md-nav__link">
+    How to Become an Administrator
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -16427,7 +16443,7 @@ function registerListener(event, func) {
 <p>VTKExamples Administrators have write access to the <a href="../[https://github.com/lorensen/VTKExamples">git repository</a>. If you are a VTKExamples User <a href="../../Instructions/ForUsers">go here</a> or a VTKExamples Developer <a href="../../Instructions/ForDevelopers">go here</a>.</p>
 <h1 id="organization-of-the-vtkexamples-repository">Organization of the VTKExamples Repository<a class="headerlink" href="#organization-of-the-vtkexamples-repository" title="Permanent link">&para;</a></h1>
 <p>The VTKExamples are stored in a <a href="https://github.com/lorensen/VTKExamples.git">git repository</a> hosted at <a href="http://www.github.com/">github.com</a>. The repository contains several types of files.</p>
-<p>All example source code, descriptions, test data and test baselines are stored in the src/ tree.</p>
+<p>All example source code, descriptions, test data and test baselines are stored in the <em>src/</em> tree.</p>
 <h2 id="vtkexamples-repository">VTKExamples Repository<a class="headerlink" href="#vtkexamples-repository" title="Permanent link">&para;</a></h2>
 <p>The major elements of the tree are:</p>
 <div class="codehilite"><pre><span></span><span class="p">|</span>-- VTKExamples
@@ -16461,30 +16477,141 @@ function registerListener(event, func) {
 
 
 <h2 id="look-and-feel">Look and Feel<a class="headerlink" href="#look-and-feel" title="Permanent link">&para;</a></h2>
+<p>A priority in moving from the wiki media <a href="http://www.vtk.org/Wiki/VTK/Examples">VTK Wiki Examples</a> to the github pages <a href="https://lorensen.github.io/VTKExamples/site/">VTKExamples</a> was to provide a modern, familiar look and feel. We also wanted to support tablet and mobile platforms. We chose <a href="http://www.mkdocs.org/">MkDocs</a> because it generated static html pages that can be hosted anywhere.</p>
+<p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/OldVersusNew.png?raw=true" /></p>
 <h3 id="mkdocs"><a href="http://www.mkdocs.org/">MkDocs</a><a class="headerlink" href="#mkdocs" title="Permanent link">&para;</a></h3>
+<h4 id="installing-mkdocs">Installing MkDocs<a class="headerlink" href="#installing-mkdocs" title="Permanent link">&para;</a></h4>
+<p>MkDocs is a python package and can be installed using <code>pip</code>;</p>
+<div class="codehilite"><pre><span></span>pip install mkdocs
+</pre></div>
+
+
 <h4 id="configuring-mkdocs">Configuring MkDocs<a class="headerlink" href="#configuring-mkdocs" title="Permanent link">&para;</a></h4>
-<h5 id="markdown-extensions">Markdown Extensions<a class="headerlink" href="#markdown-extensions" title="Permanent link">&para;</a></h5>
-<h6 id="admonition"><a href="http://squidfunk.github.io/mkdocs-material/extensions/admonition/">admonition</a><a class="headerlink" href="#admonition" title="Permanent link">&para;</a></h6>
-<h6 id="codehilite"><a href="http://squidfunk.github.io/mkdocs-material/extensions/codehilite/">codehilite</a><a class="headerlink" href="#codehilite" title="Permanent link">&para;</a></h6>
-<h6 id="toc">toc<a class="headerlink" href="#toc" title="Permanent link">&para;</a></h6>
+<p>The <em>mkdocs.yml</em> file contains the configuration parameters</p>
+<div class="codehilite"><pre><span></span>site_name: VTKExamples
+theme: material
+site_url: https://lorensen.github.io/VTKExamples/site/
+repo_name: lorensen/VTKExamples
+repo_url: https://github.com/lorensen/VTKExamples
+theme_dir: custom_theme
+markdown_extensions:
+  - admonition
+  - codehilite<span class="o">(</span><span class="nv">guess_lang</span><span class="o">=</span><span class="nb">false</span><span class="o">)</span>
+  - toc<span class="o">(</span><span class="nv">permalink</span><span class="o">=</span><span class="nb">true</span><span class="o">)</span>
+google_analytics:
+  -  <span class="s1">&#39;UA-3660134-4&#39;</span>
+  -  <span class="s1">&#39;auto&#39;</span>
+extra_css:
+  -  <span class="s1">&#39;stylesheets/extra.css&#39;</span>
+copyright: <span class="s1">&#39;&lt;font color=#666&gt;Content is available under &lt;/font&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/2.5/&quot; title=&quot;Attribution2.5&quot;&gt;Attribution2.5&lt;/a&gt; &lt;font color=#666&gt;unless otherwise noted.&lt;/font&gt;&#39;</span>
+</pre></div>
+
+
+<h4 id="markdown-extensions">Markdown Extensions<a class="headerlink" href="#markdown-extensions" title="Permanent link">&para;</a></h4>
+<p>A number of markdown extensions are available.</p>
+<h5 id="admonition"><a href="http://squidfunk.github.io/mkdocs-material/extensions/admonition/">admonition</a><a class="headerlink" href="#admonition" title="Permanent link">&para;</a></h5>
+<p>Admonitions are specially marked "topics" that can appear anywhere an ordinary body element can. They contain arbitrary body elements. Typically, an admonition is rendered as an offset block in a document, sometimes outlined or shaded, with a title matching the admonition type.
+For example:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a note or seealso admonition</p>
+</div>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>This is a summary or tldr admonition</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This is a info or todo admonition</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This is a tip, hint or important admonition</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>This is a success, check or done admonition</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>This is a question,help faq admonition</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a warning, caution or attention admonition</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Failure</p>
+<p>This is a failure, fail or missing admonition</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This is a danger or error admonition</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
+<p>This is a bug admonition</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>This is a quote or cite admonition</p>
+</div>
+<div class="admonition cite">
+<p class="admonition-title">Cite</p>
+<p>This is a cite admonition</p>
+</div>
+<h5 id="codehilite"><a href="http://squidfunk.github.io/mkdocs-material/extensions/codehilite/">codehilite</a><a class="headerlink" href="#codehilite" title="Permanent link">&para;</a></h5>
+<p>The codehilite extension highlights code depending on the language.</p>
+<h5 id="toc">toc<a class="headerlink" href="#toc" title="Permanent link">&para;</a></h5>
+<p>The toc extension generates a table of contents, like the one at the right of this page.</p>
 <h3 id="mkdocs-materials-theme"><a href="http://squidfunk.github.io/mkdocs-material/">MkDocs Materials theme</a><a class="headerlink" href="#mkdocs-materials-theme" title="Permanent link">&para;</a></h3>
+<p>The Materials theme is built using Google's <a href="https://material.io/guidelines/">Material Design</a> guidelines. It offers a unified experience across platforms. The look and feel is a familiar one.</p>
 <h4 id="configuring-materials">Configuring Materials<a class="headerlink" href="#configuring-materials" title="Permanent link">&para;</a></h4>
+<p>The materials theme is selected using the <em>material</em> keyword in the <em>mkdocs.yml</em> file.</p>
 <h2 id="google-analytics"><a href="https://analytics.google.com/">Google Analytics</a><a class="headerlink" href="#google-analytics" title="Permanent link">&para;</a></h2>
-<p>Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics System. After registration, an html snippet is provided to inclu on every web page to be tracked.</p>
+<p>Google Analytics tracks the site usage, providing lots of useful statistics. To have Google Analytics track web usage you need to register the url with the Google Analytics System. After registration, an html snippet is provided to include on every web page to be tracked.</p>
 <h3 id="configuring-google-analytics">Configuring Google Analytics<a class="headerlink" href="#configuring-google-analytics" title="Permanent link">&para;</a></h3>
+<p>The <em>google_analytics</em> keyword in the <em>mkdocs.yml" file specifies the google analytics unique code for this web site. The </em>custom_theme/main.html* file defines the meta data for the google site verification:</p>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;google-site-verification&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;8hi6AHNlzKOmFDV4W8tLmySODRzQvtqMEIfZdc3WTLA&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+
+
 <h2 id="google-custom-search-engine"><a href="https://cse.google.com/cse/">Google Custom Search Engine</a><a class="headerlink" href="#google-custom-search-engine" title="Permanent link">&para;</a></h2>
-<p>The overall look and feel is established at https://cse.google.com/cse/. After setting up th search engine, you can get the code to add to the web pages.</p>
+<p>The overall look and feel is established at <a href="https://cse.google.com/cse/">https://cse.google.com/cse/</a>. After setting up the search engine, you can get the code to add to the web pages.</p>
+<div class="codehilite"><pre><span></span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cx</span> <span class="o">=</span> <span class="s1">&#39;015419652359195128492:0lkxso1wcym&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">gcse</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+    <span class="nx">gcse</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/javascript&#39;</span><span class="p">;</span>
+    <span class="nx">gcse</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">gcse</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;https://cse.google.com/cse.js?cx=&#39;</span> <span class="o">+</span> <span class="nx">cx</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">gcse</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+  <span class="p">})();</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+
+
 <h3 id="configuring-gcse">Configuring GCSE<a class="headerlink" href="#configuring-gcse" title="Permanent link">&para;</a></h3>
 <p>The code is added to <a href="https://github.com/lorensen/VTKExamples/blob/master/custom_theme/main.html">custom_theme/main.html</a>.</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;</span>
+<span class="p">&lt;</span><span class="nt">gcse:searchbox-only</span><span class="p">&gt;</span>Search<span class="p">&lt;/</span><span class="nt">gcse:searchbox-only</span><span class="p">&gt;</span>
+</pre></div>
+
+
 <h3 id="implementing-gcse">Implementing GCSE<a class="headerlink" href="#implementing-gcse" title="Permanent link">&para;</a></h3>
-<p>The search box is added to the web pages by adding the gcse search box html, <em><gcse:searchbox-only>Search</gcse:searchbox-only></em>.</p>
+<p>The search box is added to the web pages by adding the gcse search box html</p>
+<div class="codehilite"><pre><span></span>    <span class="p">&lt;</span><span class="nt">gcse:searchbox-only</span><span class="p">&gt;</span>Search<span class="p">&lt;/</span><span class="nt">gcse:searchbox-only</span><span class="p">&gt;</span>
+</pre></div>
+
+
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
 <h3 id="lazy-image-loading"><a href="https://davidwalsh.name/lazyload-image-fade">Lazy Image Loading</a><a class="headerlink" href="#lazy-image-loading" title="Permanent link">&para;</a></h3>
 <p>The first implementation had problems loading the <a href="../../Cxx">Cxx summary</a>. The number of embedded images exceeded the throttle limits of github. A lazy image load solution solved the problem. Now, images are only loaded if they appear in the browser window.</p>
-<p>The Lazy Image Loading is implemented in javascript. The javascript is stored in <em>custom_theme/main.html</em>. If uses a clever <em>trick</em>. Images that should be lazy loaded use a <em><img></em> tag with a <em>class=lazy</em> and attribute <em>data_src</em>. If the image is in the viewport, the <em>data_src</em> is removed and the image renders.</p>
-<h3 id="tiny-urls">Tiny Urls<a class="headerlink" href="#tiny-urls" title="Permanent link">&para;</a></h3>
+<p>The Lazy Image Loading is implemented in javascript. The javascript is stored in <em>custom_theme/main.html</em>. If uses a clever <em>trick</em>. Images that should be lazy loaded use a <em><img></em> tag with a <em>class=lazy</em> and attribute <em>data_src</em>. If the image is in the view port, the <em>data_src</em> is removed and the image renders.</p>
+<h3 id="tiny-urls">Tiny URLs<a class="headerlink" href="#tiny-urls" title="Permanent link">&para;</a></h3>
 <p>The VTKExamples web pages have many url's that link to images and VTK doxygen pages. The long length of these url's can increase page load tines, especially on the language summary pages. </p>
-<p>http://tinyurl.com provides a service to map the long url's into shorted url's. There is a python package, <em>tinyurl</em>, that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file <em>src/Admin/TinyUrlCache</em>. <em>ScrapeRepo</em> uses this cache to only convert url's that are not in the cache. <em>ScrapeRepo</em> updates the cache after each run.</p>
+<p><a href="http://tinyurl.com">http://tinyurl.com</a> provides a service to map the long url's into shorted url's. There is a python package, <em>tinyurl</em>, that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file <em>src/Admin/TinyUrlCache</em>. <em>ScrapeRepo</em> uses this cache to only convert url's that are not in the cache. <em>ScrapeRepo</em> updates the cache after each run.</p>
 <h2 id="administrator-tasks">Administrator Tasks<a class="headerlink" href="#administrator-tasks" title="Permanent link">&para;</a></h2>
 <h3 id="scraperepo"><a href="https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo">ScrapeRepo</a><a class="headerlink" href="#scraperepo" title="Permanent link">&para;</a></h3>
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Artifacts/ScrapeRepo.png?raw=true" /></p>
@@ -16507,13 +16634,14 @@ function registerListener(event, func) {
 <li>
 <p>For each Cxx source file</p>
 <ol>
-<li>If <em>Cxx/</em><strong>TOPIC</strong>/<strong>EXAMPLE</strong><em>.cmake</em> exists, add it as the CMakeListssection of the <em>.md</em> file, otherwise, fill in the <em>VTKCMakelists</em> template, including the files listed in the optional <em>src/Cxx/</em><strong>TOPIC</strong>/<strong>EXAMPLE</strong><em>.extras</em> file.</li>
+<li>If <em>Cxx/</em><strong>TOPIC</strong>/<strong>EXAMPLE</strong><em>.cmake</em> exists, add it as the CMakeLists section of the <em>.md</em> file, otherwise, fill in the <em>VTKCMakelists</em> template, including the files listed in the optional <em>src/Cxx/</em><strong>TOPIC</strong>/<strong>EXAMPLE</strong><em>.extras</em> file.</li>
 </ol>
 </li>
 <li>
 <p>For each Cxx source file, create a <em>src/Tarballs/</em><strong>EXAMPLE</strong><em>.tar</em> file containing the source and <em>CMakeLists.txt</em> file.</p>
 </li>
 </ol>
+<h2 id="how-to-become-an-administrator">How to Become an Administrator<a class="headerlink" href="#how-to-become-an-administrator" title="Permanent link">&para;</a></h2>
                 
                   
                 
