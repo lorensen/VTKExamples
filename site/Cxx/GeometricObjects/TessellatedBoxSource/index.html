@@ -16095,11 +16095,11 @@ function registerListener(event, func) {
 <p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestTessellatedBoxSource.png?raw=true" width="256" />
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
-<p>Generates a box(cube) with 6 sides. The faces of the box can be subdivided inot multiple triangles or quads.</p>
+<p>Generates a box(cube) using <a href="http://www.vtk.org/doc/nightly/html/classvtkTessellatedBoxSource.html#details">vtkTessellatedBoxSource</a> with 6 sides. The faces of the box can be subdivided into multiple triangles or quads.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Seealso</p>
+<p><a href="../../../Cxx/GeometricObjects/Cube">Cube</a> generates multiple quads or triangles per side.</p>
 </div>
-<p><a href="../../../Cxx/GeometricObjects/Cube">Cube</a> that generates multiple quads or triangles per side.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <p><strong>TessellatedBoxSource.cxx</strong></p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;vtkSmartPointer.h&gt;</span><span class="cp"></span>
