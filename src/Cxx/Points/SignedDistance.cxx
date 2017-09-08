@@ -82,8 +82,8 @@ int main (int argc, char *argv[])
   hueLut->SetHueRange (.667, 0);
   hueLut->SetSaturationRange (1, 1);
   hueLut->SetValueRange (1, 1);
-//  hueLut->UseBelowRangeColorOn();
-//  hueLut->SetBelowRangeColor(0, 0, 0, 0);
+  hueLut->UseBelowRangeColorOn();
+  hueLut->SetBelowRangeColor(0, 0, 0, 0);
   hueLut->UseAboveRangeColorOn();
   hueLut->SetAboveRangeColor(0, 0, 0, 0);
   hueLut->SetNumberOfColors(5);
