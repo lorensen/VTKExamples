@@ -8164,6 +8164,18 @@ function registerListener(event, func) {
 
 
   <li class="md-nav__item">
+    <a href="../PoissonExtractSurface/" title="PoissonExtractSurface" class="md-nav__link">
+      PoissonExtractSurface
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../PowercrustExtractSurface/" title="PowercrustExtractSurface" class="md-nav__link">
       PowercrustExtractSurface
     </a>
@@ -16096,7 +16108,12 @@ function registerListener(event, func) {
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example loosely follows the most excellent paper by Curless and Levoy: <a href="https://graphics.stanford.edu/papers/volrange">"A Volumetric Method for Building Complex Models from Range Images."</a> First it estimates normals from the points, then creates a signed distance field, followed by surface extraction of the zero-level set of the distance field.</p>
+<p>If the example is run without an argument, the example uses random points on a spherical shell. With a filename, the example uses the points on the <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a>.</p>
 <p>The image was created using the <a href="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/Armadillo.ply?raw=true">Armadillo dataset</a></p>
+<div class="admonition seealso">
+<p class="admonition-title">Seealso</p>
+<p><a href="../../../Cxx/Points/PowercrustExtractSurface">PowercrustExtractSurface</a> reconstructs surfaces and is implemented as a VTK remote module. <a href="../../../Cxx/Points/PoissonExtractSurface">PoissonExtractSurface</a> reconstructs surfaces and is implemented as a VTK remote module.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you experience extraneous lines in the reconstruction, update your VTK. A <a href="https://gitlab.kitware.com/vtk/vtk/merge_requests/3238">patch</a> was made on September 5, 2017 to correct the issue.</p>
@@ -16134,6 +16151,7 @@ function registerListener(event, func) {
 <span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPolyData</span><span class="o">&gt;</span> <span class="n">polyData</span> <span class="o">=</span> <span class="n">ReadPolyData</span><span class="p">(</span><span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="s">&quot;&quot;</span><span class="p">);;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;# of points: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
   <span class="kt">double</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
   <span class="n">polyData</span><span class="o">-&gt;</span><span class="n">GetBounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
@@ -16173,8 +16191,9 @@ function registerListener(event, func) {
             <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
             <span class="o">&lt;&lt;</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">dimension</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
-  <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.02</span><span class="p">;</span>
-  <span class="n">radius</span> <span class="o">=</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// ~3 voxels</span>
+  <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
+  <span class="n">radius</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">range</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="o">/</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// ~4 voxels</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Radius: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">radius</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
   <span class="n">distance</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="n">radius</span><span class="p">);</span>
@@ -16283,11 +16302,11 @@ function registerListener(event, func) {
   <span class="p">{</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;</span> <span class="n">points</span> <span class="o">=</span>
       <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkPointSource</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span>
-    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">10.0</span><span class="p">);</span>
-    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-                      <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-                      <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">));</span>
+ <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetRadius</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+    <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                      <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                      <span class="n">vtkMath</span><span class="o">::</span><span class="n">Random</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
     <span class="n">points</span><span class="o">-&gt;</span><span class="n">SetDistributionToShell</span><span class="p">();</span>
     <span class="n">points</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
     <span class="n">polyData</span> <span class="o">=</span> <span class="n">points</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">();</span>
