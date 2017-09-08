@@ -25,6 +25,7 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 int main (int argc, char *argv[])
 {
   vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  std::cout << "# of points: " << polyData->GetNumberOfPoints() << std::endl;
 
   double bounds[6];
   polyData->GetBounds(bounds);
@@ -64,8 +65,9 @@ int main (int argc, char *argv[])
             << range[1] << ", "
             << range[2] << std::endl;
   int dimension = 256;
-  double radius = range[0] * .02;
-  radius = range[0] / static_cast<double>(dimension) * 3; // ~3 voxels
+  double radius;
+  radius = std::max(std::max(range[0], range[1]), range[2])
+    / static_cast<double>(dimension) * 4; // ~4 voxels
   std::cout << "Radius: " << radius << std::endl;
 
   distance->SetRadius(radius);
@@ -174,11 +176,11 @@ static vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
   {
     vtkSmartPointer<vtkPointSource> points =
       vtkSmartPointer<vtkPointSource>::New();
-    points->SetNumberOfPoints(100000);
-    points->SetRadius(10.0);
-    points->SetCenter(vtkMath::Random(-100, 100),
-                      vtkMath::Random(-100, 100),
-                      vtkMath::Random(-100, 100));
+ points->SetNumberOfPoints(1000);
+    points->SetRadius(1.0);
+    points->SetCenter(vtkMath::Random(-1, 1),
+                      vtkMath::Random(-1, 1),
+                      vtkMath::Random(-1, 1));
     points->SetDistributionToShell();
     points->Update();
     polyData = points->GetOutput();
