@@ -26,6 +26,7 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName);
 int main (int argc, char *argv[])
 {
   vtkSmartPointer<vtkPolyData> polyData = ReadPolyData(argc > 1 ? argv[1] : "");;
+  std::cout << "# of points: " << polyData->GetNumberOfPoints() << std::endl;
 
   vtkSmartPointer<vtkPowerCrustSurfaceReconstruction> surface =
     vtkSmartPointer<vtkPowerCrustSurfaceReconstruction>::New();

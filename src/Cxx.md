@@ -385,6 +385,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [NormalEstimation](/Cxx/Points/NormalEstimation) | [vtkPCANormalEstimation](http://www.vtk.org/doc/nightly/html/classvtkPCANormalEstimation.html#details) | Estimate the normals of a random points that lie on a sphere.
 [PointOccupancy](/Cxx/Points/PointOccupancy) | [vtkPointOccupancy](http://www.vtk.org/doc/nightly/html/classvtkPointOccupancy.html#details) |Show which voxels contain points.
 [PointSource](/Cxx/PolyData/PointSource) | [vtkPointSource](http://www.vtk.org/doc/nightly/html/classvtkPointSource.html#details) |Generate a random point cloud.
+[PoissonExtractSurface](/Cxx/Points/PoissonExtractSurface) | | Create a surface from Unorganized Points using the PoissonReconstruction algorithm.
 [PowercrustExtractSurface](/Cxx/Points/PowercrustExtractSurface) | | Create a surface from Unorganized Points using the Powercrust algorithm.
 [RadiusOutlierRemoval](/Cxx/Points/RadiusOutlierRemoval) | [vtkRadiusOutlierRemoval](http://www.vtk.org/doc/nightly/html/classvtkRadiusOutlierRemoval.html#details) |Remove outliers.
 [SignedDistance](/Cxx/Points/SignedDistance) | [vtkSignedDistance](http://www.vtk.org/doc/nightly/html/classvtkSignedDistance.html#details) |Compute signed distance to a point cloud.

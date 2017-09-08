@@ -7,7 +7,7 @@ If the example is run without an argument, the example uses random points on a s
     The code is covered by the [GPL License](http://www.gnu.org/copyleft/gpl.html) and may restrict commercial use.. 
 
 !!! seealso
-    [ExtractSurface](/Cxx/Points/ExtractSurface) reconstructs surfaces and is included with the VTK distribution.
+    [ExtractSurface](/Cxx/Points/ExtractSurface) reconstructs surfaces and is included with the VTK distribution. [PoissonExtractSurface](/Cxx/Points/PoissonExtractSurface) reconstructs surfaces and is implemented as a VTK remote module.
 
 !!! info
     The Power Crust is implemented as a [VTK Remote Module](http://www.vtk.org/Wiki/VTK/Remote_Modules).
