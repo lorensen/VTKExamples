@@ -15,7 +15,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkCamera.h>
-
+#include <vtkNamedColors.h>
 #include <vtksys/SystemTools.hxx>
 
 namespace
@@ -48,6 +48,8 @@ int main (int argc, char *argv[])
   densify->Update();
   std::cout << "# of densified points: " << densify->GetOutput()->GetNumberOfPoints() << std::endl;
 
+  vtkSmartPointer<vtkNamedColors> colors =
+    vtkSmartPointer<vtkNamedColors>::New();
 ///
   double radius = range[0] * .01;
   vtkSmartPointer<vtkSphereSource> sphereSource1 =
@@ -58,12 +60,13 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3D1->SetInputData(polyData);
   glyph3D1->SetSourceConnection(sphereSource1->GetOutputPort());
+  glyph3D1->ScalarVisibilityOff();
   glyph3D1->ScalingOff();
 
   vtkSmartPointer<vtkActor> glyph3DActor1 =
     vtkSmartPointer<vtkActor>::New();
   glyph3DActor1->SetMapper(glyph3D1);
-  glyph3DActor1->GetProperty()->SetColor(0.8900, 0.8100, 0.3400);
+  glyph3DActor1->GetProperty()->SetColor(colors->GetColor3d("Banana").GetData());
 
 ////
   vtkSmartPointer<vtkSphereSource> sphereSource2 =
@@ -74,18 +77,19 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkGlyph3DMapper>::New();
   glyph3D2->SetInputConnection(densify->GetOutputPort());
   glyph3D2->SetSourceConnection(sphereSource2->GetOutputPort());
+  glyph3D2->ScalarVisibilityOff();
   glyph3D2->ScalingOff();
 
   vtkSmartPointer<vtkActor> glyph3DActor2 =
     vtkSmartPointer<vtkActor>::New();
   glyph3DActor2->SetMapper(glyph3D2);
-  glyph3DActor2->GetProperty()->SetColor(1.0000, 0.4900, 0.2500);
+  glyph3DActor2->GetProperty()->SetColor(colors->GetColor3d("Tomato").GetData());
 
   // Create graphics stuff
   //
   vtkSmartPointer<vtkRenderer> ren1 =
     vtkSmartPointer<vtkRenderer>::New();
-  ren1->SetBackground(.3, .4, .6);
+  ren1->SetBackground(colors->GetColor3d("SlateGray").GetData());
 
   vtkSmartPointer<vtkRenderWindow> renWin =
     vtkSmartPointer<vtkRenderWindow>::New();
