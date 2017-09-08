@@ -16120,7 +16120,7 @@ function registerListener(event, func) {
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderWindowInteractor.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkRenderer.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtkCamera.h&gt;</span><span class="cp"></span>
-
+<span class="cp">#include</span> <span class="cpf">&lt;vtkNamedColors.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vtksys/SystemTools.hxx&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span>
@@ -16153,6 +16153,8 @@ function registerListener(event, func) {
   <span class="n">densify</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;# of densified points: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">densify</span><span class="o">-&gt;</span><span class="n">GetOutput</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetNumberOfPoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
+  <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;</span> <span class="n">colors</span> <span class="o">=</span>
+    <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkNamedColors</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
 <span class="c1">///</span>
   <span class="kt">double</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">.01</span><span class="p">;</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource1</span> <span class="o">=</span>
@@ -16163,12 +16165,13 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3DMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">glyph3D1</span><span class="o">-&gt;</span><span class="n">SetInputData</span><span class="p">(</span><span class="n">polyData</span><span class="p">);</span>
   <span class="n">glyph3D1</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sphereSource1</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph3D1</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
   <span class="n">glyph3D1</span><span class="o">-&gt;</span><span class="n">ScalingOff</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DActor1</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">glyph3DActor1</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3D1</span><span class="p">);</span>
-  <span class="n">glyph3DActor1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">0.8900</span><span class="p">,</span> <span class="mf">0.8100</span><span class="p">,</span> <span class="mf">0.3400</span><span class="p">);</span>
+  <span class="n">glyph3DActor1</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Banana&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
 <span class="c1">////</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkSphereSource</span><span class="o">&gt;</span> <span class="n">sphereSource2</span> <span class="o">=</span>
@@ -16179,18 +16182,19 @@ function registerListener(event, func) {
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkGlyph3DMapper</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">glyph3D2</span><span class="o">-&gt;</span><span class="n">SetInputConnection</span><span class="p">(</span><span class="n">densify</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
   <span class="n">glyph3D2</span><span class="o">-&gt;</span><span class="n">SetSourceConnection</span><span class="p">(</span><span class="n">sphereSource2</span><span class="o">-&gt;</span><span class="n">GetOutputPort</span><span class="p">());</span>
+  <span class="n">glyph3D2</span><span class="o">-&gt;</span><span class="n">ScalarVisibilityOff</span><span class="p">();</span>
   <span class="n">glyph3D2</span><span class="o">-&gt;</span><span class="n">ScalingOff</span><span class="p">();</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;</span> <span class="n">glyph3DActor2</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkActor</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
   <span class="n">glyph3DActor2</span><span class="o">-&gt;</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">glyph3D2</span><span class="p">);</span>
-  <span class="n">glyph3DActor2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="mf">1.0000</span><span class="p">,</span> <span class="mf">0.4900</span><span class="p">,</span> <span class="mf">0.2500</span><span class="p">);</span>
+  <span class="n">glyph3DActor2</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetColor</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;Tomato&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="c1">// Create graphics stuff</span>
   <span class="c1">//</span>
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;</span> <span class="n">ren1</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderer</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
-  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">);</span>
+  <span class="n">ren1</span><span class="o">-&gt;</span><span class="n">SetBackground</span><span class="p">(</span><span class="n">colors</span><span class="o">-&gt;</span><span class="n">GetColor3d</span><span class="p">(</span><span class="s">&quot;SlateGray&quot;</span><span class="p">).</span><span class="n">GetData</span><span class="p">());</span>
 
   <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;</span> <span class="n">renWin</span> <span class="o">=</span>
     <span class="n">vtkSmartPointer</span><span class="o">&lt;</span><span class="n">vtkRenderWindow</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">();</span>
