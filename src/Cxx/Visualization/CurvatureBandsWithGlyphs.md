@@ -11,7 +11,7 @@ glyphed and colored by elevation using the default lookup table.
 The example also demonstrates partitioning the pipelines into functions and how
 to generate a custom lookup table to handle irregular distributions of data.
 
-For generating surfaces, the trick here is to return vtkPolydata for surfaces
+For generating surfaces, the trick here is to return vtkPolyData for surfaces
 thereby hiding the particular surface properties in the implementation of the
 function. This allows us to specify multiple surface types and, in this code,
 to use an enum to pick the one we want.
