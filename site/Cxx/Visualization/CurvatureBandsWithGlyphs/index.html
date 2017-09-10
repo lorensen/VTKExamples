@@ -16127,7 +16127,7 @@ To further enhance the surface the surface normals are
 glyphed and colored by elevation using the default lookup table. </p>
 <p>The example also demonstrates partitioning the pipelines into functions and how
 to generate a custom lookup table to handle irregular distributions of data.</p>
-<p>For generating surfaces, the trick here is to return <a href="http://www.vtk.org/doc/nightly/html/classvtkPolydata.html#details">vtkPolydata</a> for surfaces
+<p>For generating surfaces, the trick here is to return <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a> for surfaces
 thereby hiding the particular surface properties in the implementation of the
 function. This allows us to specify multiple surface types and, in this code,
 to use an enum to pick the one we want.</p>
