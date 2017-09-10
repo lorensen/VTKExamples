@@ -369,8 +369,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 [PolyDataToUnstructuredGrid](/Cxx/PolyData/PolyDataToUnstructuredGrid) | [vtkAppendFilter](http://www.vtk.org/doc/nightly/html/classvtkAppendFilter.html#details) |Convert a [vtkPolyData](http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details) to a [vtkUnstructuredGrid](http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details).
 
 
-### Point cloud operations
-
+### Point Cloud Operations
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
