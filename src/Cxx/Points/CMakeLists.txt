@@ -36,6 +36,8 @@ Requires_Version(SignedDistance ${VERSION_MIN} ALL_FILES)
 Requires_Version(UnsignedDistance ${VERSION_MIN} ALL_FILES)
 Requires_Module(PowercrustExtractSurface Powercrust)
 Requires_Module(PoissonExtractSurface PoissonReconstruction)
+Requires_Module(DemoExtractSurface Powercrust)
+Requires_Module(DemoExtractSurface PoissonReconstruction)
 
 foreach(SOURCE_FILE ${ALL_FILES})
   STRING(REPLACE ".cxx" "" TMP ${SOURCE_FILE})
@@ -48,6 +50,7 @@ if (BUILD_TESTING)
 # Testing
 SET(KIT Points)
 SET(NEEDS_ARGS
+  CompareExtractSurface
   ExtractSurface
   ExtractSurfaceDemo
   DensifyPoints
@@ -59,24 +62,27 @@ SET(NEEDS_ARGS
 )
 SET(DATA ${WikiExamples_SOURCE_DIR}/src/Testing/Data)
 
-if (vtkFiltersPoints_LOADED)
-   ADD_TEST(${KIT}-ExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestExtractSurface ${DATA}/Armadillo.ply)
-   ADD_TEST(${KIT}-ExtractSurfaceDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestExtractSurfaceDemo ${DATA}/Armadillo.ply)
-   ADD_TEST(${KIT}-DensifyPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestDensifyPoints ${DATA}/Torso.vtp)
-   ADD_TEST(${KIT}-MaskPointsFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestMaskPointsFilter ${DATA}/FullHead.mhd)
-   ADD_TEST(${KIT}-PointOccupancy ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestPointOccupancy ${DATA}/cowHead.vtp)
-   ADD_TEST(${KIT}-RadiusOutlierRemoval ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestRadiusOutlierRemoval ${DATA}/cowHead.vtp)
-   ADD_TEST(${KIT}-SignedDistance ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestSignedDistance ${DATA}/Armadillo.ply)
-   ADD_TEST(${KIT}-UnsignedDistance ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-     TestUnsignedDistance ${DATA}/Armadillo.ply)
+if(Powercrust_LOADED AND PoissonReconstruction_LOADED)
+  ADD_TEST(${KIT}-CompareExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestCompareExtractSurface ${DATA}/horsePoints.vtp)
 endif()
+
+ADD_TEST(${KIT}-ExtractSurface ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestExtractSurface ${DATA}/Armadillo.ply)
+ADD_TEST(${KIT}-ExtractSurfaceDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestExtractSurfaceDemo ${DATA}/Armadillo.ply)
+ADD_TEST(${KIT}-DensifyPoints ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestDensifyPoints ${DATA}/Torso.vtp)
+ADD_TEST(${KIT}-MaskPointsFilter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestMaskPointsFilter ${DATA}/FullHead.mhd)
+ADD_TEST(${KIT}-PointOccupancy ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestPointOccupancy ${DATA}/cowHead.vtp)
+ADD_TEST(${KIT}-RadiusOutlierRemoval ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestRadiusOutlierRemoval ${DATA}/cowHead.vtp)
+ADD_TEST(${KIT}-SignedDistance ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestSignedDistance ${DATA}/Armadillo.ply)
+ADD_TEST(${KIT}-UnsignedDistance ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+     TestUnsignedDistance ${DATA}/Armadillo.ply)
 
 INCLUDE(${WikiExamples_SOURCE_DIR}/CMake/ExamplesTesting.cmake)
 endif()
