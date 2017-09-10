@@ -6,6 +6,7 @@ We usually try to keep examples short, but this example teaches several concepts
 2. Time multiple algorithms
 3. Reuse code from other examples
 4. Use multiple remote modules
+5. Generate figures for papers
 
 !!! warning
     This examples runs longer than most. Be patient.
