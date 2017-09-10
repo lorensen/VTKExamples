@@ -374,6 +374,7 @@ These examples demonstrate how to create an display one of the many [vtkParametr
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
+[CompareExtractSurface](/Cxx/Points/CompareExtractSurface) | [vtkExtractSurface](http://www.vtk.org/doc/nightly/html/classvtkExtractSurface.html#details) | Compare three extract surface algorithms.
 [DensifyPoints](/Cxx/Points/DensifyPoints) | [vtkDensifyPointCloudFilter](http://www.vtk.org/doc/nightly/html/classvtkDensifyPointCloudFilter.html#details) | Add points to a point cloud.
 [DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | [vtkCleanPolyData](http://www.vtk.org/doc/nightly/html/classvtkCleanPolyData.html#details) | Downsample a point cloud. Remove points so that there are no points within a tolerance of any point.
 [ExtractClusters](/Cxx/Points/ExtractClusters) | [vtkEuclideanClusterExtraction](http://www.vtk.org/doc/nightly/html/classvtkEuclideanClusterExtraction.html#details) | From a set of randomly distributed spheres, extract connected clusters.
