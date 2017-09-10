@@ -16122,6 +16122,10 @@ function registerListener(event, func) {
 <p>This example loosely follows the most excellent paper by Curless and Levoy: <a href="https://graphics.stanford.edu/papers/volrange">"A Volumetric Method for Building Complex Models from Range Images."</a> First it estimates normals from the points, then creates a signed distance field, followed by surface extraction of the zero-level set of the distance field.</p>
 <p>If the example is run without an argument, the example uses random points on a spherical shell. With a filename, the example uses the points on the <a href="http://www.vtk.org/doc/nightly/html/classvtkPolyData.html#details">vtkPolyData</a>.</p>
 <p>The image was created using the <a href="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/Armadillo.ply?raw=true">Armadillo dataset</a></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><a href="../../../Cxx/Points/CompareExtractSurface">CompareExtractSurface</a> compares three surface extraction algorithms.</p>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">Seealso</p>
 <p><a href="../../../Cxx/Points/PowercrustExtractSurface">PowercrustExtractSurface</a> reconstructs surfaces and is implemented as a VTK remote module. <a href="../../../Cxx/Points/PoissonExtractSurface">PoissonExtractSurface</a> reconstructs surfaces and is implemented as a VTK remote module.</p>
