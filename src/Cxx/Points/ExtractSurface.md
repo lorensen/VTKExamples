@@ -5,6 +5,10 @@ If the example is run without an argument, the example uses random points on a s
 
 The image was created using the [Armadillo dataset](https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Data/Armadillo.ply?raw=true)
 
+
+!!! info
+    [CompareExtractSurface](/Cxx/Points/CompareExtractSurface) compares three surface extraction algorithms.
+
 !!! seealso
     [PowercrustExtractSurface](/Cxx/Points/PowercrustExtractSurface) reconstructs surfaces and is implemented as a VTK remote module. [PoissonExtractSurface](/Cxx/Points/PoissonExtractSurface) reconstructs surfaces and is implemented as a VTK remote module.
 

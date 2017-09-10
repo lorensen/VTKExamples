@@ -38,12 +38,15 @@ int main (int argc, char *argv[])
             << range[0] << ", "
             << range[1] << ", "
             << range[2] << std::endl;
+
+  double maxRange = std::max(std::max(range[0], range[1]), range[2]);
+
   std::cout << "# of original points: " << polyData->GetNumberOfPoints() << std::endl;
   vtkSmartPointer<vtkDensifyPointCloudFilter> densify =
     vtkSmartPointer<vtkDensifyPointCloudFilter>::New();
   densify->SetInputData(polyData);
   densify->SetMaximumNumberOfIterations(5);
-  densify->SetTargetDistance(range[0] * .03);
+  densify->SetTargetDistance(maxRange * .03);
   densify->SetNumberOfClosestPoints(10);
   densify->Update();
   std::cout << "# of densified points: " << densify->GetOutput()->GetNumberOfPoints() << std::endl;
@@ -51,7 +54,7 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 ///
-  double radius = range[0] * .01;
+  double radius = maxRange * .01;
   vtkSmartPointer<vtkSphereSource> sphereSource1 =
     vtkSmartPointer<vtkSphereSource>::New();
   sphereSource1->SetRadius(radius);

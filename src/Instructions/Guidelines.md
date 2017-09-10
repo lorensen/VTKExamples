@@ -90,9 +90,7 @@ vtkSmartPointer<vtkCutter> cutter = vtkSmartPointer<vtkCutter>::New();
 ```c++
 vtkNew(vtkCutter> cutter;
 ```
-
-    is preferred over
-
+is preferred over
 ```c++
 vtkCutter *cutter = vtkCutter::New();
 ```
@@ -120,7 +118,6 @@ reader->SetFileName (argv[2]);
 delaunay3D->SetAlpha(atof(argv[1]));
 writer->SetFileName ( argv[3] );
 ```
-
 * Always provide a background for the renderers. Avoid setting the background to white.
 
 * Use [vtkNamedColors](http://www.vtk.org/doc/nightly/html/classvtkNamedColors.html) for setting colors of actors and renderer backgrounds. [This html file](http://htmlpreview.github.io/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) shows the colors that are available.
@@ -134,9 +131,10 @@ writer->SetFileName ( argv[3] );
 
     renderer->SetBackground(namedColors->GetColor3d("Khaki").GetData());
 ```
-    is preferred to
+is preferred over
 ```c++
     renderer->SetBackground(0.9412, 0.9020, 0.5490);
 ```
 
+* Use admonitons to warn/cite/info, etc. [Here is a summary of admonitions](https://lorensen.github.io/VTKExamples/site/Instructions/ForAdministrators/#admonition).
     

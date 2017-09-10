@@ -11,7 +11,7 @@ illustrate a single concept.
 
 When you write an example, please follow the [coding guidelines](../Instructions/Guidelines). Create the example on your local repository, compile and run it before you generate a pull request.
 
-## Setup for Developement
+## Setup for Development
 
 ### Fork the repository
 

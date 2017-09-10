@@ -6,6 +6,9 @@ If the example is run without an argument, the example uses random points on a s
 !!! cite
     See [The Power Crust](http://web.cs.ucdavis.edu/~amenta/pubs/sm.pdf) for technical details.
 
+!!! info
+    [CompareExtractSurface](/Cxx/Points/CompareExtractSurface) compares three surface extraction algorithms.
+
 !!! seealso
     [ExtractSurface](/Cxx/Points/ExtractSurface) reconstructs surfaces and is included with the VTK distribution. [PoissonExtractSurface](/Cxx/Points/PoissonExtractSurface) reconstructs surfaces and is implemented as a VTK remote module.
 
