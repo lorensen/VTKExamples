@@ -63,12 +63,12 @@
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [ReadBMP](/CSharp/IO/ReadBMP) | vtkBMPReader | Read BMP (.bmp) files
-[JPEGReader](/CSharp/IO/JPEGReader)|vtkJPEGReader| Read a JPG image
-[PNGReader](/CSharp/IO/PNGReader)|vtkPNGReader| Read a PNG image
+[JPEGReader](/CSharp/IO/JPEGReader) | vtkJPEGReader| Read a JPG image
+[PNGReader](/CSharp/IO/PNGReader) | vtkPNGReader| Read a PNG image
 [ReadPNM](/CSharp/IO/ReadPNM) | vtkPNMReader | Read PNM (.pnm) files
 [ReadTIFF](/CSharp/IO/ReadTIFF) | vtkTIFFReader | Read TIFF (.tif) files
 [MetaImageReader](/CSharp/IO/MetaImageReader) | vtkMetaImageReader | Read .mha files
-[ImageReader2Factory](/CSharp/IO/ImageReader2Factory)|vtkImageReader2Factory | This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect Read most standard image formats.
+[ImageReader2Factory](/CSharp/IO/ImageReader2Factory)| vtkImageReader2Factory | This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect Read most standard image formats.
 
 #### Output
 
@@ -89,7 +89,7 @@
 [GeometricObjectsDemo](/CSharp/GeometricObjects/GeometricObjectsDemo)|  | A demonstration of all geometric objects that work the same way
 [Arrow](/CSharp/GeometricObjects/Arrow)| vtkArrowSource | Arrow
 [Axes](/CSharp/GeometricObjects/Axes)| vtkAxesActor | Axes
-[ColoredLines](/CSharp/GeometricObjects/ColoredLines)  |vtkCellData vtkLine | Colored Lines
+[ColoredLines](/CSharp/GeometricObjects/ColoredLines)  | vtkCellData vtkLine | Colored Lines
 [Cone](/CSharp/GeometricObjects/Cone) | vtkConeSource | Cone
 [Cube](/CSharp/GeometricObjects/Cube) | vtkCubeSource | Cube
 [Cylinder](/CSharp/GeometricObjects/Cylinder) | vtkCylinderSource | Cylinder
@@ -111,7 +111,7 @@
 [RegularPolygonSource](/CSharp/GeometricObjects/RegularPolygonSource) | vtkRegularPolygonSource | Regular Polygon
 [Sphere](/CSharp/GeometricObjects/Sphere) | vtkSphereSource | Sphere
 [Triangle](/CSharp/GeometricObjects/Triangle) | vtkTriangle | Triangle
-[TriangleStrip](/CSharp/GeometricObjects/TriangleStrip)|vtkTriangleStrip | Triangle strip
+[TriangleStrip](/CSharp/GeometricObjects/TriangleStrip)| vtkTriangleStrip | Triangle strip
 [Tetrahedron](/CSharp/GeometricObjects/Tetrahedron) | vtkTetra | Tetrahedron
 [Vertex](/CSharp/GeometricObjects/Vertex) | vtkVertex | Vertex
 
@@ -127,27 +127,27 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[IsoContours](/CSharp/ImplicitFunctions/IsoContours)|vtkContourFunction | Visualize different isocontours using a slider
-[SampleFunction](/CSharp/ImplicitFunctions/SampleFunction)|vtkSampleFunction | Sample and visualize an implicit function
-[ExtractLargestIsosurface](/CSharp/Modelling/ExtractLargestIsosurface)|vtkPolyDataConnectivityFilter | Extract largest isosurface
-[BandedPolyDataContourFilter](/CSharp/VisualizationAlgorithms/BandedPolyDataContourFilter)|vtkBandedPolyDataContourFilter | BandedPolyDataContourFilter
-[FilledContours](/CSharp/VisualizationAlgorithms/FilledContours)|vtkContourFilter | Create filled contours (vtkClipPolyData)
-[ImplicitSphere](/CSharp/ImplicitFunctions/ImplicitSphere)|vtkSphere | An implicit representation of a sphere
-[MarchingCubes](/CSharp/Modelling/MarchingCubes)|vtkMarchingCubes | Create a voxelized spher Marching cubes
-[MarchingSquares](/CSharp/WishList/Modelling/MarchingSquares)|vtkMarchingSquares | Create a contour from a structured point set (image Marching squares
+[IsoContours](/CSharp/ImplicitFunctions/IsoContours)| vtkContourFunction | Visualize different isocontours using a slider
+[SampleFunction](/CSharp/ImplicitFunctions/SampleFunction)| vtkSampleFunction | Sample and visualize an implicit function
+[ExtractLargestIsosurface](/CSharp/Modelling/ExtractLargestIsosurface)| vtkPolyDataConnectivityFilter | Extract largest isosurface
+[BandedPolyDataContourFilter](/CSharp/VisualizationAlgorithms/BandedPolyDataContourFilter)| vtkBandedPolyDataContourFilter | BandedPolyDataContourFilter
+[FilledContours](/CSharp/VisualizationAlgorithms/FilledContours)| vtkContourFilter | Create filled contours (vtkClipPolyData)
+[ImplicitSphere](/CSharp/ImplicitFunctions/ImplicitSphere)| vtkSphere | An implicit representation of a sphere
+[MarchingCubes](/CSharp/Modelling/MarchingCubes)| vtkMarchingCubes | Create a voxelized spher Marching cubes
+[MarchingSquares](/CSharp/WishList/Modelling/MarchingSquares)| vtkMarchingSquares | Create a contour from a structured point set (image Marching squares
 
 ## Working with 3D Data
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[ShrinkPolyData](/CSharp/PolyData/ShrinkPolyData)|vtkShrinkPolyData| Move all items in a PolyData towards their centroid
-[VectorFieldNonZeroExtraction](/CSharp/PolyData/VectorFieldNonZeroExtraction)|vtkExtractSelectedThresholds| This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar value Extract non-zero vectors from a vtkImageData
-[MultiBlockMergeFilter](/CSharp/PolyData/MultiBlockMergeFilter)|vtkMultiBlockMergeFilter, vtkMultiBlockDataSet | Combine MultiBlockDataSets
-[IterateOverLines](/CSharp/PolyData/IterateOverLines)|vtkCellArray | Iterate through the lines of a PolyData
-[AlignFrames](/CSharp/PolyData/AlignFrames)|vtkLandmarkTransform | Align coordinate frames
-[WarpVector](/CSharp/PolyData/WarpVector)|vtkWarpVector | vtkWarpVector
-[FindAllArrayNames](/CSharp/IO/FindAllArrayNames)|vtkPolyData | Get the names of all of the data arrays
-[PolyDataGetPoint](/CSharp/PolyData/PolyDataGetPoint)|vtkPolyData | Get point locations/coordinates from a vtkPolyData
-[NullPoint](/CSharp/PolyData/NullPoint)|vtkPointData | Set everything in PointData at a specified index to NUL NullPoint
+[ShrinkPolyData](/CSharp/PolyData/ShrinkPolyData)| vtkShrinkPolyData| Move all items in a PolyData towards their centroid
+[VectorFieldNonZeroExtraction](/CSharp/PolyData/VectorFieldNonZeroExtraction)| vtkExtractSelectedThresholds| This example shows how to create an imagedata object, associate scalar data with some points and visualize only nonzero scalar value Extract non-zero vectors from a vtkImageData
+[MultiBlockMergeFilter](/CSharp/PolyData/MultiBlockMergeFilter)| vtkMultiBlockMergeFilter, vtkMultiBlockDataSet | Combine MultiBlockDataSets
+[IterateOverLines](/CSharp/PolyData/IterateOverLines)| vtkCellArray | Iterate through the lines of a PolyData
+[AlignFrames](/CSharp/PolyData/AlignFrames)| vtkLandmarkTransform | Align coordinate frames
+[WarpVector](/CSharp/PolyData/WarpVector)| vtkWarpVector | vtkWarpVector
+[FindAllArrayNames](/CSharp/IO/FindAllArrayNames)| vtkPolyData | Get the names of all of the data arrays
+[PolyDataGetPoint](/CSharp/PolyData/PolyDataGetPoint)| vtkPolyData | Get point locations/coordinates from a vtkPolyData
+[NullPoint](/CSharp/PolyData/NullPoint)| vtkPointData | Set everything in PointData at a specified index to NUL NullPoint
 [ContoursFromPolyData](/CSharp/Filtering/ContoursFromPolyData) | vtkCutter | Create contours from PolyData
 [ImplicitBoolean](/CSharp/Filters/ImplicitBoolean) | vtkImplicitBoolean | Operations include intersection and union. | OperationsOnImplicitFunctions
 
@@ -155,34 +155,34 @@ These examples demonstrate how to create an display one of the many vtkParametri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[MatrixMathFilter](/CSharp/Meshes/MatrixMathFilter)|vtkMatrixMathFilter | Compute various quantities on cell and points in a mesh Matrix math filter
+[MatrixMathFilter](/CSharp/Meshes/MatrixMathFilter)| vtkMatrixMathFilter | Compute various quantities on cell and points in a mesh Matrix math filter
 [WeightedTransformFilter](/CSharp/PolyData/WeightedTransformFilter) |  vtkWeightedTransformFilter | vtkWeightedTransformFilter 
 [GreedyTerrainDecimation](/CSharp/PolyData/GreedyTerrainDecimation) |  vtkGreedyTerrainDecimation | Create a mesh from an ImageData 
 [LargestRegion](/CSharp/PolyData/PolyDataConnectivityFilter_LargestRegion) |  vtkPolyDataConnectivityFilter | Extract the largest connected region in a polydata
 [SpecifiedRegion](/CSharp/PolyData/PolyDataConnectivityFilter_SpecifiedRegion) | vtkPolyDataConnectivityFilter | Extract a specific (specified) connected region in a polydata
 [ColorDisconnectedRegions](/CSharp/PolyData/ColorDisconnectedRegions) | vtkPolyDataConnectivityFilter | Color each disconnected region of a vtkPolyData a different color
-[Curvature](/CSharp/PolyData/Curvature)|vtkCurvatures | Compute Gaussian, Mean, Min, and Max Curvatures
-[HighlightBadCells](/CSharp/PolyData/HighlightBadCells)|vtkMeshQuality | Highlight Bad Cells
-[PolygonalSurfaceContourLineInterpolator](/CSharp/PolyData/PolygonalSurfaceContourLineInterpolator)|vtkPolygonalSurfaceContourLineInterpolator | Interactively find the shortest path between two points on a mesh
-[DijkstraGraphGeodesicPath](/CSharp/PolyData/DijkstraGraphGeodesicPath)|vtkDijkstraGraphGeodesicPath | Find the shortest path between two points on a mesh
-[SelectPolyData](/CSharp/PolyData/SelectPolyData)|vtkSelectPolyData | Select a region of a mesh
-[ClosedSurface](/CSharp/PolyData/ClosedSurface)|vtkFeatureEdges | Check if a surface is closed
-[Decimate](/CSharp/Meshes/Decimate)|vtkDecimatePro | Reduce the number of triangles in a mesh Decimation
-[QuadricDecimation](/CSharp/Meshes/QuadricDecimation)|vtkQuadricDecimation | Reduce the number of triangles in a mesh Decimation (quadric decimation)
-[QuadricClustering](/CSharp/Meshes/QuadricClustering)|vtkQuadricClustering | Reduce the number of triangles in a mesh Decimation (quadric clustering)
-[Subdivision](/CSharp/Meshes/Subdivision)|vtkButterflySubdivisionFilter, vtkLoopSubdivisionFilter, vtkLinearSubdivisionFilter | Increase the number of triangles in a mesh Subdivision
-[BoundaryEdges](/CSharp/Meshes/BoundaryEdges)|vtkFeatureEdges | Find the edges that are used by only one face Finding Boundary Edges
-[FillHoles](/CSharp/Meshes/FillHoles)|vtkFillHolesFilter | Close holes in a mesh Fill Holes
-[WindowedSincPolyDataFilter](/CSharp/Meshes/WindowedSincPolyDataFilter)|vtkWindowedSincPolyDataFilter | Smooth a mesh Windowed Sinc PolyData Filter|Smooth a mesh (windowed sinc filter)
-[ColoredElevationMap](/CSharp/Meshes/ColoredElevationMap)|vtkLookupTable | Colormap, color ma Color a mesh by height
-[ElevationFilter](/CSharp/Meshes/ElevationFilter)|vtkElevationFilter | Color a mesh by height
-[SimpleElevationFilter](/CSharp/Meshes/SimpleElevationFilter)|vtkSimpleElevationFilter | Color a mesh by dotting a vector from the origin to each point with a specified vector
-[Triangulate](/CSharp/Meshes/Triangulate)|vtkTriangleFilter | Convert all polygons in a mesh to triangles Triangulate a mesh
-[ExtractEdges](/CSharp/Meshes/ExtractEdges)|vtkExtractEdges | Extract Edges
-[CellEdges](/CSharp/Meshes/CellEdges)|vtkCell | Get edges of cells
-[SolidClip](/CSharp/Meshes/SolidClip)|vtkClipPolyData | Create a "solid" clip
-[CapClip](/CSharp/Meshes/CapClip)|vtkClipPolyData | Cap a clipped polydata with a polygon
-[OBBDicer](/CSharp/Meshes/OBBDicer)|vtkOBBDicer | Breakup a mesh into pieces OBBDicer
+[Curvature](/CSharp/PolyData/Curvature)| vtkCurvatures | Compute Gaussian, Mean, Min, and Max Curvatures
+[HighlightBadCells](/CSharp/PolyData/HighlightBadCells)| vtkMeshQuality | Highlight Bad Cells
+[PolygonalSurfaceContourLineInterpolator](/CSharp/PolyData/PolygonalSurfaceContourLineInterpolator)| vtkPolygonalSurfaceContourLineInterpolator | Interactively find the shortest path between two points on a mesh
+[DijkstraGraphGeodesicPath](/CSharp/PolyData/DijkstraGraphGeodesicPath)| vtkDijkstraGraphGeodesicPath | Find the shortest path between two points on a mesh
+[SelectPolyData](/CSharp/PolyData/SelectPolyData)| vtkSelectPolyData | Select a region of a mesh
+[ClosedSurface](/CSharp/PolyData/ClosedSurface)| vtkFeatureEdges | Check if a surface is closed
+[Decimate](/CSharp/Meshes/Decimate)| vtkDecimatePro | Reduce the number of triangles in a mesh Decimation
+[QuadricDecimation](/CSharp/Meshes/QuadricDecimation)| vtkQuadricDecimation | Reduce the number of triangles in a mesh Decimation (quadric decimation)
+[QuadricClustering](/CSharp/Meshes/QuadricClustering)| vtkQuadricClustering | Reduce the number of triangles in a mesh Decimation (quadric clustering)
+[Subdivision](/CSharp/Meshes/Subdivision)| vtkButterflySubdivisionFilter, vtkLoopSubdivisionFilter, vtkLinearSubdivisionFilter | Increase the number of triangles in a mesh Subdivision
+[BoundaryEdges](/CSharp/Meshes/BoundaryEdges)| vtkFeatureEdges | Find the edges that are used by only one face Finding Boundary Edges
+[FillHoles](/CSharp/Meshes/FillHoles)| vtkFillHolesFilter | Close holes in a mesh Fill Holes
+[WindowedSincPolyDataFilter](/CSharp/Meshes/WindowedSincPolyDataFilter)| vtkWindowedSincPolyDataFilter | Smooth a mesh Windowed Sinc PolyData Filter|Smooth a mesh (windowed sinc filter)
+[ColoredElevationMap](/CSharp/Meshes/ColoredElevationMap)| vtkLookupTable | Colormap, color ma Color a mesh by height
+[ElevationFilter](/CSharp/Meshes/ElevationFilter)| vtkElevationFilter | Color a mesh by height
+[SimpleElevationFilter](/CSharp/Meshes/SimpleElevationFilter)| vtkSimpleElevationFilter | Color a mesh by dotting a vector from the origin to each point with a specified vector
+[Triangulate](/CSharp/Meshes/Triangulate)| vtkTriangleFilter | Convert all polygons in a mesh to triangles Triangulate a mesh
+[ExtractEdges](/CSharp/Meshes/ExtractEdges)| vtkExtractEdges | Extract Edges
+[CellEdges](/CSharp/Meshes/CellEdges)| vtkCell | Get edges of cells
+[SolidClip](/CSharp/Meshes/SolidClip)| vtkClipPolyData | Create a "solid" clip
+[CapClip](/CSharp/Meshes/CapClip)| vtkClipPolyData | Cap a clipped polydata with a polygon
+[OBBDicer](/CSharp/Meshes/OBBDicer)| vtkOBBDicer | Breakup a mesh into pieces OBBDicer
 
 
 ### Working with Structured 3D Data
