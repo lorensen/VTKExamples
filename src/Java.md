@@ -3,54 +3,48 @@ Click [hear](http://www.vtk.org/Wiki/VTK/Tutorials/JavaEnvironmentSetup) for a t
 It would be appreciated if there are any Java VTK experts who could convert any of the [c++ examples](/Cxx) to Java!
 
 #Input and Output
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[Read a polydata(.vtp) file](/Java/IO/ReadPolyData) | [vtkXMLPolyDataReader](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataReader.html#details) | IO
-[Write a polygonal data (.vtp) file](/Java/IO/WritePolyData) | [vtkXMLPolyDataWriter](http://www.vtk.org/doc/nightly/html/classvtkXMLPolyDataWriter.html#details) | IO
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[Read a polydata(.vtp) file](/Java/IO/ReadPolyData) | vtkXMLPolyDataReader | IO
+[Write a polygonal data (.vtp) file](/Java/IO/WritePolyData) | vtkXMLPolyDataWriter | IO
 
 #Implicit Functions and Iso-surfaces
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | [vtkSphere](http://www.vtk.org/doc/nightly/html/classvtkSphere.html#details) [vtkAppendPolyData](http://www.vtk.org/doc/nightly/html/classvtkAppendPolyData.html#details) [vtkTubeFilter](http://www.vtk.org/doc/nightly/html/classvtkTubeFilter.html#details)  | ImplicitFunctions, Append poly data, tube filter, sphere
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImplicitSphere](/Java/ImplicitFunctions/ImplicitSphere) | vtkSphere vtkAppendPolyData vtkTubeFilter  | ImplicitFunctions, Append poly data, tube filter, sphere
 
 #Data Structures
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)| [vtkKdTreePointLocator](http://www.vtk.org/doc/nightly/html/classvtkKdTreePointLocator.html#details) |
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[VisualizeKDTree](/Java/DataStructures/VisualizeKDTree)| vtkKdTreePointLocator |
 
 #Image Processing
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[ImageTest](/Java/Imaging/ImageTest) | [vtkImageReader2Factory](http://www.vtk.org/doc/nightly/html/classvtkImageReader2Factory.html#details) | use Java File Dialog to select Image File to Display
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[ImageTest](/Java/Imaging/ImageTest) | vtkImageReader2Factory | use Java File Dialog to select Image File to Display
 
 #Miscellaneous
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[Cutter](/Java/Miscellaneous/Cutter) | [vtkCutter](http://www.vtk.org/doc/nightly/html/classvtkCutter.html#details) |
-[Screenshot](/Java/Miscellaneous/Screenshot) | [vtkWindowToImageFilter](http://www.vtk.org/doc/nightly/html/classvtkWindowToImageFilter.html#details) |
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[Cutter](/Java/Miscellaneous/Cutter) | vtkCutter |
+[Screenshot](/Java/Miscellaneous/Screenshot) | vtkWindowToImageFilter |
 [Cone6](/Java/Miscellaneous/Cone6) || The missing Step 6 Java example from Examples/Tutorial
 
 #Visualization
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
 [Animation](/Java/Visualization/Animation)  || Move a sphere across a scene
-[Follower](/Java/Visualization/Follower) | [vtkFollower](http://www.vtk.org/doc/nightly/html/classvtkFollower.html#details) | Draw text that stays right side up
-[AnimDataCone](/Java/Visualization/AnimDataCone)  | [vtkRenderWindowInteractor](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowInteractor.html#details) | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
-[ColorAnActor](/Java/Visualization/ColorAnActor) | [vtkActor](http://www.vtk.org/doc/nightly/html/classvtkActor.html::GetProperty)::SetColor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
-[VectorFieldExample](/Java/Visualization/VectorFieldExample) |    |
-
-#Interaction
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[SphereInteractionPanel](/Java/Interaction/SphereInteractionPanel) | [vtkInteractorStyleSwitch](http://www.vtk.org/doc/nightly/html/classvtkInteractorStyleSwitch.html#details) [vtkCanvas](http://www.vtk.org/doc/nightly/html/classvtkCanvas.html#details)  | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
+[Follower](/Java/Visualization/Follower) | vtkFollower | Draw text that stays right side up
+[AnimDataCone](/Java/Visualization/AnimDataCone)  | vtkRenderWindowInteractor | Animate a cone by modifying the polydata points - uses Interaction M key (Motion) to toggle animation.
+[ColorAnActor](/Java/Visualization/ColorAnActor) | vtkActor vtkCanvas  | Switch style interaction adds C and A key actions for selecting Camera or Actor interaction, and T and J key actions for Trackball or Joystick interaction mode. Adds charEvent observer callback to restore the missing E and Q events to quit.
 
 #Graphs
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[SelectGraphVertices](/Java/Graphs/SelectGraphVertices)  | [vtkAnnotationLink](http://www.vtk.org/doc/nightly/html/classvtkAnnotationLink.html#details) | Select Edges and vertices in a graph
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[SelectGraphVertices](/Java/Graphs/SelectGraphVertices)  | vtkAnnotationLink | Select Edges and vertices in a graph
 
 #Swing Integration
-| Example Name | Classes Demonstrated | Description |
-|--------------|----------------------|-------------|
-[JFrameRender](/Java/SwingIntegration/JFrameRenderer)  | [vtkRenderWindowPanel](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowPanel.html#details) | Render a scene in a JFrame using a vtkRenderWindowPanel
-[SwingHandleMouseEvent](/Java/SwingIntegration/SwingHandleMouseEvent)  | [vtkRenderWindowPanel](http://www.vtk.org/doc/nightly/html/classvtkRenderWindowPanel.html#details) | Display in a JLabel the point the mouse is hovering over using a mouse listener
+| Example Name | Classes Demonstrated | Description | Image |
+|--------------|----------------------|-------------|-------|
+[JFrameRender](/Java/SwingIntegration/JFrameRenderer)  | vtkRenderWindowPanel | Render a scene in a JFrame using a vtkRenderWindowPanel
+[SwingHandleMouseEvent](/Java/SwingIntegration/SwingHandleMouseEvent)  | vtkRenderWindowPanel | Display in a JLabel the point the mouse is hovering over using a mouse listener
