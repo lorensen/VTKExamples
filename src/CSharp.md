@@ -8,9 +8,9 @@
 [DistanceBetweenPoints](/CSharp/SimpleOperations/DistanceBetweenPoints) | vtkMath | Computes the distance between two point Distance between two points
 [UniformRandomNumber](/CSharp/SimpleOperations/UniformRandomNumber) | vtkMath | Generates uniform random number Random number (uniform distribution)
 [GaussianRandomNumber](/CSharp/SimpleOperations/GaussianRandomNumber) | vtkMath | Generates Gaussian random number Random number (Gaussian distribution)
-[RandomSequence](/CSharp/SimpleOperations/RandomSequence)|vtkMinimalStandardRandomSequence | This is the preferred way to generate random numbers Random sequence
-[ProjectPointPlane](/CSharp/SimpleOperations/ProjectPointPlane)|vtkPlane | Project a point onto a plan Project a point onto a plane
-[PerspectiveTransform](/CSharp/SimpleOperations/PerspectiveTransform)|vtkPerspectiveTransform | Apply a perspective transformation to a point
+[RandomSequence](/CSharp/SimpleOperations/RandomSequence)| vtkMinimalStandardRandomSequence | This is the preferred way to generate random numbers Random sequence
+[ProjectPointPlane](/CSharp/SimpleOperations/ProjectPointPlane)| vtkPlane | Project a point onto a plan Project a point onto a plane
+[PerspectiveTransform](/CSharp/SimpleOperations/PerspectiveTransform)| vtkPerspectiveTransform | Apply a perspective transformation to a point
 
 ## Input and Output
 ### Graph Formats
@@ -28,7 +28,7 @@
 |--------------|----------------------|-------------|-------|
 [SimplePointsReader](/CSharp/IO/SimplePointsReader) | vtkSimplePointsReader | Read a simple "xyz" file of points
 [ReadDICOMSeries](/CSharp/IO/ReadDICOMSeries) | vtkDICOMImageReader | This example demonstates how to read a series of DICOM images and scroll through slice Convert a series of DICOM files into a VTI File
-[VRML](/CSharp/IO/VRML)|vtkVRMLImporter | Read a VRML (WRL) file
+[VRML](/CSharp/IO/VRML)| vtkVRMLImporter | Read a VRML (WRL) file
 [DEMReader](/CSharp/IO/DEMReader) | vtkDEMReader | Read DEM (elevation map) files
 [ReadSTL](/CSharp/IO/ReadSTL) | vtkSTLReader | Read stereo lithography STL (.stl) files
 [ReadPLY](/CSharp/IO/ReadPLY) | vtkPLYReader | Read PLY (.ply) files
@@ -40,21 +40,21 @@
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[ReadUnstructuredGrid](/CSharp/IO/ReadUnstructuredGrid)|vtkXMLUnstructuredGridReader |Demonstrates how to read a .vtu fil Read an unstructured grid (.vtu) file
-[ReadPolyData](/CSharp/IO/ReadPolyData)|vtkXMLPolyDataReader | Read a polygonal data (.vtp) file
-[ReadImageData](/CSharp/IO/ReadImageData)|vtkXMLImageDataReader | Read a image data (.vti) file
-[ReadStructuredGrid](/CSharp/IO/ReadStructuredGrid)|vtkXMLStructuredGridReader | Read a structured grid (.vts) file
-[ReadRectilinearGrid](/CSharp/IO/ReadRectilinearGrid)|vtkXMLRectilinearGridReader | Read a rectilinear grid (.vtr) file
-[ReadUnknownTypeXMLFile](/CSharp/IO/ReadUnknownTypeXMLFile)|vtkXMLGenericDataObjectReader | Read an XML file and later decide what kind it is
+[ReadUnstructuredGrid](/CSharp/IO/ReadUnstructuredGrid)| vtkXMLUnstructuredGridReader |Demonstrates how to read a .vtu fil Read an unstructured grid (.vtu) file
+[ReadPolyData](/CSharp/IO/ReadPolyData)| vtkXMLPolyDataReader | Read a polygonal data (.vtp) file
+[ReadImageData](/CSharp/IO/ReadImageData)| vtkXMLImageDataReader | Read a image data (.vti) file
+[ReadStructuredGrid](/CSharp/IO/ReadStructuredGrid)| vtkXMLStructuredGridReader | Read a structured grid (.vts) file
+[ReadRectilinearGrid](/CSharp/IO/ReadRectilinearGrid)| vtkXMLRectilinearGridReader | Read a rectilinear grid (.vtr) file
+[ReadUnknownTypeXMLFile](/CSharp/IO/ReadUnknownTypeXMLFile)| vtkXMLGenericDataObjectReader | Read an XML file and later decide what kind it is
 
 ##### Output
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[WriteVTU](/CSharp/IO/WriteVTU)|vtkXMLUnstructuredGridWriter | VTU is an "Unstructured Grid". This format allows for 3D data to be stored Write a .vtu file
-[WriteVTP](/CSharp/IO/WriteVTP)|vtkXMLPolyDataWriter | VTP is a "PolyData". This format allows for the most complex geometric objects to be stored Write a .vtp file
-[WriteVTI](/CSharp/IO/WriteVTI)|vtkXMLImageDataWriter | VTI is an "ImageData" Write a .vti file
-[XMLStructuredGridWriter](/CSharp/IO/XMLStructuredGridWriter)|vtkXMLStructuredGridWriter | Write a .vts file from a vtkStructuredGrid
+[WriteVTU](/CSharp/IO/WriteVTU)| vtkXMLUnstructuredGridWriter | VTU is an "Unstructured Grid". This format allows for 3D data to be stored Write a .vtu file
+[WriteVTP](/CSharp/IO/WriteVTP)| vtkXMLPolyDataWriter | VTP is a "PolyData". This format allows for the most complex geometric objects to be stored Write a .vtp file
+[WriteVTI](/CSharp/IO/WriteVTI)| vtkXMLImageDataWriter | VTI is an "ImageData" Write a .vti file
+[XMLStructuredGridWriter](/CSharp/IO/XMLStructuredGridWriter)| vtkXMLStructuredGridWriter | Write a .vts file from a vtkStructuredGrid
 
 
 ### Image Formats
