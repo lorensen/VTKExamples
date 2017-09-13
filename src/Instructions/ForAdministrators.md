@@ -1,5 +1,3 @@
-!!! danger "This page is not complete"
-
 VTKExamples Administrators have write access to the [git repository]([https://github.com/lorensen/VTKExamples). If you are a VTKExamples User [go here](/Instructions/ForUsers) or a VTKExamples Developer [go here](/Instructions/ForDevelopers).
 
 # Organization of the VTKExamples Repository
@@ -176,8 +174,20 @@ The Lazy Image Loading is implemented in javascript. The javascript is stored in
 
 The VTKExamples web pages have many url's that link to images and VTK doxygen pages. The long length of these url's can increase page load tines, especially on the language summary pages. 
 
-[http://tinyurl.com](http://tinyurl.com) provides a service to map the long url's into shorted url's. There is a python package, *tinyurl*, that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file *src/Admin/TinyUrlCache*. *ScrapeRepo* uses this cache to only convert url's that are not in the cache. *ScrapeRepo* updates the cache after each run.
+[http://tinyurl.com](http://tinyurl.com) provides a service to map the long url's into shorted url's. There is a python package, [tinyurl](https://pypi.python.org/pypi/TinyUrl/), that converts the long url's. Unfortunately, this process is slow. To speed up the process, we cache the long/short url's in a file [src/Admin/TinyUrlCache](https://github.com/lorensen/VTKExamples/raw/master/src/Admin/TinyUrlCache). *ScrapeRepo* uses this cache to only convert url's that are not in the cache. *ScrapeRepo* updates the cache after each run.
 
+*tinyurl* must be installed:
+```bash
+pip install tinyurl
+```
+### Minify HTML pages
+
+*mkdocs* generates HTML pages from the markdown files in *doc*. These pages have lots of white space. We use the python package [htmlmin](https://htmlmin.readthedocs.io/en/latest/) to compress the generated HTML. The compressed pages are abput 30% smaller after running *htmlmin*. We use the command line to process each *index.html* file in *site/*.
+
+*htmlmin* must be installed:
+```bash
+pip install htmlmin
+```
 ## Administrator Tasks
 
 ### [ScrapeRepo](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/ScrapeRepo)
