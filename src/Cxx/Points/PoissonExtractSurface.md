@@ -19,7 +19,7 @@ If the example is run without an argument, the example uses random points on a s
 
 To use PoissonReconstruction in VTK:
 
-1. Download [PoissonReconstruction.remote.cmake](https://github.com/lorensen/Powercrust/blob/master/Powercrust.remote.cmake) and place it in your *VTK/Remote* directory.
+1. Download [PoissonReconstruction.remote.cmake](https://github.com/lorensen/PoissonReconstruction/blob/master/PoissonReconstruction.remote.cmake) and place it in your *VTK/Remote* directory.
 2. Reconfigure your VTK build with *cmake*
 3. Enable the remote module by setting *Module_PoissonReconstruction:BOOL=ON*.
 4. `make`
