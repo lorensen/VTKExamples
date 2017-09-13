@@ -53,6 +53,9 @@ echo "5) Copy sitemap.xml"
 cp src/Admin/sitemap.xml site/sitemap.xml
 rm site/mkdocs/search_index.json
 
+echo "5.0) Minify Html"
+(cd site; find . -name index.html -exec htmlmin {} {} \;)
+
 echo "5.1) Process modified files"
 git commit -m "SYNC: Files modified in the repo." `git status | grep modified: | cut -d":" -f2,2`
 
