@@ -266,7 +266,10 @@ for lang, langExt in Languages.items():
                     
             if os.path.isfile(BaselinePath) :
                 ImgUrl =  RepoURL + "/blob/master/src/Testing/Baseline/" + lang + "/" + KitName + "/Test" + ExampleName + ".png?raw=true"
+                # href to open image in new tab
+                MdFile.write('<a href="' + ImgUrl + ' target="_blank">' + '\n')
                 MdFile.write('<img style="border:2px solid beige;float:center" src="' + ImgUrl + '" width="256" />' + '\n')
+                MdFile.write("</a>" + "\n")
                 MdFile.write("<hr>\n")
                 MdFile.write("\n")
             DescriptionPath = RepoDir + "/" + lang + "/" + KitName + "/" + ExampleName + ".md"
