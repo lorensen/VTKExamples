@@ -16140,7 +16140,9 @@ function registerListener(event, func) {
                   <h1>CellTypeSource</h1>
                 
                 <p><a href="../../../">VTKExamples</a>/<a href="../../../Cxx">Cxx</a>/GeometricObjects/CellTypeSource</p>
-<p><img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCellTypeSource.png?raw=true" width="256" />
+<p><a href="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCellTypeSource.png?raw=true target="_blank">
+<img style="border:2px solid beige;float:center" src="https://github.com/lorensen/VTKExamples/blob/master/src/Testing/Baseline/Cxx/GeometricObjects/TestCellTypeSource.png?raw=true" width="256" />
+</a>
 <hr></p>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This example uses <a href="http://www.vtk.org/doc/nightly/html/classvtkCellTypeSource.html#details">vtkCellTypeSource</a> to generate a <a href="http://www.vtk.org/doc/nightly/html/classvtkUnstructuredGrid.html#details">vtkUnstructuredGrid</a>. If a cell does not fill a rectangular area or volume, then multiple cells will be generated. For example, a <a href="http://www.vtk.org/doc/nightly/html/classvtkTetra.html#details">vtkTetra</a> requires 12 cells to fill a cube. A <a href="http://www.vtk.org/doc/nightly/html/classvtkTriangle.html#details">vtkTriangle</a> requires two cells to fill a square. <a href="http://www.vtk.org/doc/nightly/html/classvtkCellTypeSource.html#details">vtkCellTypeSource</a> generates a uniform set of coordinates. The example perturbs those coordinates to illustrate the results of the <a href="http://www.vtk.org/doc/nightly/html/classvtkTessellatorFilter.html#details">vtkTessellatorFilter</a>. Also, each cell is passed through <a href="http://www.vtk.org/doc/nightly/html/classvtkShrinkFilter.html#details">vtkShrinkFilter</a> to help identify the cells. Each generated cell also has a unique color.</p>
