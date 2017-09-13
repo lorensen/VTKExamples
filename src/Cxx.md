@@ -45,6 +45,8 @@ Please add examples in your areas of expertise!
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | vtkDataSetReader |Report the contents of a VTK XML or legacy file
 [IndividualVRML](/Cxx/IO/IndividualVRML) | vtkVRMLImporter | This example is used to get each actor and object from a scene and verify axes correspondence 
 [ParticleReader](/Cxx/IO/ParticleReader) | vtkParticleReader | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
+[ReadAllPolyDataTypes](/Cxx/IO/ReadAllPolyDataTypes) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read any VTK polydata file.
+[ReadAllPolyDataTypesDemo](/Cxx/IO/ReadAllPolyDataTypesDemo) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read all VTK polydata file types.
 [ReadOBJ](/Cxx/IO/ReadOBJ)   | vtkOBJReader |Read an OBJ (.obj) file.
 [ReadPDB](/Cxx/IO/ReadPDB)   | vtkPDBReader | Read Protein Data Bank Files.
 [ReadPLOT3D](/Cxx/IO/ReadPLOT3D)   | vtkPLOT3DReader | Read CFD (computational fluid dynamics) data produced by PLOT3D.
@@ -864,7 +866,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MoveActor](/Cxx/Visualization/MoveActor)| vtkInteractorStyleTrackballActor |Moving an Actor.
 [MoveCamera](/Cxx/Visualization/MoveCamera)| vtkInteractorStyleTrackballCamera |Moving the Camera.
 [MultipleActors](/Cxx/Visualization/MultipleActors)| vtkActor |Multiple Actors.
-[NamedColorPatches ](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called VTKNamedColorPatches | Demonstrates how to use the vtkNamedColor class.
+[NamedColorPatches ](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) | Demonstrates how to use the vtkNamedColors class.
 [NoShading](/Cxx/Visualization/NoShading) |vtkActor |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| vtkPolyDataNormals | Demo different ooption to generate normals.
 [Opacity](/Cxx/Visualization/Opacity)| vtkActor | Transparency, transparent.

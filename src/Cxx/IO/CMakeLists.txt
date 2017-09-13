@@ -41,6 +41,8 @@ SET(NEEDS_ARGS
   ParticleReader
   PNGReader
   PNGWriter
+  ReadAllPolyDataTypes
+  ReadAllPolyDataTypesDemo
   ReadBMP
   ReadDICOM
   ReadDICOMSeries
@@ -114,6 +116,12 @@ ADD_TEST(${KIT}-PNGReader ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-PNGWriter ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestPNGWriter ${TEMP}/PNGWriter.png)
+
+ADD_TEST(${KIT}-ReadAllPolyDataTypes ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestReadAllPolyDataTypes ${DATA}/horse.ply)
+
+ADD_TEST(${KIT}-ReadAllPolyDataTypesDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+    TestReadAllPolyDataTypesDemo ${DATA}/teapot.g ${DATA}/cowHead.vtp ${DATA}/horse.ply ${DATA}/trumpet.obj ${DATA}/42400-IDGH.stl ${DATA}/v.vtk)
 
 ADD_TEST(${KIT}-ReadBMP ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestReadBMP ${DATA}/masonry.bmp)
