@@ -1,5 +1,6 @@
 #include <vtkSmartPointer.h>
 
+#include <vtkBYUReader.h>
 #include <vtkPLYReader.h>
 #include <vtkXMLPolyDataReader.h>
 #include <vtkOBJReader.h>
@@ -91,6 +92,8 @@ int main (int argc, char *argv[])
     vtkSmartPointer<vtkProperty> back =
       vtkSmartPointer<vtkProperty>::New();
     back->SetDiffuseColor(colors->GetColor3d("banana").GetData());
+    back->SetSpecular(.6);
+    back->SetSpecularPower(50.0);
 
     vtkSmartPointer<vtkActor> surfaceActor =
       vtkSmartPointer<vtkActor>::New();
@@ -202,6 +205,22 @@ vtkSmartPointer<vtkPolyData> ReadPolyData(const char *fileName)
     reader->Update();
     polyData = reader->GetOutput();
   }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
+  else if (extension == ".g")
+  {
+    vtkSmartPointer<vtkBYUReader> reader =
+      vtkSmartPointer<vtkBYUReader>::New();
+    reader->SetGeometryFileName (fileName);
+    reader->Update();
+    polyData = reader->GetOutput();
+  }
   else
   {
     vtkSmartPointer<vtkPointSource> points =
@@ -231,7 +250,7 @@ vtkSmartPointer<vtkPolyDataAlgorithm> MakeExtractSurface(vtkPolyData *polyData)
   int sampleSize = polyData->GetNumberOfPoints() * .00005;
   if (sampleSize < 10)
   {
-    sampleSize = 10;
+    sampleSize = 50;
   }
 
   // Do we need to estimate normals?
