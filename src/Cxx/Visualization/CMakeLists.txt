@@ -51,6 +51,7 @@ SET(NEEDS_ARGS
   BlobbyLogo
   BoxClipStructuredPoints
   BoxClipUnstructuredGrid
+  ChooseTextColor
   ClipArt
   ComplexV
   CorrectlyRenderTranslucentGeometry
@@ -95,6 +96,9 @@ ADD_TEST(${KIT}-ComplexV ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
 
 ADD_TEST(${KIT}-ClipArt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestClipArt ${DATA}/stormy.jpg)
+
+ADD_TEST(${KIT}-ChooseTextColor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestChooseTextColor ${DATA}/Canterbury.ttf  pink  mintcream saddlebrown)
 
 ADD_TEST(${KIT}-CorrectlyRenderTranslucentGeometry ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCorrectlyRenderTranslucentGeometry 100 100 50 0.1 0 0)
