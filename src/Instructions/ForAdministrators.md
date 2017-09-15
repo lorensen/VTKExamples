@@ -210,4 +210,37 @@ Given a *RepositoryDir*, *DocDir* and a *RepositoryUrl*, *ScrapeRepo* proceeds a
 
 4. For each Cxx source file, create a _src/Tarballs/_**EXAMPLE**_.tar_ file containing the source and _CMakeLists.txt_ file.
 
+## SyncSiteWithRepo
+The *SyncSiteWithRepo.sh* shell script executes all of the steps to update the static website. It proceeds as follow:
+
+1. Makes sure the site is up
+2. Pulls updates from the master repository at https://github.com/lorensen/VTKExamples
+3. Pulls updates from the [src/Tarballs repository](https://github.com/lorensen/VTKWikiExamplesTarballs)
+
+   The tarballs are kept in a separate repository to reduce the size of the main repository. They are only accessed from the individual example pages.
+4. Creates the coverage files
+
+   The [src/Admin/VTKClassesUsedInExamples.py](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/VTKClassesUsedInExamples.py) python script generates two tables for each language. One table list each class and what classes it uses. The second table lists the classes that are not used in any example.
+4. Wipes the *docs* directory
+
+   The *docs* directory contains all of the md and html files for the site. A clean directory prevents old files from being used.
+5. Runs the [ScrapeRepo script](https://lorensen.github.io/VTKExamples/site/Instructions/ForAdministrators/#scraperepo)
+
+   This will populate the *docs* directory.
+6. Checks for a successful scrape
+
+   This sanity check sees if a reasonable number of files have been updated.
+7. Copies the *src/stylesheets* directory ino *docs/stylesheets*
+8. Copies the sitemap.xml file
+
+   This file is updated periodically by [sitemapGenerator](https://github.com/lorensen/VTKExamples/blob/master/src/Admin/sitemapGenerator)
+9. Minify the html
+10. Process any modified, added or deleted file
+11. Update the tarballs
+12. Push the changes
+
+After a *short* time github will update the github pages.
+
 ## How to Become an Administrator
+
+ LocalWords:  stylesheets ino docs sitemap

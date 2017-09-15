@@ -28,14 +28,14 @@ if ( test -d src/Tarballs ); then
   (cd src/Tarballs; rm *.tar)
 fi
 
-echo "1.1) Create coverage files"
+echo "2) Create coverage files"
 (cd src/Admin; python ./VTKClassesUsedInExamples.py -a ..; python ./VTKClassesUsedInExamples.py -a -u ..)
 
-echo "2) Scrape the repo"
+echo "3) Scrape the repo"
 rm -rf docs/*
 src/Admin/ScrapeRepo  src docs ${REPO}
 
-echo "3) Check for a successful scrape"
+echo "4) Check for a successful scrape"
 pushd docs
 count=$((`find . -name \*.md | wc -l`))
 popd
@@ -47,35 +47,35 @@ if test $count -lt $expected; then
    exit 1
 fi
 
-echo "4) Update the html pages"
+echo "5) Update the html pages"
 mkdir docs/stylesheets
 cp src/stylesheets/extra.css docs/stylesheets/extra.css
 mkdocs build
 
-echo "5) Copy sitemap.xml"
+echo "6) Copy sitemap.xml"
 cp src/Admin/sitemap.xml site/sitemap.xml
 rm site/mkdocs/search_index.json
 
-echo "5.0) Minify Html"
+echo "7) Minify Html"
 (cd site; find . -name index.html -exec htmlmin {} {} \;)
 
-echo "5.1) Process modified files"
+echo "8) Process modified files"
 git commit -m "SYNC: Files modified in the repo." `git status | grep modified: | cut -d":" -f2,2`
 
-echo "5.2) Process new files"
+echo "8.1) Process new files"
 find . "(" -name \*.html ")" -exec git add {} \;
 git commit -m "SYNC: Files added to the repo."
 
-echo "5.3) Process deleted files"
+echo "8.2) Process deleted files"
 git rm `git status | grep deleted: | cut -d":" -f2,2`
 git commit -m "SYNC: Files deleted (or moved) from the repo."
 
-echo "6) Update tarballs and push to tarball repo"
+echo "9) Update tarballs and push to tarball repo"
 if ( test -d src/Tarballs ); then
 (cd src/Tarballs; git add *tar)
 (cd src/Tarballs; git commit -m "SYNC: Tarballs modified")
 (cd src/Tarballs; git push)
 fi
 
-echo "7) Push the changes"
+echo "10) Push the changes"
 git push
