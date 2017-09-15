@@ -1,7 +1,6 @@
 #include <vtkSmartPointer.h>
-#include <vtkTextMapper.h>
 
-#include <vtkActor2D.h>
+#include <vtkTextActor.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -19,6 +18,7 @@ namespace
 // use the lightColor otherwise use the darkColor
 void ChooseContrastingColor(double *rgbIn,
                             double *rgbOut,
+                            const double threshold = .5,
                             const std::string lightColor = "white",
                             const std::string darkColor = "black");
 }
@@ -27,11 +27,12 @@ int main (int argc, char *argv[])
 {
   if (argc < 2)
   {
-    std::cerr << "Usage: " << argv[1] << " font.ttf" << std::endl;
+    std::cerr << "Usage: " << argv[0] << " font.ttf [backColor] [lightColor] [darkColor]" << std::endl;
     return EXIT_FAILURE;
   }
 
   // Defaults
+  double threshold(.8);
   std::string backColor = "SlateGray";
   std::string lightColor = "White";
   std::string darkColor = "Black";
@@ -65,20 +66,17 @@ int main (int argc, char *argv[])
   vtkSmartPointer<vtkNamedColors> colors =
     vtkSmartPointer<vtkNamedColors>::New();
 
-  vtkSmartPointer<vtkTextMapper> mapper = 
-    vtkSmartPointer<vtkTextMapper>::New();
-
-  vtkSmartPointer<vtkActor2D> actor =
-    vtkSmartPointer<vtkActor2D>::New();
-  actor->SetPosition(width / 2, height / 2);
-  actor->SetMapper(mapper);
-  mapper->GetTextProperty()->BoldOff();
-  mapper->GetTextProperty()->SetFontSize(50);
-  mapper->GetTextProperty()->SetJustificationToCentered();
-  mapper->GetTextProperty()->SetVerticalJustificationToCentered();
-  mapper->GetTextProperty()->SetFontFamily(VTK_FONT_FILE);
-  mapper->GetTextProperty()->SetFontFile(fontFile.c_str());
-  mapper->SetInput(str.str().c_str());
+  vtkSmartPointer<vtkTextActor> actor =
+    vtkSmartPointer<vtkTextActor>::New();
+  actor->GetTextProperty()->SetJustificationToCentered();
+  actor->GetTextProperty()->SetVerticalJustificationToCentered();
+  actor->SetTextScaleModeToViewport();
+  actor->SetInput(str.str().c_str());
+  actor->SetPosition(width/2, height/2);
+  actor->GetTextProperty()->BoldOff();
+  actor->GetTextProperty()->SetFontSize(40);
+  actor->GetTextProperty()->SetFontFamily(VTK_FONT_FILE);
+  actor->GetTextProperty()->SetFontFile(fontFile.c_str());
 
   vtkSmartPointer<vtkRenderer> renderer =
     vtkSmartPointer<vtkRenderer>::New();
@@ -88,9 +86,11 @@ int main (int argc, char *argv[])
   double rgb[3];
   ChooseContrastingColor(renderer->GetBackground(),
                          rgb,
+                         threshold,
                          lightColor,
                          darkColor);
-  mapper->GetTextProperty()->SetColor(rgb);
+  std::cout << rgb[0] << "," << rgb[1] << "," << rgb[2] << std::endl;
+  actor->GetTextProperty()->SetColor(rgb);
 
   vtkSmartPointer<vtkRenderWindow> renderWindow =
     vtkSmartPointer<vtkRenderWindow>::New();
@@ -115,6 +115,7 @@ namespace
 {
 void ChooseContrastingColor(double *rgbIn,
                             double *rgbOut,
+                            const double threshold,
                             const std::string lightColor,
                             const std::string darkColor)
 {
@@ -122,9 +123,9 @@ void ChooseContrastingColor(double *rgbIn,
     vtkSmartPointer<vtkNamedColors>::New();
 
   double hsv[3];
-  // If the value is <= .5, use a light color, otherwise use a dark color
+  // If the value is <= threshold, use a light color, otherwise use a dark color
   vtkMath::RGBToHSV(rgbIn, hsv);
-  if (hsv[2] <= .5)
+  if (hsv[2] <= threshold)
   {
     colors->GetColor(lightColor.c_str(), rgbOut[0], rgbOut[1], rgbOut[2]);
   }

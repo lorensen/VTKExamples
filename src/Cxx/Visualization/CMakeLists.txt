@@ -52,6 +52,7 @@ SET(NEEDS_ARGS
   BoxClipStructuredPoints
   BoxClipUnstructuredGrid
   ChooseTextColor
+  ChooseTextColorDemo
   ClipArt
   ComplexV
   CorrectlyRenderTranslucentGeometry
@@ -98,7 +99,10 @@ ADD_TEST(${KIT}-ClipArt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestClipArt ${DATA}/stormy.jpg)
 
 ADD_TEST(${KIT}-ChooseTextColor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
-  TestChooseTextColor ${DATA}/Canterbury.ttf  pink  mintcream saddlebrown)
+  TestChooseTextColor ${DATA}/Canterbury.ttf Pink  MintCream SaddleBrown)
+
+ADD_TEST(${KIT}-ChooseTextColorDemo ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
+  TestChooseTextColorDemo .8 mintcream ivoryblack)
 
 ADD_TEST(${KIT}-CorrectlyRenderTranslucentGeometry ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${KIT}CxxTests
   TestCorrectlyRenderTranslucentGeometry 100 100 50 0.1 0 0)
