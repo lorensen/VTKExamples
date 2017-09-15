@@ -59,8 +59,13 @@ def print_table(table, filename):
         path, ext = os.path.splitext(filename)
         if not ext.lower() in ['.md']:
             ext = '.md'
-        with open(path + ext, 'w') as f:
+        try:
+            fn = path + ext
+            f = open(fn, 'w')
             f.writelines(table)
+            f.close()
+        except IOError:
+            print('Unable to open the file: {:s}'.format(fn))
     else:
         for row in table:
             print(row)
@@ -136,12 +141,13 @@ class VTKClassesInExamples(object):
         """
         vtk_class_pattern = re.compile(r'.*>(vtk[A-Za-z0-9]+)<')
         try:
-            with urlopen(self.vtk_class_url) as f:
-                for line in f:
-                    m = vtk_class_pattern.match(line.decode('utf-8'))
-                    if m:
-                        c = m.group(1)
-                        self.vtk_classes.add(c)
+            f = urlopen(self.vtk_class_url)
+            for line in f:
+                m = vtk_class_pattern.match(line.decode('utf-8'))
+                if m:
+                    c = m.group(1)
+                    self.vtk_classes.add(c)
+            f.close()
         except IOError:
             print('Unable to open the URL: {:s}'.format(self.vtk_class_url))
 
@@ -261,7 +267,9 @@ class VTKClassesInExamples(object):
                     tmp = dict()
                     for path, fn in paths.items():
                         for f in fn:
-                            tmp[f] = eg_fmt.format(f, path + '/' + f) + ' '
+                            # Remove the extension.
+                            f1 = f[:f.rfind('.')]
+                            tmp[f] = eg_fmt.format(f1, path + '/' + f1) + ' '
                     tmp_keys = list(sorted(list(tmp.keys()), key=lambda x: (x.lower(), x.swapcase())))
                     for k in tmp_keys:
                         f_list += tmp[k]
