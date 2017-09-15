@@ -816,8 +816,8 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CameraModel2](/Cxx/Visualization/CameraModel2) | vtkCameraActor | Illustrate camera movement.
 [Camera](/Cxx/Visualization/Camera)| vtkCamera |Positioning and aiming the camera.
 [CaptionActor2D](/Cxx/Visualization/CaptionActor2D)| vtkCaptionActor2D |Draw a caption/bubble pointing to a particular point.
-[ChooseTextColor](/Cxx/Visualization/ChooseTextColor)| vtkTextMapper vtkTextProperty::SetFontFamily vtkNamedColors | Choose a text color that contrasts with a background color.
-[ChooseTextColorDemo](/Cxx/Visualization/ChooseTextColorDemo)| vtkTextMapper vtkTextProperty::SetFontFamily vtkNamedColors | Create a gird of random colored viewpports and pick text color.
+[ChooseTextColor](/Cxx/Visualization/ChooseTextColor)| vtkTextActor vtkTextProperty::SetFontFamily vtkNamedColors | Choose a text color that contrasts with a background color.
+[ChooseTextColorDemo](/Cxx/Visualization/ChooseTextColorDemo)| vtkTextActor vtkNamedColors | Create a grid of random colored viewpports and pick a good text color.
 [CloseWindow](/Cxx/Visualization/CloseWindow)| vtkRenderWindowInteractor vtkRenderWindow |Close a render window.
 [ColorActorEdges ](/Cxx/Visualization/ColorActorEdges) | vtkActor | Color the edges of an Actor.
 [ColorAnActor ](/Cxx/Visualization/ColorAnActor) | vtkActor | Color an Actor.
