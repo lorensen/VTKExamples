@@ -117,14 +117,17 @@ def AddThumbnails(repoDir, repoURL, fromFile, toFile):
             exampleName = os.path.split(exampleLine)[1]
             exampleDir = os.path.split(exampleLine)[0]
             baseline = RepoDir + "/Testing/Baseline" + exampleDir + "/Test" + exampleName + ".png"
-            tinyBaseline = GetTinyUrl(CacheDict, repoURL + "/blob/master/" + baseline)
+            baselineURL = repoURL + "/blob/master/" + baseline
+            tinyBaseline = GetTinyUrl(CacheDict, baselineURL)
             if os.path.exists(baseline):
                 img = '<img class="lazy" style="float:center" data-src="' + tinyBaseline + '?raw=true" width="64" />'
-                outFile.write(" | " + img)
+                outFile.write(" | ")
+                outFile.write('<a href="' + baselineURL + '?raw=true target="_blank">')
+                outFile.write(img)
+                outFile.write("\n</a>")
         outFile.write("\n")
     mdFile.close()
     outFile.close()
-
 
 # Fill in the template parameters in a CMakeLists template file
 # The output is a CMakeLists.txt file with Name substituted for {{{1}}}
