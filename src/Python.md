@@ -4,6 +4,12 @@ Please see [this page](http://www.vtk.org/Wiki/VTK/Tutorials/PythonEnvironmentSe
 
 It would be appreciated if there are any Python VTK experts who could convert any of the [c++ examples](/Cxx) to Python!
 
+!!! info
+    [This table](/Coverage/PythonVTKClassesUsed.md) shows the VTK classes covered by the examples.
+
+!!! info
+    [This table](/Coverage/PythonVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
+
 ## Hello World
 
 | Example Name | Classes Demonstrated | Description | Image |

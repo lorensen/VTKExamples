@@ -2,6 +2,12 @@ Click [hear](http://www.vtk.org/Wiki/VTK/Tutorials/JavaEnvironmentSetup) for a t
 
 It would be appreciated if there are any Java VTK experts who could convert any of the [c++ examples](/Cxx) to Java!
 
+!!! info
+    [This table](/Coverage/JavaVTKClassesUsed.md) shows the VTK classes covered by the examples.
+
+!!! info
+    [This table](/Coverage/JavaVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
+
 #Input and Output
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|

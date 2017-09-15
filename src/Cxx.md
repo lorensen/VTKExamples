@@ -2,7 +2,11 @@
 
 These are fully independent, compilable examples. There is significant overlap in the examples, but they are each intended to illustrate a different concept and be fully stand alone compilable.
 
-Please add examples in your areas of expertise!
+!!! info
+    [This table](/Coverage/CxxVTKClassesUsed.md) shows the VTK classes covered by the examples.
+
+!!! info
+    [This table](/Coverage/CxxVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
 
 ## Hello World
 

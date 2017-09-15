@@ -1,3 +1,12 @@
+# CSharp
+
+!!! info
+    [This table](/Coverage/CSharpVTKClassesUsed.md) shows the VTK classes covered by the examples.
+
+!!! info
+    [This table](/Coverage/CSharpVTKClassesNotUsed.md) shows VTK classes that do not have an example. Please add examples in your area of expertise!
+
+
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 

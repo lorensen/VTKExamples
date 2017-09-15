@@ -28,6 +28,9 @@ if ( test -d src/Tarballs ); then
   (cd src/Tarballs; rm *.tar)
 fi
 
+echo "1.1) Create coverage files"
+(cd src/Admin; python ./VTKClassesUsedInExamples.py -a ..; python ./VTKClassesUsedInExamples.py -a -u ..)
+
 echo "2) Scrape the repo"
 rm -rf docs/*
 src/Admin/ScrapeRepo  src docs ${REPO}

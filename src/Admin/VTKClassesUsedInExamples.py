@@ -109,7 +109,7 @@ class VTKClassesInExamples(object):
         """
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
         # Classes common to most examples.
-        self.excluded_classes = ['vtkActor', 'vtkRenderer', 'vtkRenderWindow', 'vtkRenderWindowInteractor']
+        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkProperty', 'vtkRenderer', 'vtkRenderWindow', 'vtkRenderWindowInteractor']
         # Where to get the list of VRK classes from.
         self.vtk_class_url = 'https://www.vtk.org/doc/nightly/html/annotated.html'
         self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s})'
@@ -214,7 +214,7 @@ class VTKClassesInExamples(object):
             for k, v in self.example_file_paths[eg].items():
                 for fn in v:
                     # Open and read the file building a list of classes.
-                    with open(fn, encoding='utf-8') as f:
+                    with open(fn) as f:
                         for line in f:
                             m = class_pattern.match(line)
                             if m:
@@ -269,7 +269,8 @@ class VTKClassesInExamples(object):
                         for f in fn:
                             # Remove the extension.
                             f1 = f[:f.rfind('.')]
-                            tmp[f] = eg_fmt.format(f1, path + '/' + f1) + ' '
+                            # NOTE: Need leading '/'
+                            tmp[f] = eg_fmt.format(f1, '/' + path + '/' + f1) + ' '
                     tmp_keys = list(sorted(list(tmp.keys()), key=lambda x: (x.lower(), x.swapcase())))
                     for k in tmp_keys:
                         f_list += tmp[k]
@@ -346,11 +347,11 @@ class VTKClassesInExamples(object):
         if self.unused_vtk and not self.not_used_tables_built:
             raise RuntimeError('The classes not used tables have not been built. Enable -u.')
         for eg in self.example_types:
-            fn = os.path.join(self.base_directory, eg + 'VTKClassesUsed')
+            fn = os.path.join(self.base_directory, 'Coverage/' + eg + 'VTKClassesUsed')
             # fn = eg + 'VTKClassesUsed'
             print_table(self.classes_used_table[eg], fn)
             if self.unused_vtk:
-                fn = os.path.join(self.base_directory, eg + 'VTKClassesNotUsed')
+                fn = os.path.join(self.base_directory, 'Coverage' + eg + 'VTKClassesNotUsed')
                 # fn = eg + 'VTKClassesNotUsed'
                 print_table(self.classes_not_used_table[eg], fn)
 

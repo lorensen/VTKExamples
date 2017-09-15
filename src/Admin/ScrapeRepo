@@ -199,6 +199,17 @@ AddThumbnails(RepoDir, RepoURL, RepoDir + "/Java.md", DocDir + "/Java.md")
 # Convert repo .md files
 CopyFile(RepoDir + "/index.md", DocDir + "/index.md")
 
+if not os.path.exists(DocDir + "/Coverage"):
+    os.makedirs(DocDir + "/Coverage")
+CopyFile(RepoDir + "/Coverage/CxxVTKClassesNotUsed.md", DocDir + "/Coverage/CxxVTKClassesNotUsed.md")
+CopyFile(RepoDir + "/Coverage/CxxVTKClassesUsed.md", DocDir + "/Coverage/CxxVTKClassesUsed.md")
+CopyFile(RepoDir + "/Coverage/PythonVTKClassesNotUsed.md", DocDir + "/Coverage/PythonVTKClassesNotUsed.md")
+CopyFile(RepoDir + "/Coverage/PythonVTKClassesUsed.md", DocDir + "/Coverage/PythonVTKClassesUsed.md")
+CopyFile(RepoDir + "/Coverage/JavaVTKClassesNotUsed.md", DocDir + "/Coverage/JavaVTKClassesNotUsed.md")
+CopyFile(RepoDir + "/Coverage/JavaVTKClassesUsed.md", DocDir + "/Coverage/JavaVTKClassesUsed.md")
+CopyFile(RepoDir + "/Coverage/CSharpVTKClassesNotUsed.md", DocDir + "/Coverage/CSharpVTKClassesNotUsed.md")
+CopyFile(RepoDir + "/Coverage/CSharpVTKClassesUsed.md", DocDir + "/Coverage/CSharpVTKClassesUsed.md")
+
 if not os.path.exists(DocDir + "/Instructions"):
     os.makedirs(DocDir + "/Instructions")
 CopyFile(RepoDir + "/Instructions/ForUsers.md", DocDir + "/Instructions/ForUsers.md")
