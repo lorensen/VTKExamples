@@ -35,7 +35,7 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description |  Image |
 |--------------|----------------------|-------------|--------|
-[ConvertFile](/Cxx/IO/ConvertFile)   |  |Convert a file from oane type to another
+[ConvertFile](/Cxx/IO/ConvertFile)   |  |Convert a file from one type to another
 [XGMLReader](/Cxx/InfoVis/XGMLReader)   | vtkXGMLReader |Read a .gml file
 
 
@@ -48,7 +48,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [DEMReader](/Cxx/IO/DEMReader)   | vtkDEMReader | Read DEM (elevation map) files
 [DumpXMLFile](/Cxx/IO/DumpXMLFile) | vtkDataSetReader |Report the contents of a VTK XML or legacy file
 [IndividualVRML](/Cxx/IO/IndividualVRML) | vtkVRMLImporter | This example is used to get each actor and object from a scene and verify axes correspondence 
-[ParticleReader](/Cxx/IO/ParticleReader) | vtkParticleReader | This example reads ascii files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
+[ParticleReader](/Cxx/IO/ParticleReader) | vtkParticleReader | This example reads ASCII files where each line consists of points with its position (x,y,z) and (optionally) one scalar or binary files in RAW 3d file format.
 [ReadAllPolyDataTypes](/Cxx/IO/ReadAllPolyDataTypes) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read any VTK polydata file.
 [ReadAllPolyDataTypesDemo](/Cxx/IO/ReadAllPolyDataTypesDemo) | vtkBYUReader vtkOBJReader vtkPLYReader vtkPolyDataReader vtkSTLReader vtkXMLPolyDataReader | Read all VTK polydata file types.
 [ReadOBJ](/Cxx/IO/ReadOBJ)   | vtkOBJReader |Read an OBJ (.obj) file.
@@ -65,7 +65,7 @@ These are fully independent, compilable examples. There is significant overlap i
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[3DSImporter](/Cxx/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes mulitple actors.
+[3DSImporter](/Cxx/IO/3DSImporter) | vtk3DSImporter | Import a 3D Studio scene that includes multiple actors.
 [OBJImporter](/Cxx/IO/OBJImporter) | vtkOBJImporter | Import an OBJ scene that includes actors, materials and textures.
 [VRMLImporter](/Cxx/IO/VRMLImporter) | vtkVRMLImporter | Import a VRML 2.0 (WRL) file.
 [VRMLImporterDemo](/Cxx/IO/VRMLImporterDemo) | vtkVRMLImporter | Import a VRML 2.0 (WRL) file and add normals if necessary.
@@ -122,7 +122,7 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [ImageReader2Factory](/Cxx/IO/ImageReader2Factory) | vtkImageReader2Factory | This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect.
-[JPEGReader](/Cxx/IO/JPEGReader) | vtkJPEGReader|Read a JPG image.
+[JPEGReader](/Cxx/IO/JPEGReader) | vtkJPEGReader|Read a JPEG image.
 [MetaImageReader](/Cxx/IO/MetaImageReader) | vtkMetaImageReader |Read .mha files.
 [PNGReader](/Cxx/IO/PNGReader) | vtkPNGReader|Read a PNG image.
 [ReadBMP](/Cxx/IO/ReadBMP) | vtkBMPReader | Read BMP (.bmp) files.
@@ -196,7 +196,7 @@ These are fully independent, compilable examples. There is significant overlap i
 [Sphere](/Cxx/GeometricObjects/Sphere)   | vtkSphereSource |
 [TessellatedBoxSource](/Cxx/GeometricObjects/TessellatedBoxSource)   | vtkTessellatedBoxSource | Generated a box with tessellated sides.
 
-### NonLinear
+### Non Linear
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
@@ -228,7 +228,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ContourTriangulator](/Cxx/Modelling/ContourTriangulator) | vtkMarchingSquares vtkContourTriangulator | Create a contour from a structured point set (image) and triangulate it.
 [CutWithCutFunction](/Cxx/VisualizationAlgorithms/CutWithCutFunction) | vtkCutter | Cut a surface with an implicit plane using vtkCutter.
 [CutWithScalars](/Cxx/VisualizationAlgorithms/CutWithScalars) | vtkContourFilter | Cut a surface with scalars.
-[DiscreteMarchingCubes](/Cxx/Modelling/DiscreteMarchingCubes) | vtkDiscreteMarchingCubes | Generate surfaces from labelled data.
+[DiscreteMarchingCubes](/Cxx/Modelling/DiscreteMarchingCubes) | vtkDiscreteMarchingCubes | Generate surfaces from labeled data.
 [ExtractLargestIsosurface](/Cxx/Modelling/ExtractLargestIsosurface) | vtkPolyDataConnectivityFilter | Extract largest isosurface.
 [FilledContours](/Cxx/VisualizationAlgorithms/FilledContours) | vtkContourFilter |Create filled contours (using vtkClipPolyData).
 [ImplicitDataSet](/Cxx/ImplicitFunctions/ImplicitDataSet) | vtkImplicitDataSet | Convert an imagedata to an implicit function.
@@ -238,7 +238,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [MarchingCases](/Cxx/VisualizationAlgorithms/MarchingCases) | vtkMarchingCubes | Explore the Marching Cubes cases.
 [MarchingSquares](/Cxx/Modelling/MarchingSquares) | vtkMarchingSquares | Create a contour from a structured point set (image).
 [SampleFunction](/Cxx/ImplicitFunctions/SampleFunction) | vtkSampleFunction |Sample and visualize an implicit function.
-[SmoothDiscreteMarchingCubes](/Cxx/Modelling/SmoothDiscreteMarchingCubes) | vtkDiscreteMarchingCubes vtkWindowedSincPolyDataFilter | Generate smooth surfaces from labelled data.
+[SmoothDiscreteMarchingCubes](/Cxx/Modelling/SmoothDiscreteMarchingCubes) | vtkDiscreteMarchingCubes vtkWindowedSincPolyDataFilter | Generate smooth surfaces from labeled data.
 
 
 ## Working with 3D Data
@@ -381,7 +381,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 |--------------|----------------------|-------------|-------|
 [CompareExtractSurface](/Cxx/Points/CompareExtractSurface) | vtkExractSurface | Compare three extract surface algorithms.
 [DensifyPoints](/Cxx/Points/DensifyPoints) | vtkDensifyPointCloudFilter | Add points to a point cloud.
-[DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | vtkCleanPolyData | Downsample a point cloud. Remove points so that there are no points within a tolerance of any point.
+[DownsamplePointCloud](/Cxx/PolyData/DownsamplePointCloud) | vtkCleanPolyData | Down sample a point cloud. Remove points so that there are no points within a tolerance of any point.
 [ExtractClusters](/Cxx/Points/ExtractClusters) | vtkEuclideanClusterExtraction | From a set of randomly distributed spheres, extract connected clusters.
 [ExtractPointsDemo](/Cxx/Points/ExtractPointsDemo) | vtkExtractPoints |Extract points inside an implicit function.
 [ExtractSurfaceDemo](/Cxx/Points/ExtractSurfaceDemo) | vtkExtractSurface vtkPCANormalEstimation vtkSignedDistance |Create a surface from Unorganized Points using Point filters (DEMO).
@@ -433,7 +433,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [SpecifiedRegion](/Cxx/PolyData/PolyDataConnectivityFilter_SpecifiedRegion) | vtkPolyDataConnectivityFilter | Extract a specific (specified) connected region in a polydata.
 [SplitPolyData](/Cxx/Meshes/SplitPolyData) | vtkOBBDicer | Breakup a mesh into pieces and save the pieces into files
 [Subdivision](/Cxx/Meshes/Subdivision) | vtkButterflySubdivisionFilter vtkLoopSubdivisionFilter vtkLinearSubdivisionFilter | Increase the number of triangles in a mesh.
-[Triangluate](/Cxx/Meshes/Triangulate) | vtkTriangleFilter | Convert all polygons in a mesh to triangles.
+[Triangulate](/Cxx/Meshes/Triangulate) | vtkTriangleFilter | Convert all polygons in a mesh to triangles.
 [WeightedTransformFilter ](/Cxx/PolyData/WeightedTransformFilter)  | vtkWeightedTransformFilter |
 [WindowedSincPolyDataFilter](/Cxx/Meshes/WindowedSincPolyDataFilter) | vtkWindowedSincPolyDataFilter | Smooth a mesh (windowed sinc filter).
 
@@ -979,7 +979,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [DrawShapes](/Cxx/Images/DrawShapes)| vtkImageCanvasSource2D |Drawing shapes in an image.
 [ExtractComponents](/Cxx/Images/ExtractComponents)| vtkImageExtractComponents |  Extract components of an image. This can be used to get, for example, the red channel of an image.
 [FillWindow](/Cxx/Images/FillWindow)| vtkCamera | Fit imageSetup the camera to fill the window with an image.
-[ImageAccumulateGreyscale](/Cxx/Images/ImageAccumulateGreyscale)| vtkImageAccumulate vtkBarChartActor | Display a greyscale histogram.
+[ImageAccumulateGreyscale](/Cxx/Images/ImageAccumulateGreyscale)| vtkImageAccumulate vtkBarChartActor | Display a grey scale histogram.
 [ImageCheckerboard](/Cxx/Images/ImageCheckerboard)| vtkImageCheckerboard | Visually Compare Two Images.
 [ImageCityBlockDistance](/Cxx/Images/ImageCityBlockDistance)| vtkImageCityBlockDistance | Compute the Manhattan distance from every point to every black point in a binary image.
 [ImageDilateErode3D](/Cxx/Images/ImageDilateErode3D)| vtkImageDilateErode3D | Dilate or erode an image.
@@ -1030,7 +1030,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [CenterAnImage](/Cxx/Images/CenterAnImage)| vtkImageChangeInformation |Center an image.
 [CombineImages](/Cxx/Images/CombineImages)| vtkImageBlend |Combine two images.
 [CombiningRGBChannels](/Cxx/Images/CombiningRGBChannels)| vtkImageAppendComponents |Combine layers into an RGB image.
-[ImageMagnitude](/Cxx/Images/ImageMagnitude)| vtkImageMagnitude | grayscaleConvert RGB image to greyscale.
+[ImageMagnitude](/Cxx/Images/ImageMagnitude)| vtkImageMagnitude | grayscaleConvert RGB image to grey scale.
 [Flip](/Cxx/Images/Flip)| vtkImageFlip | Flip an image.
 [Gradient](/Cxx/Images/Gradient)| vtkImageGradient | Compute the gradient vector at every pixel.
 [ImageAccumulate](/Cxx/Images/ImageAccumulate)| vtkImageAccumulate | Histogram
@@ -1047,7 +1047,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageGradientMagnitude](/Cxx/Images/ImageGradientMagnitude)| vtkImageGradientMagnitude |Compute the magnitude of the gradient at each pixel of an image.
 [ImageLaplacian](/Cxx/Images/ImageLaplacian)| vtkImageLaplacian |Compute the Laplacian of an image.
 [ImageLuminance](/Cxx/Images/ImageLuminance)| vtkImageLuminance |Convert RGB image to greyscale (luminance).
-[ImageMapToColors](/Cxx/Images/ImageMapToColors)| vtkImageMapToColors | Use a lookup table to map scalar (grayscale) values to colorsConvert greyscale image to RGB.
+[ImageMapToColors](/Cxx/Images/ImageMapToColors)| vtkImageMapToColors | Use a lookup table to map scalar (gray scale) values to colorsConvert grey scale image to RGB.
 [ImageNoiseSource](/Cxx/Images/ImageNoiseSource)| vtkImageNoiseSource |Create an image of noise.
 [ImagePermute](/Cxx/Images/ImagePermute)| vtkImagePermute |Switch axes of an image.
 [ImageShrink3D](/Cxx/Images/ImageShrink3D)| vtkImageShrink3D |Resample an image.
@@ -1065,7 +1065,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
-[PolygonalSurfacePointPlacer](/Cxx/PolyData/PolygonalSurfacePointPlacer)| vtkPolygonalSurfacePointPlacer | Used in conjuntion with vtkContourWidget to draw curves on a surface.
+[PolygonalSurfacePointPlacer](/Cxx/PolyData/PolygonalSurfacePointPlacer)| vtkPolygonalSurfacePointPlacer | Used in conjunction with vtkContourWidget to draw curves on a surface.
 [AffineWidget](/Cxx/Widgets/AffineWidget)| vtkAffineWidget | Apply an affine transformation interactively.
 [AngleWidget2D](/Cxx/Widgets/AngleWidget2D)| vtkAngleWidget vtkAngleRepresentation2D | vtkAngleWidget + vtkAngleRepresentation2D.
 [AngleWidget](/Cxx/Widgets/AngleWidget)| vtkAngleWidget |
@@ -1099,7 +1099,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [SphereWidget](/Cxx/Widgets/SphereWidget)| vtkSphereWidget |Sphere widget.
 [SplineWidget](/Cxx/Widgets/SplineWidget)| vtkSplineWidget |
 [TextWidget](/Cxx/Widgets/TextWidget)| vtkSeedWidget || vtkTextWidget |Draw movable text.
-[TexturedButtonWidget](/Cxx/Widgets/TexturedButtonWidget) | vtkButtonWidget vtkTexturedButtonRepresentation2D |Create a textured 2D buttonx.
+[TexturedButtonWidget](/Cxx/Widgets/TexturedButtonWidget) | vtkButtonWidget vtkTexturedButtonRepresentation2D |Create a textured 2D button.
 
 ## Plotting
 
