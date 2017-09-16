@@ -1,8 +1,9 @@
 ### Description
 
 This example compares three surface reconstruction algorithms:
+
 1. [ExtractSurface](/Cxx/Points/ExtractSurface)
-2. [PoissonReconstruction](/Cxx/Points/PoissonReconstruction]
+2. [PoissonReconstruction](/Cxx/Points/PoissonReconstruction)
 3. [Powercrust](/Cxx/Points/Powercrust)
 
 We usually try to keep examples short, but this example teaches several concepts.
@@ -14,7 +15,7 @@ We usually try to keep examples short, but this example teaches several concepts
 5. Generate figures for papers
 
 !!! warning
-    This examples runs longer than most. Be patient.
+    This example runs longer than most. Be patient.
 
 !!! info
     See [PoissonReconstruction Remote Module](/Cxx/Points/PoissonExtractSurface) to configure.
