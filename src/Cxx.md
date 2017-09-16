@@ -122,10 +122,10 @@ These are fully independent, compilable examples. There is significant overlap i
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [ImageReader2Factory](/Cxx/IO/ImageReader2Factory) | vtkImageReader2Factory | This class tries to find an appropriate reader. It is very convenient to use this when you don't know what kind of file to expect.
-[JPEGReader](/Cxx/IO/JPEGReader) |vtkJPEGReader|Read a JPG image.
+[JPEGReader](/Cxx/IO/JPEGReader) | vtkJPEGReader|Read a JPG image.
 [MetaImageReader](/Cxx/IO/MetaImageReader) | vtkMetaImageReader |Read .mha files.
 [PNGReader](/Cxx/IO/PNGReader) | vtkPNGReader|Read a PNG image.
-[ReadBMP](/Cxx/IO/ReadBMP) |vtkBMPReader | Read BMP (.bmp) files.
+[ReadBMP](/Cxx/IO/ReadBMP) | vtkBMPReader | Read BMP (.bmp) files.
 [ReadDICOMSeries](/Cxx/IO/ReadDICOMSeries)   | vtkDICOMImageReader | This example demonstrates how to read a series of DICOM images and scroll through slices
 [ReadDICOM](/Cxx/IO/ReadDICOM)   | vtkDICOMImageReader |Read DICOM file
 [ReadPNM](/Cxx/IO/ReadPNM) | vtkPNMReader |Read PNM (.pnm) files.
@@ -215,7 +215,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [ParametricObjects](/Cxx/GeometricObjects/ParametricObjects)   |  | Create and display a parametric object. Uncomment the object that you wish to be displayed.
 [ParametricObjectsDemo](/Cxx/GeometricObjects/ParametricObjectsDemo)   | vtkParametricBoy vtkParametricConicSpiral vtkParametricCrossCap vtkParametricDini vtkParametricEllipsoid vtkParametricEnneper vtkParametricFigure8Klein vtkParametricKlein vtkParametricMobius vtkParametricRandomHills vtkParametricRoman vtkParametricSpline vtkParametricSuperEllipsoid vtkParametricSuperToroid vtkParametricTorus | Demonstration of of the vtkParametric* classes added by Andrew Maclean. All the objects are displayed in a 4X4 array.
 [ParametricObjectsDemo2](/Cxx/GeometricObjects/ParametricObjectsDemo2)   | vtkParametricBohemianDome vtkParametricBour vtkParametricCatalanMinimal vtkParametricHenneberg vtkParametricKuen vtkParametricPluckerConoid vtkParametricPseudosphere | Demonstration of additional vtkParametric* classes added by  Tim Meehan. All the objects are displayed in a 4X2 array.
-[ParametricKuenDemo](/Cxx/GeometricObjects/ParametricKuenDemo)|vtkParametricKuen|Interactively change the parameters for a Kuen Surface.
+[ParametricKuenDemo](/Cxx/GeometricObjects/ParametricKuenDemo) | vtkParametricKuen|Interactively change the parameters for a Kuen Surface.
 [ParametricSuperEllipsoidDemo](/Cxx/GeometricObjects/ParametricSuperEllipsoidDemo) | vtkParametricSuperEllipsoid | Interactively change the parameters for a SuperEllipsoid Surface.
 [ParametricSuperToroidDemo](/Cxx/GeometricObjects/ParametricSuperToroidDemo)   | vtkParametricSuperToroid| Interactively change the parameters for a SuperToroid Surface.
 
@@ -254,7 +254,7 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [CenterOfMass](/Cxx/PolyData/CenterOfMass) | vtkCenterOfMass|Compute the center of mass of the points.
 [Circle](/Cxx/GeometricObjects/Circle) | vtkCutter | Create a circle by cutting through a sphere.
 [CleanPolyData](/Cxx/PolyData/CleanPolyData) | vtkCleanPolyData |Remove coincident points.
-[ColorCellsWithRGB](/Cxx/PolyData/ColorCellsWithRGB) |vtkCellData | Color individual cells of a polydata with rgb colors.
+[ColorCellsWithRGB](/Cxx/PolyData/ColorCellsWithRGB) | vtkCellData | Color individual cells of a polydata with rgb colors.
 [ColorCells](/Cxx/PolyData/ColorCells) | vtkLookupTable | Color individual cells of a polydata with scalar index.
 [Colored Points](/Cxx/PolyData/ColoredPoints) | vtkUnsignedCharArray | Add three points to a polydata and associate a color with each of them.
 [CombinePolyData](/Cxx/Filtering/CombinePolyData) | vtkAppendPolyData | Combine/Append PolyData.
@@ -324,8 +324,8 @@ These examples demonstrate how to create an display one of the many vtkParametri
 [PolyDataToImageData](/Cxx/PolyData/PolyDataToImageData) | vtkPolyDataToImageStencil |Generate a binarized volume from a closed surface.
 [ProcrustesAlignmentFilter](/Cxx/PolyData/ProcrustesAlignmentFilter) | vtkProcrustesAlignmentFilter |Align point sets.
 [ProgrammableFilter](/Cxx/Filtering/ProgrammableFilter) | vtkProgrammableFilter | Create a custom filter without subclassing.
-[ProgrammableSource](/Cxx/Filtering/ProgrammableSource) |vtkProgrammableSource |Create points using a programmable source. Generates points for a strange attractor.
-[ProjectSphere](/Cxx/Visualization/ProjectSphere) |vtkProjectSphereFilter |Unroll a sphere or spherical-like model.
+[ProgrammableSource](/Cxx/Filtering/ProgrammableSource) | vtkProgrammableSource |Create points using a programmable source. Generates points for a strange attractor.
+[ProjectSphere](/Cxx/Visualization/ProjectSphere) | vtkProjectSphereFilter |Unroll a sphere or spherical-like model.
 [QuantizePolyDataPoints](/Cxx/PolyData/QuantizePolyDataPoints) | vtkQuantizePolyDataPoints |Snap (quantize) points to a grid.
 [Reflection](/Cxx/PolyData/Reflection) | vtkReflectionFilter |Mirror a DataSet.
 [RemoveOutsideSurface](/Cxx/PolyData/RemoveOutsideSurface) | vtkConnectivityFilter | Remove the outer surface of a multiple surface polydata.
@@ -489,10 +489,10 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [BlankPoint](/Cxx/StructuredGrid/BlankPoint) | vtkStructuredGrid |Blank a point of a vtkStructuredGrid.
-[StructuredGridOutline](/Cxx/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter |Visualize the outline of a structured grid.
+[StructuredGridOutline](/Cxx/StructuredGrid/StructuredGridOutline) | vtkStructuredGridOutlineFilter | Visualize the outline of a structured grid.
 [StructuredGrid](/Cxx/StructuredGrid/StructuredGrid) | vtkStructuredGrid |Structured Grid.
-[VisualizeStructuredGridCells](/Cxx/StructuredGrid/VisualizeStructuredGridCells) | vtkShrinkFilter |Visualize the cells of a structured grid.
-[VisualizeStructuredGrid](/Cxx/StructuredGrid/VisualizeStructuredGrid) | vtkStructuredGridGeometryFilter |Visualize the points of a structured grid.
+[VisualizeStructuredGridCells](/Cxx/StructuredGrid/VisualizeStructuredGridCells) | vtkShrinkFilter | Visualize the cells of a structured grid.
+[VisualizeStructuredGrid](/Cxx/StructuredGrid/VisualizeStructuredGrid) | vtkStructuredGridGeometryFilter | Visualize the points of a structured grid.
 
 #### vtkStructuredPoints
 
@@ -506,7 +506,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [RectilinearGridToTetrahedra](/Cxx/RectilinearGrid/RectilinearGridToTetrahedra) | vtkRectilinearGridToTetrahedra |Convert a vtkRectilinearGrid to a vtkUnstructuredGrid mesh
 [RectilinearGrid](/Cxx/RectilinearGrid/RectilinearGrid) | vtkRectilinearGrid |Rectilinear grid
-[VisualizeRectilinearGrid](/Cxx/RectilinearGrid/VisualizeRectilinearGrid) | vtkRectilinearGrid vtkShrinkFilter|Visualize the cells of a rectilinear grid
+[VisualizeRectilinearGrid](/Cxx/RectilinearGrid/VisualizeRectilinearGrid) | vtkRectilinearGrid vtkShrinkFilter| Visualize the cells of a rectilinear grid
 
 ### Registration
 
@@ -636,7 +636,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [EigenSymmetric](/Cxx/Math/EigenSymmetric)| vtkMath::Jacobi |Compute eigenvalues and eigenvectors of a symmetric matrix.
 [HomogeneousLeastSquares](/Cxx/Math/HomogeneousLeastSquares)| vtkMath::SolveHomogeneousLeastSquares |Homogeneous Least Squares.
-[1DTupleInterpolation](/Cxx/Math/1DTupleInterpolation)|vtkTupleInterpolator vtkCardinalSpline vtkKochanekSpline | A simple example demonstrating how functions defined by sparsely distributed supporting points can be interpolated at arbitrary positions.
+[1DTupleInterpolation](/Cxx/Math/1DTupleInterpolation)| vtkTupleInterpolator vtkCardinalSpline vtkKochanekSpline | A simple example demonstrating how functions defined by sparsely distributed supporting points can be interpolated at arbitrary positions.
 [LUFactorization](/Cxx/Math/LUFactorization)| vtkMath |LU Factorization.
 [LeastSquares](/Cxx/Math/LeastSquares)| vtkMath::SolveLeastSquares |Least Squares.
 [MatrixInverse](/Cxx/Math/MatrixInverse)| vtkMatrix3x3 |Matrix inverse.
@@ -644,7 +644,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [NormalizeVector](/Cxx/Math/NormalizeVector)| vtkMath |Normalize a vector.
 [PerpendicularVector](/Cxx/Math/PerpendicularVector) | vtkMath::Perpendiculars |Get a vector perpendicular to another vector.
 [VectorDot](/Cxx/Math/VectorDot)| vtkVectorDot |
-[VectorNorm](/Cxx/Math/VectorNorm) |vtkVectorNorm |Get the lengths of an array of vectors.
+[VectorNorm](/Cxx/Math/VectorNorm) | vtkVectorNorm |Get the lengths of an array of vectors.
 
 
 ## Graphs
@@ -682,15 +682,15 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [SideBySideGraphs](/Cxx/Graphs/SideBySideGraphs)| vtkGraphLayoutView |Display two graphs side by side.
 [TreeBFSIterator](/Cxx/Graphs/TreeBFSIterator)| vtkTreeBFSIterator |Breadth First Search iterator.
 [VertexSize](/Cxx/Graphs/VertexSize)| vtkGraphLayoutView vtkRenderedGraphRepresentation | Set the size of vertices.
-[VisualizeDirectedGraph](/Cxx/Graphs/VisualizeDirectedGraph)| vtkGlyphSource2D |Visualize a directed graph.
-[VisualizeGraph](/Cxx/Graphs/VisualizeGraph)| vtkGraphLayoutView vtkGraphLayoutStrategy vtkSimple2DLayoutStrategy|Visualize a graph.
+[VisualizeDirectedGraph](/Cxx/Graphs/VisualizeDirectedGraph)| vtkGlyphSource2D | Visualize a directed graph.
+[VisualizeGraph](/Cxx/Graphs/VisualizeGraph)| vtkGraphLayoutView vtkGraphLayoutStrategy vtkSimple2DLayoutStrategy | Visualize a graph.
 
 ### Graph Conversions
 
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [DirectedGraphToMutableDirectedGraph](/Cxx/Graphs/Conversions/DirectedGraphToMutableDirectedGraph)| vtkMutableDirectedGraph vtkDirectedGraph | vtkDirectedGraph to vtkMutableDirectedGraph.
-[MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/Conversions/MutableDirectedGraphToDirectedGraph)| vtkMutableDirectedGraph vtkDirectedGraph |vtkMutableDirectedGraph to vtkDirectedGraph.
+[MutableDirectedGraphToDirectedGraph](/Cxx/Graphs/Conversions/MutableDirectedGraphToDirectedGraph)| vtkMutableDirectedGraph vtkDirectedGraph | vtkMutableDirectedGraph to vtkDirectedGraph.
 [TreeToMutableDirectedGraph](/Cxx/Graphs/Conversions/TreeToMutableDirectedGraph)| vtkMutableDirectedGraph vtkTree | vtkTree to vtkMutableDirectedGraph
 
 ## Data Structures
@@ -698,10 +698,10 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 | Example Name | Classes Demonstrated | Description | Image |
 |--------------|----------------------|-------------|-------|
 [AttachAttributes](/Cxx/PolyData/AttachAttributes)| vtkInformation | Attach attributes to a VTK array
-[CellLocatorVisualization](/Cxx/PolyData/CellLocatorVisualization)| vtkCellLocator |Visualization of the tree of a vtkCellLocator.
+[CellLocatorVisualization](/Cxx/PolyData/CellLocatorVisualization)| vtkCellLocator | Visualization of the tree of a vtkCellLocator.
 [CellLocator](/Cxx/PolyData/CellLocator)| vtkCellLocator | Project a point onto a mesh. Closest point on a mesh.Efficient 3D cell query.
 [CellTreeLocator](/Cxx/PolyData/CellTreeLocator)| vtkCellTreeLocator |Points inside an object using vtkCellTreeLocator.
-[PointLocatorVisualization](/Cxx/PolyData/PointLocatorVisualization)| vtkPointLocator |Visualization of the tree of a vtkPointLocator.
+[PointLocatorVisualization](/Cxx/PolyData/PointLocatorVisualization)| vtkPointLocator | Visualization of the tree of a vtkPointLocator.
 [PointLocator](/Cxx/PolyData/PointLocator)| vtkPointLocator |Efficient 3D point query.
 [PointLocatorRadius](/Cxx/PolyData/PointLocatorRadius)| vtkPointLocator |Find all points within a radius of a specified point.
 
@@ -727,7 +727,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 [KDTreeFindPointsWithinRadius](/Cxx/DataStructures/KDTreeFindPointsWithinRadius) | vtkKdTreePointLocator |Find points within a specified radius of  a query point.
 [KdTreePointLocatorClosestPoint](/Cxx/DataStructures/KdTreePointLocatorClosestPoint)| vtkKdTreePointLocator |Find the closest point to a query point.
 [KdTree](/Cxx/DataStructures/KdTree)| vtkKdTree |
-[VisualizeKDTree](/Cxx/DataStructures/VisualizeKDTree)| vtkKdTreePointLocator |Visualize levels of the tree.
+[VisualizeKDTree](/Cxx/DataStructures/VisualizeKDTree)| vtkKdTreePointLocator | Visualize levels of the tree.
 
 
 ### Oriented Bounding Box (OBB) Tree
@@ -737,7 +737,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [OBBTreeIntersectWithLine](/Cxx/DataStructures/OBBTreeIntersectWithLine)| vtkOBBTree |Intersect a line with a vtkOBBTree.
 [OBBTreeExtractCells](/Cxx/DataStructures/OBBTreeExtractCells)| vtkOBBTree |Intersect a line with an OBB Tree and display all intersected cells.
-[VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree) | vtkOBBTree |Visualize levels of the tree.
+[VisualizeOBBTree](/Cxx/DataStructures/VisualizeOBBTree) | vtkOBBTree | Visualize levels of the tree.
 
 ### Octree
 
@@ -745,10 +745,10 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [BuildOctree](/Cxx/DataStructures/BuildOctree)| vtkOctreePointLocator |Create an octree.
 [OctreeFindPointsWithinRadius](/Cxx/DataStructures/OctreeFindPointsWithinRadius)| vtkOctreePointLocator |Find the points within a sphere of specified radius to a query point.
-[IncrementalOctreePointLocator](/Cxx/DataStructures/IncrementalOctreePointLocator)|vtkIncrementalOctreePointLocator | Insert points into an octree without rebuilding it.
+[IncrementalOctreePointLocator](/Cxx/DataStructures/IncrementalOctreePointLocator)| vtkIncrementalOctreePointLocator | Insert points into an octree without rebuilding it.
 [OctreeKClosestPoints](/Cxx/DataStructures/OctreeKClosestPoints)| vtkOctreePointLocator |Find the K closest points to a query point.
 [OctreeClosestPoint](/Cxx/DataStructures/OctreeClosestPoint)| vtkOctreePointLocator |Find the closest point to a query point.
-[OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)|vtkOctreePointLocator |Visualize levels of the tree.
+[OctreeVisualize](/Cxx/DataStructures/OctreeVisualize)| vtkOctreePointLocator | Visualize levels of the tree.
 
 
 ### Modified BSP Tree
@@ -758,7 +758,7 @@ This section includes vtkImageData vtkStructuredGrid and vtkRectilinearGrid.
 |--------------|----------------------|-------------|-------|
 [ModifiedBSPTreeIntersectWithLine](/Cxx/DataStructures/ModifiedBSPTreeIntersectWithLine)| vtkModifiedBSPTree |Intersect a line with a modified BSP Tree.
 [ModifiedBSPTreeExtractCells](/Cxx/DataStructures/ModifiedBSPTreeExtractCells)| vtkModifiedBSPTree |Intersect a line with a modified BSP Tree and display all intersected cells.
-[VisualizeModifiedBSPTree](/Cxx/DataStructures/ModifiedBSPTree/VisualizeModifiedBSPTree)| vtkModifiedBSPTree |Visualize levels of the tree.
+[VisualizeModifiedBSPTree](/Cxx/DataStructures/ModifiedBSPTree/VisualizeModifiedBSPTree)| vtkModifiedBSPTree | Visualize levels of the tree.
 
 
 ## VTK Concepts
@@ -873,7 +873,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [MoveCamera](/Cxx/Visualization/MoveCamera)| vtkInteractorStyleTrackballCamera |Moving the Camera.
 [MultipleActors](/Cxx/Visualization/MultipleActors)| vtkActor |Multiple Actors.
 [NamedColorPatches ](/Cxx/Visualization/NamedColorPatches) | vtkNamedColors | Creates a HTML file called [VTKNamedColorPatches](http://htmlpreview.github.com/?https://github.com/lorensen/VTKExamples/blob/master/src/Python/Visualization/VTKNamedColorPatches.html) | Demonstrates how to use the vtkNamedColors class.
-[NoShading](/Cxx/Visualization/NoShading) |vtkActor |
+[NoShading](/Cxx/Visualization/NoShading) | vtkActor |
 [NormalsDemo](/Cxx/Visualization/NormalsDemo)| vtkPolyDataNormals | Demo different ooption to generate normals.
 [Opacity](/Cxx/Visualization/Opacity)| vtkActor | Transparency, transparent.
 [OrientedGlyphs](/Cxx/Visualization/OrientedGlyphs)| vtkGlyph3D|Create oriented glyphs from vector data.
@@ -892,7 +892,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ScalarVisibility](/Cxx/Visualization/ScalarVisibility)| vtkDataSetMapper | Switch between coloring the actor and coloring the data.
 [ScaleGlyphs](/Cxx/Visualization/ScaleGlyphs)| vtkGlyph3D vtkGlyph3D |Scale glyphs.
 [SceneBounds](/Cxx/Visualization/SceneBounds)| vtkRenderer |Get the bounds of the whole scene.
-[SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)|vtkInteractorStyleRubberBand2D |Select a region of a window.
+[SelectWindowRegion](/Cxx/Visualization/SelectWindowRegion)| vtkInteractorStyleRubberBand2D |Select a region of a window.
 [StreamLines](/Cxx/Visualization/StreamLines) | vtkStreamTracer | Streamlines.
 [TensorGlyph](/Cxx/Visualization/TensorGlyph)| vtkTensorGlyph | Draw a rotated/scaled glyph at each point.
 [TextSource](/Cxx/Visualization/TextSource)| vtkTextSource |Display text.
@@ -903,9 +903,9 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [VectorOfActors](/Cxx/Visualization/VectorOfActors)| vtkActor |Multiple Actors in a Vector.
 [VectorText](/Cxx/Visualization/VectorText)| vtkVectorText |Display high resolution text.
 [VertexGlyphFilter ](/Cxx/Filtering/VertexGlyphFilter) | vtkVertexGlyphFilter | Add a vertex to each point.
-[Visualize2DPoints](/Cxx/Visualization/Visualize2DPoints)| vtkPolyDataMapper2D vtkProperty2D |Visualize a 2D Set of Points.
-[VisualizeImageData](/Cxx/Visualization/VisualizeImageData)| vtkDataSetMapper |Visualize the points of an ImageData.
-[VisualizeVTP](/Cxx/Visualization/VisualizeVTP)| vtkXMLPolyDataReader vtkPolyDataMapper |Visualize a VTP File.
+[Visualize2DPoints](/Cxx/Visualization/Visualize2DPoints)| vtkPolyDataMapper2D vtkProperty2D | Visualize a 2D Set of Points.
+[VisualizeImageData](/Cxx/Visualization/VisualizeImageData)| vtkDataSetMapper | Visualize the points of an ImageData.
+[VisualizeVTP](/Cxx/Visualization/VisualizeVTP)| vtkXMLPolyDataReader vtkPolyDataMapper | Visualize a VTP File.
 [WindowSize](/Cxx/Visualization/WindowSize)| vtkRenderWindow:SetSize | Change the size of a window.
 [WindowTitle](/Cxx/Visualization/WindowTitle)| vtkRenderWindow | Change the title of a window.
 [Wireframe](/Cxx/Visualization/Wireframe)| vtkActor |
@@ -980,7 +980,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ExtractComponents](/Cxx/Images/ExtractComponents)| vtkImageExtractComponents |  Extract components of an image. This can be used to get, for example, the red channel of an image.
 [FillWindow](/Cxx/Images/FillWindow)| vtkCamera | Fit imageSetup the camera to fill the window with an image.
 [ImageAccumulateGreyscale](/Cxx/Images/ImageAccumulateGreyscale)| vtkImageAccumulate vtkBarChartActor | Display a greyscale histogram.
-[ImageCheckerboard](/Cxx/Images/ImageCheckerboard)| vtkImageCheckerboard |Visually Compare Two Images.
+[ImageCheckerboard](/Cxx/Images/ImageCheckerboard)| vtkImageCheckerboard | Visually Compare Two Images.
 [ImageCityBlockDistance](/Cxx/Images/ImageCityBlockDistance)| vtkImageCityBlockDistance | Compute the Manhattan distance from every point to every black point in a binary image.
 [ImageDilateErode3D](/Cxx/Images/ImageDilateErode3D)| vtkImageDilateErode3D | Dilate or erode an image.
 [ImageExport ](/Cxx/Images/ImageExport) | vtkImageExport | Export an image to a C array.
@@ -1011,7 +1011,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 [ImageThreshold](/Cxx/Images/ImageThreshold)| vtkImageThreshold |Threshold an image.
 [ImageToPolyDataFilter](/Cxx/Images/ImageToPolyDataFilter)| vtkImageToPolyDataFilter vtkImageQuantizeRGBToIndex | Convert a vtkImageData to a vtkPolyData.
 [ImageToStructuredPoints](/Cxx/Images/ImageToStructuredPoints)| vtkImageToStructuredPoints | Convert a vtkImageData to a vtkStructuredPoints.
-[InteractWithImage](/Cxx/Images/InteractWithImage)| vtkImageActor vtkInteractorStyleImage |Visualize and interact with an image.
+[InteractWithImage](/Cxx/Images/InteractWithImage)| vtkImageActor vtkInteractorStyleImage | Visualize and interact with an image.
 [Interpolation](/Cxx/Images/Interpolation)| vtkImageSlice vtkImageProperty | Set the interpolation type for the display of an image. If pixels look blurry instead of sharp when zoomed in, change this.
 [MarkKeypoints](/Cxx/Images/MarkKeypoints)| vtkVectorText vtkFollower |Mark keypoints in an image.
 [NegativeIndices](/Cxx/Images/NegativeIndices)| vtkImageData | A very powerful feature of vtkImageData is that you can use negative indices.
@@ -1067,7 +1067,7 @@ See [this tutorial](http://www.vtk.org/Wiki/VTK/Tutorials/3DDataTypes) for a bri
 |--------------|----------------------|-------------|-------|
 [PolygonalSurfacePointPlacer](/Cxx/PolyData/PolygonalSurfacePointPlacer)| vtkPolygonalSurfacePointPlacer | Used in conjuntion with vtkContourWidget to draw curves on a surface.
 [AffineWidget](/Cxx/Widgets/AffineWidget)| vtkAffineWidget | Apply an affine transformation interactively.
-[AngleWidget2D](/Cxx/Widgets/AngleWidget2D)| vtkAngleWidget vtkAngleRepresentation2D |vtkAngleWidget + vtkAngleRepresentation2D.
+[AngleWidget2D](/Cxx/Widgets/AngleWidget2D)| vtkAngleWidget vtkAngleRepresentation2D | vtkAngleWidget + vtkAngleRepresentation2D.
 [AngleWidget](/Cxx/Widgets/AngleWidget)| vtkAngleWidget |
 [BalloonWidget](/Cxx/Widgets/BalloonWidget)| vtkBalloonWidget |
 [BiDimensionalWidget](/Cxx/Widgets/BiDimensionalWidget) |  vtkBiDimensionalWidget |  When would you use this?
