@@ -18,19 +18,17 @@ def get_program_parameters():
     import argparse
     description = 'Produce tables of VTK classes used in the examples.'
     epilogue = '''
-Produce tables of VTK classes and their corresponding usage in the examples.
-There is also  an option to produce a list of unused classes in the examples.
-
-The markdown tables are written to the src directory in the VTK Example source file directory.
-
 Typical usage:
-   Produce tables of classes used in some_path/VTKExamples/src:
+   To produce tables of classes used in some_path/VTKExamples/src:
       VTKClassesUsedInExamples.py some_path/VTKExamples/src
-   Produce tables of classes used and those not used in some_path/VTKExamples/src:
+   To produce tables of classes used and those not used in some_path/VTKExamples/src:
       VTKClassesUsedInExamples.py some_path/VTKExamples/src -u
-      
-   To add links to the VTK class documentation on the web, just add -a as a parameter.
-   To vary the number of columns for unused classes to say 8, just add -c8 as a parameter.
+   
+   The markdown tables are written to some_path/VTKExamples/src/Coverage
+   
+   Note:   
+      To add links to the VTK class documentation on the web, just add -a as a parameter.
+      To vary the number of columns for unused classes to say 8, just add -c8 as a parameter.
    
 '''
     parser = argparse.ArgumentParser(description=description, epilog=epilogue,
@@ -59,13 +57,10 @@ def print_table(table, filename):
         path, ext = os.path.splitext(filename)
         if not ext.lower() in ['.md']:
             ext = '.md'
-        try:
-            fn = path + ext
-            f = open(fn, 'w')
+        fn = path + ext
+        with open(fn, 'w') as f:
             f.writelines(table)
             f.close()
-        except IOError:
-            print('Unable to open the file: {:s}'.format(fn))
     else:
         for row in table:
             print(row)
@@ -109,8 +104,9 @@ class VTKClassesInExamples(object):
         """
         self.example_types = ['CSharp', 'Cxx', 'Java', 'Python']
         # Classes common to most examples.
-        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkProperty', 'vtkRenderer', 'vtkRenderWindow', 'vtkRenderWindowInteractor']
-        # Where to get the list of VRK classes from.
+        self.excluded_classes = ['vtkActor', 'vtkCamera', 'vtkProperty', 'vtkRenderer', 'vtkRenderWindow',
+                                 'vtkRenderWindowInteractor']
+        # Where to get the list of VTK classes from.
         self.vtk_class_url = 'https://www.vtk.org/doc/nightly/html/annotated.html'
         self.vtk_html_fmt = '[{:s}](http://www.vtk.org/doc/nightly/html/class{:s})'
 
@@ -346,13 +342,12 @@ class VTKClassesInExamples(object):
             raise RuntimeError('The classes used tables have not been built.')
         if self.unused_vtk and not self.not_used_tables_built:
             raise RuntimeError('The classes not used tables have not been built. Enable -u.')
+        pth = os.path.join(self.base_directory, 'Coverage')
         for eg in self.example_types:
-            fn = os.path.join(self.base_directory, 'Coverage/' + eg + 'VTKClassesUsed')
-            # fn = eg + 'VTKClassesUsed'
+            fn = os.path.join(pth, eg + 'VTKClassesUsed')
             print_table(self.classes_used_table[eg], fn)
             if self.unused_vtk:
-                fn = os.path.join(self.base_directory, 'Coverage' + eg + 'VTKClassesNotUsed')
-                # fn = eg + 'VTKClassesNotUsed'
+                fn = os.path.join(pth, eg + 'VTKClassesNotUsed')
                 print_table(self.classes_not_used_table[eg], fn)
 
 
